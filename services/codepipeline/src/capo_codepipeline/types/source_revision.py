@@ -50,3 +50,31 @@ def deserialize_aws_json_1_1(data: dict) -> SourceRevision:
     if data.get("revisionUrl") is not None:
         out["revision_url"] = data["revisionUrl"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SourceRevision) -> dict:
+    out: dict = {}
+    out["actionName"] = value["action_name"]
+    if "revision_id" in value:
+        out["revisionId"] = value["revision_id"]
+    if "revision_summary" in value:
+        out["revisionSummary"] = value["revision_summary"]
+    if "revision_url" in value:
+        out["revisionUrl"] = value["revision_url"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> SourceRevision:
+    out: SourceRevision = {}  # type: ignore[typeddict-item]
+    if data.get("actionName") is not None:
+        out["action_name"] = data["actionName"]
+    else:
+        out["action_name"] = ""
+    if data.get("revisionId") is not None:
+        out["revision_id"] = data["revisionId"]
+    if data.get("revisionSummary") is not None:
+        out["revision_summary"] = data["revisionSummary"]
+    if data.get("revisionUrl") is not None:
+        out["revision_url"] = data["revisionUrl"]
+    return out

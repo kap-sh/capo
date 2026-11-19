@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> RouteFilterPrefix:
     if data.get("cidr") is not None:
         out["cidr"] = data["cidr"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RouteFilterPrefix) -> dict:
+    out: dict = {}
+    if "cidr" in value:
+        out["cidr"] = value["cidr"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RouteFilterPrefix:
+    out: RouteFilterPrefix = {}  # type: ignore[typeddict-item]
+    if data.get("cidr") is not None:
+        out["cidr"] = data["cidr"]
+    return out

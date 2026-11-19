@@ -21,6 +21,17 @@ def deserialize_aws_json_1_1(data: dict) -> OperatingSystemNotCompatibleExceptio
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: OperatingSystemNotCompatibleException_) -> dict:
+    out: dict = {}
+    return out
+
+
+def deserialize_cbor(data: dict) -> OperatingSystemNotCompatibleException_:
+    out: OperatingSystemNotCompatibleException_ = {}  # type: ignore[typeddict-item]
+    return out
+
+
 class OperatingSystemNotCompatibleException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.workspaces#OperatingSystemNotCompatibleException``."""
 
@@ -48,3 +59,9 @@ class OperatingSystemNotCompatibleException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "OperatingSystemNotCompatibleException":
         return cls(deserialize_aws_json_1_1(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "OperatingSystemNotCompatibleException":
+        return cls(deserialize_cbor(data), message, response=response)

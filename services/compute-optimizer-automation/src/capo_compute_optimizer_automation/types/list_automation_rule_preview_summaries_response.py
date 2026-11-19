@@ -49,3 +49,34 @@ def deserialize_aws_json_1_0(data: dict) -> ListAutomationRulePreviewSummariesRe
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListAutomationRulePreviewSummariesResponse) -> dict:
+    out: dict = {}
+    if "preview_result_summaries" in value:
+        import capo_compute_optimizer_automation.types.preview_result_summaries
+
+        out["previewResultSummaries"] = (
+            capo_compute_optimizer_automation.types.preview_result_summaries.serialize_cbor(
+                value["preview_result_summaries"]
+            )
+        )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListAutomationRulePreviewSummariesResponse:
+    out: ListAutomationRulePreviewSummariesResponse = {}  # type: ignore[typeddict-item]
+    if data.get("previewResultSummaries") is not None:
+        import capo_compute_optimizer_automation.types.preview_result_summaries
+
+        out["preview_result_summaries"] = (
+            capo_compute_optimizer_automation.types.preview_result_summaries.deserialize_cbor(
+                data["previewResultSummaries"]
+            )
+        )
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

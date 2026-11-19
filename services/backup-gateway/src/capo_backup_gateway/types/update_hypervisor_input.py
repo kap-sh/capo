@@ -64,6 +64,42 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateHypervisorInput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateHypervisorInput) -> dict:
+    out: dict = {}
+    out["HypervisorArn"] = value["hypervisor_arn"]
+    if "host" in value:
+        out["Host"] = value["host"]
+    if "username" in value:
+        out["Username"] = value["username"]
+    if "password" in value:
+        out["Password"] = value["password"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "log_group_arn" in value:
+        out["LogGroupArn"] = value["log_group_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateHypervisorInput:
+    out: UpdateHypervisorInput = {}  # type: ignore[typeddict-item]
+    if data.get("HypervisorArn") is not None:
+        out["hypervisor_arn"] = data["HypervisorArn"]
+    else:
+        out["hypervisor_arn"] = ""
+    if data.get("Host") is not None:
+        out["host"] = data["Host"]
+    if data.get("Username") is not None:
+        out["username"] = data["Username"]
+    if data.get("Password") is not None:
+        out["password"] = data["Password"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("LogGroupArn") is not None:
+        out["log_group_arn"] = data["LogGroupArn"]
+    return out
+
+
 def redact_sensitive(value: UpdateHypervisorInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "username" in value:

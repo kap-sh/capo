@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> AvailabilityZoneMapping:
     else:
         out["availability_zone"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AvailabilityZoneMapping) -> dict:
+    out: dict = {}
+    out["AvailabilityZone"] = value["availability_zone"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AvailabilityZoneMapping:
+    out: AvailabilityZoneMapping = {}  # type: ignore[typeddict-item]
+    if data.get("AvailabilityZone") is not None:
+        out["availability_zone"] = data["AvailabilityZone"]
+    else:
+        out["availability_zone"] = ""
+    return out

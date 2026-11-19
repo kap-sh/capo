@@ -200,3 +200,145 @@ def deserialize_aws_json_1_0(data: dict) -> CreateAutomationRuleRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateAutomationRuleRequest) -> dict:
+    out: dict = {}
+    out["name"] = value["name"]
+    if "description" in value:
+        out["description"] = value["description"]
+    import capo_compute_optimizer_automation.types.rule_type
+
+    out["ruleType"] = capo_compute_optimizer_automation.types.rule_type.serialize_cbor(
+        value["rule_type"]
+    )
+    if "organization_configuration" in value:
+        import capo_compute_optimizer_automation.types.organization_configuration
+
+        out["organizationConfiguration"] = (
+            capo_compute_optimizer_automation.types.organization_configuration.serialize_cbor(
+                value["organization_configuration"]
+            )
+        )
+    if "priority" in value:
+        out["priority"] = value["priority"]
+    import capo_compute_optimizer_automation.types.recommended_action_type_list
+
+    out["recommendedActionTypes"] = (
+        capo_compute_optimizer_automation.types.recommended_action_type_list.serialize_cbor(
+            value["recommended_action_types"]
+        )
+    )
+    if "criteria" in value:
+        import capo_compute_optimizer_automation.types.criteria
+
+        out["criteria"] = (
+            capo_compute_optimizer_automation.types.criteria.serialize_cbor(
+                value["criteria"]
+            )
+        )
+    import capo_compute_optimizer_automation.types.schedule
+
+    out["schedule"] = capo_compute_optimizer_automation.types.schedule.serialize_cbor(
+        value["schedule"]
+    )
+    import capo_compute_optimizer_automation.types.rule_status
+
+    out["status"] = capo_compute_optimizer_automation.types.rule_status.serialize_cbor(
+        value["status"]
+    )
+    if "tags" in value:
+        import capo_compute_optimizer_automation.types.tag_list
+
+        out["tags"] = capo_compute_optimizer_automation.types.tag_list.serialize_cbor(
+            value["tags"]
+        )
+    if "client_token" in value:
+        out["clientToken"] = value["client_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateAutomationRuleRequest:
+    out: CreateAutomationRuleRequest = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    else:
+        out["name"] = ""
+    if data.get("description") is not None:
+        out["description"] = data["description"]
+    if data.get("ruleType") is not None:
+        import capo_compute_optimizer_automation.types.rule_type
+
+        out["rule_type"] = (
+            capo_compute_optimizer_automation.types.rule_type.deserialize_cbor(
+                data["ruleType"]
+            )
+        )
+    else:
+        import typing
+
+        out["rule_type"] = typing.cast(
+            "capo_compute_optimizer_automation.types.rule_type.RuleType", ""
+        )
+    if data.get("organizationConfiguration") is not None:
+        import capo_compute_optimizer_automation.types.organization_configuration
+
+        out["organization_configuration"] = (
+            capo_compute_optimizer_automation.types.organization_configuration.deserialize_cbor(
+                data["organizationConfiguration"]
+            )
+        )
+    if data.get("priority") is not None:
+        out["priority"] = data["priority"]
+    if data.get("recommendedActionTypes") is not None:
+        import capo_compute_optimizer_automation.types.recommended_action_type_list
+
+        out["recommended_action_types"] = (
+            capo_compute_optimizer_automation.types.recommended_action_type_list.deserialize_cbor(
+                data["recommendedActionTypes"]
+            )
+        )
+    else:
+        out["recommended_action_types"] = []
+    if data.get("criteria") is not None:
+        import capo_compute_optimizer_automation.types.criteria
+
+        out["criteria"] = (
+            capo_compute_optimizer_automation.types.criteria.deserialize_cbor(
+                data["criteria"]
+            )
+        )
+    if data.get("schedule") is not None:
+        import capo_compute_optimizer_automation.types.schedule
+
+        out["schedule"] = (
+            capo_compute_optimizer_automation.types.schedule.deserialize_cbor(
+                data["schedule"]
+            )
+        )
+    else:
+        raise DeserializationError("CreateAutomationRuleRequest.schedule required")
+    if data.get("status") is not None:
+        import capo_compute_optimizer_automation.types.rule_status
+
+        out["status"] = (
+            capo_compute_optimizer_automation.types.rule_status.deserialize_cbor(
+                data["status"]
+            )
+        )
+    else:
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_compute_optimizer_automation.types.rule_status.RuleStatus", ""
+        )
+    if data.get("tags") is not None:
+        import capo_compute_optimizer_automation.types.tag_list
+
+        out["tags"] = capo_compute_optimizer_automation.types.tag_list.deserialize_cbor(
+            data["tags"]
+        )
+    if data.get("clientToken") is not None:
+        out["client_token"] = data["clientToken"]
+    return out

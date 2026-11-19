@@ -16,3 +16,12 @@ def serialize_aws_json_1_1(value: ComputePlatform) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> ComputePlatform:
     return cast(ComputePlatform, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ComputePlatform) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ComputePlatform:
+    return cast(ComputePlatform, data)

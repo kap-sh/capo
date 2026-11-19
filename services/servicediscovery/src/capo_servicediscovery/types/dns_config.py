@@ -67,3 +67,49 @@ def deserialize_aws_json_1_1(data: dict) -> DnsConfig:
     else:
         out["dns_records"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DnsConfig) -> dict:
+    out: dict = {}
+    if "namespace_id" in value:
+        out["NamespaceId"] = value["namespace_id"]
+    if "routing_policy" in value:
+        import capo_servicediscovery.types.routing_policy
+
+        out["RoutingPolicy"] = (
+            capo_servicediscovery.types.routing_policy.serialize_cbor(
+                value["routing_policy"]
+            )
+        )
+    import capo_servicediscovery.types.dns_record_list
+
+    out["DnsRecords"] = capo_servicediscovery.types.dns_record_list.serialize_cbor(
+        value["dns_records"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DnsConfig:
+    out: DnsConfig = {}  # type: ignore[typeddict-item]
+    if data.get("NamespaceId") is not None:
+        out["namespace_id"] = data["NamespaceId"]
+    if data.get("RoutingPolicy") is not None:
+        import capo_servicediscovery.types.routing_policy
+
+        out["routing_policy"] = (
+            capo_servicediscovery.types.routing_policy.deserialize_cbor(
+                data["RoutingPolicy"]
+            )
+        )
+    if data.get("DnsRecords") is not None:
+        import capo_servicediscovery.types.dns_record_list
+
+        out["dns_records"] = (
+            capo_servicediscovery.types.dns_record_list.deserialize_cbor(
+                data["DnsRecords"]
+            )
+        )
+    else:
+        out["dns_records"] = []
+    return out

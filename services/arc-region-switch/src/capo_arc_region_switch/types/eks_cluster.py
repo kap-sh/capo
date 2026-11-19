@@ -42,3 +42,27 @@ def deserialize_aws_json_1_0(data: dict) -> EksCluster:
     else:
         out["cluster_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EksCluster) -> dict:
+    out: dict = {}
+    if "cross_account_role" in value:
+        out["crossAccountRole"] = value["cross_account_role"]
+    if "external_id" in value:
+        out["externalId"] = value["external_id"]
+    out["clusterArn"] = value["cluster_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> EksCluster:
+    out: EksCluster = {}  # type: ignore[typeddict-item]
+    if data.get("crossAccountRole") is not None:
+        out["cross_account_role"] = data["crossAccountRole"]
+    if data.get("externalId") is not None:
+        out["external_id"] = data["externalId"]
+    if data.get("clusterArn") is not None:
+        out["cluster_arn"] = data["clusterArn"]
+    else:
+        out["cluster_arn"] = ""
+    return out

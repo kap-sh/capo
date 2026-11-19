@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteTagsForDomainRequest:
     else:
         out["tags_to_delete"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteTagsForDomainRequest) -> dict:
+    out: dict = {}
+    out["DomainName"] = value["domain_name"]
+    import capo_route_53_domains.types.tag_key_list
+
+    out["TagsToDelete"] = capo_route_53_domains.types.tag_key_list.serialize_cbor(
+        value["tags_to_delete"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteTagsForDomainRequest:
+    out: DeleteTagsForDomainRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DomainName") is not None:
+        out["domain_name"] = data["DomainName"]
+    else:
+        out["domain_name"] = ""
+    if data.get("TagsToDelete") is not None:
+        import capo_route_53_domains.types.tag_key_list
+
+        out["tags_to_delete"] = (
+            capo_route_53_domains.types.tag_key_list.deserialize_cbor(
+                data["TagsToDelete"]
+            )
+        )
+    else:
+        out["tags_to_delete"] = []
+    return out

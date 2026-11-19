@@ -72,3 +72,49 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeEventAggregatesRequest:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeEventAggregatesRequest) -> dict:
+    out: dict = {}
+    if "filter" in value:
+        import capo_health.types.event_filter
+
+        out["filter"] = capo_health.types.event_filter.serialize_cbor(value["filter"])
+    import capo_health.types.event_aggregate_field
+
+    out["aggregateField"] = capo_health.types.event_aggregate_field.serialize_cbor(
+        value["aggregate_field"]
+    )
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeEventAggregatesRequest:
+    out: DescribeEventAggregatesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("filter") is not None:
+        import capo_health.types.event_filter
+
+        out["filter"] = capo_health.types.event_filter.deserialize_cbor(data["filter"])
+    if data.get("aggregateField") is not None:
+        import capo_health.types.event_aggregate_field
+
+        out["aggregate_field"] = (
+            capo_health.types.event_aggregate_field.deserialize_cbor(
+                data["aggregateField"]
+            )
+        )
+    else:
+        import typing
+
+        out["aggregate_field"] = typing.cast(
+            "capo_health.types.event_aggregate_field.eventAggregateField", ""
+        )
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

@@ -26,3 +26,18 @@ def deserialize_aws_json_1_0(data: dict) -> IpsRulesSource:
     if data.get("RulesString") is not None:
         out["rules_string"] = data["RulesString"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IpsRulesSource) -> dict:
+    out: dict = {}
+    if "rules_string" in value:
+        out["RulesString"] = value["rules_string"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> IpsRulesSource:
+    out: IpsRulesSource = {}  # type: ignore[typeddict-item]
+    if data.get("RulesString") is not None:
+        out["rules_string"] = data["RulesString"]
+    return out

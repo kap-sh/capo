@@ -68,3 +68,50 @@ def deserialize_aws_json_1_0(data: dict) -> GetRDSDatabaseRecommendationsRespons
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetRDSDatabaseRecommendationsResponse) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    if "rds_db_recommendations" in value:
+        import capo_compute_optimizer.types.rdsdb_recommendations
+
+        out["rdsDBRecommendations"] = (
+            capo_compute_optimizer.types.rdsdb_recommendations.serialize_cbor(
+                value["rds_db_recommendations"]
+            )
+        )
+    if "errors" in value:
+        import capo_compute_optimizer.types.get_recommendation_errors
+
+        out["errors"] = (
+            capo_compute_optimizer.types.get_recommendation_errors.serialize_cbor(
+                value["errors"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetRDSDatabaseRecommendationsResponse:
+    out: GetRDSDatabaseRecommendationsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    if data.get("rdsDBRecommendations") is not None:
+        import capo_compute_optimizer.types.rdsdb_recommendations
+
+        out["rds_db_recommendations"] = (
+            capo_compute_optimizer.types.rdsdb_recommendations.deserialize_cbor(
+                data["rdsDBRecommendations"]
+            )
+        )
+    if data.get("errors") is not None:
+        import capo_compute_optimizer.types.get_recommendation_errors
+
+        out["errors"] = (
+            capo_compute_optimizer.types.get_recommendation_errors.deserialize_cbor(
+                data["errors"]
+            )
+        )
+    return out

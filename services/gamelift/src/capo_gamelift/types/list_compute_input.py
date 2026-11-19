@@ -81,3 +81,50 @@ def deserialize_aws_json_1_1(data: dict) -> ListComputeInput:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListComputeInput) -> dict:
+    out: dict = {}
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "location" in value:
+        out["Location"] = value["location"]
+    if "container_group_definition_name" in value:
+        out["ContainerGroupDefinitionName"] = value["container_group_definition_name"]
+    if "compute_status" in value:
+        import capo_gamelift.types.list_compute_input_status
+
+        out["ComputeStatus"] = (
+            capo_gamelift.types.list_compute_input_status.serialize_cbor(
+                value["compute_status"]
+            )
+        )
+    if "limit" in value:
+        out["Limit"] = value["limit"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListComputeInput:
+    out: ListComputeInput = {}  # type: ignore[typeddict-item]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("Location") is not None:
+        out["location"] = data["Location"]
+    if data.get("ContainerGroupDefinitionName") is not None:
+        out["container_group_definition_name"] = data["ContainerGroupDefinitionName"]
+    if data.get("ComputeStatus") is not None:
+        import capo_gamelift.types.list_compute_input_status
+
+        out["compute_status"] = (
+            capo_gamelift.types.list_compute_input_status.deserialize_cbor(
+                data["ComputeStatus"]
+            )
+        )
+    if data.get("Limit") is not None:
+        out["limit"] = data["Limit"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

@@ -53,3 +53,38 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateDelegationSignerToDomainReq
             "AssociateDelegationSignerToDomainRequest.signing_attributes required"
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AssociateDelegationSignerToDomainRequest) -> dict:
+    out: dict = {}
+    out["DomainName"] = value["domain_name"]
+    import capo_route_53_domains.types.dnssec_signing_attributes
+
+    out["SigningAttributes"] = (
+        capo_route_53_domains.types.dnssec_signing_attributes.serialize_cbor(
+            value["signing_attributes"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AssociateDelegationSignerToDomainRequest:
+    out: AssociateDelegationSignerToDomainRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DomainName") is not None:
+        out["domain_name"] = data["DomainName"]
+    else:
+        out["domain_name"] = ""
+    if data.get("SigningAttributes") is not None:
+        import capo_route_53_domains.types.dnssec_signing_attributes
+
+        out["signing_attributes"] = (
+            capo_route_53_domains.types.dnssec_signing_attributes.deserialize_cbor(
+                data["SigningAttributes"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "AssociateDelegationSignerToDomainRequest.signing_attributes required"
+        )
+    return out

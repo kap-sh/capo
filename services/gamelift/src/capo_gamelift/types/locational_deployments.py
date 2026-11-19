@@ -35,3 +35,24 @@ def deserialize_aws_json_1_1(data: dict) -> LocationalDeployments:
             value
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(input_to_serialize: LocationalDeployments) -> dict:
+    out: dict = {}
+    for key, value in input_to_serialize.items():
+        import capo_gamelift.types.locational_deployment
+
+        out[key] = capo_gamelift.types.locational_deployment.serialize_cbor(value)
+    return out
+
+
+def deserialize_cbor(data: dict) -> LocationalDeployments:
+    out: LocationalDeployments = {}
+    for key, value in data.items():
+        if value is None:
+            continue
+        import capo_gamelift.types.locational_deployment
+
+        out[key] = capo_gamelift.types.locational_deployment.deserialize_cbor(value)
+    return out

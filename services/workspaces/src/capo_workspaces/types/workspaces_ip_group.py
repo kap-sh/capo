@@ -55,3 +55,38 @@ def deserialize_aws_json_1_1(data: dict) -> WorkspacesIpGroup:
             data["userRules"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: WorkspacesIpGroup) -> dict:
+    out: dict = {}
+    if "group_id" in value:
+        out["groupId"] = value["group_id"]
+    if "group_name" in value:
+        out["groupName"] = value["group_name"]
+    if "group_desc" in value:
+        out["groupDesc"] = value["group_desc"]
+    if "user_rules" in value:
+        import capo_workspaces.types.ip_rule_list
+
+        out["userRules"] = capo_workspaces.types.ip_rule_list.serialize_cbor(
+            value["user_rules"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> WorkspacesIpGroup:
+    out: WorkspacesIpGroup = {}  # type: ignore[typeddict-item]
+    if data.get("groupId") is not None:
+        out["group_id"] = data["groupId"]
+    if data.get("groupName") is not None:
+        out["group_name"] = data["groupName"]
+    if data.get("groupDesc") is not None:
+        out["group_desc"] = data["groupDesc"]
+    if data.get("userRules") is not None:
+        import capo_workspaces.types.ip_rule_list
+
+        out["user_rules"] = capo_workspaces.types.ip_rule_list.deserialize_cbor(
+            data["userRules"]
+        )
+    return out

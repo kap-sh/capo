@@ -60,3 +60,38 @@ def deserialize_aws_json_1_1(data: dict) -> CreateStreamingURLRequest:
     if data.get("SessionContext") is not None:
         out["session_context"] = data["SessionContext"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateStreamingURLRequest) -> dict:
+    out: dict = {}
+    if "stack_name" in value:
+        out["StackName"] = value["stack_name"]
+    if "fleet_name" in value:
+        out["FleetName"] = value["fleet_name"]
+    if "user_id" in value:
+        out["UserId"] = value["user_id"]
+    if "application_id" in value:
+        out["ApplicationId"] = value["application_id"]
+    if "validity" in value:
+        out["Validity"] = value["validity"]
+    if "session_context" in value:
+        out["SessionContext"] = value["session_context"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateStreamingURLRequest:
+    out: CreateStreamingURLRequest = {}  # type: ignore[typeddict-item]
+    if data.get("StackName") is not None:
+        out["stack_name"] = data["StackName"]
+    if data.get("FleetName") is not None:
+        out["fleet_name"] = data["FleetName"]
+    if data.get("UserId") is not None:
+        out["user_id"] = data["UserId"]
+    if data.get("ApplicationId") is not None:
+        out["application_id"] = data["ApplicationId"]
+    if data.get("Validity") is not None:
+        out["validity"] = data["Validity"]
+    if data.get("SessionContext") is not None:
+        out["session_context"] = data["SessionContext"]
+    return out

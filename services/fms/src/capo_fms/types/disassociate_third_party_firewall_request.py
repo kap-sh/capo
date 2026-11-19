@@ -43,3 +43,33 @@ def deserialize_aws_json_1_1(data: dict) -> DisassociateThirdPartyFirewallReques
             "capo_fms.types.third_party_firewall.ThirdPartyFirewall", ""
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DisassociateThirdPartyFirewallRequest) -> dict:
+    out: dict = {}
+    import capo_fms.types.third_party_firewall
+
+    out["ThirdPartyFirewall"] = capo_fms.types.third_party_firewall.serialize_cbor(
+        value["third_party_firewall"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DisassociateThirdPartyFirewallRequest:
+    out: DisassociateThirdPartyFirewallRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ThirdPartyFirewall") is not None:
+        import capo_fms.types.third_party_firewall
+
+        out["third_party_firewall"] = (
+            capo_fms.types.third_party_firewall.deserialize_cbor(
+                data["ThirdPartyFirewall"]
+            )
+        )
+    else:
+        import typing
+
+        out["third_party_firewall"] = typing.cast(
+            "capo_fms.types.third_party_firewall.ThirdPartyFirewall", ""
+        )
+    return out

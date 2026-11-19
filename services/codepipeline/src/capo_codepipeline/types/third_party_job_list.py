@@ -31,3 +31,24 @@ def deserialize_aws_json_1_1(data: list) -> ThirdPartyJobList:
             capo_codepipeline.types.third_party_job.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ThirdPartyJobList) -> list:
+    import capo_codepipeline.types.third_party_job
+
+    out: list = []
+    for item in value:
+        out.append(capo_codepipeline.types.third_party_job.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> ThirdPartyJobList:
+    import capo_codepipeline.types.third_party_job
+
+    out: ThirdPartyJobList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_codepipeline.types.third_party_job.deserialize_cbor(item))
+    return out

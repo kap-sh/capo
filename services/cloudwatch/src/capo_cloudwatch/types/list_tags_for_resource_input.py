@@ -47,3 +47,18 @@ def deserialize_query(el: Element) -> ListTagsForResourceInput:
     if child_resource_arn is not None:
         out["resource_arn"] = str(child_resource_arn.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListTagsForResourceInput) -> dict:
+    out: dict = {}
+    if "resource_arn" in value:
+        out["ResourceARN"] = value["resource_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListTagsForResourceInput:
+    out: ListTagsForResourceInput = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceARN") is not None:
+        out["resource_arn"] = data["ResourceARN"]
+    return out

@@ -81,3 +81,57 @@ def deserialize_aws_json_1_0(data: dict) -> AssociateSubnetsRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AssociateSubnetsRequest) -> dict:
+    out: dict = {}
+    if "update_token" in value:
+        out["UpdateToken"] = value["update_token"]
+    if "firewall_arn" in value:
+        out["FirewallArn"] = value["firewall_arn"]
+    if "firewall_name" in value:
+        out["FirewallName"] = value["firewall_name"]
+    import capo_network_firewall.types.subnet_mappings
+
+    out["SubnetMappings"] = capo_network_firewall.types.subnet_mappings.serialize_cbor(
+        value["subnet_mappings"]
+    )
+    if "nat_gateway_create_mappings" in value:
+        import capo_network_firewall.types.nat_gateway_create_mappings_list
+
+        out["NatGatewayCreateMappings"] = (
+            capo_network_firewall.types.nat_gateway_create_mappings_list.serialize_cbor(
+                value["nat_gateway_create_mappings"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AssociateSubnetsRequest:
+    out: AssociateSubnetsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("UpdateToken") is not None:
+        out["update_token"] = data["UpdateToken"]
+    if data.get("FirewallArn") is not None:
+        out["firewall_arn"] = data["FirewallArn"]
+    if data.get("FirewallName") is not None:
+        out["firewall_name"] = data["FirewallName"]
+    if data.get("SubnetMappings") is not None:
+        import capo_network_firewall.types.subnet_mappings
+
+        out["subnet_mappings"] = (
+            capo_network_firewall.types.subnet_mappings.deserialize_cbor(
+                data["SubnetMappings"]
+            )
+        )
+    else:
+        out["subnet_mappings"] = []
+    if data.get("NatGatewayCreateMappings") is not None:
+        import capo_network_firewall.types.nat_gateway_create_mappings_list
+
+        out["nat_gateway_create_mappings"] = (
+            capo_network_firewall.types.nat_gateway_create_mappings_list.deserialize_cbor(
+                data["NatGatewayCreateMappings"]
+            )
+        )
+    return out

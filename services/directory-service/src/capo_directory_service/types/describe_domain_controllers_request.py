@@ -62,3 +62,43 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeDomainControllersRequest:
     if data.get("Limit") is not None:
         out["limit"] = data["Limit"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeDomainControllersRequest) -> dict:
+    out: dict = {}
+    out["DirectoryId"] = value["directory_id"]
+    if "domain_controller_ids" in value:
+        import capo_directory_service.types.domain_controller_ids
+
+        out["DomainControllerIds"] = (
+            capo_directory_service.types.domain_controller_ids.serialize_cbor(
+                value["domain_controller_ids"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "limit" in value:
+        out["Limit"] = value["limit"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeDomainControllersRequest:
+    out: DescribeDomainControllersRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    if data.get("DomainControllerIds") is not None:
+        import capo_directory_service.types.domain_controller_ids
+
+        out["domain_controller_ids"] = (
+            capo_directory_service.types.domain_controller_ids.deserialize_cbor(
+                data["DomainControllerIds"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("Limit") is not None:
+        out["limit"] = data["Limit"]
+    return out

@@ -54,3 +54,34 @@ def deserialize_aws_json_1_1(data: dict) -> BatchGetApplicationRevisionsOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchGetApplicationRevisionsOutput) -> dict:
+    out: dict = {}
+    if "application_name" in value:
+        out["applicationName"] = value["application_name"]
+    if "error_message" in value:
+        out["errorMessage"] = value["error_message"]
+    if "revisions" in value:
+        import capo_codedeploy.types.revision_info_list
+
+        out["revisions"] = capo_codedeploy.types.revision_info_list.serialize_cbor(
+            value["revisions"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BatchGetApplicationRevisionsOutput:
+    out: BatchGetApplicationRevisionsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("applicationName") is not None:
+        out["application_name"] = data["applicationName"]
+    if data.get("errorMessage") is not None:
+        out["error_message"] = data["errorMessage"]
+    if data.get("revisions") is not None:
+        import capo_codedeploy.types.revision_info_list
+
+        out["revisions"] = capo_codedeploy.types.revision_info_list.deserialize_cbor(
+            data["revisions"]
+        )
+    return out

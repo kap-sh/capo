@@ -194,3 +194,134 @@ def deserialize_aws_json_1_1(data: dict) -> Trust:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Trust) -> dict:
+    out: dict = {}
+    if "directory_id" in value:
+        out["DirectoryId"] = value["directory_id"]
+    if "trust_id" in value:
+        out["TrustId"] = value["trust_id"]
+    if "remote_domain_name" in value:
+        out["RemoteDomainName"] = value["remote_domain_name"]
+    if "trust_type" in value:
+        import capo_directory_service.types.trust_type
+
+        out["TrustType"] = capo_directory_service.types.trust_type.serialize_cbor(
+            value["trust_type"]
+        )
+    if "trust_direction" in value:
+        import capo_directory_service.types.trust_direction
+
+        out["TrustDirection"] = (
+            capo_directory_service.types.trust_direction.serialize_cbor(
+                value["trust_direction"]
+            )
+        )
+    if "trust_state" in value:
+        import capo_directory_service.types.trust_state
+
+        out["TrustState"] = capo_directory_service.types.trust_state.serialize_cbor(
+            value["trust_state"]
+        )
+    if "created_date_time" in value:
+        import capo_directory_service.types.created_date_time
+
+        out["CreatedDateTime"] = (
+            capo_directory_service.types.created_date_time.serialize_cbor(
+                value["created_date_time"]
+            )
+        )
+    if "last_updated_date_time" in value:
+        import capo_directory_service.types.last_updated_date_time
+
+        out["LastUpdatedDateTime"] = (
+            capo_directory_service.types.last_updated_date_time.serialize_cbor(
+                value["last_updated_date_time"]
+            )
+        )
+    if "state_last_updated_date_time" in value:
+        import capo_directory_service.types.state_last_updated_date_time
+
+        out["StateLastUpdatedDateTime"] = (
+            capo_directory_service.types.state_last_updated_date_time.serialize_cbor(
+                value["state_last_updated_date_time"]
+            )
+        )
+    if "trust_state_reason" in value:
+        out["TrustStateReason"] = value["trust_state_reason"]
+    if "selective_auth" in value:
+        import capo_directory_service.types.selective_auth
+
+        out["SelectiveAuth"] = (
+            capo_directory_service.types.selective_auth.serialize_cbor(
+                value["selective_auth"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Trust:
+    out: Trust = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    if data.get("TrustId") is not None:
+        out["trust_id"] = data["TrustId"]
+    if data.get("RemoteDomainName") is not None:
+        out["remote_domain_name"] = data["RemoteDomainName"]
+    if data.get("TrustType") is not None:
+        import capo_directory_service.types.trust_type
+
+        out["trust_type"] = capo_directory_service.types.trust_type.deserialize_cbor(
+            data["TrustType"]
+        )
+    if data.get("TrustDirection") is not None:
+        import capo_directory_service.types.trust_direction
+
+        out["trust_direction"] = (
+            capo_directory_service.types.trust_direction.deserialize_cbor(
+                data["TrustDirection"]
+            )
+        )
+    if data.get("TrustState") is not None:
+        import capo_directory_service.types.trust_state
+
+        out["trust_state"] = capo_directory_service.types.trust_state.deserialize_cbor(
+            data["TrustState"]
+        )
+    if data.get("CreatedDateTime") is not None:
+        import capo_directory_service.types.created_date_time
+
+        out["created_date_time"] = (
+            capo_directory_service.types.created_date_time.deserialize_cbor(
+                data["CreatedDateTime"]
+            )
+        )
+    if data.get("LastUpdatedDateTime") is not None:
+        import capo_directory_service.types.last_updated_date_time
+
+        out["last_updated_date_time"] = (
+            capo_directory_service.types.last_updated_date_time.deserialize_cbor(
+                data["LastUpdatedDateTime"]
+            )
+        )
+    if data.get("StateLastUpdatedDateTime") is not None:
+        import capo_directory_service.types.state_last_updated_date_time
+
+        out["state_last_updated_date_time"] = (
+            capo_directory_service.types.state_last_updated_date_time.deserialize_cbor(
+                data["StateLastUpdatedDateTime"]
+            )
+        )
+    if data.get("TrustStateReason") is not None:
+        out["trust_state_reason"] = data["TrustStateReason"]
+    if data.get("SelectiveAuth") is not None:
+        import capo_directory_service.types.selective_auth
+
+        out["selective_auth"] = (
+            capo_directory_service.types.selective_auth.deserialize_cbor(
+                data["SelectiveAuth"]
+            )
+        )
+    return out

@@ -19,3 +19,12 @@ def serialize_aws_json_1_1(value: ProvisioningArtifactType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> ProvisioningArtifactType:
     return cast(ProvisioningArtifactType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ProvisioningArtifactType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ProvisioningArtifactType:
+    return cast(ProvisioningArtifactType, data)

@@ -98,13 +98,24 @@ class ConnectionResource:
         ) -> OperationResponse[
             "capo_interconnect.types.create_connection_response.CreateConnectionResponse"
         ]:
-            import capo_interconnect._operations.interconnect.create_connection
+            if req.options.protocol == "awsJson1_0":
+                import capo_interconnect._operations.interconnect.aws_json1_0.create_connection
 
-            output, http_response = (
-                capo_interconnect._operations.interconnect.create_connection.create_connection(
-                    req.options, req.input
+                output, http_response = (
+                    capo_interconnect._operations.interconnect.aws_json1_0.create_connection.create_connection(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_interconnect._operations.interconnect.rpcv2_cbor.create_connection
+
+                output, http_response = (
+                    capo_interconnect._operations.interconnect.rpcv2_cbor.create_connection.create_connection(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -175,13 +186,24 @@ class ConnectionResource:
         ) -> OperationResponse[
             "capo_interconnect.types.get_connection_response.GetConnectionResponse"
         ]:
-            import capo_interconnect._operations.interconnect.get_connection
+            if req.options.protocol == "awsJson1_0":
+                import capo_interconnect._operations.interconnect.aws_json1_0.get_connection
 
-            output, http_response = (
-                capo_interconnect._operations.interconnect.get_connection.get_connection(
-                    req.options, req.input
+                output, http_response = (
+                    capo_interconnect._operations.interconnect.aws_json1_0.get_connection.get_connection(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_interconnect._operations.interconnect.rpcv2_cbor.get_connection
+
+                output, http_response = (
+                    capo_interconnect._operations.interconnect.rpcv2_cbor.get_connection.get_connection(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -254,13 +276,24 @@ class ConnectionResource:
         ) -> OperationResponse[
             "capo_interconnect.types.update_connection_response.UpdateConnectionResponse"
         ]:
-            import capo_interconnect._operations.interconnect.update_connection
+            if req.options.protocol == "awsJson1_0":
+                import capo_interconnect._operations.interconnect.aws_json1_0.update_connection
 
-            output, http_response = (
-                capo_interconnect._operations.interconnect.update_connection.update_connection(
-                    req.options, req.input
+                output, http_response = (
+                    capo_interconnect._operations.interconnect.aws_json1_0.update_connection.update_connection(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_interconnect._operations.interconnect.rpcv2_cbor.update_connection
+
+                output, http_response = (
+                    capo_interconnect._operations.interconnect.rpcv2_cbor.update_connection.update_connection(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -329,13 +362,24 @@ class ConnectionResource:
         ) -> OperationResponse[
             "capo_interconnect.types.delete_connection_response.DeleteConnectionResponse"
         ]:
-            import capo_interconnect._operations.interconnect.delete_connection
+            if req.options.protocol == "awsJson1_0":
+                import capo_interconnect._operations.interconnect.aws_json1_0.delete_connection
 
-            output, http_response = (
-                capo_interconnect._operations.interconnect.delete_connection.delete_connection(
-                    req.options, req.input
+                output, http_response = (
+                    capo_interconnect._operations.interconnect.aws_json1_0.delete_connection.delete_connection(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_interconnect._operations.interconnect.rpcv2_cbor.delete_connection
+
+                output, http_response = (
+                    capo_interconnect._operations.interconnect.rpcv2_cbor.delete_connection.delete_connection(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -420,13 +464,24 @@ class ConnectionResource:
         ) -> OperationResponse[
             "capo_interconnect.types.list_connections_response.ListConnectionsResponse"
         ]:
-            import capo_interconnect._operations.interconnect.list_connections
+            if req.options.protocol == "awsJson1_0":
+                import capo_interconnect._operations.interconnect.aws_json1_0.list_connections
 
-            output, http_response = (
-                capo_interconnect._operations.interconnect.list_connections.list_connections(
-                    req.options, req.input
+                output, http_response = (
+                    capo_interconnect._operations.interconnect.aws_json1_0.list_connections.list_connections(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_interconnect._operations.interconnect.rpcv2_cbor.list_connections
+
+                output, http_response = (
+                    capo_interconnect._operations.interconnect.rpcv2_cbor.list_connections.list_connections(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(
@@ -507,14 +562,26 @@ class AsyncConnectionResource:
         ) -> AsyncOperationResponse[
             "capo_interconnect.types.create_connection_response.CreateConnectionResponse"
         ]:
-            import capo_interconnect._operations.interconnect.create_connection
+            if req.options.protocol == "awsJson1_0":
+                import capo_interconnect._operations.interconnect.aws_json1_0.create_connection
 
-            (
-                output,
-                http_response,
-            ) = await capo_interconnect._operations.interconnect.create_connection.async_create_connection(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_interconnect._operations.interconnect.aws_json1_0.create_connection.async_create_connection(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_interconnect._operations.interconnect.rpcv2_cbor.create_connection
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_interconnect._operations.interconnect.rpcv2_cbor.create_connection.async_create_connection(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -585,14 +652,26 @@ class AsyncConnectionResource:
         ) -> AsyncOperationResponse[
             "capo_interconnect.types.get_connection_response.GetConnectionResponse"
         ]:
-            import capo_interconnect._operations.interconnect.get_connection
+            if req.options.protocol == "awsJson1_0":
+                import capo_interconnect._operations.interconnect.aws_json1_0.get_connection
 
-            (
-                output,
-                http_response,
-            ) = await capo_interconnect._operations.interconnect.get_connection.async_get_connection(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_interconnect._operations.interconnect.aws_json1_0.get_connection.async_get_connection(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_interconnect._operations.interconnect.rpcv2_cbor.get_connection
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_interconnect._operations.interconnect.rpcv2_cbor.get_connection.async_get_connection(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -665,14 +744,26 @@ class AsyncConnectionResource:
         ) -> AsyncOperationResponse[
             "capo_interconnect.types.update_connection_response.UpdateConnectionResponse"
         ]:
-            import capo_interconnect._operations.interconnect.update_connection
+            if req.options.protocol == "awsJson1_0":
+                import capo_interconnect._operations.interconnect.aws_json1_0.update_connection
 
-            (
-                output,
-                http_response,
-            ) = await capo_interconnect._operations.interconnect.update_connection.async_update_connection(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_interconnect._operations.interconnect.aws_json1_0.update_connection.async_update_connection(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_interconnect._operations.interconnect.rpcv2_cbor.update_connection
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_interconnect._operations.interconnect.rpcv2_cbor.update_connection.async_update_connection(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -741,14 +832,26 @@ class AsyncConnectionResource:
         ) -> AsyncOperationResponse[
             "capo_interconnect.types.delete_connection_response.DeleteConnectionResponse"
         ]:
-            import capo_interconnect._operations.interconnect.delete_connection
+            if req.options.protocol == "awsJson1_0":
+                import capo_interconnect._operations.interconnect.aws_json1_0.delete_connection
 
-            (
-                output,
-                http_response,
-            ) = await capo_interconnect._operations.interconnect.delete_connection.async_delete_connection(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_interconnect._operations.interconnect.aws_json1_0.delete_connection.async_delete_connection(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_interconnect._operations.interconnect.rpcv2_cbor.delete_connection
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_interconnect._operations.interconnect.rpcv2_cbor.delete_connection.async_delete_connection(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -833,14 +936,26 @@ class AsyncConnectionResource:
         ) -> AsyncOperationResponse[
             "capo_interconnect.types.list_connections_response.ListConnectionsResponse"
         ]:
-            import capo_interconnect._operations.interconnect.list_connections
+            if req.options.protocol == "awsJson1_0":
+                import capo_interconnect._operations.interconnect.aws_json1_0.list_connections
 
-            (
-                output,
-                http_response,
-            ) = await capo_interconnect._operations.interconnect.list_connections.async_list_connections(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_interconnect._operations.interconnect.aws_json1_0.list_connections.async_list_connections(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_interconnect._operations.interconnect.rpcv2_cbor.list_connections
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_interconnect._operations.interconnect.rpcv2_cbor.list_connections.async_list_connections(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(

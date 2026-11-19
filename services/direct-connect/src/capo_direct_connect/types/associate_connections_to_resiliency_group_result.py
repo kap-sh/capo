@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateConnectionsToResiliencyGrou
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AssociateConnectionsToResiliencyGroupResult) -> dict:
+    out: dict = {}
+    if "resiliency_group_associations" in value:
+        import capo_direct_connect.types.resiliency_group_association_list
+
+        out["resiliencyGroupAssociations"] = (
+            capo_direct_connect.types.resiliency_group_association_list.serialize_cbor(
+                value["resiliency_group_associations"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AssociateConnectionsToResiliencyGroupResult:
+    out: AssociateConnectionsToResiliencyGroupResult = {}  # type: ignore[typeddict-item]
+    if data.get("resiliencyGroupAssociations") is not None:
+        import capo_direct_connect.types.resiliency_group_association_list
+
+        out["resiliency_group_associations"] = (
+            capo_direct_connect.types.resiliency_group_association_list.deserialize_cbor(
+                data["resiliencyGroupAssociations"]
+            )
+        )
+    return out

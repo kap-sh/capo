@@ -56,3 +56,41 @@ def deserialize_aws_json_1_0(data: dict) -> ReportOutputConfiguration:
         raise DeserializationError(
             "ReportOutputConfiguration: no recognized variant key"
         )
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ReportOutputConfiguration) -> dict:
+    if "$unknown" in value:
+        raise SerializationError(
+            f"ReportOutputConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
+        )
+    elif "s3Configuration" in value:
+        import capo_arc_region_switch.types.s3_report_output_configuration
+
+        return {
+            "s3Configuration": capo_arc_region_switch.types.s3_report_output_configuration.serialize_cbor(
+                value["s3Configuration"]
+            )
+        }
+    else:
+        raise SerializationError("ReportOutputConfiguration: no variant present")
+
+
+def deserialize_cbor(data: dict) -> ReportOutputConfiguration:
+    if data.get("s3Configuration") is not None:
+        import capo_arc_region_switch.types.s3_report_output_configuration
+
+        return {
+            "s3Configuration": capo_arc_region_switch.types.s3_report_output_configuration.deserialize_cbor(
+                data["s3Configuration"]
+            )
+        }
+    else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return {"$unknown": {"name": name}}
+        raise DeserializationError(
+            "ReportOutputConfiguration: no recognized variant key"
+        )

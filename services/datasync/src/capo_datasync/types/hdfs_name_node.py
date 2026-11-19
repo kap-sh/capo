@@ -35,3 +35,24 @@ def deserialize_aws_json_1_1(data: dict) -> HdfsNameNode:
     else:
         out["port"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: HdfsNameNode) -> dict:
+    out: dict = {}
+    out["Hostname"] = value["hostname"]
+    out["Port"] = value["port"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> HdfsNameNode:
+    out: HdfsNameNode = {}  # type: ignore[typeddict-item]
+    if data.get("Hostname") is not None:
+        out["hostname"] = data["Hostname"]
+    else:
+        out["hostname"] = ""
+    if data.get("Port") is not None:
+        out["port"] = data["Port"]
+    else:
+        out["port"] = 0
+    return out

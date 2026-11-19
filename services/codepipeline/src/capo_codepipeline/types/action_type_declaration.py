@@ -172,3 +172,126 @@ def deserialize_aws_json_1_1(data: dict) -> ActionTypeDeclaration:
             data["urls"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ActionTypeDeclaration) -> dict:
+    out: dict = {}
+    if "description" in value:
+        out["description"] = value["description"]
+    import capo_codepipeline.types.action_type_executor
+
+    out["executor"] = capo_codepipeline.types.action_type_executor.serialize_cbor(
+        value["executor"]
+    )
+    import capo_codepipeline.types.action_type_identifier
+
+    out["id"] = capo_codepipeline.types.action_type_identifier.serialize_cbor(
+        value["id"]
+    )
+    import capo_codepipeline.types.action_type_artifact_details
+
+    out["inputArtifactDetails"] = (
+        capo_codepipeline.types.action_type_artifact_details.serialize_cbor(
+            value["input_artifact_details"]
+        )
+    )
+    import capo_codepipeline.types.action_type_artifact_details
+
+    out["outputArtifactDetails"] = (
+        capo_codepipeline.types.action_type_artifact_details.serialize_cbor(
+            value["output_artifact_details"]
+        )
+    )
+    if "permissions" in value:
+        import capo_codepipeline.types.action_type_permissions
+
+        out["permissions"] = (
+            capo_codepipeline.types.action_type_permissions.serialize_cbor(
+                value["permissions"]
+            )
+        )
+    if "properties" in value:
+        import capo_codepipeline.types.action_type_properties
+
+        out["properties"] = (
+            capo_codepipeline.types.action_type_properties.serialize_cbor(
+                value["properties"]
+            )
+        )
+    if "urls" in value:
+        import capo_codepipeline.types.action_type_urls
+
+        out["urls"] = capo_codepipeline.types.action_type_urls.serialize_cbor(
+            value["urls"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ActionTypeDeclaration:
+    out: ActionTypeDeclaration = {}  # type: ignore[typeddict-item]
+    if data.get("description") is not None:
+        out["description"] = data["description"]
+    if data.get("executor") is not None:
+        import capo_codepipeline.types.action_type_executor
+
+        out["executor"] = capo_codepipeline.types.action_type_executor.deserialize_cbor(
+            data["executor"]
+        )
+    else:
+        raise DeserializationError("ActionTypeDeclaration.executor required")
+    if data.get("id") is not None:
+        import capo_codepipeline.types.action_type_identifier
+
+        out["id"] = capo_codepipeline.types.action_type_identifier.deserialize_cbor(
+            data["id"]
+        )
+    else:
+        raise DeserializationError("ActionTypeDeclaration.id required")
+    if data.get("inputArtifactDetails") is not None:
+        import capo_codepipeline.types.action_type_artifact_details
+
+        out["input_artifact_details"] = (
+            capo_codepipeline.types.action_type_artifact_details.deserialize_cbor(
+                data["inputArtifactDetails"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "ActionTypeDeclaration.input_artifact_details required"
+        )
+    if data.get("outputArtifactDetails") is not None:
+        import capo_codepipeline.types.action_type_artifact_details
+
+        out["output_artifact_details"] = (
+            capo_codepipeline.types.action_type_artifact_details.deserialize_cbor(
+                data["outputArtifactDetails"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "ActionTypeDeclaration.output_artifact_details required"
+        )
+    if data.get("permissions") is not None:
+        import capo_codepipeline.types.action_type_permissions
+
+        out["permissions"] = (
+            capo_codepipeline.types.action_type_permissions.deserialize_cbor(
+                data["permissions"]
+            )
+        )
+    if data.get("properties") is not None:
+        import capo_codepipeline.types.action_type_properties
+
+        out["properties"] = (
+            capo_codepipeline.types.action_type_properties.deserialize_cbor(
+                data["properties"]
+            )
+        )
+    if data.get("urls") is not None:
+        import capo_codepipeline.types.action_type_urls
+
+        out["urls"] = capo_codepipeline.types.action_type_urls.deserialize_cbor(
+            data["urls"]
+        )
+    return out

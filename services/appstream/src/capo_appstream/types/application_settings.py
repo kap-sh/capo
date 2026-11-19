@@ -33,3 +33,22 @@ def deserialize_aws_json_1_1(data: dict) -> ApplicationSettings:
     if data.get("SettingsGroup") is not None:
         out["settings_group"] = data["SettingsGroup"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ApplicationSettings) -> dict:
+    out: dict = {}
+    if "enabled" in value:
+        out["Enabled"] = value["enabled"]
+    if "settings_group" in value:
+        out["SettingsGroup"] = value["settings_group"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ApplicationSettings:
+    out: ApplicationSettings = {}  # type: ignore[typeddict-item]
+    if data.get("Enabled") is not None:
+        out["enabled"] = data["Enabled"]
+    if data.get("SettingsGroup") is not None:
+        out["settings_group"] = data["SettingsGroup"]
+    return out

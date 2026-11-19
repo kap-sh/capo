@@ -63,3 +63,43 @@ def deserialize_aws_json_1_0(data: dict) -> CreateKeyspaceRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateKeyspaceRequest) -> dict:
+    out: dict = {}
+    out["keyspaceName"] = value["keyspace_name"]
+    if "tags" in value:
+        import capo_keyspaces.types.tag_list
+
+        out["tags"] = capo_keyspaces.types.tag_list.serialize_cbor(value["tags"])
+    if "replication_specification" in value:
+        import capo_keyspaces.types.replication_specification
+
+        out["replicationSpecification"] = (
+            capo_keyspaces.types.replication_specification.serialize_cbor(
+                value["replication_specification"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateKeyspaceRequest:
+    out: CreateKeyspaceRequest = {}  # type: ignore[typeddict-item]
+    if data.get("keyspaceName") is not None:
+        out["keyspace_name"] = data["keyspaceName"]
+    else:
+        out["keyspace_name"] = ""
+    if data.get("tags") is not None:
+        import capo_keyspaces.types.tag_list
+
+        out["tags"] = capo_keyspaces.types.tag_list.deserialize_cbor(data["tags"])
+    if data.get("replicationSpecification") is not None:
+        import capo_keyspaces.types.replication_specification
+
+        out["replication_specification"] = (
+            capo_keyspaces.types.replication_specification.deserialize_cbor(
+                data["replicationSpecification"]
+            )
+        )
+    return out

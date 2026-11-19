@@ -41,3 +41,27 @@ def deserialize_aws_json_1_1(data: dict) -> EmergencyContact:
     if data.get("ContactNotes") is not None:
         out["contact_notes"] = data["ContactNotes"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EmergencyContact) -> dict:
+    out: dict = {}
+    out["EmailAddress"] = value["email_address"]
+    if "phone_number" in value:
+        out["PhoneNumber"] = value["phone_number"]
+    if "contact_notes" in value:
+        out["ContactNotes"] = value["contact_notes"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> EmergencyContact:
+    out: EmergencyContact = {}  # type: ignore[typeddict-item]
+    if data.get("EmailAddress") is not None:
+        out["email_address"] = data["EmailAddress"]
+    else:
+        out["email_address"] = ""
+    if data.get("PhoneNumber") is not None:
+        out["phone_number"] = data["PhoneNumber"]
+    if data.get("ContactNotes") is not None:
+        out["contact_notes"] = data["ContactNotes"]
+    return out

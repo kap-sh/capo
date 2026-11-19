@@ -57,3 +57,35 @@ def deserialize_aws_json_1_1(data: dict) -> StartBgpFailoverTestRequest:
     if data.get("testDurationInMinutes") is not None:
         out["test_duration_in_minutes"] = data["testDurationInMinutes"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartBgpFailoverTestRequest) -> dict:
+    out: dict = {}
+    out["virtualInterfaceId"] = value["virtual_interface_id"]
+    if "bgp_peers" in value:
+        import capo_direct_connect.types.bgp_peer_id_list
+
+        out["bgpPeers"] = capo_direct_connect.types.bgp_peer_id_list.serialize_cbor(
+            value["bgp_peers"]
+        )
+    if "test_duration_in_minutes" in value:
+        out["testDurationInMinutes"] = value["test_duration_in_minutes"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartBgpFailoverTestRequest:
+    out: StartBgpFailoverTestRequest = {}  # type: ignore[typeddict-item]
+    if data.get("virtualInterfaceId") is not None:
+        out["virtual_interface_id"] = data["virtualInterfaceId"]
+    else:
+        out["virtual_interface_id"] = ""
+    if data.get("bgpPeers") is not None:
+        import capo_direct_connect.types.bgp_peer_id_list
+
+        out["bgp_peers"] = capo_direct_connect.types.bgp_peer_id_list.deserialize_cbor(
+            data["bgpPeers"]
+        )
+    if data.get("testDurationInMinutes") is not None:
+        out["test_duration_in_minutes"] = data["testDurationInMinutes"]
+    return out

@@ -16,3 +16,12 @@ def serialize_aws_json_1_0(value: TLSInspectionScopeDeploymentMode) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> TLSInspectionScopeDeploymentMode:
     return cast(TLSInspectionScopeDeploymentMode, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TLSInspectionScopeDeploymentMode) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> TLSInspectionScopeDeploymentMode:
+    return cast(TLSInspectionScopeDeploymentMode, data)

@@ -48,3 +48,30 @@ def deserialize_aws_json_1_1(data: dict) -> CopyImageRequest:
     if data.get("DestinationImageDescription") is not None:
         out["destination_image_description"] = data["DestinationImageDescription"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CopyImageRequest) -> dict:
+    out: dict = {}
+    if "source_image_name" in value:
+        out["SourceImageName"] = value["source_image_name"]
+    if "destination_image_name" in value:
+        out["DestinationImageName"] = value["destination_image_name"]
+    if "destination_region" in value:
+        out["DestinationRegion"] = value["destination_region"]
+    if "destination_image_description" in value:
+        out["DestinationImageDescription"] = value["destination_image_description"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CopyImageRequest:
+    out: CopyImageRequest = {}  # type: ignore[typeddict-item]
+    if data.get("SourceImageName") is not None:
+        out["source_image_name"] = data["SourceImageName"]
+    if data.get("DestinationImageName") is not None:
+        out["destination_image_name"] = data["DestinationImageName"]
+    if data.get("DestinationRegion") is not None:
+        out["destination_region"] = data["DestinationRegion"]
+    if data.get("DestinationImageDescription") is not None:
+        out["destination_image_description"] = data["DestinationImageDescription"]
+    return out

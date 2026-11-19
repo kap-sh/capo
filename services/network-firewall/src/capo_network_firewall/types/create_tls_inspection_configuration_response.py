@@ -51,3 +51,38 @@ def deserialize_aws_json_1_0(data: dict) -> CreateTLSInspectionConfigurationResp
             "CreateTLSInspectionConfigurationResponse.tls_inspection_configuration_response required"
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateTLSInspectionConfigurationResponse) -> dict:
+    out: dict = {}
+    out["UpdateToken"] = value["update_token"]
+    import capo_network_firewall.types.tls_inspection_configuration_response
+
+    out["TLSInspectionConfigurationResponse"] = (
+        capo_network_firewall.types.tls_inspection_configuration_response.serialize_cbor(
+            value["tls_inspection_configuration_response"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateTLSInspectionConfigurationResponse:
+    out: CreateTLSInspectionConfigurationResponse = {}  # type: ignore[typeddict-item]
+    if data.get("UpdateToken") is not None:
+        out["update_token"] = data["UpdateToken"]
+    else:
+        out["update_token"] = ""
+    if data.get("TLSInspectionConfigurationResponse") is not None:
+        import capo_network_firewall.types.tls_inspection_configuration_response
+
+        out["tls_inspection_configuration_response"] = (
+            capo_network_firewall.types.tls_inspection_configuration_response.deserialize_cbor(
+                data["TLSInspectionConfigurationResponse"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "CreateTLSInspectionConfigurationResponse.tls_inspection_configuration_response required"
+        )
+    return out

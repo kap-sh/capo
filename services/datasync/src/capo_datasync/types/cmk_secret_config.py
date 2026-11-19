@@ -33,3 +33,22 @@ def deserialize_aws_json_1_1(data: dict) -> CmkSecretConfig:
     if data.get("KmsKeyArn") is not None:
         out["kms_key_arn"] = data["KmsKeyArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CmkSecretConfig) -> dict:
+    out: dict = {}
+    if "secret_arn" in value:
+        out["SecretArn"] = value["secret_arn"]
+    if "kms_key_arn" in value:
+        out["KmsKeyArn"] = value["kms_key_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CmkSecretConfig:
+    out: CmkSecretConfig = {}  # type: ignore[typeddict-item]
+    if data.get("SecretArn") is not None:
+        out["secret_arn"] = data["SecretArn"]
+    if data.get("KmsKeyArn") is not None:
+        out["kms_key_arn"] = data["KmsKeyArn"]
+    return out

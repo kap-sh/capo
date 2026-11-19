@@ -64,3 +64,43 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateFlywheelRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateFlywheelRequest) -> dict:
+    out: dict = {}
+    out["FlywheelArn"] = value["flywheel_arn"]
+    if "active_model_arn" in value:
+        out["ActiveModelArn"] = value["active_model_arn"]
+    if "data_access_role_arn" in value:
+        out["DataAccessRoleArn"] = value["data_access_role_arn"]
+    if "data_security_config" in value:
+        import capo_comprehend.types.update_data_security_config
+
+        out["DataSecurityConfig"] = (
+            capo_comprehend.types.update_data_security_config.serialize_cbor(
+                value["data_security_config"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateFlywheelRequest:
+    out: UpdateFlywheelRequest = {}  # type: ignore[typeddict-item]
+    if data.get("FlywheelArn") is not None:
+        out["flywheel_arn"] = data["FlywheelArn"]
+    else:
+        out["flywheel_arn"] = ""
+    if data.get("ActiveModelArn") is not None:
+        out["active_model_arn"] = data["ActiveModelArn"]
+    if data.get("DataAccessRoleArn") is not None:
+        out["data_access_role_arn"] = data["DataAccessRoleArn"]
+    if data.get("DataSecurityConfig") is not None:
+        import capo_comprehend.types.update_data_security_config
+
+        out["data_security_config"] = (
+            capo_comprehend.types.update_data_security_config.deserialize_cbor(
+                data["DataSecurityConfig"]
+            )
+        )
+    return out

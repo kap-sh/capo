@@ -90,3 +90,62 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeCAEnrollmentPolicyResult:
             "CaEnrollmentPolicyStatusReason"
         ]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeCAEnrollmentPolicyResult) -> dict:
+    out: dict = {}
+    if "directory_id" in value:
+        out["DirectoryId"] = value["directory_id"]
+    if "pca_connector_arn" in value:
+        out["PcaConnectorArn"] = value["pca_connector_arn"]
+    if "ca_enrollment_policy_status" in value:
+        import capo_directory_service.types.ca_enrollment_policy_status
+
+        out["CaEnrollmentPolicyStatus"] = (
+            capo_directory_service.types.ca_enrollment_policy_status.serialize_cbor(
+                value["ca_enrollment_policy_status"]
+            )
+        )
+    if "last_updated_date_time" in value:
+        import capo_directory_service.types.last_updated_date_time
+
+        out["LastUpdatedDateTime"] = (
+            capo_directory_service.types.last_updated_date_time.serialize_cbor(
+                value["last_updated_date_time"]
+            )
+        )
+    if "ca_enrollment_policy_status_reason" in value:
+        out["CaEnrollmentPolicyStatusReason"] = value[
+            "ca_enrollment_policy_status_reason"
+        ]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeCAEnrollmentPolicyResult:
+    out: DescribeCAEnrollmentPolicyResult = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    if data.get("PcaConnectorArn") is not None:
+        out["pca_connector_arn"] = data["PcaConnectorArn"]
+    if data.get("CaEnrollmentPolicyStatus") is not None:
+        import capo_directory_service.types.ca_enrollment_policy_status
+
+        out["ca_enrollment_policy_status"] = (
+            capo_directory_service.types.ca_enrollment_policy_status.deserialize_cbor(
+                data["CaEnrollmentPolicyStatus"]
+            )
+        )
+    if data.get("LastUpdatedDateTime") is not None:
+        import capo_directory_service.types.last_updated_date_time
+
+        out["last_updated_date_time"] = (
+            capo_directory_service.types.last_updated_date_time.deserialize_cbor(
+                data["LastUpdatedDateTime"]
+            )
+        )
+    if data.get("CaEnrollmentPolicyStatusReason") is not None:
+        out["ca_enrollment_policy_status_reason"] = data[
+            "CaEnrollmentPolicyStatusReason"
+        ]
+    return out

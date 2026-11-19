@@ -128,3 +128,85 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateWorkspacesPoolRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateWorkspacesPoolRequest) -> dict:
+    out: dict = {}
+    out["PoolId"] = value["pool_id"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "bundle_id" in value:
+        out["BundleId"] = value["bundle_id"]
+    if "directory_id" in value:
+        out["DirectoryId"] = value["directory_id"]
+    if "capacity" in value:
+        import capo_workspaces.types.capacity
+
+        out["Capacity"] = capo_workspaces.types.capacity.serialize_cbor(
+            value["capacity"]
+        )
+    if "application_settings" in value:
+        import capo_workspaces.types.application_settings_request
+
+        out["ApplicationSettings"] = (
+            capo_workspaces.types.application_settings_request.serialize_cbor(
+                value["application_settings"]
+            )
+        )
+    if "timeout_settings" in value:
+        import capo_workspaces.types.timeout_settings
+
+        out["TimeoutSettings"] = capo_workspaces.types.timeout_settings.serialize_cbor(
+            value["timeout_settings"]
+        )
+    if "running_mode" in value:
+        import capo_workspaces.types.pools_running_mode
+
+        out["RunningMode"] = capo_workspaces.types.pools_running_mode.serialize_cbor(
+            value["running_mode"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateWorkspacesPoolRequest:
+    out: UpdateWorkspacesPoolRequest = {}  # type: ignore[typeddict-item]
+    if data.get("PoolId") is not None:
+        out["pool_id"] = data["PoolId"]
+    else:
+        out["pool_id"] = ""
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("BundleId") is not None:
+        out["bundle_id"] = data["BundleId"]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    if data.get("Capacity") is not None:
+        import capo_workspaces.types.capacity
+
+        out["capacity"] = capo_workspaces.types.capacity.deserialize_cbor(
+            data["Capacity"]
+        )
+    if data.get("ApplicationSettings") is not None:
+        import capo_workspaces.types.application_settings_request
+
+        out["application_settings"] = (
+            capo_workspaces.types.application_settings_request.deserialize_cbor(
+                data["ApplicationSettings"]
+            )
+        )
+    if data.get("TimeoutSettings") is not None:
+        import capo_workspaces.types.timeout_settings
+
+        out["timeout_settings"] = (
+            capo_workspaces.types.timeout_settings.deserialize_cbor(
+                data["TimeoutSettings"]
+            )
+        )
+    if data.get("RunningMode") is not None:
+        import capo_workspaces.types.pools_running_mode
+
+        out["running_mode"] = capo_workspaces.types.pools_running_mode.deserialize_cbor(
+            data["RunningMode"]
+        )
+    return out

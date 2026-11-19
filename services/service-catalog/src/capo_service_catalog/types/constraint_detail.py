@@ -61,3 +61,38 @@ def deserialize_aws_json_1_1(data: dict) -> ConstraintDetail:
     if data.get("PortfolioId") is not None:
         out["portfolio_id"] = data["PortfolioId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ConstraintDetail) -> dict:
+    out: dict = {}
+    if "constraint_id" in value:
+        out["ConstraintId"] = value["constraint_id"]
+    if "type" in value:
+        out["Type"] = value["type"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "owner" in value:
+        out["Owner"] = value["owner"]
+    if "product_id" in value:
+        out["ProductId"] = value["product_id"]
+    if "portfolio_id" in value:
+        out["PortfolioId"] = value["portfolio_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ConstraintDetail:
+    out: ConstraintDetail = {}  # type: ignore[typeddict-item]
+    if data.get("ConstraintId") is not None:
+        out["constraint_id"] = data["ConstraintId"]
+    if data.get("Type") is not None:
+        out["type"] = data["Type"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("Owner") is not None:
+        out["owner"] = data["Owner"]
+    if data.get("ProductId") is not None:
+        out["product_id"] = data["ProductId"]
+    if data.get("PortfolioId") is not None:
+        out["portfolio_id"] = data["PortfolioId"]
+    return out

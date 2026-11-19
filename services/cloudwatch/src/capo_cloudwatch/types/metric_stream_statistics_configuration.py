@@ -107,3 +107,46 @@ def deserialize_query(el: Element) -> MetricStreamStatisticsConfiguration:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MetricStreamStatisticsConfiguration) -> dict:
+    out: dict = {}
+    if "include_metrics" in value:
+        import capo_cloudwatch.types.metric_stream_statistics_include_metrics
+
+        out["IncludeMetrics"] = (
+            capo_cloudwatch.types.metric_stream_statistics_include_metrics.serialize_cbor(
+                value["include_metrics"]
+            )
+        )
+    if "additional_statistics" in value:
+        import capo_cloudwatch.types.metric_stream_statistics_additional_statistics
+
+        out["AdditionalStatistics"] = (
+            capo_cloudwatch.types.metric_stream_statistics_additional_statistics.serialize_cbor(
+                value["additional_statistics"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> MetricStreamStatisticsConfiguration:
+    out: MetricStreamStatisticsConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("IncludeMetrics") is not None:
+        import capo_cloudwatch.types.metric_stream_statistics_include_metrics
+
+        out["include_metrics"] = (
+            capo_cloudwatch.types.metric_stream_statistics_include_metrics.deserialize_cbor(
+                data["IncludeMetrics"]
+            )
+        )
+    if data.get("AdditionalStatistics") is not None:
+        import capo_cloudwatch.types.metric_stream_statistics_additional_statistics
+
+        out["additional_statistics"] = (
+            capo_cloudwatch.types.metric_stream_statistics_additional_statistics.deserialize_cbor(
+                data["AdditionalStatistics"]
+            )
+        )
+    return out

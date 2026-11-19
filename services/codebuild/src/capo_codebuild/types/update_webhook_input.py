@@ -98,3 +98,67 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateWebhookInput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateWebhookInput) -> dict:
+    out: dict = {}
+    out["projectName"] = value["project_name"]
+    if "branch_filter" in value:
+        out["branchFilter"] = value["branch_filter"]
+    if "rotate_secret" in value:
+        out["rotateSecret"] = value["rotate_secret"]
+    if "filter_groups" in value:
+        import capo_codebuild.types.filter_groups
+
+        out["filterGroups"] = capo_codebuild.types.filter_groups.serialize_cbor(
+            value["filter_groups"]
+        )
+    if "build_type" in value:
+        import capo_codebuild.types.webhook_build_type
+
+        out["buildType"] = capo_codebuild.types.webhook_build_type.serialize_cbor(
+            value["build_type"]
+        )
+    if "pull_request_build_policy" in value:
+        import capo_codebuild.types.pull_request_build_policy
+
+        out["pullRequestBuildPolicy"] = (
+            capo_codebuild.types.pull_request_build_policy.serialize_cbor(
+                value["pull_request_build_policy"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateWebhookInput:
+    out: UpdateWebhookInput = {}  # type: ignore[typeddict-item]
+    if data.get("projectName") is not None:
+        out["project_name"] = data["projectName"]
+    else:
+        out["project_name"] = ""
+    if data.get("branchFilter") is not None:
+        out["branch_filter"] = data["branchFilter"]
+    if data.get("rotateSecret") is not None:
+        out["rotate_secret"] = data["rotateSecret"]
+    if data.get("filterGroups") is not None:
+        import capo_codebuild.types.filter_groups
+
+        out["filter_groups"] = capo_codebuild.types.filter_groups.deserialize_cbor(
+            data["filterGroups"]
+        )
+    if data.get("buildType") is not None:
+        import capo_codebuild.types.webhook_build_type
+
+        out["build_type"] = capo_codebuild.types.webhook_build_type.deserialize_cbor(
+            data["buildType"]
+        )
+    if data.get("pullRequestBuildPolicy") is not None:
+        import capo_codebuild.types.pull_request_build_policy
+
+        out["pull_request_build_policy"] = (
+            capo_codebuild.types.pull_request_build_policy.deserialize_cbor(
+                data["pullRequestBuildPolicy"]
+            )
+        )
+    return out

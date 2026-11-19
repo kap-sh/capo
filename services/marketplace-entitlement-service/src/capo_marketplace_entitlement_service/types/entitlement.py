@@ -102,3 +102,66 @@ def deserialize_aws_json_1_1(data: dict) -> Entitlement:
     if data.get("LicenseArn") is not None:
         out["license_arn"] = data["LicenseArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Entitlement) -> dict:
+    out: dict = {}
+    if "product_code" in value:
+        out["ProductCode"] = value["product_code"]
+    if "dimension" in value:
+        out["Dimension"] = value["dimension"]
+    if "customer_identifier" in value:
+        out["CustomerIdentifier"] = value["customer_identifier"]
+    if "customer_aws_account_id" in value:
+        out["CustomerAWSAccountId"] = value["customer_aws_account_id"]
+    if "value" in value:
+        import capo_marketplace_entitlement_service.types.entitlement_value
+
+        out["Value"] = (
+            capo_marketplace_entitlement_service.types.entitlement_value.serialize_cbor(
+                value["value"]
+            )
+        )
+    if "expiration_date" in value:
+        import capo_marketplace_entitlement_service.types.timestamp
+
+        out["ExpirationDate"] = (
+            capo_marketplace_entitlement_service.types.timestamp.serialize_cbor(
+                value["expiration_date"]
+            )
+        )
+    if "license_arn" in value:
+        out["LicenseArn"] = value["license_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Entitlement:
+    out: Entitlement = {}  # type: ignore[typeddict-item]
+    if data.get("ProductCode") is not None:
+        out["product_code"] = data["ProductCode"]
+    if data.get("Dimension") is not None:
+        out["dimension"] = data["Dimension"]
+    if data.get("CustomerIdentifier") is not None:
+        out["customer_identifier"] = data["CustomerIdentifier"]
+    if data.get("CustomerAWSAccountId") is not None:
+        out["customer_aws_account_id"] = data["CustomerAWSAccountId"]
+    if data.get("Value") is not None:
+        import capo_marketplace_entitlement_service.types.entitlement_value
+
+        out["value"] = (
+            capo_marketplace_entitlement_service.types.entitlement_value.deserialize_cbor(
+                data["Value"]
+            )
+        )
+    if data.get("ExpirationDate") is not None:
+        import capo_marketplace_entitlement_service.types.timestamp
+
+        out["expiration_date"] = (
+            capo_marketplace_entitlement_service.types.timestamp.deserialize_cbor(
+                data["ExpirationDate"]
+            )
+        )
+    if data.get("LicenseArn") is not None:
+        out["license_arn"] = data["LicenseArn"]
+    return out

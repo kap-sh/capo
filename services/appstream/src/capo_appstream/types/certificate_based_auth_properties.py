@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> CertificateBasedAuthProperties:
     if data.get("CertificateAuthorityArn") is not None:
         out["certificate_authority_arn"] = data["CertificateAuthorityArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CertificateBasedAuthProperties) -> dict:
+    out: dict = {}
+    if "status" in value:
+        import capo_appstream.types.certificate_based_auth_status
+
+        out["Status"] = (
+            capo_appstream.types.certificate_based_auth_status.serialize_cbor(
+                value["status"]
+            )
+        )
+    if "certificate_authority_arn" in value:
+        out["CertificateAuthorityArn"] = value["certificate_authority_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CertificateBasedAuthProperties:
+    out: CertificateBasedAuthProperties = {}  # type: ignore[typeddict-item]
+    if data.get("Status") is not None:
+        import capo_appstream.types.certificate_based_auth_status
+
+        out["status"] = (
+            capo_appstream.types.certificate_based_auth_status.deserialize_cbor(
+                data["Status"]
+            )
+        )
+    if data.get("CertificateAuthorityArn") is not None:
+        out["certificate_authority_arn"] = data["CertificateAuthorityArn"]
+    return out

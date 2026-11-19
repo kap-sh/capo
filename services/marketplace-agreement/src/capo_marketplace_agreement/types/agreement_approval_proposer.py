@@ -35,3 +35,24 @@ def deserialize_aws_json_1_0(data: dict) -> AgreementApprovalProposer:
     else:
         out["legal_name"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AgreementApprovalProposer) -> dict:
+    out: dict = {}
+    out["accountId"] = value["account_id"]
+    out["legalName"] = value["legal_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AgreementApprovalProposer:
+    out: AgreementApprovalProposer = {}  # type: ignore[typeddict-item]
+    if data.get("accountId") is not None:
+        out["account_id"] = data["accountId"]
+    else:
+        out["account_id"] = ""
+    if data.get("legalName") is not None:
+        out["legal_name"] = data["legalName"]
+    else:
+        out["legal_name"] = ""
+    return out

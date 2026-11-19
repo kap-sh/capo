@@ -75,3 +75,51 @@ def deserialize_aws_json_1_0(data: dict) -> Archive:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Archive) -> dict:
+    out: dict = {}
+    out["ArchiveId"] = value["archive_id"]
+    if "archive_name" in value:
+        out["ArchiveName"] = value["archive_name"]
+    if "archive_state" in value:
+        import capo_mailmanager.types.archive_state
+
+        out["ArchiveState"] = capo_mailmanager.types.archive_state.serialize_cbor(
+            value["archive_state"]
+        )
+    if "last_updated_timestamp" in value:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["LastUpdatedTimestamp"] = (
+            capo_mailmanager.types._prelude.timestamp.serialize_cbor(
+                value["last_updated_timestamp"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Archive:
+    out: Archive = {}  # type: ignore[typeddict-item]
+    if data.get("ArchiveId") is not None:
+        out["archive_id"] = data["ArchiveId"]
+    else:
+        out["archive_id"] = ""
+    if data.get("ArchiveName") is not None:
+        out["archive_name"] = data["ArchiveName"]
+    if data.get("ArchiveState") is not None:
+        import capo_mailmanager.types.archive_state
+
+        out["archive_state"] = capo_mailmanager.types.archive_state.deserialize_cbor(
+            data["ArchiveState"]
+        )
+    if data.get("LastUpdatedTimestamp") is not None:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["last_updated_timestamp"] = (
+            capo_mailmanager.types._prelude.timestamp.deserialize_cbor(
+                data["LastUpdatedTimestamp"]
+            )
+        )
+    return out

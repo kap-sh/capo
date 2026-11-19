@@ -77,3 +77,52 @@ def deserialize_aws_json_1_1(data: dict) -> Permission:
     if data.get("Policy") is not None:
         out["policy"] = data["Policy"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Permission) -> dict:
+    out: dict = {}
+    if "certificate_authority_arn" in value:
+        out["CertificateAuthorityArn"] = value["certificate_authority_arn"]
+    if "created_at" in value:
+        import capo_acm_pca.types.t_stamp
+
+        out["CreatedAt"] = capo_acm_pca.types.t_stamp.serialize_cbor(
+            value["created_at"]
+        )
+    if "principal" in value:
+        out["Principal"] = value["principal"]
+    if "source_account" in value:
+        out["SourceAccount"] = value["source_account"]
+    if "actions" in value:
+        import capo_acm_pca.types.action_list
+
+        out["Actions"] = capo_acm_pca.types.action_list.serialize_cbor(value["actions"])
+    if "policy" in value:
+        out["Policy"] = value["policy"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Permission:
+    out: Permission = {}  # type: ignore[typeddict-item]
+    if data.get("CertificateAuthorityArn") is not None:
+        out["certificate_authority_arn"] = data["CertificateAuthorityArn"]
+    if data.get("CreatedAt") is not None:
+        import capo_acm_pca.types.t_stamp
+
+        out["created_at"] = capo_acm_pca.types.t_stamp.deserialize_cbor(
+            data["CreatedAt"]
+        )
+    if data.get("Principal") is not None:
+        out["principal"] = data["Principal"]
+    if data.get("SourceAccount") is not None:
+        out["source_account"] = data["SourceAccount"]
+    if data.get("Actions") is not None:
+        import capo_acm_pca.types.action_list
+
+        out["actions"] = capo_acm_pca.types.action_list.deserialize_cbor(
+            data["Actions"]
+        )
+    if data.get("Policy") is not None:
+        out["policy"] = data["Policy"]
+    return out

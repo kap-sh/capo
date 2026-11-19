@@ -127,3 +127,92 @@ def deserialize_aws_json_1_0(data: dict) -> MatchAttributes:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MatchAttributes) -> dict:
+    out: dict = {}
+    if "sources" in value:
+        import capo_network_firewall.types.addresses
+
+        out["Sources"] = capo_network_firewall.types.addresses.serialize_cbor(
+            value["sources"]
+        )
+    if "destinations" in value:
+        import capo_network_firewall.types.addresses
+
+        out["Destinations"] = capo_network_firewall.types.addresses.serialize_cbor(
+            value["destinations"]
+        )
+    if "source_ports" in value:
+        import capo_network_firewall.types.port_ranges
+
+        out["SourcePorts"] = capo_network_firewall.types.port_ranges.serialize_cbor(
+            value["source_ports"]
+        )
+    if "destination_ports" in value:
+        import capo_network_firewall.types.port_ranges
+
+        out["DestinationPorts"] = (
+            capo_network_firewall.types.port_ranges.serialize_cbor(
+                value["destination_ports"]
+            )
+        )
+    if "protocols" in value:
+        import capo_network_firewall.types.protocol_numbers
+
+        out["Protocols"] = capo_network_firewall.types.protocol_numbers.serialize_cbor(
+            value["protocols"]
+        )
+    if "tcp_flags" in value:
+        import capo_network_firewall.types.tcp_flags
+
+        out["TCPFlags"] = capo_network_firewall.types.tcp_flags.serialize_cbor(
+            value["tcp_flags"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> MatchAttributes:
+    out: MatchAttributes = {}  # type: ignore[typeddict-item]
+    if data.get("Sources") is not None:
+        import capo_network_firewall.types.addresses
+
+        out["sources"] = capo_network_firewall.types.addresses.deserialize_cbor(
+            data["Sources"]
+        )
+    if data.get("Destinations") is not None:
+        import capo_network_firewall.types.addresses
+
+        out["destinations"] = capo_network_firewall.types.addresses.deserialize_cbor(
+            data["Destinations"]
+        )
+    if data.get("SourcePorts") is not None:
+        import capo_network_firewall.types.port_ranges
+
+        out["source_ports"] = capo_network_firewall.types.port_ranges.deserialize_cbor(
+            data["SourcePorts"]
+        )
+    if data.get("DestinationPorts") is not None:
+        import capo_network_firewall.types.port_ranges
+
+        out["destination_ports"] = (
+            capo_network_firewall.types.port_ranges.deserialize_cbor(
+                data["DestinationPorts"]
+            )
+        )
+    if data.get("Protocols") is not None:
+        import capo_network_firewall.types.protocol_numbers
+
+        out["protocols"] = (
+            capo_network_firewall.types.protocol_numbers.deserialize_cbor(
+                data["Protocols"]
+            )
+        )
+    if data.get("TCPFlags") is not None:
+        import capo_network_firewall.types.tcp_flags
+
+        out["tcp_flags"] = capo_network_firewall.types.tcp_flags.deserialize_cbor(
+            data["TCPFlags"]
+        )
+    return out

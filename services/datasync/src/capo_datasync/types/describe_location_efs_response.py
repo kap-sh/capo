@@ -101,3 +101,70 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeLocationEfsResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeLocationEfsResponse) -> dict:
+    out: dict = {}
+    if "location_arn" in value:
+        out["LocationArn"] = value["location_arn"]
+    if "location_uri" in value:
+        out["LocationUri"] = value["location_uri"]
+    if "ec2_config" in value:
+        import capo_datasync.types.ec2_config
+
+        out["Ec2Config"] = capo_datasync.types.ec2_config.serialize_cbor(
+            value["ec2_config"]
+        )
+    if "creation_time" in value:
+        import capo_datasync.types.time
+
+        out["CreationTime"] = capo_datasync.types.time.serialize_cbor(
+            value["creation_time"]
+        )
+    if "access_point_arn" in value:
+        out["AccessPointArn"] = value["access_point_arn"]
+    if "file_system_access_role_arn" in value:
+        out["FileSystemAccessRoleArn"] = value["file_system_access_role_arn"]
+    if "in_transit_encryption" in value:
+        import capo_datasync.types.efs_in_transit_encryption
+
+        out["InTransitEncryption"] = (
+            capo_datasync.types.efs_in_transit_encryption.serialize_cbor(
+                value["in_transit_encryption"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeLocationEfsResponse:
+    out: DescribeLocationEfsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("LocationArn") is not None:
+        out["location_arn"] = data["LocationArn"]
+    if data.get("LocationUri") is not None:
+        out["location_uri"] = data["LocationUri"]
+    if data.get("Ec2Config") is not None:
+        import capo_datasync.types.ec2_config
+
+        out["ec2_config"] = capo_datasync.types.ec2_config.deserialize_cbor(
+            data["Ec2Config"]
+        )
+    if data.get("CreationTime") is not None:
+        import capo_datasync.types.time
+
+        out["creation_time"] = capo_datasync.types.time.deserialize_cbor(
+            data["CreationTime"]
+        )
+    if data.get("AccessPointArn") is not None:
+        out["access_point_arn"] = data["AccessPointArn"]
+    if data.get("FileSystemAccessRoleArn") is not None:
+        out["file_system_access_role_arn"] = data["FileSystemAccessRoleArn"]
+    if data.get("InTransitEncryption") is not None:
+        import capo_datasync.types.efs_in_transit_encryption
+
+        out["in_transit_encryption"] = (
+            capo_datasync.types.efs_in_transit_encryption.deserialize_cbor(
+                data["InTransitEncryption"]
+            )
+        )
+    return out

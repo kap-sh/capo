@@ -34,3 +34,23 @@ def deserialize_aws_json_1_1(data: dict) -> WebhookFilterRule:
     if data.get("matchEquals") is not None:
         out["match_equals"] = data["matchEquals"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: WebhookFilterRule) -> dict:
+    out: dict = {}
+    out["jsonPath"] = value["json_path"]
+    if "match_equals" in value:
+        out["matchEquals"] = value["match_equals"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> WebhookFilterRule:
+    out: WebhookFilterRule = {}  # type: ignore[typeddict-item]
+    if data.get("jsonPath") is not None:
+        out["json_path"] = data["jsonPath"]
+    else:
+        out["json_path"] = ""
+    if data.get("matchEquals") is not None:
+        out["match_equals"] = data["matchEquals"]
+    return out

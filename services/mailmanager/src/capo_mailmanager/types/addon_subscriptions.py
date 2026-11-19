@@ -33,3 +33,24 @@ def deserialize_aws_json_1_0(data: list) -> AddonSubscriptions:
             capo_mailmanager.types.addon_subscription.deserialize_aws_json_1_0(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AddonSubscriptions) -> list:
+    import capo_mailmanager.types.addon_subscription
+
+    out: list = []
+    for item in value:
+        out.append(capo_mailmanager.types.addon_subscription.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> AddonSubscriptions:
+    import capo_mailmanager.types.addon_subscription
+
+    out: AddonSubscriptions = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_mailmanager.types.addon_subscription.deserialize_cbor(item))
+    return out

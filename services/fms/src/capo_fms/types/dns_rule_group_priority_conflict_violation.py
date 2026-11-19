@@ -71,3 +71,47 @@ def deserialize_aws_json_1_1(data: dict) -> DnsRuleGroupPriorityConflictViolatio
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DnsRuleGroupPriorityConflictViolation) -> dict:
+    out: dict = {}
+    if "violation_target" in value:
+        out["ViolationTarget"] = value["violation_target"]
+    if "violation_target_description" in value:
+        out["ViolationTargetDescription"] = value["violation_target_description"]
+    out["ConflictingPriority"] = value.get("conflicting_priority", 0)
+    if "conflicting_policy_id" in value:
+        out["ConflictingPolicyId"] = value["conflicting_policy_id"]
+    if "unavailable_priorities" in value:
+        import capo_fms.types.dns_rule_group_priorities
+
+        out["UnavailablePriorities"] = (
+            capo_fms.types.dns_rule_group_priorities.serialize_cbor(
+                value["unavailable_priorities"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DnsRuleGroupPriorityConflictViolation:
+    out: DnsRuleGroupPriorityConflictViolation = {}  # type: ignore[typeddict-item]
+    if data.get("ViolationTarget") is not None:
+        out["violation_target"] = data["ViolationTarget"]
+    if data.get("ViolationTargetDescription") is not None:
+        out["violation_target_description"] = data["ViolationTargetDescription"]
+    if data.get("ConflictingPriority") is not None:
+        out["conflicting_priority"] = data["ConflictingPriority"]
+    else:
+        out["conflicting_priority"] = 0
+    if data.get("ConflictingPolicyId") is not None:
+        out["conflicting_policy_id"] = data["ConflictingPolicyId"]
+    if data.get("UnavailablePriorities") is not None:
+        import capo_fms.types.dns_rule_group_priorities
+
+        out["unavailable_priorities"] = (
+            capo_fms.types.dns_rule_group_priorities.deserialize_cbor(
+                data["UnavailablePriorities"]
+            )
+        )
+    return out

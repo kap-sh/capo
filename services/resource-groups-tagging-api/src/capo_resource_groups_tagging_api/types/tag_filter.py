@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> TagFilter:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TagFilter) -> dict:
+    out: dict = {}
+    if "key" in value:
+        out["Key"] = value["key"]
+    if "values" in value:
+        import capo_resource_groups_tagging_api.types.tag_value_list
+
+        out["Values"] = (
+            capo_resource_groups_tagging_api.types.tag_value_list.serialize_cbor(
+                value["values"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TagFilter:
+    out: TagFilter = {}  # type: ignore[typeddict-item]
+    if data.get("Key") is not None:
+        out["key"] = data["Key"]
+    if data.get("Values") is not None:
+        import capo_resource_groups_tagging_api.types.tag_value_list
+
+        out["values"] = (
+            capo_resource_groups_tagging_api.types.tag_value_list.deserialize_cbor(
+                data["Values"]
+            )
+        )
+    return out

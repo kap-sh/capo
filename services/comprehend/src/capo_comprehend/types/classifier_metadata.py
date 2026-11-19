@@ -59,3 +59,42 @@ def deserialize_aws_json_1_1(data: dict) -> ClassifierMetadata:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ClassifierMetadata) -> dict:
+    out: dict = {}
+    if "number_of_labels" in value:
+        out["NumberOfLabels"] = value["number_of_labels"]
+    if "number_of_trained_documents" in value:
+        out["NumberOfTrainedDocuments"] = value["number_of_trained_documents"]
+    if "number_of_test_documents" in value:
+        out["NumberOfTestDocuments"] = value["number_of_test_documents"]
+    if "evaluation_metrics" in value:
+        import capo_comprehend.types.classifier_evaluation_metrics
+
+        out["EvaluationMetrics"] = (
+            capo_comprehend.types.classifier_evaluation_metrics.serialize_cbor(
+                value["evaluation_metrics"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ClassifierMetadata:
+    out: ClassifierMetadata = {}  # type: ignore[typeddict-item]
+    if data.get("NumberOfLabels") is not None:
+        out["number_of_labels"] = data["NumberOfLabels"]
+    if data.get("NumberOfTrainedDocuments") is not None:
+        out["number_of_trained_documents"] = data["NumberOfTrainedDocuments"]
+    if data.get("NumberOfTestDocuments") is not None:
+        out["number_of_test_documents"] = data["NumberOfTestDocuments"]
+    if data.get("EvaluationMetrics") is not None:
+        import capo_comprehend.types.classifier_evaluation_metrics
+
+        out["evaluation_metrics"] = (
+            capo_comprehend.types.classifier_evaluation_metrics.deserialize_cbor(
+                data["EvaluationMetrics"]
+            )
+        )
+    return out

@@ -88,3 +88,62 @@ def deserialize_aws_json_1_0(data: dict) -> IngressPoint:
     if data.get("ARecord") is not None:
         out["a_record"] = data["ARecord"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IngressPoint) -> dict:
+    out: dict = {}
+    out["IngressPointName"] = value["ingress_point_name"]
+    out["IngressPointId"] = value["ingress_point_id"]
+    import capo_mailmanager.types.ingress_point_status
+
+    out["Status"] = capo_mailmanager.types.ingress_point_status.serialize_cbor(
+        value["status"]
+    )
+    import capo_mailmanager.types.ingress_point_type
+
+    out["Type"] = capo_mailmanager.types.ingress_point_type.serialize_cbor(
+        value["type"]
+    )
+    if "a_record" in value:
+        out["ARecord"] = value["a_record"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> IngressPoint:
+    out: IngressPoint = {}  # type: ignore[typeddict-item]
+    if data.get("IngressPointName") is not None:
+        out["ingress_point_name"] = data["IngressPointName"]
+    else:
+        out["ingress_point_name"] = ""
+    if data.get("IngressPointId") is not None:
+        out["ingress_point_id"] = data["IngressPointId"]
+    else:
+        out["ingress_point_id"] = ""
+    if data.get("Status") is not None:
+        import capo_mailmanager.types.ingress_point_status
+
+        out["status"] = capo_mailmanager.types.ingress_point_status.deserialize_cbor(
+            data["Status"]
+        )
+    else:
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_mailmanager.types.ingress_point_status.IngressPointStatus", ""
+        )
+    if data.get("Type") is not None:
+        import capo_mailmanager.types.ingress_point_type
+
+        out["type"] = capo_mailmanager.types.ingress_point_type.deserialize_cbor(
+            data["Type"]
+        )
+    else:
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_mailmanager.types.ingress_point_type.IngressPointType", ""
+        )
+    if data.get("ARecord") is not None:
+        out["a_record"] = data["ARecord"]
+    return out

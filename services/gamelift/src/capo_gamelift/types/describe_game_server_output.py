@@ -36,6 +36,29 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeGameServerOutput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeGameServerOutput) -> dict:
+    out: dict = {}
+    if "game_server" in value:
+        import capo_gamelift.types.game_server
+
+        out["GameServer"] = capo_gamelift.types.game_server.serialize_cbor(
+            value["game_server"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeGameServerOutput:
+    out: DescribeGameServerOutput = {}  # type: ignore[typeddict-item]
+    if data.get("GameServer") is not None:
+        import capo_gamelift.types.game_server
+
+        out["game_server"] = capo_gamelift.types.game_server.deserialize_cbor(
+            data["GameServer"]
+        )
+    return out
+
+
 def redact_sensitive(value: DescribeGameServerOutput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "game_server" in value:

@@ -64,3 +64,46 @@ def deserialize_aws_json_1_1(
             "",
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateCertificateAuthorityAuditReportRequest) -> dict:
+    out: dict = {}
+    out["CertificateAuthorityArn"] = value["certificate_authority_arn"]
+    out["S3BucketName"] = value["s3_bucket_name"]
+    import capo_acm_pca.types.audit_report_response_format
+
+    out["AuditReportResponseFormat"] = (
+        capo_acm_pca.types.audit_report_response_format.serialize_cbor(
+            value["audit_report_response_format"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateCertificateAuthorityAuditReportRequest:
+    out: CreateCertificateAuthorityAuditReportRequest = {}  # type: ignore[typeddict-item]
+    if data.get("CertificateAuthorityArn") is not None:
+        out["certificate_authority_arn"] = data["CertificateAuthorityArn"]
+    else:
+        out["certificate_authority_arn"] = ""
+    if data.get("S3BucketName") is not None:
+        out["s3_bucket_name"] = data["S3BucketName"]
+    else:
+        out["s3_bucket_name"] = ""
+    if data.get("AuditReportResponseFormat") is not None:
+        import capo_acm_pca.types.audit_report_response_format
+
+        out["audit_report_response_format"] = (
+            capo_acm_pca.types.audit_report_response_format.deserialize_cbor(
+                data["AuditReportResponseFormat"]
+            )
+        )
+    else:
+        import typing
+
+        out["audit_report_response_format"] = typing.cast(
+            "capo_acm_pca.types.audit_report_response_format.AuditReportResponseFormat",
+            "",
+        )
+    return out

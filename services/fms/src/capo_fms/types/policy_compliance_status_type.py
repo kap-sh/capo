@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: PolicyComplianceStatusType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> PolicyComplianceStatusType:
     return cast(PolicyComplianceStatusType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PolicyComplianceStatusType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> PolicyComplianceStatusType:
+    return cast(PolicyComplianceStatusType, data)

@@ -44,3 +44,30 @@ def deserialize_aws_json_1_1(data: dict) -> RelativeTimeRange:
     if data.get("Last") is not None:
         out["last"] = data["Last"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RelativeTimeRange) -> dict:
+    out: dict = {}
+    if "start_percentage" in value:
+        out["StartPercentage"] = value["start_percentage"]
+    if "end_percentage" in value:
+        out["EndPercentage"] = value["end_percentage"]
+    if "first" in value:
+        out["First"] = value["first"]
+    if "last" in value:
+        out["Last"] = value["last"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RelativeTimeRange:
+    out: RelativeTimeRange = {}  # type: ignore[typeddict-item]
+    if data.get("StartPercentage") is not None:
+        out["start_percentage"] = data["StartPercentage"]
+    if data.get("EndPercentage") is not None:
+        out["end_percentage"] = data["EndPercentage"]
+    if data.get("First") is not None:
+        out["first"] = data["First"]
+    if data.get("Last") is not None:
+        out["last"] = data["Last"]
+    return out

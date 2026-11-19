@@ -29,3 +29,19 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteVirtualInterfaceRequest:
     else:
         out["virtual_interface_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteVirtualInterfaceRequest) -> dict:
+    out: dict = {}
+    out["virtualInterfaceId"] = value["virtual_interface_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteVirtualInterfaceRequest:
+    out: DeleteVirtualInterfaceRequest = {}  # type: ignore[typeddict-item]
+    if data.get("virtualInterfaceId") is not None:
+        out["virtual_interface_id"] = data["virtualInterfaceId"]
+    else:
+        out["virtual_interface_id"] = ""
+    return out

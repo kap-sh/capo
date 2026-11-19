@@ -25,3 +25,12 @@ def serialize_aws_json_1_0(value: IdleRecommendationResourceType) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> IdleRecommendationResourceType:
     return cast(IdleRecommendationResourceType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IdleRecommendationResourceType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> IdleRecommendationResourceType:
+    return cast(IdleRecommendationResourceType, data)

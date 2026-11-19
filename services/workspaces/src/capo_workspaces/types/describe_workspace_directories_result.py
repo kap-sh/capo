@@ -45,3 +45,30 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeWorkspaceDirectoriesResult:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeWorkspaceDirectoriesResult) -> dict:
+    out: dict = {}
+    if "directories" in value:
+        import capo_workspaces.types.directory_list
+
+        out["Directories"] = capo_workspaces.types.directory_list.serialize_cbor(
+            value["directories"]
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeWorkspaceDirectoriesResult:
+    out: DescribeWorkspaceDirectoriesResult = {}  # type: ignore[typeddict-item]
+    if data.get("Directories") is not None:
+        import capo_workspaces.types.directory_list
+
+        out["directories"] = capo_workspaces.types.directory_list.deserialize_cbor(
+            data["Directories"]
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

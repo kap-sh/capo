@@ -61,3 +61,41 @@ def deserialize_aws_json_1_0(data: dict) -> AutoScalingSettings:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AutoScalingSettings) -> dict:
+    out: dict = {}
+    out["autoScalingDisabled"] = value.get("auto_scaling_disabled", False)
+    if "minimum_units" in value:
+        out["minimumUnits"] = value["minimum_units"]
+    if "maximum_units" in value:
+        out["maximumUnits"] = value["maximum_units"]
+    if "scaling_policy" in value:
+        import capo_keyspaces.types.auto_scaling_policy
+
+        out["scalingPolicy"] = capo_keyspaces.types.auto_scaling_policy.serialize_cbor(
+            value["scaling_policy"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AutoScalingSettings:
+    out: AutoScalingSettings = {}  # type: ignore[typeddict-item]
+    if data.get("autoScalingDisabled") is not None:
+        out["auto_scaling_disabled"] = data["autoScalingDisabled"]
+    else:
+        out["auto_scaling_disabled"] = False
+    if data.get("minimumUnits") is not None:
+        out["minimum_units"] = data["minimumUnits"]
+    if data.get("maximumUnits") is not None:
+        out["maximum_units"] = data["maximumUnits"]
+    if data.get("scalingPolicy") is not None:
+        import capo_keyspaces.types.auto_scaling_policy
+
+        out["scaling_policy"] = (
+            capo_keyspaces.types.auto_scaling_policy.deserialize_cbor(
+                data["scalingPolicy"]
+            )
+        )
+    return out

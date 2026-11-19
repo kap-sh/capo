@@ -47,3 +47,30 @@ def deserialize_aws_json_1_1(data: dict) -> CreateUsageReportSubscriptionResult:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateUsageReportSubscriptionResult) -> dict:
+    out: dict = {}
+    if "s3_bucket_name" in value:
+        out["S3BucketName"] = value["s3_bucket_name"]
+    if "schedule" in value:
+        import capo_appstream.types.usage_report_schedule
+
+        out["Schedule"] = capo_appstream.types.usage_report_schedule.serialize_cbor(
+            value["schedule"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateUsageReportSubscriptionResult:
+    out: CreateUsageReportSubscriptionResult = {}  # type: ignore[typeddict-item]
+    if data.get("S3BucketName") is not None:
+        out["s3_bucket_name"] = data["S3BucketName"]
+    if data.get("Schedule") is not None:
+        import capo_appstream.types.usage_report_schedule
+
+        out["schedule"] = capo_appstream.types.usage_report_schedule.deserialize_cbor(
+            data["Schedule"]
+        )
+    return out

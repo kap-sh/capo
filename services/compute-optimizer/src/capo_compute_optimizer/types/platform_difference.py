@@ -19,3 +19,12 @@ def serialize_aws_json_1_0(value: PlatformDifference) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> PlatformDifference:
     return cast(PlatformDifference, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PlatformDifference) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> PlatformDifference:
+    return cast(PlatformDifference, data)

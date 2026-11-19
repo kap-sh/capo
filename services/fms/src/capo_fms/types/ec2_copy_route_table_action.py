@@ -57,3 +57,40 @@ def deserialize_aws_json_1_1(data: dict) -> EC2CopyRouteTableAction:
     else:
         raise DeserializationError("EC2CopyRouteTableAction.route_table_id required")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EC2CopyRouteTableAction) -> dict:
+    out: dict = {}
+    if "description" in value:
+        out["Description"] = value["description"]
+    import capo_fms.types.action_target
+
+    out["VpcId"] = capo_fms.types.action_target.serialize_cbor(value["vpc_id"])
+    import capo_fms.types.action_target
+
+    out["RouteTableId"] = capo_fms.types.action_target.serialize_cbor(
+        value["route_table_id"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> EC2CopyRouteTableAction:
+    out: EC2CopyRouteTableAction = {}  # type: ignore[typeddict-item]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("VpcId") is not None:
+        import capo_fms.types.action_target
+
+        out["vpc_id"] = capo_fms.types.action_target.deserialize_cbor(data["VpcId"])
+    else:
+        raise DeserializationError("EC2CopyRouteTableAction.vpc_id required")
+    if data.get("RouteTableId") is not None:
+        import capo_fms.types.action_target
+
+        out["route_table_id"] = capo_fms.types.action_target.deserialize_cbor(
+            data["RouteTableId"]
+        )
+    else:
+        raise DeserializationError("EC2CopyRouteTableAction.route_table_id required")
+    return out

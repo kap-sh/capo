@@ -75,3 +75,51 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateLocationNfsRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateLocationNfsRequest) -> dict:
+    out: dict = {}
+    out["LocationArn"] = value["location_arn"]
+    if "subdirectory" in value:
+        out["Subdirectory"] = value["subdirectory"]
+    if "server_hostname" in value:
+        out["ServerHostname"] = value["server_hostname"]
+    if "on_prem_config" in value:
+        import capo_datasync.types.on_prem_config
+
+        out["OnPremConfig"] = capo_datasync.types.on_prem_config.serialize_cbor(
+            value["on_prem_config"]
+        )
+    if "mount_options" in value:
+        import capo_datasync.types.nfs_mount_options
+
+        out["MountOptions"] = capo_datasync.types.nfs_mount_options.serialize_cbor(
+            value["mount_options"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateLocationNfsRequest:
+    out: UpdateLocationNfsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("LocationArn") is not None:
+        out["location_arn"] = data["LocationArn"]
+    else:
+        out["location_arn"] = ""
+    if data.get("Subdirectory") is not None:
+        out["subdirectory"] = data["Subdirectory"]
+    if data.get("ServerHostname") is not None:
+        out["server_hostname"] = data["ServerHostname"]
+    if data.get("OnPremConfig") is not None:
+        import capo_datasync.types.on_prem_config
+
+        out["on_prem_config"] = capo_datasync.types.on_prem_config.deserialize_cbor(
+            data["OnPremConfig"]
+        )
+    if data.get("MountOptions") is not None:
+        import capo_datasync.types.nfs_mount_options
+
+        out["mount_options"] = capo_datasync.types.nfs_mount_options.deserialize_cbor(
+            data["MountOptions"]
+        )
+    return out

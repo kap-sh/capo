@@ -37,3 +37,32 @@ def deserialize_aws_json_1_0(data: list) -> RDSDBStorageRecommendationOptions:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RDSDBStorageRecommendationOptions) -> list:
+    import capo_compute_optimizer.types.rdsdb_storage_recommendation_option
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_compute_optimizer.types.rdsdb_storage_recommendation_option.serialize_cbor(
+                item
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> RDSDBStorageRecommendationOptions:
+    import capo_compute_optimizer.types.rdsdb_storage_recommendation_option
+
+    out: RDSDBStorageRecommendationOptions = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_compute_optimizer.types.rdsdb_storage_recommendation_option.deserialize_cbor(
+                item
+            )
+        )
+    return out

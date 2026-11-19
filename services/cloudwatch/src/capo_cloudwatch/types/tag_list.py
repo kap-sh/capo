@@ -70,3 +70,24 @@ def deserialize_aws_json_1_0(data: list) -> TagList:
             continue
         out.append(capo_cloudwatch.types.tag.deserialize_aws_json_1_0(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TagList) -> list:
+    import capo_cloudwatch.types.tag
+
+    out: list = []
+    for item in value:
+        out.append(capo_cloudwatch.types.tag.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> TagList:
+    import capo_cloudwatch.types.tag
+
+    out: TagList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_cloudwatch.types.tag.deserialize_cbor(item))
+    return out

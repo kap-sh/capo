@@ -154,3 +154,60 @@ def deserialize_query(el: Element) -> AlarmMuteRuleSummary:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AlarmMuteRuleSummary) -> dict:
+    out: dict = {}
+    if "alarm_mute_rule_arn" in value:
+        out["AlarmMuteRuleArn"] = value["alarm_mute_rule_arn"]
+    if "expire_date" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["ExpireDate"] = capo_cloudwatch.types.timestamp.serialize_cbor(
+            value["expire_date"]
+        )
+    if "status" in value:
+        import capo_cloudwatch.types.alarm_mute_rule_status
+
+        out["Status"] = capo_cloudwatch.types.alarm_mute_rule_status.serialize_cbor(
+            value["status"]
+        )
+    if "mute_type" in value:
+        out["MuteType"] = value["mute_type"]
+    if "last_updated_timestamp" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["LastUpdatedTimestamp"] = capo_cloudwatch.types.timestamp.serialize_cbor(
+            value["last_updated_timestamp"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AlarmMuteRuleSummary:
+    out: AlarmMuteRuleSummary = {}  # type: ignore[typeddict-item]
+    if data.get("AlarmMuteRuleArn") is not None:
+        out["alarm_mute_rule_arn"] = data["AlarmMuteRuleArn"]
+    if data.get("ExpireDate") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["expire_date"] = capo_cloudwatch.types.timestamp.deserialize_cbor(
+            data["ExpireDate"]
+        )
+    if data.get("Status") is not None:
+        import capo_cloudwatch.types.alarm_mute_rule_status
+
+        out["status"] = capo_cloudwatch.types.alarm_mute_rule_status.deserialize_cbor(
+            data["Status"]
+        )
+    if data.get("MuteType") is not None:
+        out["mute_type"] = data["MuteType"]
+    if data.get("LastUpdatedTimestamp") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["last_updated_timestamp"] = (
+            capo_cloudwatch.types.timestamp.deserialize_cbor(
+                data["LastUpdatedTimestamp"]
+            )
+        )
+    return out

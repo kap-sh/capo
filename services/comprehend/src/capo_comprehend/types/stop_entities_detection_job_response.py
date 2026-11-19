@@ -41,3 +41,30 @@ def deserialize_aws_json_1_1(data: dict) -> StopEntitiesDetectionJobResponse:
             data["JobStatus"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StopEntitiesDetectionJobResponse) -> dict:
+    out: dict = {}
+    if "job_id" in value:
+        out["JobId"] = value["job_id"]
+    if "job_status" in value:
+        import capo_comprehend.types.job_status
+
+        out["JobStatus"] = capo_comprehend.types.job_status.serialize_cbor(
+            value["job_status"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StopEntitiesDetectionJobResponse:
+    out: StopEntitiesDetectionJobResponse = {}  # type: ignore[typeddict-item]
+    if data.get("JobId") is not None:
+        out["job_id"] = data["JobId"]
+    if data.get("JobStatus") is not None:
+        import capo_comprehend.types.job_status
+
+        out["job_status"] = capo_comprehend.types.job_status.deserialize_cbor(
+            data["JobStatus"]
+        )
+    return out

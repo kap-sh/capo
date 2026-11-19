@@ -70,3 +70,49 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateSyncBlockerInput:
     else:
         out["resolved_reason"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateSyncBlockerInput) -> dict:
+    out: dict = {}
+    out["Id"] = value["id"]
+    import capo_codeconnections.types.sync_configuration_type
+
+    out["SyncType"] = capo_codeconnections.types.sync_configuration_type.serialize_cbor(
+        value["sync_type"]
+    )
+    out["ResourceName"] = value["resource_name"]
+    out["ResolvedReason"] = value["resolved_reason"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateSyncBlockerInput:
+    out: UpdateSyncBlockerInput = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    else:
+        out["id"] = ""
+    if data.get("SyncType") is not None:
+        import capo_codeconnections.types.sync_configuration_type
+
+        out["sync_type"] = (
+            capo_codeconnections.types.sync_configuration_type.deserialize_cbor(
+                data["SyncType"]
+            )
+        )
+    else:
+        import typing
+
+        out["sync_type"] = typing.cast(
+            "capo_codeconnections.types.sync_configuration_type.SyncConfigurationType",
+            "",
+        )
+    if data.get("ResourceName") is not None:
+        out["resource_name"] = data["ResourceName"]
+    else:
+        out["resource_name"] = ""
+    if data.get("ResolvedReason") is not None:
+        out["resolved_reason"] = data["ResolvedReason"]
+    else:
+        out["resolved_reason"] = ""
+    return out

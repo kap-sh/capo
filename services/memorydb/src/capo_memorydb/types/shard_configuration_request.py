@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> ShardConfigurationRequest:
     else:
         out["shard_count"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ShardConfigurationRequest) -> dict:
+    out: dict = {}
+    out["ShardCount"] = value.get("shard_count", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> ShardConfigurationRequest:
+    out: ShardConfigurationRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ShardCount") is not None:
+        out["shard_count"] = data["ShardCount"]
+    else:
+        out["shard_count"] = 0
+    return out

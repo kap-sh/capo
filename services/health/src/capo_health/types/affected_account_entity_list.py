@@ -29,3 +29,24 @@ def deserialize_aws_json_1_1(data: list) -> AffectedAccountEntityList:
             continue
         out.append(capo_health.types.account_entity.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AffectedAccountEntityList) -> list:
+    import capo_health.types.account_entity
+
+    out: list = []
+    for item in value:
+        out.append(capo_health.types.account_entity.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> AffectedAccountEntityList:
+    import capo_health.types.account_entity
+
+    out: AffectedAccountEntityList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_health.types.account_entity.deserialize_cbor(item))
+    return out

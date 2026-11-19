@@ -28,3 +28,18 @@ def deserialize_aws_json_1_1(data: dict) -> ImageSoftwareMetadata:
     if data.get("nvidiaGridDriverVersion") is not None:
         out["nvidia_grid_driver_version"] = data["nvidiaGridDriverVersion"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ImageSoftwareMetadata) -> dict:
+    out: dict = {}
+    if "nvidia_grid_driver_version" in value:
+        out["nvidiaGridDriverVersion"] = value["nvidia_grid_driver_version"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ImageSoftwareMetadata:
+    out: ImageSoftwareMetadata = {}  # type: ignore[typeddict-item]
+    if data.get("nvidiaGridDriverVersion") is not None:
+        out["nvidia_grid_driver_version"] = data["nvidiaGridDriverVersion"]
+    return out

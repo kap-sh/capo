@@ -57,3 +57,38 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeTrustsRequest:
     if data.get("Limit") is not None:
         out["limit"] = data["Limit"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeTrustsRequest) -> dict:
+    out: dict = {}
+    if "directory_id" in value:
+        out["DirectoryId"] = value["directory_id"]
+    if "trust_ids" in value:
+        import capo_directory_service.types.trust_ids
+
+        out["TrustIds"] = capo_directory_service.types.trust_ids.serialize_cbor(
+            value["trust_ids"]
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "limit" in value:
+        out["Limit"] = value["limit"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeTrustsRequest:
+    out: DescribeTrustsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    if data.get("TrustIds") is not None:
+        import capo_directory_service.types.trust_ids
+
+        out["trust_ids"] = capo_directory_service.types.trust_ids.deserialize_cbor(
+            data["TrustIds"]
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("Limit") is not None:
+        out["limit"] = data["Limit"]
+    return out

@@ -28,3 +28,18 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteLocationInput:
     if data.get("LocationName") is not None:
         out["location_name"] = data["LocationName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteLocationInput) -> dict:
+    out: dict = {}
+    if "location_name" in value:
+        out["LocationName"] = value["location_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteLocationInput:
+    out: DeleteLocationInput = {}  # type: ignore[typeddict-item]
+    if data.get("LocationName") is not None:
+        out["location_name"] = data["LocationName"]
+    return out

@@ -37,3 +37,32 @@ def deserialize_aws_json_1_1(data: list) -> DocumentClassificationJobPropertiesL
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DocumentClassificationJobPropertiesList) -> list:
+    import capo_comprehend.types.document_classification_job_properties
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_comprehend.types.document_classification_job_properties.serialize_cbor(
+                item
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> DocumentClassificationJobPropertiesList:
+    import capo_comprehend.types.document_classification_job_properties
+
+    out: DocumentClassificationJobPropertiesList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_comprehend.types.document_classification_job_properties.deserialize_cbor(
+                item
+            )
+        )
+    return out

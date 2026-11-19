@@ -46,3 +46,31 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateTagsForDomainRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateTagsForDomainRequest) -> dict:
+    out: dict = {}
+    out["DomainName"] = value["domain_name"]
+    if "tags_to_update" in value:
+        import capo_route_53_domains.types.tag_list
+
+        out["TagsToUpdate"] = capo_route_53_domains.types.tag_list.serialize_cbor(
+            value["tags_to_update"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateTagsForDomainRequest:
+    out: UpdateTagsForDomainRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DomainName") is not None:
+        out["domain_name"] = data["DomainName"]
+    else:
+        out["domain_name"] = ""
+    if data.get("TagsToUpdate") is not None:
+        import capo_route_53_domains.types.tag_list
+
+        out["tags_to_update"] = capo_route_53_domains.types.tag_list.deserialize_cbor(
+            data["TagsToUpdate"]
+        )
+    return out

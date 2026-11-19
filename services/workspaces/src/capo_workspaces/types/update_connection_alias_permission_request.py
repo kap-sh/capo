@@ -53,3 +53,38 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateConnectionAliasPermissionReque
             "UpdateConnectionAliasPermissionRequest.connection_alias_permission required"
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateConnectionAliasPermissionRequest) -> dict:
+    out: dict = {}
+    out["AliasId"] = value["alias_id"]
+    import capo_workspaces.types.connection_alias_permission
+
+    out["ConnectionAliasPermission"] = (
+        capo_workspaces.types.connection_alias_permission.serialize_cbor(
+            value["connection_alias_permission"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateConnectionAliasPermissionRequest:
+    out: UpdateConnectionAliasPermissionRequest = {}  # type: ignore[typeddict-item]
+    if data.get("AliasId") is not None:
+        out["alias_id"] = data["AliasId"]
+    else:
+        out["alias_id"] = ""
+    if data.get("ConnectionAliasPermission") is not None:
+        import capo_workspaces.types.connection_alias_permission
+
+        out["connection_alias_permission"] = (
+            capo_workspaces.types.connection_alias_permission.deserialize_cbor(
+                data["ConnectionAliasPermission"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "UpdateConnectionAliasPermissionRequest.connection_alias_permission required"
+        )
+    return out

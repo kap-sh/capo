@@ -35,3 +35,26 @@ def deserialize_aws_json_1_0(data: list) -> RepositoryLinkList:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RepositoryLinkList) -> list:
+    import capo_codeconnections.types.repository_link_info
+
+    out: list = []
+    for item in value:
+        out.append(capo_codeconnections.types.repository_link_info.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> RepositoryLinkList:
+    import capo_codeconnections.types.repository_link_info
+
+    out: RepositoryLinkList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_codeconnections.types.repository_link_info.deserialize_cbor(item)
+        )
+    return out

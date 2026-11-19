@@ -16,3 +16,14 @@ def serialize_aws_json_1_1(value: RemoveWorkloadResponse) -> dict:
 def deserialize_aws_json_1_1(data: dict) -> RemoveWorkloadResponse:
     out: RemoveWorkloadResponse = {}  # type: ignore[typeddict-item]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RemoveWorkloadResponse) -> dict:
+    out: dict = {}
+    return out
+
+
+def deserialize_cbor(data: dict) -> RemoveWorkloadResponse:
+    out: RemoveWorkloadResponse = {}  # type: ignore[typeddict-item]
+    return out

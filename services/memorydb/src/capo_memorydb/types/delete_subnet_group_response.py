@@ -34,3 +34,26 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteSubnetGroupResponse:
             data["SubnetGroup"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteSubnetGroupResponse) -> dict:
+    out: dict = {}
+    if "subnet_group" in value:
+        import capo_memorydb.types.subnet_group
+
+        out["SubnetGroup"] = capo_memorydb.types.subnet_group.serialize_cbor(
+            value["subnet_group"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteSubnetGroupResponse:
+    out: DeleteSubnetGroupResponse = {}  # type: ignore[typeddict-item]
+    if data.get("SubnetGroup") is not None:
+        import capo_memorydb.types.subnet_group
+
+        out["subnet_group"] = capo_memorydb.types.subnet_group.deserialize_cbor(
+            data["SubnetGroup"]
+        )
+    return out

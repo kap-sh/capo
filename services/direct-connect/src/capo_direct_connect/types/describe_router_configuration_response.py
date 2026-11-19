@@ -61,3 +61,38 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeRouterConfigurationResponse:
     if data.get("virtualInterfaceName") is not None:
         out["virtual_interface_name"] = data["virtualInterfaceName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeRouterConfigurationResponse) -> dict:
+    out: dict = {}
+    if "customer_router_config" in value:
+        out["customerRouterConfig"] = value["customer_router_config"]
+    if "router" in value:
+        import capo_direct_connect.types.router_type
+
+        out["router"] = capo_direct_connect.types.router_type.serialize_cbor(
+            value["router"]
+        )
+    if "virtual_interface_id" in value:
+        out["virtualInterfaceId"] = value["virtual_interface_id"]
+    if "virtual_interface_name" in value:
+        out["virtualInterfaceName"] = value["virtual_interface_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeRouterConfigurationResponse:
+    out: DescribeRouterConfigurationResponse = {}  # type: ignore[typeddict-item]
+    if data.get("customerRouterConfig") is not None:
+        out["customer_router_config"] = data["customerRouterConfig"]
+    if data.get("router") is not None:
+        import capo_direct_connect.types.router_type
+
+        out["router"] = capo_direct_connect.types.router_type.deserialize_cbor(
+            data["router"]
+        )
+    if data.get("virtualInterfaceId") is not None:
+        out["virtual_interface_id"] = data["virtualInterfaceId"]
+    if data.get("virtualInterfaceName") is not None:
+        out["virtual_interface_name"] = data["virtualInterfaceName"]
+    return out

@@ -66,3 +66,41 @@ def deserialize_aws_json_1_1(data: dict) -> TransitionState:
     if data.get("disabledReason") is not None:
         out["disabled_reason"] = data["disabledReason"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TransitionState) -> dict:
+    out: dict = {}
+    out["enabled"] = value.get("enabled", False)
+    if "last_changed_by" in value:
+        out["lastChangedBy"] = value["last_changed_by"]
+    if "last_changed_at" in value:
+        import capo_codepipeline.types.last_changed_at
+
+        out["lastChangedAt"] = capo_codepipeline.types.last_changed_at.serialize_cbor(
+            value["last_changed_at"]
+        )
+    if "disabled_reason" in value:
+        out["disabledReason"] = value["disabled_reason"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> TransitionState:
+    out: TransitionState = {}  # type: ignore[typeddict-item]
+    if data.get("enabled") is not None:
+        out["enabled"] = data["enabled"]
+    else:
+        out["enabled"] = False
+    if data.get("lastChangedBy") is not None:
+        out["last_changed_by"] = data["lastChangedBy"]
+    if data.get("lastChangedAt") is not None:
+        import capo_codepipeline.types.last_changed_at
+
+        out["last_changed_at"] = (
+            capo_codepipeline.types.last_changed_at.deserialize_cbor(
+                data["lastChangedAt"]
+            )
+        )
+    if data.get("disabledReason") is not None:
+        out["disabled_reason"] = data["disabledReason"]
+    return out

@@ -121,6 +121,7 @@ class CodeConnectionsClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[Interceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_0", "rpcv2Cbor"]
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -137,6 +138,7 @@ class CodeConnectionsClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -152,6 +154,7 @@ class CodeConnectionsClient:
         operation_interceptors: Iterable[Interceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_0", "rpcv2Cbor"] = "awsJson1_0",
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -188,6 +191,7 @@ class CodeConnectionsClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -221,6 +225,9 @@ class CodeConnectionsClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_0")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -265,13 +272,24 @@ class CodeConnectionsClient:
         ) -> OperationResponse[
             "capo_codeconnections.types.create_connection_output.CreateConnectionOutput"
         ]:
-            import capo_codeconnections._operations.code_connections_20231201.create_connection
+            if req.options.protocol == "awsJson1_0":
+                import capo_codeconnections._operations.code_connections_20231201.aws_json1_0.create_connection
 
-            output, http_response = (
-                capo_codeconnections._operations.code_connections_20231201.create_connection.create_connection(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.aws_json1_0.create_connection.create_connection(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.create_connection
+
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.create_connection.create_connection(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -326,13 +344,24 @@ class CodeConnectionsClient:
         ) -> OperationResponse[
             "capo_codeconnections.types.create_host_output.CreateHostOutput"
         ]:
-            import capo_codeconnections._operations.code_connections_20231201.create_host
+            if req.options.protocol == "awsJson1_0":
+                import capo_codeconnections._operations.code_connections_20231201.aws_json1_0.create_host
 
-            output, http_response = (
-                capo_codeconnections._operations.code_connections_20231201.create_host.create_host(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.aws_json1_0.create_host.create_host(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.create_host
+
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.create_host.create_host(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -393,13 +422,24 @@ class CodeConnectionsClient:
         ) -> OperationResponse[
             "capo_codeconnections.types.create_repository_link_output.CreateRepositoryLinkOutput"
         ]:
-            import capo_codeconnections._operations.code_connections_20231201.create_repository_link
+            if req.options.protocol == "awsJson1_0":
+                import capo_codeconnections._operations.code_connections_20231201.aws_json1_0.create_repository_link
 
-            output, http_response = (
-                capo_codeconnections._operations.code_connections_20231201.create_repository_link.create_repository_link(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.aws_json1_0.create_repository_link.create_repository_link(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.create_repository_link
+
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.create_repository_link.create_repository_link(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -472,13 +512,24 @@ class CodeConnectionsClient:
         ) -> OperationResponse[
             "capo_codeconnections.types.create_sync_configuration_output.CreateSyncConfigurationOutput"
         ]:
-            import capo_codeconnections._operations.code_connections_20231201.create_sync_configuration
+            if req.options.protocol == "awsJson1_0":
+                import capo_codeconnections._operations.code_connections_20231201.aws_json1_0.create_sync_configuration
 
-            output, http_response = (
-                capo_codeconnections._operations.code_connections_20231201.create_sync_configuration.create_sync_configuration(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.aws_json1_0.create_sync_configuration.create_sync_configuration(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.create_sync_configuration
+
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.create_sync_configuration.create_sync_configuration(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -528,13 +579,24 @@ class CodeConnectionsClient:
         ) -> OperationResponse[
             "capo_codeconnections.types.delete_connection_output.DeleteConnectionOutput"
         ]:
-            import capo_codeconnections._operations.code_connections_20231201.delete_connection
+            if req.options.protocol == "awsJson1_0":
+                import capo_codeconnections._operations.code_connections_20231201.aws_json1_0.delete_connection
 
-            output, http_response = (
-                capo_codeconnections._operations.code_connections_20231201.delete_connection.delete_connection(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.aws_json1_0.delete_connection.delete_connection(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.delete_connection
+
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.delete_connection.delete_connection(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -574,13 +636,24 @@ class CodeConnectionsClient:
         ) -> OperationResponse[
             "capo_codeconnections.types.delete_host_output.DeleteHostOutput"
         ]:
-            import capo_codeconnections._operations.code_connections_20231201.delete_host
+            if req.options.protocol == "awsJson1_0":
+                import capo_codeconnections._operations.code_connections_20231201.aws_json1_0.delete_host
 
-            output, http_response = (
-                capo_codeconnections._operations.code_connections_20231201.delete_host.delete_host(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.aws_json1_0.delete_host.delete_host(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.delete_host
+
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.delete_host.delete_host(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -626,13 +699,24 @@ class CodeConnectionsClient:
         ) -> OperationResponse[
             "capo_codeconnections.types.delete_repository_link_output.DeleteRepositoryLinkOutput"
         ]:
-            import capo_codeconnections._operations.code_connections_20231201.delete_repository_link
+            if req.options.protocol == "awsJson1_0":
+                import capo_codeconnections._operations.code_connections_20231201.aws_json1_0.delete_repository_link
 
-            output, http_response = (
-                capo_codeconnections._operations.code_connections_20231201.delete_repository_link.delete_repository_link(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.aws_json1_0.delete_repository_link.delete_repository_link(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.delete_repository_link
+
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.delete_repository_link.delete_repository_link(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -678,13 +762,24 @@ class CodeConnectionsClient:
         ) -> OperationResponse[
             "capo_codeconnections.types.delete_sync_configuration_output.DeleteSyncConfigurationOutput"
         ]:
-            import capo_codeconnections._operations.code_connections_20231201.delete_sync_configuration
+            if req.options.protocol == "awsJson1_0":
+                import capo_codeconnections._operations.code_connections_20231201.aws_json1_0.delete_sync_configuration
 
-            output, http_response = (
-                capo_codeconnections._operations.code_connections_20231201.delete_sync_configuration.delete_sync_configuration(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.aws_json1_0.delete_sync_configuration.delete_sync_configuration(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.delete_sync_configuration
+
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.delete_sync_configuration.delete_sync_configuration(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -725,13 +820,24 @@ class CodeConnectionsClient:
         ) -> OperationResponse[
             "capo_codeconnections.types.get_connection_output.GetConnectionOutput"
         ]:
-            import capo_codeconnections._operations.code_connections_20231201.get_connection
+            if req.options.protocol == "awsJson1_0":
+                import capo_codeconnections._operations.code_connections_20231201.aws_json1_0.get_connection
 
-            output, http_response = (
-                capo_codeconnections._operations.code_connections_20231201.get_connection.get_connection(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.aws_json1_0.get_connection.get_connection(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.get_connection
+
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.get_connection.get_connection(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -771,13 +877,24 @@ class CodeConnectionsClient:
         ) -> OperationResponse[
             "capo_codeconnections.types.get_host_output.GetHostOutput"
         ]:
-            import capo_codeconnections._operations.code_connections_20231201.get_host
+            if req.options.protocol == "awsJson1_0":
+                import capo_codeconnections._operations.code_connections_20231201.aws_json1_0.get_host
 
-            output, http_response = (
-                capo_codeconnections._operations.code_connections_20231201.get_host.get_host(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.aws_json1_0.get_host.get_host(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.get_host
+
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.get_host.get_host(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -823,13 +940,24 @@ class CodeConnectionsClient:
         ) -> OperationResponse[
             "capo_codeconnections.types.get_repository_link_output.GetRepositoryLinkOutput"
         ]:
-            import capo_codeconnections._operations.code_connections_20231201.get_repository_link
+            if req.options.protocol == "awsJson1_0":
+                import capo_codeconnections._operations.code_connections_20231201.aws_json1_0.get_repository_link
 
-            output, http_response = (
-                capo_codeconnections._operations.code_connections_20231201.get_repository_link.get_repository_link(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.aws_json1_0.get_repository_link.get_repository_link(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.get_repository_link
+
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.get_repository_link.get_repository_link(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -876,13 +1004,24 @@ class CodeConnectionsClient:
         ) -> OperationResponse[
             "capo_codeconnections.types.get_repository_sync_status_output.GetRepositorySyncStatusOutput"
         ]:
-            import capo_codeconnections._operations.code_connections_20231201.get_repository_sync_status
+            if req.options.protocol == "awsJson1_0":
+                import capo_codeconnections._operations.code_connections_20231201.aws_json1_0.get_repository_sync_status
 
-            output, http_response = (
-                capo_codeconnections._operations.code_connections_20231201.get_repository_sync_status.get_repository_sync_status(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.aws_json1_0.get_repository_sync_status.get_repository_sync_status(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.get_repository_sync_status
+
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.get_repository_sync_status.get_repository_sync_status(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -929,13 +1068,24 @@ class CodeConnectionsClient:
         ) -> OperationResponse[
             "capo_codeconnections.types.get_resource_sync_status_output.GetResourceSyncStatusOutput"
         ]:
-            import capo_codeconnections._operations.code_connections_20231201.get_resource_sync_status
+            if req.options.protocol == "awsJson1_0":
+                import capo_codeconnections._operations.code_connections_20231201.aws_json1_0.get_resource_sync_status
 
-            output, http_response = (
-                capo_codeconnections._operations.code_connections_20231201.get_resource_sync_status.get_resource_sync_status(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.aws_json1_0.get_resource_sync_status.get_resource_sync_status(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.get_resource_sync_status
+
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.get_resource_sync_status.get_resource_sync_status(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -981,13 +1131,24 @@ class CodeConnectionsClient:
         ) -> OperationResponse[
             "capo_codeconnections.types.get_sync_blocker_summary_output.GetSyncBlockerSummaryOutput"
         ]:
-            import capo_codeconnections._operations.code_connections_20231201.get_sync_blocker_summary
+            if req.options.protocol == "awsJson1_0":
+                import capo_codeconnections._operations.code_connections_20231201.aws_json1_0.get_sync_blocker_summary
 
-            output, http_response = (
-                capo_codeconnections._operations.code_connections_20231201.get_sync_blocker_summary.get_sync_blocker_summary(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.aws_json1_0.get_sync_blocker_summary.get_sync_blocker_summary(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.get_sync_blocker_summary
+
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.get_sync_blocker_summary.get_sync_blocker_summary(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1033,13 +1194,24 @@ class CodeConnectionsClient:
         ) -> OperationResponse[
             "capo_codeconnections.types.get_sync_configuration_output.GetSyncConfigurationOutput"
         ]:
-            import capo_codeconnections._operations.code_connections_20231201.get_sync_configuration
+            if req.options.protocol == "awsJson1_0":
+                import capo_codeconnections._operations.code_connections_20231201.aws_json1_0.get_sync_configuration
 
-            output, http_response = (
-                capo_codeconnections._operations.code_connections_20231201.get_sync_configuration.get_sync_configuration(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.aws_json1_0.get_sync_configuration.get_sync_configuration(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.get_sync_configuration
+
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.get_sync_configuration.get_sync_configuration(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1089,13 +1261,24 @@ class CodeConnectionsClient:
         ) -> OperationResponse[
             "capo_codeconnections.types.list_connections_output.ListConnectionsOutput"
         ]:
-            import capo_codeconnections._operations.code_connections_20231201.list_connections
+            if req.options.protocol == "awsJson1_0":
+                import capo_codeconnections._operations.code_connections_20231201.aws_json1_0.list_connections
 
-            output, http_response = (
-                capo_codeconnections._operations.code_connections_20231201.list_connections.list_connections(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.aws_json1_0.list_connections.list_connections(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.list_connections
+
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.list_connections.list_connections(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1170,13 +1353,24 @@ class CodeConnectionsClient:
         ) -> OperationResponse[
             "capo_codeconnections.types.list_hosts_output.ListHostsOutput"
         ]:
-            import capo_codeconnections._operations.code_connections_20231201.list_hosts
+            if req.options.protocol == "awsJson1_0":
+                import capo_codeconnections._operations.code_connections_20231201.aws_json1_0.list_hosts
 
-            output, http_response = (
-                capo_codeconnections._operations.code_connections_20231201.list_hosts.list_hosts(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.aws_json1_0.list_hosts.list_hosts(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.list_hosts
+
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.list_hosts.list_hosts(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1249,13 +1443,24 @@ class CodeConnectionsClient:
         ) -> OperationResponse[
             "capo_codeconnections.types.list_repository_links_output.ListRepositoryLinksOutput"
         ]:
-            import capo_codeconnections._operations.code_connections_20231201.list_repository_links
+            if req.options.protocol == "awsJson1_0":
+                import capo_codeconnections._operations.code_connections_20231201.aws_json1_0.list_repository_links
 
-            output, http_response = (
-                capo_codeconnections._operations.code_connections_20231201.list_repository_links.list_repository_links(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.aws_json1_0.list_repository_links.list_repository_links(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.list_repository_links
+
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.list_repository_links.list_repository_links(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1325,13 +1530,24 @@ class CodeConnectionsClient:
         ) -> OperationResponse[
             "capo_codeconnections.types.list_repository_sync_definitions_output.ListRepositorySyncDefinitionsOutput"
         ]:
-            import capo_codeconnections._operations.code_connections_20231201.list_repository_sync_definitions
+            if req.options.protocol == "awsJson1_0":
+                import capo_codeconnections._operations.code_connections_20231201.aws_json1_0.list_repository_sync_definitions
 
-            output, http_response = (
-                capo_codeconnections._operations.code_connections_20231201.list_repository_sync_definitions.list_repository_sync_definitions(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.aws_json1_0.list_repository_sync_definitions.list_repository_sync_definitions(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.list_repository_sync_definitions
+
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.list_repository_sync_definitions.list_repository_sync_definitions(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1385,13 +1601,24 @@ class CodeConnectionsClient:
         ) -> OperationResponse[
             "capo_codeconnections.types.list_sync_configurations_output.ListSyncConfigurationsOutput"
         ]:
-            import capo_codeconnections._operations.code_connections_20231201.list_sync_configurations
+            if req.options.protocol == "awsJson1_0":
+                import capo_codeconnections._operations.code_connections_20231201.aws_json1_0.list_sync_configurations
 
-            output, http_response = (
-                capo_codeconnections._operations.code_connections_20231201.list_sync_configurations.list_sync_configurations(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.aws_json1_0.list_sync_configurations.list_sync_configurations(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.list_sync_configurations
+
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.list_sync_configurations.list_sync_configurations(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1462,13 +1689,24 @@ class CodeConnectionsClient:
         ) -> OperationResponse[
             "capo_codeconnections.types.list_tags_for_resource_output.ListTagsForResourceOutput"
         ]:
-            import capo_codeconnections._operations.code_connections_20231201.list_tags_for_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_codeconnections._operations.code_connections_20231201.aws_json1_0.list_tags_for_resource
 
-            output, http_response = (
-                capo_codeconnections._operations.code_connections_20231201.list_tags_for_resource.list_tags_for_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.aws_json1_0.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.list_tags_for_resource
+
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1510,13 +1748,24 @@ class CodeConnectionsClient:
         ) -> OperationResponse[
             "capo_codeconnections.types.tag_resource_output.TagResourceOutput"
         ]:
-            import capo_codeconnections._operations.code_connections_20231201.tag_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_codeconnections._operations.code_connections_20231201.aws_json1_0.tag_resource
 
-            output, http_response = (
-                capo_codeconnections._operations.code_connections_20231201.tag_resource.tag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.aws_json1_0.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.tag_resource
+
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1558,13 +1807,24 @@ class CodeConnectionsClient:
         ) -> OperationResponse[
             "capo_codeconnections.types.untag_resource_output.UntagResourceOutput"
         ]:
-            import capo_codeconnections._operations.code_connections_20231201.untag_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_codeconnections._operations.code_connections_20231201.aws_json1_0.untag_resource
 
-            output, http_response = (
-                capo_codeconnections._operations.code_connections_20231201.untag_resource.untag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.aws_json1_0.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.untag_resource
+
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1613,13 +1873,24 @@ class CodeConnectionsClient:
         ) -> OperationResponse[
             "capo_codeconnections.types.update_host_output.UpdateHostOutput"
         ]:
-            import capo_codeconnections._operations.code_connections_20231201.update_host
+            if req.options.protocol == "awsJson1_0":
+                import capo_codeconnections._operations.code_connections_20231201.aws_json1_0.update_host
 
-            output, http_response = (
-                capo_codeconnections._operations.code_connections_20231201.update_host.update_host(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.aws_json1_0.update_host.update_host(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.update_host
+
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.update_host.update_host(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1676,13 +1947,24 @@ class CodeConnectionsClient:
         ) -> OperationResponse[
             "capo_codeconnections.types.update_repository_link_output.UpdateRepositoryLinkOutput"
         ]:
-            import capo_codeconnections._operations.code_connections_20231201.update_repository_link
+            if req.options.protocol == "awsJson1_0":
+                import capo_codeconnections._operations.code_connections_20231201.aws_json1_0.update_repository_link
 
-            output, http_response = (
-                capo_codeconnections._operations.code_connections_20231201.update_repository_link.update_repository_link(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.aws_json1_0.update_repository_link.update_repository_link(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.update_repository_link
+
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.update_repository_link.update_repository_link(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1739,13 +2021,24 @@ class CodeConnectionsClient:
         ) -> OperationResponse[
             "capo_codeconnections.types.update_sync_blocker_output.UpdateSyncBlockerOutput"
         ]:
-            import capo_codeconnections._operations.code_connections_20231201.update_sync_blocker
+            if req.options.protocol == "awsJson1_0":
+                import capo_codeconnections._operations.code_connections_20231201.aws_json1_0.update_sync_blocker
 
-            output, http_response = (
-                capo_codeconnections._operations.code_connections_20231201.update_sync_blocker.update_sync_blocker(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.aws_json1_0.update_sync_blocker.update_sync_blocker(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.update_sync_blocker
+
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.update_sync_blocker.update_sync_blocker(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1819,13 +2112,24 @@ class CodeConnectionsClient:
         ) -> OperationResponse[
             "capo_codeconnections.types.update_sync_configuration_output.UpdateSyncConfigurationOutput"
         ]:
-            import capo_codeconnections._operations.code_connections_20231201.update_sync_configuration
+            if req.options.protocol == "awsJson1_0":
+                import capo_codeconnections._operations.code_connections_20231201.aws_json1_0.update_sync_configuration
 
-            output, http_response = (
-                capo_codeconnections._operations.code_connections_20231201.update_sync_configuration.update_sync_configuration(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.aws_json1_0.update_sync_configuration.update_sync_configuration(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.update_sync_configuration
+
+                output, http_response = (
+                    capo_codeconnections._operations.code_connections_20231201.rpcv2_cbor.update_sync_configuration.update_sync_configuration(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

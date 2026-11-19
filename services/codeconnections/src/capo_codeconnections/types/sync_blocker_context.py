@@ -37,3 +37,24 @@ def deserialize_aws_json_1_0(data: dict) -> SyncBlockerContext:
     else:
         out["value"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SyncBlockerContext) -> dict:
+    out: dict = {}
+    out["Key"] = value["key"]
+    out["Value"] = value["value"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> SyncBlockerContext:
+    out: SyncBlockerContext = {}  # type: ignore[typeddict-item]
+    if data.get("Key") is not None:
+        out["key"] = data["Key"]
+    else:
+        out["key"] = ""
+    if data.get("Value") is not None:
+        out["value"] = data["Value"]
+    else:
+        out["value"] = ""
+    return out

@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: StackErrorCode) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> StackErrorCode:
     return cast(StackErrorCode, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StackErrorCode) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> StackErrorCode:
+    return cast(StackErrorCode, data)

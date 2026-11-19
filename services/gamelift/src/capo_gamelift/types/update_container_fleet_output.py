@@ -40,6 +40,29 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateContainerFleetOutput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateContainerFleetOutput) -> dict:
+    out: dict = {}
+    if "container_fleet" in value:
+        import capo_gamelift.types.container_fleet
+
+        out["ContainerFleet"] = capo_gamelift.types.container_fleet.serialize_cbor(
+            value["container_fleet"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateContainerFleetOutput:
+    out: UpdateContainerFleetOutput = {}  # type: ignore[typeddict-item]
+    if data.get("ContainerFleet") is not None:
+        import capo_gamelift.types.container_fleet
+
+        out["container_fleet"] = capo_gamelift.types.container_fleet.deserialize_cbor(
+            data["ContainerFleet"]
+        )
+    return out
+
+
 def redact_sensitive(value: UpdateContainerFleetOutput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "container_fleet" in value:

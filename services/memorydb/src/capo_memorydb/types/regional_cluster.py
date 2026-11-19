@@ -44,3 +44,30 @@ def deserialize_aws_json_1_1(data: dict) -> RegionalCluster:
     if data.get("ARN") is not None:
         out["arn"] = data["ARN"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RegionalCluster) -> dict:
+    out: dict = {}
+    if "cluster_name" in value:
+        out["ClusterName"] = value["cluster_name"]
+    if "region" in value:
+        out["Region"] = value["region"]
+    if "status" in value:
+        out["Status"] = value["status"]
+    if "arn" in value:
+        out["ARN"] = value["arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RegionalCluster:
+    out: RegionalCluster = {}  # type: ignore[typeddict-item]
+    if data.get("ClusterName") is not None:
+        out["cluster_name"] = data["ClusterName"]
+    if data.get("Region") is not None:
+        out["region"] = data["Region"]
+    if data.get("Status") is not None:
+        out["status"] = data["Status"]
+    if data.get("ARN") is not None:
+        out["arn"] = data["ARN"]
+    return out

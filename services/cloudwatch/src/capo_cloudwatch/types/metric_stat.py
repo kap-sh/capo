@@ -109,3 +109,38 @@ def deserialize_query(el: Element) -> MetricStat:
 
         out["unit"] = capo_cloudwatch.types.standard_unit.deserialize_query(child_unit)
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MetricStat) -> dict:
+    out: dict = {}
+    if "metric" in value:
+        import capo_cloudwatch.types.metric
+
+        out["Metric"] = capo_cloudwatch.types.metric.serialize_cbor(value["metric"])
+    if "period" in value:
+        out["Period"] = value["period"]
+    if "stat" in value:
+        out["Stat"] = value["stat"]
+    if "unit" in value:
+        import capo_cloudwatch.types.standard_unit
+
+        out["Unit"] = capo_cloudwatch.types.standard_unit.serialize_cbor(value["unit"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> MetricStat:
+    out: MetricStat = {}  # type: ignore[typeddict-item]
+    if data.get("Metric") is not None:
+        import capo_cloudwatch.types.metric
+
+        out["metric"] = capo_cloudwatch.types.metric.deserialize_cbor(data["Metric"])
+    if data.get("Period") is not None:
+        out["period"] = data["Period"]
+    if data.get("Stat") is not None:
+        out["stat"] = data["Stat"]
+    if data.get("Unit") is not None:
+        import capo_cloudwatch.types.standard_unit
+
+        out["unit"] = capo_cloudwatch.types.standard_unit.deserialize_cbor(data["Unit"])
+    return out

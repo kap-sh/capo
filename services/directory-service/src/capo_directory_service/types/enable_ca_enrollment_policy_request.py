@@ -35,3 +35,24 @@ def deserialize_aws_json_1_1(data: dict) -> EnableCAEnrollmentPolicyRequest:
     else:
         out["pca_connector_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EnableCAEnrollmentPolicyRequest) -> dict:
+    out: dict = {}
+    out["DirectoryId"] = value["directory_id"]
+    out["PcaConnectorArn"] = value["pca_connector_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> EnableCAEnrollmentPolicyRequest:
+    out: EnableCAEnrollmentPolicyRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    if data.get("PcaConnectorArn") is not None:
+        out["pca_connector_arn"] = data["PcaConnectorArn"]
+    else:
+        out["pca_connector_arn"] = ""
+    return out

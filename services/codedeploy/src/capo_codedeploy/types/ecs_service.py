@@ -33,3 +33,22 @@ def deserialize_aws_json_1_1(data: dict) -> ECSService:
     if data.get("clusterName") is not None:
         out["cluster_name"] = data["clusterName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ECSService) -> dict:
+    out: dict = {}
+    if "service_name" in value:
+        out["serviceName"] = value["service_name"]
+    if "cluster_name" in value:
+        out["clusterName"] = value["cluster_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ECSService:
+    out: ECSService = {}  # type: ignore[typeddict-item]
+    if data.get("serviceName") is not None:
+        out["service_name"] = data["serviceName"]
+    if data.get("clusterName") is not None:
+        out["cluster_name"] = data["clusterName"]
+    return out

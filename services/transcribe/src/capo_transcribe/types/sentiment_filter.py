@@ -109,3 +109,77 @@ def deserialize_aws_json_1_1(data: dict) -> SentimentFilter:
     if data.get("Negate") is not None:
         out["negate"] = data["Negate"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SentimentFilter) -> dict:
+    out: dict = {}
+    import capo_transcribe.types.sentiment_value_list
+
+    out["Sentiments"] = capo_transcribe.types.sentiment_value_list.serialize_cbor(
+        value["sentiments"]
+    )
+    if "absolute_time_range" in value:
+        import capo_transcribe.types.absolute_time_range
+
+        out["AbsoluteTimeRange"] = (
+            capo_transcribe.types.absolute_time_range.serialize_cbor(
+                value["absolute_time_range"]
+            )
+        )
+    if "relative_time_range" in value:
+        import capo_transcribe.types.relative_time_range
+
+        out["RelativeTimeRange"] = (
+            capo_transcribe.types.relative_time_range.serialize_cbor(
+                value["relative_time_range"]
+            )
+        )
+    if "participant_role" in value:
+        import capo_transcribe.types.participant_role
+
+        out["ParticipantRole"] = capo_transcribe.types.participant_role.serialize_cbor(
+            value["participant_role"]
+        )
+    if "negate" in value:
+        out["Negate"] = value["negate"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> SentimentFilter:
+    out: SentimentFilter = {}  # type: ignore[typeddict-item]
+    if data.get("Sentiments") is not None:
+        import capo_transcribe.types.sentiment_value_list
+
+        out["sentiments"] = capo_transcribe.types.sentiment_value_list.deserialize_cbor(
+            data["Sentiments"]
+        )
+    else:
+        out["sentiments"] = []
+    if data.get("AbsoluteTimeRange") is not None:
+        import capo_transcribe.types.absolute_time_range
+
+        out["absolute_time_range"] = (
+            capo_transcribe.types.absolute_time_range.deserialize_cbor(
+                data["AbsoluteTimeRange"]
+            )
+        )
+    if data.get("RelativeTimeRange") is not None:
+        import capo_transcribe.types.relative_time_range
+
+        out["relative_time_range"] = (
+            capo_transcribe.types.relative_time_range.deserialize_cbor(
+                data["RelativeTimeRange"]
+            )
+        )
+    if data.get("ParticipantRole") is not None:
+        import capo_transcribe.types.participant_role
+
+        out["participant_role"] = (
+            capo_transcribe.types.participant_role.deserialize_cbor(
+                data["ParticipantRole"]
+            )
+        )
+    if data.get("Negate") is not None:
+        out["negate"] = data["Negate"]
+    return out

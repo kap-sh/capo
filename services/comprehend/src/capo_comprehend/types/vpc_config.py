@@ -55,3 +55,38 @@ def deserialize_aws_json_1_1(data: dict) -> VpcConfig:
     else:
         out["subnets"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: VpcConfig) -> dict:
+    out: dict = {}
+    import capo_comprehend.types.security_group_ids
+
+    out["SecurityGroupIds"] = capo_comprehend.types.security_group_ids.serialize_cbor(
+        value["security_group_ids"]
+    )
+    import capo_comprehend.types.subnets
+
+    out["Subnets"] = capo_comprehend.types.subnets.serialize_cbor(value["subnets"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> VpcConfig:
+    out: VpcConfig = {}  # type: ignore[typeddict-item]
+    if data.get("SecurityGroupIds") is not None:
+        import capo_comprehend.types.security_group_ids
+
+        out["security_group_ids"] = (
+            capo_comprehend.types.security_group_ids.deserialize_cbor(
+                data["SecurityGroupIds"]
+            )
+        )
+    else:
+        out["security_group_ids"] = []
+    if data.get("Subnets") is not None:
+        import capo_comprehend.types.subnets
+
+        out["subnets"] = capo_comprehend.types.subnets.deserialize_cbor(data["Subnets"])
+    else:
+        out["subnets"] = []
+    return out

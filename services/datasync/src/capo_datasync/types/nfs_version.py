@@ -18,3 +18,12 @@ def serialize_aws_json_1_1(value: NfsVersion) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> NfsVersion:
     return cast(NfsVersion, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: NfsVersion) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> NfsVersion:
+    return cast(NfsVersion, data)

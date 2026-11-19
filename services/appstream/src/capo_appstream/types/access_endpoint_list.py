@@ -29,3 +29,24 @@ def deserialize_aws_json_1_1(data: list) -> AccessEndpointList:
             continue
         out.append(capo_appstream.types.access_endpoint.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AccessEndpointList) -> list:
+    import capo_appstream.types.access_endpoint
+
+    out: list = []
+    for item in value:
+        out.append(capo_appstream.types.access_endpoint.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> AccessEndpointList:
+    import capo_appstream.types.access_endpoint
+
+    out: AccessEndpointList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_appstream.types.access_endpoint.deserialize_cbor(item))
+    return out

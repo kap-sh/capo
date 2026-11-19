@@ -37,3 +37,27 @@ def deserialize_aws_json_1_0(data: dict) -> PublishMetricAction:
     else:
         out["dimensions"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PublishMetricAction) -> dict:
+    out: dict = {}
+    import capo_network_firewall.types.dimensions
+
+    out["Dimensions"] = capo_network_firewall.types.dimensions.serialize_cbor(
+        value["dimensions"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PublishMetricAction:
+    out: PublishMetricAction = {}  # type: ignore[typeddict-item]
+    if data.get("Dimensions") is not None:
+        import capo_network_firewall.types.dimensions
+
+        out["dimensions"] = capo_network_firewall.types.dimensions.deserialize_cbor(
+            data["Dimensions"]
+        )
+    else:
+        out["dimensions"] = []
+    return out

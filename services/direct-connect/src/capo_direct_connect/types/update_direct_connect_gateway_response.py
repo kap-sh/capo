@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDirectConnectGatewayResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateDirectConnectGatewayResponse) -> dict:
+    out: dict = {}
+    if "direct_connect_gateway" in value:
+        import capo_direct_connect.types.direct_connect_gateway
+
+        out["directConnectGateway"] = (
+            capo_direct_connect.types.direct_connect_gateway.serialize_cbor(
+                value["direct_connect_gateway"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateDirectConnectGatewayResponse:
+    out: UpdateDirectConnectGatewayResponse = {}  # type: ignore[typeddict-item]
+    if data.get("directConnectGateway") is not None:
+        import capo_direct_connect.types.direct_connect_gateway
+
+        out["direct_connect_gateway"] = (
+            capo_direct_connect.types.direct_connect_gateway.deserialize_cbor(
+                data["directConnectGateway"]
+            )
+        )
+    return out

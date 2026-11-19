@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> RebootRequest:
     else:
         out["workspace_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RebootRequest) -> dict:
+    out: dict = {}
+    out["WorkspaceId"] = value["workspace_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RebootRequest:
+    out: RebootRequest = {}  # type: ignore[typeddict-item]
+    if data.get("WorkspaceId") is not None:
+        out["workspace_id"] = data["WorkspaceId"]
+    else:
+        out["workspace_id"] = ""
+    return out

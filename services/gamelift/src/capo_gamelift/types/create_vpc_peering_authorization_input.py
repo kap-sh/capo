@@ -36,3 +36,22 @@ def deserialize_aws_json_1_1(data: dict) -> CreateVpcPeeringAuthorizationInput:
     if data.get("PeerVpcId") is not None:
         out["peer_vpc_id"] = data["PeerVpcId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateVpcPeeringAuthorizationInput) -> dict:
+    out: dict = {}
+    if "game_lift_aws_account_id" in value:
+        out["GameLiftAwsAccountId"] = value["game_lift_aws_account_id"]
+    if "peer_vpc_id" in value:
+        out["PeerVpcId"] = value["peer_vpc_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateVpcPeeringAuthorizationInput:
+    out: CreateVpcPeeringAuthorizationInput = {}  # type: ignore[typeddict-item]
+    if data.get("GameLiftAwsAccountId") is not None:
+        out["game_lift_aws_account_id"] = data["GameLiftAwsAccountId"]
+    if data.get("PeerVpcId") is not None:
+        out["peer_vpc_id"] = data["PeerVpcId"]
+    return out

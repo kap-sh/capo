@@ -131,3 +131,88 @@ def deserialize_aws_json_1_1(data: dict) -> IssueCertificateRequest:
     if data.get("IdempotencyToken") is not None:
         out["idempotency_token"] = data["IdempotencyToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IssueCertificateRequest) -> dict:
+    out: dict = {}
+    if "api_passthrough" in value:
+        import capo_acm_pca.types.api_passthrough
+
+        out["ApiPassthrough"] = capo_acm_pca.types.api_passthrough.serialize_cbor(
+            value["api_passthrough"]
+        )
+    out["CertificateAuthorityArn"] = value["certificate_authority_arn"]
+    import capo_acm_pca.types.csr_blob
+
+    out["Csr"] = capo_acm_pca.types.csr_blob.serialize_cbor(value["csr"])
+    import capo_acm_pca.types.signing_algorithm
+
+    out["SigningAlgorithm"] = capo_acm_pca.types.signing_algorithm.serialize_cbor(
+        value["signing_algorithm"]
+    )
+    if "template_arn" in value:
+        out["TemplateArn"] = value["template_arn"]
+    import capo_acm_pca.types.validity
+
+    out["Validity"] = capo_acm_pca.types.validity.serialize_cbor(value["validity"])
+    if "validity_not_before" in value:
+        import capo_acm_pca.types.validity
+
+        out["ValidityNotBefore"] = capo_acm_pca.types.validity.serialize_cbor(
+            value["validity_not_before"]
+        )
+    if "idempotency_token" in value:
+        out["IdempotencyToken"] = value["idempotency_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> IssueCertificateRequest:
+    out: IssueCertificateRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ApiPassthrough") is not None:
+        import capo_acm_pca.types.api_passthrough
+
+        out["api_passthrough"] = capo_acm_pca.types.api_passthrough.deserialize_cbor(
+            data["ApiPassthrough"]
+        )
+    if data.get("CertificateAuthorityArn") is not None:
+        out["certificate_authority_arn"] = data["CertificateAuthorityArn"]
+    else:
+        out["certificate_authority_arn"] = ""
+    if data.get("Csr") is not None:
+        import capo_acm_pca.types.csr_blob
+
+        out["csr"] = capo_acm_pca.types.csr_blob.deserialize_cbor(data["Csr"])
+    else:
+        out["csr"] = b""
+    if data.get("SigningAlgorithm") is not None:
+        import capo_acm_pca.types.signing_algorithm
+
+        out["signing_algorithm"] = (
+            capo_acm_pca.types.signing_algorithm.deserialize_cbor(
+                data["SigningAlgorithm"]
+            )
+        )
+    else:
+        import typing
+
+        out["signing_algorithm"] = typing.cast(
+            "capo_acm_pca.types.signing_algorithm.SigningAlgorithm", ""
+        )
+    if data.get("TemplateArn") is not None:
+        out["template_arn"] = data["TemplateArn"]
+    if data.get("Validity") is not None:
+        import capo_acm_pca.types.validity
+
+        out["validity"] = capo_acm_pca.types.validity.deserialize_cbor(data["Validity"])
+    else:
+        raise DeserializationError("IssueCertificateRequest.validity required")
+    if data.get("ValidityNotBefore") is not None:
+        import capo_acm_pca.types.validity
+
+        out["validity_not_before"] = capo_acm_pca.types.validity.deserialize_cbor(
+            data["ValidityNotBefore"]
+        )
+    if data.get("IdempotencyToken") is not None:
+        out["idempotency_token"] = data["IdempotencyToken"]
+    return out

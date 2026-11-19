@@ -63,6 +63,49 @@ def deserialize_aws_json_1_1(data: dict) -> DetectToxicContentRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DetectToxicContentRequest) -> dict:
+    out: dict = {}
+    import capo_comprehend.types.list_of_text_segments
+
+    out["TextSegments"] = capo_comprehend.types.list_of_text_segments.serialize_cbor(
+        value["text_segments"]
+    )
+    import capo_comprehend.types.language_code
+
+    out["LanguageCode"] = capo_comprehend.types.language_code.serialize_cbor(
+        value["language_code"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DetectToxicContentRequest:
+    out: DetectToxicContentRequest = {}  # type: ignore[typeddict-item]
+    if data.get("TextSegments") is not None:
+        import capo_comprehend.types.list_of_text_segments
+
+        out["text_segments"] = (
+            capo_comprehend.types.list_of_text_segments.deserialize_cbor(
+                data["TextSegments"]
+            )
+        )
+    else:
+        out["text_segments"] = []
+    if data.get("LanguageCode") is not None:
+        import capo_comprehend.types.language_code
+
+        out["language_code"] = capo_comprehend.types.language_code.deserialize_cbor(
+            data["LanguageCode"]
+        )
+    else:
+        import typing
+
+        out["language_code"] = typing.cast(
+            "capo_comprehend.types.language_code.LanguageCode", ""
+        )
+    return out
+
+
 def redact_sensitive(value: DetectToxicContentRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "text_segments" in value:

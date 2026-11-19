@@ -51,3 +51,31 @@ def deserialize_aws_json_1_0(data: dict) -> PurchaseOrder:
     if data.get("purchaseOrderReference") is not None:
         out["purchase_order_reference"] = data["purchaseOrderReference"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PurchaseOrder) -> dict:
+    out: dict = {}
+    out["chargeId"] = value["charge_id"]
+    if "charge_revision" in value:
+        out["chargeRevision"] = value["charge_revision"]
+    if "agreement_id" in value:
+        out["agreementId"] = value["agreement_id"]
+    if "purchase_order_reference" in value:
+        out["purchaseOrderReference"] = value["purchase_order_reference"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> PurchaseOrder:
+    out: PurchaseOrder = {}  # type: ignore[typeddict-item]
+    if data.get("chargeId") is not None:
+        out["charge_id"] = data["chargeId"]
+    else:
+        out["charge_id"] = ""
+    if data.get("chargeRevision") is not None:
+        out["charge_revision"] = data["chargeRevision"]
+    if data.get("agreementId") is not None:
+        out["agreement_id"] = data["agreementId"]
+    if data.get("purchaseOrderReference") is not None:
+        out["purchase_order_reference"] = data["purchaseOrderReference"]
+    return out

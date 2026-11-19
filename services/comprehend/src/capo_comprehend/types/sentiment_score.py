@@ -76,3 +76,30 @@ def deserialize_aws_json_1_1(data: dict) -> SentimentScore:
     if data.get("Mixed") is not None:
         out["mixed"] = float(data["Mixed"])
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SentimentScore) -> dict:
+    out: dict = {}
+    if "positive" in value:
+        out["Positive"] = value["positive"]
+    if "negative" in value:
+        out["Negative"] = value["negative"]
+    if "neutral" in value:
+        out["Neutral"] = value["neutral"]
+    if "mixed" in value:
+        out["Mixed"] = value["mixed"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> SentimentScore:
+    out: SentimentScore = {}  # type: ignore[typeddict-item]
+    if data.get("Positive") is not None:
+        out["positive"] = float(data["Positive"])
+    if data.get("Negative") is not None:
+        out["negative"] = float(data["Negative"])
+    if data.get("Neutral") is not None:
+        out["neutral"] = float(data["Neutral"])
+    if data.get("Mixed") is not None:
+        out["mixed"] = float(data["Mixed"])
+    return out

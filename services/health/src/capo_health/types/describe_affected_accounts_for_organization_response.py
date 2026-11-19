@@ -91,3 +91,62 @@ def deserialize_aws_json_1_1(
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeAffectedAccountsForOrganizationResponse) -> dict:
+    out: dict = {}
+    if "affected_accounts" in value:
+        import capo_health.types.affected_accounts_list
+
+        out["affectedAccounts"] = (
+            capo_health.types.affected_accounts_list.serialize_cbor(
+                value["affected_accounts"]
+            )
+        )
+    if "affected_account_entities" in value:
+        import capo_health.types.affected_account_entity_list
+
+        out["affectedAccountEntities"] = (
+            capo_health.types.affected_account_entity_list.serialize_cbor(
+                value["affected_account_entities"]
+            )
+        )
+    if "event_scope_code" in value:
+        import capo_health.types.event_scope_code
+
+        out["eventScopeCode"] = capo_health.types.event_scope_code.serialize_cbor(
+            value["event_scope_code"]
+        )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeAffectedAccountsForOrganizationResponse:
+    out: DescribeAffectedAccountsForOrganizationResponse = {}  # type: ignore[typeddict-item]
+    if data.get("affectedAccounts") is not None:
+        import capo_health.types.affected_accounts_list
+
+        out["affected_accounts"] = (
+            capo_health.types.affected_accounts_list.deserialize_cbor(
+                data["affectedAccounts"]
+            )
+        )
+    if data.get("affectedAccountEntities") is not None:
+        import capo_health.types.affected_account_entity_list
+
+        out["affected_account_entities"] = (
+            capo_health.types.affected_account_entity_list.deserialize_cbor(
+                data["affectedAccountEntities"]
+            )
+        )
+    if data.get("eventScopeCode") is not None:
+        import capo_health.types.event_scope_code
+
+        out["event_scope_code"] = capo_health.types.event_scope_code.deserialize_cbor(
+            data["eventScopeCode"]
+        )
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

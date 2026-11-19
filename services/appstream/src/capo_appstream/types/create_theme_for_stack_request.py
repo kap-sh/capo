@@ -110,3 +110,74 @@ def deserialize_aws_json_1_1(data: dict) -> CreateThemeForStackRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateThemeForStackRequest) -> dict:
+    out: dict = {}
+    if "stack_name" in value:
+        out["StackName"] = value["stack_name"]
+    if "footer_links" in value:
+        import capo_appstream.types.theme_footer_links
+
+        out["FooterLinks"] = capo_appstream.types.theme_footer_links.serialize_cbor(
+            value["footer_links"]
+        )
+    if "title_text" in value:
+        out["TitleText"] = value["title_text"]
+    if "theme_styling" in value:
+        import capo_appstream.types.theme_styling
+
+        out["ThemeStyling"] = capo_appstream.types.theme_styling.serialize_cbor(
+            value["theme_styling"]
+        )
+    if "organization_logo_s3_location" in value:
+        import capo_appstream.types.s3_location
+
+        out["OrganizationLogoS3Location"] = (
+            capo_appstream.types.s3_location.serialize_cbor(
+                value["organization_logo_s3_location"]
+            )
+        )
+    if "favicon_s3_location" in value:
+        import capo_appstream.types.s3_location
+
+        out["FaviconS3Location"] = capo_appstream.types.s3_location.serialize_cbor(
+            value["favicon_s3_location"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateThemeForStackRequest:
+    out: CreateThemeForStackRequest = {}  # type: ignore[typeddict-item]
+    if data.get("StackName") is not None:
+        out["stack_name"] = data["StackName"]
+    if data.get("FooterLinks") is not None:
+        import capo_appstream.types.theme_footer_links
+
+        out["footer_links"] = capo_appstream.types.theme_footer_links.deserialize_cbor(
+            data["FooterLinks"]
+        )
+    if data.get("TitleText") is not None:
+        out["title_text"] = data["TitleText"]
+    if data.get("ThemeStyling") is not None:
+        import capo_appstream.types.theme_styling
+
+        out["theme_styling"] = capo_appstream.types.theme_styling.deserialize_cbor(
+            data["ThemeStyling"]
+        )
+    if data.get("OrganizationLogoS3Location") is not None:
+        import capo_appstream.types.s3_location
+
+        out["organization_logo_s3_location"] = (
+            capo_appstream.types.s3_location.deserialize_cbor(
+                data["OrganizationLogoS3Location"]
+            )
+        )
+    if data.get("FaviconS3Location") is not None:
+        import capo_appstream.types.s3_location
+
+        out["favicon_s3_location"] = capo_appstream.types.s3_location.deserialize_cbor(
+            data["FaviconS3Location"]
+        )
+    return out

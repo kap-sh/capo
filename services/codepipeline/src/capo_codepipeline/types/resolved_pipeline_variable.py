@@ -32,3 +32,22 @@ def deserialize_aws_json_1_1(data: dict) -> ResolvedPipelineVariable:
     if data.get("resolvedValue") is not None:
         out["resolved_value"] = data["resolvedValue"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResolvedPipelineVariable) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["name"] = value["name"]
+    if "resolved_value" in value:
+        out["resolvedValue"] = value["resolved_value"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ResolvedPipelineVariable:
+    out: ResolvedPipelineVariable = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    if data.get("resolvedValue") is not None:
+        out["resolved_value"] = data["resolvedValue"]
+    return out

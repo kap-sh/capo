@@ -123,3 +123,80 @@ def deserialize_aws_json_1_1(data: dict) -> FleetDeployment:
             data["CreationTime"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FleetDeployment) -> dict:
+    out: dict = {}
+    if "deployment_id" in value:
+        out["DeploymentId"] = value["deployment_id"]
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "game_server_binary_arn" in value:
+        out["GameServerBinaryArn"] = value["game_server_binary_arn"]
+    if "rollback_game_server_binary_arn" in value:
+        out["RollbackGameServerBinaryArn"] = value["rollback_game_server_binary_arn"]
+    if "per_instance_binary_arn" in value:
+        out["PerInstanceBinaryArn"] = value["per_instance_binary_arn"]
+    if "rollback_per_instance_binary_arn" in value:
+        out["RollbackPerInstanceBinaryArn"] = value["rollback_per_instance_binary_arn"]
+    if "deployment_status" in value:
+        import capo_gamelift.types.deployment_status
+
+        out["DeploymentStatus"] = capo_gamelift.types.deployment_status.serialize_cbor(
+            value["deployment_status"]
+        )
+    if "deployment_configuration" in value:
+        import capo_gamelift.types.deployment_configuration
+
+        out["DeploymentConfiguration"] = (
+            capo_gamelift.types.deployment_configuration.serialize_cbor(
+                value["deployment_configuration"]
+            )
+        )
+    if "creation_time" in value:
+        import capo_gamelift.types.timestamp
+
+        out["CreationTime"] = capo_gamelift.types.timestamp.serialize_cbor(
+            value["creation_time"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> FleetDeployment:
+    out: FleetDeployment = {}  # type: ignore[typeddict-item]
+    if data.get("DeploymentId") is not None:
+        out["deployment_id"] = data["DeploymentId"]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("GameServerBinaryArn") is not None:
+        out["game_server_binary_arn"] = data["GameServerBinaryArn"]
+    if data.get("RollbackGameServerBinaryArn") is not None:
+        out["rollback_game_server_binary_arn"] = data["RollbackGameServerBinaryArn"]
+    if data.get("PerInstanceBinaryArn") is not None:
+        out["per_instance_binary_arn"] = data["PerInstanceBinaryArn"]
+    if data.get("RollbackPerInstanceBinaryArn") is not None:
+        out["rollback_per_instance_binary_arn"] = data["RollbackPerInstanceBinaryArn"]
+    if data.get("DeploymentStatus") is not None:
+        import capo_gamelift.types.deployment_status
+
+        out["deployment_status"] = (
+            capo_gamelift.types.deployment_status.deserialize_cbor(
+                data["DeploymentStatus"]
+            )
+        )
+    if data.get("DeploymentConfiguration") is not None:
+        import capo_gamelift.types.deployment_configuration
+
+        out["deployment_configuration"] = (
+            capo_gamelift.types.deployment_configuration.deserialize_cbor(
+                data["DeploymentConfiguration"]
+            )
+        )
+    if data.get("CreationTime") is not None:
+        import capo_gamelift.types.timestamp
+
+        out["creation_time"] = capo_gamelift.types.timestamp.deserialize_cbor(
+            data["CreationTime"]
+        )
+    return out

@@ -68,3 +68,46 @@ def deserialize_aws_json_1_1(data: dict) -> SoftwareAssociations:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SoftwareAssociations) -> dict:
+    out: dict = {}
+    if "software_name" in value:
+        out["SoftwareName"] = value["software_name"]
+    if "status" in value:
+        import capo_appstream.types.software_deployment_status
+
+        out["Status"] = capo_appstream.types.software_deployment_status.serialize_cbor(
+            value["status"]
+        )
+    if "deployment_error" in value:
+        import capo_appstream.types.error_details_list
+
+        out["DeploymentError"] = capo_appstream.types.error_details_list.serialize_cbor(
+            value["deployment_error"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> SoftwareAssociations:
+    out: SoftwareAssociations = {}  # type: ignore[typeddict-item]
+    if data.get("SoftwareName") is not None:
+        out["software_name"] = data["SoftwareName"]
+    if data.get("Status") is not None:
+        import capo_appstream.types.software_deployment_status
+
+        out["status"] = (
+            capo_appstream.types.software_deployment_status.deserialize_cbor(
+                data["Status"]
+            )
+        )
+    if data.get("DeploymentError") is not None:
+        import capo_appstream.types.error_details_list
+
+        out["deployment_error"] = (
+            capo_appstream.types.error_details_list.deserialize_cbor(
+                data["DeploymentError"]
+            )
+        )
+    return out

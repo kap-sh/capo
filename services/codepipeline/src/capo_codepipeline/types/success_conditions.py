@@ -37,3 +37,27 @@ def deserialize_aws_json_1_1(data: dict) -> SuccessConditions:
     else:
         out["conditions"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SuccessConditions) -> dict:
+    out: dict = {}
+    import capo_codepipeline.types.condition_list
+
+    out["conditions"] = capo_codepipeline.types.condition_list.serialize_cbor(
+        value["conditions"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> SuccessConditions:
+    out: SuccessConditions = {}  # type: ignore[typeddict-item]
+    if data.get("conditions") is not None:
+        import capo_codepipeline.types.condition_list
+
+        out["conditions"] = capo_codepipeline.types.condition_list.deserialize_cbor(
+            data["conditions"]
+        )
+    else:
+        out["conditions"] = []
+    return out

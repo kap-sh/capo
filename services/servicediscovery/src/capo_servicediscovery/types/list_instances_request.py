@@ -41,3 +41,27 @@ def deserialize_aws_json_1_1(data: dict) -> ListInstancesRequest:
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListInstancesRequest) -> dict:
+    out: dict = {}
+    out["ServiceId"] = value["service_id"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListInstancesRequest:
+    out: ListInstancesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ServiceId") is not None:
+        out["service_id"] = data["ServiceId"]
+    else:
+        out["service_id"] = ""
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    return out

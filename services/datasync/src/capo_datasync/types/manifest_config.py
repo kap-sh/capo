@@ -70,3 +70,50 @@ def deserialize_aws_json_1_1(data: dict) -> ManifestConfig:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ManifestConfig) -> dict:
+    out: dict = {}
+    if "action" in value:
+        import capo_datasync.types.manifest_action
+
+        out["Action"] = capo_datasync.types.manifest_action.serialize_cbor(
+            value["action"]
+        )
+    if "format" in value:
+        import capo_datasync.types.manifest_format
+
+        out["Format"] = capo_datasync.types.manifest_format.serialize_cbor(
+            value["format"]
+        )
+    if "source" in value:
+        import capo_datasync.types.source_manifest_config
+
+        out["Source"] = capo_datasync.types.source_manifest_config.serialize_cbor(
+            value["source"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ManifestConfig:
+    out: ManifestConfig = {}  # type: ignore[typeddict-item]
+    if data.get("Action") is not None:
+        import capo_datasync.types.manifest_action
+
+        out["action"] = capo_datasync.types.manifest_action.deserialize_cbor(
+            data["Action"]
+        )
+    if data.get("Format") is not None:
+        import capo_datasync.types.manifest_format
+
+        out["format"] = capo_datasync.types.manifest_format.deserialize_cbor(
+            data["Format"]
+        )
+    if data.get("Source") is not None:
+        import capo_datasync.types.source_manifest_config
+
+        out["source"] = capo_datasync.types.source_manifest_config.deserialize_cbor(
+            data["Source"]
+        )
+    return out

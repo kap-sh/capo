@@ -35,3 +35,24 @@ def deserialize_aws_json_1_1(data: dict) -> GetThirdPartyJobDetailsInput:
     else:
         out["client_token"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetThirdPartyJobDetailsInput) -> dict:
+    out: dict = {}
+    out["jobId"] = value["job_id"]
+    out["clientToken"] = value["client_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetThirdPartyJobDetailsInput:
+    out: GetThirdPartyJobDetailsInput = {}  # type: ignore[typeddict-item]
+    if data.get("jobId") is not None:
+        out["job_id"] = data["jobId"]
+    else:
+        out["job_id"] = ""
+    if data.get("clientToken") is not None:
+        out["client_token"] = data["clientToken"]
+    else:
+        out["client_token"] = ""
+    return out

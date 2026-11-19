@@ -49,3 +49,34 @@ def deserialize_aws_json_1_1(data: dict) -> GameServerGroupAutoScalingPolicy:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GameServerGroupAutoScalingPolicy) -> dict:
+    out: dict = {}
+    if "estimated_instance_warmup" in value:
+        out["EstimatedInstanceWarmup"] = value["estimated_instance_warmup"]
+    if "target_tracking_configuration" in value:
+        import capo_gamelift.types.target_tracking_configuration
+
+        out["TargetTrackingConfiguration"] = (
+            capo_gamelift.types.target_tracking_configuration.serialize_cbor(
+                value["target_tracking_configuration"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GameServerGroupAutoScalingPolicy:
+    out: GameServerGroupAutoScalingPolicy = {}  # type: ignore[typeddict-item]
+    if data.get("EstimatedInstanceWarmup") is not None:
+        out["estimated_instance_warmup"] = data["EstimatedInstanceWarmup"]
+    if data.get("TargetTrackingConfiguration") is not None:
+        import capo_gamelift.types.target_tracking_configuration
+
+        out["target_tracking_configuration"] = (
+            capo_gamelift.types.target_tracking_configuration.deserialize_cbor(
+                data["TargetTrackingConfiguration"]
+            )
+        )
+    return out

@@ -48,3 +48,31 @@ def deserialize_aws_json_1_1(data: dict) -> RemediationActionWithOrder:
     else:
         out["order"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RemediationActionWithOrder) -> dict:
+    out: dict = {}
+    if "remediation_action" in value:
+        import capo_fms.types.remediation_action
+
+        out["RemediationAction"] = capo_fms.types.remediation_action.serialize_cbor(
+            value["remediation_action"]
+        )
+    out["Order"] = value.get("order", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> RemediationActionWithOrder:
+    out: RemediationActionWithOrder = {}  # type: ignore[typeddict-item]
+    if data.get("RemediationAction") is not None:
+        import capo_fms.types.remediation_action
+
+        out["remediation_action"] = capo_fms.types.remediation_action.deserialize_cbor(
+            data["RemediationAction"]
+        )
+    if data.get("Order") is not None:
+        out["order"] = data["Order"]
+    else:
+        out["order"] = 0
+    return out

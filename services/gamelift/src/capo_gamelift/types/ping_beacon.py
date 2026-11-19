@@ -34,3 +34,26 @@ def deserialize_aws_json_1_1(data: dict) -> PingBeacon:
             data["UDPEndpoint"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PingBeacon) -> dict:
+    out: dict = {}
+    if "udp_endpoint" in value:
+        import capo_gamelift.types.udp_endpoint
+
+        out["UDPEndpoint"] = capo_gamelift.types.udp_endpoint.serialize_cbor(
+            value["udp_endpoint"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PingBeacon:
+    out: PingBeacon = {}  # type: ignore[typeddict-item]
+    if data.get("UDPEndpoint") is not None:
+        import capo_gamelift.types.udp_endpoint
+
+        out["udp_endpoint"] = capo_gamelift.types.udp_endpoint.deserialize_cbor(
+            data["UDPEndpoint"]
+        )
+    return out

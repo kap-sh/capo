@@ -35,3 +35,19 @@ def deserialize_aws_json_1_1(data: dict) -> AttackVolumeStatistics:
     else:
         out["max"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AttackVolumeStatistics) -> dict:
+    out: dict = {}
+    out["Max"] = value.get("max", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> AttackVolumeStatistics:
+    out: AttackVolumeStatistics = {}  # type: ignore[typeddict-item]
+    if data.get("Max") is not None:
+        out["max"] = float(data["Max"])
+    else:
+        out["max"] = 0
+    return out

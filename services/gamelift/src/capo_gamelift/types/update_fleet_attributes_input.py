@@ -123,3 +123,86 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateFleetAttributesInput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateFleetAttributesInput) -> dict:
+    out: dict = {}
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "new_game_session_protection_policy" in value:
+        import capo_gamelift.types.protection_policy
+
+        out["NewGameSessionProtectionPolicy"] = (
+            capo_gamelift.types.protection_policy.serialize_cbor(
+                value["new_game_session_protection_policy"]
+            )
+        )
+    if "resource_creation_limit_policy" in value:
+        import capo_gamelift.types.resource_creation_limit_policy
+
+        out["ResourceCreationLimitPolicy"] = (
+            capo_gamelift.types.resource_creation_limit_policy.serialize_cbor(
+                value["resource_creation_limit_policy"]
+            )
+        )
+    if "metric_groups" in value:
+        import capo_gamelift.types.metric_group_list
+
+        out["MetricGroups"] = capo_gamelift.types.metric_group_list.serialize_cbor(
+            value["metric_groups"]
+        )
+    if "anywhere_configuration" in value:
+        import capo_gamelift.types.anywhere_configuration
+
+        out["AnywhereConfiguration"] = (
+            capo_gamelift.types.anywhere_configuration.serialize_cbor(
+                value["anywhere_configuration"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateFleetAttributesInput:
+    out: UpdateFleetAttributesInput = {}  # type: ignore[typeddict-item]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("NewGameSessionProtectionPolicy") is not None:
+        import capo_gamelift.types.protection_policy
+
+        out["new_game_session_protection_policy"] = (
+            capo_gamelift.types.protection_policy.deserialize_cbor(
+                data["NewGameSessionProtectionPolicy"]
+            )
+        )
+    if data.get("ResourceCreationLimitPolicy") is not None:
+        import capo_gamelift.types.resource_creation_limit_policy
+
+        out["resource_creation_limit_policy"] = (
+            capo_gamelift.types.resource_creation_limit_policy.deserialize_cbor(
+                data["ResourceCreationLimitPolicy"]
+            )
+        )
+    if data.get("MetricGroups") is not None:
+        import capo_gamelift.types.metric_group_list
+
+        out["metric_groups"] = capo_gamelift.types.metric_group_list.deserialize_cbor(
+            data["MetricGroups"]
+        )
+    if data.get("AnywhereConfiguration") is not None:
+        import capo_gamelift.types.anywhere_configuration
+
+        out["anywhere_configuration"] = (
+            capo_gamelift.types.anywhere_configuration.deserialize_cbor(
+                data["AnywhereConfiguration"]
+            )
+        )
+    return out

@@ -36,6 +36,25 @@ def deserialize_aws_json_1_0(data: dict) -> PrivateIpAddressSpecification:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PrivateIpAddressSpecification) -> dict:
+    out: dict = {}
+    if "primary" in value:
+        out["Primary"] = value["primary"]
+    if "private_ip_address" in value:
+        out["PrivateIpAddress"] = value["private_ip_address"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> PrivateIpAddressSpecification:
+    out: PrivateIpAddressSpecification = {}  # type: ignore[typeddict-item]
+    if data.get("Primary") is not None:
+        out["primary"] = data["Primary"]
+    if data.get("PrivateIpAddress") is not None:
+        out["private_ip_address"] = data["PrivateIpAddress"]
+    return out
+
+
 def redact_sensitive(value: PrivateIpAddressSpecification) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "private_ip_address" in value:

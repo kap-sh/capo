@@ -60,3 +60,41 @@ def deserialize_aws_json_1_0(data: dict) -> RepositorySyncEvent:
     else:
         out["type"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RepositorySyncEvent) -> dict:
+    out: dict = {}
+    out["Event"] = value["event"]
+    if "external_id" in value:
+        out["ExternalId"] = value["external_id"]
+    import capo_codeconnections.types.timestamp
+
+    out["Time"] = capo_codeconnections.types.timestamp.serialize_cbor(value["time"])
+    out["Type"] = value["type"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RepositorySyncEvent:
+    out: RepositorySyncEvent = {}  # type: ignore[typeddict-item]
+    if data.get("Event") is not None:
+        out["event"] = data["Event"]
+    else:
+        out["event"] = ""
+    if data.get("ExternalId") is not None:
+        out["external_id"] = data["ExternalId"]
+    if data.get("Time") is not None:
+        import capo_codeconnections.types.timestamp
+
+        out["time"] = capo_codeconnections.types.timestamp.deserialize_cbor(
+            data["Time"]
+        )
+    else:
+        import datetime
+
+        out["time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
+    if data.get("Type") is not None:
+        out["type"] = data["Type"]
+    else:
+        out["type"] = ""
+    return out

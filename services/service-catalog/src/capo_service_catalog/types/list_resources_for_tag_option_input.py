@@ -48,3 +48,31 @@ def deserialize_aws_json_1_1(data: dict) -> ListResourcesForTagOptionInput:
     if data.get("PageToken") is not None:
         out["page_token"] = data["PageToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListResourcesForTagOptionInput) -> dict:
+    out: dict = {}
+    out["TagOptionId"] = value["tag_option_id"]
+    if "resource_type" in value:
+        out["ResourceType"] = value["resource_type"]
+    if "page_size" in value:
+        out["PageSize"] = value["page_size"]
+    if "page_token" in value:
+        out["PageToken"] = value["page_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListResourcesForTagOptionInput:
+    out: ListResourcesForTagOptionInput = {}  # type: ignore[typeddict-item]
+    if data.get("TagOptionId") is not None:
+        out["tag_option_id"] = data["TagOptionId"]
+    else:
+        out["tag_option_id"] = ""
+    if data.get("ResourceType") is not None:
+        out["resource_type"] = data["ResourceType"]
+    if data.get("PageSize") is not None:
+        out["page_size"] = data["PageSize"]
+    if data.get("PageToken") is not None:
+        out["page_token"] = data["PageToken"]
+    return out

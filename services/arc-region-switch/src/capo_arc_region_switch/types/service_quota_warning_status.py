@@ -19,3 +19,12 @@ def serialize_aws_json_1_0(value: ServiceQuotaWarningStatus) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> ServiceQuotaWarningStatus:
     return cast(ServiceQuotaWarningStatus, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ServiceQuotaWarningStatus) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ServiceQuotaWarningStatus:
+    return cast(ServiceQuotaWarningStatus, data)

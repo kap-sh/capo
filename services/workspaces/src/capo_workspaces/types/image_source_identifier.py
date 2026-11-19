@@ -65,3 +65,35 @@ def deserialize_aws_json_1_1(data: dict) -> ImageSourceIdentifier:
         if name is not None:
             return {"$unknown": {"name": name}}
         raise DeserializationError("ImageSourceIdentifier: no recognized variant key")
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ImageSourceIdentifier) -> dict:
+    if "$unknown" in value:
+        raise SerializationError(
+            f"ImageSourceIdentifier: cannot serialize unknown variant {value['$unknown']['name']!r}"
+        )
+    elif "Ec2ImportTaskId" in value:
+        return {"Ec2ImportTaskId": value["Ec2ImportTaskId"]}
+    elif "ImageBuildVersionArn" in value:
+        return {"ImageBuildVersionArn": value["ImageBuildVersionArn"]}
+    elif "Ec2ImageId" in value:
+        return {"Ec2ImageId": value["Ec2ImageId"]}
+    else:
+        raise SerializationError("ImageSourceIdentifier: no variant present")
+
+
+def deserialize_cbor(data: dict) -> ImageSourceIdentifier:
+    if data.get("Ec2ImportTaskId") is not None:
+        return {"Ec2ImportTaskId": data["Ec2ImportTaskId"]}
+    elif data.get("ImageBuildVersionArn") is not None:
+        return {"ImageBuildVersionArn": data["ImageBuildVersionArn"]}
+    elif data.get("Ec2ImageId") is not None:
+        return {"Ec2ImageId": data["Ec2ImageId"]}
+    else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return {"$unknown": {"name": name}}
+        raise DeserializationError("ImageSourceIdentifier: no recognized variant key")

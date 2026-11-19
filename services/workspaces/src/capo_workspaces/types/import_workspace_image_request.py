@@ -104,3 +104,71 @@ def deserialize_aws_json_1_1(data: dict) -> ImportWorkspaceImageRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ImportWorkspaceImageRequest) -> dict:
+    out: dict = {}
+    out["Ec2ImageId"] = value["ec2_image_id"]
+    import capo_workspaces.types.workspace_image_ingestion_process
+
+    out["IngestionProcess"] = (
+        capo_workspaces.types.workspace_image_ingestion_process.serialize_cbor(
+            value["ingestion_process"]
+        )
+    )
+    out["ImageName"] = value["image_name"]
+    out["ImageDescription"] = value["image_description"]
+    if "tags" in value:
+        import capo_workspaces.types.tag_list
+
+        out["Tags"] = capo_workspaces.types.tag_list.serialize_cbor(value["tags"])
+    if "applications" in value:
+        import capo_workspaces.types.application_list
+
+        out["Applications"] = capo_workspaces.types.application_list.serialize_cbor(
+            value["applications"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ImportWorkspaceImageRequest:
+    out: ImportWorkspaceImageRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Ec2ImageId") is not None:
+        out["ec2_image_id"] = data["Ec2ImageId"]
+    else:
+        out["ec2_image_id"] = ""
+    if data.get("IngestionProcess") is not None:
+        import capo_workspaces.types.workspace_image_ingestion_process
+
+        out["ingestion_process"] = (
+            capo_workspaces.types.workspace_image_ingestion_process.deserialize_cbor(
+                data["IngestionProcess"]
+            )
+        )
+    else:
+        import typing
+
+        out["ingestion_process"] = typing.cast(
+            "capo_workspaces.types.workspace_image_ingestion_process.WorkspaceImageIngestionProcess",
+            "",
+        )
+    if data.get("ImageName") is not None:
+        out["image_name"] = data["ImageName"]
+    else:
+        out["image_name"] = ""
+    if data.get("ImageDescription") is not None:
+        out["image_description"] = data["ImageDescription"]
+    else:
+        out["image_description"] = ""
+    if data.get("Tags") is not None:
+        import capo_workspaces.types.tag_list
+
+        out["tags"] = capo_workspaces.types.tag_list.deserialize_cbor(data["Tags"])
+    if data.get("Applications") is not None:
+        import capo_workspaces.types.application_list
+
+        out["applications"] = capo_workspaces.types.application_list.deserialize_cbor(
+            data["Applications"]
+        )
+    return out

@@ -27,3 +27,24 @@ def deserialize_aws_json_1_1(data: list) -> GeneralNameList:
             continue
         out.append(capo_acm_pca.types.general_name.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GeneralNameList) -> list:
+    import capo_acm_pca.types.general_name
+
+    out: list = []
+    for item in value:
+        out.append(capo_acm_pca.types.general_name.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> GeneralNameList:
+    import capo_acm_pca.types.general_name
+
+    out: GeneralNameList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_acm_pca.types.general_name.deserialize_cbor(item))
+    return out

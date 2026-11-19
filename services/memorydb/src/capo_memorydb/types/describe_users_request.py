@@ -55,3 +55,38 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeUsersRequest:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeUsersRequest) -> dict:
+    out: dict = {}
+    if "user_name" in value:
+        out["UserName"] = value["user_name"]
+    if "filters" in value:
+        import capo_memorydb.types.filter_list
+
+        out["Filters"] = capo_memorydb.types.filter_list.serialize_cbor(
+            value["filters"]
+        )
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeUsersRequest:
+    out: DescribeUsersRequest = {}  # type: ignore[typeddict-item]
+    if data.get("UserName") is not None:
+        out["user_name"] = data["UserName"]
+    if data.get("Filters") is not None:
+        import capo_memorydb.types.filter_list
+
+        out["filters"] = capo_memorydb.types.filter_list.deserialize_cbor(
+            data["Filters"]
+        )
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

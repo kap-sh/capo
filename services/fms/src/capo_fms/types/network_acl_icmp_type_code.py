@@ -32,3 +32,22 @@ def deserialize_aws_json_1_1(data: dict) -> NetworkAclIcmpTypeCode:
     if data.get("Type") is not None:
         out["type"] = data["Type"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: NetworkAclIcmpTypeCode) -> dict:
+    out: dict = {}
+    if "code" in value:
+        out["Code"] = value["code"]
+    if "type" in value:
+        out["Type"] = value["type"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> NetworkAclIcmpTypeCode:
+    out: NetworkAclIcmpTypeCode = {}  # type: ignore[typeddict-item]
+    if data.get("Code") is not None:
+        out["code"] = data["Code"]
+    if data.get("Type") is not None:
+        out["type"] = data["Type"]
+    return out

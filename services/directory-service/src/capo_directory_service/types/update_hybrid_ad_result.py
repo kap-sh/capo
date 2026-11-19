@@ -35,3 +35,22 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateHybridADResult:
     if data.get("AssessmentId") is not None:
         out["assessment_id"] = data["AssessmentId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateHybridADResult) -> dict:
+    out: dict = {}
+    if "directory_id" in value:
+        out["DirectoryId"] = value["directory_id"]
+    if "assessment_id" in value:
+        out["AssessmentId"] = value["assessment_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateHybridADResult:
+    out: UpdateHybridADResult = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    if data.get("AssessmentId") is not None:
+        out["assessment_id"] = data["AssessmentId"]
+    return out

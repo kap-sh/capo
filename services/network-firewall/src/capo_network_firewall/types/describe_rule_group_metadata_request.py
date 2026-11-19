@@ -54,3 +54,34 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeRuleGroupMetadataRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeRuleGroupMetadataRequest) -> dict:
+    out: dict = {}
+    if "rule_group_name" in value:
+        out["RuleGroupName"] = value["rule_group_name"]
+    if "rule_group_arn" in value:
+        out["RuleGroupArn"] = value["rule_group_arn"]
+    if "type" in value:
+        import capo_network_firewall.types.rule_group_type
+
+        out["Type"] = capo_network_firewall.types.rule_group_type.serialize_cbor(
+            value["type"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeRuleGroupMetadataRequest:
+    out: DescribeRuleGroupMetadataRequest = {}  # type: ignore[typeddict-item]
+    if data.get("RuleGroupName") is not None:
+        out["rule_group_name"] = data["RuleGroupName"]
+    if data.get("RuleGroupArn") is not None:
+        out["rule_group_arn"] = data["RuleGroupArn"]
+    if data.get("Type") is not None:
+        import capo_network_firewall.types.rule_group_type
+
+        out["type"] = capo_network_firewall.types.rule_group_type.deserialize_cbor(
+            data["Type"]
+        )
+    return out

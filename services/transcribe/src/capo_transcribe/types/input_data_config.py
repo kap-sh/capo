@@ -41,3 +41,28 @@ def deserialize_aws_json_1_1(data: dict) -> InputDataConfig:
     else:
         out["data_access_role_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InputDataConfig) -> dict:
+    out: dict = {}
+    out["S3Uri"] = value["s3_uri"]
+    if "tuning_data_s3_uri" in value:
+        out["TuningDataS3Uri"] = value["tuning_data_s3_uri"]
+    out["DataAccessRoleArn"] = value["data_access_role_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> InputDataConfig:
+    out: InputDataConfig = {}  # type: ignore[typeddict-item]
+    if data.get("S3Uri") is not None:
+        out["s3_uri"] = data["S3Uri"]
+    else:
+        out["s3_uri"] = ""
+    if data.get("TuningDataS3Uri") is not None:
+        out["tuning_data_s3_uri"] = data["TuningDataS3Uri"]
+    if data.get("DataAccessRoleArn") is not None:
+        out["data_access_role_arn"] = data["DataAccessRoleArn"]
+    else:
+        out["data_access_role_arn"] = ""
+    return out

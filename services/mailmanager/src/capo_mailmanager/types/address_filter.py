@@ -28,6 +28,21 @@ def deserialize_aws_json_1_0(data: dict) -> AddressFilter:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AddressFilter) -> dict:
+    out: dict = {}
+    if "address_prefix" in value:
+        out["AddressPrefix"] = value["address_prefix"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AddressFilter:
+    out: AddressFilter = {}  # type: ignore[typeddict-item]
+    if data.get("AddressPrefix") is not None:
+        out["address_prefix"] = data["AddressPrefix"]
+    return out
+
+
 def redact_sensitive(value: AddressFilter) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "address_prefix" in value:

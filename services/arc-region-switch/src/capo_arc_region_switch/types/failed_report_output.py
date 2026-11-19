@@ -46,3 +46,34 @@ def deserialize_aws_json_1_0(data: dict) -> FailedReportOutput:
     if data.get("errorMessage") is not None:
         out["error_message"] = data["errorMessage"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FailedReportOutput) -> dict:
+    out: dict = {}
+    if "error_code" in value:
+        import capo_arc_region_switch.types.failed_report_error_code
+
+        out["errorCode"] = (
+            capo_arc_region_switch.types.failed_report_error_code.serialize_cbor(
+                value["error_code"]
+            )
+        )
+    if "error_message" in value:
+        out["errorMessage"] = value["error_message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> FailedReportOutput:
+    out: FailedReportOutput = {}  # type: ignore[typeddict-item]
+    if data.get("errorCode") is not None:
+        import capo_arc_region_switch.types.failed_report_error_code
+
+        out["error_code"] = (
+            capo_arc_region_switch.types.failed_report_error_code.deserialize_cbor(
+                data["errorCode"]
+            )
+        )
+    if data.get("errorMessage") is not None:
+        out["error_message"] = data["errorMessage"]
+    return out

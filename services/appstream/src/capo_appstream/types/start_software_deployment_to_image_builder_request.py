@@ -35,3 +35,22 @@ def deserialize_aws_json_1_1(
     if data.get("RetryFailedDeployments") is not None:
         out["retry_failed_deployments"] = data["RetryFailedDeployments"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartSoftwareDeploymentToImageBuilderRequest) -> dict:
+    out: dict = {}
+    if "image_builder_name" in value:
+        out["ImageBuilderName"] = value["image_builder_name"]
+    if "retry_failed_deployments" in value:
+        out["RetryFailedDeployments"] = value["retry_failed_deployments"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartSoftwareDeploymentToImageBuilderRequest:
+    out: StartSoftwareDeploymentToImageBuilderRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ImageBuilderName") is not None:
+        out["image_builder_name"] = data["ImageBuilderName"]
+    if data.get("RetryFailedDeployments") is not None:
+        out["retry_failed_deployments"] = data["RetryFailedDeployments"]
+    return out

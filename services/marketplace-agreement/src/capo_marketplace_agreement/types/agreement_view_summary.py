@@ -302,3 +302,218 @@ def deserialize_aws_json_1_0(data: dict) -> AgreementViewSummary:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AgreementViewSummary) -> dict:
+    out: dict = {}
+    if "agreement_id" in value:
+        out["agreementId"] = value["agreement_id"]
+    if "acceptance_time" in value:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["acceptanceTime"] = (
+            capo_marketplace_agreement.types.timestamp.serialize_cbor(
+                value["acceptance_time"]
+            )
+        )
+    if "start_time" in value:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["startTime"] = capo_marketplace_agreement.types.timestamp.serialize_cbor(
+            value["start_time"]
+        )
+    if "end_time" in value:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["endTime"] = capo_marketplace_agreement.types.timestamp.serialize_cbor(
+            value["end_time"]
+        )
+    if "last_update_time" in value:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["lastUpdateTime"] = (
+            capo_marketplace_agreement.types.timestamp.serialize_cbor(
+                value["last_update_time"]
+            )
+        )
+    if "agreement_type" in value:
+        out["agreementType"] = value["agreement_type"]
+    if "acceptor" in value:
+        import capo_marketplace_agreement.types.acceptor
+
+        out["acceptor"] = capo_marketplace_agreement.types.acceptor.serialize_cbor(
+            value["acceptor"]
+        )
+    if "proposer" in value:
+        import capo_marketplace_agreement.types.proposer
+
+        out["proposer"] = capo_marketplace_agreement.types.proposer.serialize_cbor(
+            value["proposer"]
+        )
+    if "proposal_summary" in value:
+        import capo_marketplace_agreement.types.proposal_summary
+
+        out["proposalSummary"] = (
+            capo_marketplace_agreement.types.proposal_summary.serialize_cbor(
+                value["proposal_summary"]
+            )
+        )
+    if "status" in value:
+        import capo_marketplace_agreement.types.agreement_status
+
+        out["status"] = (
+            capo_marketplace_agreement.types.agreement_status.serialize_cbor(
+                value["status"]
+            )
+        )
+    if "entitlements" in value:
+        import capo_marketplace_agreement.types.entitlement_list
+
+        out["entitlements"] = (
+            capo_marketplace_agreement.types.entitlement_list.serialize_cbor(
+                value["entitlements"]
+            )
+        )
+    if "initial_agreement_id" in value:
+        out["initialAgreementId"] = value["initial_agreement_id"]
+    if "end_time_behavior_type" in value:
+        import capo_marketplace_agreement.types.end_time_behavior_type
+
+        out["endTimeBehaviorType"] = (
+            capo_marketplace_agreement.types.end_time_behavior_type.serialize_cbor(
+                value["end_time_behavior_type"]
+            )
+        )
+    if "end_time_behavior_reason_code" in value:
+        import capo_marketplace_agreement.types.end_time_behavior_reason_code
+
+        out["endTimeBehaviorReasonCode"] = (
+            capo_marketplace_agreement.types.end_time_behavior_reason_code.serialize_cbor(
+                value["end_time_behavior_reason_code"]
+            )
+        )
+    if "free_trial_end_time" in value:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["freeTrialEndTime"] = (
+            capo_marketplace_agreement.types.timestamp.serialize_cbor(
+                value["free_trial_end_time"]
+            )
+        )
+    if "includes_contact_of_type" in value:
+        import capo_marketplace_agreement.types.contact_type_list
+
+        out["includesContactOfType"] = (
+            capo_marketplace_agreement.types.contact_type_list.serialize_cbor(
+                value["includes_contact_of_type"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AgreementViewSummary:
+    out: AgreementViewSummary = {}  # type: ignore[typeddict-item]
+    if data.get("agreementId") is not None:
+        out["agreement_id"] = data["agreementId"]
+    if data.get("acceptanceTime") is not None:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["acceptance_time"] = (
+            capo_marketplace_agreement.types.timestamp.deserialize_cbor(
+                data["acceptanceTime"]
+            )
+        )
+    if data.get("startTime") is not None:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["start_time"] = capo_marketplace_agreement.types.timestamp.deserialize_cbor(
+            data["startTime"]
+        )
+    if data.get("endTime") is not None:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["end_time"] = capo_marketplace_agreement.types.timestamp.deserialize_cbor(
+            data["endTime"]
+        )
+    if data.get("lastUpdateTime") is not None:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["last_update_time"] = (
+            capo_marketplace_agreement.types.timestamp.deserialize_cbor(
+                data["lastUpdateTime"]
+            )
+        )
+    if data.get("agreementType") is not None:
+        out["agreement_type"] = data["agreementType"]
+    if data.get("acceptor") is not None:
+        import capo_marketplace_agreement.types.acceptor
+
+        out["acceptor"] = capo_marketplace_agreement.types.acceptor.deserialize_cbor(
+            data["acceptor"]
+        )
+    if data.get("proposer") is not None:
+        import capo_marketplace_agreement.types.proposer
+
+        out["proposer"] = capo_marketplace_agreement.types.proposer.deserialize_cbor(
+            data["proposer"]
+        )
+    if data.get("proposalSummary") is not None:
+        import capo_marketplace_agreement.types.proposal_summary
+
+        out["proposal_summary"] = (
+            capo_marketplace_agreement.types.proposal_summary.deserialize_cbor(
+                data["proposalSummary"]
+            )
+        )
+    if data.get("status") is not None:
+        import capo_marketplace_agreement.types.agreement_status
+
+        out["status"] = (
+            capo_marketplace_agreement.types.agreement_status.deserialize_cbor(
+                data["status"]
+            )
+        )
+    if data.get("entitlements") is not None:
+        import capo_marketplace_agreement.types.entitlement_list
+
+        out["entitlements"] = (
+            capo_marketplace_agreement.types.entitlement_list.deserialize_cbor(
+                data["entitlements"]
+            )
+        )
+    if data.get("initialAgreementId") is not None:
+        out["initial_agreement_id"] = data["initialAgreementId"]
+    if data.get("endTimeBehaviorType") is not None:
+        import capo_marketplace_agreement.types.end_time_behavior_type
+
+        out["end_time_behavior_type"] = (
+            capo_marketplace_agreement.types.end_time_behavior_type.deserialize_cbor(
+                data["endTimeBehaviorType"]
+            )
+        )
+    if data.get("endTimeBehaviorReasonCode") is not None:
+        import capo_marketplace_agreement.types.end_time_behavior_reason_code
+
+        out["end_time_behavior_reason_code"] = (
+            capo_marketplace_agreement.types.end_time_behavior_reason_code.deserialize_cbor(
+                data["endTimeBehaviorReasonCode"]
+            )
+        )
+    if data.get("freeTrialEndTime") is not None:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["free_trial_end_time"] = (
+            capo_marketplace_agreement.types.timestamp.deserialize_cbor(
+                data["freeTrialEndTime"]
+            )
+        )
+    if data.get("includesContactOfType") is not None:
+        import capo_marketplace_agreement.types.contact_type_list
+
+        out["includes_contact_of_type"] = (
+            capo_marketplace_agreement.types.contact_type_list.deserialize_cbor(
+                data["includesContactOfType"]
+            )
+        )
+    return out

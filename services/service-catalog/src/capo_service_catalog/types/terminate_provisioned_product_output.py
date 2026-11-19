@@ -38,3 +38,28 @@ def deserialize_aws_json_1_1(data: dict) -> TerminateProvisionedProductOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TerminateProvisionedProductOutput) -> dict:
+    out: dict = {}
+    if "record_detail" in value:
+        import capo_service_catalog.types.record_detail
+
+        out["RecordDetail"] = capo_service_catalog.types.record_detail.serialize_cbor(
+            value["record_detail"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TerminateProvisionedProductOutput:
+    out: TerminateProvisionedProductOutput = {}  # type: ignore[typeddict-item]
+    if data.get("RecordDetail") is not None:
+        import capo_service_catalog.types.record_detail
+
+        out["record_detail"] = (
+            capo_service_catalog.types.record_detail.deserialize_cbor(
+                data["RecordDetail"]
+            )
+        )
+    return out

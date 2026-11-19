@@ -30,3 +30,22 @@ def deserialize_aws_json_1_1(data: dict) -> CreateHsmResponse:
 
         out["hsm"] = capo_cloudhsm_v2.types.hsm.deserialize_aws_json_1_1(data["Hsm"])
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateHsmResponse) -> dict:
+    out: dict = {}
+    if "hsm" in value:
+        import capo_cloudhsm_v2.types.hsm
+
+        out["Hsm"] = capo_cloudhsm_v2.types.hsm.serialize_cbor(value["hsm"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateHsmResponse:
+    out: CreateHsmResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Hsm") is not None:
+        import capo_cloudhsm_v2.types.hsm
+
+        out["hsm"] = capo_cloudhsm_v2.types.hsm.deserialize_cbor(data["Hsm"])
+    return out

@@ -47,3 +47,34 @@ def deserialize_aws_json_1_0(data: dict) -> GetLambdaFunctionRecommendationsResp
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetLambdaFunctionRecommendationsResponse) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    if "lambda_function_recommendations" in value:
+        import capo_compute_optimizer.types.lambda_function_recommendations
+
+        out["lambdaFunctionRecommendations"] = (
+            capo_compute_optimizer.types.lambda_function_recommendations.serialize_cbor(
+                value["lambda_function_recommendations"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetLambdaFunctionRecommendationsResponse:
+    out: GetLambdaFunctionRecommendationsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    if data.get("lambdaFunctionRecommendations") is not None:
+        import capo_compute_optimizer.types.lambda_function_recommendations
+
+        out["lambda_function_recommendations"] = (
+            capo_compute_optimizer.types.lambda_function_recommendations.deserialize_cbor(
+                data["lambdaFunctionRecommendations"]
+            )
+        )
+    return out

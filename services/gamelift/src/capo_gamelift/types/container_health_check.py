@@ -76,3 +76,46 @@ def deserialize_aws_json_1_1(data: dict) -> ContainerHealthCheck:
     if data.get("Timeout") is not None:
         out["timeout"] = data["Timeout"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ContainerHealthCheck) -> dict:
+    out: dict = {}
+    if "command" in value:
+        import capo_gamelift.types.container_command_string_list
+
+        out["Command"] = (
+            capo_gamelift.types.container_command_string_list.serialize_cbor(
+                value["command"]
+            )
+        )
+    if "interval" in value:
+        out["Interval"] = value["interval"]
+    if "retries" in value:
+        out["Retries"] = value["retries"]
+    if "start_period" in value:
+        out["StartPeriod"] = value["start_period"]
+    if "timeout" in value:
+        out["Timeout"] = value["timeout"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ContainerHealthCheck:
+    out: ContainerHealthCheck = {}  # type: ignore[typeddict-item]
+    if data.get("Command") is not None:
+        import capo_gamelift.types.container_command_string_list
+
+        out["command"] = (
+            capo_gamelift.types.container_command_string_list.deserialize_cbor(
+                data["Command"]
+            )
+        )
+    if data.get("Interval") is not None:
+        out["interval"] = data["Interval"]
+    if data.get("Retries") is not None:
+        out["retries"] = data["Retries"]
+    if data.get("StartPeriod") is not None:
+        out["start_period"] = data["StartPeriod"]
+    if data.get("Timeout") is not None:
+        out["timeout"] = data["Timeout"]
+    return out

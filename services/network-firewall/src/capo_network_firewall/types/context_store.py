@@ -37,3 +37,24 @@ def deserialize_aws_json_1_0(data: dict) -> ContextStore:
     else:
         out["context_store_owner_account_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ContextStore) -> dict:
+    out: dict = {}
+    out["ContextStoreId"] = value["context_store_id"]
+    out["ContextStoreOwnerAccountId"] = value["context_store_owner_account_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ContextStore:
+    out: ContextStore = {}  # type: ignore[typeddict-item]
+    if data.get("ContextStoreId") is not None:
+        out["context_store_id"] = data["ContextStoreId"]
+    else:
+        out["context_store_id"] = ""
+    if data.get("ContextStoreOwnerAccountId") is not None:
+        out["context_store_owner_account_id"] = data["ContextStoreOwnerAccountId"]
+    else:
+        out["context_store_owner_account_id"] = ""
+    return out

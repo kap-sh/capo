@@ -228,6 +228,7 @@ class AsyncDirectConnectClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[AsyncInterceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_1", "rpcv2Cbor"]
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -244,6 +245,7 @@ class AsyncDirectConnectClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -259,6 +261,7 @@ class AsyncDirectConnectClient:
         operation_interceptors: Iterable[AsyncInterceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_1", "rpcv2Cbor"] = "awsJson1_1",
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -295,6 +298,7 @@ class AsyncDirectConnectClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -328,6 +332,9 @@ class AsyncDirectConnectClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_1")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -371,14 +378,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.accept_direct_connect_gateway_association_proposal_result.AcceptDirectConnectGatewayAssociationProposalResult"
         ]:
-            import capo_direct_connect._operations.overture_service.accept_direct_connect_gateway_association_proposal
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.accept_direct_connect_gateway_association_proposal
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.accept_direct_connect_gateway_association_proposal.async_accept_direct_connect_gateway_association_proposal(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.accept_direct_connect_gateway_association_proposal.async_accept_direct_connect_gateway_association_proposal(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.accept_direct_connect_gateway_association_proposal
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.accept_direct_connect_gateway_association_proposal.async_accept_direct_connect_gateway_association_proposal(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -431,14 +450,26 @@ class AsyncDirectConnectClient:
         async def _handler(
             req: "AsyncOperationRequest[capo_direct_connect.types.allocate_connection_on_interconnect_request.AllocateConnectionOnInterconnectRequest]",
         ) -> AsyncOperationResponse["capo_direct_connect.types.connection.Connection"]:
-            import capo_direct_connect._operations.overture_service.allocate_connection_on_interconnect
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.allocate_connection_on_interconnect
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.allocate_connection_on_interconnect.async_allocate_connection_on_interconnect(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.allocate_connection_on_interconnect.async_allocate_connection_on_interconnect(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.allocate_connection_on_interconnect
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.allocate_connection_on_interconnect.async_allocate_connection_on_interconnect(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -492,14 +523,26 @@ class AsyncDirectConnectClient:
         async def _handler(
             req: "AsyncOperationRequest[capo_direct_connect.types.allocate_hosted_connection_request.AllocateHostedConnectionRequest]",
         ) -> AsyncOperationResponse["capo_direct_connect.types.connection.Connection"]:
-            import capo_direct_connect._operations.overture_service.allocate_hosted_connection
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.allocate_hosted_connection
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.allocate_hosted_connection.async_allocate_hosted_connection(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.allocate_hosted_connection.async_allocate_hosted_connection(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.allocate_hosted_connection
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.allocate_hosted_connection.async_allocate_hosted_connection(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -552,14 +595,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.virtual_interface.VirtualInterface"
         ]:
-            import capo_direct_connect._operations.overture_service.allocate_private_virtual_interface
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.allocate_private_virtual_interface
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.allocate_private_virtual_interface.async_allocate_private_virtual_interface(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.allocate_private_virtual_interface.async_allocate_private_virtual_interface(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.allocate_private_virtual_interface
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.allocate_private_virtual_interface.async_allocate_private_virtual_interface(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -608,14 +663,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.virtual_interface.VirtualInterface"
         ]:
-            import capo_direct_connect._operations.overture_service.allocate_public_virtual_interface
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.allocate_public_virtual_interface
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.allocate_public_virtual_interface.async_allocate_public_virtual_interface(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.allocate_public_virtual_interface.async_allocate_public_virtual_interface(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.allocate_public_virtual_interface
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.allocate_public_virtual_interface.async_allocate_public_virtual_interface(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -664,14 +731,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.allocate_transit_virtual_interface_result.AllocateTransitVirtualInterfaceResult"
         ]:
-            import capo_direct_connect._operations.overture_service.allocate_transit_virtual_interface
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.allocate_transit_virtual_interface
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.allocate_transit_virtual_interface.async_allocate_transit_virtual_interface(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.allocate_transit_virtual_interface.async_allocate_transit_virtual_interface(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.allocate_transit_virtual_interface
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.allocate_transit_virtual_interface.async_allocate_transit_virtual_interface(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -720,14 +799,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.associate_connections_to_resiliency_group_result.AssociateConnectionsToResiliencyGroupResult"
         ]:
-            import capo_direct_connect._operations.overture_service.associate_connections_to_resiliency_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.associate_connections_to_resiliency_group
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.associate_connections_to_resiliency_group.async_associate_connections_to_resiliency_group(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.associate_connections_to_resiliency_group.async_associate_connections_to_resiliency_group(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.associate_connections_to_resiliency_group
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.associate_connections_to_resiliency_group.async_associate_connections_to_resiliency_group(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -771,14 +862,26 @@ class AsyncDirectConnectClient:
         async def _handler(
             req: "AsyncOperationRequest[capo_direct_connect.types.associate_connection_with_lag_request.AssociateConnectionWithLagRequest]",
         ) -> AsyncOperationResponse["capo_direct_connect.types.connection.Connection"]:
-            import capo_direct_connect._operations.overture_service.associate_connection_with_lag
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.associate_connection_with_lag
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.associate_connection_with_lag.async_associate_connection_with_lag(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.associate_connection_with_lag.async_associate_connection_with_lag(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.associate_connection_with_lag
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.associate_connection_with_lag.async_associate_connection_with_lag(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -819,14 +922,26 @@ class AsyncDirectConnectClient:
         async def _handler(
             req: "AsyncOperationRequest[capo_direct_connect.types.associate_hosted_connection_request.AssociateHostedConnectionRequest]",
         ) -> AsyncOperationResponse["capo_direct_connect.types.connection.Connection"]:
-            import capo_direct_connect._operations.overture_service.associate_hosted_connection
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.associate_hosted_connection
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.associate_hosted_connection.async_associate_hosted_connection(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.associate_hosted_connection.async_associate_hosted_connection(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.associate_hosted_connection
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.associate_hosted_connection.async_associate_hosted_connection(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -873,14 +988,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.associate_mac_sec_key_response.AssociateMacSecKeyResponse"
         ]:
-            import capo_direct_connect._operations.overture_service.associate_mac_sec_key
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.associate_mac_sec_key
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.associate_mac_sec_key.async_associate_mac_sec_key(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.associate_mac_sec_key.async_associate_mac_sec_key(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.associate_mac_sec_key
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.associate_mac_sec_key.async_associate_mac_sec_key(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -928,14 +1055,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.virtual_interface.VirtualInterface"
         ]:
-            import capo_direct_connect._operations.overture_service.associate_virtual_interface
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.associate_virtual_interface
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.associate_virtual_interface.async_associate_virtual_interface(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.associate_virtual_interface.async_associate_virtual_interface(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.associate_virtual_interface
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.associate_virtual_interface.async_associate_virtual_interface(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -976,14 +1115,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.confirm_connection_response.ConfirmConnectionResponse"
         ]:
-            import capo_direct_connect._operations.overture_service.confirm_connection
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.confirm_connection
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.confirm_connection.async_confirm_connection(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.confirm_connection.async_confirm_connection(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.confirm_connection
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.confirm_connection.async_confirm_connection(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1025,14 +1176,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.confirm_customer_agreement_response.ConfirmCustomerAgreementResponse"
         ]:
-            import capo_direct_connect._operations.overture_service.confirm_customer_agreement
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.confirm_customer_agreement
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.confirm_customer_agreement.async_confirm_customer_agreement(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.confirm_customer_agreement.async_confirm_customer_agreement(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.confirm_customer_agreement
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.confirm_customer_agreement.async_confirm_customer_agreement(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1080,14 +1243,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.confirm_private_virtual_interface_response.ConfirmPrivateVirtualInterfaceResponse"
         ]:
-            import capo_direct_connect._operations.overture_service.confirm_private_virtual_interface
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.confirm_private_virtual_interface
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.confirm_private_virtual_interface.async_confirm_private_virtual_interface(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.confirm_private_virtual_interface.async_confirm_private_virtual_interface(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.confirm_private_virtual_interface
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.confirm_private_virtual_interface.async_confirm_private_virtual_interface(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1131,14 +1306,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.confirm_public_virtual_interface_response.ConfirmPublicVirtualInterfaceResponse"
         ]:
-            import capo_direct_connect._operations.overture_service.confirm_public_virtual_interface
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.confirm_public_virtual_interface
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.confirm_public_virtual_interface.async_confirm_public_virtual_interface(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.confirm_public_virtual_interface.async_confirm_public_virtual_interface(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.confirm_public_virtual_interface
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.confirm_public_virtual_interface.async_confirm_public_virtual_interface(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1180,14 +1367,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.confirm_transit_virtual_interface_response.ConfirmTransitVirtualInterfaceResponse"
         ]:
-            import capo_direct_connect._operations.overture_service.confirm_transit_virtual_interface
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.confirm_transit_virtual_interface
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.confirm_transit_virtual_interface.async_confirm_transit_virtual_interface(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.confirm_transit_virtual_interface.async_confirm_transit_virtual_interface(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.confirm_transit_virtual_interface
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.confirm_transit_virtual_interface.async_confirm_transit_virtual_interface(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1234,14 +1433,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.create_bgp_peer_response.CreateBGPPeerResponse"
         ]:
-            import capo_direct_connect._operations.overture_service.create_bgp_peer
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.create_bgp_peer
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.create_bgp_peer.async_create_bgp_peer(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.create_bgp_peer.async_create_bgp_peer(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.create_bgp_peer
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.create_bgp_peer.async_create_bgp_peer(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1303,14 +1514,26 @@ class AsyncDirectConnectClient:
         async def _handler(
             req: "AsyncOperationRequest[capo_direct_connect.types.create_connection_request.CreateConnectionRequest]",
         ) -> AsyncOperationResponse["capo_direct_connect.types.connection.Connection"]:
-            import capo_direct_connect._operations.overture_service.create_connection
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.create_connection
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.create_connection.async_create_connection(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.create_connection.async_create_connection(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.create_connection
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.create_connection.async_create_connection(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1366,14 +1589,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.create_direct_connect_gateway_result.CreateDirectConnectGatewayResult"
         ]:
-            import capo_direct_connect._operations.overture_service.create_direct_connect_gateway
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.create_direct_connect_gateway
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.create_direct_connect_gateway.async_create_direct_connect_gateway(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.create_direct_connect_gateway.async_create_direct_connect_gateway(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.create_direct_connect_gateway
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.create_direct_connect_gateway.async_create_direct_connect_gateway(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1429,14 +1664,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.create_direct_connect_gateway_association_result.CreateDirectConnectGatewayAssociationResult"
         ]:
-            import capo_direct_connect._operations.overture_service.create_direct_connect_gateway_association
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.create_direct_connect_gateway_association
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.create_direct_connect_gateway_association.async_create_direct_connect_gateway_association(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.create_direct_connect_gateway_association.async_create_direct_connect_gateway_association(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.create_direct_connect_gateway_association
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.create_direct_connect_gateway_association.async_create_direct_connect_gateway_association(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1496,14 +1743,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.create_direct_connect_gateway_association_proposal_result.CreateDirectConnectGatewayAssociationProposalResult"
         ]:
-            import capo_direct_connect._operations.overture_service.create_direct_connect_gateway_association_proposal
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.create_direct_connect_gateway_association_proposal
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.create_direct_connect_gateway_association_proposal.async_create_direct_connect_gateway_association_proposal(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.create_direct_connect_gateway_association_proposal.async_create_direct_connect_gateway_association_proposal(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.create_direct_connect_gateway_association_proposal
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.create_direct_connect_gateway_association_proposal.async_create_direct_connect_gateway_association_proposal(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1572,14 +1831,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.interconnect.Interconnect"
         ]:
-            import capo_direct_connect._operations.overture_service.create_interconnect
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.create_interconnect
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.create_interconnect.async_create_interconnect(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.create_interconnect.async_create_interconnect(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.create_interconnect
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.create_interconnect.async_create_interconnect(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1657,14 +1928,26 @@ class AsyncDirectConnectClient:
         async def _handler(
             req: "AsyncOperationRequest[capo_direct_connect.types.create_lag_request.CreateLagRequest]",
         ) -> AsyncOperationResponse["capo_direct_connect.types.lag.Lag"]:
-            import capo_direct_connect._operations.overture_service.create_lag
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.create_lag
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.create_lag.async_create_lag(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.create_lag.async_create_lag(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.create_lag
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.create_lag.async_create_lag(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1724,14 +2007,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.virtual_interface.VirtualInterface"
         ]:
-            import capo_direct_connect._operations.overture_service.create_private_virtual_interface
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.create_private_virtual_interface
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.create_private_virtual_interface.async_create_private_virtual_interface(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.create_private_virtual_interface.async_create_private_virtual_interface(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.create_private_virtual_interface
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.create_private_virtual_interface.async_create_private_virtual_interface(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1777,14 +2072,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.virtual_interface.VirtualInterface"
         ]:
-            import capo_direct_connect._operations.overture_service.create_public_virtual_interface
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.create_public_virtual_interface
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.create_public_virtual_interface.async_create_public_virtual_interface(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.create_public_virtual_interface.async_create_public_virtual_interface(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.create_public_virtual_interface
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.create_public_virtual_interface.async_create_public_virtual_interface(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1836,14 +2143,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.create_resiliency_group_result.CreateResiliencyGroupResult"
         ]:
-            import capo_direct_connect._operations.overture_service.create_resiliency_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.create_resiliency_group
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.create_resiliency_group.async_create_resiliency_group(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.create_resiliency_group.async_create_resiliency_group(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.create_resiliency_group
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.create_resiliency_group.async_create_resiliency_group(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1893,14 +2212,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.create_transit_virtual_interface_result.CreateTransitVirtualInterfaceResult"
         ]:
-            import capo_direct_connect._operations.overture_service.create_transit_virtual_interface
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.create_transit_virtual_interface
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.create_transit_virtual_interface.async_create_transit_virtual_interface(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.create_transit_virtual_interface.async_create_transit_virtual_interface(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.create_transit_virtual_interface
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.create_transit_virtual_interface.async_create_transit_virtual_interface(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1953,14 +2284,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.delete_bgp_peer_response.DeleteBGPPeerResponse"
         ]:
-            import capo_direct_connect._operations.overture_service.delete_bgp_peer
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.delete_bgp_peer
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.delete_bgp_peer.async_delete_bgp_peer(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.delete_bgp_peer.async_delete_bgp_peer(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.delete_bgp_peer
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.delete_bgp_peer.async_delete_bgp_peer(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2006,14 +2349,26 @@ class AsyncDirectConnectClient:
         async def _handler(
             req: "AsyncOperationRequest[capo_direct_connect.types.delete_connection_request.DeleteConnectionRequest]",
         ) -> AsyncOperationResponse["capo_direct_connect.types.connection.Connection"]:
-            import capo_direct_connect._operations.overture_service.delete_connection
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.delete_connection
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.delete_connection.async_delete_connection(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.delete_connection.async_delete_connection(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.delete_connection
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.delete_connection.async_delete_connection(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2053,14 +2408,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.delete_direct_connect_gateway_result.DeleteDirectConnectGatewayResult"
         ]:
-            import capo_direct_connect._operations.overture_service.delete_direct_connect_gateway
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.delete_direct_connect_gateway
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.delete_direct_connect_gateway.async_delete_direct_connect_gateway(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.delete_direct_connect_gateway.async_delete_direct_connect_gateway(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.delete_direct_connect_gateway
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.delete_direct_connect_gateway.async_delete_direct_connect_gateway(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2110,14 +2477,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.delete_direct_connect_gateway_association_result.DeleteDirectConnectGatewayAssociationResult"
         ]:
-            import capo_direct_connect._operations.overture_service.delete_direct_connect_gateway_association
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.delete_direct_connect_gateway_association
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.delete_direct_connect_gateway_association.async_delete_direct_connect_gateway_association(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.delete_direct_connect_gateway_association.async_delete_direct_connect_gateway_association(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.delete_direct_connect_gateway_association
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.delete_direct_connect_gateway_association.async_delete_direct_connect_gateway_association(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2161,14 +2540,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.delete_direct_connect_gateway_association_proposal_result.DeleteDirectConnectGatewayAssociationProposalResult"
         ]:
-            import capo_direct_connect._operations.overture_service.delete_direct_connect_gateway_association_proposal
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.delete_direct_connect_gateway_association_proposal
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.delete_direct_connect_gateway_association_proposal.async_delete_direct_connect_gateway_association_proposal(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.delete_direct_connect_gateway_association_proposal.async_delete_direct_connect_gateway_association_proposal(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.delete_direct_connect_gateway_association_proposal
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.delete_direct_connect_gateway_association_proposal.async_delete_direct_connect_gateway_association_proposal(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2209,14 +2600,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.delete_interconnect_response.DeleteInterconnectResponse"
         ]:
-            import capo_direct_connect._operations.overture_service.delete_interconnect
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.delete_interconnect
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.delete_interconnect.async_delete_interconnect(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.delete_interconnect.async_delete_interconnect(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.delete_interconnect
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.delete_interconnect.async_delete_interconnect(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2254,14 +2657,26 @@ class AsyncDirectConnectClient:
         async def _handler(
             req: "AsyncOperationRequest[capo_direct_connect.types.delete_lag_request.DeleteLagRequest]",
         ) -> AsyncOperationResponse["capo_direct_connect.types.lag.Lag"]:
-            import capo_direct_connect._operations.overture_service.delete_lag
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.delete_lag
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.delete_lag.async_delete_lag(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.delete_lag.async_delete_lag(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.delete_lag
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.delete_lag.async_delete_lag(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2301,14 +2716,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.delete_resiliency_group_result.DeleteResiliencyGroupResult"
         ]:
-            import capo_direct_connect._operations.overture_service.delete_resiliency_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.delete_resiliency_group
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.delete_resiliency_group.async_delete_resiliency_group(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.delete_resiliency_group.async_delete_resiliency_group(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.delete_resiliency_group
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.delete_resiliency_group.async_delete_resiliency_group(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2348,14 +2775,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.delete_virtual_interface_response.DeleteVirtualInterfaceResponse"
         ]:
-            import capo_direct_connect._operations.overture_service.delete_virtual_interface
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.delete_virtual_interface
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.delete_virtual_interface.async_delete_virtual_interface(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.delete_virtual_interface.async_delete_virtual_interface(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.delete_virtual_interface
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.delete_virtual_interface.async_delete_virtual_interface(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2403,14 +2842,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.describe_connection_loa_response.DescribeConnectionLoaResponse"
         ]:
-            import capo_direct_connect._operations.overture_service.describe_connection_loa
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.describe_connection_loa
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.describe_connection_loa.async_describe_connection_loa(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.describe_connection_loa.async_describe_connection_loa(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_connection_loa
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_connection_loa.async_describe_connection_loa(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2464,14 +2915,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.connections.Connections"
         ]:
-            import capo_direct_connect._operations.overture_service.describe_connections
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.describe_connections
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.describe_connections.async_describe_connections(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.describe_connections.async_describe_connections(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_connections
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_connections.async_describe_connections(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2515,14 +2978,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.connections.Connections"
         ]:
-            import capo_direct_connect._operations.overture_service.describe_connections_on_interconnect
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.describe_connections_on_interconnect
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.describe_connections_on_interconnect.async_describe_connections_on_interconnect(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.describe_connections_on_interconnect.async_describe_connections_on_interconnect(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_connections_on_interconnect
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_connections_on_interconnect.async_describe_connections_on_interconnect(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2556,14 +3031,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.describe_customer_metadata_response.DescribeCustomerMetadataResponse"
         ]:
-            import capo_direct_connect._operations.overture_service.describe_customer_metadata
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.describe_customer_metadata
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.describe_customer_metadata.async_describe_customer_metadata(
-                req.options
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.describe_customer_metadata.async_describe_customer_metadata(
+                    req.options
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_customer_metadata
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_customer_metadata.async_describe_customer_metadata(
+                    req.options
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2618,14 +3105,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.describe_direct_connect_gateway_association_proposals_result.DescribeDirectConnectGatewayAssociationProposalsResult"
         ]:
-            import capo_direct_connect._operations.overture_service.describe_direct_connect_gateway_association_proposals
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.describe_direct_connect_gateway_association_proposals
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.describe_direct_connect_gateway_association_proposals.async_describe_direct_connect_gateway_association_proposals(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.describe_direct_connect_gateway_association_proposals.async_describe_direct_connect_gateway_association_proposals(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_direct_connect_gateway_association_proposals
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_direct_connect_gateway_association_proposals.async_describe_direct_connect_gateway_association_proposals(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2696,14 +3195,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.describe_direct_connect_gateway_associations_result.DescribeDirectConnectGatewayAssociationsResult"
         ]:
-            import capo_direct_connect._operations.overture_service.describe_direct_connect_gateway_associations
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.describe_direct_connect_gateway_associations
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.describe_direct_connect_gateway_associations.async_describe_direct_connect_gateway_associations(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.describe_direct_connect_gateway_associations.async_describe_direct_connect_gateway_associations(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_direct_connect_gateway_associations
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_direct_connect_gateway_associations.async_describe_direct_connect_gateway_associations(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2768,14 +3279,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.describe_direct_connect_gateway_attachments_result.DescribeDirectConnectGatewayAttachmentsResult"
         ]:
-            import capo_direct_connect._operations.overture_service.describe_direct_connect_gateway_attachments
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.describe_direct_connect_gateway_attachments
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.describe_direct_connect_gateway_attachments.async_describe_direct_connect_gateway_attachments(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.describe_direct_connect_gateway_attachments.async_describe_direct_connect_gateway_attachments(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_direct_connect_gateway_attachments
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_direct_connect_gateway_attachments.async_describe_direct_connect_gateway_attachments(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2832,14 +3355,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.describe_direct_connect_gateways_result.DescribeDirectConnectGatewaysResult"
         ]:
-            import capo_direct_connect._operations.overture_service.describe_direct_connect_gateways
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.describe_direct_connect_gateways
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.describe_direct_connect_gateways.async_describe_direct_connect_gateways(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.describe_direct_connect_gateways.async_describe_direct_connect_gateways(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_direct_connect_gateways
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_direct_connect_gateways.async_describe_direct_connect_gateways(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2891,14 +3426,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.connections.Connections"
         ]:
-            import capo_direct_connect._operations.overture_service.describe_hosted_connections
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.describe_hosted_connections
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.describe_hosted_connections.async_describe_hosted_connections(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.describe_hosted_connections.async_describe_hosted_connections(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_hosted_connections
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_hosted_connections.async_describe_hosted_connections(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2950,14 +3497,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.describe_interconnect_loa_response.DescribeInterconnectLoaResponse"
         ]:
-            import capo_direct_connect._operations.overture_service.describe_interconnect_loa
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.describe_interconnect_loa
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.describe_interconnect_loa.async_describe_interconnect_loa(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.describe_interconnect_loa.async_describe_interconnect_loa(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_interconnect_loa
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_interconnect_loa.async_describe_interconnect_loa(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3011,14 +3570,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.interconnects.Interconnects"
         ]:
-            import capo_direct_connect._operations.overture_service.describe_interconnects
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.describe_interconnects
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.describe_interconnects.async_describe_interconnects(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.describe_interconnects.async_describe_interconnects(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_interconnects
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_interconnects.async_describe_interconnects(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3068,14 +3639,26 @@ class AsyncDirectConnectClient:
         async def _handler(
             req: "AsyncOperationRequest[capo_direct_connect.types.describe_lags_request.DescribeLagsRequest]",
         ) -> AsyncOperationResponse["capo_direct_connect.types.lags.Lags"]:
-            import capo_direct_connect._operations.overture_service.describe_lags
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.describe_lags
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.describe_lags.async_describe_lags(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.describe_lags.async_describe_lags(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_lags
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_lags.async_describe_lags(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3125,14 +3708,26 @@ class AsyncDirectConnectClient:
         async def _handler(
             req: "AsyncOperationRequest[capo_direct_connect.types.describe_loa_request.DescribeLoaRequest]",
         ) -> AsyncOperationResponse["capo_direct_connect.types.loa.Loa"]:
-            import capo_direct_connect._operations.overture_service.describe_loa
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.describe_loa
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.describe_loa.async_describe_loa(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.describe_loa.async_describe_loa(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_loa
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_loa.async_describe_loa(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3168,14 +3763,26 @@ class AsyncDirectConnectClient:
         async def _handler(
             req: "AsyncOperationRequest[None]",
         ) -> AsyncOperationResponse["capo_direct_connect.types.locations.Locations"]:
-            import capo_direct_connect._operations.overture_service.describe_locations
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.describe_locations
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.describe_locations.async_describe_locations(
-                req.options
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.describe_locations.async_describe_locations(
+                    req.options
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_locations
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_locations.async_describe_locations(
+                    req.options
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3216,14 +3823,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.describe_router_configuration_response.DescribeRouterConfigurationResponse"
         ]:
-            import capo_direct_connect._operations.overture_service.describe_router_configuration
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.describe_router_configuration
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.describe_router_configuration.async_describe_router_configuration(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.describe_router_configuration.async_describe_router_configuration(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_router_configuration
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_router_configuration.async_describe_router_configuration(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3265,14 +3884,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.describe_tags_response.DescribeTagsResponse"
         ]:
-            import capo_direct_connect._operations.overture_service.describe_tags
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.describe_tags
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.describe_tags.async_describe_tags(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.describe_tags.async_describe_tags(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_tags
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_tags.async_describe_tags(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3306,14 +3937,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.virtual_gateways.VirtualGateways"
         ]:
-            import capo_direct_connect._operations.overture_service.describe_virtual_gateways
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.describe_virtual_gateways
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.describe_virtual_gateways.async_describe_virtual_gateways(
-                req.options
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.describe_virtual_gateways.async_describe_virtual_gateways(
+                    req.options
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_virtual_gateways
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_virtual_gateways.async_describe_virtual_gateways(
+                    req.options
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3364,14 +4007,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.virtual_interfaces.VirtualInterfaces"
         ]:
-            import capo_direct_connect._operations.overture_service.describe_virtual_interfaces
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.describe_virtual_interfaces
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.describe_virtual_interfaces.async_describe_virtual_interfaces(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.describe_virtual_interfaces.async_describe_virtual_interfaces(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_virtual_interfaces
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.describe_virtual_interfaces.async_describe_virtual_interfaces(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3417,14 +4072,26 @@ class AsyncDirectConnectClient:
         async def _handler(
             req: "AsyncOperationRequest[capo_direct_connect.types.disassociate_connection_from_lag_request.DisassociateConnectionFromLagRequest]",
         ) -> AsyncOperationResponse["capo_direct_connect.types.connection.Connection"]:
-            import capo_direct_connect._operations.overture_service.disassociate_connection_from_lag
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.disassociate_connection_from_lag
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.disassociate_connection_from_lag.async_disassociate_connection_from_lag(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.disassociate_connection_from_lag.async_disassociate_connection_from_lag(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.disassociate_connection_from_lag
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.disassociate_connection_from_lag.async_disassociate_connection_from_lag(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3471,14 +4138,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.disassociate_connections_from_resiliency_group_result.DisassociateConnectionsFromResiliencyGroupResult"
         ]:
-            import capo_direct_connect._operations.overture_service.disassociate_connections_from_resiliency_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.disassociate_connections_from_resiliency_group
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.disassociate_connections_from_resiliency_group.async_disassociate_connections_from_resiliency_group(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.disassociate_connections_from_resiliency_group.async_disassociate_connections_from_resiliency_group(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.disassociate_connections_from_resiliency_group
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.disassociate_connections_from_resiliency_group.async_disassociate_connections_from_resiliency_group(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3524,14 +4203,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.disassociate_mac_sec_key_response.DisassociateMacSecKeyResponse"
         ]:
-            import capo_direct_connect._operations.overture_service.disassociate_mac_sec_key
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.disassociate_mac_sec_key
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.disassociate_mac_sec_key.async_disassociate_mac_sec_key(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.disassociate_mac_sec_key.async_disassociate_mac_sec_key(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.disassociate_mac_sec_key
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.disassociate_mac_sec_key.async_disassociate_mac_sec_key(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3574,14 +4265,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.get_resiliency_group_result.GetResiliencyGroupResult"
         ]:
-            import capo_direct_connect._operations.overture_service.get_resiliency_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.get_resiliency_group
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.get_resiliency_group.async_get_resiliency_group(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.get_resiliency_group.async_get_resiliency_group(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.get_resiliency_group
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.get_resiliency_group.async_get_resiliency_group(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3629,14 +4332,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.list_resiliency_group_associations_result.ListResiliencyGroupAssociationsResult"
         ]:
-            import capo_direct_connect._operations.overture_service.list_resiliency_group_associations
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.list_resiliency_group_associations
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.list_resiliency_group_associations.async_list_resiliency_group_associations(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.list_resiliency_group_associations.async_list_resiliency_group_associations(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.list_resiliency_group_associations
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.list_resiliency_group_associations.async_list_resiliency_group_associations(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3686,14 +4401,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.list_resiliency_groups_result.ListResiliencyGroupsResult"
         ]:
-            import capo_direct_connect._operations.overture_service.list_resiliency_groups
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.list_resiliency_groups
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.list_resiliency_groups.async_list_resiliency_groups(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.list_resiliency_groups.async_list_resiliency_groups(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.list_resiliency_groups
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.list_resiliency_groups.async_list_resiliency_groups(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3749,14 +4476,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.list_virtual_interface_routes_response.ListVirtualInterfaceRoutesResponse"
         ]:
-            import capo_direct_connect._operations.overture_service.list_virtual_interface_routes
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.list_virtual_interface_routes
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.list_virtual_interface_routes.async_list_virtual_interface_routes(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.list_virtual_interface_routes.async_list_virtual_interface_routes(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.list_virtual_interface_routes
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.list_virtual_interface_routes.async_list_virtual_interface_routes(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3822,14 +4561,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.list_virtual_interface_test_history_response.ListVirtualInterfaceTestHistoryResponse"
         ]:
-            import capo_direct_connect._operations.overture_service.list_virtual_interface_test_history
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.list_virtual_interface_test_history
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.list_virtual_interface_test_history.async_list_virtual_interface_test_history(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.list_virtual_interface_test_history.async_list_virtual_interface_test_history(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.list_virtual_interface_test_history
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.list_virtual_interface_test_history.async_list_virtual_interface_test_history(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3887,14 +4638,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.start_bgp_failover_test_response.StartBgpFailoverTestResponse"
         ]:
-            import capo_direct_connect._operations.overture_service.start_bgp_failover_test
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.start_bgp_failover_test
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.start_bgp_failover_test.async_start_bgp_failover_test(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.start_bgp_failover_test.async_start_bgp_failover_test(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.start_bgp_failover_test
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.start_bgp_failover_test.async_start_bgp_failover_test(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3938,14 +4701,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.stop_bgp_failover_test_response.StopBgpFailoverTestResponse"
         ]:
-            import capo_direct_connect._operations.overture_service.stop_bgp_failover_test
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.stop_bgp_failover_test
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.stop_bgp_failover_test.async_stop_bgp_failover_test(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.stop_bgp_failover_test.async_stop_bgp_failover_test(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.stop_bgp_failover_test
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.stop_bgp_failover_test.async_stop_bgp_failover_test(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3989,14 +4764,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.tag_resource_response.TagResourceResponse"
         ]:
-            import capo_direct_connect._operations.overture_service.tag_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.tag_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.tag_resource.async_tag_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.tag_resource.async_tag_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.tag_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.tag_resource.async_tag_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4039,14 +4826,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.untag_resource_response.UntagResourceResponse"
         ]:
-            import capo_direct_connect._operations.overture_service.untag_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.untag_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.untag_resource.async_untag_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.untag_resource.async_untag_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.untag_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.untag_resource.async_untag_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4093,14 +4892,26 @@ class AsyncDirectConnectClient:
         async def _handler(
             req: "AsyncOperationRequest[capo_direct_connect.types.update_connection_request.UpdateConnectionRequest]",
         ) -> AsyncOperationResponse["capo_direct_connect.types.connection.Connection"]:
-            import capo_direct_connect._operations.overture_service.update_connection
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.update_connection
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.update_connection.async_update_connection(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.update_connection.async_update_connection(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.update_connection
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.update_connection.async_update_connection(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4146,14 +4957,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.update_connections_billing_mode_response.UpdateConnectionsBillingModeResponse"
         ]:
-            import capo_direct_connect._operations.overture_service.update_connections_billing_mode
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.update_connections_billing_mode
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.update_connections_billing_mode.async_update_connections_billing_mode(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.update_connections_billing_mode.async_update_connections_billing_mode(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.update_connections_billing_mode
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.update_connections_billing_mode.async_update_connections_billing_mode(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4196,14 +5019,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.update_direct_connect_gateway_response.UpdateDirectConnectGatewayResponse"
         ]:
-            import capo_direct_connect._operations.overture_service.update_direct_connect_gateway
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.update_direct_connect_gateway
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.update_direct_connect_gateway.async_update_direct_connect_gateway(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.update_direct_connect_gateway.async_update_direct_connect_gateway(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.update_direct_connect_gateway
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.update_direct_connect_gateway.async_update_direct_connect_gateway(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4254,14 +5089,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.update_direct_connect_gateway_association_result.UpdateDirectConnectGatewayAssociationResult"
         ]:
-            import capo_direct_connect._operations.overture_service.update_direct_connect_gateway_association
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.update_direct_connect_gateway_association
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.update_direct_connect_gateway_association.async_update_direct_connect_gateway_association(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.update_direct_connect_gateway_association.async_update_direct_connect_gateway_association(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.update_direct_connect_gateway_association
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.update_direct_connect_gateway_association.async_update_direct_connect_gateway_association(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4315,14 +5162,26 @@ class AsyncDirectConnectClient:
         async def _handler(
             req: "AsyncOperationRequest[capo_direct_connect.types.update_lag_request.UpdateLagRequest]",
         ) -> AsyncOperationResponse["capo_direct_connect.types.lag.Lag"]:
-            import capo_direct_connect._operations.overture_service.update_lag
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.update_lag
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.update_lag.async_update_lag(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.update_lag.async_update_lag(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.update_lag
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.update_lag.async_update_lag(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4374,14 +5233,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.update_resiliency_group_result.UpdateResiliencyGroupResult"
         ]:
-            import capo_direct_connect._operations.overture_service.update_resiliency_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.update_resiliency_group
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.update_resiliency_group.async_update_resiliency_group(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.update_resiliency_group.async_update_resiliency_group(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.update_resiliency_group
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.update_resiliency_group.async_update_resiliency_group(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4444,14 +5315,26 @@ class AsyncDirectConnectClient:
         ) -> AsyncOperationResponse[
             "capo_direct_connect.types.virtual_interface.VirtualInterface"
         ]:
-            import capo_direct_connect._operations.overture_service.update_virtual_interface_attributes
+            if req.options.protocol == "awsJson1_1":
+                import capo_direct_connect._operations.overture_service.aws_json1_1.update_virtual_interface_attributes
 
-            (
-                output,
-                http_response,
-            ) = await capo_direct_connect._operations.overture_service.update_virtual_interface_attributes.async_update_virtual_interface_attributes(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.aws_json1_1.update_virtual_interface_attributes.async_update_virtual_interface_attributes(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_direct_connect._operations.overture_service.rpcv2_cbor.update_virtual_interface_attributes
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_direct_connect._operations.overture_service.rpcv2_cbor.update_virtual_interface_attributes.async_update_virtual_interface_attributes(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

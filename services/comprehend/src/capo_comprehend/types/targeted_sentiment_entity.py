@@ -57,3 +57,42 @@ def deserialize_aws_json_1_1(data: dict) -> TargetedSentimentEntity:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TargetedSentimentEntity) -> dict:
+    out: dict = {}
+    if "descriptive_mention_index" in value:
+        import capo_comprehend.types.list_of_descriptive_mention_indices
+
+        out["DescriptiveMentionIndex"] = (
+            capo_comprehend.types.list_of_descriptive_mention_indices.serialize_cbor(
+                value["descriptive_mention_index"]
+            )
+        )
+    if "mentions" in value:
+        import capo_comprehend.types.list_of_mentions
+
+        out["Mentions"] = capo_comprehend.types.list_of_mentions.serialize_cbor(
+            value["mentions"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TargetedSentimentEntity:
+    out: TargetedSentimentEntity = {}  # type: ignore[typeddict-item]
+    if data.get("DescriptiveMentionIndex") is not None:
+        import capo_comprehend.types.list_of_descriptive_mention_indices
+
+        out["descriptive_mention_index"] = (
+            capo_comprehend.types.list_of_descriptive_mention_indices.deserialize_cbor(
+                data["DescriptiveMentionIndex"]
+            )
+        )
+    if data.get("Mentions") is not None:
+        import capo_comprehend.types.list_of_mentions
+
+        out["mentions"] = capo_comprehend.types.list_of_mentions.deserialize_cbor(
+            data["Mentions"]
+        )
+    return out

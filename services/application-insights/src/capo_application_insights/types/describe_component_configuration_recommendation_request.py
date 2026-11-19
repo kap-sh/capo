@@ -89,3 +89,57 @@ def deserialize_aws_json_1_1(
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeComponentConfigurationRecommendationRequest) -> dict:
+    out: dict = {}
+    out["ResourceGroupName"] = value["resource_group_name"]
+    out["ComponentName"] = value["component_name"]
+    import capo_application_insights.types.tier
+
+    out["Tier"] = capo_application_insights.types.tier.serialize_cbor(value["tier"])
+    if "workload_name" in value:
+        out["WorkloadName"] = value["workload_name"]
+    if "recommendation_type" in value:
+        import capo_application_insights.types.recommendation_type
+
+        out["RecommendationType"] = (
+            capo_application_insights.types.recommendation_type.serialize_cbor(
+                value["recommendation_type"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeComponentConfigurationRecommendationRequest:
+    out: DescribeComponentConfigurationRecommendationRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceGroupName") is not None:
+        out["resource_group_name"] = data["ResourceGroupName"]
+    else:
+        out["resource_group_name"] = ""
+    if data.get("ComponentName") is not None:
+        out["component_name"] = data["ComponentName"]
+    else:
+        out["component_name"] = ""
+    if data.get("Tier") is not None:
+        import capo_application_insights.types.tier
+
+        out["tier"] = capo_application_insights.types.tier.deserialize_cbor(
+            data["Tier"]
+        )
+    else:
+        import typing
+
+        out["tier"] = typing.cast("capo_application_insights.types.tier.Tier", "")
+    if data.get("WorkloadName") is not None:
+        out["workload_name"] = data["WorkloadName"]
+    if data.get("RecommendationType") is not None:
+        import capo_application_insights.types.recommendation_type
+
+        out["recommendation_type"] = (
+            capo_application_insights.types.recommendation_type.deserialize_cbor(
+                data["RecommendationType"]
+            )
+        )
+    return out

@@ -141,3 +141,98 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateAppBlockBuilderRequest:
     if data.get("DisableIMDSV1") is not None:
         out["disable_imdsv1"] = data["DisableIMDSV1"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateAppBlockBuilderRequest) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "display_name" in value:
+        out["DisplayName"] = value["display_name"]
+    if "platform" in value:
+        import capo_appstream.types.platform_type
+
+        out["Platform"] = capo_appstream.types.platform_type.serialize_cbor(
+            value["platform"]
+        )
+    if "instance_type" in value:
+        out["InstanceType"] = value["instance_type"]
+    if "vpc_config" in value:
+        import capo_appstream.types.vpc_config
+
+        out["VpcConfig"] = capo_appstream.types.vpc_config.serialize_cbor(
+            value["vpc_config"]
+        )
+    if "enable_default_internet_access" in value:
+        out["EnableDefaultInternetAccess"] = value["enable_default_internet_access"]
+    if "iam_role_arn" in value:
+        out["IamRoleArn"] = value["iam_role_arn"]
+    if "access_endpoints" in value:
+        import capo_appstream.types.access_endpoint_list
+
+        out["AccessEndpoints"] = (
+            capo_appstream.types.access_endpoint_list.serialize_cbor(
+                value["access_endpoints"]
+            )
+        )
+    if "attributes_to_delete" in value:
+        import capo_appstream.types.app_block_builder_attributes
+
+        out["AttributesToDelete"] = (
+            capo_appstream.types.app_block_builder_attributes.serialize_cbor(
+                value["attributes_to_delete"]
+            )
+        )
+    if "disable_imdsv1" in value:
+        out["DisableIMDSV1"] = value["disable_imdsv1"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateAppBlockBuilderRequest:
+    out: UpdateAppBlockBuilderRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("DisplayName") is not None:
+        out["display_name"] = data["DisplayName"]
+    if data.get("Platform") is not None:
+        import capo_appstream.types.platform_type
+
+        out["platform"] = capo_appstream.types.platform_type.deserialize_cbor(
+            data["Platform"]
+        )
+    if data.get("InstanceType") is not None:
+        out["instance_type"] = data["InstanceType"]
+    if data.get("VpcConfig") is not None:
+        import capo_appstream.types.vpc_config
+
+        out["vpc_config"] = capo_appstream.types.vpc_config.deserialize_cbor(
+            data["VpcConfig"]
+        )
+    if data.get("EnableDefaultInternetAccess") is not None:
+        out["enable_default_internet_access"] = data["EnableDefaultInternetAccess"]
+    if data.get("IamRoleArn") is not None:
+        out["iam_role_arn"] = data["IamRoleArn"]
+    if data.get("AccessEndpoints") is not None:
+        import capo_appstream.types.access_endpoint_list
+
+        out["access_endpoints"] = (
+            capo_appstream.types.access_endpoint_list.deserialize_cbor(
+                data["AccessEndpoints"]
+            )
+        )
+    if data.get("AttributesToDelete") is not None:
+        import capo_appstream.types.app_block_builder_attributes
+
+        out["attributes_to_delete"] = (
+            capo_appstream.types.app_block_builder_attributes.deserialize_cbor(
+                data["AttributesToDelete"]
+            )
+        )
+    if data.get("DisableIMDSV1") is not None:
+        out["disable_imdsv1"] = data["DisableIMDSV1"]
+    return out

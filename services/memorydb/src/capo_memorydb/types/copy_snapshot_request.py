@@ -61,3 +61,40 @@ def deserialize_aws_json_1_1(data: dict) -> CopySnapshotRequest:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CopySnapshotRequest) -> dict:
+    out: dict = {}
+    out["SourceSnapshotName"] = value["source_snapshot_name"]
+    out["TargetSnapshotName"] = value["target_snapshot_name"]
+    if "target_bucket" in value:
+        out["TargetBucket"] = value["target_bucket"]
+    if "kms_key_id" in value:
+        out["KmsKeyId"] = value["kms_key_id"]
+    if "tags" in value:
+        import capo_memorydb.types.tag_list
+
+        out["Tags"] = capo_memorydb.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CopySnapshotRequest:
+    out: CopySnapshotRequest = {}  # type: ignore[typeddict-item]
+    if data.get("SourceSnapshotName") is not None:
+        out["source_snapshot_name"] = data["SourceSnapshotName"]
+    else:
+        out["source_snapshot_name"] = ""
+    if data.get("TargetSnapshotName") is not None:
+        out["target_snapshot_name"] = data["TargetSnapshotName"]
+    else:
+        out["target_snapshot_name"] = ""
+    if data.get("TargetBucket") is not None:
+        out["target_bucket"] = data["TargetBucket"]
+    if data.get("KmsKeyId") is not None:
+        out["kms_key_id"] = data["KmsKeyId"]
+    if data.get("Tags") is not None:
+        import capo_memorydb.types.tag_list
+
+        out["tags"] = capo_memorydb.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

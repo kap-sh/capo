@@ -29,6 +29,22 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeConnectionProposalRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeConnectionProposalRequest) -> dict:
+    out: dict = {}
+    out["activationKey"] = value["activation_key"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeConnectionProposalRequest:
+    out: DescribeConnectionProposalRequest = {}  # type: ignore[typeddict-item]
+    if data.get("activationKey") is not None:
+        out["activation_key"] = data["activationKey"]
+    else:
+        out["activation_key"] = ""
+    return out
+
+
 def redact_sensitive(value: DescribeConnectionProposalRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "activation_key" in value:

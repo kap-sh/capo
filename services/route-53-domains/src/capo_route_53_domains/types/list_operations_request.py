@@ -134,3 +134,90 @@ def deserialize_aws_json_1_1(data: dict) -> ListOperationsRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListOperationsRequest) -> dict:
+    out: dict = {}
+    if "submitted_since" in value:
+        import capo_route_53_domains.types.timestamp
+
+        out["SubmittedSince"] = capo_route_53_domains.types.timestamp.serialize_cbor(
+            value["submitted_since"]
+        )
+    if "marker" in value:
+        out["Marker"] = value["marker"]
+    if "max_items" in value:
+        out["MaxItems"] = value["max_items"]
+    if "status" in value:
+        import capo_route_53_domains.types.operation_status_list
+
+        out["Status"] = (
+            capo_route_53_domains.types.operation_status_list.serialize_cbor(
+                value["status"]
+            )
+        )
+    if "type" in value:
+        import capo_route_53_domains.types.operation_type_list
+
+        out["Type"] = capo_route_53_domains.types.operation_type_list.serialize_cbor(
+            value["type"]
+        )
+    if "sort_by" in value:
+        import capo_route_53_domains.types.list_operations_sort_attribute_name
+
+        out["SortBy"] = (
+            capo_route_53_domains.types.list_operations_sort_attribute_name.serialize_cbor(
+                value["sort_by"]
+            )
+        )
+    if "sort_order" in value:
+        import capo_route_53_domains.types.sort_order
+
+        out["SortOrder"] = capo_route_53_domains.types.sort_order.serialize_cbor(
+            value["sort_order"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListOperationsRequest:
+    out: ListOperationsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("SubmittedSince") is not None:
+        import capo_route_53_domains.types.timestamp
+
+        out["submitted_since"] = capo_route_53_domains.types.timestamp.deserialize_cbor(
+            data["SubmittedSince"]
+        )
+    if data.get("Marker") is not None:
+        out["marker"] = data["Marker"]
+    if data.get("MaxItems") is not None:
+        out["max_items"] = data["MaxItems"]
+    if data.get("Status") is not None:
+        import capo_route_53_domains.types.operation_status_list
+
+        out["status"] = (
+            capo_route_53_domains.types.operation_status_list.deserialize_cbor(
+                data["Status"]
+            )
+        )
+    if data.get("Type") is not None:
+        import capo_route_53_domains.types.operation_type_list
+
+        out["type"] = capo_route_53_domains.types.operation_type_list.deserialize_cbor(
+            data["Type"]
+        )
+    if data.get("SortBy") is not None:
+        import capo_route_53_domains.types.list_operations_sort_attribute_name
+
+        out["sort_by"] = (
+            capo_route_53_domains.types.list_operations_sort_attribute_name.deserialize_cbor(
+                data["SortBy"]
+            )
+        )
+    if data.get("SortOrder") is not None:
+        import capo_route_53_domains.types.sort_order
+
+        out["sort_order"] = capo_route_53_domains.types.sort_order.deserialize_cbor(
+            data["SortOrder"]
+        )
+    return out

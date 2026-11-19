@@ -136,3 +136,90 @@ def deserialize_aws_json_1_0(data: dict) -> AgreementCancellationRequestSummary:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AgreementCancellationRequestSummary) -> dict:
+    out: dict = {}
+    if "agreement_cancellation_request_id" in value:
+        out["agreementCancellationRequestId"] = value[
+            "agreement_cancellation_request_id"
+        ]
+    if "agreement_id" in value:
+        out["agreementId"] = value["agreement_id"]
+    if "status" in value:
+        import capo_marketplace_agreement.types.agreement_cancellation_request_status
+
+        out["status"] = (
+            capo_marketplace_agreement.types.agreement_cancellation_request_status.serialize_cbor(
+                value["status"]
+            )
+        )
+    if "reason_code" in value:
+        import capo_marketplace_agreement.types.agreement_cancellation_request_reason_code
+
+        out["reasonCode"] = (
+            capo_marketplace_agreement.types.agreement_cancellation_request_reason_code.serialize_cbor(
+                value["reason_code"]
+            )
+        )
+    if "agreement_type" in value:
+        out["agreementType"] = value["agreement_type"]
+    if "catalog" in value:
+        out["catalog"] = value["catalog"]
+    if "created_at" in value:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["createdAt"] = capo_marketplace_agreement.types.timestamp.serialize_cbor(
+            value["created_at"]
+        )
+    if "updated_at" in value:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["updatedAt"] = capo_marketplace_agreement.types.timestamp.serialize_cbor(
+            value["updated_at"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AgreementCancellationRequestSummary:
+    out: AgreementCancellationRequestSummary = {}  # type: ignore[typeddict-item]
+    if data.get("agreementCancellationRequestId") is not None:
+        out["agreement_cancellation_request_id"] = data[
+            "agreementCancellationRequestId"
+        ]
+    if data.get("agreementId") is not None:
+        out["agreement_id"] = data["agreementId"]
+    if data.get("status") is not None:
+        import capo_marketplace_agreement.types.agreement_cancellation_request_status
+
+        out["status"] = (
+            capo_marketplace_agreement.types.agreement_cancellation_request_status.deserialize_cbor(
+                data["status"]
+            )
+        )
+    if data.get("reasonCode") is not None:
+        import capo_marketplace_agreement.types.agreement_cancellation_request_reason_code
+
+        out["reason_code"] = (
+            capo_marketplace_agreement.types.agreement_cancellation_request_reason_code.deserialize_cbor(
+                data["reasonCode"]
+            )
+        )
+    if data.get("agreementType") is not None:
+        out["agreement_type"] = data["agreementType"]
+    if data.get("catalog") is not None:
+        out["catalog"] = data["catalog"]
+    if data.get("createdAt") is not None:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["created_at"] = capo_marketplace_agreement.types.timestamp.deserialize_cbor(
+            data["createdAt"]
+        )
+    if data.get("updatedAt") is not None:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["updated_at"] = capo_marketplace_agreement.types.timestamp.deserialize_cbor(
+            data["updatedAt"]
+        )
+    return out

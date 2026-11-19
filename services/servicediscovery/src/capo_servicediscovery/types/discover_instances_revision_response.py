@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> DiscoverInstancesRevisionResponse:
     if data.get("InstancesRevision") is not None:
         out["instances_revision"] = data["InstancesRevision"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DiscoverInstancesRevisionResponse) -> dict:
+    out: dict = {}
+    if "instances_revision" in value:
+        out["InstancesRevision"] = value["instances_revision"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DiscoverInstancesRevisionResponse:
+    out: DiscoverInstancesRevisionResponse = {}  # type: ignore[typeddict-item]
+    if data.get("InstancesRevision") is not None:
+        out["instances_revision"] = data["InstancesRevision"]
+    return out

@@ -35,3 +35,25 @@ def deserialize_aws_json_1_0(data: dict) -> PublicNetworkConfiguration:
     else:
         out["ip_type"] = "IPV4"
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PublicNetworkConfiguration) -> dict:
+    out: dict = {}
+    import capo_mailmanager.types.ip_type
+
+    out["IpType"] = capo_mailmanager.types.ip_type.serialize_cbor(
+        value.get("ip_type", "IPV4")
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PublicNetworkConfiguration:
+    out: PublicNetworkConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("IpType") is not None:
+        import capo_mailmanager.types.ip_type
+
+        out["ip_type"] = capo_mailmanager.types.ip_type.deserialize_cbor(data["IpType"])
+    else:
+        out["ip_type"] = "IPV4"
+    return out

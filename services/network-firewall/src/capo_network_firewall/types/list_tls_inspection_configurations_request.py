@@ -37,3 +37,22 @@ def deserialize_aws_json_1_0(data: dict) -> ListTLSInspectionConfigurationsReque
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListTLSInspectionConfigurationsRequest) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListTLSInspectionConfigurationsRequest:
+    out: ListTLSInspectionConfigurationsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    return out

@@ -28,3 +28,18 @@ def deserialize_aws_json_1_1(data: dict) -> Characters:
     if data.get("OriginalTextCharacters") is not None:
         out["original_text_characters"] = data["OriginalTextCharacters"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Characters) -> dict:
+    out: dict = {}
+    if "original_text_characters" in value:
+        out["OriginalTextCharacters"] = value["original_text_characters"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Characters:
+    out: Characters = {}  # type: ignore[typeddict-item]
+    if data.get("OriginalTextCharacters") is not None:
+        out["original_text_characters"] = data["OriginalTextCharacters"]
+    return out

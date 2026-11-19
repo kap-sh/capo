@@ -34,3 +34,23 @@ def deserialize_aws_json_1_1(data: dict) -> ListTagsForResourceInput:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListTagsForResourceInput) -> dict:
+    out: dict = {}
+    out["ResourceArn"] = value["resource_arn"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListTagsForResourceInput:
+    out: ListTagsForResourceInput = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceArn") is not None:
+        out["resource_arn"] = data["ResourceArn"]
+    else:
+        out["resource_arn"] = ""
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

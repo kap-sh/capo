@@ -37,3 +37,28 @@ def deserialize_aws_json_1_1(data: list) -> AdminAppLicenseUsageList:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AdminAppLicenseUsageList) -> list:
+    import capo_appstream.types.admin_app_license_usage_record
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_appstream.types.admin_app_license_usage_record.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> AdminAppLicenseUsageList:
+    import capo_appstream.types.admin_app_license_usage_record
+
+    out: AdminAppLicenseUsageList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_appstream.types.admin_app_license_usage_record.deserialize_cbor(item)
+        )
+    return out

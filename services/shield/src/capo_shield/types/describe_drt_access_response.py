@@ -43,3 +43,30 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeDRTAccessResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeDRTAccessResponse) -> dict:
+    out: dict = {}
+    if "role_arn" in value:
+        out["RoleArn"] = value["role_arn"]
+    if "log_bucket_list" in value:
+        import capo_shield.types.log_bucket_list
+
+        out["LogBucketList"] = capo_shield.types.log_bucket_list.serialize_cbor(
+            value["log_bucket_list"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeDRTAccessResponse:
+    out: DescribeDRTAccessResponse = {}  # type: ignore[typeddict-item]
+    if data.get("RoleArn") is not None:
+        out["role_arn"] = data["RoleArn"]
+    if data.get("LogBucketList") is not None:
+        import capo_shield.types.log_bucket_list
+
+        out["log_bucket_list"] = capo_shield.types.log_bucket_list.deserialize_cbor(
+            data["LogBucketList"]
+        )
+    return out

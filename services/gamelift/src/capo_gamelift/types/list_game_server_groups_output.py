@@ -49,3 +49,32 @@ def deserialize_aws_json_1_1(data: dict) -> ListGameServerGroupsOutput:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListGameServerGroupsOutput) -> dict:
+    out: dict = {}
+    if "game_server_groups" in value:
+        import capo_gamelift.types.game_server_groups
+
+        out["GameServerGroups"] = capo_gamelift.types.game_server_groups.serialize_cbor(
+            value["game_server_groups"]
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListGameServerGroupsOutput:
+    out: ListGameServerGroupsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("GameServerGroups") is not None:
+        import capo_gamelift.types.game_server_groups
+
+        out["game_server_groups"] = (
+            capo_gamelift.types.game_server_groups.deserialize_cbor(
+                data["GameServerGroups"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

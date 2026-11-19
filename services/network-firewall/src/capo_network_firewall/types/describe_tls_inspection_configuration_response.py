@@ -72,3 +72,54 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeTLSInspectionConfigurationRe
             "DescribeTLSInspectionConfigurationResponse.tls_inspection_configuration_response required"
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeTLSInspectionConfigurationResponse) -> dict:
+    out: dict = {}
+    out["UpdateToken"] = value["update_token"]
+    if "tls_inspection_configuration" in value:
+        import capo_network_firewall.types.tls_inspection_configuration
+
+        out["TLSInspectionConfiguration"] = (
+            capo_network_firewall.types.tls_inspection_configuration.serialize_cbor(
+                value["tls_inspection_configuration"]
+            )
+        )
+    import capo_network_firewall.types.tls_inspection_configuration_response
+
+    out["TLSInspectionConfigurationResponse"] = (
+        capo_network_firewall.types.tls_inspection_configuration_response.serialize_cbor(
+            value["tls_inspection_configuration_response"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeTLSInspectionConfigurationResponse:
+    out: DescribeTLSInspectionConfigurationResponse = {}  # type: ignore[typeddict-item]
+    if data.get("UpdateToken") is not None:
+        out["update_token"] = data["UpdateToken"]
+    else:
+        out["update_token"] = ""
+    if data.get("TLSInspectionConfiguration") is not None:
+        import capo_network_firewall.types.tls_inspection_configuration
+
+        out["tls_inspection_configuration"] = (
+            capo_network_firewall.types.tls_inspection_configuration.deserialize_cbor(
+                data["TLSInspectionConfiguration"]
+            )
+        )
+    if data.get("TLSInspectionConfigurationResponse") is not None:
+        import capo_network_firewall.types.tls_inspection_configuration_response
+
+        out["tls_inspection_configuration_response"] = (
+            capo_network_firewall.types.tls_inspection_configuration_response.deserialize_cbor(
+                data["TLSInspectionConfigurationResponse"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "DescribeTLSInspectionConfigurationResponse.tls_inspection_configuration_response required"
+        )
+    return out

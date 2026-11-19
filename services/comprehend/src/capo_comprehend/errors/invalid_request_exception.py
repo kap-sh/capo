@@ -70,6 +70,45 @@ def deserialize_aws_json_1_1(data: dict) -> InvalidRequestException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InvalidRequestException_) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["Message"] = value["message"]
+    if "reason" in value:
+        import capo_comprehend.types.invalid_request_reason
+
+        out["Reason"] = capo_comprehend.types.invalid_request_reason.serialize_cbor(
+            value["reason"]
+        )
+    if "detail" in value:
+        import capo_comprehend.types.invalid_request_detail
+
+        out["Detail"] = capo_comprehend.types.invalid_request_detail.serialize_cbor(
+            value["detail"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> InvalidRequestException_:
+    out: InvalidRequestException_ = {}  # type: ignore[typeddict-item]
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    if data.get("Reason") is not None:
+        import capo_comprehend.types.invalid_request_reason
+
+        out["reason"] = capo_comprehend.types.invalid_request_reason.deserialize_cbor(
+            data["Reason"]
+        )
+    if data.get("Detail") is not None:
+        import capo_comprehend.types.invalid_request_detail
+
+        out["detail"] = capo_comprehend.types.invalid_request_detail.deserialize_cbor(
+            data["Detail"]
+        )
+    return out
+
+
 class InvalidRequestException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.comprehend#InvalidRequestException``."""
 
@@ -97,3 +136,9 @@ class InvalidRequestException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidRequestException":
         return cls(deserialize_aws_json_1_1(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "InvalidRequestException":
+        return cls(deserialize_cbor(data), message, response=response)

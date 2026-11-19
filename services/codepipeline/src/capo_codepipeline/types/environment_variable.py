@@ -56,3 +56,38 @@ def deserialize_aws_json_1_1(data: dict) -> EnvironmentVariable:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EnvironmentVariable) -> dict:
+    out: dict = {}
+    out["name"] = value["name"]
+    out["value"] = value["value"]
+    if "type" in value:
+        import capo_codepipeline.types.environment_variable_type
+
+        out["type"] = capo_codepipeline.types.environment_variable_type.serialize_cbor(
+            value["type"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> EnvironmentVariable:
+    out: EnvironmentVariable = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    else:
+        out["name"] = ""
+    if data.get("value") is not None:
+        out["value"] = data["value"]
+    else:
+        out["value"] = ""
+    if data.get("type") is not None:
+        import capo_codepipeline.types.environment_variable_type
+
+        out["type"] = (
+            capo_codepipeline.types.environment_variable_type.deserialize_cbor(
+                data["type"]
+            )
+        )
+    return out

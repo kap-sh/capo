@@ -37,3 +37,32 @@ def deserialize_aws_json_1_1(data: list) -> ProductViewAggregationValues:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ProductViewAggregationValues) -> list:
+    import capo_service_catalog.types.product_view_aggregation_value
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_service_catalog.types.product_view_aggregation_value.serialize_cbor(
+                item
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> ProductViewAggregationValues:
+    import capo_service_catalog.types.product_view_aggregation_value
+
+    out: ProductViewAggregationValues = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_service_catalog.types.product_view_aggregation_value.deserialize_cbor(
+                item
+            )
+        )
+    return out

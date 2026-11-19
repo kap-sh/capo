@@ -52,3 +52,31 @@ def deserialize_aws_json_1_0(data: dict) -> ECSEstimatedMonthlySavings:
     else:
         out["value"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ECSEstimatedMonthlySavings) -> dict:
+    out: dict = {}
+    if "currency" in value:
+        import capo_compute_optimizer.types.currency
+
+        out["currency"] = capo_compute_optimizer.types.currency.serialize_cbor(
+            value["currency"]
+        )
+    out["value"] = value.get("value", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> ECSEstimatedMonthlySavings:
+    out: ECSEstimatedMonthlySavings = {}  # type: ignore[typeddict-item]
+    if data.get("currency") is not None:
+        import capo_compute_optimizer.types.currency
+
+        out["currency"] = capo_compute_optimizer.types.currency.deserialize_cbor(
+            data["currency"]
+        )
+    if data.get("value") is not None:
+        out["value"] = float(data["value"])
+    else:
+        out["value"] = 0
+    return out

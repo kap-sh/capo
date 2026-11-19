@@ -69,3 +69,43 @@ def deserialize_aws_json_1_1(data: dict) -> ImportAsProvisionedProductInput:
     else:
         out["idempotency_token"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ImportAsProvisionedProductInput) -> dict:
+    out: dict = {}
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    out["ProductId"] = value["product_id"]
+    out["ProvisioningArtifactId"] = value["provisioning_artifact_id"]
+    out["ProvisionedProductName"] = value["provisioned_product_name"]
+    out["PhysicalId"] = value["physical_id"]
+    out["IdempotencyToken"] = value["idempotency_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ImportAsProvisionedProductInput:
+    out: ImportAsProvisionedProductInput = {}  # type: ignore[typeddict-item]
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    if data.get("ProductId") is not None:
+        out["product_id"] = data["ProductId"]
+    else:
+        out["product_id"] = ""
+    if data.get("ProvisioningArtifactId") is not None:
+        out["provisioning_artifact_id"] = data["ProvisioningArtifactId"]
+    else:
+        out["provisioning_artifact_id"] = ""
+    if data.get("ProvisionedProductName") is not None:
+        out["provisioned_product_name"] = data["ProvisionedProductName"]
+    else:
+        out["provisioned_product_name"] = ""
+    if data.get("PhysicalId") is not None:
+        out["physical_id"] = data["PhysicalId"]
+    else:
+        out["physical_id"] = ""
+    if data.get("IdempotencyToken") is not None:
+        out["idempotency_token"] = data["IdempotencyToken"]
+    else:
+        out["idempotency_token"] = ""
+    return out

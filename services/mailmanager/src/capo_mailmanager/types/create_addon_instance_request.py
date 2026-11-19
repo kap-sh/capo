@@ -53,3 +53,31 @@ def deserialize_aws_json_1_0(data: dict) -> CreateAddonInstanceRequest:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateAddonInstanceRequest) -> dict:
+    out: dict = {}
+    if "client_token" in value:
+        out["ClientToken"] = value["client_token"]
+    out["AddonSubscriptionId"] = value["addon_subscription_id"]
+    if "tags" in value:
+        import capo_mailmanager.types.tag_list
+
+        out["Tags"] = capo_mailmanager.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateAddonInstanceRequest:
+    out: CreateAddonInstanceRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ClientToken") is not None:
+        out["client_token"] = data["ClientToken"]
+    if data.get("AddonSubscriptionId") is not None:
+        out["addon_subscription_id"] = data["AddonSubscriptionId"]
+    else:
+        out["addon_subscription_id"] = ""
+    if data.get("Tags") is not None:
+        import capo_mailmanager.types.tag_list
+
+        out["tags"] = capo_mailmanager.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

@@ -48,3 +48,35 @@ def deserialize_aws_json_1_0(data: dict) -> GetIngressPointRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetIngressPointRequest) -> dict:
+    out: dict = {}
+    out["IngressPointId"] = value["ingress_point_id"]
+    if "include_trust_store_contents" in value:
+        import capo_mailmanager.types.trust_store_response_option
+
+        out["IncludeTrustStoreContents"] = (
+            capo_mailmanager.types.trust_store_response_option.serialize_cbor(
+                value["include_trust_store_contents"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetIngressPointRequest:
+    out: GetIngressPointRequest = {}  # type: ignore[typeddict-item]
+    if data.get("IngressPointId") is not None:
+        out["ingress_point_id"] = data["IngressPointId"]
+    else:
+        out["ingress_point_id"] = ""
+    if data.get("IncludeTrustStoreContents") is not None:
+        import capo_mailmanager.types.trust_store_response_option
+
+        out["include_trust_store_contents"] = (
+            capo_mailmanager.types.trust_store_response_option.deserialize_cbor(
+                data["IncludeTrustStoreContents"]
+            )
+        )
+    return out

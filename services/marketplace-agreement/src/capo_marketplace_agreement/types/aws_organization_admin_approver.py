@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> AwsOrganizationAdminApprover:
     else:
         out["organization_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AwsOrganizationAdminApprover) -> dict:
+    out: dict = {}
+    out["organizationId"] = value["organization_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AwsOrganizationAdminApprover:
+    out: AwsOrganizationAdminApprover = {}  # type: ignore[typeddict-item]
+    if data.get("organizationId") is not None:
+        out["organization_id"] = data["organizationId"]
+    else:
+        out["organization_id"] = ""
+    return out

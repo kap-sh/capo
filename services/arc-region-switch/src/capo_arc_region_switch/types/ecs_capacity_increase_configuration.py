@@ -111,3 +111,84 @@ def deserialize_aws_json_1_0(data: dict) -> EcsCapacityIncreaseConfiguration:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EcsCapacityIncreaseConfiguration) -> dict:
+    out: dict = {}
+    out["timeoutMinutes"] = value.get("timeout_minutes", 60)
+    import capo_arc_region_switch.types.service_list
+
+    out["services"] = capo_arc_region_switch.types.service_list.serialize_cbor(
+        value["services"]
+    )
+    if "ungraceful" in value:
+        import capo_arc_region_switch.types.ecs_ungraceful
+
+        out["ungraceful"] = capo_arc_region_switch.types.ecs_ungraceful.serialize_cbor(
+            value["ungraceful"]
+        )
+    out["targetPercent"] = value.get("target_percent", 100)
+    import capo_arc_region_switch.types.ecs_capacity_monitoring_approach
+
+    out["capacityMonitoringApproach"] = (
+        capo_arc_region_switch.types.ecs_capacity_monitoring_approach.serialize_cbor(
+            value.get("capacity_monitoring_approach", "sampledMaxInLast24Hours")
+        )
+    )
+    if "wait_elb_target_group_healthy" in value:
+        import capo_arc_region_switch.types.wait_elb_target_group_healthy
+
+        out["waitELBTargetGroupHealthy"] = (
+            capo_arc_region_switch.types.wait_elb_target_group_healthy.serialize_cbor(
+                value["wait_elb_target_group_healthy"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> EcsCapacityIncreaseConfiguration:
+    out: EcsCapacityIncreaseConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("timeoutMinutes") is not None:
+        out["timeout_minutes"] = data["timeoutMinutes"]
+    else:
+        out["timeout_minutes"] = 60
+    if data.get("services") is not None:
+        import capo_arc_region_switch.types.service_list
+
+        out["services"] = capo_arc_region_switch.types.service_list.deserialize_cbor(
+            data["services"]
+        )
+    else:
+        out["services"] = []
+    if data.get("ungraceful") is not None:
+        import capo_arc_region_switch.types.ecs_ungraceful
+
+        out["ungraceful"] = (
+            capo_arc_region_switch.types.ecs_ungraceful.deserialize_cbor(
+                data["ungraceful"]
+            )
+        )
+    if data.get("targetPercent") is not None:
+        out["target_percent"] = data["targetPercent"]
+    else:
+        out["target_percent"] = 100
+    if data.get("capacityMonitoringApproach") is not None:
+        import capo_arc_region_switch.types.ecs_capacity_monitoring_approach
+
+        out["capacity_monitoring_approach"] = (
+            capo_arc_region_switch.types.ecs_capacity_monitoring_approach.deserialize_cbor(
+                data["capacityMonitoringApproach"]
+            )
+        )
+    else:
+        out["capacity_monitoring_approach"] = "sampledMaxInLast24Hours"
+    if data.get("waitELBTargetGroupHealthy") is not None:
+        import capo_arc_region_switch.types.wait_elb_target_group_healthy
+
+        out["wait_elb_target_group_healthy"] = (
+            capo_arc_region_switch.types.wait_elb_target_group_healthy.deserialize_cbor(
+                data["waitELBTargetGroupHealthy"]
+            )
+        )
+    return out

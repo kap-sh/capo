@@ -68,3 +68,49 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateACLRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateACLRequest) -> dict:
+    out: dict = {}
+    out["ACLName"] = value["acl_name"]
+    if "user_names_to_add" in value:
+        import capo_memorydb.types.user_name_list_input
+
+        out["UserNamesToAdd"] = capo_memorydb.types.user_name_list_input.serialize_cbor(
+            value["user_names_to_add"]
+        )
+    if "user_names_to_remove" in value:
+        import capo_memorydb.types.user_name_list_input
+
+        out["UserNamesToRemove"] = (
+            capo_memorydb.types.user_name_list_input.serialize_cbor(
+                value["user_names_to_remove"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateACLRequest:
+    out: UpdateACLRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ACLName") is not None:
+        out["acl_name"] = data["ACLName"]
+    else:
+        out["acl_name"] = ""
+    if data.get("UserNamesToAdd") is not None:
+        import capo_memorydb.types.user_name_list_input
+
+        out["user_names_to_add"] = (
+            capo_memorydb.types.user_name_list_input.deserialize_cbor(
+                data["UserNamesToAdd"]
+            )
+        )
+    if data.get("UserNamesToRemove") is not None:
+        import capo_memorydb.types.user_name_list_input
+
+        out["user_names_to_remove"] = (
+            capo_memorydb.types.user_name_list_input.deserialize_cbor(
+                data["UserNamesToRemove"]
+            )
+        )
+    return out

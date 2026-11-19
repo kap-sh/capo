@@ -70,3 +70,50 @@ def deserialize_aws_json_1_1(data: dict) -> RequiredTag:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RequiredTag) -> dict:
+    out: dict = {}
+    if "resource_type" in value:
+        out["ResourceType"] = value["resource_type"]
+    if "cloud_formation_resource_types" in value:
+        import capo_resource_groups_tagging_api.types.cloud_formation_resource_types
+
+        out["CloudFormationResourceTypes"] = (
+            capo_resource_groups_tagging_api.types.cloud_formation_resource_types.serialize_cbor(
+                value["cloud_formation_resource_types"]
+            )
+        )
+    if "reporting_tag_keys" in value:
+        import capo_resource_groups_tagging_api.types.reporting_tag_keys
+
+        out["ReportingTagKeys"] = (
+            capo_resource_groups_tagging_api.types.reporting_tag_keys.serialize_cbor(
+                value["reporting_tag_keys"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RequiredTag:
+    out: RequiredTag = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceType") is not None:
+        out["resource_type"] = data["ResourceType"]
+    if data.get("CloudFormationResourceTypes") is not None:
+        import capo_resource_groups_tagging_api.types.cloud_formation_resource_types
+
+        out["cloud_formation_resource_types"] = (
+            capo_resource_groups_tagging_api.types.cloud_formation_resource_types.deserialize_cbor(
+                data["CloudFormationResourceTypes"]
+            )
+        )
+    if data.get("ReportingTagKeys") is not None:
+        import capo_resource_groups_tagging_api.types.reporting_tag_keys
+
+        out["reporting_tag_keys"] = (
+            capo_resource_groups_tagging_api.types.reporting_tag_keys.deserialize_cbor(
+                data["ReportingTagKeys"]
+            )
+        )
+    return out

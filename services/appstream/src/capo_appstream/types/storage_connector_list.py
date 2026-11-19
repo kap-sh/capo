@@ -31,3 +31,24 @@ def deserialize_aws_json_1_1(data: list) -> StorageConnectorList:
             capo_appstream.types.storage_connector.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StorageConnectorList) -> list:
+    import capo_appstream.types.storage_connector
+
+    out: list = []
+    for item in value:
+        out.append(capo_appstream.types.storage_connector.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> StorageConnectorList:
+    import capo_appstream.types.storage_connector
+
+    out: StorageConnectorList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_appstream.types.storage_connector.deserialize_cbor(item))
+    return out

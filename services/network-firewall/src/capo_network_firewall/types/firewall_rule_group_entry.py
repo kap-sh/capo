@@ -54,3 +54,38 @@ def deserialize_aws_json_1_0(data: dict) -> FirewallRuleGroupEntry:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FirewallRuleGroupEntry) -> dict:
+    out: dict = {}
+    if "priority" in value:
+        out["Priority"] = value["priority"]
+    if "resource_arn" in value:
+        out["ResourceArn"] = value["resource_arn"]
+    if "inline_rule_group" in value:
+        import capo_network_firewall.types.firewall_rule_group
+
+        out["InlineRuleGroup"] = (
+            capo_network_firewall.types.firewall_rule_group.serialize_cbor(
+                value["inline_rule_group"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> FirewallRuleGroupEntry:
+    out: FirewallRuleGroupEntry = {}  # type: ignore[typeddict-item]
+    if data.get("Priority") is not None:
+        out["priority"] = data["Priority"]
+    if data.get("ResourceArn") is not None:
+        out["resource_arn"] = data["ResourceArn"]
+    if data.get("InlineRuleGroup") is not None:
+        import capo_network_firewall.types.firewall_rule_group
+
+        out["inline_rule_group"] = (
+            capo_network_firewall.types.firewall_rule_group.deserialize_cbor(
+                data["InlineRuleGroup"]
+            )
+        )
+    return out

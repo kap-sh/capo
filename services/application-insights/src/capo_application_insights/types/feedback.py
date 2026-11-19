@@ -40,3 +40,31 @@ def deserialize_aws_json_1_1(data: dict) -> Feedback:
             value
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(input_to_serialize: Feedback) -> dict:
+    out: dict = {}
+    for key, value in input_to_serialize.items():
+        import capo_application_insights.types.feedback_key
+        import capo_application_insights.types.feedback_value
+
+        out[capo_application_insights.types.feedback_key.serialize_cbor(key)] = (
+            capo_application_insights.types.feedback_value.serialize_cbor(value)
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Feedback:
+    out: Feedback = {}
+    for key, value in data.items():
+        import capo_application_insights.types.feedback_key
+
+        if value is None:
+            continue
+        import capo_application_insights.types.feedback_value
+
+        out[capo_application_insights.types.feedback_key.deserialize_cbor(key)] = (
+            capo_application_insights.types.feedback_value.deserialize_cbor(value)
+        )
+    return out

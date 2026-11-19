@@ -69,3 +69,49 @@ def deserialize_aws_json_1_1(data: dict) -> PortfolioShareDetail:
     else:
         out["share_principals"] = False
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PortfolioShareDetail) -> dict:
+    out: dict = {}
+    if "principal_id" in value:
+        out["PrincipalId"] = value["principal_id"]
+    if "type" in value:
+        import capo_service_catalog.types.describe_portfolio_share_type
+
+        out["Type"] = (
+            capo_service_catalog.types.describe_portfolio_share_type.serialize_cbor(
+                value["type"]
+            )
+        )
+    out["Accepted"] = value.get("accepted", False)
+    out["ShareTagOptions"] = value.get("share_tag_options", False)
+    out["SharePrincipals"] = value.get("share_principals", False)
+    return out
+
+
+def deserialize_cbor(data: dict) -> PortfolioShareDetail:
+    out: PortfolioShareDetail = {}  # type: ignore[typeddict-item]
+    if data.get("PrincipalId") is not None:
+        out["principal_id"] = data["PrincipalId"]
+    if data.get("Type") is not None:
+        import capo_service_catalog.types.describe_portfolio_share_type
+
+        out["type"] = (
+            capo_service_catalog.types.describe_portfolio_share_type.deserialize_cbor(
+                data["Type"]
+            )
+        )
+    if data.get("Accepted") is not None:
+        out["accepted"] = data["Accepted"]
+    else:
+        out["accepted"] = False
+    if data.get("ShareTagOptions") is not None:
+        out["share_tag_options"] = data["ShareTagOptions"]
+    else:
+        out["share_tag_options"] = False
+    if data.get("SharePrincipals") is not None:
+        out["share_principals"] = data["SharePrincipals"]
+    else:
+        out["share_principals"] = False
+    return out

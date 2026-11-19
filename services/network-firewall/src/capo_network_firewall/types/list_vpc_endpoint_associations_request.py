@@ -44,3 +44,26 @@ def deserialize_aws_json_1_0(data: dict) -> ListVpcEndpointAssociationsRequest:
     if data.get("FirewallArn") is not None:
         out["firewall_arn"] = data["FirewallArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListVpcEndpointAssociationsRequest) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "firewall_arn" in value:
+        out["FirewallArn"] = value["firewall_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListVpcEndpointAssociationsRequest:
+    out: ListVpcEndpointAssociationsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("FirewallArn") is not None:
+        out["firewall_arn"] = data["FirewallArn"]
+    return out

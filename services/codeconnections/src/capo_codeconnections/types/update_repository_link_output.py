@@ -45,3 +45,33 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateRepositoryLinkOutput:
             "UpdateRepositoryLinkOutput.repository_link_info required"
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateRepositoryLinkOutput) -> dict:
+    out: dict = {}
+    import capo_codeconnections.types.repository_link_info
+
+    out["RepositoryLinkInfo"] = (
+        capo_codeconnections.types.repository_link_info.serialize_cbor(
+            value["repository_link_info"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateRepositoryLinkOutput:
+    out: UpdateRepositoryLinkOutput = {}  # type: ignore[typeddict-item]
+    if data.get("RepositoryLinkInfo") is not None:
+        import capo_codeconnections.types.repository_link_info
+
+        out["repository_link_info"] = (
+            capo_codeconnections.types.repository_link_info.deserialize_cbor(
+                data["RepositoryLinkInfo"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "UpdateRepositoryLinkOutput.repository_link_info required"
+        )
+    return out

@@ -84,3 +84,59 @@ def deserialize_aws_json_1_1(data: dict) -> RuleConfigurationProperty:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RuleConfigurationProperty) -> dict:
+    out: dict = {}
+    out["name"] = value["name"]
+    out["required"] = value.get("required", False)
+    out["key"] = value.get("key", False)
+    out["secret"] = value.get("secret", False)
+    out["queryable"] = value.get("queryable", False)
+    if "description" in value:
+        out["description"] = value["description"]
+    if "type" in value:
+        import capo_codepipeline.types.rule_configuration_property_type
+
+        out["type"] = (
+            capo_codepipeline.types.rule_configuration_property_type.serialize_cbor(
+                value["type"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RuleConfigurationProperty:
+    out: RuleConfigurationProperty = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    else:
+        out["name"] = ""
+    if data.get("required") is not None:
+        out["required"] = data["required"]
+    else:
+        out["required"] = False
+    if data.get("key") is not None:
+        out["key"] = data["key"]
+    else:
+        out["key"] = False
+    if data.get("secret") is not None:
+        out["secret"] = data["secret"]
+    else:
+        out["secret"] = False
+    if data.get("queryable") is not None:
+        out["queryable"] = data["queryable"]
+    else:
+        out["queryable"] = False
+    if data.get("description") is not None:
+        out["description"] = data["description"]
+    if data.get("type") is not None:
+        import capo_codepipeline.types.rule_configuration_property_type
+
+        out["type"] = (
+            capo_codepipeline.types.rule_configuration_property_type.deserialize_cbor(
+                data["type"]
+            )
+        )
+    return out

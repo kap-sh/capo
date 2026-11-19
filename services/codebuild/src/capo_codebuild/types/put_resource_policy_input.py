@@ -34,3 +34,24 @@ def deserialize_aws_json_1_1(data: dict) -> PutResourcePolicyInput:
     else:
         out["resource_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PutResourcePolicyInput) -> dict:
+    out: dict = {}
+    out["policy"] = value["policy"]
+    out["resourceArn"] = value["resource_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> PutResourcePolicyInput:
+    out: PutResourcePolicyInput = {}  # type: ignore[typeddict-item]
+    if data.get("policy") is not None:
+        out["policy"] = data["policy"]
+    else:
+        out["policy"] = ""
+    if data.get("resourceArn") is not None:
+        out["resource_arn"] = data["resourceArn"]
+    else:
+        out["resource_arn"] = ""
+    return out

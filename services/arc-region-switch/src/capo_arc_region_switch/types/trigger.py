@@ -91,3 +91,69 @@ def deserialize_aws_json_1_0(data: dict) -> Trigger:
     else:
         out["min_delay_minutes_between_executions"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Trigger) -> dict:
+    out: dict = {}
+    if "description" in value:
+        out["description"] = value["description"]
+    out["targetRegion"] = value["target_region"]
+    import capo_arc_region_switch.types.workflow_target_action
+
+    out["action"] = capo_arc_region_switch.types.workflow_target_action.serialize_cbor(
+        value["action"]
+    )
+    import capo_arc_region_switch.types.trigger_condition_list
+
+    out["conditions"] = (
+        capo_arc_region_switch.types.trigger_condition_list.serialize_cbor(
+            value["conditions"]
+        )
+    )
+    out["minDelayMinutesBetweenExecutions"] = value[
+        "min_delay_minutes_between_executions"
+    ]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Trigger:
+    out: Trigger = {}  # type: ignore[typeddict-item]
+    if data.get("description") is not None:
+        out["description"] = data["description"]
+    if data.get("targetRegion") is not None:
+        out["target_region"] = data["targetRegion"]
+    else:
+        out["target_region"] = ""
+    if data.get("action") is not None:
+        import capo_arc_region_switch.types.workflow_target_action
+
+        out["action"] = (
+            capo_arc_region_switch.types.workflow_target_action.deserialize_cbor(
+                data["action"]
+            )
+        )
+    else:
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_arc_region_switch.types.workflow_target_action.WorkflowTargetAction",
+            "",
+        )
+    if data.get("conditions") is not None:
+        import capo_arc_region_switch.types.trigger_condition_list
+
+        out["conditions"] = (
+            capo_arc_region_switch.types.trigger_condition_list.deserialize_cbor(
+                data["conditions"]
+            )
+        )
+    else:
+        out["conditions"] = []
+    if data.get("minDelayMinutesBetweenExecutions") is not None:
+        out["min_delay_minutes_between_executions"] = data[
+            "minDelayMinutesBetweenExecutions"
+        ]
+    else:
+        out["min_delay_minutes_between_executions"] = 0
+    return out

@@ -15,3 +15,12 @@ def serialize_aws_json_1_0(value: SpotInstanceTypeEnum) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> SpotInstanceTypeEnum:
     return cast(SpotInstanceTypeEnum, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SpotInstanceTypeEnum) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> SpotInstanceTypeEnum:
+    return cast(SpotInstanceTypeEnum, data)

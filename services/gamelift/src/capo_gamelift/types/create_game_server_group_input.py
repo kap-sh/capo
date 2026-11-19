@@ -182,3 +182,130 @@ def deserialize_aws_json_1_1(data: dict) -> CreateGameServerGroupInput:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateGameServerGroupInput) -> dict:
+    out: dict = {}
+    if "game_server_group_name" in value:
+        out["GameServerGroupName"] = value["game_server_group_name"]
+    if "role_arn" in value:
+        out["RoleArn"] = value["role_arn"]
+    if "min_size" in value:
+        out["MinSize"] = value["min_size"]
+    if "max_size" in value:
+        out["MaxSize"] = value["max_size"]
+    if "launch_template" in value:
+        import capo_gamelift.types.launch_template_specification
+
+        out["LaunchTemplate"] = (
+            capo_gamelift.types.launch_template_specification.serialize_cbor(
+                value["launch_template"]
+            )
+        )
+    if "instance_definitions" in value:
+        import capo_gamelift.types.instance_definitions
+
+        out["InstanceDefinitions"] = (
+            capo_gamelift.types.instance_definitions.serialize_cbor(
+                value["instance_definitions"]
+            )
+        )
+    if "auto_scaling_policy" in value:
+        import capo_gamelift.types.game_server_group_auto_scaling_policy
+
+        out["AutoScalingPolicy"] = (
+            capo_gamelift.types.game_server_group_auto_scaling_policy.serialize_cbor(
+                value["auto_scaling_policy"]
+            )
+        )
+    if "balancing_strategy" in value:
+        import capo_gamelift.types.balancing_strategy
+
+        out["BalancingStrategy"] = (
+            capo_gamelift.types.balancing_strategy.serialize_cbor(
+                value["balancing_strategy"]
+            )
+        )
+    if "game_server_protection_policy" in value:
+        import capo_gamelift.types.game_server_protection_policy
+
+        out["GameServerProtectionPolicy"] = (
+            capo_gamelift.types.game_server_protection_policy.serialize_cbor(
+                value["game_server_protection_policy"]
+            )
+        )
+    if "vpc_subnets" in value:
+        import capo_gamelift.types.vpc_subnets
+
+        out["VpcSubnets"] = capo_gamelift.types.vpc_subnets.serialize_cbor(
+            value["vpc_subnets"]
+        )
+    if "tags" in value:
+        import capo_gamelift.types.tag_list
+
+        out["Tags"] = capo_gamelift.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateGameServerGroupInput:
+    out: CreateGameServerGroupInput = {}  # type: ignore[typeddict-item]
+    if data.get("GameServerGroupName") is not None:
+        out["game_server_group_name"] = data["GameServerGroupName"]
+    if data.get("RoleArn") is not None:
+        out["role_arn"] = data["RoleArn"]
+    if data.get("MinSize") is not None:
+        out["min_size"] = data["MinSize"]
+    if data.get("MaxSize") is not None:
+        out["max_size"] = data["MaxSize"]
+    if data.get("LaunchTemplate") is not None:
+        import capo_gamelift.types.launch_template_specification
+
+        out["launch_template"] = (
+            capo_gamelift.types.launch_template_specification.deserialize_cbor(
+                data["LaunchTemplate"]
+            )
+        )
+    if data.get("InstanceDefinitions") is not None:
+        import capo_gamelift.types.instance_definitions
+
+        out["instance_definitions"] = (
+            capo_gamelift.types.instance_definitions.deserialize_cbor(
+                data["InstanceDefinitions"]
+            )
+        )
+    if data.get("AutoScalingPolicy") is not None:
+        import capo_gamelift.types.game_server_group_auto_scaling_policy
+
+        out["auto_scaling_policy"] = (
+            capo_gamelift.types.game_server_group_auto_scaling_policy.deserialize_cbor(
+                data["AutoScalingPolicy"]
+            )
+        )
+    if data.get("BalancingStrategy") is not None:
+        import capo_gamelift.types.balancing_strategy
+
+        out["balancing_strategy"] = (
+            capo_gamelift.types.balancing_strategy.deserialize_cbor(
+                data["BalancingStrategy"]
+            )
+        )
+    if data.get("GameServerProtectionPolicy") is not None:
+        import capo_gamelift.types.game_server_protection_policy
+
+        out["game_server_protection_policy"] = (
+            capo_gamelift.types.game_server_protection_policy.deserialize_cbor(
+                data["GameServerProtectionPolicy"]
+            )
+        )
+    if data.get("VpcSubnets") is not None:
+        import capo_gamelift.types.vpc_subnets
+
+        out["vpc_subnets"] = capo_gamelift.types.vpc_subnets.deserialize_cbor(
+            data["VpcSubnets"]
+        )
+    if data.get("Tags") is not None:
+        import capo_gamelift.types.tag_list
+
+        out["tags"] = capo_gamelift.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

@@ -68,3 +68,46 @@ def deserialize_aws_json_1_1(data: dict) -> CallAnalyticsSkippedFeature:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CallAnalyticsSkippedFeature) -> dict:
+    out: dict = {}
+    if "feature" in value:
+        import capo_transcribe.types.call_analytics_feature
+
+        out["Feature"] = capo_transcribe.types.call_analytics_feature.serialize_cbor(
+            value["feature"]
+        )
+    if "reason_code" in value:
+        import capo_transcribe.types.call_analytics_skipped_reason_code
+
+        out["ReasonCode"] = (
+            capo_transcribe.types.call_analytics_skipped_reason_code.serialize_cbor(
+                value["reason_code"]
+            )
+        )
+    if "message" in value:
+        out["Message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CallAnalyticsSkippedFeature:
+    out: CallAnalyticsSkippedFeature = {}  # type: ignore[typeddict-item]
+    if data.get("Feature") is not None:
+        import capo_transcribe.types.call_analytics_feature
+
+        out["feature"] = capo_transcribe.types.call_analytics_feature.deserialize_cbor(
+            data["Feature"]
+        )
+    if data.get("ReasonCode") is not None:
+        import capo_transcribe.types.call_analytics_skipped_reason_code
+
+        out["reason_code"] = (
+            capo_transcribe.types.call_analytics_skipped_reason_code.deserialize_cbor(
+                data["ReasonCode"]
+            )
+        )
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    return out

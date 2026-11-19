@@ -48,3 +48,26 @@ def deserialize_aws_json_1_1(data: dict) -> DocumentLabel:
     if data.get("Page") is not None:
         out["page"] = data["Page"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DocumentLabel) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "score" in value:
+        out["Score"] = value["score"]
+    if "page" in value:
+        out["Page"] = value["page"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DocumentLabel:
+    out: DocumentLabel = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Score") is not None:
+        out["score"] = float(data["Score"])
+    if data.get("Page") is not None:
+        out["page"] = data["Page"]
+    return out

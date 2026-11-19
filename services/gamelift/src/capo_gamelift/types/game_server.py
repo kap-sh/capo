@@ -162,6 +162,109 @@ def deserialize_aws_json_1_1(data: dict) -> GameServer:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GameServer) -> dict:
+    out: dict = {}
+    if "game_server_group_name" in value:
+        out["GameServerGroupName"] = value["game_server_group_name"]
+    if "game_server_group_arn" in value:
+        out["GameServerGroupArn"] = value["game_server_group_arn"]
+    if "game_server_id" in value:
+        out["GameServerId"] = value["game_server_id"]
+    if "instance_id" in value:
+        out["InstanceId"] = value["instance_id"]
+    if "connection_info" in value:
+        out["ConnectionInfo"] = value["connection_info"]
+    if "game_server_data" in value:
+        out["GameServerData"] = value["game_server_data"]
+    if "claim_status" in value:
+        import capo_gamelift.types.game_server_claim_status
+
+        out["ClaimStatus"] = (
+            capo_gamelift.types.game_server_claim_status.serialize_cbor(
+                value["claim_status"]
+            )
+        )
+    if "utilization_status" in value:
+        import capo_gamelift.types.game_server_utilization_status
+
+        out["UtilizationStatus"] = (
+            capo_gamelift.types.game_server_utilization_status.serialize_cbor(
+                value["utilization_status"]
+            )
+        )
+    if "registration_time" in value:
+        import capo_gamelift.types.timestamp
+
+        out["RegistrationTime"] = capo_gamelift.types.timestamp.serialize_cbor(
+            value["registration_time"]
+        )
+    if "last_claim_time" in value:
+        import capo_gamelift.types.timestamp
+
+        out["LastClaimTime"] = capo_gamelift.types.timestamp.serialize_cbor(
+            value["last_claim_time"]
+        )
+    if "last_health_check_time" in value:
+        import capo_gamelift.types.timestamp
+
+        out["LastHealthCheckTime"] = capo_gamelift.types.timestamp.serialize_cbor(
+            value["last_health_check_time"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GameServer:
+    out: GameServer = {}  # type: ignore[typeddict-item]
+    if data.get("GameServerGroupName") is not None:
+        out["game_server_group_name"] = data["GameServerGroupName"]
+    if data.get("GameServerGroupArn") is not None:
+        out["game_server_group_arn"] = data["GameServerGroupArn"]
+    if data.get("GameServerId") is not None:
+        out["game_server_id"] = data["GameServerId"]
+    if data.get("InstanceId") is not None:
+        out["instance_id"] = data["InstanceId"]
+    if data.get("ConnectionInfo") is not None:
+        out["connection_info"] = data["ConnectionInfo"]
+    if data.get("GameServerData") is not None:
+        out["game_server_data"] = data["GameServerData"]
+    if data.get("ClaimStatus") is not None:
+        import capo_gamelift.types.game_server_claim_status
+
+        out["claim_status"] = (
+            capo_gamelift.types.game_server_claim_status.deserialize_cbor(
+                data["ClaimStatus"]
+            )
+        )
+    if data.get("UtilizationStatus") is not None:
+        import capo_gamelift.types.game_server_utilization_status
+
+        out["utilization_status"] = (
+            capo_gamelift.types.game_server_utilization_status.deserialize_cbor(
+                data["UtilizationStatus"]
+            )
+        )
+    if data.get("RegistrationTime") is not None:
+        import capo_gamelift.types.timestamp
+
+        out["registration_time"] = capo_gamelift.types.timestamp.deserialize_cbor(
+            data["RegistrationTime"]
+        )
+    if data.get("LastClaimTime") is not None:
+        import capo_gamelift.types.timestamp
+
+        out["last_claim_time"] = capo_gamelift.types.timestamp.deserialize_cbor(
+            data["LastClaimTime"]
+        )
+    if data.get("LastHealthCheckTime") is not None:
+        import capo_gamelift.types.timestamp
+
+        out["last_health_check_time"] = capo_gamelift.types.timestamp.deserialize_cbor(
+            data["LastHealthCheckTime"]
+        )
+    return out
+
+
 def redact_sensitive(value: GameServer) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "game_server_data" in value:

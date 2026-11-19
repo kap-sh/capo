@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateRuntimeConfigurationInput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateRuntimeConfigurationInput) -> dict:
+    out: dict = {}
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "runtime_configuration" in value:
+        import capo_gamelift.types.runtime_configuration
+
+        out["RuntimeConfiguration"] = (
+            capo_gamelift.types.runtime_configuration.serialize_cbor(
+                value["runtime_configuration"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateRuntimeConfigurationInput:
+    out: UpdateRuntimeConfigurationInput = {}  # type: ignore[typeddict-item]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("RuntimeConfiguration") is not None:
+        import capo_gamelift.types.runtime_configuration
+
+        out["runtime_configuration"] = (
+            capo_gamelift.types.runtime_configuration.deserialize_cbor(
+                data["RuntimeConfiguration"]
+            )
+        )
+    return out

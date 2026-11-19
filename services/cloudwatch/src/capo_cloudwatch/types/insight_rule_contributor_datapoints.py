@@ -96,3 +96,32 @@ def deserialize_aws_json_1_0(data: list) -> InsightRuleContributorDatapoints:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InsightRuleContributorDatapoints) -> list:
+    import capo_cloudwatch.types.insight_rule_contributor_datapoint
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_cloudwatch.types.insight_rule_contributor_datapoint.serialize_cbor(
+                item
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> InsightRuleContributorDatapoints:
+    import capo_cloudwatch.types.insight_rule_contributor_datapoint
+
+    out: InsightRuleContributorDatapoints = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_cloudwatch.types.insight_rule_contributor_datapoint.deserialize_cbor(
+                item
+            )
+        )
+    return out

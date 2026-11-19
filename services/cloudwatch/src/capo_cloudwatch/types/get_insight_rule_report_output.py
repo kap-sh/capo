@@ -211,3 +211,74 @@ def deserialize_query(el: Element) -> GetInsightRuleReportOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetInsightRuleReportOutput) -> dict:
+    out: dict = {}
+    if "key_labels" in value:
+        import capo_cloudwatch.types.insight_rule_contributor_key_labels
+
+        out["KeyLabels"] = (
+            capo_cloudwatch.types.insight_rule_contributor_key_labels.serialize_cbor(
+                value["key_labels"]
+            )
+        )
+    if "aggregation_statistic" in value:
+        out["AggregationStatistic"] = value["aggregation_statistic"]
+    if "aggregate_value" in value:
+        out["AggregateValue"] = value["aggregate_value"]
+    if "approximate_unique_count" in value:
+        out["ApproximateUniqueCount"] = value["approximate_unique_count"]
+    if "contributors" in value:
+        import capo_cloudwatch.types.insight_rule_contributors
+
+        out["Contributors"] = (
+            capo_cloudwatch.types.insight_rule_contributors.serialize_cbor(
+                value["contributors"]
+            )
+        )
+    if "metric_datapoints" in value:
+        import capo_cloudwatch.types.insight_rule_metric_datapoints
+
+        out["MetricDatapoints"] = (
+            capo_cloudwatch.types.insight_rule_metric_datapoints.serialize_cbor(
+                value["metric_datapoints"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetInsightRuleReportOutput:
+    out: GetInsightRuleReportOutput = {}  # type: ignore[typeddict-item]
+    if data.get("KeyLabels") is not None:
+        import capo_cloudwatch.types.insight_rule_contributor_key_labels
+
+        out["key_labels"] = (
+            capo_cloudwatch.types.insight_rule_contributor_key_labels.deserialize_cbor(
+                data["KeyLabels"]
+            )
+        )
+    if data.get("AggregationStatistic") is not None:
+        out["aggregation_statistic"] = data["AggregationStatistic"]
+    if data.get("AggregateValue") is not None:
+        out["aggregate_value"] = float(data["AggregateValue"])
+    if data.get("ApproximateUniqueCount") is not None:
+        out["approximate_unique_count"] = data["ApproximateUniqueCount"]
+    if data.get("Contributors") is not None:
+        import capo_cloudwatch.types.insight_rule_contributors
+
+        out["contributors"] = (
+            capo_cloudwatch.types.insight_rule_contributors.deserialize_cbor(
+                data["Contributors"]
+            )
+        )
+    if data.get("MetricDatapoints") is not None:
+        import capo_cloudwatch.types.insight_rule_metric_datapoints
+
+        out["metric_datapoints"] = (
+            capo_cloudwatch.types.insight_rule_metric_datapoints.deserialize_cbor(
+                data["MetricDatapoints"]
+            )
+        )
+    return out

@@ -36,6 +36,25 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeComputeOutput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeComputeOutput) -> dict:
+    out: dict = {}
+    if "compute" in value:
+        import capo_gamelift.types.compute
+
+        out["Compute"] = capo_gamelift.types.compute.serialize_cbor(value["compute"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeComputeOutput:
+    out: DescribeComputeOutput = {}  # type: ignore[typeddict-item]
+    if data.get("Compute") is not None:
+        import capo_gamelift.types.compute
+
+        out["compute"] = capo_gamelift.types.compute.deserialize_cbor(data["Compute"])
+    return out
+
+
 def redact_sensitive(value: DescribeComputeOutput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "compute" in value:

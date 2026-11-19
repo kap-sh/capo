@@ -124,3 +124,70 @@ def deserialize_aws_json_1_1(data: dict) -> ApplicationInfo:
     if data.get("AttachMissingPermission") is not None:
         out["attach_missing_permission"] = data["AttachMissingPermission"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ApplicationInfo) -> dict:
+    out: dict = {}
+    if "account_id" in value:
+        out["AccountId"] = value["account_id"]
+    if "resource_group_name" in value:
+        out["ResourceGroupName"] = value["resource_group_name"]
+    if "life_cycle" in value:
+        out["LifeCycle"] = value["life_cycle"]
+    if "ops_item_sns_topic_arn" in value:
+        out["OpsItemSNSTopicArn"] = value["ops_item_sns_topic_arn"]
+    if "sns_notification_arn" in value:
+        out["SNSNotificationArn"] = value["sns_notification_arn"]
+    if "ops_center_enabled" in value:
+        out["OpsCenterEnabled"] = value["ops_center_enabled"]
+    if "cwe_monitor_enabled" in value:
+        out["CWEMonitorEnabled"] = value["cwe_monitor_enabled"]
+    if "remarks" in value:
+        out["Remarks"] = value["remarks"]
+    if "auto_config_enabled" in value:
+        out["AutoConfigEnabled"] = value["auto_config_enabled"]
+    if "discovery_type" in value:
+        import capo_application_insights.types.discovery_type
+
+        out["DiscoveryType"] = (
+            capo_application_insights.types.discovery_type.serialize_cbor(
+                value["discovery_type"]
+            )
+        )
+    if "attach_missing_permission" in value:
+        out["AttachMissingPermission"] = value["attach_missing_permission"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ApplicationInfo:
+    out: ApplicationInfo = {}  # type: ignore[typeddict-item]
+    if data.get("AccountId") is not None:
+        out["account_id"] = data["AccountId"]
+    if data.get("ResourceGroupName") is not None:
+        out["resource_group_name"] = data["ResourceGroupName"]
+    if data.get("LifeCycle") is not None:
+        out["life_cycle"] = data["LifeCycle"]
+    if data.get("OpsItemSNSTopicArn") is not None:
+        out["ops_item_sns_topic_arn"] = data["OpsItemSNSTopicArn"]
+    if data.get("SNSNotificationArn") is not None:
+        out["sns_notification_arn"] = data["SNSNotificationArn"]
+    if data.get("OpsCenterEnabled") is not None:
+        out["ops_center_enabled"] = data["OpsCenterEnabled"]
+    if data.get("CWEMonitorEnabled") is not None:
+        out["cwe_monitor_enabled"] = data["CWEMonitorEnabled"]
+    if data.get("Remarks") is not None:
+        out["remarks"] = data["Remarks"]
+    if data.get("AutoConfigEnabled") is not None:
+        out["auto_config_enabled"] = data["AutoConfigEnabled"]
+    if data.get("DiscoveryType") is not None:
+        import capo_application_insights.types.discovery_type
+
+        out["discovery_type"] = (
+            capo_application_insights.types.discovery_type.deserialize_cbor(
+                data["DiscoveryType"]
+            )
+        )
+    if data.get("AttachMissingPermission") is not None:
+        out["attach_missing_permission"] = data["AttachMissingPermission"]
+    return out

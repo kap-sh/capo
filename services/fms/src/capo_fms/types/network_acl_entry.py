@@ -112,3 +112,75 @@ def deserialize_aws_json_1_1(data: dict) -> NetworkAclEntry:
     else:
         out["egress"] = False
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: NetworkAclEntry) -> dict:
+    out: dict = {}
+    if "icmp_type_code" in value:
+        import capo_fms.types.network_acl_icmp_type_code
+
+        out["IcmpTypeCode"] = capo_fms.types.network_acl_icmp_type_code.serialize_cbor(
+            value["icmp_type_code"]
+        )
+    out["Protocol"] = value["protocol"]
+    if "port_range" in value:
+        import capo_fms.types.network_acl_port_range
+
+        out["PortRange"] = capo_fms.types.network_acl_port_range.serialize_cbor(
+            value["port_range"]
+        )
+    if "cidr_block" in value:
+        out["CidrBlock"] = value["cidr_block"]
+    if "ipv6_cidr_block" in value:
+        out["Ipv6CidrBlock"] = value["ipv6_cidr_block"]
+    import capo_fms.types.network_acl_rule_action
+
+    out["RuleAction"] = capo_fms.types.network_acl_rule_action.serialize_cbor(
+        value["rule_action"]
+    )
+    out["Egress"] = value["egress"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> NetworkAclEntry:
+    out: NetworkAclEntry = {}  # type: ignore[typeddict-item]
+    if data.get("IcmpTypeCode") is not None:
+        import capo_fms.types.network_acl_icmp_type_code
+
+        out["icmp_type_code"] = (
+            capo_fms.types.network_acl_icmp_type_code.deserialize_cbor(
+                data["IcmpTypeCode"]
+            )
+        )
+    if data.get("Protocol") is not None:
+        out["protocol"] = data["Protocol"]
+    else:
+        out["protocol"] = ""
+    if data.get("PortRange") is not None:
+        import capo_fms.types.network_acl_port_range
+
+        out["port_range"] = capo_fms.types.network_acl_port_range.deserialize_cbor(
+            data["PortRange"]
+        )
+    if data.get("CidrBlock") is not None:
+        out["cidr_block"] = data["CidrBlock"]
+    if data.get("Ipv6CidrBlock") is not None:
+        out["ipv6_cidr_block"] = data["Ipv6CidrBlock"]
+    if data.get("RuleAction") is not None:
+        import capo_fms.types.network_acl_rule_action
+
+        out["rule_action"] = capo_fms.types.network_acl_rule_action.deserialize_cbor(
+            data["RuleAction"]
+        )
+    else:
+        import typing
+
+        out["rule_action"] = typing.cast(
+            "capo_fms.types.network_acl_rule_action.NetworkAclRuleAction", ""
+        )
+    if data.get("Egress") is not None:
+        out["egress"] = data["Egress"]
+    else:
+        out["egress"] = False
+    return out

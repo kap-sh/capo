@@ -135,3 +135,90 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeRescoreExecutionPlanResponse
     if data.get("ErrorMessage") is not None:
         out["error_message"] = data["ErrorMessage"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeRescoreExecutionPlanResponse) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["Id"] = value["id"]
+    if "arn" in value:
+        out["Arn"] = value["arn"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "capacity_units" in value:
+        import capo_kendra_ranking.types.capacity_units_configuration
+
+        out["CapacityUnits"] = (
+            capo_kendra_ranking.types.capacity_units_configuration.serialize_cbor(
+                value["capacity_units"]
+            )
+        )
+    if "created_at" in value:
+        import capo_kendra_ranking.types.timestamp
+
+        out["CreatedAt"] = capo_kendra_ranking.types.timestamp.serialize_cbor(
+            value["created_at"]
+        )
+    if "updated_at" in value:
+        import capo_kendra_ranking.types.timestamp
+
+        out["UpdatedAt"] = capo_kendra_ranking.types.timestamp.serialize_cbor(
+            value["updated_at"]
+        )
+    if "status" in value:
+        import capo_kendra_ranking.types.rescore_execution_plan_status
+
+        out["Status"] = (
+            capo_kendra_ranking.types.rescore_execution_plan_status.serialize_cbor(
+                value["status"]
+            )
+        )
+    if "error_message" in value:
+        out["ErrorMessage"] = value["error_message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeRescoreExecutionPlanResponse:
+    out: DescribeRescoreExecutionPlanResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    if data.get("Arn") is not None:
+        out["arn"] = data["Arn"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("CapacityUnits") is not None:
+        import capo_kendra_ranking.types.capacity_units_configuration
+
+        out["capacity_units"] = (
+            capo_kendra_ranking.types.capacity_units_configuration.deserialize_cbor(
+                data["CapacityUnits"]
+            )
+        )
+    if data.get("CreatedAt") is not None:
+        import capo_kendra_ranking.types.timestamp
+
+        out["created_at"] = capo_kendra_ranking.types.timestamp.deserialize_cbor(
+            data["CreatedAt"]
+        )
+    if data.get("UpdatedAt") is not None:
+        import capo_kendra_ranking.types.timestamp
+
+        out["updated_at"] = capo_kendra_ranking.types.timestamp.deserialize_cbor(
+            data["UpdatedAt"]
+        )
+    if data.get("Status") is not None:
+        import capo_kendra_ranking.types.rescore_execution_plan_status
+
+        out["status"] = (
+            capo_kendra_ranking.types.rescore_execution_plan_status.deserialize_cbor(
+                data["Status"]
+            )
+        )
+    if data.get("ErrorMessage") is not None:
+        out["error_message"] = data["ErrorMessage"]
+    return out

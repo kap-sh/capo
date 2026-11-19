@@ -31,6 +31,27 @@ def deserialize_aws_json_1_1(data: list) -> ContainerFleetList:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ContainerFleetList) -> list:
+    import capo_gamelift.types.container_fleet
+
+    out: list = []
+    for item in value:
+        out.append(capo_gamelift.types.container_fleet.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> ContainerFleetList:
+    import capo_gamelift.types.container_fleet
+
+    out: ContainerFleetList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_gamelift.types.container_fleet.deserialize_cbor(item))
+    return out
+
+
 def redact_sensitive(value: ContainerFleetList) -> list[Any]:
     import capo_gamelift.types.container_fleet
 

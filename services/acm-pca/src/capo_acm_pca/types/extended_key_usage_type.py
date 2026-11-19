@@ -22,3 +22,12 @@ def serialize_aws_json_1_1(value: ExtendedKeyUsageType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> ExtendedKeyUsageType:
     return cast(ExtendedKeyUsageType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExtendedKeyUsageType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ExtendedKeyUsageType:
+    return cast(ExtendedKeyUsageType, data)

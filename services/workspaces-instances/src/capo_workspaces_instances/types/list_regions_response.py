@@ -46,6 +46,34 @@ def deserialize_aws_json_1_0(data: dict) -> ListRegionsResponse:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListRegionsResponse) -> dict:
+    out: dict = {}
+    import capo_workspaces_instances.types.region_list
+
+    out["Regions"] = capo_workspaces_instances.types.region_list.serialize_cbor(
+        value["regions"]
+    )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListRegionsResponse:
+    out: ListRegionsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Regions") is not None:
+        import capo_workspaces_instances.types.region_list
+
+        out["regions"] = capo_workspaces_instances.types.region_list.deserialize_cbor(
+            data["Regions"]
+        )
+    else:
+        out["regions"] = []
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out
+
+
 def redact_sensitive(value: ListRegionsResponse) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "next_token" in value:

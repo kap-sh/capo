@@ -53,3 +53,38 @@ def deserialize_aws_json_1_1(data: dict) -> UnmappedAttribute:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UnmappedAttribute) -> dict:
+    out: dict = {}
+    if "type" in value:
+        import capo_comprehendmedical.types.entity_type
+
+        out["Type"] = capo_comprehendmedical.types.entity_type.serialize_cbor(
+            value["type"]
+        )
+    if "attribute" in value:
+        import capo_comprehendmedical.types.attribute
+
+        out["Attribute"] = capo_comprehendmedical.types.attribute.serialize_cbor(
+            value["attribute"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UnmappedAttribute:
+    out: UnmappedAttribute = {}  # type: ignore[typeddict-item]
+    if data.get("Type") is not None:
+        import capo_comprehendmedical.types.entity_type
+
+        out["type"] = capo_comprehendmedical.types.entity_type.deserialize_cbor(
+            data["Type"]
+        )
+    if data.get("Attribute") is not None:
+        import capo_comprehendmedical.types.attribute
+
+        out["attribute"] = capo_comprehendmedical.types.attribute.deserialize_cbor(
+            data["Attribute"]
+        )
+    return out

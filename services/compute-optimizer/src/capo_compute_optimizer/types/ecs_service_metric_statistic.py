@@ -15,3 +15,12 @@ def serialize_aws_json_1_0(value: ECSServiceMetricStatistic) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> ECSServiceMetricStatistic:
     return cast(ECSServiceMetricStatistic, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ECSServiceMetricStatistic) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ECSServiceMetricStatistic:
+    return cast(ECSServiceMetricStatistic, data)

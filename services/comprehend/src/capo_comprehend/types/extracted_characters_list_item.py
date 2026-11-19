@@ -32,3 +32,22 @@ def deserialize_aws_json_1_1(data: dict) -> ExtractedCharactersListItem:
     if data.get("Count") is not None:
         out["count"] = data["Count"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExtractedCharactersListItem) -> dict:
+    out: dict = {}
+    if "page" in value:
+        out["Page"] = value["page"]
+    if "count" in value:
+        out["Count"] = value["count"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ExtractedCharactersListItem:
+    out: ExtractedCharactersListItem = {}  # type: ignore[typeddict-item]
+    if data.get("Page") is not None:
+        out["page"] = data["Page"]
+    if data.get("Count") is not None:
+        out["count"] = data["Count"]
+    return out

@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> StartBgpFailoverTestResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartBgpFailoverTestResponse) -> dict:
+    out: dict = {}
+    if "virtual_interface_test" in value:
+        import capo_direct_connect.types.virtual_interface_test_history
+
+        out["virtualInterfaceTest"] = (
+            capo_direct_connect.types.virtual_interface_test_history.serialize_cbor(
+                value["virtual_interface_test"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartBgpFailoverTestResponse:
+    out: StartBgpFailoverTestResponse = {}  # type: ignore[typeddict-item]
+    if data.get("virtualInterfaceTest") is not None:
+        import capo_direct_connect.types.virtual_interface_test_history
+
+        out["virtual_interface_test"] = (
+            capo_direct_connect.types.virtual_interface_test_history.deserialize_cbor(
+                data["virtualInterfaceTest"]
+            )
+        )
+    return out

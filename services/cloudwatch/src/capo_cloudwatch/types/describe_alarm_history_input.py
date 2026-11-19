@@ -230,3 +230,88 @@ def deserialize_query(el: Element) -> DescribeAlarmHistoryInput:
 
         out["scan_by"] = capo_cloudwatch.types.scan_by.deserialize_query(child_scan_by)
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeAlarmHistoryInput) -> dict:
+    out: dict = {}
+    if "alarm_name" in value:
+        out["AlarmName"] = value["alarm_name"]
+    if "alarm_contributor_id" in value:
+        out["AlarmContributorId"] = value["alarm_contributor_id"]
+    if "alarm_types" in value:
+        import capo_cloudwatch.types.alarm_types
+
+        out["AlarmTypes"] = capo_cloudwatch.types.alarm_types.serialize_cbor(
+            value["alarm_types"]
+        )
+    if "history_item_type" in value:
+        import capo_cloudwatch.types.history_item_type
+
+        out["HistoryItemType"] = capo_cloudwatch.types.history_item_type.serialize_cbor(
+            value["history_item_type"]
+        )
+    if "start_date" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["StartDate"] = capo_cloudwatch.types.timestamp.serialize_cbor(
+            value["start_date"]
+        )
+    if "end_date" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["EndDate"] = capo_cloudwatch.types.timestamp.serialize_cbor(
+            value["end_date"]
+        )
+    if "max_records" in value:
+        out["MaxRecords"] = value["max_records"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "scan_by" in value:
+        import capo_cloudwatch.types.scan_by
+
+        out["ScanBy"] = capo_cloudwatch.types.scan_by.serialize_cbor(value["scan_by"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeAlarmHistoryInput:
+    out: DescribeAlarmHistoryInput = {}  # type: ignore[typeddict-item]
+    if data.get("AlarmName") is not None:
+        out["alarm_name"] = data["AlarmName"]
+    if data.get("AlarmContributorId") is not None:
+        out["alarm_contributor_id"] = data["AlarmContributorId"]
+    if data.get("AlarmTypes") is not None:
+        import capo_cloudwatch.types.alarm_types
+
+        out["alarm_types"] = capo_cloudwatch.types.alarm_types.deserialize_cbor(
+            data["AlarmTypes"]
+        )
+    if data.get("HistoryItemType") is not None:
+        import capo_cloudwatch.types.history_item_type
+
+        out["history_item_type"] = (
+            capo_cloudwatch.types.history_item_type.deserialize_cbor(
+                data["HistoryItemType"]
+            )
+        )
+    if data.get("StartDate") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["start_date"] = capo_cloudwatch.types.timestamp.deserialize_cbor(
+            data["StartDate"]
+        )
+    if data.get("EndDate") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["end_date"] = capo_cloudwatch.types.timestamp.deserialize_cbor(
+            data["EndDate"]
+        )
+    if data.get("MaxRecords") is not None:
+        out["max_records"] = data["MaxRecords"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("ScanBy") is not None:
+        import capo_cloudwatch.types.scan_by
+
+        out["scan_by"] = capo_cloudwatch.types.scan_by.deserialize_cbor(data["ScanBy"])
+    return out

@@ -72,3 +72,54 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateKeyspaceRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateKeyspaceRequest) -> dict:
+    out: dict = {}
+    out["keyspaceName"] = value["keyspace_name"]
+    import capo_keyspaces.types.replication_specification
+
+    out["replicationSpecification"] = (
+        capo_keyspaces.types.replication_specification.serialize_cbor(
+            value["replication_specification"]
+        )
+    )
+    if "client_side_timestamps" in value:
+        import capo_keyspaces.types.client_side_timestamps
+
+        out["clientSideTimestamps"] = (
+            capo_keyspaces.types.client_side_timestamps.serialize_cbor(
+                value["client_side_timestamps"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateKeyspaceRequest:
+    out: UpdateKeyspaceRequest = {}  # type: ignore[typeddict-item]
+    if data.get("keyspaceName") is not None:
+        out["keyspace_name"] = data["keyspaceName"]
+    else:
+        out["keyspace_name"] = ""
+    if data.get("replicationSpecification") is not None:
+        import capo_keyspaces.types.replication_specification
+
+        out["replication_specification"] = (
+            capo_keyspaces.types.replication_specification.deserialize_cbor(
+                data["replicationSpecification"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "UpdateKeyspaceRequest.replication_specification required"
+        )
+    if data.get("clientSideTimestamps") is not None:
+        import capo_keyspaces.types.client_side_timestamps
+
+        out["client_side_timestamps"] = (
+            capo_keyspaces.types.client_side_timestamps.deserialize_cbor(
+                data["clientSideTimestamps"]
+            )
+        )
+    return out

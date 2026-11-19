@@ -29,6 +29,27 @@ def deserialize_aws_json_1_0(data: list) -> WorkflowList:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: WorkflowList) -> list:
+    import capo_arc_region_switch.types.workflow
+
+    out: list = []
+    for item in value:
+        out.append(capo_arc_region_switch.types.workflow.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> WorkflowList:
+    import capo_arc_region_switch.types.workflow
+
+    out: WorkflowList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_arc_region_switch.types.workflow.deserialize_cbor(item))
+    return out
+
+
 def redact_sensitive(value: WorkflowList) -> list[Any]:
     import capo_arc_region_switch.types.workflow
 

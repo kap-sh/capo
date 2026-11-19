@@ -145,6 +145,103 @@ def deserialize_aws_json_1_0(data: dict) -> EmailApproverOutcome:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EmailApproverOutcome) -> dict:
+    out: dict = {}
+    if "note" in value:
+        out["note"] = value["note"]
+    import capo_marketplace_agreement.types.approver_outcome_status
+
+    out["status"] = (
+        capo_marketplace_agreement.types.approver_outcome_status.serialize_cbor(
+            value["status"]
+        )
+    )
+    import capo_marketplace_agreement.types.timestamp
+
+    out["updatedAt"] = capo_marketplace_agreement.types.timestamp.serialize_cbor(
+        value["updated_at"]
+    )
+    if "approver_outcome_id" in value:
+        out["approverOutcomeId"] = value["approver_outcome_id"]
+    out["emailAddress"] = value["email_address"]
+    if "name" in value:
+        out["name"] = value["name"]
+    if "purchase_orders" in value:
+        import capo_marketplace_agreement.types.agreement_approval_purchase_orders
+
+        out["purchaseOrders"] = (
+            capo_marketplace_agreement.types.agreement_approval_purchase_orders.serialize_cbor(
+                value["purchase_orders"]
+            )
+        )
+    if "overridden_by" in value:
+        import capo_marketplace_agreement.types.caller_identity
+
+        out["overriddenBy"] = (
+            capo_marketplace_agreement.types.caller_identity.serialize_cbor(
+                value["overridden_by"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> EmailApproverOutcome:
+    out: EmailApproverOutcome = {}  # type: ignore[typeddict-item]
+    if data.get("note") is not None:
+        out["note"] = data["note"]
+    if data.get("status") is not None:
+        import capo_marketplace_agreement.types.approver_outcome_status
+
+        out["status"] = (
+            capo_marketplace_agreement.types.approver_outcome_status.deserialize_cbor(
+                data["status"]
+            )
+        )
+    else:
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_marketplace_agreement.types.approver_outcome_status.ApproverOutcomeStatus",
+            "",
+        )
+    if data.get("updatedAt") is not None:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["updated_at"] = capo_marketplace_agreement.types.timestamp.deserialize_cbor(
+            data["updatedAt"]
+        )
+    else:
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
+    if data.get("approverOutcomeId") is not None:
+        out["approver_outcome_id"] = data["approverOutcomeId"]
+    if data.get("emailAddress") is not None:
+        out["email_address"] = data["emailAddress"]
+    else:
+        out["email_address"] = ""
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    if data.get("purchaseOrders") is not None:
+        import capo_marketplace_agreement.types.agreement_approval_purchase_orders
+
+        out["purchase_orders"] = (
+            capo_marketplace_agreement.types.agreement_approval_purchase_orders.deserialize_cbor(
+                data["purchaseOrders"]
+            )
+        )
+    if data.get("overriddenBy") is not None:
+        import capo_marketplace_agreement.types.caller_identity
+
+        out["overridden_by"] = (
+            capo_marketplace_agreement.types.caller_identity.deserialize_cbor(
+                data["overriddenBy"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: EmailApproverOutcome) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "note" in value:

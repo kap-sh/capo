@@ -56,3 +56,35 @@ def deserialize_aws_json_1_0(
     else:
         out["availability_zone_change_protection"] = False
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateAvailabilityZoneChangeProtectionResponse) -> dict:
+    out: dict = {}
+    if "update_token" in value:
+        out["UpdateToken"] = value["update_token"]
+    if "firewall_arn" in value:
+        out["FirewallArn"] = value["firewall_arn"]
+    if "firewall_name" in value:
+        out["FirewallName"] = value["firewall_name"]
+    out["AvailabilityZoneChangeProtection"] = value.get(
+        "availability_zone_change_protection", False
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateAvailabilityZoneChangeProtectionResponse:
+    out: UpdateAvailabilityZoneChangeProtectionResponse = {}  # type: ignore[typeddict-item]
+    if data.get("UpdateToken") is not None:
+        out["update_token"] = data["UpdateToken"]
+    if data.get("FirewallArn") is not None:
+        out["firewall_arn"] = data["FirewallArn"]
+    if data.get("FirewallName") is not None:
+        out["firewall_name"] = data["FirewallName"]
+    if data.get("AvailabilityZoneChangeProtection") is not None:
+        out["availability_zone_change_protection"] = data[
+            "AvailabilityZoneChangeProtection"
+        ]
+    else:
+        out["availability_zone_change_protection"] = False
+    return out

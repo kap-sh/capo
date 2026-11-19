@@ -203,3 +203,146 @@ def deserialize_aws_json_1_0(data: dict) -> AgreementApprovalSummary:
             0, tz=datetime.timezone.utc
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AgreementApprovalSummary) -> dict:
+    out: dict = {}
+    import capo_marketplace_agreement.types.agreement_approval_type
+
+    out["approvalType"] = (
+        capo_marketplace_agreement.types.agreement_approval_type.serialize_cbor(
+            value["approval_type"]
+        )
+    )
+    out["agreementRequestId"] = value["agreement_request_id"]
+    out["agreementApprovalId"] = value["agreement_approval_id"]
+    out["name"] = value["name"]
+    import capo_marketplace_agreement.types.agreement_approval_status
+
+    out["status"] = (
+        capo_marketplace_agreement.types.agreement_approval_status.serialize_cbor(
+            value["status"]
+        )
+    )
+    import capo_marketplace_agreement.types.timestamp
+
+    out["createdAt"] = capo_marketplace_agreement.types.timestamp.serialize_cbor(
+        value["created_at"]
+    )
+    import capo_marketplace_agreement.types.timestamp
+
+    out["updatedAt"] = capo_marketplace_agreement.types.timestamp.serialize_cbor(
+        value["updated_at"]
+    )
+    if "started_at" in value:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["startedAt"] = capo_marketplace_agreement.types.timestamp.serialize_cbor(
+            value["started_at"]
+        )
+    if "expires_at" in value:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["expiresAt"] = capo_marketplace_agreement.types.timestamp.serialize_cbor(
+            value["expires_at"]
+        )
+    import capo_marketplace_agreement.types.timestamp
+
+    out["approvalNeededBy"] = capo_marketplace_agreement.types.timestamp.serialize_cbor(
+        value["approval_needed_by"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AgreementApprovalSummary:
+    out: AgreementApprovalSummary = {}  # type: ignore[typeddict-item]
+    if data.get("approvalType") is not None:
+        import capo_marketplace_agreement.types.agreement_approval_type
+
+        out["approval_type"] = (
+            capo_marketplace_agreement.types.agreement_approval_type.deserialize_cbor(
+                data["approvalType"]
+            )
+        )
+    else:
+        import typing
+
+        out["approval_type"] = typing.cast(
+            "capo_marketplace_agreement.types.agreement_approval_type.AgreementApprovalType",
+            "",
+        )
+    if data.get("agreementRequestId") is not None:
+        out["agreement_request_id"] = data["agreementRequestId"]
+    else:
+        out["agreement_request_id"] = ""
+    if data.get("agreementApprovalId") is not None:
+        out["agreement_approval_id"] = data["agreementApprovalId"]
+    else:
+        out["agreement_approval_id"] = ""
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    else:
+        out["name"] = ""
+    if data.get("status") is not None:
+        import capo_marketplace_agreement.types.agreement_approval_status
+
+        out["status"] = (
+            capo_marketplace_agreement.types.agreement_approval_status.deserialize_cbor(
+                data["status"]
+            )
+        )
+    else:
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_marketplace_agreement.types.agreement_approval_status.AgreementApprovalStatus",
+            "",
+        )
+    if data.get("createdAt") is not None:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["created_at"] = capo_marketplace_agreement.types.timestamp.deserialize_cbor(
+            data["createdAt"]
+        )
+    else:
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
+    if data.get("updatedAt") is not None:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["updated_at"] = capo_marketplace_agreement.types.timestamp.deserialize_cbor(
+            data["updatedAt"]
+        )
+    else:
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
+    if data.get("startedAt") is not None:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["started_at"] = capo_marketplace_agreement.types.timestamp.deserialize_cbor(
+            data["startedAt"]
+        )
+    if data.get("expiresAt") is not None:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["expires_at"] = capo_marketplace_agreement.types.timestamp.deserialize_cbor(
+            data["expiresAt"]
+        )
+    if data.get("approvalNeededBy") is not None:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["approval_needed_by"] = (
+            capo_marketplace_agreement.types.timestamp.deserialize_cbor(
+                data["approvalNeededBy"]
+            )
+        )
+    else:
+        import datetime
+
+        out["approval_needed_by"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
+    return out

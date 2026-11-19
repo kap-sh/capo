@@ -140,6 +140,97 @@ def deserialize_aws_json_1_1(data: dict) -> SharedDirectory:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SharedDirectory) -> dict:
+    out: dict = {}
+    if "owner_account_id" in value:
+        out["OwnerAccountId"] = value["owner_account_id"]
+    if "owner_directory_id" in value:
+        out["OwnerDirectoryId"] = value["owner_directory_id"]
+    if "share_method" in value:
+        import capo_directory_service.types.share_method
+
+        out["ShareMethod"] = capo_directory_service.types.share_method.serialize_cbor(
+            value["share_method"]
+        )
+    if "shared_account_id" in value:
+        out["SharedAccountId"] = value["shared_account_id"]
+    if "shared_directory_id" in value:
+        out["SharedDirectoryId"] = value["shared_directory_id"]
+    if "share_status" in value:
+        import capo_directory_service.types.share_status
+
+        out["ShareStatus"] = capo_directory_service.types.share_status.serialize_cbor(
+            value["share_status"]
+        )
+    if "share_notes" in value:
+        out["ShareNotes"] = value["share_notes"]
+    if "created_date_time" in value:
+        import capo_directory_service.types.created_date_time
+
+        out["CreatedDateTime"] = (
+            capo_directory_service.types.created_date_time.serialize_cbor(
+                value["created_date_time"]
+            )
+        )
+    if "last_updated_date_time" in value:
+        import capo_directory_service.types.last_updated_date_time
+
+        out["LastUpdatedDateTime"] = (
+            capo_directory_service.types.last_updated_date_time.serialize_cbor(
+                value["last_updated_date_time"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> SharedDirectory:
+    out: SharedDirectory = {}  # type: ignore[typeddict-item]
+    if data.get("OwnerAccountId") is not None:
+        out["owner_account_id"] = data["OwnerAccountId"]
+    if data.get("OwnerDirectoryId") is not None:
+        out["owner_directory_id"] = data["OwnerDirectoryId"]
+    if data.get("ShareMethod") is not None:
+        import capo_directory_service.types.share_method
+
+        out["share_method"] = (
+            capo_directory_service.types.share_method.deserialize_cbor(
+                data["ShareMethod"]
+            )
+        )
+    if data.get("SharedAccountId") is not None:
+        out["shared_account_id"] = data["SharedAccountId"]
+    if data.get("SharedDirectoryId") is not None:
+        out["shared_directory_id"] = data["SharedDirectoryId"]
+    if data.get("ShareStatus") is not None:
+        import capo_directory_service.types.share_status
+
+        out["share_status"] = (
+            capo_directory_service.types.share_status.deserialize_cbor(
+                data["ShareStatus"]
+            )
+        )
+    if data.get("ShareNotes") is not None:
+        out["share_notes"] = data["ShareNotes"]
+    if data.get("CreatedDateTime") is not None:
+        import capo_directory_service.types.created_date_time
+
+        out["created_date_time"] = (
+            capo_directory_service.types.created_date_time.deserialize_cbor(
+                data["CreatedDateTime"]
+            )
+        )
+    if data.get("LastUpdatedDateTime") is not None:
+        import capo_directory_service.types.last_updated_date_time
+
+        out["last_updated_date_time"] = (
+            capo_directory_service.types.last_updated_date_time.deserialize_cbor(
+                data["LastUpdatedDateTime"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: SharedDirectory) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "share_notes" in value:

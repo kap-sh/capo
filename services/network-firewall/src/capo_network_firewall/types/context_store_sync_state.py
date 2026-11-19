@@ -49,3 +49,34 @@ def deserialize_aws_json_1_0(data: dict) -> ContextStoreSyncState:
     if data.get("StatusMessage") is not None:
         out["status_message"] = data["StatusMessage"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ContextStoreSyncState) -> dict:
+    out: dict = {}
+    if "sync_status" in value:
+        import capo_network_firewall.types.context_store_sync_status
+
+        out["SyncStatus"] = (
+            capo_network_firewall.types.context_store_sync_status.serialize_cbor(
+                value["sync_status"]
+            )
+        )
+    if "status_message" in value:
+        out["StatusMessage"] = value["status_message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ContextStoreSyncState:
+    out: ContextStoreSyncState = {}  # type: ignore[typeddict-item]
+    if data.get("SyncStatus") is not None:
+        import capo_network_firewall.types.context_store_sync_status
+
+        out["sync_status"] = (
+            capo_network_firewall.types.context_store_sync_status.deserialize_cbor(
+                data["SyncStatus"]
+            )
+        )
+    if data.get("StatusMessage") is not None:
+        out["status_message"] = data["StatusMessage"]
+    return out

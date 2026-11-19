@@ -23,3 +23,12 @@ def serialize_aws_json_1_0(value: DoubleList) -> list:
 
 def deserialize_aws_json_1_0(data: list) -> DoubleList:
     return [float(item) for item in data if item is not None]
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DoubleList) -> list:
+    return list(value)
+
+
+def deserialize_cbor(data: list) -> DoubleList:
+    return [float(item) for item in data if item is not None]

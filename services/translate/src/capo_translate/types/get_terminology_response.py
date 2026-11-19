@@ -81,3 +81,62 @@ def deserialize_aws_json_1_1(data: dict) -> GetTerminologyResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetTerminologyResponse) -> dict:
+    out: dict = {}
+    if "terminology_properties" in value:
+        import capo_translate.types.terminology_properties
+
+        out["TerminologyProperties"] = (
+            capo_translate.types.terminology_properties.serialize_cbor(
+                value["terminology_properties"]
+            )
+        )
+    if "terminology_data_location" in value:
+        import capo_translate.types.terminology_data_location
+
+        out["TerminologyDataLocation"] = (
+            capo_translate.types.terminology_data_location.serialize_cbor(
+                value["terminology_data_location"]
+            )
+        )
+    if "auxiliary_data_location" in value:
+        import capo_translate.types.terminology_data_location
+
+        out["AuxiliaryDataLocation"] = (
+            capo_translate.types.terminology_data_location.serialize_cbor(
+                value["auxiliary_data_location"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetTerminologyResponse:
+    out: GetTerminologyResponse = {}  # type: ignore[typeddict-item]
+    if data.get("TerminologyProperties") is not None:
+        import capo_translate.types.terminology_properties
+
+        out["terminology_properties"] = (
+            capo_translate.types.terminology_properties.deserialize_cbor(
+                data["TerminologyProperties"]
+            )
+        )
+    if data.get("TerminologyDataLocation") is not None:
+        import capo_translate.types.terminology_data_location
+
+        out["terminology_data_location"] = (
+            capo_translate.types.terminology_data_location.deserialize_cbor(
+                data["TerminologyDataLocation"]
+            )
+        )
+    if data.get("AuxiliaryDataLocation") is not None:
+        import capo_translate.types.terminology_data_location
+
+        out["auxiliary_data_location"] = (
+            capo_translate.types.terminology_data_location.deserialize_cbor(
+                data["AuxiliaryDataLocation"]
+            )
+        )
+    return out

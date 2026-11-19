@@ -117,3 +117,90 @@ def deserialize_aws_json_1_1(data: dict) -> Extensions:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Extensions) -> dict:
+    out: dict = {}
+    if "certificate_policies" in value:
+        import capo_acm_pca.types.certificate_policy_list
+
+        out["CertificatePolicies"] = (
+            capo_acm_pca.types.certificate_policy_list.serialize_cbor(
+                value["certificate_policies"]
+            )
+        )
+    if "extended_key_usage" in value:
+        import capo_acm_pca.types.extended_key_usage_list
+
+        out["ExtendedKeyUsage"] = (
+            capo_acm_pca.types.extended_key_usage_list.serialize_cbor(
+                value["extended_key_usage"]
+            )
+        )
+    if "key_usage" in value:
+        import capo_acm_pca.types.key_usage
+
+        out["KeyUsage"] = capo_acm_pca.types.key_usage.serialize_cbor(
+            value["key_usage"]
+        )
+    if "subject_alternative_names" in value:
+        import capo_acm_pca.types.general_name_list
+
+        out["SubjectAlternativeNames"] = (
+            capo_acm_pca.types.general_name_list.serialize_cbor(
+                value["subject_alternative_names"]
+            )
+        )
+    if "custom_extensions" in value:
+        import capo_acm_pca.types.custom_extension_list
+
+        out["CustomExtensions"] = (
+            capo_acm_pca.types.custom_extension_list.serialize_cbor(
+                value["custom_extensions"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Extensions:
+    out: Extensions = {}  # type: ignore[typeddict-item]
+    if data.get("CertificatePolicies") is not None:
+        import capo_acm_pca.types.certificate_policy_list
+
+        out["certificate_policies"] = (
+            capo_acm_pca.types.certificate_policy_list.deserialize_cbor(
+                data["CertificatePolicies"]
+            )
+        )
+    if data.get("ExtendedKeyUsage") is not None:
+        import capo_acm_pca.types.extended_key_usage_list
+
+        out["extended_key_usage"] = (
+            capo_acm_pca.types.extended_key_usage_list.deserialize_cbor(
+                data["ExtendedKeyUsage"]
+            )
+        )
+    if data.get("KeyUsage") is not None:
+        import capo_acm_pca.types.key_usage
+
+        out["key_usage"] = capo_acm_pca.types.key_usage.deserialize_cbor(
+            data["KeyUsage"]
+        )
+    if data.get("SubjectAlternativeNames") is not None:
+        import capo_acm_pca.types.general_name_list
+
+        out["subject_alternative_names"] = (
+            capo_acm_pca.types.general_name_list.deserialize_cbor(
+                data["SubjectAlternativeNames"]
+            )
+        )
+    if data.get("CustomExtensions") is not None:
+        import capo_acm_pca.types.custom_extension_list
+
+        out["custom_extensions"] = (
+            capo_acm_pca.types.custom_extension_list.deserialize_cbor(
+                data["CustomExtensions"]
+            )
+        )
+    return out

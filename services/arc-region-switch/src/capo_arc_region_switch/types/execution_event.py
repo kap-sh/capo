@@ -132,3 +132,93 @@ def deserialize_aws_json_1_0(data: dict) -> ExecutionEvent:
     if data.get("previousEventId") is not None:
         out["previous_event_id"] = data["previousEventId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExecutionEvent) -> dict:
+    out: dict = {}
+    if "timestamp" in value:
+        import capo_arc_region_switch.types._prelude.timestamp
+
+        out["timestamp"] = (
+            capo_arc_region_switch.types._prelude.timestamp.serialize_cbor(
+                value["timestamp"]
+            )
+        )
+    if "type" in value:
+        import capo_arc_region_switch.types.execution_event_type
+
+        out["type"] = capo_arc_region_switch.types.execution_event_type.serialize_cbor(
+            value["type"]
+        )
+    if "step_name" in value:
+        out["stepName"] = value["step_name"]
+    if "execution_block_type" in value:
+        import capo_arc_region_switch.types.execution_block_type
+
+        out["executionBlockType"] = (
+            capo_arc_region_switch.types.execution_block_type.serialize_cbor(
+                value["execution_block_type"]
+            )
+        )
+    if "resources" in value:
+        import capo_arc_region_switch.types.resources
+
+        out["resources"] = capo_arc_region_switch.types.resources.serialize_cbor(
+            value["resources"]
+        )
+    if "error" in value:
+        out["error"] = value["error"]
+    if "description" in value:
+        out["description"] = value["description"]
+    out["eventId"] = value["event_id"]
+    if "previous_event_id" in value:
+        out["previousEventId"] = value["previous_event_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ExecutionEvent:
+    out: ExecutionEvent = {}  # type: ignore[typeddict-item]
+    if data.get("timestamp") is not None:
+        import capo_arc_region_switch.types._prelude.timestamp
+
+        out["timestamp"] = (
+            capo_arc_region_switch.types._prelude.timestamp.deserialize_cbor(
+                data["timestamp"]
+            )
+        )
+    if data.get("type") is not None:
+        import capo_arc_region_switch.types.execution_event_type
+
+        out["type"] = (
+            capo_arc_region_switch.types.execution_event_type.deserialize_cbor(
+                data["type"]
+            )
+        )
+    if data.get("stepName") is not None:
+        out["step_name"] = data["stepName"]
+    if data.get("executionBlockType") is not None:
+        import capo_arc_region_switch.types.execution_block_type
+
+        out["execution_block_type"] = (
+            capo_arc_region_switch.types.execution_block_type.deserialize_cbor(
+                data["executionBlockType"]
+            )
+        )
+    if data.get("resources") is not None:
+        import capo_arc_region_switch.types.resources
+
+        out["resources"] = capo_arc_region_switch.types.resources.deserialize_cbor(
+            data["resources"]
+        )
+    if data.get("error") is not None:
+        out["error"] = data["error"]
+    if data.get("description") is not None:
+        out["description"] = data["description"]
+    if data.get("eventId") is not None:
+        out["event_id"] = data["eventId"]
+    else:
+        out["event_id"] = ""
+    if data.get("previousEventId") is not None:
+        out["previous_event_id"] = data["previousEventId"]
+    return out

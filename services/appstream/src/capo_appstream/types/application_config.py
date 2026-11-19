@@ -67,3 +67,42 @@ def deserialize_aws_json_1_1(data: dict) -> ApplicationConfig:
     if data.get("LaunchParameters") is not None:
         out["launch_parameters"] = data["LaunchParameters"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ApplicationConfig) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "display_name" in value:
+        out["DisplayName"] = value["display_name"]
+    if "absolute_app_path" in value:
+        out["AbsoluteAppPath"] = value["absolute_app_path"]
+    if "absolute_icon_path" in value:
+        out["AbsoluteIconPath"] = value["absolute_icon_path"]
+    if "absolute_manifest_path" in value:
+        out["AbsoluteManifestPath"] = value["absolute_manifest_path"]
+    if "working_directory" in value:
+        out["WorkingDirectory"] = value["working_directory"]
+    if "launch_parameters" in value:
+        out["LaunchParameters"] = value["launch_parameters"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ApplicationConfig:
+    out: ApplicationConfig = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("DisplayName") is not None:
+        out["display_name"] = data["DisplayName"]
+    if data.get("AbsoluteAppPath") is not None:
+        out["absolute_app_path"] = data["AbsoluteAppPath"]
+    if data.get("AbsoluteIconPath") is not None:
+        out["absolute_icon_path"] = data["AbsoluteIconPath"]
+    if data.get("AbsoluteManifestPath") is not None:
+        out["absolute_manifest_path"] = data["AbsoluteManifestPath"]
+    if data.get("WorkingDirectory") is not None:
+        out["working_directory"] = data["WorkingDirectory"]
+    if data.get("LaunchParameters") is not None:
+        out["launch_parameters"] = data["LaunchParameters"]
+    return out

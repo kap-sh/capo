@@ -107,3 +107,69 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDatasetRequest:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateDatasetRequest) -> dict:
+    out: dict = {}
+    out["FlywheelArn"] = value["flywheel_arn"]
+    out["DatasetName"] = value["dataset_name"]
+    if "dataset_type" in value:
+        import capo_comprehend.types.dataset_type
+
+        out["DatasetType"] = capo_comprehend.types.dataset_type.serialize_cbor(
+            value["dataset_type"]
+        )
+    if "description" in value:
+        out["Description"] = value["description"]
+    import capo_comprehend.types.dataset_input_data_config
+
+    out["InputDataConfig"] = (
+        capo_comprehend.types.dataset_input_data_config.serialize_cbor(
+            value["input_data_config"]
+        )
+    )
+    if "client_request_token" in value:
+        out["ClientRequestToken"] = value["client_request_token"]
+    if "tags" in value:
+        import capo_comprehend.types.tag_list
+
+        out["Tags"] = capo_comprehend.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateDatasetRequest:
+    out: CreateDatasetRequest = {}  # type: ignore[typeddict-item]
+    if data.get("FlywheelArn") is not None:
+        out["flywheel_arn"] = data["FlywheelArn"]
+    else:
+        out["flywheel_arn"] = ""
+    if data.get("DatasetName") is not None:
+        out["dataset_name"] = data["DatasetName"]
+    else:
+        out["dataset_name"] = ""
+    if data.get("DatasetType") is not None:
+        import capo_comprehend.types.dataset_type
+
+        out["dataset_type"] = capo_comprehend.types.dataset_type.deserialize_cbor(
+            data["DatasetType"]
+        )
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("InputDataConfig") is not None:
+        import capo_comprehend.types.dataset_input_data_config
+
+        out["input_data_config"] = (
+            capo_comprehend.types.dataset_input_data_config.deserialize_cbor(
+                data["InputDataConfig"]
+            )
+        )
+    else:
+        raise DeserializationError("CreateDatasetRequest.input_data_config required")
+    if data.get("ClientRequestToken") is not None:
+        out["client_request_token"] = data["ClientRequestToken"]
+    if data.get("Tags") is not None:
+        import capo_comprehend.types.tag_list
+
+        out["tags"] = capo_comprehend.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

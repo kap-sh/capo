@@ -54,3 +54,42 @@ def deserialize_aws_json_1_1(data: dict) -> IdentityDocumentField:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IdentityDocumentField) -> dict:
+    out: dict = {}
+    if "type" in value:
+        import capo_textract.types.analyze_id_detections
+
+        out["Type"] = capo_textract.types.analyze_id_detections.serialize_cbor(
+            value["type"]
+        )
+    if "value_detection" in value:
+        import capo_textract.types.analyze_id_detections
+
+        out["ValueDetection"] = (
+            capo_textract.types.analyze_id_detections.serialize_cbor(
+                value["value_detection"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> IdentityDocumentField:
+    out: IdentityDocumentField = {}  # type: ignore[typeddict-item]
+    if data.get("Type") is not None:
+        import capo_textract.types.analyze_id_detections
+
+        out["type"] = capo_textract.types.analyze_id_detections.deserialize_cbor(
+            data["Type"]
+        )
+    if data.get("ValueDetection") is not None:
+        import capo_textract.types.analyze_id_detections
+
+        out["value_detection"] = (
+            capo_textract.types.analyze_id_detections.deserialize_cbor(
+                data["ValueDetection"]
+            )
+        )
+    return out

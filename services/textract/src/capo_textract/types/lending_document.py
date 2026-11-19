@@ -61,3 +61,42 @@ def deserialize_aws_json_1_1(data: dict) -> LendingDocument:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LendingDocument) -> dict:
+    out: dict = {}
+    if "lending_fields" in value:
+        import capo_textract.types.lending_field_list
+
+        out["LendingFields"] = capo_textract.types.lending_field_list.serialize_cbor(
+            value["lending_fields"]
+        )
+    if "signature_detections" in value:
+        import capo_textract.types.signature_detection_list
+
+        out["SignatureDetections"] = (
+            capo_textract.types.signature_detection_list.serialize_cbor(
+                value["signature_detections"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> LendingDocument:
+    out: LendingDocument = {}  # type: ignore[typeddict-item]
+    if data.get("LendingFields") is not None:
+        import capo_textract.types.lending_field_list
+
+        out["lending_fields"] = capo_textract.types.lending_field_list.deserialize_cbor(
+            data["LendingFields"]
+        )
+    if data.get("SignatureDetections") is not None:
+        import capo_textract.types.signature_detection_list
+
+        out["signature_detections"] = (
+            capo_textract.types.signature_detection_list.deserialize_cbor(
+                data["SignatureDetections"]
+            )
+        )
+    return out

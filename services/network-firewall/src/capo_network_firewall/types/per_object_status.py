@@ -47,3 +47,34 @@ def deserialize_aws_json_1_0(data: dict) -> PerObjectStatus:
     if data.get("UpdateToken") is not None:
         out["update_token"] = data["UpdateToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PerObjectStatus) -> dict:
+    out: dict = {}
+    if "sync_status" in value:
+        import capo_network_firewall.types.per_object_sync_status
+
+        out["SyncStatus"] = (
+            capo_network_firewall.types.per_object_sync_status.serialize_cbor(
+                value["sync_status"]
+            )
+        )
+    if "update_token" in value:
+        out["UpdateToken"] = value["update_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> PerObjectStatus:
+    out: PerObjectStatus = {}  # type: ignore[typeddict-item]
+    if data.get("SyncStatus") is not None:
+        import capo_network_firewall.types.per_object_sync_status
+
+        out["sync_status"] = (
+            capo_network_firewall.types.per_object_sync_status.deserialize_cbor(
+                data["SyncStatus"]
+            )
+        )
+    if data.get("UpdateToken") is not None:
+        out["update_token"] = data["UpdateToken"]
+    return out

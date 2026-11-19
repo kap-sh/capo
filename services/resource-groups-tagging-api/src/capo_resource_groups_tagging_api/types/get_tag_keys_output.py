@@ -49,3 +49,34 @@ def deserialize_aws_json_1_1(data: dict) -> GetTagKeysOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetTagKeysOutput) -> dict:
+    out: dict = {}
+    if "pagination_token" in value:
+        out["PaginationToken"] = value["pagination_token"]
+    if "tag_keys" in value:
+        import capo_resource_groups_tagging_api.types.tag_key_list
+
+        out["TagKeys"] = (
+            capo_resource_groups_tagging_api.types.tag_key_list.serialize_cbor(
+                value["tag_keys"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetTagKeysOutput:
+    out: GetTagKeysOutput = {}  # type: ignore[typeddict-item]
+    if data.get("PaginationToken") is not None:
+        out["pagination_token"] = data["PaginationToken"]
+    if data.get("TagKeys") is not None:
+        import capo_resource_groups_tagging_api.types.tag_key_list
+
+        out["tag_keys"] = (
+            capo_resource_groups_tagging_api.types.tag_key_list.deserialize_cbor(
+                data["TagKeys"]
+            )
+        )
+    return out

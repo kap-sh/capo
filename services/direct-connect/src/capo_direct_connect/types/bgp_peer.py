@@ -139,3 +139,87 @@ def deserialize_aws_json_1_1(data: dict) -> BGPPeer:
     if data.get("awsLogicalDeviceId") is not None:
         out["aws_logical_device_id"] = data["awsLogicalDeviceId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BGPPeer) -> dict:
+    out: dict = {}
+    if "bgp_peer_id" in value:
+        out["bgpPeerId"] = value["bgp_peer_id"]
+    out["asn"] = value.get("asn", 0)
+    if "asn_long" in value:
+        out["asnLong"] = value["asn_long"]
+    if "auth_key" in value:
+        out["authKey"] = value["auth_key"]
+    if "address_family" in value:
+        import capo_direct_connect.types.address_family
+
+        out["addressFamily"] = capo_direct_connect.types.address_family.serialize_cbor(
+            value["address_family"]
+        )
+    if "amazon_address" in value:
+        out["amazonAddress"] = value["amazon_address"]
+    if "customer_address" in value:
+        out["customerAddress"] = value["customer_address"]
+    if "bgp_peer_state" in value:
+        import capo_direct_connect.types.bgp_peer_state
+
+        out["bgpPeerState"] = capo_direct_connect.types.bgp_peer_state.serialize_cbor(
+            value["bgp_peer_state"]
+        )
+    if "bgp_status" in value:
+        import capo_direct_connect.types.bgp_status
+
+        out["bgpStatus"] = capo_direct_connect.types.bgp_status.serialize_cbor(
+            value["bgp_status"]
+        )
+    if "aws_device_v2" in value:
+        out["awsDeviceV2"] = value["aws_device_v2"]
+    if "aws_logical_device_id" in value:
+        out["awsLogicalDeviceId"] = value["aws_logical_device_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> BGPPeer:
+    out: BGPPeer = {}  # type: ignore[typeddict-item]
+    if data.get("bgpPeerId") is not None:
+        out["bgp_peer_id"] = data["bgpPeerId"]
+    if data.get("asn") is not None:
+        out["asn"] = data["asn"]
+    else:
+        out["asn"] = 0
+    if data.get("asnLong") is not None:
+        out["asn_long"] = data["asnLong"]
+    if data.get("authKey") is not None:
+        out["auth_key"] = data["authKey"]
+    if data.get("addressFamily") is not None:
+        import capo_direct_connect.types.address_family
+
+        out["address_family"] = (
+            capo_direct_connect.types.address_family.deserialize_cbor(
+                data["addressFamily"]
+            )
+        )
+    if data.get("amazonAddress") is not None:
+        out["amazon_address"] = data["amazonAddress"]
+    if data.get("customerAddress") is not None:
+        out["customer_address"] = data["customerAddress"]
+    if data.get("bgpPeerState") is not None:
+        import capo_direct_connect.types.bgp_peer_state
+
+        out["bgp_peer_state"] = (
+            capo_direct_connect.types.bgp_peer_state.deserialize_cbor(
+                data["bgpPeerState"]
+            )
+        )
+    if data.get("bgpStatus") is not None:
+        import capo_direct_connect.types.bgp_status
+
+        out["bgp_status"] = capo_direct_connect.types.bgp_status.deserialize_cbor(
+            data["bgpStatus"]
+        )
+    if data.get("awsDeviceV2") is not None:
+        out["aws_device_v2"] = data["awsDeviceV2"]
+    if data.get("awsLogicalDeviceId") is not None:
+        out["aws_logical_device_id"] = data["awsLogicalDeviceId"]
+    return out

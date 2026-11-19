@@ -42,3 +42,26 @@ def deserialize_aws_json_1_0(data: dict) -> S3Destination:
     if data.get("metadataKey") is not None:
         out["metadata_key"] = data["metadataKey"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: S3Destination) -> dict:
+    out: dict = {}
+    if "bucket" in value:
+        out["bucket"] = value["bucket"]
+    if "key" in value:
+        out["key"] = value["key"]
+    if "metadata_key" in value:
+        out["metadataKey"] = value["metadata_key"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> S3Destination:
+    out: S3Destination = {}  # type: ignore[typeddict-item]
+    if data.get("bucket") is not None:
+        out["bucket"] = data["bucket"]
+    if data.get("key") is not None:
+        out["key"] = data["key"]
+    if data.get("metadataKey") is not None:
+        out["metadata_key"] = data["metadataKey"]
+    return out

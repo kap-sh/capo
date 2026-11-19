@@ -18,3 +18,12 @@ def serialize_aws_json_1_1(value: entityStatusCode) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> entityStatusCode:
     return cast(entityStatusCode, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: entityStatusCode) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> entityStatusCode:
+    return cast(entityStatusCode, data)

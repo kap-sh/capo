@@ -89,3 +89,64 @@ def deserialize_aws_json_1_1(data: dict) -> DocumentGroup:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DocumentGroup) -> dict:
+    out: dict = {}
+    if "type" in value:
+        out["Type"] = value["type"]
+    if "split_documents" in value:
+        import capo_textract.types.split_document_list
+
+        out["SplitDocuments"] = capo_textract.types.split_document_list.serialize_cbor(
+            value["split_documents"]
+        )
+    if "detected_signatures" in value:
+        import capo_textract.types.detected_signature_list
+
+        out["DetectedSignatures"] = (
+            capo_textract.types.detected_signature_list.serialize_cbor(
+                value["detected_signatures"]
+            )
+        )
+    if "undetected_signatures" in value:
+        import capo_textract.types.undetected_signature_list
+
+        out["UndetectedSignatures"] = (
+            capo_textract.types.undetected_signature_list.serialize_cbor(
+                value["undetected_signatures"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DocumentGroup:
+    out: DocumentGroup = {}  # type: ignore[typeddict-item]
+    if data.get("Type") is not None:
+        out["type"] = data["Type"]
+    if data.get("SplitDocuments") is not None:
+        import capo_textract.types.split_document_list
+
+        out["split_documents"] = (
+            capo_textract.types.split_document_list.deserialize_cbor(
+                data["SplitDocuments"]
+            )
+        )
+    if data.get("DetectedSignatures") is not None:
+        import capo_textract.types.detected_signature_list
+
+        out["detected_signatures"] = (
+            capo_textract.types.detected_signature_list.deserialize_cbor(
+                data["DetectedSignatures"]
+            )
+        )
+    if data.get("UndetectedSignatures") is not None:
+        import capo_textract.types.undetected_signature_list
+
+        out["undetected_signatures"] = (
+            capo_textract.types.undetected_signature_list.deserialize_cbor(
+                data["UndetectedSignatures"]
+            )
+        )
+    return out

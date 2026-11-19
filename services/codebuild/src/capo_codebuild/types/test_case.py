@@ -87,3 +87,56 @@ def deserialize_aws_json_1_1(data: dict) -> TestCase:
     if data.get("testSuiteName") is not None:
         out["test_suite_name"] = data["testSuiteName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TestCase) -> dict:
+    out: dict = {}
+    if "report_arn" in value:
+        out["reportArn"] = value["report_arn"]
+    if "test_raw_data_path" in value:
+        out["testRawDataPath"] = value["test_raw_data_path"]
+    if "prefix" in value:
+        out["prefix"] = value["prefix"]
+    if "name" in value:
+        out["name"] = value["name"]
+    if "status" in value:
+        out["status"] = value["status"]
+    if "duration_in_nano_seconds" in value:
+        out["durationInNanoSeconds"] = value["duration_in_nano_seconds"]
+    if "message" in value:
+        out["message"] = value["message"]
+    if "expired" in value:
+        import capo_codebuild.types.timestamp
+
+        out["expired"] = capo_codebuild.types.timestamp.serialize_cbor(value["expired"])
+    if "test_suite_name" in value:
+        out["testSuiteName"] = value["test_suite_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> TestCase:
+    out: TestCase = {}  # type: ignore[typeddict-item]
+    if data.get("reportArn") is not None:
+        out["report_arn"] = data["reportArn"]
+    if data.get("testRawDataPath") is not None:
+        out["test_raw_data_path"] = data["testRawDataPath"]
+    if data.get("prefix") is not None:
+        out["prefix"] = data["prefix"]
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    if data.get("status") is not None:
+        out["status"] = data["status"]
+    if data.get("durationInNanoSeconds") is not None:
+        out["duration_in_nano_seconds"] = data["durationInNanoSeconds"]
+    if data.get("message") is not None:
+        out["message"] = data["message"]
+    if data.get("expired") is not None:
+        import capo_codebuild.types.timestamp
+
+        out["expired"] = capo_codebuild.types.timestamp.deserialize_cbor(
+            data["expired"]
+        )
+    if data.get("testSuiteName") is not None:
+        out["test_suite_name"] = data["testSuiteName"]
+    return out

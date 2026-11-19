@@ -27,3 +27,24 @@ def deserialize_aws_json_1_1(data: list) -> FilterList:
             continue
         out.append(capo_datasync.types.filter_rule.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FilterList) -> list:
+    import capo_datasync.types.filter_rule
+
+    out: list = []
+    for item in value:
+        out.append(capo_datasync.types.filter_rule.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> FilterList:
+    import capo_datasync.types.filter_rule
+
+    out: FilterList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_datasync.types.filter_rule.deserialize_cbor(item))
+    return out

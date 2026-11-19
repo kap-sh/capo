@@ -59,3 +59,38 @@ def deserialize_aws_json_1_1(data: dict) -> AuthenticationMode:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AuthenticationMode) -> dict:
+    out: dict = {}
+    if "type" in value:
+        import capo_memorydb.types.input_authentication_type
+
+        out["Type"] = capo_memorydb.types.input_authentication_type.serialize_cbor(
+            value["type"]
+        )
+    if "passwords" in value:
+        import capo_memorydb.types.password_list_input
+
+        out["Passwords"] = capo_memorydb.types.password_list_input.serialize_cbor(
+            value["passwords"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AuthenticationMode:
+    out: AuthenticationMode = {}  # type: ignore[typeddict-item]
+    if data.get("Type") is not None:
+        import capo_memorydb.types.input_authentication_type
+
+        out["type"] = capo_memorydb.types.input_authentication_type.deserialize_cbor(
+            data["Type"]
+        )
+    if data.get("Passwords") is not None:
+        import capo_memorydb.types.password_list_input
+
+        out["passwords"] = capo_memorydb.types.password_list_input.deserialize_cbor(
+            data["Passwords"]
+        )
+    return out

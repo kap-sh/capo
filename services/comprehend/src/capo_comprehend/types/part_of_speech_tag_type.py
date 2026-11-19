@@ -31,3 +31,12 @@ def serialize_aws_json_1_1(value: PartOfSpeechTagType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> PartOfSpeechTagType:
     return cast(PartOfSpeechTagType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PartOfSpeechTagType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> PartOfSpeechTagType:
+    return cast(PartOfSpeechTagType, data)

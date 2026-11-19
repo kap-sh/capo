@@ -48,3 +48,35 @@ def deserialize_aws_json_1_0(data: dict) -> EncryptionConfiguration:
             "capo_network_firewall.types.encryption_type.EncryptionType", ""
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EncryptionConfiguration) -> dict:
+    out: dict = {}
+    if "key_id" in value:
+        out["KeyId"] = value["key_id"]
+    import capo_network_firewall.types.encryption_type
+
+    out["Type"] = capo_network_firewall.types.encryption_type.serialize_cbor(
+        value["type"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> EncryptionConfiguration:
+    out: EncryptionConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("KeyId") is not None:
+        out["key_id"] = data["KeyId"]
+    if data.get("Type") is not None:
+        import capo_network_firewall.types.encryption_type
+
+        out["type"] = capo_network_firewall.types.encryption_type.deserialize_cbor(
+            data["Type"]
+        )
+    else:
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_network_firewall.types.encryption_type.EncryptionType", ""
+        )
+    return out

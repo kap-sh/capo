@@ -262,6 +262,7 @@ class CloudWatchClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[Interceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_0", "awsQuery", "rpcv2Cbor"]
     use_dual_stack: bool | None
     use_fips: bool | None
     endpoint: str | None
@@ -278,6 +279,7 @@ class CloudWatchClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
         endpoint: The value of the ``SDK::Endpoint`` endpoint parameter.
@@ -293,6 +295,7 @@ class CloudWatchClient:
         operation_interceptors: Iterable[Interceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_0", "awsQuery", "rpcv2Cbor"] = "awsJson1_0",
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
         endpoint: str | None = None,
@@ -329,6 +332,7 @@ class CloudWatchClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
                 "endpoint": endpoint,
@@ -362,6 +366,9 @@ class CloudWatchClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_0")
+            ),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
             ),
@@ -404,13 +411,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.associate_dataset_kms_key_output.AssociateDatasetKmsKeyOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.associate_dataset_kms_key
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.associate_dataset_kms_key
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.associate_dataset_kms_key.associate_dataset_kms_key(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.associate_dataset_kms_key.associate_dataset_kms_key(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.associate_dataset_kms_key
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.associate_dataset_kms_key.associate_dataset_kms_key(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.associate_dataset_kms_key
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.associate_dataset_kms_key.associate_dataset_kms_key(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -456,13 +482,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.create_resource_metrics_configuration_output.CreateResourceMetricsConfigurationOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.create_resource_metrics_configuration
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.create_resource_metrics_configuration
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.create_resource_metrics_configuration.create_resource_metrics_configuration(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.create_resource_metrics_configuration.create_resource_metrics_configuration(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.create_resource_metrics_configuration
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.create_resource_metrics_configuration.create_resource_metrics_configuration(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.create_resource_metrics_configuration
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.create_resource_metrics_configuration.create_resource_metrics_configuration(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -500,13 +545,32 @@ class CloudWatchClient:
         def _handler(
             req: "OperationRequest[capo_cloudwatch.types.delete_alarm_mute_rule_input.DeleteAlarmMuteRuleInput]",
         ) -> OperationResponse[None]:
-            import capo_cloudwatch._operations.granite_service_version20100801.delete_alarm_mute_rule
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.delete_alarm_mute_rule
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.delete_alarm_mute_rule.delete_alarm_mute_rule(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.delete_alarm_mute_rule.delete_alarm_mute_rule(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.delete_alarm_mute_rule
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.delete_alarm_mute_rule.delete_alarm_mute_rule(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.delete_alarm_mute_rule
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.delete_alarm_mute_rule.delete_alarm_mute_rule(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -544,13 +608,32 @@ class CloudWatchClient:
         def _handler(
             req: "OperationRequest[capo_cloudwatch.types.delete_alarms_input.DeleteAlarmsInput]",
         ) -> OperationResponse[None]:
-            import capo_cloudwatch._operations.granite_service_version20100801.delete_alarms
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.delete_alarms
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.delete_alarms.delete_alarms(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.delete_alarms.delete_alarms(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.delete_alarms
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.delete_alarms.delete_alarms(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.delete_alarms
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.delete_alarms.delete_alarms(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -613,13 +696,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.delete_anomaly_detector_output.DeleteAnomalyDetectorOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.delete_anomaly_detector
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.delete_anomaly_detector
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.delete_anomaly_detector.delete_anomaly_detector(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.delete_anomaly_detector.delete_anomaly_detector(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.delete_anomaly_detector
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.delete_anomaly_detector.delete_anomaly_detector(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.delete_anomaly_detector
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.delete_anomaly_detector.delete_anomaly_detector(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -674,13 +776,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.delete_dashboards_output.DeleteDashboardsOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.delete_dashboards
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.delete_dashboards
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.delete_dashboards.delete_dashboards(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.delete_dashboards.delete_dashboards(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.delete_dashboards
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.delete_dashboards.delete_dashboards(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.delete_dashboards
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.delete_dashboards.delete_dashboards(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -722,13 +843,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.delete_insight_rules_output.DeleteInsightRulesOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.delete_insight_rules
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.delete_insight_rules
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.delete_insight_rules.delete_insight_rules(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.delete_insight_rules.delete_insight_rules(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.delete_insight_rules
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.delete_insight_rules.delete_insight_rules(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.delete_insight_rules
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.delete_insight_rules.delete_insight_rules(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -766,13 +906,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.delete_metric_data_query_definition_output.DeleteMetricDataQueryDefinitionOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.delete_metric_data_query_definition
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.delete_metric_data_query_definition
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.delete_metric_data_query_definition.delete_metric_data_query_definition(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.delete_metric_data_query_definition.delete_metric_data_query_definition(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.delete_metric_data_query_definition
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.delete_metric_data_query_definition.delete_metric_data_query_definition(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.delete_metric_data_query_definition
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.delete_metric_data_query_definition.delete_metric_data_query_definition(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -815,13 +974,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.delete_metric_stream_output.DeleteMetricStreamOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.delete_metric_stream
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.delete_metric_stream
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.delete_metric_stream.delete_metric_stream(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.delete_metric_stream.delete_metric_stream(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.delete_metric_stream
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.delete_metric_stream.delete_metric_stream(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.delete_metric_stream
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.delete_metric_stream.delete_metric_stream(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -860,13 +1038,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.delete_resource_metrics_configuration_output.DeleteResourceMetricsConfigurationOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.delete_resource_metrics_configuration
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.delete_resource_metrics_configuration
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.delete_resource_metrics_configuration.delete_resource_metrics_configuration(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.delete_resource_metrics_configuration.delete_resource_metrics_configuration(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.delete_resource_metrics_configuration
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.delete_resource_metrics_configuration.delete_resource_metrics_configuration(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.delete_resource_metrics_configuration
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.delete_resource_metrics_configuration.delete_resource_metrics_configuration(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -908,13 +1105,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.describe_alarm_contributors_output.DescribeAlarmContributorsOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.describe_alarm_contributors
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.describe_alarm_contributors
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.describe_alarm_contributors.describe_alarm_contributors(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.describe_alarm_contributors.describe_alarm_contributors(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.describe_alarm_contributors
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.describe_alarm_contributors.describe_alarm_contributors(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.describe_alarm_contributors
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.describe_alarm_contributors.describe_alarm_contributors(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -977,13 +1193,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.describe_alarm_history_output.DescribeAlarmHistoryOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.describe_alarm_history
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.describe_alarm_history
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.describe_alarm_history.describe_alarm_history(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.describe_alarm_history.describe_alarm_history(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.describe_alarm_history
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.describe_alarm_history.describe_alarm_history(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.describe_alarm_history
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.describe_alarm_history.describe_alarm_history(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1101,13 +1336,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.describe_alarms_output.DescribeAlarmsOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.describe_alarms
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.describe_alarms
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.describe_alarms.describe_alarms(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.describe_alarms.describe_alarms(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.describe_alarms
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.describe_alarms.describe_alarms(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.describe_alarms
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.describe_alarms.describe_alarms(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1216,13 +1470,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.describe_alarms_for_metric_output.DescribeAlarmsForMetricOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.describe_alarms_for_metric
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.describe_alarms_for_metric
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.describe_alarms_for_metric.describe_alarms_for_metric(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.describe_alarms_for_metric.describe_alarms_for_metric(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.describe_alarms_for_metric
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.describe_alarms_for_metric.describe_alarms_for_metric(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.describe_alarms_for_metric
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.describe_alarms_for_metric.describe_alarms_for_metric(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1294,13 +1567,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.describe_anomaly_detectors_output.DescribeAnomalyDetectorsOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.describe_anomaly_detectors
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.describe_anomaly_detectors
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.describe_anomaly_detectors.describe_anomaly_detectors(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.describe_anomaly_detectors.describe_anomaly_detectors(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.describe_anomaly_detectors
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.describe_anomaly_detectors.describe_anomaly_detectors(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.describe_anomaly_detectors
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.describe_anomaly_detectors.describe_anomaly_detectors(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1394,13 +1686,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.describe_insight_rules_output.DescribeInsightRulesOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.describe_insight_rules
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.describe_insight_rules
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.describe_insight_rules.describe_insight_rules(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.describe_insight_rules.describe_insight_rules(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.describe_insight_rules
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.describe_insight_rules.describe_insight_rules(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.describe_insight_rules
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.describe_insight_rules.describe_insight_rules(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1459,13 +1770,32 @@ class CloudWatchClient:
         def _handler(
             req: "OperationRequest[capo_cloudwatch.types.disable_alarm_actions_input.DisableAlarmActionsInput]",
         ) -> OperationResponse[None]:
-            import capo_cloudwatch._operations.granite_service_version20100801.disable_alarm_actions
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.disable_alarm_actions
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.disable_alarm_actions.disable_alarm_actions(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.disable_alarm_actions.disable_alarm_actions(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.disable_alarm_actions
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.disable_alarm_actions.disable_alarm_actions(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.disable_alarm_actions
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.disable_alarm_actions.disable_alarm_actions(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1507,13 +1837,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.disable_insight_rules_output.DisableInsightRulesOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.disable_insight_rules
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.disable_insight_rules
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.disable_insight_rules.disable_insight_rules(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.disable_insight_rules.disable_insight_rules(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.disable_insight_rules
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.disable_insight_rules.disable_insight_rules(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.disable_insight_rules
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.disable_insight_rules.disable_insight_rules(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1555,13 +1904,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.disassociate_dataset_kms_key_output.DisassociateDatasetKmsKeyOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.disassociate_dataset_kms_key
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.disassociate_dataset_kms_key
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.disassociate_dataset_kms_key.disassociate_dataset_kms_key(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.disassociate_dataset_kms_key.disassociate_dataset_kms_key(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.disassociate_dataset_kms_key
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.disassociate_dataset_kms_key.disassociate_dataset_kms_key(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.disassociate_dataset_kms_key
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.disassociate_dataset_kms_key.disassociate_dataset_kms_key(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1597,13 +1965,32 @@ class CloudWatchClient:
         def _handler(
             req: "OperationRequest[capo_cloudwatch.types.enable_alarm_actions_input.EnableAlarmActionsInput]",
         ) -> OperationResponse[None]:
-            import capo_cloudwatch._operations.granite_service_version20100801.enable_alarm_actions
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.enable_alarm_actions
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.enable_alarm_actions.enable_alarm_actions(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.enable_alarm_actions.enable_alarm_actions(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.enable_alarm_actions
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.enable_alarm_actions.enable_alarm_actions(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.enable_alarm_actions
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.enable_alarm_actions.enable_alarm_actions(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1646,13 +2033,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.enable_insight_rules_output.EnableInsightRulesOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.enable_insight_rules
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.enable_insight_rules
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.enable_insight_rules.enable_insight_rules(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.enable_insight_rules.enable_insight_rules(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.enable_insight_rules
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.enable_insight_rules.enable_insight_rules(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.enable_insight_rules
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.enable_insight_rules.enable_insight_rules(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1691,13 +2097,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.get_alarm_mute_rule_output.GetAlarmMuteRuleOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.get_alarm_mute_rule
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.get_alarm_mute_rule
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.get_alarm_mute_rule.get_alarm_mute_rule(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.get_alarm_mute_rule.get_alarm_mute_rule(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.get_alarm_mute_rule
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.get_alarm_mute_rule.get_alarm_mute_rule(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.get_alarm_mute_rule
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.get_alarm_mute_rule.get_alarm_mute_rule(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1786,13 +2211,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.get_dashboard_output.GetDashboardOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.get_dashboard
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.get_dashboard
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.get_dashboard.get_dashboard(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.get_dashboard.get_dashboard(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.get_dashboard
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.get_dashboard.get_dashboard(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.get_dashboard
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.get_dashboard.get_dashboard(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1833,13 +2277,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.get_dataset_output.GetDatasetOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.get_dataset
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.get_dataset
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.get_dataset.get_dataset(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.get_dataset.get_dataset(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.get_dataset
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.get_dataset.get_dataset(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.get_dataset
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.get_dataset.get_dataset(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1900,13 +2363,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.get_insight_rule_report_output.GetInsightRuleReportOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.get_insight_rule_report
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.get_insight_rule_report
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.get_insight_rule_report.get_insight_rule_report(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.get_insight_rule_report.get_insight_rule_report(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.get_insight_rule_report
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.get_insight_rule_report.get_insight_rule_report(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.get_insight_rule_report
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.get_insight_rule_report.get_insight_rule_report(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1975,13 +2457,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.get_metric_data_output.GetMetricDataOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.get_metric_data
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.get_metric_data
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.get_metric_data.get_metric_data(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.get_metric_data.get_metric_data(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.get_metric_data
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.get_metric_data.get_metric_data(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.get_metric_data
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.get_metric_data.get_metric_data(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2067,13 +2568,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.get_metric_data_query_definition_output.GetMetricDataQueryDefinitionOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.get_metric_data_query_definition
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.get_metric_data_query_definition
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.get_metric_data_query_definition.get_metric_data_query_definition(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.get_metric_data_query_definition.get_metric_data_query_definition(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.get_metric_data_query_definition
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.get_metric_data_query_definition.get_metric_data_query_definition(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.get_metric_data_query_definition
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.get_metric_data_query_definition.get_metric_data_query_definition(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -2145,13 +2665,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.get_metric_statistics_output.GetMetricStatisticsOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.get_metric_statistics
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.get_metric_statistics
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.get_metric_statistics.get_metric_statistics(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.get_metric_statistics.get_metric_statistics(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.get_metric_statistics
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.get_metric_statistics.get_metric_statistics(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.get_metric_statistics
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.get_metric_statistics.get_metric_statistics(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2212,13 +2751,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.get_metric_stream_output.GetMetricStreamOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.get_metric_stream
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.get_metric_stream
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.get_metric_stream.get_metric_stream(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.get_metric_stream.get_metric_stream(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.get_metric_stream
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.get_metric_stream.get_metric_stream(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.get_metric_stream
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.get_metric_stream.get_metric_stream(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2262,13 +2820,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.get_metric_widget_image_output.GetMetricWidgetImageOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.get_metric_widget_image
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.get_metric_widget_image
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.get_metric_widget_image.get_metric_widget_image(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.get_metric_widget_image.get_metric_widget_image(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.get_metric_widget_image
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.get_metric_widget_image.get_metric_widget_image(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.get_metric_widget_image
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.get_metric_widget_image.get_metric_widget_image(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2302,13 +2879,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.get_o_tel_enrichment_output.GetOTelEnrichmentOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.get_o_tel_enrichment
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.get_o_tel_enrichment
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.get_o_tel_enrichment.get_o_tel_enrichment(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.get_o_tel_enrichment.get_o_tel_enrichment(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.get_o_tel_enrichment
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.get_o_tel_enrichment.get_o_tel_enrichment(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.get_o_tel_enrichment
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.get_o_tel_enrichment.get_o_tel_enrichment(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2345,13 +2941,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.get_resource_metrics_configuration_output.GetResourceMetricsConfigurationOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.get_resource_metrics_configuration
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.get_resource_metrics_configuration
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.get_resource_metrics_configuration.get_resource_metrics_configuration(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.get_resource_metrics_configuration.get_resource_metrics_configuration(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.get_resource_metrics_configuration
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.get_resource_metrics_configuration.get_resource_metrics_configuration(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.get_resource_metrics_configuration
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.get_resource_metrics_configuration.get_resource_metrics_configuration(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2399,13 +3014,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.list_alarm_mute_rules_output.ListAlarmMuteRulesOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.list_alarm_mute_rules
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.list_alarm_mute_rules
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.list_alarm_mute_rules.list_alarm_mute_rules(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.list_alarm_mute_rules.list_alarm_mute_rules(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.list_alarm_mute_rules
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.list_alarm_mute_rules.list_alarm_mute_rules(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.list_alarm_mute_rules
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.list_alarm_mute_rules.list_alarm_mute_rules(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2482,13 +3116,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.list_dashboards_output.ListDashboardsOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.list_dashboards
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.list_dashboards
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.list_dashboards.list_dashboards(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.list_dashboards.list_dashboards(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.list_dashboards
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.list_dashboards.list_dashboards(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.list_dashboards
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.list_dashboards.list_dashboards(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2562,13 +3215,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.list_managed_insight_rules_output.ListManagedInsightRulesOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.list_managed_insight_rules
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.list_managed_insight_rules
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.list_managed_insight_rules.list_managed_insight_rules(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.list_managed_insight_rules.list_managed_insight_rules(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.list_managed_insight_rules
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.list_managed_insight_rules.list_managed_insight_rules(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.list_managed_insight_rules
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.list_managed_insight_rules.list_managed_insight_rules(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2639,13 +3311,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.list_metric_data_query_definitions_output.ListMetricDataQueryDefinitionsOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.list_metric_data_query_definitions
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.list_metric_data_query_definitions
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.list_metric_data_query_definitions.list_metric_data_query_definitions(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.list_metric_data_query_definitions.list_metric_data_query_definitions(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.list_metric_data_query_definitions
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.list_metric_data_query_definitions.list_metric_data_query_definitions(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.list_metric_data_query_definitions
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.list_metric_data_query_definitions.list_metric_data_query_definitions(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2728,13 +3419,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.list_metrics_output.ListMetricsOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.list_metrics
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.list_metrics
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.list_metrics.list_metrics(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.list_metrics.list_metrics(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.list_metrics
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.list_metrics.list_metrics(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.list_metrics
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.list_metrics.list_metrics(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2827,13 +3537,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.list_metric_streams_output.ListMetricStreamsOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.list_metric_streams
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.list_metric_streams
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.list_metric_streams.list_metric_streams(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.list_metric_streams.list_metric_streams(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.list_metric_streams
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.list_metric_streams.list_metric_streams(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.list_metric_streams
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.list_metric_streams.list_metric_streams(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2901,13 +3630,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.list_tags_for_resource_output.ListTagsForResourceOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.list_tags_for_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.list_tags_for_resource
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.list_tags_for_resource.list_tags_for_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.list_tags_for_resource
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.list_tags_for_resource
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2958,13 +3706,32 @@ class CloudWatchClient:
         def _handler(
             req: "OperationRequest[capo_cloudwatch.types.put_alarm_mute_rule_input.PutAlarmMuteRuleInput]",
         ) -> OperationResponse[None]:
-            import capo_cloudwatch._operations.granite_service_version20100801.put_alarm_mute_rule
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.put_alarm_mute_rule
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.put_alarm_mute_rule.put_alarm_mute_rule(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.put_alarm_mute_rule.put_alarm_mute_rule(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.put_alarm_mute_rule
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.put_alarm_mute_rule.put_alarm_mute_rule(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.put_alarm_mute_rule
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.put_alarm_mute_rule.put_alarm_mute_rule(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3043,13 +3810,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.put_anomaly_detector_output.PutAnomalyDetectorOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.put_anomaly_detector
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.put_anomaly_detector
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.put_anomaly_detector.put_anomaly_detector(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.put_anomaly_detector.put_anomaly_detector(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.put_anomaly_detector
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.put_anomaly_detector.put_anomaly_detector(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.put_anomaly_detector
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.put_anomaly_detector.put_anomaly_detector(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3136,13 +3922,32 @@ class CloudWatchClient:
         def _handler(
             req: "OperationRequest[capo_cloudwatch.types.put_composite_alarm_input.PutCompositeAlarmInput]",
         ) -> OperationResponse[None]:
-            import capo_cloudwatch._operations.granite_service_version20100801.put_composite_alarm
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.put_composite_alarm
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.put_composite_alarm.put_composite_alarm(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.put_composite_alarm.put_composite_alarm(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.put_composite_alarm
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.put_composite_alarm.put_composite_alarm(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.put_composite_alarm
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.put_composite_alarm.put_composite_alarm(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3215,13 +4020,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.put_dashboard_output.PutDashboardOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.put_dashboard
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.put_dashboard
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.put_dashboard.put_dashboard(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.put_dashboard.put_dashboard(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.put_dashboard
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.put_dashboard.put_dashboard(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.put_dashboard
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.put_dashboard.put_dashboard(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3282,13 +4106,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.put_insight_rule_output.PutInsightRuleOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.put_insight_rule
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.put_insight_rule
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.put_insight_rule.put_insight_rule(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.put_insight_rule.put_insight_rule(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.put_insight_rule
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.put_insight_rule.put_insight_rule(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.put_insight_rule
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.put_insight_rule.put_insight_rule(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3392,13 +4235,32 @@ class CloudWatchClient:
         def _handler(
             req: "OperationRequest[capo_cloudwatch.types.put_log_alarm_input.PutLogAlarmInput]",
         ) -> OperationResponse[None]:
-            import capo_cloudwatch._operations.granite_service_version20100801.put_log_alarm
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.put_log_alarm
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.put_log_alarm.put_log_alarm(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.put_log_alarm.put_log_alarm(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.put_log_alarm
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.put_log_alarm.put_log_alarm(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.put_log_alarm
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.put_log_alarm.put_log_alarm(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3472,13 +4334,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.put_managed_insight_rules_output.PutManagedInsightRulesOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.put_managed_insight_rules
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.put_managed_insight_rules
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.put_managed_insight_rules.put_managed_insight_rules(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.put_managed_insight_rules.put_managed_insight_rules(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.put_managed_insight_rules
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.put_managed_insight_rules.put_managed_insight_rules(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.put_managed_insight_rules
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.put_managed_insight_rules.put_managed_insight_rules(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3601,13 +4482,32 @@ class CloudWatchClient:
         def _handler(
             req: "OperationRequest[capo_cloudwatch.types.put_metric_alarm_input.PutMetricAlarmInput]",
         ) -> OperationResponse[None]:
-            import capo_cloudwatch._operations.granite_service_version20100801.put_metric_alarm
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.put_metric_alarm
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.put_metric_alarm.put_metric_alarm(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.put_metric_alarm.put_metric_alarm(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.put_metric_alarm
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.put_metric_alarm.put_metric_alarm(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.put_metric_alarm
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.put_metric_alarm.put_metric_alarm(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3711,13 +4611,32 @@ class CloudWatchClient:
         def _handler(
             req: "OperationRequest[capo_cloudwatch.types.put_metric_data_input.PutMetricDataInput]",
         ) -> OperationResponse[None]:
-            import capo_cloudwatch._operations.granite_service_version20100801.put_metric_data
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.put_metric_data
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.put_metric_data.put_metric_data(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.put_metric_data.put_metric_data(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.put_metric_data
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.put_metric_data.put_metric_data(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.put_metric_data
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.put_metric_data.put_metric_data(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3774,13 +4693,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.put_metric_data_query_definition_output.PutMetricDataQueryDefinitionOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.put_metric_data_query_definition
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.put_metric_data_query_definition
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.put_metric_data_query_definition.put_metric_data_query_definition(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.put_metric_data_query_definition.put_metric_data_query_definition(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.put_metric_data_query_definition
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.put_metric_data_query_definition.put_metric_data_query_definition(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.put_metric_data_query_definition
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.put_metric_data_query_definition.put_metric_data_query_definition(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -3886,13 +4824,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.put_metric_stream_output.PutMetricStreamOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.put_metric_stream
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.put_metric_stream
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.put_metric_stream.put_metric_stream(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.put_metric_stream.put_metric_stream(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.put_metric_stream
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.put_metric_stream.put_metric_stream(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.put_metric_stream
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.put_metric_stream.put_metric_stream(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3954,13 +4911,32 @@ class CloudWatchClient:
         def _handler(
             req: "OperationRequest[capo_cloudwatch.types.set_alarm_state_input.SetAlarmStateInput]",
         ) -> OperationResponse[None]:
-            import capo_cloudwatch._operations.granite_service_version20100801.set_alarm_state
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.set_alarm_state
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.set_alarm_state.set_alarm_state(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.set_alarm_state.set_alarm_state(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.set_alarm_state
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.set_alarm_state.set_alarm_state(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.set_alarm_state
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.set_alarm_state.set_alarm_state(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4009,13 +4985,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.start_metric_streams_output.StartMetricStreamsOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.start_metric_streams
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.start_metric_streams
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.start_metric_streams.start_metric_streams(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.start_metric_streams.start_metric_streams(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.start_metric_streams
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.start_metric_streams.start_metric_streams(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.start_metric_streams
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.start_metric_streams.start_metric_streams(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4062,13 +5057,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.start_o_tel_enrichment_output.StartOTelEnrichmentOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.start_o_tel_enrichment
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.start_o_tel_enrichment
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.start_o_tel_enrichment.start_o_tel_enrichment(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.start_o_tel_enrichment.start_o_tel_enrichment(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.start_o_tel_enrichment
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.start_o_tel_enrichment.start_o_tel_enrichment(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.start_o_tel_enrichment
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.start_o_tel_enrichment.start_o_tel_enrichment(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4113,13 +5127,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.stop_metric_streams_output.StopMetricStreamsOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.stop_metric_streams
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.stop_metric_streams
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.stop_metric_streams.stop_metric_streams(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.stop_metric_streams.stop_metric_streams(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.stop_metric_streams
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.stop_metric_streams.stop_metric_streams(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.stop_metric_streams
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.stop_metric_streams.stop_metric_streams(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4151,13 +5184,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.stop_o_tel_enrichment_output.StopOTelEnrichmentOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.stop_o_tel_enrichment
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.stop_o_tel_enrichment
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.stop_o_tel_enrichment.stop_o_tel_enrichment(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.stop_o_tel_enrichment.stop_o_tel_enrichment(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.stop_o_tel_enrichment
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.stop_o_tel_enrichment.stop_o_tel_enrichment(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.stop_o_tel_enrichment
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.stop_o_tel_enrichment.stop_o_tel_enrichment(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4202,13 +5254,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.tag_resource_output.TagResourceOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.tag_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.tag_resource
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.tag_resource.tag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.tag_resource
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.tag_resource
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4257,13 +5328,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.untag_resource_output.UntagResourceOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.untag_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.untag_resource
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.untag_resource.untag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.untag_resource
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.untag_resource
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4311,13 +5401,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.update_o_tel_enrichment_output.UpdateOTelEnrichmentOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.update_o_tel_enrichment
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.update_o_tel_enrichment
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.update_o_tel_enrichment.update_o_tel_enrichment(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.update_o_tel_enrichment.update_o_tel_enrichment(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.update_o_tel_enrichment
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.update_o_tel_enrichment.update_o_tel_enrichment(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.update_o_tel_enrichment
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.update_o_tel_enrichment.update_o_tel_enrichment(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4362,13 +5471,32 @@ class CloudWatchClient:
         ) -> OperationResponse[
             "capo_cloudwatch.types.update_resource_metrics_configuration_output.UpdateResourceMetricsConfigurationOutput"
         ]:
-            import capo_cloudwatch._operations.granite_service_version20100801.update_resource_metrics_configuration
+            if req.options.protocol == "awsJson1_0":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.update_resource_metrics_configuration
 
-            output, http_response = (
-                capo_cloudwatch._operations.granite_service_version20100801.update_resource_metrics_configuration.update_resource_metrics_configuration(
-                    req.options, req.input
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_json1_0.update_resource_metrics_configuration.update_resource_metrics_configuration(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "awsQuery":
+                import capo_cloudwatch._operations.granite_service_version20100801.aws_query.update_resource_metrics_configuration
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.aws_query.update_resource_metrics_configuration.update_resource_metrics_configuration(
+                        req.options, req.input
+                    )
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.update_resource_metrics_configuration
+
+                output, http_response = (
+                    capo_cloudwatch._operations.granite_service_version20100801.rpcv2_cbor.update_resource_metrics_configuration.update_resource_metrics_configuration(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

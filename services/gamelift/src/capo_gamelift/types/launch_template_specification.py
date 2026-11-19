@@ -46,3 +46,26 @@ def deserialize_aws_json_1_1(data: dict) -> LaunchTemplateSpecification:
     if data.get("Version") is not None:
         out["version"] = data["Version"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LaunchTemplateSpecification) -> dict:
+    out: dict = {}
+    if "launch_template_id" in value:
+        out["LaunchTemplateId"] = value["launch_template_id"]
+    if "launch_template_name" in value:
+        out["LaunchTemplateName"] = value["launch_template_name"]
+    if "version" in value:
+        out["Version"] = value["version"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> LaunchTemplateSpecification:
+    out: LaunchTemplateSpecification = {}  # type: ignore[typeddict-item]
+    if data.get("LaunchTemplateId") is not None:
+        out["launch_template_id"] = data["LaunchTemplateId"]
+    if data.get("LaunchTemplateName") is not None:
+        out["launch_template_name"] = data["LaunchTemplateName"]
+    if data.get("Version") is not None:
+        out["version"] = data["Version"]
+    return out

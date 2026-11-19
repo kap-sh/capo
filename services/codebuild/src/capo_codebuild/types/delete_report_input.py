@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteReportInput:
     else:
         out["arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteReportInput) -> dict:
+    out: dict = {}
+    out["arn"] = value["arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteReportInput:
+    out: DeleteReportInput = {}  # type: ignore[typeddict-item]
+    if data.get("arn") is not None:
+        out["arn"] = data["arn"]
+    else:
+        out["arn"] = ""
+    return out

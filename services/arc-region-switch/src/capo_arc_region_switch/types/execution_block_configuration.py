@@ -475,6 +475,332 @@ def deserialize_aws_json_1_0(data: dict) -> ExecutionBlockConfiguration:
         )
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExecutionBlockConfiguration) -> dict:
+    if "$unknown" in value:
+        raise SerializationError(
+            f"ExecutionBlockConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
+        )
+    elif "customActionLambdaConfig" in value:
+        import capo_arc_region_switch.types.custom_action_lambda_configuration
+
+        return {
+            "customActionLambdaConfig": capo_arc_region_switch.types.custom_action_lambda_configuration.serialize_cbor(
+                value["customActionLambdaConfig"]
+            )
+        }
+    elif "ec2AsgCapacityIncreaseConfig" in value:
+        import capo_arc_region_switch.types.ec2_asg_capacity_increase_configuration
+
+        return {
+            "ec2AsgCapacityIncreaseConfig": capo_arc_region_switch.types.ec2_asg_capacity_increase_configuration.serialize_cbor(
+                value["ec2AsgCapacityIncreaseConfig"]
+            )
+        }
+    elif "executionApprovalConfig" in value:
+        import capo_arc_region_switch.types.execution_approval_configuration
+
+        return {
+            "executionApprovalConfig": capo_arc_region_switch.types.execution_approval_configuration.serialize_cbor(
+                value["executionApprovalConfig"]
+            )
+        }
+    elif "arcRoutingControlConfig" in value:
+        import capo_arc_region_switch.types.arc_routing_control_configuration
+
+        return {
+            "arcRoutingControlConfig": capo_arc_region_switch.types.arc_routing_control_configuration.serialize_cbor(
+                value["arcRoutingControlConfig"]
+            )
+        }
+    elif "globalAuroraConfig" in value:
+        import capo_arc_region_switch.types.global_aurora_configuration
+
+        return {
+            "globalAuroraConfig": capo_arc_region_switch.types.global_aurora_configuration.serialize_cbor(
+                value["globalAuroraConfig"]
+            )
+        }
+    elif "parallelConfig" in value:
+        import capo_arc_region_switch.types.parallel_execution_block_configuration
+
+        return {
+            "parallelConfig": capo_arc_region_switch.types.parallel_execution_block_configuration.serialize_cbor(
+                value["parallelConfig"]
+            )
+        }
+    elif "regionSwitchPlanConfig" in value:
+        import capo_arc_region_switch.types.region_switch_plan_configuration
+
+        return {
+            "regionSwitchPlanConfig": capo_arc_region_switch.types.region_switch_plan_configuration.serialize_cbor(
+                value["regionSwitchPlanConfig"]
+            )
+        }
+    elif "ecsCapacityIncreaseConfig" in value:
+        import capo_arc_region_switch.types.ecs_capacity_increase_configuration
+
+        return {
+            "ecsCapacityIncreaseConfig": capo_arc_region_switch.types.ecs_capacity_increase_configuration.serialize_cbor(
+                value["ecsCapacityIncreaseConfig"]
+            )
+        }
+    elif "eksResourceScalingConfig" in value:
+        import capo_arc_region_switch.types.eks_resource_scaling_configuration
+
+        return {
+            "eksResourceScalingConfig": capo_arc_region_switch.types.eks_resource_scaling_configuration.serialize_cbor(
+                value["eksResourceScalingConfig"]
+            )
+        }
+    elif "route53HealthCheckConfig" in value:
+        import capo_arc_region_switch.types.route53_health_check_configuration
+
+        return {
+            "route53HealthCheckConfig": capo_arc_region_switch.types.route53_health_check_configuration.serialize_cbor(
+                value["route53HealthCheckConfig"]
+            )
+        }
+    elif "documentDbConfig" in value:
+        import capo_arc_region_switch.types.document_db_configuration
+
+        return {
+            "documentDbConfig": capo_arc_region_switch.types.document_db_configuration.serialize_cbor(
+                value["documentDbConfig"]
+            )
+        }
+    elif "rdsPromoteReadReplicaConfig" in value:
+        import capo_arc_region_switch.types.rds_promote_read_replica_configuration
+
+        return {
+            "rdsPromoteReadReplicaConfig": capo_arc_region_switch.types.rds_promote_read_replica_configuration.serialize_cbor(
+                value["rdsPromoteReadReplicaConfig"]
+            )
+        }
+    elif "rdsCreateCrossRegionReadReplicaConfig" in value:
+        import capo_arc_region_switch.types.rds_create_cross_region_replica_configuration
+
+        return {
+            "rdsCreateCrossRegionReadReplicaConfig": capo_arc_region_switch.types.rds_create_cross_region_replica_configuration.serialize_cbor(
+                value["rdsCreateCrossRegionReadReplicaConfig"]
+            )
+        }
+    elif "lambdaEventSourceMappingConfig" in value:
+        import capo_arc_region_switch.types.lambda_event_source_mapping_configuration
+
+        return {
+            "lambdaEventSourceMappingConfig": capo_arc_region_switch.types.lambda_event_source_mapping_configuration.serialize_cbor(
+                value["lambdaEventSourceMappingConfig"]
+            )
+        }
+    elif "auroraServerlessScalingConfig" in value:
+        import capo_arc_region_switch.types.aurora_serverless_scaling_configuration
+
+        return {
+            "auroraServerlessScalingConfig": capo_arc_region_switch.types.aurora_serverless_scaling_configuration.serialize_cbor(
+                value["auroraServerlessScalingConfig"]
+            )
+        }
+    elif "auroraProvisionedScalingConfig" in value:
+        import capo_arc_region_switch.types.aurora_provisioned_scaling_configuration
+
+        return {
+            "auroraProvisionedScalingConfig": capo_arc_region_switch.types.aurora_provisioned_scaling_configuration.serialize_cbor(
+                value["auroraProvisionedScalingConfig"]
+            )
+        }
+    elif "neptuneGlobalDatabaseConfig" in value:
+        import capo_arc_region_switch.types.neptune_global_database_configuration
+
+        return {
+            "neptuneGlobalDatabaseConfig": capo_arc_region_switch.types.neptune_global_database_configuration.serialize_cbor(
+                value["neptuneGlobalDatabaseConfig"]
+            )
+        }
+    elif "rdsSwitchoverReadReplicaConfig" in value:
+        import capo_arc_region_switch.types.rds_switchover_read_replica_configuration
+
+        return {
+            "rdsSwitchoverReadReplicaConfig": capo_arc_region_switch.types.rds_switchover_read_replica_configuration.serialize_cbor(
+                value["rdsSwitchoverReadReplicaConfig"]
+            )
+        }
+    elif "ssmSendCommandConfig" in value:
+        import capo_arc_region_switch.types.ssm_send_command_configuration
+
+        return {
+            "ssmSendCommandConfig": capo_arc_region_switch.types.ssm_send_command_configuration.serialize_cbor(
+                value["ssmSendCommandConfig"]
+            )
+        }
+    else:
+        raise SerializationError("ExecutionBlockConfiguration: no variant present")
+
+
+def deserialize_cbor(data: dict) -> ExecutionBlockConfiguration:
+    if data.get("customActionLambdaConfig") is not None:
+        import capo_arc_region_switch.types.custom_action_lambda_configuration
+
+        return {
+            "customActionLambdaConfig": capo_arc_region_switch.types.custom_action_lambda_configuration.deserialize_cbor(
+                data["customActionLambdaConfig"]
+            )
+        }
+    elif data.get("ec2AsgCapacityIncreaseConfig") is not None:
+        import capo_arc_region_switch.types.ec2_asg_capacity_increase_configuration
+
+        return {
+            "ec2AsgCapacityIncreaseConfig": capo_arc_region_switch.types.ec2_asg_capacity_increase_configuration.deserialize_cbor(
+                data["ec2AsgCapacityIncreaseConfig"]
+            )
+        }
+    elif data.get("executionApprovalConfig") is not None:
+        import capo_arc_region_switch.types.execution_approval_configuration
+
+        return {
+            "executionApprovalConfig": capo_arc_region_switch.types.execution_approval_configuration.deserialize_cbor(
+                data["executionApprovalConfig"]
+            )
+        }
+    elif data.get("arcRoutingControlConfig") is not None:
+        import capo_arc_region_switch.types.arc_routing_control_configuration
+
+        return {
+            "arcRoutingControlConfig": capo_arc_region_switch.types.arc_routing_control_configuration.deserialize_cbor(
+                data["arcRoutingControlConfig"]
+            )
+        }
+    elif data.get("globalAuroraConfig") is not None:
+        import capo_arc_region_switch.types.global_aurora_configuration
+
+        return {
+            "globalAuroraConfig": capo_arc_region_switch.types.global_aurora_configuration.deserialize_cbor(
+                data["globalAuroraConfig"]
+            )
+        }
+    elif data.get("parallelConfig") is not None:
+        import capo_arc_region_switch.types.parallel_execution_block_configuration
+
+        return {
+            "parallelConfig": capo_arc_region_switch.types.parallel_execution_block_configuration.deserialize_cbor(
+                data["parallelConfig"]
+            )
+        }
+    elif data.get("regionSwitchPlanConfig") is not None:
+        import capo_arc_region_switch.types.region_switch_plan_configuration
+
+        return {
+            "regionSwitchPlanConfig": capo_arc_region_switch.types.region_switch_plan_configuration.deserialize_cbor(
+                data["regionSwitchPlanConfig"]
+            )
+        }
+    elif data.get("ecsCapacityIncreaseConfig") is not None:
+        import capo_arc_region_switch.types.ecs_capacity_increase_configuration
+
+        return {
+            "ecsCapacityIncreaseConfig": capo_arc_region_switch.types.ecs_capacity_increase_configuration.deserialize_cbor(
+                data["ecsCapacityIncreaseConfig"]
+            )
+        }
+    elif data.get("eksResourceScalingConfig") is not None:
+        import capo_arc_region_switch.types.eks_resource_scaling_configuration
+
+        return {
+            "eksResourceScalingConfig": capo_arc_region_switch.types.eks_resource_scaling_configuration.deserialize_cbor(
+                data["eksResourceScalingConfig"]
+            )
+        }
+    elif data.get("route53HealthCheckConfig") is not None:
+        import capo_arc_region_switch.types.route53_health_check_configuration
+
+        return {
+            "route53HealthCheckConfig": capo_arc_region_switch.types.route53_health_check_configuration.deserialize_cbor(
+                data["route53HealthCheckConfig"]
+            )
+        }
+    elif data.get("documentDbConfig") is not None:
+        import capo_arc_region_switch.types.document_db_configuration
+
+        return {
+            "documentDbConfig": capo_arc_region_switch.types.document_db_configuration.deserialize_cbor(
+                data["documentDbConfig"]
+            )
+        }
+    elif data.get("rdsPromoteReadReplicaConfig") is not None:
+        import capo_arc_region_switch.types.rds_promote_read_replica_configuration
+
+        return {
+            "rdsPromoteReadReplicaConfig": capo_arc_region_switch.types.rds_promote_read_replica_configuration.deserialize_cbor(
+                data["rdsPromoteReadReplicaConfig"]
+            )
+        }
+    elif data.get("rdsCreateCrossRegionReadReplicaConfig") is not None:
+        import capo_arc_region_switch.types.rds_create_cross_region_replica_configuration
+
+        return {
+            "rdsCreateCrossRegionReadReplicaConfig": capo_arc_region_switch.types.rds_create_cross_region_replica_configuration.deserialize_cbor(
+                data["rdsCreateCrossRegionReadReplicaConfig"]
+            )
+        }
+    elif data.get("lambdaEventSourceMappingConfig") is not None:
+        import capo_arc_region_switch.types.lambda_event_source_mapping_configuration
+
+        return {
+            "lambdaEventSourceMappingConfig": capo_arc_region_switch.types.lambda_event_source_mapping_configuration.deserialize_cbor(
+                data["lambdaEventSourceMappingConfig"]
+            )
+        }
+    elif data.get("auroraServerlessScalingConfig") is not None:
+        import capo_arc_region_switch.types.aurora_serverless_scaling_configuration
+
+        return {
+            "auroraServerlessScalingConfig": capo_arc_region_switch.types.aurora_serverless_scaling_configuration.deserialize_cbor(
+                data["auroraServerlessScalingConfig"]
+            )
+        }
+    elif data.get("auroraProvisionedScalingConfig") is not None:
+        import capo_arc_region_switch.types.aurora_provisioned_scaling_configuration
+
+        return {
+            "auroraProvisionedScalingConfig": capo_arc_region_switch.types.aurora_provisioned_scaling_configuration.deserialize_cbor(
+                data["auroraProvisionedScalingConfig"]
+            )
+        }
+    elif data.get("neptuneGlobalDatabaseConfig") is not None:
+        import capo_arc_region_switch.types.neptune_global_database_configuration
+
+        return {
+            "neptuneGlobalDatabaseConfig": capo_arc_region_switch.types.neptune_global_database_configuration.deserialize_cbor(
+                data["neptuneGlobalDatabaseConfig"]
+            )
+        }
+    elif data.get("rdsSwitchoverReadReplicaConfig") is not None:
+        import capo_arc_region_switch.types.rds_switchover_read_replica_configuration
+
+        return {
+            "rdsSwitchoverReadReplicaConfig": capo_arc_region_switch.types.rds_switchover_read_replica_configuration.deserialize_cbor(
+                data["rdsSwitchoverReadReplicaConfig"]
+            )
+        }
+    elif data.get("ssmSendCommandConfig") is not None:
+        import capo_arc_region_switch.types.ssm_send_command_configuration
+
+        return {
+            "ssmSendCommandConfig": capo_arc_region_switch.types.ssm_send_command_configuration.deserialize_cbor(
+                data["ssmSendCommandConfig"]
+            )
+        }
+    else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return {"$unknown": {"name": name}}
+        raise DeserializationError(
+            "ExecutionBlockConfiguration: no recognized variant key"
+        )
+
+
 def redact_sensitive(value: ExecutionBlockConfiguration) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "customActionLambdaConfig" in value:

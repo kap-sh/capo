@@ -88,3 +88,63 @@ def deserialize_aws_json_1_1(data: dict) -> CreatePerformanceAnalysisReportReque
 
         out["tags"] = capo_pi.types.tag_list.deserialize_aws_json_1_1(data["Tags"])
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreatePerformanceAnalysisReportRequest) -> dict:
+    out: dict = {}
+    import capo_pi.types.service_type
+
+    out["ServiceType"] = capo_pi.types.service_type.serialize_cbor(
+        value["service_type"]
+    )
+    out["Identifier"] = value["identifier"]
+    import capo_pi.types.iso_timestamp
+
+    out["StartTime"] = capo_pi.types.iso_timestamp.serialize_cbor(value["start_time"])
+    if "end_time" in value:
+        import capo_pi.types.iso_timestamp
+
+        out["EndTime"] = capo_pi.types.iso_timestamp.serialize_cbor(value["end_time"])
+    if "tags" in value:
+        import capo_pi.types.tag_list
+
+        out["Tags"] = capo_pi.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreatePerformanceAnalysisReportRequest:
+    out: CreatePerformanceAnalysisReportRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ServiceType") is not None:
+        import capo_pi.types.service_type
+
+        out["service_type"] = capo_pi.types.service_type.deserialize_cbor(
+            data["ServiceType"]
+        )
+    else:
+        import typing
+
+        out["service_type"] = typing.cast("capo_pi.types.service_type.ServiceType", "")
+    if data.get("Identifier") is not None:
+        out["identifier"] = data["Identifier"]
+    else:
+        out["identifier"] = ""
+    if data.get("StartTime") is not None:
+        import capo_pi.types.iso_timestamp
+
+        out["start_time"] = capo_pi.types.iso_timestamp.deserialize_cbor(
+            data["StartTime"]
+        )
+    else:
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
+    if data.get("EndTime") is not None:
+        import capo_pi.types.iso_timestamp
+
+        out["end_time"] = capo_pi.types.iso_timestamp.deserialize_cbor(data["EndTime"])
+    if data.get("Tags") is not None:
+        import capo_pi.types.tag_list
+
+        out["tags"] = capo_pi.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

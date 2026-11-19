@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> EntityRecognizerOutputDataConfig:
     if data.get("FlywheelStatsS3Prefix") is not None:
         out["flywheel_stats_s3_prefix"] = data["FlywheelStatsS3Prefix"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EntityRecognizerOutputDataConfig) -> dict:
+    out: dict = {}
+    if "flywheel_stats_s3_prefix" in value:
+        out["FlywheelStatsS3Prefix"] = value["flywheel_stats_s3_prefix"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> EntityRecognizerOutputDataConfig:
+    out: EntityRecognizerOutputDataConfig = {}  # type: ignore[typeddict-item]
+    if data.get("FlywheelStatsS3Prefix") is not None:
+        out["flywheel_stats_s3_prefix"] = data["FlywheelStatsS3Prefix"]
+    return out

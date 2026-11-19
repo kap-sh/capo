@@ -53,3 +53,38 @@ def deserialize_aws_json_1_1(data: dict) -> ModifySelfservicePermissionsRequest:
             "ModifySelfservicePermissionsRequest.selfservice_permissions required"
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ModifySelfservicePermissionsRequest) -> dict:
+    out: dict = {}
+    out["ResourceId"] = value["resource_id"]
+    import capo_workspaces.types.selfservice_permissions
+
+    out["SelfservicePermissions"] = (
+        capo_workspaces.types.selfservice_permissions.serialize_cbor(
+            value["selfservice_permissions"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ModifySelfservicePermissionsRequest:
+    out: ModifySelfservicePermissionsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceId") is not None:
+        out["resource_id"] = data["ResourceId"]
+    else:
+        out["resource_id"] = ""
+    if data.get("SelfservicePermissions") is not None:
+        import capo_workspaces.types.selfservice_permissions
+
+        out["selfservice_permissions"] = (
+            capo_workspaces.types.selfservice_permissions.deserialize_cbor(
+                data["SelfservicePermissions"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "ModifySelfservicePermissionsRequest.selfservice_permissions required"
+        )
+    return out

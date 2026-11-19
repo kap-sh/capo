@@ -39,3 +39,31 @@ def deserialize_aws_json_1_0(data: dict) -> UpdatePurchaseOrdersInput:
     else:
         out["purchase_orders"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdatePurchaseOrdersInput) -> dict:
+    out: dict = {}
+    import capo_marketplace_agreement.types.purchase_orders
+
+    out["purchaseOrders"] = (
+        capo_marketplace_agreement.types.purchase_orders.serialize_cbor(
+            value["purchase_orders"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdatePurchaseOrdersInput:
+    out: UpdatePurchaseOrdersInput = {}  # type: ignore[typeddict-item]
+    if data.get("purchaseOrders") is not None:
+        import capo_marketplace_agreement.types.purchase_orders
+
+        out["purchase_orders"] = (
+            capo_marketplace_agreement.types.purchase_orders.deserialize_cbor(
+                data["purchaseOrders"]
+            )
+        )
+    else:
+        out["purchase_orders"] = []
+    return out

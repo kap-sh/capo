@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> ConfirmCustomerAgreementResponse:
     if data.get("status") is not None:
         out["status"] = data["status"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ConfirmCustomerAgreementResponse) -> dict:
+    out: dict = {}
+    if "status" in value:
+        out["status"] = value["status"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ConfirmCustomerAgreementResponse:
+    out: ConfirmCustomerAgreementResponse = {}  # type: ignore[typeddict-item]
+    if data.get("status") is not None:
+        out["status"] = data["status"]
+    return out

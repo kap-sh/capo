@@ -45,3 +45,32 @@ def deserialize_aws_json_1_0(data: dict) -> ContextFilters:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ContextFilters) -> dict:
+    out: dict = {}
+    if "region" in value:
+        out["Region"] = value["region"]
+    if "resource_type" in value:
+        import capo_network_firewall.types.resource_type
+
+        out["ResourceType"] = capo_network_firewall.types.resource_type.serialize_cbor(
+            value["resource_type"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ContextFilters:
+    out: ContextFilters = {}  # type: ignore[typeddict-item]
+    if data.get("Region") is not None:
+        out["region"] = data["Region"]
+    if data.get("ResourceType") is not None:
+        import capo_network_firewall.types.resource_type
+
+        out["resource_type"] = (
+            capo_network_firewall.types.resource_type.deserialize_cbor(
+                data["ResourceType"]
+            )
+        )
+    return out

@@ -51,6 +51,39 @@ def deserialize_aws_json_1_1(data: dict) -> ExtraParam:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExtraParam) -> dict:
+    out: dict = {}
+    import capo_route_53_domains.types.extra_param_name
+
+    out["Name"] = capo_route_53_domains.types.extra_param_name.serialize_cbor(
+        value["name"]
+    )
+    out["Value"] = value["value"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ExtraParam:
+    out: ExtraParam = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        import capo_route_53_domains.types.extra_param_name
+
+        out["name"] = capo_route_53_domains.types.extra_param_name.deserialize_cbor(
+            data["Name"]
+        )
+    else:
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_route_53_domains.types.extra_param_name.ExtraParamName", ""
+        )
+    if data.get("Value") is not None:
+        out["value"] = data["Value"]
+    else:
+        out["value"] = ""
+    return out
+
+
 def redact_sensitive(value: ExtraParam) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "value" in value:

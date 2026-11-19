@@ -51,3 +51,34 @@ def deserialize_aws_json_1_0(data: dict) -> VmwareToAwsTagMapping:
     else:
         out["aws_tag_value"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: VmwareToAwsTagMapping) -> dict:
+    out: dict = {}
+    out["VmwareCategory"] = value["vmware_category"]
+    out["VmwareTagName"] = value["vmware_tag_name"]
+    out["AwsTagKey"] = value["aws_tag_key"]
+    out["AwsTagValue"] = value["aws_tag_value"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> VmwareToAwsTagMapping:
+    out: VmwareToAwsTagMapping = {}  # type: ignore[typeddict-item]
+    if data.get("VmwareCategory") is not None:
+        out["vmware_category"] = data["VmwareCategory"]
+    else:
+        out["vmware_category"] = ""
+    if data.get("VmwareTagName") is not None:
+        out["vmware_tag_name"] = data["VmwareTagName"]
+    else:
+        out["vmware_tag_name"] = ""
+    if data.get("AwsTagKey") is not None:
+        out["aws_tag_key"] = data["AwsTagKey"]
+    else:
+        out["aws_tag_key"] = ""
+    if data.get("AwsTagValue") is not None:
+        out["aws_tag_value"] = data["AwsTagValue"]
+    else:
+        out["aws_tag_value"] = ""
+    return out

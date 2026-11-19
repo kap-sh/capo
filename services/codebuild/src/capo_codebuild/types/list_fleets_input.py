@@ -69,6 +69,49 @@ def deserialize_aws_json_1_1(data: dict) -> ListFleetsInput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListFleetsInput) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    if "sort_order" in value:
+        import capo_codebuild.types.sort_order_type
+
+        out["sortOrder"] = capo_codebuild.types.sort_order_type.serialize_cbor(
+            value["sort_order"]
+        )
+    if "sort_by" in value:
+        import capo_codebuild.types.fleet_sort_by_type
+
+        out["sortBy"] = capo_codebuild.types.fleet_sort_by_type.serialize_cbor(
+            value["sort_by"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListFleetsInput:
+    out: ListFleetsInput = {}  # type: ignore[typeddict-item]
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    if data.get("sortOrder") is not None:
+        import capo_codebuild.types.sort_order_type
+
+        out["sort_order"] = capo_codebuild.types.sort_order_type.deserialize_cbor(
+            data["sortOrder"]
+        )
+    if data.get("sortBy") is not None:
+        import capo_codebuild.types.fleet_sort_by_type
+
+        out["sort_by"] = capo_codebuild.types.fleet_sort_by_type.deserialize_cbor(
+            data["sortBy"]
+        )
+    return out
+
+
 def redact_sensitive(value: ListFleetsInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "next_token" in value:

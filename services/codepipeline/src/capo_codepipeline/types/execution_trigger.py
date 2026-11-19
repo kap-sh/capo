@@ -45,3 +45,30 @@ def deserialize_aws_json_1_1(data: dict) -> ExecutionTrigger:
     if data.get("triggerDetail") is not None:
         out["trigger_detail"] = data["triggerDetail"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExecutionTrigger) -> dict:
+    out: dict = {}
+    if "trigger_type" in value:
+        import capo_codepipeline.types.trigger_type
+
+        out["triggerType"] = capo_codepipeline.types.trigger_type.serialize_cbor(
+            value["trigger_type"]
+        )
+    if "trigger_detail" in value:
+        out["triggerDetail"] = value["trigger_detail"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ExecutionTrigger:
+    out: ExecutionTrigger = {}  # type: ignore[typeddict-item]
+    if data.get("triggerType") is not None:
+        import capo_codepipeline.types.trigger_type
+
+        out["trigger_type"] = capo_codepipeline.types.trigger_type.deserialize_cbor(
+            data["triggerType"]
+        )
+    if data.get("triggerDetail") is not None:
+        out["trigger_detail"] = data["triggerDetail"]
+    return out

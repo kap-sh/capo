@@ -105,3 +105,73 @@ def deserialize_aws_json_1_0(data: dict) -> RequestedTermConfiguration:
         raise DeserializationError(
             "RequestedTermConfiguration: no recognized variant key"
         )
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RequestedTermConfiguration) -> dict:
+    if "$unknown" in value:
+        raise SerializationError(
+            f"RequestedTermConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
+        )
+    elif "configurableUpfrontPricingTermConfiguration" in value:
+        import capo_marketplace_agreement.types.configurable_upfront_pricing_term_configuration
+
+        return {
+            "configurableUpfrontPricingTermConfiguration": capo_marketplace_agreement.types.configurable_upfront_pricing_term_configuration.serialize_cbor(
+                value["configurableUpfrontPricingTermConfiguration"]
+            )
+        }
+    elif "renewalTermConfiguration" in value:
+        import capo_marketplace_agreement.types.renewal_term_configuration
+
+        return {
+            "renewalTermConfiguration": capo_marketplace_agreement.types.renewal_term_configuration.serialize_cbor(
+                value["renewalTermConfiguration"]
+            )
+        }
+    elif "variablePaymentTermConfiguration" in value:
+        import capo_marketplace_agreement.types.variable_payment_term_configuration
+
+        return {
+            "variablePaymentTermConfiguration": capo_marketplace_agreement.types.variable_payment_term_configuration.serialize_cbor(
+                value["variablePaymentTermConfiguration"]
+            )
+        }
+    else:
+        raise SerializationError("RequestedTermConfiguration: no variant present")
+
+
+def deserialize_cbor(data: dict) -> RequestedTermConfiguration:
+    if data.get("configurableUpfrontPricingTermConfiguration") is not None:
+        import capo_marketplace_agreement.types.configurable_upfront_pricing_term_configuration
+
+        return {
+            "configurableUpfrontPricingTermConfiguration": capo_marketplace_agreement.types.configurable_upfront_pricing_term_configuration.deserialize_cbor(
+                data["configurableUpfrontPricingTermConfiguration"]
+            )
+        }
+    elif data.get("renewalTermConfiguration") is not None:
+        import capo_marketplace_agreement.types.renewal_term_configuration
+
+        return {
+            "renewalTermConfiguration": capo_marketplace_agreement.types.renewal_term_configuration.deserialize_cbor(
+                data["renewalTermConfiguration"]
+            )
+        }
+    elif data.get("variablePaymentTermConfiguration") is not None:
+        import capo_marketplace_agreement.types.variable_payment_term_configuration
+
+        return {
+            "variablePaymentTermConfiguration": capo_marketplace_agreement.types.variable_payment_term_configuration.deserialize_cbor(
+                data["variablePaymentTermConfiguration"]
+            )
+        }
+    else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return {"$unknown": {"name": name}}
+        raise DeserializationError(
+            "RequestedTermConfiguration: no recognized variant key"
+        )

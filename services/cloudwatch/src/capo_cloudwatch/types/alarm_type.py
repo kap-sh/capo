@@ -37,3 +37,12 @@ def serialize_query(
 
 def deserialize_query(el: Element) -> AlarmType:
     return from_query_text(el.text or "")
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AlarmType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> AlarmType:
+    return cast(AlarmType, data)

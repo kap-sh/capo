@@ -91,3 +91,34 @@ def deserialize_query(el: Element) -> ManagedRuleDescription:
             child_rule_state
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ManagedRuleDescription) -> dict:
+    out: dict = {}
+    if "template_name" in value:
+        out["TemplateName"] = value["template_name"]
+    if "resource_arn" in value:
+        out["ResourceARN"] = value["resource_arn"]
+    if "rule_state" in value:
+        import capo_cloudwatch.types.managed_rule_state
+
+        out["RuleState"] = capo_cloudwatch.types.managed_rule_state.serialize_cbor(
+            value["rule_state"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ManagedRuleDescription:
+    out: ManagedRuleDescription = {}  # type: ignore[typeddict-item]
+    if data.get("TemplateName") is not None:
+        out["template_name"] = data["TemplateName"]
+    if data.get("ResourceARN") is not None:
+        out["resource_arn"] = data["ResourceARN"]
+    if data.get("RuleState") is not None:
+        import capo_cloudwatch.types.managed_rule_state
+
+        out["rule_state"] = capo_cloudwatch.types.managed_rule_state.deserialize_cbor(
+            data["RuleState"]
+        )
+    return out

@@ -43,3 +43,30 @@ def deserialize_aws_json_1_1(data: dict) -> AzureFederatedIdentityConfig:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AzureFederatedIdentityConfig) -> dict:
+    out: dict = {}
+    if "aws_iam_role" in value:
+        out["AwsIamRole"] = value["aws_iam_role"]
+    if "azure_oidc" in value:
+        import capo_datasync.types.azure_oidc_config
+
+        out["AzureOidc"] = capo_datasync.types.azure_oidc_config.serialize_cbor(
+            value["azure_oidc"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AzureFederatedIdentityConfig:
+    out: AzureFederatedIdentityConfig = {}  # type: ignore[typeddict-item]
+    if data.get("AwsIamRole") is not None:
+        out["aws_iam_role"] = data["AwsIamRole"]
+    if data.get("AzureOidc") is not None:
+        import capo_datasync.types.azure_oidc_config
+
+        out["azure_oidc"] = capo_datasync.types.azure_oidc_config.deserialize_cbor(
+            data["AzureOidc"]
+        )
+    return out

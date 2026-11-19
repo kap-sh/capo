@@ -30,6 +30,21 @@ def deserialize_aws_json_1_1(data: dict) -> CloudHsmTagException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CloudHsmTagException_) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["Message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CloudHsmTagException_:
+    out: CloudHsmTagException_ = {}  # type: ignore[typeddict-item]
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    return out
+
+
 class CloudHsmTagException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.cloudhsmv2#CloudHsmTagException``."""
 
@@ -57,3 +72,9 @@ class CloudHsmTagException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "CloudHsmTagException":
         return cls(deserialize_aws_json_1_1(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "CloudHsmTagException":
+        return cls(deserialize_cbor(data), message, response=response)

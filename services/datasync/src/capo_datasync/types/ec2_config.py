@@ -49,3 +49,36 @@ def deserialize_aws_json_1_1(data: dict) -> Ec2Config:
     else:
         out["security_group_arns"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Ec2Config) -> dict:
+    out: dict = {}
+    out["SubnetArn"] = value["subnet_arn"]
+    import capo_datasync.types.ec2_security_group_arn_list
+
+    out["SecurityGroupArns"] = (
+        capo_datasync.types.ec2_security_group_arn_list.serialize_cbor(
+            value["security_group_arns"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Ec2Config:
+    out: Ec2Config = {}  # type: ignore[typeddict-item]
+    if data.get("SubnetArn") is not None:
+        out["subnet_arn"] = data["SubnetArn"]
+    else:
+        out["subnet_arn"] = ""
+    if data.get("SecurityGroupArns") is not None:
+        import capo_datasync.types.ec2_security_group_arn_list
+
+        out["security_group_arns"] = (
+            capo_datasync.types.ec2_security_group_arn_list.deserialize_cbor(
+                data["SecurityGroupArns"]
+            )
+        )
+    else:
+        out["security_group_arns"] = []
+    return out

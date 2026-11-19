@@ -83,3 +83,50 @@ def deserialize_aws_json_1_1(data: dict) -> AttributeValue:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AttributeValue) -> dict:
+    out: dict = {}
+    if "s" in value:
+        out["S"] = value["s"]
+    if "n" in value:
+        out["N"] = value["n"]
+    if "sl" in value:
+        import capo_gamelift.types.player_attribute_string_list
+
+        out["SL"] = capo_gamelift.types.player_attribute_string_list.serialize_cbor(
+            value["sl"]
+        )
+    if "sdm" in value:
+        import capo_gamelift.types.player_attribute_string_double_map
+
+        out["SDM"] = (
+            capo_gamelift.types.player_attribute_string_double_map.serialize_cbor(
+                value["sdm"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AttributeValue:
+    out: AttributeValue = {}  # type: ignore[typeddict-item]
+    if data.get("S") is not None:
+        out["s"] = data["S"]
+    if data.get("N") is not None:
+        out["n"] = float(data["N"])
+    if data.get("SL") is not None:
+        import capo_gamelift.types.player_attribute_string_list
+
+        out["sl"] = capo_gamelift.types.player_attribute_string_list.deserialize_cbor(
+            data["SL"]
+        )
+    if data.get("SDM") is not None:
+        import capo_gamelift.types.player_attribute_string_double_map
+
+        out["sdm"] = (
+            capo_gamelift.types.player_attribute_string_double_map.deserialize_cbor(
+                data["SDM"]
+            )
+        )
+    return out

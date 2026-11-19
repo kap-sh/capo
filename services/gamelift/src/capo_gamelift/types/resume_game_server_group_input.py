@@ -49,3 +49,34 @@ def deserialize_aws_json_1_1(data: dict) -> ResumeGameServerGroupInput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResumeGameServerGroupInput) -> dict:
+    out: dict = {}
+    if "game_server_group_name" in value:
+        out["GameServerGroupName"] = value["game_server_group_name"]
+    if "resume_actions" in value:
+        import capo_gamelift.types.game_server_group_actions
+
+        out["ResumeActions"] = (
+            capo_gamelift.types.game_server_group_actions.serialize_cbor(
+                value["resume_actions"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ResumeGameServerGroupInput:
+    out: ResumeGameServerGroupInput = {}  # type: ignore[typeddict-item]
+    if data.get("GameServerGroupName") is not None:
+        out["game_server_group_name"] = data["GameServerGroupName"]
+    if data.get("ResumeActions") is not None:
+        import capo_gamelift.types.game_server_group_actions
+
+        out["resume_actions"] = (
+            capo_gamelift.types.game_server_group_actions.deserialize_cbor(
+                data["ResumeActions"]
+            )
+        )
+    return out

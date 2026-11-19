@@ -45,3 +45,27 @@ def deserialize_aws_json_1_1(data: dict) -> PipelineVariableDeclaration:
     if data.get("description") is not None:
         out["description"] = data["description"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PipelineVariableDeclaration) -> dict:
+    out: dict = {}
+    out["name"] = value["name"]
+    if "default_value" in value:
+        out["defaultValue"] = value["default_value"]
+    if "description" in value:
+        out["description"] = value["description"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> PipelineVariableDeclaration:
+    out: PipelineVariableDeclaration = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    else:
+        out["name"] = ""
+    if data.get("defaultValue") is not None:
+        out["default_value"] = data["defaultValue"]
+    if data.get("description") is not None:
+        out["description"] = data["description"]
+    return out

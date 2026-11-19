@@ -29,3 +29,24 @@ def deserialize_aws_json_1_0(data: dict) -> KubernetesResourceType:
     else:
         out["kind"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: KubernetesResourceType) -> dict:
+    out: dict = {}
+    out["apiVersion"] = value["api_version"]
+    out["kind"] = value["kind"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> KubernetesResourceType:
+    out: KubernetesResourceType = {}  # type: ignore[typeddict-item]
+    if data.get("apiVersion") is not None:
+        out["api_version"] = data["apiVersion"]
+    else:
+        out["api_version"] = ""
+    if data.get("kind") is not None:
+        out["kind"] = data["kind"]
+    else:
+        out["kind"] = ""
+    return out

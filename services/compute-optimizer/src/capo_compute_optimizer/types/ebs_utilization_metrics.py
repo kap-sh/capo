@@ -37,3 +37,28 @@ def deserialize_aws_json_1_0(data: list) -> EBSUtilizationMetrics:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EBSUtilizationMetrics) -> list:
+    import capo_compute_optimizer.types.ebs_utilization_metric
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_compute_optimizer.types.ebs_utilization_metric.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> EBSUtilizationMetrics:
+    import capo_compute_optimizer.types.ebs_utilization_metric
+
+    out: EBSUtilizationMetrics = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_compute_optimizer.types.ebs_utilization_metric.deserialize_cbor(item)
+        )
+    return out

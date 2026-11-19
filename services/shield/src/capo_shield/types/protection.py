@@ -86,3 +86,58 @@ def deserialize_aws_json_1_1(data: dict) -> Protection:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Protection) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["Id"] = value["id"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "resource_arn" in value:
+        out["ResourceArn"] = value["resource_arn"]
+    if "health_check_ids" in value:
+        import capo_shield.types.health_check_ids
+
+        out["HealthCheckIds"] = capo_shield.types.health_check_ids.serialize_cbor(
+            value["health_check_ids"]
+        )
+    if "protection_arn" in value:
+        out["ProtectionArn"] = value["protection_arn"]
+    if "application_layer_automatic_response_configuration" in value:
+        import capo_shield.types.application_layer_automatic_response_configuration
+
+        out["ApplicationLayerAutomaticResponseConfiguration"] = (
+            capo_shield.types.application_layer_automatic_response_configuration.serialize_cbor(
+                value["application_layer_automatic_response_configuration"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Protection:
+    out: Protection = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("ResourceArn") is not None:
+        out["resource_arn"] = data["ResourceArn"]
+    if data.get("HealthCheckIds") is not None:
+        import capo_shield.types.health_check_ids
+
+        out["health_check_ids"] = capo_shield.types.health_check_ids.deserialize_cbor(
+            data["HealthCheckIds"]
+        )
+    if data.get("ProtectionArn") is not None:
+        out["protection_arn"] = data["ProtectionArn"]
+    if data.get("ApplicationLayerAutomaticResponseConfiguration") is not None:
+        import capo_shield.types.application_layer_automatic_response_configuration
+
+        out["application_layer_automatic_response_configuration"] = (
+            capo_shield.types.application_layer_automatic_response_configuration.deserialize_cbor(
+                data["ApplicationLayerAutomaticResponseConfiguration"]
+            )
+        )
+    return out

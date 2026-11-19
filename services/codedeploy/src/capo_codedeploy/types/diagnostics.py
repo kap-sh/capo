@@ -61,3 +61,38 @@ def deserialize_aws_json_1_1(data: dict) -> Diagnostics:
     if data.get("logTail") is not None:
         out["log_tail"] = data["logTail"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Diagnostics) -> dict:
+    out: dict = {}
+    if "error_code" in value:
+        import capo_codedeploy.types.lifecycle_error_code
+
+        out["errorCode"] = capo_codedeploy.types.lifecycle_error_code.serialize_cbor(
+            value["error_code"]
+        )
+    if "script_name" in value:
+        out["scriptName"] = value["script_name"]
+    if "message" in value:
+        out["message"] = value["message"]
+    if "log_tail" in value:
+        out["logTail"] = value["log_tail"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Diagnostics:
+    out: Diagnostics = {}  # type: ignore[typeddict-item]
+    if data.get("errorCode") is not None:
+        import capo_codedeploy.types.lifecycle_error_code
+
+        out["error_code"] = capo_codedeploy.types.lifecycle_error_code.deserialize_cbor(
+            data["errorCode"]
+        )
+    if data.get("scriptName") is not None:
+        out["script_name"] = data["scriptName"]
+    if data.get("message") is not None:
+        out["message"] = data["message"]
+    if data.get("logTail") is not None:
+        out["log_tail"] = data["logTail"]
+    return out

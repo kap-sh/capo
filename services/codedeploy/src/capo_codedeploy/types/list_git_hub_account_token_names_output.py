@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> ListGitHubAccountTokenNamesOutput:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListGitHubAccountTokenNamesOutput) -> dict:
+    out: dict = {}
+    if "token_name_list" in value:
+        import capo_codedeploy.types.git_hub_account_token_name_list
+
+        out["tokenNameList"] = (
+            capo_codedeploy.types.git_hub_account_token_name_list.serialize_cbor(
+                value["token_name_list"]
+            )
+        )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListGitHubAccountTokenNamesOutput:
+    out: ListGitHubAccountTokenNamesOutput = {}  # type: ignore[typeddict-item]
+    if data.get("tokenNameList") is not None:
+        import capo_codedeploy.types.git_hub_account_token_name_list
+
+        out["token_name_list"] = (
+            capo_codedeploy.types.git_hub_account_token_name_list.deserialize_cbor(
+                data["tokenNameList"]
+            )
+        )
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

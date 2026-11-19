@@ -49,3 +49,33 @@ def deserialize_aws_json_1_1(data: dict) -> OrganizationTagKey:
             data["status"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: OrganizationTagKey) -> dict:
+    out: dict = {}
+    if "key" in value:
+        out["key"] = value["key"]
+    out["enabledForEventBridge"] = value.get("enabled_for_event_bridge", False)
+    if "status" in value:
+        import capo_health.types.tag_key_status
+
+        out["status"] = capo_health.types.tag_key_status.serialize_cbor(value["status"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> OrganizationTagKey:
+    out: OrganizationTagKey = {}  # type: ignore[typeddict-item]
+    if data.get("key") is not None:
+        out["key"] = data["key"]
+    if data.get("enabledForEventBridge") is not None:
+        out["enabled_for_event_bridge"] = data["enabledForEventBridge"]
+    else:
+        out["enabled_for_event_bridge"] = False
+    if data.get("status") is not None:
+        import capo_health.types.tag_key_status
+
+        out["status"] = capo_health.types.tag_key_status.deserialize_cbor(
+            data["status"]
+        )
+    return out

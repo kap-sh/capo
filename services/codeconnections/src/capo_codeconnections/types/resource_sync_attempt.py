@@ -128,3 +128,94 @@ def deserialize_aws_json_1_0(data: dict) -> ResourceSyncAttempt:
     else:
         out["target"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResourceSyncAttempt) -> dict:
+    out: dict = {}
+    import capo_codeconnections.types.resource_sync_event_list
+
+    out["Events"] = capo_codeconnections.types.resource_sync_event_list.serialize_cbor(
+        value["events"]
+    )
+    import capo_codeconnections.types.revision
+
+    out["InitialRevision"] = capo_codeconnections.types.revision.serialize_cbor(
+        value["initial_revision"]
+    )
+    import capo_codeconnections.types.timestamp
+
+    out["StartedAt"] = capo_codeconnections.types.timestamp.serialize_cbor(
+        value["started_at"]
+    )
+    import capo_codeconnections.types.resource_sync_status
+
+    out["Status"] = capo_codeconnections.types.resource_sync_status.serialize_cbor(
+        value["status"]
+    )
+    import capo_codeconnections.types.revision
+
+    out["TargetRevision"] = capo_codeconnections.types.revision.serialize_cbor(
+        value["target_revision"]
+    )
+    out["Target"] = value["target"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ResourceSyncAttempt:
+    out: ResourceSyncAttempt = {}  # type: ignore[typeddict-item]
+    if data.get("Events") is not None:
+        import capo_codeconnections.types.resource_sync_event_list
+
+        out["events"] = (
+            capo_codeconnections.types.resource_sync_event_list.deserialize_cbor(
+                data["Events"]
+            )
+        )
+    else:
+        out["events"] = []
+    if data.get("InitialRevision") is not None:
+        import capo_codeconnections.types.revision
+
+        out["initial_revision"] = capo_codeconnections.types.revision.deserialize_cbor(
+            data["InitialRevision"]
+        )
+    else:
+        raise DeserializationError("ResourceSyncAttempt.initial_revision required")
+    if data.get("StartedAt") is not None:
+        import capo_codeconnections.types.timestamp
+
+        out["started_at"] = capo_codeconnections.types.timestamp.deserialize_cbor(
+            data["StartedAt"]
+        )
+    else:
+        import datetime
+
+        out["started_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
+    if data.get("Status") is not None:
+        import capo_codeconnections.types.resource_sync_status
+
+        out["status"] = (
+            capo_codeconnections.types.resource_sync_status.deserialize_cbor(
+                data["Status"]
+            )
+        )
+    else:
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_codeconnections.types.resource_sync_status.ResourceSyncStatus", ""
+        )
+    if data.get("TargetRevision") is not None:
+        import capo_codeconnections.types.revision
+
+        out["target_revision"] = capo_codeconnections.types.revision.deserialize_cbor(
+            data["TargetRevision"]
+        )
+    else:
+        raise DeserializationError("ResourceSyncAttempt.target_revision required")
+    if data.get("Target") is not None:
+        out["target"] = data["Target"]
+    else:
+        out["target"] = ""
+    return out

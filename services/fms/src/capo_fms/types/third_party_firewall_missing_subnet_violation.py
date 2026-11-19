@@ -51,3 +51,30 @@ def deserialize_aws_json_1_1(data: dict) -> ThirdPartyFirewallMissingSubnetViola
     if data.get("TargetViolationReason") is not None:
         out["target_violation_reason"] = data["TargetViolationReason"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ThirdPartyFirewallMissingSubnetViolation) -> dict:
+    out: dict = {}
+    if "violation_target" in value:
+        out["ViolationTarget"] = value["violation_target"]
+    if "vpc" in value:
+        out["VPC"] = value["vpc"]
+    if "availability_zone" in value:
+        out["AvailabilityZone"] = value["availability_zone"]
+    if "target_violation_reason" in value:
+        out["TargetViolationReason"] = value["target_violation_reason"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ThirdPartyFirewallMissingSubnetViolation:
+    out: ThirdPartyFirewallMissingSubnetViolation = {}  # type: ignore[typeddict-item]
+    if data.get("ViolationTarget") is not None:
+        out["violation_target"] = data["ViolationTarget"]
+    if data.get("VPC") is not None:
+        out["vpc"] = data["VPC"]
+    if data.get("AvailabilityZone") is not None:
+        out["availability_zone"] = data["AvailabilityZone"]
+    if data.get("TargetViolationReason") is not None:
+        out["target_violation_reason"] = data["TargetViolationReason"]
+    return out

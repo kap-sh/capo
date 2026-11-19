@@ -13,3 +13,12 @@ def serialize_aws_json_1_1(value: IosLogo) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> IosLogo:
     return base64.b64decode(data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IosLogo) -> IosLogo:
+    return value
+
+
+def deserialize_cbor(data: IosLogo) -> IosLogo:
+    return data

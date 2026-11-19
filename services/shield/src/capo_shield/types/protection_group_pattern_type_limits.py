@@ -43,3 +43,33 @@ def deserialize_aws_json_1_1(data: dict) -> ProtectionGroupPatternTypeLimits:
             "ProtectionGroupPatternTypeLimits.arbitrary_pattern_limits required"
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ProtectionGroupPatternTypeLimits) -> dict:
+    out: dict = {}
+    import capo_shield.types.protection_group_arbitrary_pattern_limits
+
+    out["ArbitraryPatternLimits"] = (
+        capo_shield.types.protection_group_arbitrary_pattern_limits.serialize_cbor(
+            value["arbitrary_pattern_limits"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ProtectionGroupPatternTypeLimits:
+    out: ProtectionGroupPatternTypeLimits = {}  # type: ignore[typeddict-item]
+    if data.get("ArbitraryPatternLimits") is not None:
+        import capo_shield.types.protection_group_arbitrary_pattern_limits
+
+        out["arbitrary_pattern_limits"] = (
+            capo_shield.types.protection_group_arbitrary_pattern_limits.deserialize_cbor(
+                data["ArbitraryPatternLimits"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "ProtectionGroupPatternTypeLimits.arbitrary_pattern_limits required"
+        )
+    return out

@@ -42,6 +42,31 @@ def deserialize_aws_json_1_1(data: dict) -> StartCommandExecutionOutput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartCommandExecutionOutput) -> dict:
+    out: dict = {}
+    if "command_execution" in value:
+        import capo_codebuild.types.command_execution
+
+        out["commandExecution"] = capo_codebuild.types.command_execution.serialize_cbor(
+            value["command_execution"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartCommandExecutionOutput:
+    out: StartCommandExecutionOutput = {}  # type: ignore[typeddict-item]
+    if data.get("commandExecution") is not None:
+        import capo_codebuild.types.command_execution
+
+        out["command_execution"] = (
+            capo_codebuild.types.command_execution.deserialize_cbor(
+                data["commandExecution"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: StartCommandExecutionOutput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "command_execution" in value:

@@ -103,3 +103,71 @@ def deserialize_aws_json_1_0(data: dict) -> RuleBooleanToEvaluate:
         if name is not None:
             return {"$unknown": {"name": name}}
         raise DeserializationError("RuleBooleanToEvaluate: no recognized variant key")
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RuleBooleanToEvaluate) -> dict:
+    if "$unknown" in value:
+        raise SerializationError(
+            f"RuleBooleanToEvaluate: cannot serialize unknown variant {value['$unknown']['name']!r}"
+        )
+    elif "Attribute" in value:
+        import capo_mailmanager.types.rule_boolean_email_attribute
+
+        return {
+            "Attribute": capo_mailmanager.types.rule_boolean_email_attribute.serialize_cbor(
+                value["Attribute"]
+            )
+        }
+    elif "Analysis" in value:
+        import capo_mailmanager.types.analysis
+
+        return {
+            "Analysis": capo_mailmanager.types.analysis.serialize_cbor(
+                value["Analysis"]
+            )
+        }
+    elif "IsInAddressList" in value:
+        import capo_mailmanager.types.rule_is_in_address_list
+
+        return {
+            "IsInAddressList": capo_mailmanager.types.rule_is_in_address_list.serialize_cbor(
+                value["IsInAddressList"]
+            )
+        }
+    else:
+        raise SerializationError("RuleBooleanToEvaluate: no variant present")
+
+
+def deserialize_cbor(data: dict) -> RuleBooleanToEvaluate:
+    if data.get("Attribute") is not None:
+        import capo_mailmanager.types.rule_boolean_email_attribute
+
+        return {
+            "Attribute": capo_mailmanager.types.rule_boolean_email_attribute.deserialize_cbor(
+                data["Attribute"]
+            )
+        }
+    elif data.get("Analysis") is not None:
+        import capo_mailmanager.types.analysis
+
+        return {
+            "Analysis": capo_mailmanager.types.analysis.deserialize_cbor(
+                data["Analysis"]
+            )
+        }
+    elif data.get("IsInAddressList") is not None:
+        import capo_mailmanager.types.rule_is_in_address_list
+
+        return {
+            "IsInAddressList": capo_mailmanager.types.rule_is_in_address_list.deserialize_cbor(
+                data["IsInAddressList"]
+            )
+        }
+    else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return {"$unknown": {"name": name}}
+        raise DeserializationError("RuleBooleanToEvaluate: no recognized variant key")

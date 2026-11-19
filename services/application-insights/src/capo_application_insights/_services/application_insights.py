@@ -143,6 +143,7 @@ class ApplicationInsightsClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[Interceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_1", "rpcv2Cbor"]
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -159,6 +160,7 @@ class ApplicationInsightsClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -174,6 +176,7 @@ class ApplicationInsightsClient:
         operation_interceptors: Iterable[Interceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_1", "rpcv2Cbor"] = "awsJson1_1",
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -210,6 +213,7 @@ class ApplicationInsightsClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -243,6 +247,9 @@ class ApplicationInsightsClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_1")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -284,13 +291,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.add_workload_response.AddWorkloadResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.add_workload
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.add_workload
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.add_workload.add_workload(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.add_workload.add_workload(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.add_workload
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.add_workload.add_workload(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -372,13 +390,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.create_application_response.CreateApplicationResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.create_application
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.create_application
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.create_application.create_application(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.create_application.create_application(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.create_application
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.create_application.create_application(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -442,13 +471,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.create_component_response.CreateComponentResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.create_component
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.create_component
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.create_component.create_component(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.create_component.create_component(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.create_component
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.create_component.create_component(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -500,13 +540,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.create_log_pattern_response.CreateLogPatternResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.create_log_pattern
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.create_log_pattern
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.create_log_pattern.create_log_pattern(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.create_log_pattern.create_log_pattern(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.create_log_pattern
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.create_log_pattern.create_log_pattern(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -552,13 +603,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.delete_application_response.DeleteApplicationResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.delete_application
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.delete_application
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.delete_application.delete_application(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.delete_application.delete_application(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.delete_application
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.delete_application.delete_application(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -601,13 +663,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.delete_component_response.DeleteComponentResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.delete_component
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.delete_component
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.delete_component.delete_component(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.delete_component.delete_component(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.delete_component
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.delete_component.delete_component(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -654,13 +727,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.delete_log_pattern_response.DeleteLogPatternResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.delete_log_pattern
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.delete_log_pattern
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.delete_log_pattern.delete_log_pattern(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.delete_log_pattern.delete_log_pattern(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.delete_log_pattern
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.delete_log_pattern.delete_log_pattern(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -707,13 +791,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.describe_application_response.DescribeApplicationResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.describe_application
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.describe_application
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.describe_application.describe_application(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.describe_application.describe_application(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.describe_application
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.describe_application.describe_application(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -762,13 +857,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.describe_component_response.DescribeComponentResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.describe_component
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.describe_component
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.describe_component.describe_component(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.describe_component.describe_component(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.describe_component
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.describe_component.describe_component(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -818,13 +924,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.describe_component_configuration_response.DescribeComponentConfigurationResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.describe_component_configuration
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.describe_component_configuration
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.describe_component_configuration.describe_component_configuration(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.describe_component_configuration.describe_component_configuration(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.describe_component_configuration
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.describe_component_configuration.describe_component_configuration(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -880,13 +997,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.describe_component_configuration_recommendation_response.DescribeComponentConfigurationRecommendationResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.describe_component_configuration_recommendation
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.describe_component_configuration_recommendation
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.describe_component_configuration_recommendation.describe_component_configuration_recommendation(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.describe_component_configuration_recommendation.describe_component_configuration_recommendation(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.describe_component_configuration_recommendation
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.describe_component_configuration_recommendation.describe_component_configuration_recommendation(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -942,13 +1070,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.describe_log_pattern_response.DescribeLogPatternResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.describe_log_pattern
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.describe_log_pattern
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.describe_log_pattern.describe_log_pattern(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.describe_log_pattern.describe_log_pattern(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.describe_log_pattern
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.describe_log_pattern.describe_log_pattern(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -997,13 +1136,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.describe_observation_response.DescribeObservationResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.describe_observation
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.describe_observation
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.describe_observation.describe_observation(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.describe_observation.describe_observation(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.describe_observation
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.describe_observation.describe_observation(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1050,13 +1200,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.describe_problem_response.DescribeProblemResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.describe_problem
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.describe_problem
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.describe_problem.describe_problem(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.describe_problem.describe_problem(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.describe_problem
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.describe_problem.describe_problem(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1103,13 +1264,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.describe_problem_observations_response.DescribeProblemObservationsResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.describe_problem_observations
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.describe_problem_observations
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.describe_problem_observations.describe_problem_observations(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.describe_problem_observations.describe_problem_observations(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.describe_problem_observations
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.describe_problem_observations.describe_problem_observations(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1160,13 +1332,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.describe_workload_response.DescribeWorkloadResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.describe_workload
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.describe_workload
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.describe_workload.describe_workload(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.describe_workload.describe_workload(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.describe_workload
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.describe_workload.describe_workload(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1220,13 +1403,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.list_applications_response.ListApplicationsResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.list_applications
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.list_applications
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.list_applications.list_applications(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.list_applications.list_applications(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.list_applications
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.list_applications.list_applications(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1310,13 +1504,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.list_components_response.ListComponentsResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.list_components
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.list_components
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.list_components.list_components(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.list_components.list_components(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.list_components
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.list_components.list_components(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1416,13 +1621,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.list_configuration_history_response.ListConfigurationHistoryResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.list_configuration_history
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.list_configuration_history
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.list_configuration_history.list_configuration_history(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.list_configuration_history.list_configuration_history(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.list_configuration_history
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.list_configuration_history.list_configuration_history(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1532,13 +1748,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.list_log_patterns_response.ListLogPatternsResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.list_log_patterns
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.list_log_patterns
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.list_log_patterns.list_log_patterns(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.list_log_patterns.list_log_patterns(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.list_log_patterns
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.list_log_patterns.list_log_patterns(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1632,13 +1859,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.list_log_pattern_sets_response.ListLogPatternSetsResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.list_log_pattern_sets
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.list_log_pattern_sets
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.list_log_pattern_sets.list_log_pattern_sets(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.list_log_pattern_sets.list_log_pattern_sets(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.list_log_pattern_sets
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.list_log_pattern_sets.list_log_pattern_sets(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1742,13 +1980,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.list_problems_response.ListProblemsResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.list_problems
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.list_problems
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.list_problems.list_problems(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.list_problems.list_problems(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.list_problems
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.list_problems.list_problems(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1847,13 +2096,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.list_tags_for_resource_response.ListTagsForResourceResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.list_tags_for_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.list_tags_for_resource
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.list_tags_for_resource.list_tags_for_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.list_tags_for_resource
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1910,13 +2170,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.list_workloads_response.ListWorkloadsResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.list_workloads
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.list_workloads
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.list_workloads.list_workloads(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.list_workloads.list_workloads(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.list_workloads
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.list_workloads.list_workloads(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1999,13 +2270,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.remove_workload_response.RemoveWorkloadResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.remove_workload
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.remove_workload
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.remove_workload.remove_workload(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.remove_workload.remove_workload(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.remove_workload
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.remove_workload.remove_workload(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2050,13 +2332,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.tag_resource_response.TagResourceResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.tag_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.tag_resource
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.tag_resource.tag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.tag_resource
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2101,13 +2394,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.untag_resource_response.UntagResourceResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.untag_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.untag_resource
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.untag_resource.untag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.untag_resource
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2177,13 +2481,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.update_application_response.UpdateApplicationResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.update_application
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.update_application
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.update_application.update_application(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.update_application.update_application(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.update_application
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.update_application.update_application(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2249,13 +2564,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.update_component_response.UpdateComponentResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.update_component
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.update_component
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.update_component.update_component(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.update_component.update_component(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.update_component
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.update_component.update_component(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2316,13 +2642,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.update_component_configuration_response.UpdateComponentConfigurationResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.update_component_configuration
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.update_component_configuration
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.update_component_configuration.update_component_configuration(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.update_component_configuration.update_component_configuration(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.update_component_configuration
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.update_component_configuration.update_component_configuration(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2385,13 +2722,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.update_log_pattern_response.UpdateLogPatternResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.update_log_pattern
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.update_log_pattern
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.update_log_pattern.update_log_pattern(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.update_log_pattern.update_log_pattern(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.update_log_pattern
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.update_log_pattern.update_log_pattern(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2448,13 +2796,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.update_problem_response.UpdateProblemResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.update_problem
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.update_problem
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.update_problem.update_problem(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.update_problem.update_problem(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.update_problem
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.update_problem.update_problem(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2507,13 +2866,24 @@ class ApplicationInsightsClient:
         ) -> OperationResponse[
             "capo_application_insights.types.update_workload_response.UpdateWorkloadResponse"
         ]:
-            import capo_application_insights._operations.ec2_windows_barley_service.update_workload
+            if req.options.protocol == "awsJson1_1":
+                import capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.update_workload
 
-            output, http_response = (
-                capo_application_insights._operations.ec2_windows_barley_service.update_workload.update_workload(
-                    req.options, req.input
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.aws_json1_1.update_workload.update_workload(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.update_workload
+
+                output, http_response = (
+                    capo_application_insights._operations.ec2_windows_barley_service.rpcv2_cbor.update_workload.update_workload(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

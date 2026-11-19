@@ -77,3 +77,57 @@ def deserialize_aws_json_1_1(data: dict) -> UserSetting:
     if data.get("MaximumLength") is not None:
         out["maximum_length"] = data["MaximumLength"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UserSetting) -> dict:
+    out: dict = {}
+    import capo_workspaces.types.user_setting_action_enum
+
+    out["Action"] = capo_workspaces.types.user_setting_action_enum.serialize_cbor(
+        value["action"]
+    )
+    import capo_workspaces.types.user_setting_permission_enum
+
+    out["Permission"] = (
+        capo_workspaces.types.user_setting_permission_enum.serialize_cbor(
+            value["permission"]
+        )
+    )
+    if "maximum_length" in value:
+        out["MaximumLength"] = value["maximum_length"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UserSetting:
+    out: UserSetting = {}  # type: ignore[typeddict-item]
+    if data.get("Action") is not None:
+        import capo_workspaces.types.user_setting_action_enum
+
+        out["action"] = capo_workspaces.types.user_setting_action_enum.deserialize_cbor(
+            data["Action"]
+        )
+    else:
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_workspaces.types.user_setting_action_enum.UserSettingActionEnum", ""
+        )
+    if data.get("Permission") is not None:
+        import capo_workspaces.types.user_setting_permission_enum
+
+        out["permission"] = (
+            capo_workspaces.types.user_setting_permission_enum.deserialize_cbor(
+                data["Permission"]
+            )
+        )
+    else:
+        import typing
+
+        out["permission"] = typing.cast(
+            "capo_workspaces.types.user_setting_permission_enum.UserSettingPermissionEnum",
+            "",
+        )
+    if data.get("MaximumLength") is not None:
+        out["maximum_length"] = data["MaximumLength"]
+    return out

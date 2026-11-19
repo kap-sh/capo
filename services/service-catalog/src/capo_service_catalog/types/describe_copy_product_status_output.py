@@ -54,3 +54,38 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeCopyProductStatusOutput:
     if data.get("StatusDetail") is not None:
         out["status_detail"] = data["StatusDetail"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeCopyProductStatusOutput) -> dict:
+    out: dict = {}
+    if "copy_product_status" in value:
+        import capo_service_catalog.types.copy_product_status
+
+        out["CopyProductStatus"] = (
+            capo_service_catalog.types.copy_product_status.serialize_cbor(
+                value["copy_product_status"]
+            )
+        )
+    if "target_product_id" in value:
+        out["TargetProductId"] = value["target_product_id"]
+    if "status_detail" in value:
+        out["StatusDetail"] = value["status_detail"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeCopyProductStatusOutput:
+    out: DescribeCopyProductStatusOutput = {}  # type: ignore[typeddict-item]
+    if data.get("CopyProductStatus") is not None:
+        import capo_service_catalog.types.copy_product_status
+
+        out["copy_product_status"] = (
+            capo_service_catalog.types.copy_product_status.deserialize_cbor(
+                data["CopyProductStatus"]
+            )
+        )
+    if data.get("TargetProductId") is not None:
+        out["target_product_id"] = data["TargetProductId"]
+    if data.get("StatusDetail") is not None:
+        out["status_detail"] = data["StatusDetail"]
+    return out

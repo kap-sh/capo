@@ -34,3 +34,23 @@ def deserialize_aws_json_1_1(data: dict) -> OutputDataConfig:
     if data.get("S3Key") is not None:
         out["s3_key"] = data["S3Key"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: OutputDataConfig) -> dict:
+    out: dict = {}
+    out["S3Bucket"] = value["s3_bucket"]
+    if "s3_key" in value:
+        out["S3Key"] = value["s3_key"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> OutputDataConfig:
+    out: OutputDataConfig = {}  # type: ignore[typeddict-item]
+    if data.get("S3Bucket") is not None:
+        out["s3_bucket"] = data["S3Bucket"]
+    else:
+        out["s3_bucket"] = ""
+    if data.get("S3Key") is not None:
+        out["s3_key"] = data["S3Key"]
+    return out

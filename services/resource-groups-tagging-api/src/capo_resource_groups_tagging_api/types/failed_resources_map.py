@@ -39,3 +39,28 @@ def deserialize_aws_json_1_1(data: dict) -> FailedResourcesMap:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(input_to_serialize: FailedResourcesMap) -> dict:
+    out: dict = {}
+    for key, value in input_to_serialize.items():
+        import capo_resource_groups_tagging_api.types.failure_info
+
+        out[key] = capo_resource_groups_tagging_api.types.failure_info.serialize_cbor(
+            value
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> FailedResourcesMap:
+    out: FailedResourcesMap = {}
+    for key, value in data.items():
+        if value is None:
+            continue
+        import capo_resource_groups_tagging_api.types.failure_info
+
+        out[key] = capo_resource_groups_tagging_api.types.failure_info.deserialize_cbor(
+            value
+        )
+    return out

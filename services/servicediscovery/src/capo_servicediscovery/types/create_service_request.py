@@ -149,3 +149,97 @@ def deserialize_aws_json_1_1(data: dict) -> CreateServiceRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateServiceRequest) -> dict:
+    out: dict = {}
+    out["Name"] = value["name"]
+    if "namespace_id" in value:
+        out["NamespaceId"] = value["namespace_id"]
+    if "creator_request_id" in value:
+        out["CreatorRequestId"] = value["creator_request_id"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "dns_config" in value:
+        import capo_servicediscovery.types.dns_config
+
+        out["DnsConfig"] = capo_servicediscovery.types.dns_config.serialize_cbor(
+            value["dns_config"]
+        )
+    if "health_check_config" in value:
+        import capo_servicediscovery.types.health_check_config
+
+        out["HealthCheckConfig"] = (
+            capo_servicediscovery.types.health_check_config.serialize_cbor(
+                value["health_check_config"]
+            )
+        )
+    if "health_check_custom_config" in value:
+        import capo_servicediscovery.types.health_check_custom_config
+
+        out["HealthCheckCustomConfig"] = (
+            capo_servicediscovery.types.health_check_custom_config.serialize_cbor(
+                value["health_check_custom_config"]
+            )
+        )
+    if "tags" in value:
+        import capo_servicediscovery.types.tag_list
+
+        out["Tags"] = capo_servicediscovery.types.tag_list.serialize_cbor(value["tags"])
+    if "type" in value:
+        import capo_servicediscovery.types.service_type_option
+
+        out["Type"] = capo_servicediscovery.types.service_type_option.serialize_cbor(
+            value["type"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateServiceRequest:
+    out: CreateServiceRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    else:
+        out["name"] = ""
+    if data.get("NamespaceId") is not None:
+        out["namespace_id"] = data["NamespaceId"]
+    if data.get("CreatorRequestId") is not None:
+        out["creator_request_id"] = data["CreatorRequestId"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("DnsConfig") is not None:
+        import capo_servicediscovery.types.dns_config
+
+        out["dns_config"] = capo_servicediscovery.types.dns_config.deserialize_cbor(
+            data["DnsConfig"]
+        )
+    if data.get("HealthCheckConfig") is not None:
+        import capo_servicediscovery.types.health_check_config
+
+        out["health_check_config"] = (
+            capo_servicediscovery.types.health_check_config.deserialize_cbor(
+                data["HealthCheckConfig"]
+            )
+        )
+    if data.get("HealthCheckCustomConfig") is not None:
+        import capo_servicediscovery.types.health_check_custom_config
+
+        out["health_check_custom_config"] = (
+            capo_servicediscovery.types.health_check_custom_config.deserialize_cbor(
+                data["HealthCheckCustomConfig"]
+            )
+        )
+    if data.get("Tags") is not None:
+        import capo_servicediscovery.types.tag_list
+
+        out["tags"] = capo_servicediscovery.types.tag_list.deserialize_cbor(
+            data["Tags"]
+        )
+    if data.get("Type") is not None:
+        import capo_servicediscovery.types.service_type_option
+
+        out["type"] = capo_servicediscovery.types.service_type_option.deserialize_cbor(
+            data["Type"]
+        )
+    return out

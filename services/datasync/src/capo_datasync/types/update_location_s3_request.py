@@ -67,3 +67,47 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateLocationS3Request:
             data["S3Config"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateLocationS3Request) -> dict:
+    out: dict = {}
+    out["LocationArn"] = value["location_arn"]
+    if "subdirectory" in value:
+        out["Subdirectory"] = value["subdirectory"]
+    if "s3_storage_class" in value:
+        import capo_datasync.types.s3_storage_class
+
+        out["S3StorageClass"] = capo_datasync.types.s3_storage_class.serialize_cbor(
+            value["s3_storage_class"]
+        )
+    if "s3_config" in value:
+        import capo_datasync.types.s3_config
+
+        out["S3Config"] = capo_datasync.types.s3_config.serialize_cbor(
+            value["s3_config"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateLocationS3Request:
+    out: UpdateLocationS3Request = {}  # type: ignore[typeddict-item]
+    if data.get("LocationArn") is not None:
+        out["location_arn"] = data["LocationArn"]
+    else:
+        out["location_arn"] = ""
+    if data.get("Subdirectory") is not None:
+        out["subdirectory"] = data["Subdirectory"]
+    if data.get("S3StorageClass") is not None:
+        import capo_datasync.types.s3_storage_class
+
+        out["s3_storage_class"] = capo_datasync.types.s3_storage_class.deserialize_cbor(
+            data["S3StorageClass"]
+        )
+    if data.get("S3Config") is not None:
+        import capo_datasync.types.s3_config
+
+        out["s3_config"] = capo_datasync.types.s3_config.deserialize_cbor(
+            data["S3Config"]
+        )
+    return out

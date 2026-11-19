@@ -119,3 +119,82 @@ def deserialize_aws_json_1_0(data: dict) -> ListRuleGroupsRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListRuleGroupsRequest) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "scope" in value:
+        import capo_network_firewall.types.resource_managed_status
+
+        out["Scope"] = (
+            capo_network_firewall.types.resource_managed_status.serialize_cbor(
+                value["scope"]
+            )
+        )
+    if "managed_type" in value:
+        import capo_network_firewall.types.resource_managed_type
+
+        out["ManagedType"] = (
+            capo_network_firewall.types.resource_managed_type.serialize_cbor(
+                value["managed_type"]
+            )
+        )
+    if "subscription_status" in value:
+        import capo_network_firewall.types.subscription_status
+
+        out["SubscriptionStatus"] = (
+            capo_network_firewall.types.subscription_status.serialize_cbor(
+                value["subscription_status"]
+            )
+        )
+    if "type" in value:
+        import capo_network_firewall.types.rule_group_type
+
+        out["Type"] = capo_network_firewall.types.rule_group_type.serialize_cbor(
+            value["type"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListRuleGroupsRequest:
+    out: ListRuleGroupsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("Scope") is not None:
+        import capo_network_firewall.types.resource_managed_status
+
+        out["scope"] = (
+            capo_network_firewall.types.resource_managed_status.deserialize_cbor(
+                data["Scope"]
+            )
+        )
+    if data.get("ManagedType") is not None:
+        import capo_network_firewall.types.resource_managed_type
+
+        out["managed_type"] = (
+            capo_network_firewall.types.resource_managed_type.deserialize_cbor(
+                data["ManagedType"]
+            )
+        )
+    if data.get("SubscriptionStatus") is not None:
+        import capo_network_firewall.types.subscription_status
+
+        out["subscription_status"] = (
+            capo_network_firewall.types.subscription_status.deserialize_cbor(
+                data["SubscriptionStatus"]
+            )
+        )
+    if data.get("Type") is not None:
+        import capo_network_firewall.types.rule_group_type
+
+        out["type"] = capo_network_firewall.types.rule_group_type.deserialize_cbor(
+            data["Type"]
+        )
+    return out

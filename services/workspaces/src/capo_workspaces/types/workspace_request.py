@@ -119,3 +119,73 @@ def deserialize_aws_json_1_1(data: dict) -> WorkspaceRequest:
     if data.get("Ipv6Address") is not None:
         out["ipv6_address"] = data["Ipv6Address"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: WorkspaceRequest) -> dict:
+    out: dict = {}
+    out["DirectoryId"] = value["directory_id"]
+    out["UserName"] = value["user_name"]
+    out["BundleId"] = value["bundle_id"]
+    if "volume_encryption_key" in value:
+        out["VolumeEncryptionKey"] = value["volume_encryption_key"]
+    if "user_volume_encryption_enabled" in value:
+        out["UserVolumeEncryptionEnabled"] = value["user_volume_encryption_enabled"]
+    if "root_volume_encryption_enabled" in value:
+        out["RootVolumeEncryptionEnabled"] = value["root_volume_encryption_enabled"]
+    if "workspace_properties" in value:
+        import capo_workspaces.types.workspace_properties
+
+        out["WorkspaceProperties"] = (
+            capo_workspaces.types.workspace_properties.serialize_cbor(
+                value["workspace_properties"]
+            )
+        )
+    if "tags" in value:
+        import capo_workspaces.types.tag_list
+
+        out["Tags"] = capo_workspaces.types.tag_list.serialize_cbor(value["tags"])
+    if "workspace_name" in value:
+        out["WorkspaceName"] = value["workspace_name"]
+    if "ipv6_address" in value:
+        out["Ipv6Address"] = value["ipv6_address"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> WorkspaceRequest:
+    out: WorkspaceRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    if data.get("UserName") is not None:
+        out["user_name"] = data["UserName"]
+    else:
+        out["user_name"] = ""
+    if data.get("BundleId") is not None:
+        out["bundle_id"] = data["BundleId"]
+    else:
+        out["bundle_id"] = ""
+    if data.get("VolumeEncryptionKey") is not None:
+        out["volume_encryption_key"] = data["VolumeEncryptionKey"]
+    if data.get("UserVolumeEncryptionEnabled") is not None:
+        out["user_volume_encryption_enabled"] = data["UserVolumeEncryptionEnabled"]
+    if data.get("RootVolumeEncryptionEnabled") is not None:
+        out["root_volume_encryption_enabled"] = data["RootVolumeEncryptionEnabled"]
+    if data.get("WorkspaceProperties") is not None:
+        import capo_workspaces.types.workspace_properties
+
+        out["workspace_properties"] = (
+            capo_workspaces.types.workspace_properties.deserialize_cbor(
+                data["WorkspaceProperties"]
+            )
+        )
+    if data.get("Tags") is not None:
+        import capo_workspaces.types.tag_list
+
+        out["tags"] = capo_workspaces.types.tag_list.deserialize_cbor(data["Tags"])
+    if data.get("WorkspaceName") is not None:
+        out["workspace_name"] = data["WorkspaceName"]
+    if data.get("Ipv6Address") is not None:
+        out["ipv6_address"] = data["Ipv6Address"]
+    return out

@@ -42,3 +42,26 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteContainerGroupDefinitionInput:
     if data.get("VersionCountToRetain") is not None:
         out["version_count_to_retain"] = data["VersionCountToRetain"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteContainerGroupDefinitionInput) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "version_number" in value:
+        out["VersionNumber"] = value["version_number"]
+    if "version_count_to_retain" in value:
+        out["VersionCountToRetain"] = value["version_count_to_retain"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteContainerGroupDefinitionInput:
+    out: DeleteContainerGroupDefinitionInput = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("VersionNumber") is not None:
+        out["version_number"] = data["VersionNumber"]
+    if data.get("VersionCountToRetain") is not None:
+        out["version_count_to_retain"] = data["VersionCountToRetain"]
+    return out

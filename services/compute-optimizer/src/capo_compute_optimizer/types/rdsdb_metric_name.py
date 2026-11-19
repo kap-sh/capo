@@ -34,3 +34,12 @@ def serialize_aws_json_1_0(value: RDSDBMetricName) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> RDSDBMetricName:
     return cast(RDSDBMetricName, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RDSDBMetricName) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> RDSDBMetricName:
+    return cast(RDSDBMetricName, data)

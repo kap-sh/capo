@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> DeployWorkspaceApplicationsResult:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeployWorkspaceApplicationsResult) -> dict:
+    out: dict = {}
+    if "deployment" in value:
+        import capo_workspaces.types.work_space_application_deployment
+
+        out["Deployment"] = (
+            capo_workspaces.types.work_space_application_deployment.serialize_cbor(
+                value["deployment"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeployWorkspaceApplicationsResult:
+    out: DeployWorkspaceApplicationsResult = {}  # type: ignore[typeddict-item]
+    if data.get("Deployment") is not None:
+        import capo_workspaces.types.work_space_application_deployment
+
+        out["deployment"] = (
+            capo_workspaces.types.work_space_application_deployment.deserialize_cbor(
+                data["Deployment"]
+            )
+        )
+    return out

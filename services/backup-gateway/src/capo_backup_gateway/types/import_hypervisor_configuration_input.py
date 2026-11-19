@@ -73,6 +73,47 @@ def deserialize_aws_json_1_0(data: dict) -> ImportHypervisorConfigurationInput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ImportHypervisorConfigurationInput) -> dict:
+    out: dict = {}
+    out["Name"] = value["name"]
+    out["Host"] = value["host"]
+    if "username" in value:
+        out["Username"] = value["username"]
+    if "password" in value:
+        out["Password"] = value["password"]
+    if "kms_key_arn" in value:
+        out["KmsKeyArn"] = value["kms_key_arn"]
+    if "tags" in value:
+        import capo_backup_gateway.types.tags
+
+        out["Tags"] = capo_backup_gateway.types.tags.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> ImportHypervisorConfigurationInput:
+    out: ImportHypervisorConfigurationInput = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    else:
+        out["name"] = ""
+    if data.get("Host") is not None:
+        out["host"] = data["Host"]
+    else:
+        out["host"] = ""
+    if data.get("Username") is not None:
+        out["username"] = data["Username"]
+    if data.get("Password") is not None:
+        out["password"] = data["Password"]
+    if data.get("KmsKeyArn") is not None:
+        out["kms_key_arn"] = data["KmsKeyArn"]
+    if data.get("Tags") is not None:
+        import capo_backup_gateway.types.tags
+
+        out["tags"] = capo_backup_gateway.types.tags.deserialize_cbor(data["Tags"])
+    return out
+
+
 def redact_sensitive(value: ImportHypervisorConfigurationInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "username" in value:

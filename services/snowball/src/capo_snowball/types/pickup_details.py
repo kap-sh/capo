@@ -82,6 +82,57 @@ def deserialize_aws_json_1_1(data: dict) -> PickupDetails:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PickupDetails) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "phone_number" in value:
+        out["PhoneNumber"] = value["phone_number"]
+    if "email" in value:
+        out["Email"] = value["email"]
+    if "identification_number" in value:
+        out["IdentificationNumber"] = value["identification_number"]
+    if "identification_expiration_date" in value:
+        import capo_snowball.types.timestamp
+
+        out["IdentificationExpirationDate"] = (
+            capo_snowball.types.timestamp.serialize_cbor(
+                value["identification_expiration_date"]
+            )
+        )
+    if "identification_issuing_org" in value:
+        out["IdentificationIssuingOrg"] = value["identification_issuing_org"]
+    if "device_pickup_id" in value:
+        out["DevicePickupId"] = value["device_pickup_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> PickupDetails:
+    out: PickupDetails = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("PhoneNumber") is not None:
+        out["phone_number"] = data["PhoneNumber"]
+    if data.get("Email") is not None:
+        out["email"] = data["Email"]
+    if data.get("IdentificationNumber") is not None:
+        out["identification_number"] = data["IdentificationNumber"]
+    if data.get("IdentificationExpirationDate") is not None:
+        import capo_snowball.types.timestamp
+
+        out["identification_expiration_date"] = (
+            capo_snowball.types.timestamp.deserialize_cbor(
+                data["IdentificationExpirationDate"]
+            )
+        )
+    if data.get("IdentificationIssuingOrg") is not None:
+        out["identification_issuing_org"] = data["IdentificationIssuingOrg"]
+    if data.get("DevicePickupId") is not None:
+        out["device_pickup_id"] = data["DevicePickupId"]
+    return out
+
+
 def redact_sensitive(value: PickupDetails) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "phone_number" in value:

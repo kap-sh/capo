@@ -83,3 +83,63 @@ def deserialize_aws_json_1_1(data: dict) -> TaskConfig:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TaskConfig) -> dict:
+    out: dict = {}
+    import capo_comprehend.types.language_code
+
+    out["LanguageCode"] = capo_comprehend.types.language_code.serialize_cbor(
+        value["language_code"]
+    )
+    if "document_classification_config" in value:
+        import capo_comprehend.types.document_classification_config
+
+        out["DocumentClassificationConfig"] = (
+            capo_comprehend.types.document_classification_config.serialize_cbor(
+                value["document_classification_config"]
+            )
+        )
+    if "entity_recognition_config" in value:
+        import capo_comprehend.types.entity_recognition_config
+
+        out["EntityRecognitionConfig"] = (
+            capo_comprehend.types.entity_recognition_config.serialize_cbor(
+                value["entity_recognition_config"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TaskConfig:
+    out: TaskConfig = {}  # type: ignore[typeddict-item]
+    if data.get("LanguageCode") is not None:
+        import capo_comprehend.types.language_code
+
+        out["language_code"] = capo_comprehend.types.language_code.deserialize_cbor(
+            data["LanguageCode"]
+        )
+    else:
+        import typing
+
+        out["language_code"] = typing.cast(
+            "capo_comprehend.types.language_code.LanguageCode", ""
+        )
+    if data.get("DocumentClassificationConfig") is not None:
+        import capo_comprehend.types.document_classification_config
+
+        out["document_classification_config"] = (
+            capo_comprehend.types.document_classification_config.deserialize_cbor(
+                data["DocumentClassificationConfig"]
+            )
+        )
+    if data.get("EntityRecognitionConfig") is not None:
+        import capo_comprehend.types.entity_recognition_config
+
+        out["entity_recognition_config"] = (
+            capo_comprehend.types.entity_recognition_config.deserialize_cbor(
+                data["EntityRecognitionConfig"]
+            )
+        )
+    return out

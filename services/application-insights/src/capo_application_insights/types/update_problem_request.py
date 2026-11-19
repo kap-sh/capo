@@ -67,3 +67,47 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateProblemRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateProblemRequest) -> dict:
+    out: dict = {}
+    out["ProblemId"] = value["problem_id"]
+    if "update_status" in value:
+        import capo_application_insights.types.update_status
+
+        out["UpdateStatus"] = (
+            capo_application_insights.types.update_status.serialize_cbor(
+                value["update_status"]
+            )
+        )
+    if "visibility" in value:
+        import capo_application_insights.types.visibility
+
+        out["Visibility"] = capo_application_insights.types.visibility.serialize_cbor(
+            value["visibility"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateProblemRequest:
+    out: UpdateProblemRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ProblemId") is not None:
+        out["problem_id"] = data["ProblemId"]
+    else:
+        out["problem_id"] = ""
+    if data.get("UpdateStatus") is not None:
+        import capo_application_insights.types.update_status
+
+        out["update_status"] = (
+            capo_application_insights.types.update_status.deserialize_cbor(
+                data["UpdateStatus"]
+            )
+        )
+    if data.get("Visibility") is not None:
+        import capo_application_insights.types.visibility
+
+        out["visibility"] = capo_application_insights.types.visibility.deserialize_cbor(
+            data["Visibility"]
+        )
+    return out

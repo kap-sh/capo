@@ -35,3 +35,24 @@ def deserialize_aws_json_1_1(data: dict) -> TimeBasedLinear:
     else:
         out["linear_interval"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TimeBasedLinear) -> dict:
+    out: dict = {}
+    out["linearPercentage"] = value.get("linear_percentage", 0)
+    out["linearInterval"] = value.get("linear_interval", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> TimeBasedLinear:
+    out: TimeBasedLinear = {}  # type: ignore[typeddict-item]
+    if data.get("linearPercentage") is not None:
+        out["linear_percentage"] = data["linearPercentage"]
+    else:
+        out["linear_percentage"] = 0
+    if data.get("linearInterval") is not None:
+        out["linear_interval"] = data["linearInterval"]
+    else:
+        out["linear_interval"] = 0
+    return out

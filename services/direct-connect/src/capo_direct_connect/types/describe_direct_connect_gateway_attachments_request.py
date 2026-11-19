@@ -59,3 +59,30 @@ def deserialize_aws_json_1_1(
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeDirectConnectGatewayAttachmentsRequest) -> dict:
+    out: dict = {}
+    if "direct_connect_gateway_id" in value:
+        out["directConnectGatewayId"] = value["direct_connect_gateway_id"]
+    if "virtual_interface_id" in value:
+        out["virtualInterfaceId"] = value["virtual_interface_id"]
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeDirectConnectGatewayAttachmentsRequest:
+    out: DescribeDirectConnectGatewayAttachmentsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("directConnectGatewayId") is not None:
+        out["direct_connect_gateway_id"] = data["directConnectGatewayId"]
+    if data.get("virtualInterfaceId") is not None:
+        out["virtual_interface_id"] = data["virtualInterfaceId"]
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

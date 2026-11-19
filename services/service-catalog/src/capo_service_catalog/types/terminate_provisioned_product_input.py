@@ -68,3 +68,39 @@ def deserialize_aws_json_1_1(data: dict) -> TerminateProvisionedProductInput:
     if data.get("RetainPhysicalResources") is not None:
         out["retain_physical_resources"] = data["RetainPhysicalResources"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TerminateProvisionedProductInput) -> dict:
+    out: dict = {}
+    if "provisioned_product_name" in value:
+        out["ProvisionedProductName"] = value["provisioned_product_name"]
+    if "provisioned_product_id" in value:
+        out["ProvisionedProductId"] = value["provisioned_product_id"]
+    out["TerminateToken"] = value["terminate_token"]
+    if "ignore_errors" in value:
+        out["IgnoreErrors"] = value["ignore_errors"]
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    if "retain_physical_resources" in value:
+        out["RetainPhysicalResources"] = value["retain_physical_resources"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> TerminateProvisionedProductInput:
+    out: TerminateProvisionedProductInput = {}  # type: ignore[typeddict-item]
+    if data.get("ProvisionedProductName") is not None:
+        out["provisioned_product_name"] = data["ProvisionedProductName"]
+    if data.get("ProvisionedProductId") is not None:
+        out["provisioned_product_id"] = data["ProvisionedProductId"]
+    if data.get("TerminateToken") is not None:
+        out["terminate_token"] = data["TerminateToken"]
+    else:
+        out["terminate_token"] = ""
+    if data.get("IgnoreErrors") is not None:
+        out["ignore_errors"] = data["IgnoreErrors"]
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    if data.get("RetainPhysicalResources") is not None:
+        out["retain_physical_resources"] = data["RetainPhysicalResources"]
+    return out

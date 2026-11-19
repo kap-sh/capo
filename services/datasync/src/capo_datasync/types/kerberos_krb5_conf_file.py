@@ -13,3 +13,12 @@ def serialize_aws_json_1_1(value: KerberosKrb5ConfFile) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> KerberosKrb5ConfFile:
     return base64.b64decode(data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: KerberosKrb5ConfFile) -> KerberosKrb5ConfFile:
+    return value
+
+
+def deserialize_cbor(data: KerberosKrb5ConfFile) -> KerberosKrb5ConfFile:
+    return data

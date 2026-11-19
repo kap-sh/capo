@@ -48,3 +48,30 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeClustersRequest:
     if data.get("ShowShardDetails") is not None:
         out["show_shard_details"] = data["ShowShardDetails"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeClustersRequest) -> dict:
+    out: dict = {}
+    if "cluster_name" in value:
+        out["ClusterName"] = value["cluster_name"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "show_shard_details" in value:
+        out["ShowShardDetails"] = value["show_shard_details"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeClustersRequest:
+    out: DescribeClustersRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ClusterName") is not None:
+        out["cluster_name"] = data["ClusterName"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("ShowShardDetails") is not None:
+        out["show_shard_details"] = data["ShowShardDetails"]
+    return out

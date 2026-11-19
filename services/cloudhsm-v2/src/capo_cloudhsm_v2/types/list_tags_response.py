@@ -42,3 +42,29 @@ def deserialize_aws_json_1_1(data: dict) -> ListTagsResponse:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListTagsResponse) -> dict:
+    out: dict = {}
+    import capo_cloudhsm_v2.types.tag_list
+
+    out["TagList"] = capo_cloudhsm_v2.types.tag_list.serialize_cbor(value["tag_list"])
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListTagsResponse:
+    out: ListTagsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("TagList") is not None:
+        import capo_cloudhsm_v2.types.tag_list
+
+        out["tag_list"] = capo_cloudhsm_v2.types.tag_list.deserialize_cbor(
+            data["TagList"]
+        )
+    else:
+        out["tag_list"] = []
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

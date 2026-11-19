@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> RegionsInfo:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RegionsInfo) -> dict:
+    out: dict = {}
+    if "primary_region" in value:
+        out["PrimaryRegion"] = value["primary_region"]
+    if "additional_regions" in value:
+        import capo_directory_service.types.additional_regions
+
+        out["AdditionalRegions"] = (
+            capo_directory_service.types.additional_regions.serialize_cbor(
+                value["additional_regions"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RegionsInfo:
+    out: RegionsInfo = {}  # type: ignore[typeddict-item]
+    if data.get("PrimaryRegion") is not None:
+        out["primary_region"] = data["PrimaryRegion"]
+    if data.get("AdditionalRegions") is not None:
+        import capo_directory_service.types.additional_regions
+
+        out["additional_regions"] = (
+            capo_directory_service.types.additional_regions.deserialize_cbor(
+                data["AdditionalRegions"]
+            )
+        )
+    return out

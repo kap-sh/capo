@@ -93,3 +93,66 @@ def deserialize_aws_json_1_1(data: dict) -> LifecycleEvent:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LifecycleEvent) -> dict:
+    out: dict = {}
+    if "lifecycle_event_name" in value:
+        out["lifecycleEventName"] = value["lifecycle_event_name"]
+    if "diagnostics" in value:
+        import capo_codedeploy.types.diagnostics
+
+        out["diagnostics"] = capo_codedeploy.types.diagnostics.serialize_cbor(
+            value["diagnostics"]
+        )
+    if "start_time" in value:
+        import capo_codedeploy.types.timestamp
+
+        out["startTime"] = capo_codedeploy.types.timestamp.serialize_cbor(
+            value["start_time"]
+        )
+    if "end_time" in value:
+        import capo_codedeploy.types.timestamp
+
+        out["endTime"] = capo_codedeploy.types.timestamp.serialize_cbor(
+            value["end_time"]
+        )
+    if "status" in value:
+        import capo_codedeploy.types.lifecycle_event_status
+
+        out["status"] = capo_codedeploy.types.lifecycle_event_status.serialize_cbor(
+            value["status"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> LifecycleEvent:
+    out: LifecycleEvent = {}  # type: ignore[typeddict-item]
+    if data.get("lifecycleEventName") is not None:
+        out["lifecycle_event_name"] = data["lifecycleEventName"]
+    if data.get("diagnostics") is not None:
+        import capo_codedeploy.types.diagnostics
+
+        out["diagnostics"] = capo_codedeploy.types.diagnostics.deserialize_cbor(
+            data["diagnostics"]
+        )
+    if data.get("startTime") is not None:
+        import capo_codedeploy.types.timestamp
+
+        out["start_time"] = capo_codedeploy.types.timestamp.deserialize_cbor(
+            data["startTime"]
+        )
+    if data.get("endTime") is not None:
+        import capo_codedeploy.types.timestamp
+
+        out["end_time"] = capo_codedeploy.types.timestamp.deserialize_cbor(
+            data["endTime"]
+        )
+    if data.get("status") is not None:
+        import capo_codedeploy.types.lifecycle_event_status
+
+        out["status"] = capo_codedeploy.types.lifecycle_event_status.deserialize_cbor(
+            data["status"]
+        )
+    return out

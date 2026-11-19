@@ -80,3 +80,54 @@ def deserialize_aws_json_1_1(data: dict) -> EventTopic:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EventTopic) -> dict:
+    out: dict = {}
+    if "directory_id" in value:
+        out["DirectoryId"] = value["directory_id"]
+    if "topic_name" in value:
+        out["TopicName"] = value["topic_name"]
+    if "topic_arn" in value:
+        out["TopicArn"] = value["topic_arn"]
+    if "created_date_time" in value:
+        import capo_directory_service.types.created_date_time
+
+        out["CreatedDateTime"] = (
+            capo_directory_service.types.created_date_time.serialize_cbor(
+                value["created_date_time"]
+            )
+        )
+    if "status" in value:
+        import capo_directory_service.types.topic_status
+
+        out["Status"] = capo_directory_service.types.topic_status.serialize_cbor(
+            value["status"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> EventTopic:
+    out: EventTopic = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    if data.get("TopicName") is not None:
+        out["topic_name"] = data["TopicName"]
+    if data.get("TopicArn") is not None:
+        out["topic_arn"] = data["TopicArn"]
+    if data.get("CreatedDateTime") is not None:
+        import capo_directory_service.types.created_date_time
+
+        out["created_date_time"] = (
+            capo_directory_service.types.created_date_time.deserialize_cbor(
+                data["CreatedDateTime"]
+            )
+        )
+    if data.get("Status") is not None:
+        import capo_directory_service.types.topic_status
+
+        out["status"] = capo_directory_service.types.topic_status.deserialize_cbor(
+            data["Status"]
+        )
+    return out

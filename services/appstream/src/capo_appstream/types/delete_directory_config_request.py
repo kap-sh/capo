@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteDirectoryConfigRequest:
     if data.get("DirectoryName") is not None:
         out["directory_name"] = data["DirectoryName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteDirectoryConfigRequest) -> dict:
+    out: dict = {}
+    if "directory_name" in value:
+        out["DirectoryName"] = value["directory_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteDirectoryConfigRequest:
+    out: DeleteDirectoryConfigRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryName") is not None:
+        out["directory_name"] = data["DirectoryName"]
+    return out

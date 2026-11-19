@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> ImportCustomWorkspaceImageResult:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ImportCustomWorkspaceImageResult) -> dict:
+    out: dict = {}
+    if "image_id" in value:
+        out["ImageId"] = value["image_id"]
+    if "state" in value:
+        import capo_workspaces.types.custom_workspace_image_import_state
+
+        out["State"] = (
+            capo_workspaces.types.custom_workspace_image_import_state.serialize_cbor(
+                value["state"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ImportCustomWorkspaceImageResult:
+    out: ImportCustomWorkspaceImageResult = {}  # type: ignore[typeddict-item]
+    if data.get("ImageId") is not None:
+        out["image_id"] = data["ImageId"]
+    if data.get("State") is not None:
+        import capo_workspaces.types.custom_workspace_image_import_state
+
+        out["state"] = (
+            capo_workspaces.types.custom_workspace_image_import_state.deserialize_cbor(
+                data["State"]
+            )
+        )
+    return out

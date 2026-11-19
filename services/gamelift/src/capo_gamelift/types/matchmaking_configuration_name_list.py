@@ -17,3 +17,12 @@ def serialize_aws_json_1_1(value: MatchmakingConfigurationNameList) -> list:
 
 def deserialize_aws_json_1_1(data: list) -> MatchmakingConfigurationNameList:
     return [item for item in data if item is not None]
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MatchmakingConfigurationNameList) -> list:
+    return list(value)
+
+
+def deserialize_cbor(data: list) -> MatchmakingConfigurationNameList:
+    return [item for item in data if item is not None]

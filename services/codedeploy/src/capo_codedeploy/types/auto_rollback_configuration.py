@@ -48,3 +48,33 @@ def deserialize_aws_json_1_1(data: dict) -> AutoRollbackConfiguration:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AutoRollbackConfiguration) -> dict:
+    out: dict = {}
+    out["enabled"] = value.get("enabled", False)
+    if "events" in value:
+        import capo_codedeploy.types.auto_rollback_events_list
+
+        out["events"] = capo_codedeploy.types.auto_rollback_events_list.serialize_cbor(
+            value["events"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AutoRollbackConfiguration:
+    out: AutoRollbackConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("enabled") is not None:
+        out["enabled"] = data["enabled"]
+    else:
+        out["enabled"] = False
+    if data.get("events") is not None:
+        import capo_codedeploy.types.auto_rollback_events_list
+
+        out["events"] = (
+            capo_codedeploy.types.auto_rollback_events_list.deserialize_cbor(
+                data["events"]
+            )
+        )
+    return out

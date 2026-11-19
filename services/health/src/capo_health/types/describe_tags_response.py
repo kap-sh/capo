@@ -41,3 +41,26 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeTagsResponse:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeTagsResponse) -> dict:
+    out: dict = {}
+    if "tags" in value:
+        import capo_health.types.account_tag_list
+
+        out["tags"] = capo_health.types.account_tag_list.serialize_cbor(value["tags"])
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeTagsResponse:
+    out: DescribeTagsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("tags") is not None:
+        import capo_health.types.account_tag_list
+
+        out["tags"] = capo_health.types.account_tag_list.deserialize_cbor(data["tags"])
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

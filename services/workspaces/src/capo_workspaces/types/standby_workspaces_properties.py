@@ -66,3 +66,46 @@ def deserialize_aws_json_1_1(data: dict) -> StandbyWorkspacesProperties:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StandbyWorkspacesProperties) -> dict:
+    out: dict = {}
+    if "standby_workspace_id" in value:
+        out["StandbyWorkspaceId"] = value["standby_workspace_id"]
+    if "data_replication" in value:
+        import capo_workspaces.types.data_replication
+
+        out["DataReplication"] = capo_workspaces.types.data_replication.serialize_cbor(
+            value["data_replication"]
+        )
+    if "recovery_snapshot_time" in value:
+        import capo_workspaces.types.timestamp
+
+        out["RecoverySnapshotTime"] = capo_workspaces.types.timestamp.serialize_cbor(
+            value["recovery_snapshot_time"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StandbyWorkspacesProperties:
+    out: StandbyWorkspacesProperties = {}  # type: ignore[typeddict-item]
+    if data.get("StandbyWorkspaceId") is not None:
+        out["standby_workspace_id"] = data["StandbyWorkspaceId"]
+    if data.get("DataReplication") is not None:
+        import capo_workspaces.types.data_replication
+
+        out["data_replication"] = (
+            capo_workspaces.types.data_replication.deserialize_cbor(
+                data["DataReplication"]
+            )
+        )
+    if data.get("RecoverySnapshotTime") is not None:
+        import capo_workspaces.types.timestamp
+
+        out["recovery_snapshot_time"] = (
+            capo_workspaces.types.timestamp.deserialize_cbor(
+                data["RecoverySnapshotTime"]
+            )
+        )
+    return out

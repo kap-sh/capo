@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: DeploymentOption) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> DeploymentOption:
     return cast(DeploymentOption, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeploymentOption) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> DeploymentOption:
+    return cast(DeploymentOption, data)

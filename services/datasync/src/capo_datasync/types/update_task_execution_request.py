@@ -44,3 +44,28 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateTaskExecutionRequest:
     else:
         raise DeserializationError("UpdateTaskExecutionRequest.options required")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateTaskExecutionRequest) -> dict:
+    out: dict = {}
+    out["TaskExecutionArn"] = value["task_execution_arn"]
+    import capo_datasync.types.options
+
+    out["Options"] = capo_datasync.types.options.serialize_cbor(value["options"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateTaskExecutionRequest:
+    out: UpdateTaskExecutionRequest = {}  # type: ignore[typeddict-item]
+    if data.get("TaskExecutionArn") is not None:
+        out["task_execution_arn"] = data["TaskExecutionArn"]
+    else:
+        out["task_execution_arn"] = ""
+    if data.get("Options") is not None:
+        import capo_datasync.types.options
+
+        out["options"] = capo_datasync.types.options.deserialize_cbor(data["Options"])
+    else:
+        raise DeserializationError("UpdateTaskExecutionRequest.options required")
+    return out

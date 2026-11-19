@@ -27,3 +27,12 @@ def serialize_aws_json_1_1(value: PullRequestBuildApproverRole) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> PullRequestBuildApproverRole:
     return cast(PullRequestBuildApproverRole, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PullRequestBuildApproverRole) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> PullRequestBuildApproverRole:
+    return cast(PullRequestBuildApproverRole, data)

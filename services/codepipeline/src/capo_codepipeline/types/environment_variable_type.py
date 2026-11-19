@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: EnvironmentVariableType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> EnvironmentVariableType:
     return cast(EnvironmentVariableType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EnvironmentVariableType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> EnvironmentVariableType:
+    return cast(EnvironmentVariableType, data)

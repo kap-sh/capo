@@ -59,3 +59,40 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeConnectionProposalResponse:
     else:
         out["location"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeConnectionProposalResponse) -> dict:
+    out: dict = {}
+    out["bandwidth"] = value["bandwidth"]
+    out["environmentId"] = value["environment_id"]
+    import capo_interconnect.types.provider
+
+    out["provider"] = capo_interconnect.types.provider.serialize_cbor(value["provider"])
+    out["location"] = value["location"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeConnectionProposalResponse:
+    out: DescribeConnectionProposalResponse = {}  # type: ignore[typeddict-item]
+    if data.get("bandwidth") is not None:
+        out["bandwidth"] = data["bandwidth"]
+    else:
+        out["bandwidth"] = ""
+    if data.get("environmentId") is not None:
+        out["environment_id"] = data["environmentId"]
+    else:
+        out["environment_id"] = ""
+    if data.get("provider") is not None:
+        import capo_interconnect.types.provider
+
+        out["provider"] = capo_interconnect.types.provider.deserialize_cbor(
+            data["provider"]
+        )
+    else:
+        out["provider"] = {"$unknown": {"name": ""}}
+    if data.get("location") is not None:
+        out["location"] = data["location"]
+    else:
+        out["location"] = ""
+    return out

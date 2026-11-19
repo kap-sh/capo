@@ -37,3 +37,28 @@ def deserialize_aws_json_1_0(data: list) -> PlatformDifferences:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PlatformDifferences) -> list:
+    import capo_compute_optimizer.types.platform_difference
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_compute_optimizer.types.platform_difference.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> PlatformDifferences:
+    import capo_compute_optimizer.types.platform_difference
+
+    out: PlatformDifferences = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_compute_optimizer.types.platform_difference.deserialize_cbor(item)
+        )
+    return out

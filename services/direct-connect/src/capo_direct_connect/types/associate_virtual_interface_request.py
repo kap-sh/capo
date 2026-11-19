@@ -37,3 +37,24 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateVirtualInterfaceRequest:
     else:
         out["connection_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AssociateVirtualInterfaceRequest) -> dict:
+    out: dict = {}
+    out["virtualInterfaceId"] = value["virtual_interface_id"]
+    out["connectionId"] = value["connection_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AssociateVirtualInterfaceRequest:
+    out: AssociateVirtualInterfaceRequest = {}  # type: ignore[typeddict-item]
+    if data.get("virtualInterfaceId") is not None:
+        out["virtual_interface_id"] = data["virtualInterfaceId"]
+    else:
+        out["virtual_interface_id"] = ""
+    if data.get("connectionId") is not None:
+        out["connection_id"] = data["connectionId"]
+    else:
+        out["connection_id"] = ""
+    return out

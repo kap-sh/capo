@@ -49,3 +49,30 @@ def deserialize_aws_json_1_1(data: dict) -> ResponseAction:
             data["Count"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResponseAction) -> dict:
+    out: dict = {}
+    if "block" in value:
+        import capo_shield.types.block_action
+
+        out["Block"] = capo_shield.types.block_action.serialize_cbor(value["block"])
+    if "count" in value:
+        import capo_shield.types.count_action
+
+        out["Count"] = capo_shield.types.count_action.serialize_cbor(value["count"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> ResponseAction:
+    out: ResponseAction = {}  # type: ignore[typeddict-item]
+    if data.get("Block") is not None:
+        import capo_shield.types.block_action
+
+        out["block"] = capo_shield.types.block_action.deserialize_cbor(data["Block"])
+    if data.get("Count") is not None:
+        import capo_shield.types.count_action
+
+        out["count"] = capo_shield.types.count_action.deserialize_cbor(data["Count"])
+    return out

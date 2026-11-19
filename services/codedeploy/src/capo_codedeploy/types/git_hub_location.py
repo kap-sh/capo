@@ -33,3 +33,22 @@ def deserialize_aws_json_1_1(data: dict) -> GitHubLocation:
     if data.get("commitId") is not None:
         out["commit_id"] = data["commitId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GitHubLocation) -> dict:
+    out: dict = {}
+    if "repository" in value:
+        out["repository"] = value["repository"]
+    if "commit_id" in value:
+        out["commitId"] = value["commit_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GitHubLocation:
+    out: GitHubLocation = {}  # type: ignore[typeddict-item]
+    if data.get("repository") is not None:
+        out["repository"] = data["repository"]
+    if data.get("commitId") is not None:
+        out["commit_id"] = data["commitId"]
+    return out

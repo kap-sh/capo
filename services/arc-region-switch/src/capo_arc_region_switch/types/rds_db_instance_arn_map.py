@@ -27,3 +27,20 @@ def deserialize_aws_json_1_0(data: dict) -> RdsDbInstanceArnMap:
             continue
         out[key] = value
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(input_to_serialize: RdsDbInstanceArnMap) -> dict:
+    out: dict = {}
+    for key, value in input_to_serialize.items():
+        out[key] = value
+    return out
+
+
+def deserialize_cbor(data: dict) -> RdsDbInstanceArnMap:
+    out: RdsDbInstanceArnMap = {}
+    for key, value in data.items():
+        if value is None:
+            continue
+        out[key] = value
+    return out

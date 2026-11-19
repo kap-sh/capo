@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> GetDirectoryLimitsResult:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetDirectoryLimitsResult) -> dict:
+    out: dict = {}
+    if "directory_limits" in value:
+        import capo_directory_service.types.directory_limits
+
+        out["DirectoryLimits"] = (
+            capo_directory_service.types.directory_limits.serialize_cbor(
+                value["directory_limits"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetDirectoryLimitsResult:
+    out: GetDirectoryLimitsResult = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryLimits") is not None:
+        import capo_directory_service.types.directory_limits
+
+        out["directory_limits"] = (
+            capo_directory_service.types.directory_limits.deserialize_cbor(
+                data["DirectoryLimits"]
+            )
+        )
+    return out

@@ -420,3 +420,288 @@ def deserialize_aws_json_1_1(data: dict) -> FleetAttributes:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FleetAttributes) -> dict:
+    out: dict = {}
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "fleet_arn" in value:
+        out["FleetArn"] = value["fleet_arn"]
+    if "fleet_type" in value:
+        import capo_gamelift.types.fleet_type
+
+        out["FleetType"] = capo_gamelift.types.fleet_type.serialize_cbor(
+            value["fleet_type"]
+        )
+    if "instance_type" in value:
+        import capo_gamelift.types.ec2_instance_type
+
+        out["InstanceType"] = capo_gamelift.types.ec2_instance_type.serialize_cbor(
+            value["instance_type"]
+        )
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "creation_time" in value:
+        import capo_gamelift.types.timestamp
+
+        out["CreationTime"] = capo_gamelift.types.timestamp.serialize_cbor(
+            value["creation_time"]
+        )
+    if "termination_time" in value:
+        import capo_gamelift.types.timestamp
+
+        out["TerminationTime"] = capo_gamelift.types.timestamp.serialize_cbor(
+            value["termination_time"]
+        )
+    if "status" in value:
+        import capo_gamelift.types.fleet_status
+
+        out["Status"] = capo_gamelift.types.fleet_status.serialize_cbor(value["status"])
+    if "build_id" in value:
+        out["BuildId"] = value["build_id"]
+    if "build_arn" in value:
+        out["BuildArn"] = value["build_arn"]
+    if "script_id" in value:
+        out["ScriptId"] = value["script_id"]
+    if "script_arn" in value:
+        out["ScriptArn"] = value["script_arn"]
+    if "server_launch_path" in value:
+        out["ServerLaunchPath"] = value["server_launch_path"]
+    if "server_launch_parameters" in value:
+        out["ServerLaunchParameters"] = value["server_launch_parameters"]
+    if "log_paths" in value:
+        import capo_gamelift.types.string_list
+
+        out["LogPaths"] = capo_gamelift.types.string_list.serialize_cbor(
+            value["log_paths"]
+        )
+    if "new_game_session_protection_policy" in value:
+        import capo_gamelift.types.protection_policy
+
+        out["NewGameSessionProtectionPolicy"] = (
+            capo_gamelift.types.protection_policy.serialize_cbor(
+                value["new_game_session_protection_policy"]
+            )
+        )
+    if "operating_system" in value:
+        import capo_gamelift.types.operating_system
+
+        out["OperatingSystem"] = capo_gamelift.types.operating_system.serialize_cbor(
+            value["operating_system"]
+        )
+    if "resource_creation_limit_policy" in value:
+        import capo_gamelift.types.resource_creation_limit_policy
+
+        out["ResourceCreationLimitPolicy"] = (
+            capo_gamelift.types.resource_creation_limit_policy.serialize_cbor(
+                value["resource_creation_limit_policy"]
+            )
+        )
+    if "metric_groups" in value:
+        import capo_gamelift.types.metric_group_list
+
+        out["MetricGroups"] = capo_gamelift.types.metric_group_list.serialize_cbor(
+            value["metric_groups"]
+        )
+    if "stopped_actions" in value:
+        import capo_gamelift.types.fleet_action_list
+
+        out["StoppedActions"] = capo_gamelift.types.fleet_action_list.serialize_cbor(
+            value["stopped_actions"]
+        )
+    if "instance_role_arn" in value:
+        out["InstanceRoleArn"] = value["instance_role_arn"]
+    if "certificate_configuration" in value:
+        import capo_gamelift.types.certificate_configuration
+
+        out["CertificateConfiguration"] = (
+            capo_gamelift.types.certificate_configuration.serialize_cbor(
+                value["certificate_configuration"]
+            )
+        )
+    if "compute_type" in value:
+        import capo_gamelift.types.compute_type
+
+        out["ComputeType"] = capo_gamelift.types.compute_type.serialize_cbor(
+            value["compute_type"]
+        )
+    if "anywhere_configuration" in value:
+        import capo_gamelift.types.anywhere_configuration
+
+        out["AnywhereConfiguration"] = (
+            capo_gamelift.types.anywhere_configuration.serialize_cbor(
+                value["anywhere_configuration"]
+            )
+        )
+    if "instance_role_credentials_provider" in value:
+        import capo_gamelift.types.instance_role_credentials_provider
+
+        out["InstanceRoleCredentialsProvider"] = (
+            capo_gamelift.types.instance_role_credentials_provider.serialize_cbor(
+                value["instance_role_credentials_provider"]
+            )
+        )
+    if "player_gateway_mode" in value:
+        import capo_gamelift.types.player_gateway_mode
+
+        out["PlayerGatewayMode"] = (
+            capo_gamelift.types.player_gateway_mode.serialize_cbor(
+                value["player_gateway_mode"]
+            )
+        )
+    if "player_gateway_configuration" in value:
+        import capo_gamelift.types.player_gateway_configuration
+
+        out["PlayerGatewayConfiguration"] = (
+            capo_gamelift.types.player_gateway_configuration.serialize_cbor(
+                value["player_gateway_configuration"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> FleetAttributes:
+    out: FleetAttributes = {}  # type: ignore[typeddict-item]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("FleetArn") is not None:
+        out["fleet_arn"] = data["FleetArn"]
+    if data.get("FleetType") is not None:
+        import capo_gamelift.types.fleet_type
+
+        out["fleet_type"] = capo_gamelift.types.fleet_type.deserialize_cbor(
+            data["FleetType"]
+        )
+    if data.get("InstanceType") is not None:
+        import capo_gamelift.types.ec2_instance_type
+
+        out["instance_type"] = capo_gamelift.types.ec2_instance_type.deserialize_cbor(
+            data["InstanceType"]
+        )
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("CreationTime") is not None:
+        import capo_gamelift.types.timestamp
+
+        out["creation_time"] = capo_gamelift.types.timestamp.deserialize_cbor(
+            data["CreationTime"]
+        )
+    if data.get("TerminationTime") is not None:
+        import capo_gamelift.types.timestamp
+
+        out["termination_time"] = capo_gamelift.types.timestamp.deserialize_cbor(
+            data["TerminationTime"]
+        )
+    if data.get("Status") is not None:
+        import capo_gamelift.types.fleet_status
+
+        out["status"] = capo_gamelift.types.fleet_status.deserialize_cbor(
+            data["Status"]
+        )
+    if data.get("BuildId") is not None:
+        out["build_id"] = data["BuildId"]
+    if data.get("BuildArn") is not None:
+        out["build_arn"] = data["BuildArn"]
+    if data.get("ScriptId") is not None:
+        out["script_id"] = data["ScriptId"]
+    if data.get("ScriptArn") is not None:
+        out["script_arn"] = data["ScriptArn"]
+    if data.get("ServerLaunchPath") is not None:
+        out["server_launch_path"] = data["ServerLaunchPath"]
+    if data.get("ServerLaunchParameters") is not None:
+        out["server_launch_parameters"] = data["ServerLaunchParameters"]
+    if data.get("LogPaths") is not None:
+        import capo_gamelift.types.string_list
+
+        out["log_paths"] = capo_gamelift.types.string_list.deserialize_cbor(
+            data["LogPaths"]
+        )
+    if data.get("NewGameSessionProtectionPolicy") is not None:
+        import capo_gamelift.types.protection_policy
+
+        out["new_game_session_protection_policy"] = (
+            capo_gamelift.types.protection_policy.deserialize_cbor(
+                data["NewGameSessionProtectionPolicy"]
+            )
+        )
+    if data.get("OperatingSystem") is not None:
+        import capo_gamelift.types.operating_system
+
+        out["operating_system"] = capo_gamelift.types.operating_system.deserialize_cbor(
+            data["OperatingSystem"]
+        )
+    if data.get("ResourceCreationLimitPolicy") is not None:
+        import capo_gamelift.types.resource_creation_limit_policy
+
+        out["resource_creation_limit_policy"] = (
+            capo_gamelift.types.resource_creation_limit_policy.deserialize_cbor(
+                data["ResourceCreationLimitPolicy"]
+            )
+        )
+    if data.get("MetricGroups") is not None:
+        import capo_gamelift.types.metric_group_list
+
+        out["metric_groups"] = capo_gamelift.types.metric_group_list.deserialize_cbor(
+            data["MetricGroups"]
+        )
+    if data.get("StoppedActions") is not None:
+        import capo_gamelift.types.fleet_action_list
+
+        out["stopped_actions"] = capo_gamelift.types.fleet_action_list.deserialize_cbor(
+            data["StoppedActions"]
+        )
+    if data.get("InstanceRoleArn") is not None:
+        out["instance_role_arn"] = data["InstanceRoleArn"]
+    if data.get("CertificateConfiguration") is not None:
+        import capo_gamelift.types.certificate_configuration
+
+        out["certificate_configuration"] = (
+            capo_gamelift.types.certificate_configuration.deserialize_cbor(
+                data["CertificateConfiguration"]
+            )
+        )
+    if data.get("ComputeType") is not None:
+        import capo_gamelift.types.compute_type
+
+        out["compute_type"] = capo_gamelift.types.compute_type.deserialize_cbor(
+            data["ComputeType"]
+        )
+    if data.get("AnywhereConfiguration") is not None:
+        import capo_gamelift.types.anywhere_configuration
+
+        out["anywhere_configuration"] = (
+            capo_gamelift.types.anywhere_configuration.deserialize_cbor(
+                data["AnywhereConfiguration"]
+            )
+        )
+    if data.get("InstanceRoleCredentialsProvider") is not None:
+        import capo_gamelift.types.instance_role_credentials_provider
+
+        out["instance_role_credentials_provider"] = (
+            capo_gamelift.types.instance_role_credentials_provider.deserialize_cbor(
+                data["InstanceRoleCredentialsProvider"]
+            )
+        )
+    if data.get("PlayerGatewayMode") is not None:
+        import capo_gamelift.types.player_gateway_mode
+
+        out["player_gateway_mode"] = (
+            capo_gamelift.types.player_gateway_mode.deserialize_cbor(
+                data["PlayerGatewayMode"]
+            )
+        )
+    if data.get("PlayerGatewayConfiguration") is not None:
+        import capo_gamelift.types.player_gateway_configuration
+
+        out["player_gateway_configuration"] = (
+            capo_gamelift.types.player_gateway_configuration.deserialize_cbor(
+                data["PlayerGatewayConfiguration"]
+            )
+        )
+    return out

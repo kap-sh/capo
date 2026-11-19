@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> CrlDistributionPointExtensionConfigu
     else:
         out["omit_extension"] = False
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CrlDistributionPointExtensionConfiguration) -> dict:
+    out: dict = {}
+    out["OmitExtension"] = value["omit_extension"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CrlDistributionPointExtensionConfiguration:
+    out: CrlDistributionPointExtensionConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("OmitExtension") is not None:
+        out["omit_extension"] = data["OmitExtension"]
+    else:
+        out["omit_extension"] = False
+    return out

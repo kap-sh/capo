@@ -309,3 +309,110 @@ def deserialize_query(el: Element) -> PutCompositeAlarmInput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PutCompositeAlarmInput) -> dict:
+    out: dict = {}
+    if "actions_enabled" in value:
+        out["ActionsEnabled"] = value["actions_enabled"]
+    if "alarm_actions" in value:
+        import capo_cloudwatch.types.resource_list
+
+        out["AlarmActions"] = capo_cloudwatch.types.resource_list.serialize_cbor(
+            value["alarm_actions"]
+        )
+    if "alarm_description" in value:
+        out["AlarmDescription"] = value["alarm_description"]
+    if "alarm_name" in value:
+        out["AlarmName"] = value["alarm_name"]
+    if "alarm_rule" in value:
+        out["AlarmRule"] = value["alarm_rule"]
+    if "insufficient_data_actions" in value:
+        import capo_cloudwatch.types.resource_list
+
+        out["InsufficientDataActions"] = (
+            capo_cloudwatch.types.resource_list.serialize_cbor(
+                value["insufficient_data_actions"]
+            )
+        )
+    if "ok_actions" in value:
+        import capo_cloudwatch.types.resource_list
+
+        out["OKActions"] = capo_cloudwatch.types.resource_list.serialize_cbor(
+            value["ok_actions"]
+        )
+    if "tags" in value:
+        import capo_cloudwatch.types.tag_list
+
+        out["Tags"] = capo_cloudwatch.types.tag_list.serialize_cbor(value["tags"])
+    if "actions_suppressor" in value:
+        out["ActionsSuppressor"] = value["actions_suppressor"]
+    if "actions_suppressor_wait_period" in value:
+        out["ActionsSuppressorWaitPeriod"] = value["actions_suppressor_wait_period"]
+    if "actions_suppressor_extension_period" in value:
+        out["ActionsSuppressorExtensionPeriod"] = value[
+            "actions_suppressor_extension_period"
+        ]
+    if "action_configuration" in value:
+        import capo_cloudwatch.types.action_configuration
+
+        out["ActionConfiguration"] = (
+            capo_cloudwatch.types.action_configuration.serialize_cbor(
+                value["action_configuration"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PutCompositeAlarmInput:
+    out: PutCompositeAlarmInput = {}  # type: ignore[typeddict-item]
+    if data.get("ActionsEnabled") is not None:
+        out["actions_enabled"] = data["ActionsEnabled"]
+    if data.get("AlarmActions") is not None:
+        import capo_cloudwatch.types.resource_list
+
+        out["alarm_actions"] = capo_cloudwatch.types.resource_list.deserialize_cbor(
+            data["AlarmActions"]
+        )
+    if data.get("AlarmDescription") is not None:
+        out["alarm_description"] = data["AlarmDescription"]
+    if data.get("AlarmName") is not None:
+        out["alarm_name"] = data["AlarmName"]
+    if data.get("AlarmRule") is not None:
+        out["alarm_rule"] = data["AlarmRule"]
+    if data.get("InsufficientDataActions") is not None:
+        import capo_cloudwatch.types.resource_list
+
+        out["insufficient_data_actions"] = (
+            capo_cloudwatch.types.resource_list.deserialize_cbor(
+                data["InsufficientDataActions"]
+            )
+        )
+    if data.get("OKActions") is not None:
+        import capo_cloudwatch.types.resource_list
+
+        out["ok_actions"] = capo_cloudwatch.types.resource_list.deserialize_cbor(
+            data["OKActions"]
+        )
+    if data.get("Tags") is not None:
+        import capo_cloudwatch.types.tag_list
+
+        out["tags"] = capo_cloudwatch.types.tag_list.deserialize_cbor(data["Tags"])
+    if data.get("ActionsSuppressor") is not None:
+        out["actions_suppressor"] = data["ActionsSuppressor"]
+    if data.get("ActionsSuppressorWaitPeriod") is not None:
+        out["actions_suppressor_wait_period"] = data["ActionsSuppressorWaitPeriod"]
+    if data.get("ActionsSuppressorExtensionPeriod") is not None:
+        out["actions_suppressor_extension_period"] = data[
+            "ActionsSuppressorExtensionPeriod"
+        ]
+    if data.get("ActionConfiguration") is not None:
+        import capo_cloudwatch.types.action_configuration
+
+        out["action_configuration"] = (
+            capo_cloudwatch.types.action_configuration.deserialize_cbor(
+                data["ActionConfiguration"]
+            )
+        )
+    return out

@@ -141,3 +141,93 @@ def deserialize_aws_json_1_1(data: dict) -> ProjectArtifacts:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ProjectArtifacts) -> dict:
+    out: dict = {}
+    import capo_codebuild.types.artifacts_type
+
+    out["type"] = capo_codebuild.types.artifacts_type.serialize_cbor(value["type"])
+    if "location" in value:
+        out["location"] = value["location"]
+    if "path" in value:
+        out["path"] = value["path"]
+    if "namespace_type" in value:
+        import capo_codebuild.types.artifact_namespace
+
+        out["namespaceType"] = capo_codebuild.types.artifact_namespace.serialize_cbor(
+            value["namespace_type"]
+        )
+    if "name" in value:
+        out["name"] = value["name"]
+    if "packaging" in value:
+        import capo_codebuild.types.artifact_packaging
+
+        out["packaging"] = capo_codebuild.types.artifact_packaging.serialize_cbor(
+            value["packaging"]
+        )
+    if "override_artifact_name" in value:
+        out["overrideArtifactName"] = value["override_artifact_name"]
+    if "encryption_disabled" in value:
+        out["encryptionDisabled"] = value["encryption_disabled"]
+    if "artifact_identifier" in value:
+        out["artifactIdentifier"] = value["artifact_identifier"]
+    if "bucket_owner_access" in value:
+        import capo_codebuild.types.bucket_owner_access
+
+        out["bucketOwnerAccess"] = (
+            capo_codebuild.types.bucket_owner_access.serialize_cbor(
+                value["bucket_owner_access"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ProjectArtifacts:
+    out: ProjectArtifacts = {}  # type: ignore[typeddict-item]
+    if data.get("type") is not None:
+        import capo_codebuild.types.artifacts_type
+
+        out["type"] = capo_codebuild.types.artifacts_type.deserialize_cbor(data["type"])
+    else:
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_codebuild.types.artifacts_type.ArtifactsType", ""
+        )
+    if data.get("location") is not None:
+        out["location"] = data["location"]
+    if data.get("path") is not None:
+        out["path"] = data["path"]
+    if data.get("namespaceType") is not None:
+        import capo_codebuild.types.artifact_namespace
+
+        out["namespace_type"] = (
+            capo_codebuild.types.artifact_namespace.deserialize_cbor(
+                data["namespaceType"]
+            )
+        )
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    if data.get("packaging") is not None:
+        import capo_codebuild.types.artifact_packaging
+
+        out["packaging"] = capo_codebuild.types.artifact_packaging.deserialize_cbor(
+            data["packaging"]
+        )
+    if data.get("overrideArtifactName") is not None:
+        out["override_artifact_name"] = data["overrideArtifactName"]
+    if data.get("encryptionDisabled") is not None:
+        out["encryption_disabled"] = data["encryptionDisabled"]
+    if data.get("artifactIdentifier") is not None:
+        out["artifact_identifier"] = data["artifactIdentifier"]
+    if data.get("bucketOwnerAccess") is not None:
+        import capo_codebuild.types.bucket_owner_access
+
+        out["bucket_owner_access"] = (
+            capo_codebuild.types.bucket_owner_access.deserialize_cbor(
+                data["bucketOwnerAccess"]
+            )
+        )
+    return out

@@ -103,3 +103,78 @@ def deserialize_aws_json_1_1(data: dict) -> OnDeviceServiceConfiguration:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: OnDeviceServiceConfiguration) -> dict:
+    out: dict = {}
+    if "nfs_on_device_service" in value:
+        import capo_snowball.types.nfs_on_device_service_configuration
+
+        out["NFSOnDeviceService"] = (
+            capo_snowball.types.nfs_on_device_service_configuration.serialize_cbor(
+                value["nfs_on_device_service"]
+            )
+        )
+    if "tgw_on_device_service" in value:
+        import capo_snowball.types.tgw_on_device_service_configuration
+
+        out["TGWOnDeviceService"] = (
+            capo_snowball.types.tgw_on_device_service_configuration.serialize_cbor(
+                value["tgw_on_device_service"]
+            )
+        )
+    if "eks_on_device_service" in value:
+        import capo_snowball.types.eks_on_device_service_configuration
+
+        out["EKSOnDeviceService"] = (
+            capo_snowball.types.eks_on_device_service_configuration.serialize_cbor(
+                value["eks_on_device_service"]
+            )
+        )
+    if "s3_on_device_service" in value:
+        import capo_snowball.types.s3_on_device_service_configuration
+
+        out["S3OnDeviceService"] = (
+            capo_snowball.types.s3_on_device_service_configuration.serialize_cbor(
+                value["s3_on_device_service"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> OnDeviceServiceConfiguration:
+    out: OnDeviceServiceConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("NFSOnDeviceService") is not None:
+        import capo_snowball.types.nfs_on_device_service_configuration
+
+        out["nfs_on_device_service"] = (
+            capo_snowball.types.nfs_on_device_service_configuration.deserialize_cbor(
+                data["NFSOnDeviceService"]
+            )
+        )
+    if data.get("TGWOnDeviceService") is not None:
+        import capo_snowball.types.tgw_on_device_service_configuration
+
+        out["tgw_on_device_service"] = (
+            capo_snowball.types.tgw_on_device_service_configuration.deserialize_cbor(
+                data["TGWOnDeviceService"]
+            )
+        )
+    if data.get("EKSOnDeviceService") is not None:
+        import capo_snowball.types.eks_on_device_service_configuration
+
+        out["eks_on_device_service"] = (
+            capo_snowball.types.eks_on_device_service_configuration.deserialize_cbor(
+                data["EKSOnDeviceService"]
+            )
+        )
+    if data.get("S3OnDeviceService") is not None:
+        import capo_snowball.types.s3_on_device_service_configuration
+
+        out["s3_on_device_service"] = (
+            capo_snowball.types.s3_on_device_service_configuration.deserialize_cbor(
+                data["S3OnDeviceService"]
+            )
+        )
+    return out

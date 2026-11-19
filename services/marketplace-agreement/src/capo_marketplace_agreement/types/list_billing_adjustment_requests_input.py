@@ -116,3 +116,80 @@ def deserialize_aws_json_1_0(data: dict) -> ListBillingAdjustmentRequestsInput:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListBillingAdjustmentRequestsInput) -> dict:
+    out: dict = {}
+    if "agreement_id" in value:
+        out["agreementId"] = value["agreement_id"]
+    if "status" in value:
+        import capo_marketplace_agreement.types.billing_adjustment_status
+
+        out["status"] = (
+            capo_marketplace_agreement.types.billing_adjustment_status.serialize_cbor(
+                value["status"]
+            )
+        )
+    if "created_after" in value:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["createdAfter"] = capo_marketplace_agreement.types.timestamp.serialize_cbor(
+            value["created_after"]
+        )
+    if "created_before" in value:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["createdBefore"] = (
+            capo_marketplace_agreement.types.timestamp.serialize_cbor(
+                value["created_before"]
+            )
+        )
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    if "catalog" in value:
+        out["catalog"] = value["catalog"]
+    if "agreement_type" in value:
+        out["agreementType"] = value["agreement_type"]
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListBillingAdjustmentRequestsInput:
+    out: ListBillingAdjustmentRequestsInput = {}  # type: ignore[typeddict-item]
+    if data.get("agreementId") is not None:
+        out["agreement_id"] = data["agreementId"]
+    if data.get("status") is not None:
+        import capo_marketplace_agreement.types.billing_adjustment_status
+
+        out["status"] = (
+            capo_marketplace_agreement.types.billing_adjustment_status.deserialize_cbor(
+                data["status"]
+            )
+        )
+    if data.get("createdAfter") is not None:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["created_after"] = (
+            capo_marketplace_agreement.types.timestamp.deserialize_cbor(
+                data["createdAfter"]
+            )
+        )
+    if data.get("createdBefore") is not None:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["created_before"] = (
+            capo_marketplace_agreement.types.timestamp.deserialize_cbor(
+                data["createdBefore"]
+            )
+        )
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    if data.get("catalog") is not None:
+        out["catalog"] = data["catalog"]
+    if data.get("agreementType") is not None:
+        out["agreement_type"] = data["agreementType"]
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

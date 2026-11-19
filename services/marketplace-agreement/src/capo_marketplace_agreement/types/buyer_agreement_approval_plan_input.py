@@ -38,6 +38,26 @@ def deserialize_aws_json_1_0(data: dict) -> BuyerAgreementApprovalPlanInput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BuyerAgreementApprovalPlanInput) -> dict:
+    out: dict = {}
+    out["planReference"] = value["plan_reference"]
+    if "requester_note" in value:
+        out["requesterNote"] = value["requester_note"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> BuyerAgreementApprovalPlanInput:
+    out: BuyerAgreementApprovalPlanInput = {}  # type: ignore[typeddict-item]
+    if data.get("planReference") is not None:
+        out["plan_reference"] = data["planReference"]
+    else:
+        out["plan_reference"] = ""
+    if data.get("requesterNote") is not None:
+        out["requester_note"] = data["requesterNote"]
+    return out
+
+
 def redact_sensitive(value: BuyerAgreementApprovalPlanInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "requester_note" in value:

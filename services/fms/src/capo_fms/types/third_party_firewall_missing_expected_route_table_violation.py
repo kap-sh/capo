@@ -58,3 +58,36 @@ def deserialize_aws_json_1_1(
     if data.get("ExpectedRouteTable") is not None:
         out["expected_route_table"] = data["ExpectedRouteTable"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ThirdPartyFirewallMissingExpectedRouteTableViolation) -> dict:
+    out: dict = {}
+    if "violation_target" in value:
+        out["ViolationTarget"] = value["violation_target"]
+    if "vpc" in value:
+        out["VPC"] = value["vpc"]
+    if "availability_zone" in value:
+        out["AvailabilityZone"] = value["availability_zone"]
+    if "current_route_table" in value:
+        out["CurrentRouteTable"] = value["current_route_table"]
+    if "expected_route_table" in value:
+        out["ExpectedRouteTable"] = value["expected_route_table"]
+    return out
+
+
+def deserialize_cbor(
+    data: dict,
+) -> ThirdPartyFirewallMissingExpectedRouteTableViolation:
+    out: ThirdPartyFirewallMissingExpectedRouteTableViolation = {}  # type: ignore[typeddict-item]
+    if data.get("ViolationTarget") is not None:
+        out["violation_target"] = data["ViolationTarget"]
+    if data.get("VPC") is not None:
+        out["vpc"] = data["VPC"]
+    if data.get("AvailabilityZone") is not None:
+        out["availability_zone"] = data["AvailabilityZone"]
+    if data.get("CurrentRouteTable") is not None:
+        out["current_route_table"] = data["CurrentRouteTable"]
+    if data.get("ExpectedRouteTable") is not None:
+        out["expected_route_table"] = data["ExpectedRouteTable"]
+    return out

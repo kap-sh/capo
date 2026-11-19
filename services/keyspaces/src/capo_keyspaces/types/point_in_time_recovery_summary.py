@@ -50,3 +50,35 @@ def deserialize_aws_json_1_0(data: dict) -> PointInTimeRecoverySummary:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PointInTimeRecoverySummary) -> dict:
+    out: dict = {}
+    out["status"] = value["status"]
+    if "earliest_restorable_timestamp" in value:
+        import capo_keyspaces.types.timestamp
+
+        out["earliestRestorableTimestamp"] = (
+            capo_keyspaces.types.timestamp.serialize_cbor(
+                value["earliest_restorable_timestamp"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PointInTimeRecoverySummary:
+    out: PointInTimeRecoverySummary = {}  # type: ignore[typeddict-item]
+    if data.get("status") is not None:
+        out["status"] = data["status"]
+    else:
+        out["status"] = ""
+    if data.get("earliestRestorableTimestamp") is not None:
+        import capo_keyspaces.types.timestamp
+
+        out["earliest_restorable_timestamp"] = (
+            capo_keyspaces.types.timestamp.deserialize_cbor(
+                data["earliestRestorableTimestamp"]
+            )
+        )
+    return out

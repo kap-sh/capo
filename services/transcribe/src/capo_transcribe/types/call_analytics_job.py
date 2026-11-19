@@ -279,3 +279,186 @@ def deserialize_aws_json_1_1(data: dict) -> CallAnalyticsJob:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CallAnalyticsJob) -> dict:
+    out: dict = {}
+    if "call_analytics_job_name" in value:
+        out["CallAnalyticsJobName"] = value["call_analytics_job_name"]
+    if "call_analytics_job_status" in value:
+        import capo_transcribe.types.call_analytics_job_status
+
+        out["CallAnalyticsJobStatus"] = (
+            capo_transcribe.types.call_analytics_job_status.serialize_cbor(
+                value["call_analytics_job_status"]
+            )
+        )
+    if "call_analytics_job_details" in value:
+        import capo_transcribe.types.call_analytics_job_details
+
+        out["CallAnalyticsJobDetails"] = (
+            capo_transcribe.types.call_analytics_job_details.serialize_cbor(
+                value["call_analytics_job_details"]
+            )
+        )
+    if "language_code" in value:
+        import capo_transcribe.types.language_code
+
+        out["LanguageCode"] = capo_transcribe.types.language_code.serialize_cbor(
+            value["language_code"]
+        )
+    if "media_sample_rate_hertz" in value:
+        out["MediaSampleRateHertz"] = value["media_sample_rate_hertz"]
+    if "media_format" in value:
+        import capo_transcribe.types.media_format
+
+        out["MediaFormat"] = capo_transcribe.types.media_format.serialize_cbor(
+            value["media_format"]
+        )
+    if "media" in value:
+        import capo_transcribe.types.media
+
+        out["Media"] = capo_transcribe.types.media.serialize_cbor(value["media"])
+    if "transcript" in value:
+        import capo_transcribe.types.transcript
+
+        out["Transcript"] = capo_transcribe.types.transcript.serialize_cbor(
+            value["transcript"]
+        )
+    if "start_time" in value:
+        import capo_transcribe.types.date_time
+
+        out["StartTime"] = capo_transcribe.types.date_time.serialize_cbor(
+            value["start_time"]
+        )
+    if "creation_time" in value:
+        import capo_transcribe.types.date_time
+
+        out["CreationTime"] = capo_transcribe.types.date_time.serialize_cbor(
+            value["creation_time"]
+        )
+    if "completion_time" in value:
+        import capo_transcribe.types.date_time
+
+        out["CompletionTime"] = capo_transcribe.types.date_time.serialize_cbor(
+            value["completion_time"]
+        )
+    if "failure_reason" in value:
+        out["FailureReason"] = value["failure_reason"]
+    if "data_access_role_arn" in value:
+        out["DataAccessRoleArn"] = value["data_access_role_arn"]
+    if "identified_language_score" in value:
+        out["IdentifiedLanguageScore"] = value["identified_language_score"]
+    if "settings" in value:
+        import capo_transcribe.types.call_analytics_job_settings
+
+        out["Settings"] = (
+            capo_transcribe.types.call_analytics_job_settings.serialize_cbor(
+                value["settings"]
+            )
+        )
+    if "channel_definitions" in value:
+        import capo_transcribe.types.channel_definitions
+
+        out["ChannelDefinitions"] = (
+            capo_transcribe.types.channel_definitions.serialize_cbor(
+                value["channel_definitions"]
+            )
+        )
+    if "tags" in value:
+        import capo_transcribe.types.tag_list
+
+        out["Tags"] = capo_transcribe.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CallAnalyticsJob:
+    out: CallAnalyticsJob = {}  # type: ignore[typeddict-item]
+    if data.get("CallAnalyticsJobName") is not None:
+        out["call_analytics_job_name"] = data["CallAnalyticsJobName"]
+    if data.get("CallAnalyticsJobStatus") is not None:
+        import capo_transcribe.types.call_analytics_job_status
+
+        out["call_analytics_job_status"] = (
+            capo_transcribe.types.call_analytics_job_status.deserialize_cbor(
+                data["CallAnalyticsJobStatus"]
+            )
+        )
+    if data.get("CallAnalyticsJobDetails") is not None:
+        import capo_transcribe.types.call_analytics_job_details
+
+        out["call_analytics_job_details"] = (
+            capo_transcribe.types.call_analytics_job_details.deserialize_cbor(
+                data["CallAnalyticsJobDetails"]
+            )
+        )
+    if data.get("LanguageCode") is not None:
+        import capo_transcribe.types.language_code
+
+        out["language_code"] = capo_transcribe.types.language_code.deserialize_cbor(
+            data["LanguageCode"]
+        )
+    if data.get("MediaSampleRateHertz") is not None:
+        out["media_sample_rate_hertz"] = data["MediaSampleRateHertz"]
+    if data.get("MediaFormat") is not None:
+        import capo_transcribe.types.media_format
+
+        out["media_format"] = capo_transcribe.types.media_format.deserialize_cbor(
+            data["MediaFormat"]
+        )
+    if data.get("Media") is not None:
+        import capo_transcribe.types.media
+
+        out["media"] = capo_transcribe.types.media.deserialize_cbor(data["Media"])
+    if data.get("Transcript") is not None:
+        import capo_transcribe.types.transcript
+
+        out["transcript"] = capo_transcribe.types.transcript.deserialize_cbor(
+            data["Transcript"]
+        )
+    if data.get("StartTime") is not None:
+        import capo_transcribe.types.date_time
+
+        out["start_time"] = capo_transcribe.types.date_time.deserialize_cbor(
+            data["StartTime"]
+        )
+    if data.get("CreationTime") is not None:
+        import capo_transcribe.types.date_time
+
+        out["creation_time"] = capo_transcribe.types.date_time.deserialize_cbor(
+            data["CreationTime"]
+        )
+    if data.get("CompletionTime") is not None:
+        import capo_transcribe.types.date_time
+
+        out["completion_time"] = capo_transcribe.types.date_time.deserialize_cbor(
+            data["CompletionTime"]
+        )
+    if data.get("FailureReason") is not None:
+        out["failure_reason"] = data["FailureReason"]
+    if data.get("DataAccessRoleArn") is not None:
+        out["data_access_role_arn"] = data["DataAccessRoleArn"]
+    if data.get("IdentifiedLanguageScore") is not None:
+        out["identified_language_score"] = float(data["IdentifiedLanguageScore"])
+    if data.get("Settings") is not None:
+        import capo_transcribe.types.call_analytics_job_settings
+
+        out["settings"] = (
+            capo_transcribe.types.call_analytics_job_settings.deserialize_cbor(
+                data["Settings"]
+            )
+        )
+    if data.get("ChannelDefinitions") is not None:
+        import capo_transcribe.types.channel_definitions
+
+        out["channel_definitions"] = (
+            capo_transcribe.types.channel_definitions.deserialize_cbor(
+                data["ChannelDefinitions"]
+            )
+        )
+    if data.get("Tags") is not None:
+        import capo_transcribe.types.tag_list
+
+        out["tags"] = capo_transcribe.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

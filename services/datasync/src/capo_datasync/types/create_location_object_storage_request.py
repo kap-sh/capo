@@ -208,6 +208,141 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLocationObjectStorageRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateLocationObjectStorageRequest) -> dict:
+    out: dict = {}
+    out["ServerHostname"] = value["server_hostname"]
+    if "server_port" in value:
+        out["ServerPort"] = value["server_port"]
+    if "server_protocol" in value:
+        import capo_datasync.types.object_storage_server_protocol
+
+        out["ServerProtocol"] = (
+            capo_datasync.types.object_storage_server_protocol.serialize_cbor(
+                value["server_protocol"]
+            )
+        )
+    if "subdirectory" in value:
+        out["Subdirectory"] = value["subdirectory"]
+    out["BucketName"] = value["bucket_name"]
+    if "access_key" in value:
+        out["AccessKey"] = value["access_key"]
+    if "secret_key" in value:
+        out["SecretKey"] = value["secret_key"]
+    if "federated_identity" in value:
+        import capo_datasync.types.object_storage_federated_identity_config
+
+        out["FederatedIdentity"] = (
+            capo_datasync.types.object_storage_federated_identity_config.serialize_cbor(
+                value["federated_identity"]
+            )
+        )
+    if "agent_arns" in value:
+        import capo_datasync.types.agent_arn_list
+
+        out["AgentArns"] = capo_datasync.types.agent_arn_list.serialize_cbor(
+            value["agent_arns"]
+        )
+    if "tags" in value:
+        import capo_datasync.types.input_tag_list
+
+        out["Tags"] = capo_datasync.types.input_tag_list.serialize_cbor(value["tags"])
+    if "server_certificate" in value:
+        import capo_datasync.types.object_storage_certificate
+
+        out["ServerCertificate"] = (
+            capo_datasync.types.object_storage_certificate.serialize_cbor(
+                value["server_certificate"]
+            )
+        )
+    if "cmk_secret_config" in value:
+        import capo_datasync.types.cmk_secret_config
+
+        out["CmkSecretConfig"] = capo_datasync.types.cmk_secret_config.serialize_cbor(
+            value["cmk_secret_config"]
+        )
+    if "custom_secret_config" in value:
+        import capo_datasync.types.custom_secret_config
+
+        out["CustomSecretConfig"] = (
+            capo_datasync.types.custom_secret_config.serialize_cbor(
+                value["custom_secret_config"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateLocationObjectStorageRequest:
+    out: CreateLocationObjectStorageRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ServerHostname") is not None:
+        out["server_hostname"] = data["ServerHostname"]
+    else:
+        out["server_hostname"] = ""
+    if data.get("ServerPort") is not None:
+        out["server_port"] = data["ServerPort"]
+    if data.get("ServerProtocol") is not None:
+        import capo_datasync.types.object_storage_server_protocol
+
+        out["server_protocol"] = (
+            capo_datasync.types.object_storage_server_protocol.deserialize_cbor(
+                data["ServerProtocol"]
+            )
+        )
+    if data.get("Subdirectory") is not None:
+        out["subdirectory"] = data["Subdirectory"]
+    if data.get("BucketName") is not None:
+        out["bucket_name"] = data["BucketName"]
+    else:
+        out["bucket_name"] = ""
+    if data.get("AccessKey") is not None:
+        out["access_key"] = data["AccessKey"]
+    if data.get("SecretKey") is not None:
+        out["secret_key"] = data["SecretKey"]
+    if data.get("FederatedIdentity") is not None:
+        import capo_datasync.types.object_storage_federated_identity_config
+
+        out["federated_identity"] = (
+            capo_datasync.types.object_storage_federated_identity_config.deserialize_cbor(
+                data["FederatedIdentity"]
+            )
+        )
+    if data.get("AgentArns") is not None:
+        import capo_datasync.types.agent_arn_list
+
+        out["agent_arns"] = capo_datasync.types.agent_arn_list.deserialize_cbor(
+            data["AgentArns"]
+        )
+    if data.get("Tags") is not None:
+        import capo_datasync.types.input_tag_list
+
+        out["tags"] = capo_datasync.types.input_tag_list.deserialize_cbor(data["Tags"])
+    if data.get("ServerCertificate") is not None:
+        import capo_datasync.types.object_storage_certificate
+
+        out["server_certificate"] = (
+            capo_datasync.types.object_storage_certificate.deserialize_cbor(
+                data["ServerCertificate"]
+            )
+        )
+    if data.get("CmkSecretConfig") is not None:
+        import capo_datasync.types.cmk_secret_config
+
+        out["cmk_secret_config"] = (
+            capo_datasync.types.cmk_secret_config.deserialize_cbor(
+                data["CmkSecretConfig"]
+            )
+        )
+    if data.get("CustomSecretConfig") is not None:
+        import capo_datasync.types.custom_secret_config
+
+        out["custom_secret_config"] = (
+            capo_datasync.types.custom_secret_config.deserialize_cbor(
+                data["CustomSecretConfig"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: CreateLocationObjectStorageRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "secret_key" in value:

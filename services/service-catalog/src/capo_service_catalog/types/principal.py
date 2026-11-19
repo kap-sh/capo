@@ -47,3 +47,32 @@ def deserialize_aws_json_1_1(data: dict) -> Principal:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Principal) -> dict:
+    out: dict = {}
+    if "principal_arn" in value:
+        out["PrincipalARN"] = value["principal_arn"]
+    if "principal_type" in value:
+        import capo_service_catalog.types.principal_type
+
+        out["PrincipalType"] = capo_service_catalog.types.principal_type.serialize_cbor(
+            value["principal_type"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Principal:
+    out: Principal = {}  # type: ignore[typeddict-item]
+    if data.get("PrincipalARN") is not None:
+        out["principal_arn"] = data["PrincipalARN"]
+    if data.get("PrincipalType") is not None:
+        import capo_service_catalog.types.principal_type
+
+        out["principal_type"] = (
+            capo_service_catalog.types.principal_type.deserialize_cbor(
+                data["PrincipalType"]
+            )
+        )
+    return out

@@ -21,3 +21,18 @@ def deserialize_aws_json_1_0(data: dict) -> Entitlement:
     if data.get("licenseArn") is not None:
         out["license_arn"] = data["licenseArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Entitlement) -> dict:
+    out: dict = {}
+    if "license_arn" in value:
+        out["licenseArn"] = value["license_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Entitlement:
+    out: Entitlement = {}  # type: ignore[typeddict-item]
+    if data.get("licenseArn") is not None:
+        out["license_arn"] = data["licenseArn"]
+    return out

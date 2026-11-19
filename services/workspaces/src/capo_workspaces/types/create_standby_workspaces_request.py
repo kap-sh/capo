@@ -49,3 +49,36 @@ def deserialize_aws_json_1_1(data: dict) -> CreateStandbyWorkspacesRequest:
     else:
         out["standby_workspaces"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateStandbyWorkspacesRequest) -> dict:
+    out: dict = {}
+    out["PrimaryRegion"] = value["primary_region"]
+    import capo_workspaces.types.standby_workspaces_list
+
+    out["StandbyWorkspaces"] = (
+        capo_workspaces.types.standby_workspaces_list.serialize_cbor(
+            value["standby_workspaces"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateStandbyWorkspacesRequest:
+    out: CreateStandbyWorkspacesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("PrimaryRegion") is not None:
+        out["primary_region"] = data["PrimaryRegion"]
+    else:
+        out["primary_region"] = ""
+    if data.get("StandbyWorkspaces") is not None:
+        import capo_workspaces.types.standby_workspaces_list
+
+        out["standby_workspaces"] = (
+            capo_workspaces.types.standby_workspaces_list.deserialize_cbor(
+                data["StandbyWorkspaces"]
+            )
+        )
+    else:
+        out["standby_workspaces"] = []
+    return out

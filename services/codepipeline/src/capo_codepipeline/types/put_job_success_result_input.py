@@ -99,3 +99,71 @@ def deserialize_aws_json_1_1(data: dict) -> PutJobSuccessResultInput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PutJobSuccessResultInput) -> dict:
+    out: dict = {}
+    out["jobId"] = value["job_id"]
+    if "current_revision" in value:
+        import capo_codepipeline.types.current_revision
+
+        out["currentRevision"] = (
+            capo_codepipeline.types.current_revision.serialize_cbor(
+                value["current_revision"]
+            )
+        )
+    if "continuation_token" in value:
+        out["continuationToken"] = value["continuation_token"]
+    if "execution_details" in value:
+        import capo_codepipeline.types.execution_details
+
+        out["executionDetails"] = (
+            capo_codepipeline.types.execution_details.serialize_cbor(
+                value["execution_details"]
+            )
+        )
+    if "output_variables" in value:
+        import capo_codepipeline.types.output_variables_map
+
+        out["outputVariables"] = (
+            capo_codepipeline.types.output_variables_map.serialize_cbor(
+                value["output_variables"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PutJobSuccessResultInput:
+    out: PutJobSuccessResultInput = {}  # type: ignore[typeddict-item]
+    if data.get("jobId") is not None:
+        out["job_id"] = data["jobId"]
+    else:
+        out["job_id"] = ""
+    if data.get("currentRevision") is not None:
+        import capo_codepipeline.types.current_revision
+
+        out["current_revision"] = (
+            capo_codepipeline.types.current_revision.deserialize_cbor(
+                data["currentRevision"]
+            )
+        )
+    if data.get("continuationToken") is not None:
+        out["continuation_token"] = data["continuationToken"]
+    if data.get("executionDetails") is not None:
+        import capo_codepipeline.types.execution_details
+
+        out["execution_details"] = (
+            capo_codepipeline.types.execution_details.deserialize_cbor(
+                data["executionDetails"]
+            )
+        )
+    if data.get("outputVariables") is not None:
+        import capo_codepipeline.types.output_variables_map
+
+        out["output_variables"] = (
+            capo_codepipeline.types.output_variables_map.deserialize_cbor(
+                data["outputVariables"]
+            )
+        )
+    return out

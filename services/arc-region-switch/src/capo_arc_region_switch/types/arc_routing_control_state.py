@@ -54,3 +54,41 @@ def deserialize_aws_json_1_0(data: dict) -> ArcRoutingControlState:
             "",
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ArcRoutingControlState) -> dict:
+    out: dict = {}
+    out["routingControlArn"] = value["routing_control_arn"]
+    import capo_arc_region_switch.types.routing_control_state_change
+
+    out["state"] = (
+        capo_arc_region_switch.types.routing_control_state_change.serialize_cbor(
+            value["state"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ArcRoutingControlState:
+    out: ArcRoutingControlState = {}  # type: ignore[typeddict-item]
+    if data.get("routingControlArn") is not None:
+        out["routing_control_arn"] = data["routingControlArn"]
+    else:
+        out["routing_control_arn"] = ""
+    if data.get("state") is not None:
+        import capo_arc_region_switch.types.routing_control_state_change
+
+        out["state"] = (
+            capo_arc_region_switch.types.routing_control_state_change.deserialize_cbor(
+                data["state"]
+            )
+        )
+    else:
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_arc_region_switch.types.routing_control_state_change.RoutingControlStateChange",
+            "",
+        )
+    return out

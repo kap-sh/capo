@@ -39,6 +39,35 @@ def deserialize_aws_json_1_0(data: list) -> BuyerAgreementApprovalGroups:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BuyerAgreementApprovalGroups) -> list:
+    import capo_marketplace_agreement.types.buyer_agreement_approval_group
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_marketplace_agreement.types.buyer_agreement_approval_group.serialize_cbor(
+                item
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> BuyerAgreementApprovalGroups:
+    import capo_marketplace_agreement.types.buyer_agreement_approval_group
+
+    out: BuyerAgreementApprovalGroups = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_marketplace_agreement.types.buyer_agreement_approval_group.deserialize_cbor(
+                item
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: BuyerAgreementApprovalGroups) -> list[Any]:
     import capo_marketplace_agreement.types.buyer_agreement_approval_group
 

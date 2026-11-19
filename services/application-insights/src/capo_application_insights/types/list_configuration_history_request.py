@@ -110,3 +110,70 @@ def deserialize_aws_json_1_1(data: dict) -> ListConfigurationHistoryRequest:
     if data.get("AccountId") is not None:
         out["account_id"] = data["AccountId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListConfigurationHistoryRequest) -> dict:
+    out: dict = {}
+    if "resource_group_name" in value:
+        out["ResourceGroupName"] = value["resource_group_name"]
+    if "start_time" in value:
+        import capo_application_insights.types.start_time
+
+        out["StartTime"] = capo_application_insights.types.start_time.serialize_cbor(
+            value["start_time"]
+        )
+    if "end_time" in value:
+        import capo_application_insights.types.end_time
+
+        out["EndTime"] = capo_application_insights.types.end_time.serialize_cbor(
+            value["end_time"]
+        )
+    if "event_status" in value:
+        import capo_application_insights.types.configuration_event_status
+
+        out["EventStatus"] = (
+            capo_application_insights.types.configuration_event_status.serialize_cbor(
+                value["event_status"]
+            )
+        )
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "account_id" in value:
+        out["AccountId"] = value["account_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListConfigurationHistoryRequest:
+    out: ListConfigurationHistoryRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceGroupName") is not None:
+        out["resource_group_name"] = data["ResourceGroupName"]
+    if data.get("StartTime") is not None:
+        import capo_application_insights.types.start_time
+
+        out["start_time"] = capo_application_insights.types.start_time.deserialize_cbor(
+            data["StartTime"]
+        )
+    if data.get("EndTime") is not None:
+        import capo_application_insights.types.end_time
+
+        out["end_time"] = capo_application_insights.types.end_time.deserialize_cbor(
+            data["EndTime"]
+        )
+    if data.get("EventStatus") is not None:
+        import capo_application_insights.types.configuration_event_status
+
+        out["event_status"] = (
+            capo_application_insights.types.configuration_event_status.deserialize_cbor(
+                data["EventStatus"]
+            )
+        )
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("AccountId") is not None:
+        out["account_id"] = data["AccountId"]
+    return out

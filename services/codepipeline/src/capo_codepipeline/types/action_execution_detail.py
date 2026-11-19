@@ -163,3 +163,102 @@ def deserialize_aws_json_1_1(data: dict) -> ActionExecutionDetail:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ActionExecutionDetail) -> dict:
+    out: dict = {}
+    if "pipeline_execution_id" in value:
+        out["pipelineExecutionId"] = value["pipeline_execution_id"]
+    if "action_execution_id" in value:
+        out["actionExecutionId"] = value["action_execution_id"]
+    if "pipeline_version" in value:
+        out["pipelineVersion"] = value["pipeline_version"]
+    if "stage_name" in value:
+        out["stageName"] = value["stage_name"]
+    if "action_name" in value:
+        out["actionName"] = value["action_name"]
+    if "start_time" in value:
+        import capo_codepipeline.types.timestamp
+
+        out["startTime"] = capo_codepipeline.types.timestamp.serialize_cbor(
+            value["start_time"]
+        )
+    if "last_update_time" in value:
+        import capo_codepipeline.types.timestamp
+
+        out["lastUpdateTime"] = capo_codepipeline.types.timestamp.serialize_cbor(
+            value["last_update_time"]
+        )
+    if "updated_by" in value:
+        out["updatedBy"] = value["updated_by"]
+    if "status" in value:
+        import capo_codepipeline.types.action_execution_status
+
+        out["status"] = capo_codepipeline.types.action_execution_status.serialize_cbor(
+            value["status"]
+        )
+    if "input" in value:
+        import capo_codepipeline.types.action_execution_input
+
+        out["input"] = capo_codepipeline.types.action_execution_input.serialize_cbor(
+            value["input"]
+        )
+    if "output" in value:
+        import capo_codepipeline.types.action_execution_output
+
+        out["output"] = capo_codepipeline.types.action_execution_output.serialize_cbor(
+            value["output"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ActionExecutionDetail:
+    out: ActionExecutionDetail = {}  # type: ignore[typeddict-item]
+    if data.get("pipelineExecutionId") is not None:
+        out["pipeline_execution_id"] = data["pipelineExecutionId"]
+    if data.get("actionExecutionId") is not None:
+        out["action_execution_id"] = data["actionExecutionId"]
+    if data.get("pipelineVersion") is not None:
+        out["pipeline_version"] = data["pipelineVersion"]
+    if data.get("stageName") is not None:
+        out["stage_name"] = data["stageName"]
+    if data.get("actionName") is not None:
+        out["action_name"] = data["actionName"]
+    if data.get("startTime") is not None:
+        import capo_codepipeline.types.timestamp
+
+        out["start_time"] = capo_codepipeline.types.timestamp.deserialize_cbor(
+            data["startTime"]
+        )
+    if data.get("lastUpdateTime") is not None:
+        import capo_codepipeline.types.timestamp
+
+        out["last_update_time"] = capo_codepipeline.types.timestamp.deserialize_cbor(
+            data["lastUpdateTime"]
+        )
+    if data.get("updatedBy") is not None:
+        out["updated_by"] = data["updatedBy"]
+    if data.get("status") is not None:
+        import capo_codepipeline.types.action_execution_status
+
+        out["status"] = (
+            capo_codepipeline.types.action_execution_status.deserialize_cbor(
+                data["status"]
+            )
+        )
+    if data.get("input") is not None:
+        import capo_codepipeline.types.action_execution_input
+
+        out["input"] = capo_codepipeline.types.action_execution_input.deserialize_cbor(
+            data["input"]
+        )
+    if data.get("output") is not None:
+        import capo_codepipeline.types.action_execution_output
+
+        out["output"] = (
+            capo_codepipeline.types.action_execution_output.deserialize_cbor(
+                data["output"]
+            )
+        )
+    return out

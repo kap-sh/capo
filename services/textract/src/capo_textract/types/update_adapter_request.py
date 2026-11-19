@@ -58,3 +58,39 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateAdapterRequest:
             data["AutoUpdate"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateAdapterRequest) -> dict:
+    out: dict = {}
+    out["AdapterId"] = value["adapter_id"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "adapter_name" in value:
+        out["AdapterName"] = value["adapter_name"]
+    if "auto_update" in value:
+        import capo_textract.types.auto_update
+
+        out["AutoUpdate"] = capo_textract.types.auto_update.serialize_cbor(
+            value["auto_update"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateAdapterRequest:
+    out: UpdateAdapterRequest = {}  # type: ignore[typeddict-item]
+    if data.get("AdapterId") is not None:
+        out["adapter_id"] = data["AdapterId"]
+    else:
+        out["adapter_id"] = ""
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("AdapterName") is not None:
+        out["adapter_name"] = data["AdapterName"]
+    if data.get("AutoUpdate") is not None:
+        import capo_textract.types.auto_update
+
+        out["auto_update"] = capo_textract.types.auto_update.deserialize_cbor(
+            data["AutoUpdate"]
+        )
+    return out

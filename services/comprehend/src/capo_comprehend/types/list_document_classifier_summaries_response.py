@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> ListDocumentClassifierSummariesRespo
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListDocumentClassifierSummariesResponse) -> dict:
+    out: dict = {}
+    if "document_classifier_summaries_list" in value:
+        import capo_comprehend.types.document_classifier_summaries_list
+
+        out["DocumentClassifierSummariesList"] = (
+            capo_comprehend.types.document_classifier_summaries_list.serialize_cbor(
+                value["document_classifier_summaries_list"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListDocumentClassifierSummariesResponse:
+    out: ListDocumentClassifierSummariesResponse = {}  # type: ignore[typeddict-item]
+    if data.get("DocumentClassifierSummariesList") is not None:
+        import capo_comprehend.types.document_classifier_summaries_list
+
+        out["document_classifier_summaries_list"] = (
+            capo_comprehend.types.document_classifier_summaries_list.deserialize_cbor(
+                data["DocumentClassifierSummariesList"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

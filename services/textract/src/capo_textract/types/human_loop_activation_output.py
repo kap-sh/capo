@@ -60,3 +60,42 @@ def deserialize_aws_json_1_1(data: dict) -> HumanLoopActivationOutput:
             "HumanLoopActivationConditionsEvaluationResults"
         ]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: HumanLoopActivationOutput) -> dict:
+    out: dict = {}
+    if "human_loop_arn" in value:
+        out["HumanLoopArn"] = value["human_loop_arn"]
+    if "human_loop_activation_reasons" in value:
+        import capo_textract.types.human_loop_activation_reasons
+
+        out["HumanLoopActivationReasons"] = (
+            capo_textract.types.human_loop_activation_reasons.serialize_cbor(
+                value["human_loop_activation_reasons"]
+            )
+        )
+    if "human_loop_activation_conditions_evaluation_results" in value:
+        out["HumanLoopActivationConditionsEvaluationResults"] = value[
+            "human_loop_activation_conditions_evaluation_results"
+        ]
+    return out
+
+
+def deserialize_cbor(data: dict) -> HumanLoopActivationOutput:
+    out: HumanLoopActivationOutput = {}  # type: ignore[typeddict-item]
+    if data.get("HumanLoopArn") is not None:
+        out["human_loop_arn"] = data["HumanLoopArn"]
+    if data.get("HumanLoopActivationReasons") is not None:
+        import capo_textract.types.human_loop_activation_reasons
+
+        out["human_loop_activation_reasons"] = (
+            capo_textract.types.human_loop_activation_reasons.deserialize_cbor(
+                data["HumanLoopActivationReasons"]
+            )
+        )
+    if data.get("HumanLoopActivationConditionsEvaluationResults") is not None:
+        out["human_loop_activation_conditions_evaluation_results"] = data[
+            "HumanLoopActivationConditionsEvaluationResults"
+        ]
+    return out

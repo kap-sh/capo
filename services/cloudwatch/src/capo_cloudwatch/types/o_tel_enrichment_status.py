@@ -37,3 +37,12 @@ def serialize_query(
 
 def deserialize_query(el: Element) -> OTelEnrichmentStatus:
     return from_query_text(el.text or "")
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: OTelEnrichmentStatus) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> OTelEnrichmentStatus:
+    return cast(OTelEnrichmentStatus, data)

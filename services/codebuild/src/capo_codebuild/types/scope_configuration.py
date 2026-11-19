@@ -53,3 +53,40 @@ def deserialize_aws_json_1_1(data: dict) -> ScopeConfiguration:
             "capo_codebuild.types.webhook_scope_type.WebhookScopeType", ""
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ScopeConfiguration) -> dict:
+    out: dict = {}
+    out["name"] = value["name"]
+    if "domain" in value:
+        out["domain"] = value["domain"]
+    import capo_codebuild.types.webhook_scope_type
+
+    out["scope"] = capo_codebuild.types.webhook_scope_type.serialize_cbor(
+        value["scope"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ScopeConfiguration:
+    out: ScopeConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    else:
+        out["name"] = ""
+    if data.get("domain") is not None:
+        out["domain"] = data["domain"]
+    if data.get("scope") is not None:
+        import capo_codebuild.types.webhook_scope_type
+
+        out["scope"] = capo_codebuild.types.webhook_scope_type.deserialize_cbor(
+            data["scope"]
+        )
+    else:
+        import typing
+
+        out["scope"] = typing.cast(
+            "capo_codebuild.types.webhook_scope_type.WebhookScopeType", ""
+        )
+    return out

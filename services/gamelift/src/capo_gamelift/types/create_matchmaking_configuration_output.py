@@ -42,6 +42,33 @@ def deserialize_aws_json_1_1(data: dict) -> CreateMatchmakingConfigurationOutput
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateMatchmakingConfigurationOutput) -> dict:
+    out: dict = {}
+    if "configuration" in value:
+        import capo_gamelift.types.matchmaking_configuration
+
+        out["Configuration"] = (
+            capo_gamelift.types.matchmaking_configuration.serialize_cbor(
+                value["configuration"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateMatchmakingConfigurationOutput:
+    out: CreateMatchmakingConfigurationOutput = {}  # type: ignore[typeddict-item]
+    if data.get("Configuration") is not None:
+        import capo_gamelift.types.matchmaking_configuration
+
+        out["configuration"] = (
+            capo_gamelift.types.matchmaking_configuration.deserialize_cbor(
+                data["Configuration"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: CreateMatchmakingConfigurationOutput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "configuration" in value:

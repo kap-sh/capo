@@ -41,3 +41,27 @@ def deserialize_aws_json_1_1(data: dict) -> GetLendingAnalysisRequest:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetLendingAnalysisRequest) -> dict:
+    out: dict = {}
+    out["JobId"] = value["job_id"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetLendingAnalysisRequest:
+    out: GetLendingAnalysisRequest = {}  # type: ignore[typeddict-item]
+    if data.get("JobId") is not None:
+        out["job_id"] = data["JobId"]
+    else:
+        out["job_id"] = ""
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

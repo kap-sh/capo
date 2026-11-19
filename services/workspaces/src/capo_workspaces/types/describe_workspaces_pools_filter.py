@@ -89,3 +89,75 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeWorkspacesPoolsFilter:
             "",
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeWorkspacesPoolsFilter) -> dict:
+    out: dict = {}
+    import capo_workspaces.types.describe_workspaces_pools_filter_name
+
+    out["Name"] = (
+        capo_workspaces.types.describe_workspaces_pools_filter_name.serialize_cbor(
+            value["name"]
+        )
+    )
+    import capo_workspaces.types.describe_workspaces_pools_filter_values
+
+    out["Values"] = (
+        capo_workspaces.types.describe_workspaces_pools_filter_values.serialize_cbor(
+            value["values"]
+        )
+    )
+    import capo_workspaces.types.describe_workspaces_pools_filter_operator
+
+    out["Operator"] = (
+        capo_workspaces.types.describe_workspaces_pools_filter_operator.serialize_cbor(
+            value["operator"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeWorkspacesPoolsFilter:
+    out: DescribeWorkspacesPoolsFilter = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        import capo_workspaces.types.describe_workspaces_pools_filter_name
+
+        out["name"] = (
+            capo_workspaces.types.describe_workspaces_pools_filter_name.deserialize_cbor(
+                data["Name"]
+            )
+        )
+    else:
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_workspaces.types.describe_workspaces_pools_filter_name.DescribeWorkspacesPoolsFilterName",
+            "",
+        )
+    if data.get("Values") is not None:
+        import capo_workspaces.types.describe_workspaces_pools_filter_values
+
+        out["values"] = (
+            capo_workspaces.types.describe_workspaces_pools_filter_values.deserialize_cbor(
+                data["Values"]
+            )
+        )
+    else:
+        out["values"] = []
+    if data.get("Operator") is not None:
+        import capo_workspaces.types.describe_workspaces_pools_filter_operator
+
+        out["operator"] = (
+            capo_workspaces.types.describe_workspaces_pools_filter_operator.deserialize_cbor(
+                data["Operator"]
+            )
+        )
+    else:
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_workspaces.types.describe_workspaces_pools_filter_operator.DescribeWorkspacesPoolsFilterOperator",
+            "",
+        )
+    return out

@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeVpcPeeringAuthorizationsOutp
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeVpcPeeringAuthorizationsOutput) -> dict:
+    out: dict = {}
+    if "vpc_peering_authorizations" in value:
+        import capo_gamelift.types.vpc_peering_authorization_list
+
+        out["VpcPeeringAuthorizations"] = (
+            capo_gamelift.types.vpc_peering_authorization_list.serialize_cbor(
+                value["vpc_peering_authorizations"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeVpcPeeringAuthorizationsOutput:
+    out: DescribeVpcPeeringAuthorizationsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("VpcPeeringAuthorizations") is not None:
+        import capo_gamelift.types.vpc_peering_authorization_list
+
+        out["vpc_peering_authorizations"] = (
+            capo_gamelift.types.vpc_peering_authorization_list.deserialize_cbor(
+                data["VpcPeeringAuthorizations"]
+            )
+        )
+    return out

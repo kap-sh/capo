@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateWorkspaceApplicationResult:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AssociateWorkspaceApplicationResult) -> dict:
+    out: dict = {}
+    if "association" in value:
+        import capo_workspaces.types.workspace_resource_association
+
+        out["Association"] = (
+            capo_workspaces.types.workspace_resource_association.serialize_cbor(
+                value["association"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AssociateWorkspaceApplicationResult:
+    out: AssociateWorkspaceApplicationResult = {}  # type: ignore[typeddict-item]
+    if data.get("Association") is not None:
+        import capo_workspaces.types.workspace_resource_association
+
+        out["association"] = (
+            capo_workspaces.types.workspace_resource_association.deserialize_cbor(
+                data["Association"]
+            )
+        )
+    return out

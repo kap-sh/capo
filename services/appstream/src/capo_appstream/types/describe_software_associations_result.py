@@ -54,3 +54,38 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeSoftwareAssociationsResult:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeSoftwareAssociationsResult) -> dict:
+    out: dict = {}
+    if "associated_resource" in value:
+        out["AssociatedResource"] = value["associated_resource"]
+    if "software_associations" in value:
+        import capo_appstream.types.software_associations_list
+
+        out["SoftwareAssociations"] = (
+            capo_appstream.types.software_associations_list.serialize_cbor(
+                value["software_associations"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeSoftwareAssociationsResult:
+    out: DescribeSoftwareAssociationsResult = {}  # type: ignore[typeddict-item]
+    if data.get("AssociatedResource") is not None:
+        out["associated_resource"] = data["AssociatedResource"]
+    if data.get("SoftwareAssociations") is not None:
+        import capo_appstream.types.software_associations_list
+
+        out["software_associations"] = (
+            capo_appstream.types.software_associations_list.deserialize_cbor(
+                data["SoftwareAssociations"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

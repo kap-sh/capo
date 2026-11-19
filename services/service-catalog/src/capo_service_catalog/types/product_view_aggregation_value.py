@@ -34,3 +34,23 @@ def deserialize_aws_json_1_1(data: dict) -> ProductViewAggregationValue:
     else:
         out["approximate_count"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ProductViewAggregationValue) -> dict:
+    out: dict = {}
+    if "value" in value:
+        out["Value"] = value["value"]
+    out["ApproximateCount"] = value.get("approximate_count", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> ProductViewAggregationValue:
+    out: ProductViewAggregationValue = {}  # type: ignore[typeddict-item]
+    if data.get("Value") is not None:
+        out["value"] = data["Value"]
+    if data.get("ApproximateCount") is not None:
+        out["approximate_count"] = data["ApproximateCount"]
+    else:
+        out["approximate_count"] = 0
+    return out

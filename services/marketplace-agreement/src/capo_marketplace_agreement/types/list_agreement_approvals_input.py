@@ -116,3 +116,84 @@ def deserialize_aws_json_1_0(data: dict) -> ListAgreementApprovalsInput:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListAgreementApprovalsInput) -> dict:
+    out: dict = {}
+    if "catalog" in value:
+        out["catalog"] = value["catalog"]
+    import capo_marketplace_agreement.types.agreement_approval_party_type
+
+    out["partyType"] = (
+        capo_marketplace_agreement.types.agreement_approval_party_type.serialize_cbor(
+            value["party_type"]
+        )
+    )
+    if "agreement_request_id" in value:
+        out["agreementRequestId"] = value["agreement_request_id"]
+    if "approval_type" in value:
+        import capo_marketplace_agreement.types.agreement_approval_type
+
+        out["approvalType"] = (
+            capo_marketplace_agreement.types.agreement_approval_type.serialize_cbor(
+                value["approval_type"]
+            )
+        )
+    if "status" in value:
+        import capo_marketplace_agreement.types.agreement_approval_status
+
+        out["status"] = (
+            capo_marketplace_agreement.types.agreement_approval_status.serialize_cbor(
+                value["status"]
+            )
+        )
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListAgreementApprovalsInput:
+    out: ListAgreementApprovalsInput = {}  # type: ignore[typeddict-item]
+    if data.get("catalog") is not None:
+        out["catalog"] = data["catalog"]
+    if data.get("partyType") is not None:
+        import capo_marketplace_agreement.types.agreement_approval_party_type
+
+        out["party_type"] = (
+            capo_marketplace_agreement.types.agreement_approval_party_type.deserialize_cbor(
+                data["partyType"]
+            )
+        )
+    else:
+        import typing
+
+        out["party_type"] = typing.cast(
+            "capo_marketplace_agreement.types.agreement_approval_party_type.AgreementApprovalPartyType",
+            "",
+        )
+    if data.get("agreementRequestId") is not None:
+        out["agreement_request_id"] = data["agreementRequestId"]
+    if data.get("approvalType") is not None:
+        import capo_marketplace_agreement.types.agreement_approval_type
+
+        out["approval_type"] = (
+            capo_marketplace_agreement.types.agreement_approval_type.deserialize_cbor(
+                data["approvalType"]
+            )
+        )
+    if data.get("status") is not None:
+        import capo_marketplace_agreement.types.agreement_approval_status
+
+        out["status"] = (
+            capo_marketplace_agreement.types.agreement_approval_status.deserialize_cbor(
+                data["status"]
+            )
+        )
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

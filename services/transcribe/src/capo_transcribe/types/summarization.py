@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> Summarization:
     else:
         out["generate_abstractive_summary"] = False
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Summarization) -> dict:
+    out: dict = {}
+    out["GenerateAbstractiveSummary"] = value["generate_abstractive_summary"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Summarization:
+    out: Summarization = {}  # type: ignore[typeddict-item]
+    if data.get("GenerateAbstractiveSummary") is not None:
+        out["generate_abstractive_summary"] = data["GenerateAbstractiveSummary"]
+    else:
+        out["generate_abstractive_summary"] = False
+    return out

@@ -49,3 +49,36 @@ def deserialize_aws_json_1_1(data: dict) -> AccountScope:
     else:
         out["exclude_specified_accounts"] = False
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AccountScope) -> dict:
+    out: dict = {}
+    if "accounts" in value:
+        import capo_fms.types.account_id_list
+
+        out["Accounts"] = capo_fms.types.account_id_list.serialize_cbor(
+            value["accounts"]
+        )
+    out["AllAccountsEnabled"] = value.get("all_accounts_enabled", False)
+    out["ExcludeSpecifiedAccounts"] = value.get("exclude_specified_accounts", False)
+    return out
+
+
+def deserialize_cbor(data: dict) -> AccountScope:
+    out: AccountScope = {}  # type: ignore[typeddict-item]
+    if data.get("Accounts") is not None:
+        import capo_fms.types.account_id_list
+
+        out["accounts"] = capo_fms.types.account_id_list.deserialize_cbor(
+            data["Accounts"]
+        )
+    if data.get("AllAccountsEnabled") is not None:
+        out["all_accounts_enabled"] = data["AllAccountsEnabled"]
+    else:
+        out["all_accounts_enabled"] = False
+    if data.get("ExcludeSpecifiedAccounts") is not None:
+        out["exclude_specified_accounts"] = data["ExcludeSpecifiedAccounts"]
+    else:
+        out["exclude_specified_accounts"] = False
+    return out

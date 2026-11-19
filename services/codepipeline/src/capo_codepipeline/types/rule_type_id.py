@@ -71,3 +71,50 @@ def deserialize_aws_json_1_1(data: dict) -> RuleTypeId:
     if data.get("version") is not None:
         out["version"] = data["version"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RuleTypeId) -> dict:
+    out: dict = {}
+    import capo_codepipeline.types.rule_category
+
+    out["category"] = capo_codepipeline.types.rule_category.serialize_cbor(
+        value["category"]
+    )
+    if "owner" in value:
+        import capo_codepipeline.types.rule_owner
+
+        out["owner"] = capo_codepipeline.types.rule_owner.serialize_cbor(value["owner"])
+    out["provider"] = value["provider"]
+    if "version" in value:
+        out["version"] = value["version"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RuleTypeId:
+    out: RuleTypeId = {}  # type: ignore[typeddict-item]
+    if data.get("category") is not None:
+        import capo_codepipeline.types.rule_category
+
+        out["category"] = capo_codepipeline.types.rule_category.deserialize_cbor(
+            data["category"]
+        )
+    else:
+        import typing
+
+        out["category"] = typing.cast(
+            "capo_codepipeline.types.rule_category.RuleCategory", ""
+        )
+    if data.get("owner") is not None:
+        import capo_codepipeline.types.rule_owner
+
+        out["owner"] = capo_codepipeline.types.rule_owner.deserialize_cbor(
+            data["owner"]
+        )
+    if data.get("provider") is not None:
+        out["provider"] = data["provider"]
+    else:
+        out["provider"] = ""
+    if data.get("version") is not None:
+        out["version"] = data["version"]
+    return out

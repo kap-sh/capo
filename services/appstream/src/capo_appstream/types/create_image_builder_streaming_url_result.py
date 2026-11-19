@@ -43,6 +43,31 @@ def deserialize_aws_json_1_1(data: dict) -> CreateImageBuilderStreamingURLResult
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateImageBuilderStreamingURLResult) -> dict:
+    out: dict = {}
+    if "streaming_url" in value:
+        out["StreamingURL"] = value["streaming_url"]
+    if "expires" in value:
+        import capo_appstream.types.timestamp
+
+        out["Expires"] = capo_appstream.types.timestamp.serialize_cbor(value["expires"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateImageBuilderStreamingURLResult:
+    out: CreateImageBuilderStreamingURLResult = {}  # type: ignore[typeddict-item]
+    if data.get("StreamingURL") is not None:
+        out["streaming_url"] = data["StreamingURL"]
+    if data.get("Expires") is not None:
+        import capo_appstream.types.timestamp
+
+        out["expires"] = capo_appstream.types.timestamp.deserialize_cbor(
+            data["Expires"]
+        )
+    return out
+
+
 def redact_sensitive(value: CreateImageBuilderStreamingURLResult) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "streaming_url" in value:

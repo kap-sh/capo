@@ -33,3 +33,22 @@ def deserialize_aws_json_1_1(data: dict) -> ListLongTermPricingRequest:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListLongTermPricingRequest) -> dict:
+    out: dict = {}
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListLongTermPricingRequest:
+    out: ListLongTermPricingRequest = {}  # type: ignore[typeddict-item]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

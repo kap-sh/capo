@@ -31,3 +31,22 @@ def deserialize_aws_json_1_1(data: dict) -> RetryBuildOutput:
             data["build"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RetryBuildOutput) -> dict:
+    out: dict = {}
+    if "build" in value:
+        import capo_codebuild.types.build
+
+        out["build"] = capo_codebuild.types.build.serialize_cbor(value["build"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> RetryBuildOutput:
+    out: RetryBuildOutput = {}  # type: ignore[typeddict-item]
+    if data.get("build") is not None:
+        import capo_codebuild.types.build
+
+        out["build"] = capo_codebuild.types.build.deserialize_cbor(data["build"])
+    return out

@@ -61,3 +61,44 @@ def deserialize_aws_json_1_1(data: dict) -> PolicyQualifierInfo:
     else:
         raise DeserializationError("PolicyQualifierInfo.qualifier required")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PolicyQualifierInfo) -> dict:
+    out: dict = {}
+    import capo_acm_pca.types.policy_qualifier_id
+
+    out["PolicyQualifierId"] = capo_acm_pca.types.policy_qualifier_id.serialize_cbor(
+        value["policy_qualifier_id"]
+    )
+    import capo_acm_pca.types.qualifier
+
+    out["Qualifier"] = capo_acm_pca.types.qualifier.serialize_cbor(value["qualifier"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> PolicyQualifierInfo:
+    out: PolicyQualifierInfo = {}  # type: ignore[typeddict-item]
+    if data.get("PolicyQualifierId") is not None:
+        import capo_acm_pca.types.policy_qualifier_id
+
+        out["policy_qualifier_id"] = (
+            capo_acm_pca.types.policy_qualifier_id.deserialize_cbor(
+                data["PolicyQualifierId"]
+            )
+        )
+    else:
+        import typing
+
+        out["policy_qualifier_id"] = typing.cast(
+            "capo_acm_pca.types.policy_qualifier_id.PolicyQualifierId", ""
+        )
+    if data.get("Qualifier") is not None:
+        import capo_acm_pca.types.qualifier
+
+        out["qualifier"] = capo_acm_pca.types.qualifier.deserialize_cbor(
+            data["Qualifier"]
+        )
+    else:
+        raise DeserializationError("PolicyQualifierInfo.qualifier required")
+    return out

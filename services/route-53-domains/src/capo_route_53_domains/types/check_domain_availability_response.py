@@ -61,3 +61,42 @@ def deserialize_aws_json_1_1(data: dict) -> CheckDomainAvailabilityResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CheckDomainAvailabilityResponse) -> dict:
+    out: dict = {}
+    if "availability" in value:
+        import capo_route_53_domains.types.domain_availability
+
+        out["Availability"] = (
+            capo_route_53_domains.types.domain_availability.serialize_cbor(
+                value["availability"]
+            )
+        )
+    if "price" in value:
+        import capo_route_53_domains.types.price_with_currency
+
+        out["Price"] = capo_route_53_domains.types.price_with_currency.serialize_cbor(
+            value["price"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CheckDomainAvailabilityResponse:
+    out: CheckDomainAvailabilityResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Availability") is not None:
+        import capo_route_53_domains.types.domain_availability
+
+        out["availability"] = (
+            capo_route_53_domains.types.domain_availability.deserialize_cbor(
+                data["Availability"]
+            )
+        )
+    if data.get("Price") is not None:
+        import capo_route_53_domains.types.price_with_currency
+
+        out["price"] = capo_route_53_domains.types.price_with_currency.deserialize_cbor(
+            data["Price"]
+        )
+    return out

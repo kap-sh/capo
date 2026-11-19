@@ -129,3 +129,88 @@ def deserialize_aws_json_1_0(data: dict) -> CreateContainerAssociationResponse:
     if data.get("UpdateToken") is not None:
         out["update_token"] = data["UpdateToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateContainerAssociationResponse) -> dict:
+    out: dict = {}
+    if "container_association_name" in value:
+        out["ContainerAssociationName"] = value["container_association_name"]
+    if "container_association_arn" in value:
+        out["ContainerAssociationArn"] = value["container_association_arn"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "type" in value:
+        import capo_network_firewall.types.container_monitoring_type
+
+        out["Type"] = (
+            capo_network_firewall.types.container_monitoring_type.serialize_cbor(
+                value["type"]
+            )
+        )
+    if "container_monitoring_configurations" in value:
+        import capo_network_firewall.types.container_monitoring_configurations
+
+        out["ContainerMonitoringConfigurations"] = (
+            capo_network_firewall.types.container_monitoring_configurations.serialize_cbor(
+                value["container_monitoring_configurations"]
+            )
+        )
+    if "status" in value:
+        import capo_network_firewall.types.container_association_status
+
+        out["Status"] = (
+            capo_network_firewall.types.container_association_status.serialize_cbor(
+                value["status"]
+            )
+        )
+    if "tags" in value:
+        import capo_network_firewall.types.tag_list
+
+        out["Tags"] = capo_network_firewall.types.tag_list.serialize_cbor(value["tags"])
+    if "update_token" in value:
+        out["UpdateToken"] = value["update_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateContainerAssociationResponse:
+    out: CreateContainerAssociationResponse = {}  # type: ignore[typeddict-item]
+    if data.get("ContainerAssociationName") is not None:
+        out["container_association_name"] = data["ContainerAssociationName"]
+    if data.get("ContainerAssociationArn") is not None:
+        out["container_association_arn"] = data["ContainerAssociationArn"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("Type") is not None:
+        import capo_network_firewall.types.container_monitoring_type
+
+        out["type"] = (
+            capo_network_firewall.types.container_monitoring_type.deserialize_cbor(
+                data["Type"]
+            )
+        )
+    if data.get("ContainerMonitoringConfigurations") is not None:
+        import capo_network_firewall.types.container_monitoring_configurations
+
+        out["container_monitoring_configurations"] = (
+            capo_network_firewall.types.container_monitoring_configurations.deserialize_cbor(
+                data["ContainerMonitoringConfigurations"]
+            )
+        )
+    if data.get("Status") is not None:
+        import capo_network_firewall.types.container_association_status
+
+        out["status"] = (
+            capo_network_firewall.types.container_association_status.deserialize_cbor(
+                data["Status"]
+            )
+        )
+    if data.get("Tags") is not None:
+        import capo_network_firewall.types.tag_list
+
+        out["tags"] = capo_network_firewall.types.tag_list.deserialize_cbor(
+            data["Tags"]
+        )
+    if data.get("UpdateToken") is not None:
+        out["update_token"] = data["UpdateToken"]
+    return out

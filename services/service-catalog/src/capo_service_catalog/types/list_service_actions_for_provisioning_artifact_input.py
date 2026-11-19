@@ -61,3 +61,36 @@ def deserialize_aws_json_1_1(
     if data.get("AcceptLanguage") is not None:
         out["accept_language"] = data["AcceptLanguage"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListServiceActionsForProvisioningArtifactInput) -> dict:
+    out: dict = {}
+    out["ProductId"] = value["product_id"]
+    out["ProvisioningArtifactId"] = value["provisioning_artifact_id"]
+    if "page_size" in value:
+        out["PageSize"] = value["page_size"]
+    if "page_token" in value:
+        out["PageToken"] = value["page_token"]
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListServiceActionsForProvisioningArtifactInput:
+    out: ListServiceActionsForProvisioningArtifactInput = {}  # type: ignore[typeddict-item]
+    if data.get("ProductId") is not None:
+        out["product_id"] = data["ProductId"]
+    else:
+        out["product_id"] = ""
+    if data.get("ProvisioningArtifactId") is not None:
+        out["provisioning_artifact_id"] = data["ProvisioningArtifactId"]
+    else:
+        out["provisioning_artifact_id"] = ""
+    if data.get("PageSize") is not None:
+        out["page_size"] = data["PageSize"]
+    if data.get("PageToken") is not None:
+        out["page_token"] = data["PageToken"]
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    return out

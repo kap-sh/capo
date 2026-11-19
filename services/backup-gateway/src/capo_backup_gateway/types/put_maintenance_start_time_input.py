@@ -57,3 +57,37 @@ def deserialize_aws_json_1_0(data: dict) -> PutMaintenanceStartTimeInput:
     if data.get("DayOfMonth") is not None:
         out["day_of_month"] = data["DayOfMonth"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PutMaintenanceStartTimeInput) -> dict:
+    out: dict = {}
+    out["GatewayArn"] = value["gateway_arn"]
+    out["HourOfDay"] = value["hour_of_day"]
+    out["MinuteOfHour"] = value["minute_of_hour"]
+    if "day_of_week" in value:
+        out["DayOfWeek"] = value["day_of_week"]
+    if "day_of_month" in value:
+        out["DayOfMonth"] = value["day_of_month"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> PutMaintenanceStartTimeInput:
+    out: PutMaintenanceStartTimeInput = {}  # type: ignore[typeddict-item]
+    if data.get("GatewayArn") is not None:
+        out["gateway_arn"] = data["GatewayArn"]
+    else:
+        out["gateway_arn"] = ""
+    if data.get("HourOfDay") is not None:
+        out["hour_of_day"] = data["HourOfDay"]
+    else:
+        out["hour_of_day"] = 0
+    if data.get("MinuteOfHour") is not None:
+        out["minute_of_hour"] = data["MinuteOfHour"]
+    else:
+        out["minute_of_hour"] = 0
+    if data.get("DayOfWeek") is not None:
+        out["day_of_week"] = data["DayOfWeek"]
+    if data.get("DayOfMonth") is not None:
+        out["day_of_month"] = data["DayOfMonth"]
+    return out

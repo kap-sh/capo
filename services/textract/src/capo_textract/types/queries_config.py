@@ -35,3 +35,23 @@ def deserialize_aws_json_1_1(data: dict) -> QueriesConfig:
     else:
         out["queries"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: QueriesConfig) -> dict:
+    out: dict = {}
+    import capo_textract.types.queries
+
+    out["Queries"] = capo_textract.types.queries.serialize_cbor(value["queries"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> QueriesConfig:
+    out: QueriesConfig = {}  # type: ignore[typeddict-item]
+    if data.get("Queries") is not None:
+        import capo_textract.types.queries
+
+        out["queries"] = capo_textract.types.queries.deserialize_cbor(data["Queries"])
+    else:
+        out["queries"] = []
+    return out

@@ -38,3 +38,26 @@ def deserialize_aws_json_1_0(data: dict) -> StatefulRuleOptions:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StatefulRuleOptions) -> dict:
+    out: dict = {}
+    if "rule_order" in value:
+        import capo_network_firewall.types.rule_order
+
+        out["RuleOrder"] = capo_network_firewall.types.rule_order.serialize_cbor(
+            value["rule_order"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StatefulRuleOptions:
+    out: StatefulRuleOptions = {}  # type: ignore[typeddict-item]
+    if data.get("RuleOrder") is not None:
+        import capo_network_firewall.types.rule_order
+
+        out["rule_order"] = capo_network_firewall.types.rule_order.deserialize_cbor(
+            data["RuleOrder"]
+        )
+    return out

@@ -86,3 +86,58 @@ def deserialize_aws_json_1_1(data: dict) -> ComputeCapacityStatus:
     if data.get("DrainModeUnusedUserSessions") is not None:
         out["drain_mode_unused_user_sessions"] = data["DrainModeUnusedUserSessions"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ComputeCapacityStatus) -> dict:
+    out: dict = {}
+    if "desired" in value:
+        out["Desired"] = value["desired"]
+    if "running" in value:
+        out["Running"] = value["running"]
+    if "in_use" in value:
+        out["InUse"] = value["in_use"]
+    if "available" in value:
+        out["Available"] = value["available"]
+    if "desired_user_sessions" in value:
+        out["DesiredUserSessions"] = value["desired_user_sessions"]
+    if "available_user_sessions" in value:
+        out["AvailableUserSessions"] = value["available_user_sessions"]
+    if "active_user_sessions" in value:
+        out["ActiveUserSessions"] = value["active_user_sessions"]
+    if "actual_user_sessions" in value:
+        out["ActualUserSessions"] = value["actual_user_sessions"]
+    if "draining" in value:
+        out["Draining"] = value["draining"]
+    if "drain_mode_active_user_sessions" in value:
+        out["DrainModeActiveUserSessions"] = value["drain_mode_active_user_sessions"]
+    if "drain_mode_unused_user_sessions" in value:
+        out["DrainModeUnusedUserSessions"] = value["drain_mode_unused_user_sessions"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ComputeCapacityStatus:
+    out: ComputeCapacityStatus = {}  # type: ignore[typeddict-item]
+    if data.get("Desired") is not None:
+        out["desired"] = data["Desired"]
+    if data.get("Running") is not None:
+        out["running"] = data["Running"]
+    if data.get("InUse") is not None:
+        out["in_use"] = data["InUse"]
+    if data.get("Available") is not None:
+        out["available"] = data["Available"]
+    if data.get("DesiredUserSessions") is not None:
+        out["desired_user_sessions"] = data["DesiredUserSessions"]
+    if data.get("AvailableUserSessions") is not None:
+        out["available_user_sessions"] = data["AvailableUserSessions"]
+    if data.get("ActiveUserSessions") is not None:
+        out["active_user_sessions"] = data["ActiveUserSessions"]
+    if data.get("ActualUserSessions") is not None:
+        out["actual_user_sessions"] = data["ActualUserSessions"]
+    if data.get("Draining") is not None:
+        out["draining"] = data["Draining"]
+    if data.get("DrainModeActiveUserSessions") is not None:
+        out["drain_mode_active_user_sessions"] = data["DrainModeActiveUserSessions"]
+    if data.get("DrainModeUnusedUserSessions") is not None:
+        out["drain_mode_unused_user_sessions"] = data["DrainModeUnusedUserSessions"]
+    return out

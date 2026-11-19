@@ -79,3 +79,55 @@ def deserialize_aws_json_1_0(data: dict) -> StatefulRule:
     else:
         out["rule_options"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StatefulRule) -> dict:
+    out: dict = {}
+    import capo_network_firewall.types.stateful_action
+
+    out["Action"] = capo_network_firewall.types.stateful_action.serialize_cbor(
+        value["action"]
+    )
+    import capo_network_firewall.types.header
+
+    out["Header"] = capo_network_firewall.types.header.serialize_cbor(value["header"])
+    import capo_network_firewall.types.rule_options
+
+    out["RuleOptions"] = capo_network_firewall.types.rule_options.serialize_cbor(
+        value["rule_options"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StatefulRule:
+    out: StatefulRule = {}  # type: ignore[typeddict-item]
+    if data.get("Action") is not None:
+        import capo_network_firewall.types.stateful_action
+
+        out["action"] = capo_network_firewall.types.stateful_action.deserialize_cbor(
+            data["Action"]
+        )
+    else:
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_network_firewall.types.stateful_action.StatefulAction", ""
+        )
+    if data.get("Header") is not None:
+        import capo_network_firewall.types.header
+
+        out["header"] = capo_network_firewall.types.header.deserialize_cbor(
+            data["Header"]
+        )
+    else:
+        raise DeserializationError("StatefulRule.header required")
+    if data.get("RuleOptions") is not None:
+        import capo_network_firewall.types.rule_options
+
+        out["rule_options"] = capo_network_firewall.types.rule_options.deserialize_cbor(
+            data["RuleOptions"]
+        )
+    else:
+        out["rule_options"] = []
+    return out

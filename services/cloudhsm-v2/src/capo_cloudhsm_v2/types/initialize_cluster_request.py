@@ -42,3 +42,29 @@ def deserialize_aws_json_1_1(data: dict) -> InitializeClusterRequest:
     else:
         out["trust_anchor"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InitializeClusterRequest) -> dict:
+    out: dict = {}
+    out["ClusterId"] = value["cluster_id"]
+    out["SignedCert"] = value["signed_cert"]
+    out["TrustAnchor"] = value["trust_anchor"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> InitializeClusterRequest:
+    out: InitializeClusterRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ClusterId") is not None:
+        out["cluster_id"] = data["ClusterId"]
+    else:
+        out["cluster_id"] = ""
+    if data.get("SignedCert") is not None:
+        out["signed_cert"] = data["SignedCert"]
+    else:
+        out["signed_cert"] = ""
+    if data.get("TrustAnchor") is not None:
+        out["trust_anchor"] = data["TrustAnchor"]
+    else:
+        out["trust_anchor"] = ""
+    return out

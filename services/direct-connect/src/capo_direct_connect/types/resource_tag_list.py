@@ -29,3 +29,24 @@ def deserialize_aws_json_1_1(data: list) -> ResourceTagList:
             capo_direct_connect.types.resource_tag.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResourceTagList) -> list:
+    import capo_direct_connect.types.resource_tag
+
+    out: list = []
+    for item in value:
+        out.append(capo_direct_connect.types.resource_tag.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> ResourceTagList:
+    import capo_direct_connect.types.resource_tag
+
+    out: ResourceTagList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_direct_connect.types.resource_tag.deserialize_cbor(item))
+    return out

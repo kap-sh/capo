@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> ELBInfo:
     if data.get("name") is not None:
         out["name"] = data["name"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ELBInfo) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["name"] = value["name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ELBInfo:
+    out: ELBInfo = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    return out

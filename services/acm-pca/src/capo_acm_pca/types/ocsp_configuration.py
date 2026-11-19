@@ -34,3 +34,23 @@ def deserialize_aws_json_1_1(data: dict) -> OcspConfiguration:
     if data.get("OcspCustomCname") is not None:
         out["ocsp_custom_cname"] = data["OcspCustomCname"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: OcspConfiguration) -> dict:
+    out: dict = {}
+    out["Enabled"] = value["enabled"]
+    if "ocsp_custom_cname" in value:
+        out["OcspCustomCname"] = value["ocsp_custom_cname"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> OcspConfiguration:
+    out: OcspConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("Enabled") is not None:
+        out["enabled"] = data["Enabled"]
+    else:
+        out["enabled"] = False
+    if data.get("OcspCustomCname") is not None:
+        out["ocsp_custom_cname"] = data["OcspCustomCname"]
+    return out

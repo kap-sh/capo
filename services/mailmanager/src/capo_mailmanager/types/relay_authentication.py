@@ -65,3 +65,43 @@ def deserialize_aws_json_1_0(data: dict) -> RelayAuthentication:
         if name is not None:
             return {"$unknown": {"name": name}}
         raise DeserializationError("RelayAuthentication: no recognized variant key")
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RelayAuthentication) -> dict:
+    if "$unknown" in value:
+        raise SerializationError(
+            f"RelayAuthentication: cannot serialize unknown variant {value['$unknown']['name']!r}"
+        )
+    elif "SecretArn" in value:
+        return {"SecretArn": value["SecretArn"]}
+    elif "NoAuthentication" in value:
+        import capo_mailmanager.types.no_authentication
+
+        return {
+            "NoAuthentication": capo_mailmanager.types.no_authentication.serialize_cbor(
+                value["NoAuthentication"]
+            )
+        }
+    else:
+        raise SerializationError("RelayAuthentication: no variant present")
+
+
+def deserialize_cbor(data: dict) -> RelayAuthentication:
+    if data.get("SecretArn") is not None:
+        return {"SecretArn": data["SecretArn"]}
+    elif data.get("NoAuthentication") is not None:
+        import capo_mailmanager.types.no_authentication
+
+        return {
+            "NoAuthentication": capo_mailmanager.types.no_authentication.deserialize_cbor(
+                data["NoAuthentication"]
+            )
+        }
+    else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return {"$unknown": {"name": name}}
+        raise DeserializationError("RelayAuthentication: no recognized variant key")

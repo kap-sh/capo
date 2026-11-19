@@ -190,3 +190,135 @@ def deserialize_aws_json_1_0(data: dict) -> SyncConfiguration:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SyncConfiguration) -> dict:
+    out: dict = {}
+    out["Branch"] = value["branch"]
+    if "config_file" in value:
+        out["ConfigFile"] = value["config_file"]
+    out["OwnerId"] = value["owner_id"]
+    import capo_codeconnections.types.provider_type
+
+    out["ProviderType"] = capo_codeconnections.types.provider_type.serialize_cbor(
+        value["provider_type"]
+    )
+    out["RepositoryLinkId"] = value["repository_link_id"]
+    out["RepositoryName"] = value["repository_name"]
+    out["ResourceName"] = value["resource_name"]
+    out["RoleArn"] = value["role_arn"]
+    import capo_codeconnections.types.sync_configuration_type
+
+    out["SyncType"] = capo_codeconnections.types.sync_configuration_type.serialize_cbor(
+        value["sync_type"]
+    )
+    if "publish_deployment_status" in value:
+        import capo_codeconnections.types.publish_deployment_status
+
+        out["PublishDeploymentStatus"] = (
+            capo_codeconnections.types.publish_deployment_status.serialize_cbor(
+                value["publish_deployment_status"]
+            )
+        )
+    if "trigger_resource_update_on" in value:
+        import capo_codeconnections.types.trigger_resource_update_on
+
+        out["TriggerResourceUpdateOn"] = (
+            capo_codeconnections.types.trigger_resource_update_on.serialize_cbor(
+                value["trigger_resource_update_on"]
+            )
+        )
+    if "pull_request_comment" in value:
+        import capo_codeconnections.types.pull_request_comment
+
+        out["PullRequestComment"] = (
+            capo_codeconnections.types.pull_request_comment.serialize_cbor(
+                value["pull_request_comment"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> SyncConfiguration:
+    out: SyncConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("Branch") is not None:
+        out["branch"] = data["Branch"]
+    else:
+        out["branch"] = ""
+    if data.get("ConfigFile") is not None:
+        out["config_file"] = data["ConfigFile"]
+    if data.get("OwnerId") is not None:
+        out["owner_id"] = data["OwnerId"]
+    else:
+        out["owner_id"] = ""
+    if data.get("ProviderType") is not None:
+        import capo_codeconnections.types.provider_type
+
+        out["provider_type"] = (
+            capo_codeconnections.types.provider_type.deserialize_cbor(
+                data["ProviderType"]
+            )
+        )
+    else:
+        import typing
+
+        out["provider_type"] = typing.cast(
+            "capo_codeconnections.types.provider_type.ProviderType", ""
+        )
+    if data.get("RepositoryLinkId") is not None:
+        out["repository_link_id"] = data["RepositoryLinkId"]
+    else:
+        out["repository_link_id"] = ""
+    if data.get("RepositoryName") is not None:
+        out["repository_name"] = data["RepositoryName"]
+    else:
+        out["repository_name"] = ""
+    if data.get("ResourceName") is not None:
+        out["resource_name"] = data["ResourceName"]
+    else:
+        out["resource_name"] = ""
+    if data.get("RoleArn") is not None:
+        out["role_arn"] = data["RoleArn"]
+    else:
+        out["role_arn"] = ""
+    if data.get("SyncType") is not None:
+        import capo_codeconnections.types.sync_configuration_type
+
+        out["sync_type"] = (
+            capo_codeconnections.types.sync_configuration_type.deserialize_cbor(
+                data["SyncType"]
+            )
+        )
+    else:
+        import typing
+
+        out["sync_type"] = typing.cast(
+            "capo_codeconnections.types.sync_configuration_type.SyncConfigurationType",
+            "",
+        )
+    if data.get("PublishDeploymentStatus") is not None:
+        import capo_codeconnections.types.publish_deployment_status
+
+        out["publish_deployment_status"] = (
+            capo_codeconnections.types.publish_deployment_status.deserialize_cbor(
+                data["PublishDeploymentStatus"]
+            )
+        )
+    if data.get("TriggerResourceUpdateOn") is not None:
+        import capo_codeconnections.types.trigger_resource_update_on
+
+        out["trigger_resource_update_on"] = (
+            capo_codeconnections.types.trigger_resource_update_on.deserialize_cbor(
+                data["TriggerResourceUpdateOn"]
+            )
+        )
+    if data.get("PullRequestComment") is not None:
+        import capo_codeconnections.types.pull_request_comment
+
+        out["pull_request_comment"] = (
+            capo_codeconnections.types.pull_request_comment.deserialize_cbor(
+                data["PullRequestComment"]
+            )
+        )
+    return out

@@ -56,3 +56,38 @@ def deserialize_aws_json_1_1(data: dict) -> UserSetting:
     if data.get("MaximumLength") is not None:
         out["maximum_length"] = data["MaximumLength"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UserSetting) -> dict:
+    out: dict = {}
+    if "action" in value:
+        import capo_appstream.types.action
+
+        out["Action"] = capo_appstream.types.action.serialize_cbor(value["action"])
+    if "permission" in value:
+        import capo_appstream.types.permission
+
+        out["Permission"] = capo_appstream.types.permission.serialize_cbor(
+            value["permission"]
+        )
+    if "maximum_length" in value:
+        out["MaximumLength"] = value["maximum_length"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UserSetting:
+    out: UserSetting = {}  # type: ignore[typeddict-item]
+    if data.get("Action") is not None:
+        import capo_appstream.types.action
+
+        out["action"] = capo_appstream.types.action.deserialize_cbor(data["Action"])
+    if data.get("Permission") is not None:
+        import capo_appstream.types.permission
+
+        out["permission"] = capo_appstream.types.permission.deserialize_cbor(
+            data["Permission"]
+        )
+    if data.get("MaximumLength") is not None:
+        out["maximum_length"] = data["MaximumLength"]
+    return out

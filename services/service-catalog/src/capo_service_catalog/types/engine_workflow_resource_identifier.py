@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> EngineWorkflowResourceIdentifier:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EngineWorkflowResourceIdentifier) -> dict:
+    out: dict = {}
+    if "unique_tag" in value:
+        import capo_service_catalog.types.unique_tag_resource_identifier
+
+        out["UniqueTag"] = (
+            capo_service_catalog.types.unique_tag_resource_identifier.serialize_cbor(
+                value["unique_tag"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> EngineWorkflowResourceIdentifier:
+    out: EngineWorkflowResourceIdentifier = {}  # type: ignore[typeddict-item]
+    if data.get("UniqueTag") is not None:
+        import capo_service_catalog.types.unique_tag_resource_identifier
+
+        out["unique_tag"] = (
+            capo_service_catalog.types.unique_tag_resource_identifier.deserialize_cbor(
+                data["UniqueTag"]
+            )
+        )
+    return out

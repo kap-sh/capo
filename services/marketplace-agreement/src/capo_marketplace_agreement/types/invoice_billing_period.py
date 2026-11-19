@@ -29,3 +29,24 @@ def deserialize_aws_json_1_0(data: dict) -> InvoiceBillingPeriod:
     else:
         out["year"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InvoiceBillingPeriod) -> dict:
+    out: dict = {}
+    out["month"] = value["month"]
+    out["year"] = value["year"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> InvoiceBillingPeriod:
+    out: InvoiceBillingPeriod = {}  # type: ignore[typeddict-item]
+    if data.get("month") is not None:
+        out["month"] = data["month"]
+    else:
+        out["month"] = 0
+    if data.get("year") is not None:
+        out["year"] = data["year"]
+    else:
+        out["year"] = 0
+    return out

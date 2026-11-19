@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeEntityAggregatesResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeEntityAggregatesResponse) -> dict:
+    out: dict = {}
+    if "entity_aggregates" in value:
+        import capo_health.types.entity_aggregate_list
+
+        out["entityAggregates"] = (
+            capo_health.types.entity_aggregate_list.serialize_cbor(
+                value["entity_aggregates"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeEntityAggregatesResponse:
+    out: DescribeEntityAggregatesResponse = {}  # type: ignore[typeddict-item]
+    if data.get("entityAggregates") is not None:
+        import capo_health.types.entity_aggregate_list
+
+        out["entity_aggregates"] = (
+            capo_health.types.entity_aggregate_list.deserialize_cbor(
+                data["entityAggregates"]
+            )
+        )
+    return out

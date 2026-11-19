@@ -28,3 +28,18 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLongTermPricingResult:
     if data.get("LongTermPricingId") is not None:
         out["long_term_pricing_id"] = data["LongTermPricingId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateLongTermPricingResult) -> dict:
+    out: dict = {}
+    if "long_term_pricing_id" in value:
+        out["LongTermPricingId"] = value["long_term_pricing_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateLongTermPricingResult:
+    out: CreateLongTermPricingResult = {}  # type: ignore[typeddict-item]
+    if data.get("LongTermPricingId") is not None:
+        out["long_term_pricing_id"] = data["LongTermPricingId"]
+    return out

@@ -46,3 +46,35 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeEventDetailsForOrganizationR
     if data.get("locale") is not None:
         out["locale"] = data["locale"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeEventDetailsForOrganizationRequest) -> dict:
+    out: dict = {}
+    import capo_health.types.organization_event_detail_filters_list
+
+    out["organizationEventDetailFilters"] = (
+        capo_health.types.organization_event_detail_filters_list.serialize_cbor(
+            value["organization_event_detail_filters"]
+        )
+    )
+    if "locale" in value:
+        out["locale"] = value["locale"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeEventDetailsForOrganizationRequest:
+    out: DescribeEventDetailsForOrganizationRequest = {}  # type: ignore[typeddict-item]
+    if data.get("organizationEventDetailFilters") is not None:
+        import capo_health.types.organization_event_detail_filters_list
+
+        out["organization_event_detail_filters"] = (
+            capo_health.types.organization_event_detail_filters_list.deserialize_cbor(
+                data["organizationEventDetailFilters"]
+            )
+        )
+    else:
+        out["organization_event_detail_filters"] = []
+    if data.get("locale") is not None:
+        out["locale"] = data["locale"]
+    return out

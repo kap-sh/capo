@@ -33,3 +33,22 @@ def deserialize_aws_json_1_1(data: dict) -> RawString:
     if data.get("sha256") is not None:
         out["sha256"] = data["sha256"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RawString) -> dict:
+    out: dict = {}
+    if "content" in value:
+        out["content"] = value["content"]
+    if "sha256" in value:
+        out["sha256"] = value["sha256"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RawString:
+    out: RawString = {}  # type: ignore[typeddict-item]
+    if data.get("content") is not None:
+        out["content"] = data["content"]
+    if data.get("sha256") is not None:
+        out["sha256"] = data["sha256"]
+    return out

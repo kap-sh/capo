@@ -59,3 +59,38 @@ def deserialize_aws_json_1_1(data: dict) -> TargetOnDeviceService:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TargetOnDeviceService) -> dict:
+    out: dict = {}
+    if "service_name" in value:
+        import capo_snowball.types.device_service_name
+
+        out["ServiceName"] = capo_snowball.types.device_service_name.serialize_cbor(
+            value["service_name"]
+        )
+    if "transfer_option" in value:
+        import capo_snowball.types.transfer_option
+
+        out["TransferOption"] = capo_snowball.types.transfer_option.serialize_cbor(
+            value["transfer_option"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TargetOnDeviceService:
+    out: TargetOnDeviceService = {}  # type: ignore[typeddict-item]
+    if data.get("ServiceName") is not None:
+        import capo_snowball.types.device_service_name
+
+        out["service_name"] = capo_snowball.types.device_service_name.deserialize_cbor(
+            data["ServiceName"]
+        )
+    if data.get("TransferOption") is not None:
+        import capo_snowball.types.transfer_option
+
+        out["transfer_option"] = capo_snowball.types.transfer_option.deserialize_cbor(
+            data["TransferOption"]
+        )
+    return out

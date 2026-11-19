@@ -71,3 +71,47 @@ def deserialize_aws_json_1_1(data: dict) -> PutApprovalResultInput:
     else:
         out["token"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PutApprovalResultInput) -> dict:
+    out: dict = {}
+    out["pipelineName"] = value["pipeline_name"]
+    out["stageName"] = value["stage_name"]
+    out["actionName"] = value["action_name"]
+    import capo_codepipeline.types.approval_result
+
+    out["result"] = capo_codepipeline.types.approval_result.serialize_cbor(
+        value["result"]
+    )
+    out["token"] = value["token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> PutApprovalResultInput:
+    out: PutApprovalResultInput = {}  # type: ignore[typeddict-item]
+    if data.get("pipelineName") is not None:
+        out["pipeline_name"] = data["pipelineName"]
+    else:
+        out["pipeline_name"] = ""
+    if data.get("stageName") is not None:
+        out["stage_name"] = data["stageName"]
+    else:
+        out["stage_name"] = ""
+    if data.get("actionName") is not None:
+        out["action_name"] = data["actionName"]
+    else:
+        out["action_name"] = ""
+    if data.get("result") is not None:
+        import capo_codepipeline.types.approval_result
+
+        out["result"] = capo_codepipeline.types.approval_result.deserialize_cbor(
+            data["result"]
+        )
+    else:
+        raise DeserializationError("PutApprovalResultInput.result required")
+    if data.get("token") is not None:
+        out["token"] = data["token"]
+    else:
+        out["token"] = ""
+    return out

@@ -37,3 +37,28 @@ def deserialize_aws_json_1_0(data: list) -> RDSDBUtilizationMetrics:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RDSDBUtilizationMetrics) -> list:
+    import capo_compute_optimizer.types.rdsdb_utilization_metric
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_compute_optimizer.types.rdsdb_utilization_metric.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> RDSDBUtilizationMetrics:
+    import capo_compute_optimizer.types.rdsdb_utilization_metric
+
+    out: RDSDBUtilizationMetrics = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_compute_optimizer.types.rdsdb_utilization_metric.deserialize_cbor(item)
+        )
+    return out

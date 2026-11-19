@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: ResourceOwner) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> ResourceOwner:
     return cast(ResourceOwner, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResourceOwner) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ResourceOwner:
+    return cast(ResourceOwner, data)

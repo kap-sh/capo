@@ -235,3 +235,158 @@ def deserialize_aws_json_1_1(data: dict) -> CreateImageBuilderRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateImageBuilderRequest) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "image_name" in value:
+        out["ImageName"] = value["image_name"]
+    if "image_arn" in value:
+        out["ImageArn"] = value["image_arn"]
+    if "instance_type" in value:
+        out["InstanceType"] = value["instance_type"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "display_name" in value:
+        out["DisplayName"] = value["display_name"]
+    if "vpc_config" in value:
+        import capo_appstream.types.vpc_config
+
+        out["VpcConfig"] = capo_appstream.types.vpc_config.serialize_cbor(
+            value["vpc_config"]
+        )
+    if "iam_role_arn" in value:
+        out["IamRoleArn"] = value["iam_role_arn"]
+    if "enable_default_internet_access" in value:
+        out["EnableDefaultInternetAccess"] = value["enable_default_internet_access"]
+    if "domain_join_info" in value:
+        import capo_appstream.types.domain_join_info
+
+        out["DomainJoinInfo"] = capo_appstream.types.domain_join_info.serialize_cbor(
+            value["domain_join_info"]
+        )
+    if "appstream_agent_version" in value:
+        out["AppstreamAgentVersion"] = value["appstream_agent_version"]
+    if "tags" in value:
+        import capo_appstream.types.tags
+
+        out["Tags"] = capo_appstream.types.tags.serialize_cbor(value["tags"])
+    if "access_endpoints" in value:
+        import capo_appstream.types.access_endpoint_list
+
+        out["AccessEndpoints"] = (
+            capo_appstream.types.access_endpoint_list.serialize_cbor(
+                value["access_endpoints"]
+            )
+        )
+    if "root_volume_config" in value:
+        import capo_appstream.types.volume_config
+
+        out["RootVolumeConfig"] = capo_appstream.types.volume_config.serialize_cbor(
+            value["root_volume_config"]
+        )
+    if "softwares_to_install" in value:
+        import capo_appstream.types.string_list
+
+        out["SoftwaresToInstall"] = capo_appstream.types.string_list.serialize_cbor(
+            value["softwares_to_install"]
+        )
+    if "softwares_to_uninstall" in value:
+        import capo_appstream.types.string_list
+
+        out["SoftwaresToUninstall"] = capo_appstream.types.string_list.serialize_cbor(
+            value["softwares_to_uninstall"]
+        )
+    if "disable_imdsv1" in value:
+        out["DisableIMDSV1"] = value["disable_imdsv1"]
+    if "agent_access_config" in value:
+        import capo_appstream.types.image_builder_agent_access_config
+
+        out["AgentAccessConfig"] = (
+            capo_appstream.types.image_builder_agent_access_config.serialize_cbor(
+                value["agent_access_config"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateImageBuilderRequest:
+    out: CreateImageBuilderRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("ImageName") is not None:
+        out["image_name"] = data["ImageName"]
+    if data.get("ImageArn") is not None:
+        out["image_arn"] = data["ImageArn"]
+    if data.get("InstanceType") is not None:
+        out["instance_type"] = data["InstanceType"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("DisplayName") is not None:
+        out["display_name"] = data["DisplayName"]
+    if data.get("VpcConfig") is not None:
+        import capo_appstream.types.vpc_config
+
+        out["vpc_config"] = capo_appstream.types.vpc_config.deserialize_cbor(
+            data["VpcConfig"]
+        )
+    if data.get("IamRoleArn") is not None:
+        out["iam_role_arn"] = data["IamRoleArn"]
+    if data.get("EnableDefaultInternetAccess") is not None:
+        out["enable_default_internet_access"] = data["EnableDefaultInternetAccess"]
+    if data.get("DomainJoinInfo") is not None:
+        import capo_appstream.types.domain_join_info
+
+        out["domain_join_info"] = (
+            capo_appstream.types.domain_join_info.deserialize_cbor(
+                data["DomainJoinInfo"]
+            )
+        )
+    if data.get("AppstreamAgentVersion") is not None:
+        out["appstream_agent_version"] = data["AppstreamAgentVersion"]
+    if data.get("Tags") is not None:
+        import capo_appstream.types.tags
+
+        out["tags"] = capo_appstream.types.tags.deserialize_cbor(data["Tags"])
+    if data.get("AccessEndpoints") is not None:
+        import capo_appstream.types.access_endpoint_list
+
+        out["access_endpoints"] = (
+            capo_appstream.types.access_endpoint_list.deserialize_cbor(
+                data["AccessEndpoints"]
+            )
+        )
+    if data.get("RootVolumeConfig") is not None:
+        import capo_appstream.types.volume_config
+
+        out["root_volume_config"] = capo_appstream.types.volume_config.deserialize_cbor(
+            data["RootVolumeConfig"]
+        )
+    if data.get("SoftwaresToInstall") is not None:
+        import capo_appstream.types.string_list
+
+        out["softwares_to_install"] = capo_appstream.types.string_list.deserialize_cbor(
+            data["SoftwaresToInstall"]
+        )
+    if data.get("SoftwaresToUninstall") is not None:
+        import capo_appstream.types.string_list
+
+        out["softwares_to_uninstall"] = (
+            capo_appstream.types.string_list.deserialize_cbor(
+                data["SoftwaresToUninstall"]
+            )
+        )
+    if data.get("DisableIMDSV1") is not None:
+        out["disable_imdsv1"] = data["DisableIMDSV1"]
+    if data.get("AgentAccessConfig") is not None:
+        import capo_appstream.types.image_builder_agent_access_config
+
+        out["agent_access_config"] = (
+            capo_appstream.types.image_builder_agent_access_config.deserialize_cbor(
+                data["AgentAccessConfig"]
+            )
+        )
+    return out

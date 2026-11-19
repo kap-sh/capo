@@ -55,3 +55,39 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateHostInput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateHostInput) -> dict:
+    out: dict = {}
+    out["HostArn"] = value["host_arn"]
+    if "provider_endpoint" in value:
+        out["ProviderEndpoint"] = value["provider_endpoint"]
+    if "vpc_configuration" in value:
+        import capo_codeconnections.types.vpc_configuration
+
+        out["VpcConfiguration"] = (
+            capo_codeconnections.types.vpc_configuration.serialize_cbor(
+                value["vpc_configuration"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateHostInput:
+    out: UpdateHostInput = {}  # type: ignore[typeddict-item]
+    if data.get("HostArn") is not None:
+        out["host_arn"] = data["HostArn"]
+    else:
+        out["host_arn"] = ""
+    if data.get("ProviderEndpoint") is not None:
+        out["provider_endpoint"] = data["ProviderEndpoint"]
+    if data.get("VpcConfiguration") is not None:
+        import capo_codeconnections.types.vpc_configuration
+
+        out["vpc_configuration"] = (
+            capo_codeconnections.types.vpc_configuration.deserialize_cbor(
+                data["VpcConfiguration"]
+            )
+        )
+    return out

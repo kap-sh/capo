@@ -21,3 +21,18 @@ def deserialize_aws_json_1_0(data: dict) -> RunInstancesMonitoringEnabled:
     if data.get("Enabled") is not None:
         out["enabled"] = data["Enabled"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RunInstancesMonitoringEnabled) -> dict:
+    out: dict = {}
+    if "enabled" in value:
+        out["Enabled"] = value["enabled"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RunInstancesMonitoringEnabled:
+    out: RunInstancesMonitoringEnabled = {}  # type: ignore[typeddict-item]
+    if data.get("Enabled") is not None:
+        out["enabled"] = data["Enabled"]
+    return out

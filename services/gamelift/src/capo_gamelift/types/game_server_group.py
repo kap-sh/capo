@@ -198,3 +198,134 @@ def deserialize_aws_json_1_1(data: dict) -> GameServerGroup:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GameServerGroup) -> dict:
+    out: dict = {}
+    if "game_server_group_name" in value:
+        out["GameServerGroupName"] = value["game_server_group_name"]
+    if "game_server_group_arn" in value:
+        out["GameServerGroupArn"] = value["game_server_group_arn"]
+    if "role_arn" in value:
+        out["RoleArn"] = value["role_arn"]
+    if "instance_definitions" in value:
+        import capo_gamelift.types.instance_definitions
+
+        out["InstanceDefinitions"] = (
+            capo_gamelift.types.instance_definitions.serialize_cbor(
+                value["instance_definitions"]
+            )
+        )
+    if "balancing_strategy" in value:
+        import capo_gamelift.types.balancing_strategy
+
+        out["BalancingStrategy"] = (
+            capo_gamelift.types.balancing_strategy.serialize_cbor(
+                value["balancing_strategy"]
+            )
+        )
+    if "game_server_protection_policy" in value:
+        import capo_gamelift.types.game_server_protection_policy
+
+        out["GameServerProtectionPolicy"] = (
+            capo_gamelift.types.game_server_protection_policy.serialize_cbor(
+                value["game_server_protection_policy"]
+            )
+        )
+    if "auto_scaling_group_arn" in value:
+        out["AutoScalingGroupArn"] = value["auto_scaling_group_arn"]
+    if "status" in value:
+        import capo_gamelift.types.game_server_group_status
+
+        out["Status"] = capo_gamelift.types.game_server_group_status.serialize_cbor(
+            value["status"]
+        )
+    if "status_reason" in value:
+        out["StatusReason"] = value["status_reason"]
+    if "suspended_actions" in value:
+        import capo_gamelift.types.game_server_group_actions
+
+        out["SuspendedActions"] = (
+            capo_gamelift.types.game_server_group_actions.serialize_cbor(
+                value["suspended_actions"]
+            )
+        )
+    if "creation_time" in value:
+        import capo_gamelift.types.timestamp
+
+        out["CreationTime"] = capo_gamelift.types.timestamp.serialize_cbor(
+            value["creation_time"]
+        )
+    if "last_updated_time" in value:
+        import capo_gamelift.types.timestamp
+
+        out["LastUpdatedTime"] = capo_gamelift.types.timestamp.serialize_cbor(
+            value["last_updated_time"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GameServerGroup:
+    out: GameServerGroup = {}  # type: ignore[typeddict-item]
+    if data.get("GameServerGroupName") is not None:
+        out["game_server_group_name"] = data["GameServerGroupName"]
+    if data.get("GameServerGroupArn") is not None:
+        out["game_server_group_arn"] = data["GameServerGroupArn"]
+    if data.get("RoleArn") is not None:
+        out["role_arn"] = data["RoleArn"]
+    if data.get("InstanceDefinitions") is not None:
+        import capo_gamelift.types.instance_definitions
+
+        out["instance_definitions"] = (
+            capo_gamelift.types.instance_definitions.deserialize_cbor(
+                data["InstanceDefinitions"]
+            )
+        )
+    if data.get("BalancingStrategy") is not None:
+        import capo_gamelift.types.balancing_strategy
+
+        out["balancing_strategy"] = (
+            capo_gamelift.types.balancing_strategy.deserialize_cbor(
+                data["BalancingStrategy"]
+            )
+        )
+    if data.get("GameServerProtectionPolicy") is not None:
+        import capo_gamelift.types.game_server_protection_policy
+
+        out["game_server_protection_policy"] = (
+            capo_gamelift.types.game_server_protection_policy.deserialize_cbor(
+                data["GameServerProtectionPolicy"]
+            )
+        )
+    if data.get("AutoScalingGroupArn") is not None:
+        out["auto_scaling_group_arn"] = data["AutoScalingGroupArn"]
+    if data.get("Status") is not None:
+        import capo_gamelift.types.game_server_group_status
+
+        out["status"] = capo_gamelift.types.game_server_group_status.deserialize_cbor(
+            data["Status"]
+        )
+    if data.get("StatusReason") is not None:
+        out["status_reason"] = data["StatusReason"]
+    if data.get("SuspendedActions") is not None:
+        import capo_gamelift.types.game_server_group_actions
+
+        out["suspended_actions"] = (
+            capo_gamelift.types.game_server_group_actions.deserialize_cbor(
+                data["SuspendedActions"]
+            )
+        )
+    if data.get("CreationTime") is not None:
+        import capo_gamelift.types.timestamp
+
+        out["creation_time"] = capo_gamelift.types.timestamp.deserialize_cbor(
+            data["CreationTime"]
+        )
+    if data.get("LastUpdatedTime") is not None:
+        import capo_gamelift.types.timestamp
+
+        out["last_updated_time"] = capo_gamelift.types.timestamp.deserialize_cbor(
+            data["LastUpdatedTime"]
+        )
+    return out

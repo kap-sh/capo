@@ -59,3 +59,44 @@ def deserialize_aws_json_1_1(data: dict) -> NetworkUpdateSettings:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: NetworkUpdateSettings) -> dict:
+    out: dict = {}
+    if "network_type" in value:
+        import capo_directory_service.types.network_type
+
+        out["NetworkType"] = capo_directory_service.types.network_type.serialize_cbor(
+            value["network_type"]
+        )
+    if "customer_dns_ips_v6" in value:
+        import capo_directory_service.types.dns_ipv6_addrs
+
+        out["CustomerDnsIpsV6"] = (
+            capo_directory_service.types.dns_ipv6_addrs.serialize_cbor(
+                value["customer_dns_ips_v6"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> NetworkUpdateSettings:
+    out: NetworkUpdateSettings = {}  # type: ignore[typeddict-item]
+    if data.get("NetworkType") is not None:
+        import capo_directory_service.types.network_type
+
+        out["network_type"] = (
+            capo_directory_service.types.network_type.deserialize_cbor(
+                data["NetworkType"]
+            )
+        )
+    if data.get("CustomerDnsIpsV6") is not None:
+        import capo_directory_service.types.dns_ipv6_addrs
+
+        out["customer_dns_ips_v6"] = (
+            capo_directory_service.types.dns_ipv6_addrs.deserialize_cbor(
+                data["CustomerDnsIpsV6"]
+            )
+        )
+    return out

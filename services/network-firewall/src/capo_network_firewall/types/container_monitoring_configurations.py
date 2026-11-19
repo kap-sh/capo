@@ -37,3 +37,32 @@ def deserialize_aws_json_1_0(data: list) -> ContainerMonitoringConfigurations:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ContainerMonitoringConfigurations) -> list:
+    import capo_network_firewall.types.container_monitoring_configuration
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_network_firewall.types.container_monitoring_configuration.serialize_cbor(
+                item
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> ContainerMonitoringConfigurations:
+    import capo_network_firewall.types.container_monitoring_configuration
+
+    out: ContainerMonitoringConfigurations = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_network_firewall.types.container_monitoring_configuration.deserialize_cbor(
+                item
+            )
+        )
+    return out

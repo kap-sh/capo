@@ -101,3 +101,72 @@ def deserialize_aws_json_1_0(data: dict) -> SchemaDefinition:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SchemaDefinition) -> dict:
+    out: dict = {}
+    import capo_keyspaces.types.column_definition_list
+
+    out["allColumns"] = capo_keyspaces.types.column_definition_list.serialize_cbor(
+        value["all_columns"]
+    )
+    import capo_keyspaces.types.partition_key_list
+
+    out["partitionKeys"] = capo_keyspaces.types.partition_key_list.serialize_cbor(
+        value["partition_keys"]
+    )
+    if "clustering_keys" in value:
+        import capo_keyspaces.types.clustering_key_list
+
+        out["clusteringKeys"] = capo_keyspaces.types.clustering_key_list.serialize_cbor(
+            value["clustering_keys"]
+        )
+    if "static_columns" in value:
+        import capo_keyspaces.types.static_column_list
+
+        out["staticColumns"] = capo_keyspaces.types.static_column_list.serialize_cbor(
+            value["static_columns"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> SchemaDefinition:
+    out: SchemaDefinition = {}  # type: ignore[typeddict-item]
+    if data.get("allColumns") is not None:
+        import capo_keyspaces.types.column_definition_list
+
+        out["all_columns"] = (
+            capo_keyspaces.types.column_definition_list.deserialize_cbor(
+                data["allColumns"]
+            )
+        )
+    else:
+        out["all_columns"] = []
+    if data.get("partitionKeys") is not None:
+        import capo_keyspaces.types.partition_key_list
+
+        out["partition_keys"] = (
+            capo_keyspaces.types.partition_key_list.deserialize_cbor(
+                data["partitionKeys"]
+            )
+        )
+    else:
+        out["partition_keys"] = []
+    if data.get("clusteringKeys") is not None:
+        import capo_keyspaces.types.clustering_key_list
+
+        out["clustering_keys"] = (
+            capo_keyspaces.types.clustering_key_list.deserialize_cbor(
+                data["clusteringKeys"]
+            )
+        )
+    if data.get("staticColumns") is not None:
+        import capo_keyspaces.types.static_column_list
+
+        out["static_columns"] = (
+            capo_keyspaces.types.static_column_list.deserialize_cbor(
+                data["staticColumns"]
+            )
+        )
+    return out

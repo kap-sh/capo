@@ -36,3 +36,23 @@ def deserialize_aws_json_1_1(data: dict) -> ListProvisioningArtifactsInput:
     else:
         out["product_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListProvisioningArtifactsInput) -> dict:
+    out: dict = {}
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    out["ProductId"] = value["product_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListProvisioningArtifactsInput:
+    out: ListProvisioningArtifactsInput = {}  # type: ignore[typeddict-item]
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    if data.get("ProductId") is not None:
+        out["product_id"] = data["ProductId"]
+    else:
+        out["product_id"] = ""
+    return out

@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeVpcPeeringConnectionsOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeVpcPeeringConnectionsOutput) -> dict:
+    out: dict = {}
+    if "vpc_peering_connections" in value:
+        import capo_gamelift.types.vpc_peering_connection_list
+
+        out["VpcPeeringConnections"] = (
+            capo_gamelift.types.vpc_peering_connection_list.serialize_cbor(
+                value["vpc_peering_connections"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeVpcPeeringConnectionsOutput:
+    out: DescribeVpcPeeringConnectionsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("VpcPeeringConnections") is not None:
+        import capo_gamelift.types.vpc_peering_connection_list
+
+        out["vpc_peering_connections"] = (
+            capo_gamelift.types.vpc_peering_connection_list.deserialize_cbor(
+                data["VpcPeeringConnections"]
+            )
+        )
+    return out

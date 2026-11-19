@@ -66,3 +66,44 @@ def deserialize_aws_json_1_1(data: dict) -> RuntimeConfiguration:
             "GameSessionActivationTimeoutSeconds"
         ]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RuntimeConfiguration) -> dict:
+    out: dict = {}
+    if "server_processes" in value:
+        import capo_gamelift.types.server_process_list
+
+        out["ServerProcesses"] = capo_gamelift.types.server_process_list.serialize_cbor(
+            value["server_processes"]
+        )
+    if "max_concurrent_game_session_activations" in value:
+        out["MaxConcurrentGameSessionActivations"] = value[
+            "max_concurrent_game_session_activations"
+        ]
+    if "game_session_activation_timeout_seconds" in value:
+        out["GameSessionActivationTimeoutSeconds"] = value[
+            "game_session_activation_timeout_seconds"
+        ]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RuntimeConfiguration:
+    out: RuntimeConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("ServerProcesses") is not None:
+        import capo_gamelift.types.server_process_list
+
+        out["server_processes"] = (
+            capo_gamelift.types.server_process_list.deserialize_cbor(
+                data["ServerProcesses"]
+            )
+        )
+    if data.get("MaxConcurrentGameSessionActivations") is not None:
+        out["max_concurrent_game_session_activations"] = data[
+            "MaxConcurrentGameSessionActivations"
+        ]
+    if data.get("GameSessionActivationTimeoutSeconds") is not None:
+        out["game_session_activation_timeout_seconds"] = data[
+            "GameSessionActivationTimeoutSeconds"
+        ]
+    return out

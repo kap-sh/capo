@@ -68,3 +68,46 @@ def deserialize_aws_json_1_1(data: dict) -> ResourceChangeDetail:
     if data.get("CausingEntity") is not None:
         out["causing_entity"] = data["CausingEntity"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResourceChangeDetail) -> dict:
+    out: dict = {}
+    if "target" in value:
+        import capo_service_catalog.types.resource_target_definition
+
+        out["Target"] = (
+            capo_service_catalog.types.resource_target_definition.serialize_cbor(
+                value["target"]
+            )
+        )
+    if "evaluation" in value:
+        import capo_service_catalog.types.evaluation_type
+
+        out["Evaluation"] = capo_service_catalog.types.evaluation_type.serialize_cbor(
+            value["evaluation"]
+        )
+    if "causing_entity" in value:
+        out["CausingEntity"] = value["causing_entity"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ResourceChangeDetail:
+    out: ResourceChangeDetail = {}  # type: ignore[typeddict-item]
+    if data.get("Target") is not None:
+        import capo_service_catalog.types.resource_target_definition
+
+        out["target"] = (
+            capo_service_catalog.types.resource_target_definition.deserialize_cbor(
+                data["Target"]
+            )
+        )
+    if data.get("Evaluation") is not None:
+        import capo_service_catalog.types.evaluation_type
+
+        out["evaluation"] = capo_service_catalog.types.evaluation_type.deserialize_cbor(
+            data["Evaluation"]
+        )
+    if data.get("CausingEntity") is not None:
+        out["causing_entity"] = data["CausingEntity"]
+    return out

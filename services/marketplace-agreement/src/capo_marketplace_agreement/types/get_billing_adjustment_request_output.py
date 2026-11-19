@@ -167,3 +167,121 @@ def deserialize_aws_json_1_0(data: dict) -> GetBillingAdjustmentRequestOutput:
 
         out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetBillingAdjustmentRequestOutput) -> dict:
+    out: dict = {}
+    out["billingAdjustmentRequestId"] = value["billing_adjustment_request_id"]
+    out["agreementId"] = value["agreement_id"]
+    import capo_marketplace_agreement.types.billing_adjustment_reason_code
+
+    out["adjustmentReasonCode"] = (
+        capo_marketplace_agreement.types.billing_adjustment_reason_code.serialize_cbor(
+            value["adjustment_reason_code"]
+        )
+    )
+    if "description" in value:
+        out["description"] = value["description"]
+    out["originalInvoiceId"] = value["original_invoice_id"]
+    out["adjustmentAmount"] = value["adjustment_amount"]
+    out["currencyCode"] = value["currency_code"]
+    import capo_marketplace_agreement.types.billing_adjustment_status
+
+    out["status"] = (
+        capo_marketplace_agreement.types.billing_adjustment_status.serialize_cbor(
+            value["status"]
+        )
+    )
+    if "status_message" in value:
+        out["statusMessage"] = value["status_message"]
+    import capo_marketplace_agreement.types.timestamp
+
+    out["createdAt"] = capo_marketplace_agreement.types.timestamp.serialize_cbor(
+        value["created_at"]
+    )
+    import capo_marketplace_agreement.types.timestamp
+
+    out["updatedAt"] = capo_marketplace_agreement.types.timestamp.serialize_cbor(
+        value["updated_at"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetBillingAdjustmentRequestOutput:
+    out: GetBillingAdjustmentRequestOutput = {}  # type: ignore[typeddict-item]
+    if data.get("billingAdjustmentRequestId") is not None:
+        out["billing_adjustment_request_id"] = data["billingAdjustmentRequestId"]
+    else:
+        out["billing_adjustment_request_id"] = ""
+    if data.get("agreementId") is not None:
+        out["agreement_id"] = data["agreementId"]
+    else:
+        out["agreement_id"] = ""
+    if data.get("adjustmentReasonCode") is not None:
+        import capo_marketplace_agreement.types.billing_adjustment_reason_code
+
+        out["adjustment_reason_code"] = (
+            capo_marketplace_agreement.types.billing_adjustment_reason_code.deserialize_cbor(
+                data["adjustmentReasonCode"]
+            )
+        )
+    else:
+        import typing
+
+        out["adjustment_reason_code"] = typing.cast(
+            "capo_marketplace_agreement.types.billing_adjustment_reason_code.BillingAdjustmentReasonCode",
+            "",
+        )
+    if data.get("description") is not None:
+        out["description"] = data["description"]
+    if data.get("originalInvoiceId") is not None:
+        out["original_invoice_id"] = data["originalInvoiceId"]
+    else:
+        out["original_invoice_id"] = ""
+    if data.get("adjustmentAmount") is not None:
+        out["adjustment_amount"] = data["adjustmentAmount"]
+    else:
+        out["adjustment_amount"] = ""
+    if data.get("currencyCode") is not None:
+        out["currency_code"] = data["currencyCode"]
+    else:
+        out["currency_code"] = ""
+    if data.get("status") is not None:
+        import capo_marketplace_agreement.types.billing_adjustment_status
+
+        out["status"] = (
+            capo_marketplace_agreement.types.billing_adjustment_status.deserialize_cbor(
+                data["status"]
+            )
+        )
+    else:
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_marketplace_agreement.types.billing_adjustment_status.BillingAdjustmentStatus",
+            "",
+        )
+    if data.get("statusMessage") is not None:
+        out["status_message"] = data["statusMessage"]
+    if data.get("createdAt") is not None:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["created_at"] = capo_marketplace_agreement.types.timestamp.deserialize_cbor(
+            data["createdAt"]
+        )
+    else:
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
+    if data.get("updatedAt") is not None:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["updated_at"] = capo_marketplace_agreement.types.timestamp.deserialize_cbor(
+            data["updatedAt"]
+        )
+    else:
+        import datetime
+
+        out["updated_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
+    return out

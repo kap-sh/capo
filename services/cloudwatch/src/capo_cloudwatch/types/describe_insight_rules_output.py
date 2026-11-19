@@ -77,3 +77,30 @@ def deserialize_query(el: Element) -> DescribeInsightRulesOutput:
             child_insight_rules
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeInsightRulesOutput) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "insight_rules" in value:
+        import capo_cloudwatch.types.insight_rules
+
+        out["InsightRules"] = capo_cloudwatch.types.insight_rules.serialize_cbor(
+            value["insight_rules"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeInsightRulesOutput:
+    out: DescribeInsightRulesOutput = {}  # type: ignore[typeddict-item]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("InsightRules") is not None:
+        import capo_cloudwatch.types.insight_rules
+
+        out["insight_rules"] = capo_cloudwatch.types.insight_rules.deserialize_cbor(
+            data["InsightRules"]
+        )
+    return out

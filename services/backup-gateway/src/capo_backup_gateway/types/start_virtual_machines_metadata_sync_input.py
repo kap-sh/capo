@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> StartVirtualMachinesMetadataSyncInpu
     else:
         out["hypervisor_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartVirtualMachinesMetadataSyncInput) -> dict:
+    out: dict = {}
+    out["HypervisorArn"] = value["hypervisor_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartVirtualMachinesMetadataSyncInput:
+    out: StartVirtualMachinesMetadataSyncInput = {}  # type: ignore[typeddict-item]
+    if data.get("HypervisorArn") is not None:
+        out["hypervisor_arn"] = data["HypervisorArn"]
+    else:
+        out["hypervisor_arn"] = ""
+    return out

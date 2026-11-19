@@ -73,3 +73,46 @@ def deserialize_aws_json_1_1(data: dict) -> ArtifactRevision:
     if data.get("revisionUrl") is not None:
         out["revision_url"] = data["revisionUrl"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ArtifactRevision) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["name"] = value["name"]
+    if "revision_id" in value:
+        out["revisionId"] = value["revision_id"]
+    if "revision_change_identifier" in value:
+        out["revisionChangeIdentifier"] = value["revision_change_identifier"]
+    if "revision_summary" in value:
+        out["revisionSummary"] = value["revision_summary"]
+    if "created" in value:
+        import capo_codepipeline.types.timestamp
+
+        out["created"] = capo_codepipeline.types.timestamp.serialize_cbor(
+            value["created"]
+        )
+    if "revision_url" in value:
+        out["revisionUrl"] = value["revision_url"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ArtifactRevision:
+    out: ArtifactRevision = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    if data.get("revisionId") is not None:
+        out["revision_id"] = data["revisionId"]
+    if data.get("revisionChangeIdentifier") is not None:
+        out["revision_change_identifier"] = data["revisionChangeIdentifier"]
+    if data.get("revisionSummary") is not None:
+        out["revision_summary"] = data["revisionSummary"]
+    if data.get("created") is not None:
+        import capo_codepipeline.types.timestamp
+
+        out["created"] = capo_codepipeline.types.timestamp.deserialize_cbor(
+            data["created"]
+        )
+    if data.get("revisionUrl") is not None:
+        out["revision_url"] = data["revisionUrl"]
+    return out

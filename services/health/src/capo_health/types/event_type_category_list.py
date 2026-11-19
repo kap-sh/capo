@@ -29,3 +29,24 @@ def deserialize_aws_json_1_1(data: list) -> EventTypeCategoryList:
             continue
         out.append(capo_health.types.event_type_category.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EventTypeCategoryList) -> list:
+    import capo_health.types.event_type_category
+
+    out: list = []
+    for item in value:
+        out.append(capo_health.types.event_type_category.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> EventTypeCategoryList:
+    import capo_health.types.event_type_category
+
+    out: EventTypeCategoryList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_health.types.event_type_category.deserialize_cbor(item))
+    return out

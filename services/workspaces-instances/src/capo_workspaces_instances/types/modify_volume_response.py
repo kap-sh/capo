@@ -72,3 +72,46 @@ def deserialize_aws_json_1_0(data: dict) -> ModifyVolumeResponse:
     if data.get("TargetThroughput") is not None:
         out["target_throughput"] = data["TargetThroughput"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ModifyVolumeResponse) -> dict:
+    out: dict = {}
+    if "volume_id" in value:
+        out["VolumeId"] = value["volume_id"]
+    if "target_size" in value:
+        out["TargetSize"] = value["target_size"]
+    if "target_volume_type" in value:
+        import capo_workspaces_instances.types.volume_type_enum
+
+        out["TargetVolumeType"] = (
+            capo_workspaces_instances.types.volume_type_enum.serialize_cbor(
+                value["target_volume_type"]
+            )
+        )
+    if "target_iops" in value:
+        out["TargetIops"] = value["target_iops"]
+    if "target_throughput" in value:
+        out["TargetThroughput"] = value["target_throughput"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ModifyVolumeResponse:
+    out: ModifyVolumeResponse = {}  # type: ignore[typeddict-item]
+    if data.get("VolumeId") is not None:
+        out["volume_id"] = data["VolumeId"]
+    if data.get("TargetSize") is not None:
+        out["target_size"] = data["TargetSize"]
+    if data.get("TargetVolumeType") is not None:
+        import capo_workspaces_instances.types.volume_type_enum
+
+        out["target_volume_type"] = (
+            capo_workspaces_instances.types.volume_type_enum.deserialize_cbor(
+                data["TargetVolumeType"]
+            )
+        )
+    if data.get("TargetIops") is not None:
+        out["target_iops"] = data["TargetIops"]
+    if data.get("TargetThroughput") is not None:
+        out["target_throughput"] = data["TargetThroughput"]
+    return out

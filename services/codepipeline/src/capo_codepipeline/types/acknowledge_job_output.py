@@ -34,3 +34,26 @@ def deserialize_aws_json_1_1(data: dict) -> AcknowledgeJobOutput:
             data["status"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AcknowledgeJobOutput) -> dict:
+    out: dict = {}
+    if "status" in value:
+        import capo_codepipeline.types.job_status
+
+        out["status"] = capo_codepipeline.types.job_status.serialize_cbor(
+            value["status"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AcknowledgeJobOutput:
+    out: AcknowledgeJobOutput = {}  # type: ignore[typeddict-item]
+    if data.get("status") is not None:
+        import capo_codepipeline.types.job_status
+
+        out["status"] = capo_codepipeline.types.job_status.deserialize_cbor(
+            data["status"]
+        )
+    return out

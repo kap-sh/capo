@@ -56,3 +56,38 @@ def deserialize_aws_json_1_1(data: dict) -> ListDeploymentGroupsOutput:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListDeploymentGroupsOutput) -> dict:
+    out: dict = {}
+    if "application_name" in value:
+        out["applicationName"] = value["application_name"]
+    if "deployment_groups" in value:
+        import capo_codedeploy.types.deployment_groups_list
+
+        out["deploymentGroups"] = (
+            capo_codedeploy.types.deployment_groups_list.serialize_cbor(
+                value["deployment_groups"]
+            )
+        )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListDeploymentGroupsOutput:
+    out: ListDeploymentGroupsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("applicationName") is not None:
+        out["application_name"] = data["applicationName"]
+    if data.get("deploymentGroups") is not None:
+        import capo_codedeploy.types.deployment_groups_list
+
+        out["deployment_groups"] = (
+            capo_codedeploy.types.deployment_groups_list.deserialize_cbor(
+                data["deploymentGroups"]
+            )
+        )
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

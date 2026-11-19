@@ -39,3 +39,12 @@ def serialize_query(
 
 def deserialize_query(el: Element) -> HistoryItemType:
     return from_query_text(el.text or "")
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: HistoryItemType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> HistoryItemType:
+    return cast(HistoryItemType, data)

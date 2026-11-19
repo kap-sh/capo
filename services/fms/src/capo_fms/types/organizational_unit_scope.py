@@ -61,3 +61,46 @@ def deserialize_aws_json_1_1(data: dict) -> OrganizationalUnitScope:
     else:
         out["exclude_specified_organizational_units"] = False
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: OrganizationalUnitScope) -> dict:
+    out: dict = {}
+    if "organizational_units" in value:
+        import capo_fms.types.organizational_unit_id_list
+
+        out["OrganizationalUnits"] = (
+            capo_fms.types.organizational_unit_id_list.serialize_cbor(
+                value["organizational_units"]
+            )
+        )
+    out["AllOrganizationalUnitsEnabled"] = value.get(
+        "all_organizational_units_enabled", False
+    )
+    out["ExcludeSpecifiedOrganizationalUnits"] = value.get(
+        "exclude_specified_organizational_units", False
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> OrganizationalUnitScope:
+    out: OrganizationalUnitScope = {}  # type: ignore[typeddict-item]
+    if data.get("OrganizationalUnits") is not None:
+        import capo_fms.types.organizational_unit_id_list
+
+        out["organizational_units"] = (
+            capo_fms.types.organizational_unit_id_list.deserialize_cbor(
+                data["OrganizationalUnits"]
+            )
+        )
+    if data.get("AllOrganizationalUnitsEnabled") is not None:
+        out["all_organizational_units_enabled"] = data["AllOrganizationalUnitsEnabled"]
+    else:
+        out["all_organizational_units_enabled"] = False
+    if data.get("ExcludeSpecifiedOrganizationalUnits") is not None:
+        out["exclude_specified_organizational_units"] = data[
+            "ExcludeSpecifiedOrganizationalUnits"
+        ]
+    else:
+        out["exclude_specified_organizational_units"] = False
+    return out

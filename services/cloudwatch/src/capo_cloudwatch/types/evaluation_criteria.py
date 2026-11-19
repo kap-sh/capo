@@ -88,3 +88,39 @@ def deserialize_aws_json_1_0(data: dict) -> EvaluationCriteria:
         if name is not None:
             return {"$unknown": {"name": name}}
         raise DeserializationError("EvaluationCriteria: no recognized variant key")
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EvaluationCriteria) -> dict:
+    if "$unknown" in value:
+        raise SerializationError(
+            f"EvaluationCriteria: cannot serialize unknown variant {value['$unknown']['name']!r}"
+        )
+    elif "PromQLCriteria" in value:
+        import capo_cloudwatch.types.alarm_prom_ql_criteria
+
+        return {
+            "PromQLCriteria": capo_cloudwatch.types.alarm_prom_ql_criteria.serialize_cbor(
+                value["PromQLCriteria"]
+            )
+        }
+    else:
+        raise SerializationError("EvaluationCriteria: no variant present")
+
+
+def deserialize_cbor(data: dict) -> EvaluationCriteria:
+    if data.get("PromQLCriteria") is not None:
+        import capo_cloudwatch.types.alarm_prom_ql_criteria
+
+        return {
+            "PromQLCriteria": capo_cloudwatch.types.alarm_prom_ql_criteria.deserialize_cbor(
+                data["PromQLCriteria"]
+            )
+        }
+    else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return {"$unknown": {"name": name}}
+        raise DeserializationError("EvaluationCriteria: no recognized variant key")

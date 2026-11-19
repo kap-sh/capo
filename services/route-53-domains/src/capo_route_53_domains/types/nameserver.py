@@ -46,3 +46,31 @@ def deserialize_aws_json_1_1(data: dict) -> Nameserver:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Nameserver) -> dict:
+    out: dict = {}
+    out["Name"] = value["name"]
+    if "glue_ips" in value:
+        import capo_route_53_domains.types.glue_ip_list
+
+        out["GlueIps"] = capo_route_53_domains.types.glue_ip_list.serialize_cbor(
+            value["glue_ips"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Nameserver:
+    out: Nameserver = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    else:
+        out["name"] = ""
+    if data.get("GlueIps") is not None:
+        import capo_route_53_domains.types.glue_ip_list
+
+        out["glue_ips"] = capo_route_53_domains.types.glue_ip_list.deserialize_cbor(
+            data["GlueIps"]
+        )
+    return out

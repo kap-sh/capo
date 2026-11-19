@@ -18,3 +18,12 @@ def serialize_aws_json_1_1(value: AdapterVersionStatus) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> AdapterVersionStatus:
     return cast(AdapterVersionStatus, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AdapterVersionStatus) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> AdapterVersionStatus:
+    return cast(AdapterVersionStatus, data)

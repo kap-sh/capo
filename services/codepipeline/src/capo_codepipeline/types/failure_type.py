@@ -19,3 +19,12 @@ def serialize_aws_json_1_1(value: FailureType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> FailureType:
     return cast(FailureType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FailureType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> FailureType:
+    return cast(FailureType, data)

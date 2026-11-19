@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> ConfirmConnectionResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ConfirmConnectionResponse) -> dict:
+    out: dict = {}
+    if "connection_state" in value:
+        import capo_direct_connect.types.connection_state
+
+        out["connectionState"] = (
+            capo_direct_connect.types.connection_state.serialize_cbor(
+                value["connection_state"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ConfirmConnectionResponse:
+    out: ConfirmConnectionResponse = {}  # type: ignore[typeddict-item]
+    if data.get("connectionState") is not None:
+        import capo_direct_connect.types.connection_state
+
+        out["connection_state"] = (
+            capo_direct_connect.types.connection_state.deserialize_cbor(
+                data["connectionState"]
+            )
+        )
+    return out

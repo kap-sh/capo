@@ -61,3 +61,42 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeImagePermissionsRequest:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeImagePermissionsRequest) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "shared_aws_account_ids" in value:
+        import capo_appstream.types.aws_account_id_list
+
+        out["SharedAwsAccountIds"] = (
+            capo_appstream.types.aws_account_id_list.serialize_cbor(
+                value["shared_aws_account_ids"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeImagePermissionsRequest:
+    out: DescribeImagePermissionsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("SharedAwsAccountIds") is not None:
+        import capo_appstream.types.aws_account_id_list
+
+        out["shared_aws_account_ids"] = (
+            capo_appstream.types.aws_account_id_list.deserialize_cbor(
+                data["SharedAwsAccountIds"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

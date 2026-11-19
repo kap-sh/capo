@@ -48,3 +48,35 @@ def deserialize_aws_json_1_1(data: dict) -> PolicyInformation:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PolicyInformation) -> dict:
+    out: dict = {}
+    out["CertPolicyId"] = value["cert_policy_id"]
+    if "policy_qualifiers" in value:
+        import capo_acm_pca.types.policy_qualifier_info_list
+
+        out["PolicyQualifiers"] = (
+            capo_acm_pca.types.policy_qualifier_info_list.serialize_cbor(
+                value["policy_qualifiers"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PolicyInformation:
+    out: PolicyInformation = {}  # type: ignore[typeddict-item]
+    if data.get("CertPolicyId") is not None:
+        out["cert_policy_id"] = data["CertPolicyId"]
+    else:
+        out["cert_policy_id"] = ""
+    if data.get("PolicyQualifiers") is not None:
+        import capo_acm_pca.types.policy_qualifier_info_list
+
+        out["policy_qualifiers"] = (
+            capo_acm_pca.types.policy_qualifier_info_list.deserialize_cbor(
+                data["PolicyQualifiers"]
+            )
+        )
+    return out

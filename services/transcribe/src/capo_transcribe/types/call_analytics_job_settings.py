@@ -144,3 +144,100 @@ def deserialize_aws_json_1_1(data: dict) -> CallAnalyticsJobSettings:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CallAnalyticsJobSettings) -> dict:
+    out: dict = {}
+    if "vocabulary_name" in value:
+        out["VocabularyName"] = value["vocabulary_name"]
+    if "vocabulary_filter_name" in value:
+        out["VocabularyFilterName"] = value["vocabulary_filter_name"]
+    if "vocabulary_filter_method" in value:
+        import capo_transcribe.types.vocabulary_filter_method
+
+        out["VocabularyFilterMethod"] = (
+            capo_transcribe.types.vocabulary_filter_method.serialize_cbor(
+                value["vocabulary_filter_method"]
+            )
+        )
+    if "language_model_name" in value:
+        out["LanguageModelName"] = value["language_model_name"]
+    if "content_redaction" in value:
+        import capo_transcribe.types.content_redaction
+
+        out["ContentRedaction"] = (
+            capo_transcribe.types.content_redaction.serialize_cbor(
+                value["content_redaction"]
+            )
+        )
+    if "language_options" in value:
+        import capo_transcribe.types.language_options
+
+        out["LanguageOptions"] = capo_transcribe.types.language_options.serialize_cbor(
+            value["language_options"]
+        )
+    if "language_id_settings" in value:
+        import capo_transcribe.types.language_id_settings_map
+
+        out["LanguageIdSettings"] = (
+            capo_transcribe.types.language_id_settings_map.serialize_cbor(
+                value["language_id_settings"]
+            )
+        )
+    if "summarization" in value:
+        import capo_transcribe.types.summarization
+
+        out["Summarization"] = capo_transcribe.types.summarization.serialize_cbor(
+            value["summarization"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CallAnalyticsJobSettings:
+    out: CallAnalyticsJobSettings = {}  # type: ignore[typeddict-item]
+    if data.get("VocabularyName") is not None:
+        out["vocabulary_name"] = data["VocabularyName"]
+    if data.get("VocabularyFilterName") is not None:
+        out["vocabulary_filter_name"] = data["VocabularyFilterName"]
+    if data.get("VocabularyFilterMethod") is not None:
+        import capo_transcribe.types.vocabulary_filter_method
+
+        out["vocabulary_filter_method"] = (
+            capo_transcribe.types.vocabulary_filter_method.deserialize_cbor(
+                data["VocabularyFilterMethod"]
+            )
+        )
+    if data.get("LanguageModelName") is not None:
+        out["language_model_name"] = data["LanguageModelName"]
+    if data.get("ContentRedaction") is not None:
+        import capo_transcribe.types.content_redaction
+
+        out["content_redaction"] = (
+            capo_transcribe.types.content_redaction.deserialize_cbor(
+                data["ContentRedaction"]
+            )
+        )
+    if data.get("LanguageOptions") is not None:
+        import capo_transcribe.types.language_options
+
+        out["language_options"] = (
+            capo_transcribe.types.language_options.deserialize_cbor(
+                data["LanguageOptions"]
+            )
+        )
+    if data.get("LanguageIdSettings") is not None:
+        import capo_transcribe.types.language_id_settings_map
+
+        out["language_id_settings"] = (
+            capo_transcribe.types.language_id_settings_map.deserialize_cbor(
+                data["LanguageIdSettings"]
+            )
+        )
+    if data.get("Summarization") is not None:
+        import capo_transcribe.types.summarization
+
+        out["summarization"] = capo_transcribe.types.summarization.deserialize_cbor(
+            data["Summarization"]
+        )
+    return out

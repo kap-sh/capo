@@ -79,3 +79,50 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeServiceUpdatesRequest:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeServiceUpdatesRequest) -> dict:
+    out: dict = {}
+    if "service_update_name" in value:
+        out["ServiceUpdateName"] = value["service_update_name"]
+    if "cluster_names" in value:
+        import capo_memorydb.types.cluster_name_list
+
+        out["ClusterNames"] = capo_memorydb.types.cluster_name_list.serialize_cbor(
+            value["cluster_names"]
+        )
+    if "status" in value:
+        import capo_memorydb.types.service_update_status_list
+
+        out["Status"] = capo_memorydb.types.service_update_status_list.serialize_cbor(
+            value["status"]
+        )
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeServiceUpdatesRequest:
+    out: DescribeServiceUpdatesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ServiceUpdateName") is not None:
+        out["service_update_name"] = data["ServiceUpdateName"]
+    if data.get("ClusterNames") is not None:
+        import capo_memorydb.types.cluster_name_list
+
+        out["cluster_names"] = capo_memorydb.types.cluster_name_list.deserialize_cbor(
+            data["ClusterNames"]
+        )
+    if data.get("Status") is not None:
+        import capo_memorydb.types.service_update_status_list
+
+        out["status"] = capo_memorydb.types.service_update_status_list.deserialize_cbor(
+            data["Status"]
+        )
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDeploymentGroupOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateDeploymentGroupOutput) -> dict:
+    out: dict = {}
+    if "hooks_not_cleaned_up" in value:
+        import capo_codedeploy.types.auto_scaling_group_list
+
+        out["hooksNotCleanedUp"] = (
+            capo_codedeploy.types.auto_scaling_group_list.serialize_cbor(
+                value["hooks_not_cleaned_up"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateDeploymentGroupOutput:
+    out: UpdateDeploymentGroupOutput = {}  # type: ignore[typeddict-item]
+    if data.get("hooksNotCleanedUp") is not None:
+        import capo_codedeploy.types.auto_scaling_group_list
+
+        out["hooks_not_cleaned_up"] = (
+            capo_codedeploy.types.auto_scaling_group_list.deserialize_cbor(
+                data["hooksNotCleanedUp"]
+            )
+        )
+    return out

@@ -58,3 +58,38 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeSnapshotsRequest:
     if data.get("ShowDetail") is not None:
         out["show_detail"] = data["ShowDetail"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeSnapshotsRequest) -> dict:
+    out: dict = {}
+    if "cluster_name" in value:
+        out["ClusterName"] = value["cluster_name"]
+    if "snapshot_name" in value:
+        out["SnapshotName"] = value["snapshot_name"]
+    if "source" in value:
+        out["Source"] = value["source"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "show_detail" in value:
+        out["ShowDetail"] = value["show_detail"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeSnapshotsRequest:
+    out: DescribeSnapshotsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ClusterName") is not None:
+        out["cluster_name"] = data["ClusterName"]
+    if data.get("SnapshotName") is not None:
+        out["snapshot_name"] = data["SnapshotName"]
+    if data.get("Source") is not None:
+        out["source"] = data["Source"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("ShowDetail") is not None:
+        out["show_detail"] = data["ShowDetail"]
+    return out

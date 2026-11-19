@@ -38,3 +38,26 @@ def deserialize_aws_json_1_1(data: dict) -> FilterConfiguration:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FilterConfiguration) -> dict:
+    out: dict = {}
+    if "allowed_locations" in value:
+        import capo_gamelift.types.location_list
+
+        out["AllowedLocations"] = capo_gamelift.types.location_list.serialize_cbor(
+            value["allowed_locations"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> FilterConfiguration:
+    out: FilterConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("AllowedLocations") is not None:
+        import capo_gamelift.types.location_list
+
+        out["allowed_locations"] = capo_gamelift.types.location_list.deserialize_cbor(
+            data["AllowedLocations"]
+        )
+    return out

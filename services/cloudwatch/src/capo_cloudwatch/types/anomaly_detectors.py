@@ -80,3 +80,24 @@ def deserialize_aws_json_1_0(data: list) -> AnomalyDetectors:
             capo_cloudwatch.types.anomaly_detector.deserialize_aws_json_1_0(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AnomalyDetectors) -> list:
+    import capo_cloudwatch.types.anomaly_detector
+
+    out: list = []
+    for item in value:
+        out.append(capo_cloudwatch.types.anomaly_detector.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> AnomalyDetectors:
+    import capo_cloudwatch.types.anomaly_detector
+
+    out: AnomalyDetectors = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_cloudwatch.types.anomaly_detector.deserialize_cbor(item))
+    return out

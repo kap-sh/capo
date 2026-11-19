@@ -118,6 +118,7 @@ class AsyncComputeOptimizerAutomationClientConfig(TypedDict, total=False, closed
     operation_interceptors: Iterable[AsyncInterceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_0", "rpcv2Cbor"]
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -134,6 +135,7 @@ class AsyncComputeOptimizerAutomationClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -149,6 +151,7 @@ class AsyncComputeOptimizerAutomationClient:
         operation_interceptors: Iterable[AsyncInterceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_0", "rpcv2Cbor"] = "awsJson1_0",
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -185,6 +188,7 @@ class AsyncComputeOptimizerAutomationClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -218,6 +222,9 @@ class AsyncComputeOptimizerAutomationClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_0")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -265,14 +272,26 @@ class AsyncComputeOptimizerAutomationClient:
         ) -> AsyncOperationResponse[
             "capo_compute_optimizer_automation.types.associate_accounts_response.AssociateAccountsResponse"
         ]:
-            import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.associate_accounts
+            if req.options.protocol == "awsJson1_0":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.associate_accounts
 
-            (
-                output,
-                http_response,
-            ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.associate_accounts.async_associate_accounts(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.associate_accounts.async_associate_accounts(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.associate_accounts
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.associate_accounts.async_associate_accounts(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -354,14 +373,26 @@ class AsyncComputeOptimizerAutomationClient:
         ) -> AsyncOperationResponse[
             "capo_compute_optimizer_automation.types.create_automation_rule_response.CreateAutomationRuleResponse"
         ]:
-            import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.create_automation_rule
+            if req.options.protocol == "awsJson1_0":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.create_automation_rule
 
-            (
-                output,
-                http_response,
-            ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.create_automation_rule.async_create_automation_rule(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.create_automation_rule.async_create_automation_rule(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.create_automation_rule
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.create_automation_rule.async_create_automation_rule(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -432,14 +463,26 @@ class AsyncComputeOptimizerAutomationClient:
         ) -> AsyncOperationResponse[
             "capo_compute_optimizer_automation.types.delete_automation_rule_response.DeleteAutomationRuleResponse"
         ]:
-            import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.delete_automation_rule
+            if req.options.protocol == "awsJson1_0":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.delete_automation_rule
 
-            (
-                output,
-                http_response,
-            ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.delete_automation_rule.async_delete_automation_rule(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.delete_automation_rule.async_delete_automation_rule(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.delete_automation_rule
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.delete_automation_rule.async_delete_automation_rule(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -495,14 +538,26 @@ class AsyncComputeOptimizerAutomationClient:
         ) -> AsyncOperationResponse[
             "capo_compute_optimizer_automation.types.disassociate_accounts_response.DisassociateAccountsResponse"
         ]:
-            import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.disassociate_accounts
+            if req.options.protocol == "awsJson1_0":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.disassociate_accounts
 
-            (
-                output,
-                http_response,
-            ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.disassociate_accounts.async_disassociate_accounts(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.disassociate_accounts.async_disassociate_accounts(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.disassociate_accounts
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.disassociate_accounts.async_disassociate_accounts(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -551,14 +606,26 @@ class AsyncComputeOptimizerAutomationClient:
         ) -> AsyncOperationResponse[
             "capo_compute_optimizer_automation.types.get_automation_event_response.GetAutomationEventResponse"
         ]:
-            import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.get_automation_event
+            if req.options.protocol == "awsJson1_0":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.get_automation_event
 
-            (
-                output,
-                http_response,
-            ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.get_automation_event.async_get_automation_event(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.get_automation_event.async_get_automation_event(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.get_automation_event
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.get_automation_event.async_get_automation_event(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -604,14 +671,26 @@ class AsyncComputeOptimizerAutomationClient:
         ) -> AsyncOperationResponse[
             "capo_compute_optimizer_automation.types.get_automation_rule_response.GetAutomationRuleResponse"
         ]:
-            import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.get_automation_rule
+            if req.options.protocol == "awsJson1_0":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.get_automation_rule
 
-            (
-                output,
-                http_response,
-            ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.get_automation_rule.async_get_automation_rule(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.get_automation_rule.async_get_automation_rule(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.get_automation_rule
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.get_automation_rule.async_get_automation_rule(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -653,14 +732,26 @@ class AsyncComputeOptimizerAutomationClient:
         ) -> AsyncOperationResponse[
             "capo_compute_optimizer_automation.types.get_enrollment_configuration_response.GetEnrollmentConfigurationResponse"
         ]:
-            import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.get_enrollment_configuration
+            if req.options.protocol == "awsJson1_0":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.get_enrollment_configuration
 
-            (
-                output,
-                http_response,
-            ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.get_enrollment_configuration.async_get_enrollment_configuration(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.get_enrollment_configuration.async_get_enrollment_configuration(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.get_enrollment_configuration
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.get_enrollment_configuration.async_get_enrollment_configuration(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -708,14 +799,26 @@ class AsyncComputeOptimizerAutomationClient:
         ) -> AsyncOperationResponse[
             "capo_compute_optimizer_automation.types.list_accounts_response.ListAccountsResponse"
         ]:
-            import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.list_accounts
+            if req.options.protocol == "awsJson1_0":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.list_accounts
 
-            (
-                output,
-                http_response,
-            ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.list_accounts.async_list_accounts(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.list_accounts.async_list_accounts(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.list_accounts
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.list_accounts.async_list_accounts(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -797,14 +900,26 @@ class AsyncComputeOptimizerAutomationClient:
         ) -> AsyncOperationResponse[
             "capo_compute_optimizer_automation.types.list_automation_events_response.ListAutomationEventsResponse"
         ]:
-            import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.list_automation_events
+            if req.options.protocol == "awsJson1_0":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.list_automation_events
 
-            (
-                output,
-                http_response,
-            ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.list_automation_events.async_list_automation_events(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.list_automation_events.async_list_automation_events(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.list_automation_events
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.list_automation_events.async_list_automation_events(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -895,14 +1010,26 @@ class AsyncComputeOptimizerAutomationClient:
         ) -> AsyncOperationResponse[
             "capo_compute_optimizer_automation.types.list_automation_event_steps_response.ListAutomationEventStepsResponse"
         ]:
-            import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.list_automation_event_steps
+            if req.options.protocol == "awsJson1_0":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.list_automation_event_steps
 
-            (
-                output,
-                http_response,
-            ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.list_automation_event_steps.async_list_automation_event_steps(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.list_automation_event_steps.async_list_automation_event_steps(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.list_automation_event_steps
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.list_automation_event_steps.async_list_automation_event_steps(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -988,14 +1115,26 @@ class AsyncComputeOptimizerAutomationClient:
         ) -> AsyncOperationResponse[
             "capo_compute_optimizer_automation.types.list_automation_event_summaries_response.ListAutomationEventSummariesResponse"
         ]:
-            import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.list_automation_event_summaries
+            if req.options.protocol == "awsJson1_0":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.list_automation_event_summaries
 
-            (
-                output,
-                http_response,
-            ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.list_automation_event_summaries.async_list_automation_event_summaries(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.list_automation_event_summaries.async_list_automation_event_summaries(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.list_automation_event_summaries
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.list_automation_event_summaries.async_list_automation_event_summaries(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1095,14 +1234,26 @@ class AsyncComputeOptimizerAutomationClient:
         ) -> AsyncOperationResponse[
             "capo_compute_optimizer_automation.types.list_automation_rule_preview_response.ListAutomationRulePreviewResponse"
         ]:
-            import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.list_automation_rule_preview
+            if req.options.protocol == "awsJson1_0":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.list_automation_rule_preview
 
-            (
-                output,
-                http_response,
-            ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.list_automation_rule_preview.async_list_automation_rule_preview(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.list_automation_rule_preview.async_list_automation_rule_preview(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.list_automation_rule_preview
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.list_automation_rule_preview.async_list_automation_rule_preview(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1206,14 +1357,26 @@ class AsyncComputeOptimizerAutomationClient:
         ) -> AsyncOperationResponse[
             "capo_compute_optimizer_automation.types.list_automation_rule_preview_summaries_response.ListAutomationRulePreviewSummariesResponse"
         ]:
-            import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.list_automation_rule_preview_summaries
+            if req.options.protocol == "awsJson1_0":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.list_automation_rule_preview_summaries
 
-            (
-                output,
-                http_response,
-            ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.list_automation_rule_preview_summaries.async_list_automation_rule_preview_summaries(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.list_automation_rule_preview_summaries.async_list_automation_rule_preview_summaries(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.list_automation_rule_preview_summaries
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.list_automation_rule_preview_summaries.async_list_automation_rule_preview_summaries(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1310,14 +1473,26 @@ class AsyncComputeOptimizerAutomationClient:
         ) -> AsyncOperationResponse[
             "capo_compute_optimizer_automation.types.list_automation_rules_response.ListAutomationRulesResponse"
         ]:
-            import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.list_automation_rules
+            if req.options.protocol == "awsJson1_0":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.list_automation_rules
 
-            (
-                output,
-                http_response,
-            ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.list_automation_rules.async_list_automation_rules(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.list_automation_rules.async_list_automation_rules(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.list_automation_rules
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.list_automation_rules.async_list_automation_rules(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1401,14 +1576,26 @@ class AsyncComputeOptimizerAutomationClient:
         ) -> AsyncOperationResponse[
             "capo_compute_optimizer_automation.types.list_recommended_actions_response.ListRecommendedActionsResponse"
         ]:
-            import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.list_recommended_actions
+            if req.options.protocol == "awsJson1_0":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.list_recommended_actions
 
-            (
-                output,
-                http_response,
-            ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.list_recommended_actions.async_list_recommended_actions(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.list_recommended_actions.async_list_recommended_actions(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.list_recommended_actions
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.list_recommended_actions.async_list_recommended_actions(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1492,14 +1679,26 @@ class AsyncComputeOptimizerAutomationClient:
         ) -> AsyncOperationResponse[
             "capo_compute_optimizer_automation.types.list_recommended_action_summaries_response.ListRecommendedActionSummariesResponse"
         ]:
-            import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.list_recommended_action_summaries
+            if req.options.protocol == "awsJson1_0":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.list_recommended_action_summaries
 
-            (
-                output,
-                http_response,
-            ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.list_recommended_action_summaries.async_list_recommended_action_summaries(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.list_recommended_action_summaries.async_list_recommended_action_summaries(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.list_recommended_action_summaries
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.list_recommended_action_summaries.async_list_recommended_action_summaries(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1576,14 +1775,26 @@ class AsyncComputeOptimizerAutomationClient:
         ) -> AsyncOperationResponse[
             "capo_compute_optimizer_automation.types.list_tags_for_resource_response.ListTagsForResourceResponse"
         ]:
-            import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.list_tags_for_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.list_tags_for_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.list_tags_for_resource.async_list_tags_for_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.list_tags_for_resource.async_list_tags_for_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.list_tags_for_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.list_tags_for_resource.async_list_tags_for_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1635,14 +1846,26 @@ class AsyncComputeOptimizerAutomationClient:
         ) -> AsyncOperationResponse[
             "capo_compute_optimizer_automation.types.rollback_automation_event_response.RollbackAutomationEventResponse"
         ]:
-            import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rollback_automation_event
+            if req.options.protocol == "awsJson1_0":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.rollback_automation_event
 
-            (
-                output,
-                http_response,
-            ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rollback_automation_event.async_rollback_automation_event(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.rollback_automation_event.async_rollback_automation_event(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.rollback_automation_event
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.rollback_automation_event.async_rollback_automation_event(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1698,14 +1921,26 @@ class AsyncComputeOptimizerAutomationClient:
         ) -> AsyncOperationResponse[
             "capo_compute_optimizer_automation.types.start_automation_event_response.StartAutomationEventResponse"
         ]:
-            import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.start_automation_event
+            if req.options.protocol == "awsJson1_0":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.start_automation_event
 
-            (
-                output,
-                http_response,
-            ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.start_automation_event.async_start_automation_event(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.start_automation_event.async_start_automation_event(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.start_automation_event
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.start_automation_event.async_start_automation_event(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1764,14 +1999,26 @@ class AsyncComputeOptimizerAutomationClient:
         ) -> AsyncOperationResponse[
             "capo_compute_optimizer_automation.types.tag_resource_response.TagResourceResponse"
         ]:
-            import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.tag_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.tag_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.tag_resource.async_tag_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.tag_resource.async_tag_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.tag_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.tag_resource.async_tag_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1832,14 +2079,26 @@ class AsyncComputeOptimizerAutomationClient:
         ) -> AsyncOperationResponse[
             "capo_compute_optimizer_automation.types.untag_resource_response.UntagResourceResponse"
         ]:
-            import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.untag_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.untag_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.untag_resource.async_untag_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.untag_resource.async_untag_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.untag_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.untag_resource.async_untag_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1931,14 +2190,26 @@ class AsyncComputeOptimizerAutomationClient:
         ) -> AsyncOperationResponse[
             "capo_compute_optimizer_automation.types.update_automation_rule_response.UpdateAutomationRuleResponse"
         ]:
-            import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.update_automation_rule
+            if req.options.protocol == "awsJson1_0":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.update_automation_rule
 
-            (
-                output,
-                http_response,
-            ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.update_automation_rule.async_update_automation_rule(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.update_automation_rule.async_update_automation_rule(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.update_automation_rule
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.update_automation_rule.async_update_automation_rule(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2013,14 +2284,26 @@ class AsyncComputeOptimizerAutomationClient:
         ) -> AsyncOperationResponse[
             "capo_compute_optimizer_automation.types.update_enrollment_configuration_response.UpdateEnrollmentConfigurationResponse"
         ]:
-            import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.update_enrollment_configuration
+            if req.options.protocol == "awsJson1_0":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.update_enrollment_configuration
 
-            (
-                output,
-                http_response,
-            ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.update_enrollment_configuration.async_update_enrollment_configuration(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.aws_json1_0.update_enrollment_configuration.async_update_enrollment_configuration(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.update_enrollment_configuration
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_compute_optimizer_automation._operations.compute_optimizer_automation_service.rpcv2_cbor.update_enrollment_configuration.async_update_enrollment_configuration(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

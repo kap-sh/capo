@@ -191,3 +191,70 @@ def deserialize_query(el: Element) -> ScheduledQueryConfiguration:
 
         out["tags"] = capo_cloudwatch.types.tag_list.deserialize_query(child_tags)
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ScheduledQueryConfiguration) -> dict:
+    out: dict = {}
+    if "query_string" in value:
+        out["QueryString"] = value["query_string"]
+    if "log_group_identifiers" in value:
+        import capo_cloudwatch.types.log_group_identifiers
+
+        out["LogGroupIdentifiers"] = (
+            capo_cloudwatch.types.log_group_identifiers.serialize_cbor(
+                value["log_group_identifiers"]
+            )
+        )
+    if "query_arn" in value:
+        out["QueryARN"] = value["query_arn"]
+    if "scheduled_query_role_arn" in value:
+        out["ScheduledQueryRoleARN"] = value["scheduled_query_role_arn"]
+    if "schedule_configuration" in value:
+        import capo_cloudwatch.types.schedule_configuration
+
+        out["ScheduleConfiguration"] = (
+            capo_cloudwatch.types.schedule_configuration.serialize_cbor(
+                value["schedule_configuration"]
+            )
+        )
+    if "aggregation_expression" in value:
+        out["AggregationExpression"] = value["aggregation_expression"]
+    if "tags" in value:
+        import capo_cloudwatch.types.tag_list
+
+        out["Tags"] = capo_cloudwatch.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> ScheduledQueryConfiguration:
+    out: ScheduledQueryConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("QueryString") is not None:
+        out["query_string"] = data["QueryString"]
+    if data.get("LogGroupIdentifiers") is not None:
+        import capo_cloudwatch.types.log_group_identifiers
+
+        out["log_group_identifiers"] = (
+            capo_cloudwatch.types.log_group_identifiers.deserialize_cbor(
+                data["LogGroupIdentifiers"]
+            )
+        )
+    if data.get("QueryARN") is not None:
+        out["query_arn"] = data["QueryARN"]
+    if data.get("ScheduledQueryRoleARN") is not None:
+        out["scheduled_query_role_arn"] = data["ScheduledQueryRoleARN"]
+    if data.get("ScheduleConfiguration") is not None:
+        import capo_cloudwatch.types.schedule_configuration
+
+        out["schedule_configuration"] = (
+            capo_cloudwatch.types.schedule_configuration.deserialize_cbor(
+                data["ScheduleConfiguration"]
+            )
+        )
+    if data.get("AggregationExpression") is not None:
+        out["aggregation_expression"] = data["AggregationExpression"]
+    if data.get("Tags") is not None:
+        import capo_cloudwatch.types.tag_list
+
+        out["tags"] = capo_cloudwatch.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

@@ -82,6 +82,60 @@ def deserialize_aws_json_1_1(data: dict) -> ShareDirectoryRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ShareDirectoryRequest) -> dict:
+    out: dict = {}
+    out["DirectoryId"] = value["directory_id"]
+    if "share_notes" in value:
+        out["ShareNotes"] = value["share_notes"]
+    import capo_directory_service.types.share_target
+
+    out["ShareTarget"] = capo_directory_service.types.share_target.serialize_cbor(
+        value["share_target"]
+    )
+    import capo_directory_service.types.share_method
+
+    out["ShareMethod"] = capo_directory_service.types.share_method.serialize_cbor(
+        value["share_method"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ShareDirectoryRequest:
+    out: ShareDirectoryRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    if data.get("ShareNotes") is not None:
+        out["share_notes"] = data["ShareNotes"]
+    if data.get("ShareTarget") is not None:
+        import capo_directory_service.types.share_target
+
+        out["share_target"] = (
+            capo_directory_service.types.share_target.deserialize_cbor(
+                data["ShareTarget"]
+            )
+        )
+    else:
+        raise DeserializationError("ShareDirectoryRequest.share_target required")
+    if data.get("ShareMethod") is not None:
+        import capo_directory_service.types.share_method
+
+        out["share_method"] = (
+            capo_directory_service.types.share_method.deserialize_cbor(
+                data["ShareMethod"]
+            )
+        )
+    else:
+        import typing
+
+        out["share_method"] = typing.cast(
+            "capo_directory_service.types.share_method.ShareMethod", ""
+        )
+    return out
+
+
 def redact_sensitive(value: ShareDirectoryRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "share_notes" in value:

@@ -46,3 +46,33 @@ def deserialize_aws_json_1_1(data: dict) -> SourceAuth:
     if data.get("resource") is not None:
         out["resource"] = data["resource"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SourceAuth) -> dict:
+    out: dict = {}
+    import capo_codebuild.types.source_auth_type
+
+    out["type"] = capo_codebuild.types.source_auth_type.serialize_cbor(value["type"])
+    if "resource" in value:
+        out["resource"] = value["resource"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> SourceAuth:
+    out: SourceAuth = {}  # type: ignore[typeddict-item]
+    if data.get("type") is not None:
+        import capo_codebuild.types.source_auth_type
+
+        out["type"] = capo_codebuild.types.source_auth_type.deserialize_cbor(
+            data["type"]
+        )
+    else:
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_codebuild.types.source_auth_type.SourceAuthType", ""
+        )
+    if data.get("resource") is not None:
+        out["resource"] = data["resource"]
+    return out

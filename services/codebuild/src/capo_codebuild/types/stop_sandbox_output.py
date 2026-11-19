@@ -34,3 +34,22 @@ def deserialize_aws_json_1_1(data: dict) -> StopSandboxOutput:
             data["sandbox"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StopSandboxOutput) -> dict:
+    out: dict = {}
+    if "sandbox" in value:
+        import capo_codebuild.types.sandbox
+
+        out["sandbox"] = capo_codebuild.types.sandbox.serialize_cbor(value["sandbox"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> StopSandboxOutput:
+    out: StopSandboxOutput = {}  # type: ignore[typeddict-item]
+    if data.get("sandbox") is not None:
+        import capo_codebuild.types.sandbox
+
+        out["sandbox"] = capo_codebuild.types.sandbox.deserialize_cbor(data["sandbox"])
+    return out

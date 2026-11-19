@@ -146,3 +146,104 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeLocationFsxWindowsResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeLocationFsxWindowsResponse) -> dict:
+    out: dict = {}
+    if "location_arn" in value:
+        out["LocationArn"] = value["location_arn"]
+    if "location_uri" in value:
+        out["LocationUri"] = value["location_uri"]
+    if "security_group_arns" in value:
+        import capo_datasync.types.ec2_security_group_arn_list
+
+        out["SecurityGroupArns"] = (
+            capo_datasync.types.ec2_security_group_arn_list.serialize_cbor(
+                value["security_group_arns"]
+            )
+        )
+    if "creation_time" in value:
+        import capo_datasync.types.time
+
+        out["CreationTime"] = capo_datasync.types.time.serialize_cbor(
+            value["creation_time"]
+        )
+    if "user" in value:
+        out["User"] = value["user"]
+    if "domain" in value:
+        out["Domain"] = value["domain"]
+    if "managed_secret_config" in value:
+        import capo_datasync.types.managed_secret_config
+
+        out["ManagedSecretConfig"] = (
+            capo_datasync.types.managed_secret_config.serialize_cbor(
+                value["managed_secret_config"]
+            )
+        )
+    if "cmk_secret_config" in value:
+        import capo_datasync.types.cmk_secret_config
+
+        out["CmkSecretConfig"] = capo_datasync.types.cmk_secret_config.serialize_cbor(
+            value["cmk_secret_config"]
+        )
+    if "custom_secret_config" in value:
+        import capo_datasync.types.custom_secret_config
+
+        out["CustomSecretConfig"] = (
+            capo_datasync.types.custom_secret_config.serialize_cbor(
+                value["custom_secret_config"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeLocationFsxWindowsResponse:
+    out: DescribeLocationFsxWindowsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("LocationArn") is not None:
+        out["location_arn"] = data["LocationArn"]
+    if data.get("LocationUri") is not None:
+        out["location_uri"] = data["LocationUri"]
+    if data.get("SecurityGroupArns") is not None:
+        import capo_datasync.types.ec2_security_group_arn_list
+
+        out["security_group_arns"] = (
+            capo_datasync.types.ec2_security_group_arn_list.deserialize_cbor(
+                data["SecurityGroupArns"]
+            )
+        )
+    if data.get("CreationTime") is not None:
+        import capo_datasync.types.time
+
+        out["creation_time"] = capo_datasync.types.time.deserialize_cbor(
+            data["CreationTime"]
+        )
+    if data.get("User") is not None:
+        out["user"] = data["User"]
+    if data.get("Domain") is not None:
+        out["domain"] = data["Domain"]
+    if data.get("ManagedSecretConfig") is not None:
+        import capo_datasync.types.managed_secret_config
+
+        out["managed_secret_config"] = (
+            capo_datasync.types.managed_secret_config.deserialize_cbor(
+                data["ManagedSecretConfig"]
+            )
+        )
+    if data.get("CmkSecretConfig") is not None:
+        import capo_datasync.types.cmk_secret_config
+
+        out["cmk_secret_config"] = (
+            capo_datasync.types.cmk_secret_config.deserialize_cbor(
+                data["CmkSecretConfig"]
+            )
+        )
+    if data.get("CustomSecretConfig") is not None:
+        import capo_datasync.types.custom_secret_config
+
+        out["custom_secret_config"] = (
+            capo_datasync.types.custom_secret_config.deserialize_cbor(
+                data["CustomSecretConfig"]
+            )
+        )
+    return out

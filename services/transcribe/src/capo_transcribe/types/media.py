@@ -32,3 +32,22 @@ def deserialize_aws_json_1_1(data: dict) -> Media:
     if data.get("RedactedMediaFileUri") is not None:
         out["redacted_media_file_uri"] = data["RedactedMediaFileUri"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Media) -> dict:
+    out: dict = {}
+    if "media_file_uri" in value:
+        out["MediaFileUri"] = value["media_file_uri"]
+    if "redacted_media_file_uri" in value:
+        out["RedactedMediaFileUri"] = value["redacted_media_file_uri"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Media:
+    out: Media = {}  # type: ignore[typeddict-item]
+    if data.get("MediaFileUri") is not None:
+        out["media_file_uri"] = data["MediaFileUri"]
+    if data.get("RedactedMediaFileUri") is not None:
+        out["redacted_media_file_uri"] = data["RedactedMediaFileUri"]
+    return out

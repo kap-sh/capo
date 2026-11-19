@@ -16,3 +16,14 @@ def serialize_aws_json_1_1(value: UpdateTaskResponse) -> dict:
 def deserialize_aws_json_1_1(data: dict) -> UpdateTaskResponse:
     out: UpdateTaskResponse = {}  # type: ignore[typeddict-item]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateTaskResponse) -> dict:
+    out: dict = {}
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateTaskResponse:
+    out: UpdateTaskResponse = {}  # type: ignore[typeddict-item]
+    return out

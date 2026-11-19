@@ -62,3 +62,42 @@ def deserialize_aws_json_1_1(data: dict) -> ViewBillingRequest:
     if data.get("MaxItems") is not None:
         out["max_items"] = data["MaxItems"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ViewBillingRequest) -> dict:
+    out: dict = {}
+    if "start" in value:
+        import capo_route_53_domains.types.timestamp
+
+        out["Start"] = capo_route_53_domains.types.timestamp.serialize_cbor(
+            value["start"]
+        )
+    if "end" in value:
+        import capo_route_53_domains.types.timestamp
+
+        out["End"] = capo_route_53_domains.types.timestamp.serialize_cbor(value["end"])
+    if "marker" in value:
+        out["Marker"] = value["marker"]
+    if "max_items" in value:
+        out["MaxItems"] = value["max_items"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ViewBillingRequest:
+    out: ViewBillingRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Start") is not None:
+        import capo_route_53_domains.types.timestamp
+
+        out["start"] = capo_route_53_domains.types.timestamp.deserialize_cbor(
+            data["Start"]
+        )
+    if data.get("End") is not None:
+        import capo_route_53_domains.types.timestamp
+
+        out["end"] = capo_route_53_domains.types.timestamp.deserialize_cbor(data["End"])
+    if data.get("Marker") is not None:
+        out["marker"] = data["Marker"]
+    if data.get("MaxItems") is not None:
+        out["max_items"] = data["MaxItems"]
+    return out

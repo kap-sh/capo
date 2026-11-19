@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDirectoryResult:
     if data.get("DirectoryId") is not None:
         out["directory_id"] = data["DirectoryId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateDirectoryResult) -> dict:
+    out: dict = {}
+    if "directory_id" in value:
+        out["DirectoryId"] = value["directory_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateDirectoryResult:
+    out: CreateDirectoryResult = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    return out

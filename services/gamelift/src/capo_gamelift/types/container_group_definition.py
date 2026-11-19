@@ -209,6 +209,137 @@ def deserialize_aws_json_1_1(data: dict) -> ContainerGroupDefinition:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ContainerGroupDefinition) -> dict:
+    out: dict = {}
+    if "container_group_definition_arn" in value:
+        out["ContainerGroupDefinitionArn"] = value["container_group_definition_arn"]
+    if "creation_time" in value:
+        import capo_gamelift.types.timestamp
+
+        out["CreationTime"] = capo_gamelift.types.timestamp.serialize_cbor(
+            value["creation_time"]
+        )
+    if "operating_system" in value:
+        import capo_gamelift.types.container_operating_system
+
+        out["OperatingSystem"] = (
+            capo_gamelift.types.container_operating_system.serialize_cbor(
+                value["operating_system"]
+            )
+        )
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "container_group_type" in value:
+        import capo_gamelift.types.container_group_type
+
+        out["ContainerGroupType"] = (
+            capo_gamelift.types.container_group_type.serialize_cbor(
+                value["container_group_type"]
+            )
+        )
+    if "total_memory_limit_mebibytes" in value:
+        out["TotalMemoryLimitMebibytes"] = value["total_memory_limit_mebibytes"]
+    if "total_vcpu_limit" in value:
+        out["TotalVcpuLimit"] = value["total_vcpu_limit"]
+    if "game_server_container_definition" in value:
+        import capo_gamelift.types.game_server_container_definition
+
+        out["GameServerContainerDefinition"] = (
+            capo_gamelift.types.game_server_container_definition.serialize_cbor(
+                value["game_server_container_definition"]
+            )
+        )
+    if "support_container_definitions" in value:
+        import capo_gamelift.types.support_container_definition_list
+
+        out["SupportContainerDefinitions"] = (
+            capo_gamelift.types.support_container_definition_list.serialize_cbor(
+                value["support_container_definitions"]
+            )
+        )
+    if "version_number" in value:
+        out["VersionNumber"] = value["version_number"]
+    if "version_description" in value:
+        out["VersionDescription"] = value["version_description"]
+    if "status" in value:
+        import capo_gamelift.types.container_group_definition_status
+
+        out["Status"] = (
+            capo_gamelift.types.container_group_definition_status.serialize_cbor(
+                value["status"]
+            )
+        )
+    if "status_reason" in value:
+        out["StatusReason"] = value["status_reason"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ContainerGroupDefinition:
+    out: ContainerGroupDefinition = {}  # type: ignore[typeddict-item]
+    if data.get("ContainerGroupDefinitionArn") is not None:
+        out["container_group_definition_arn"] = data["ContainerGroupDefinitionArn"]
+    if data.get("CreationTime") is not None:
+        import capo_gamelift.types.timestamp
+
+        out["creation_time"] = capo_gamelift.types.timestamp.deserialize_cbor(
+            data["CreationTime"]
+        )
+    if data.get("OperatingSystem") is not None:
+        import capo_gamelift.types.container_operating_system
+
+        out["operating_system"] = (
+            capo_gamelift.types.container_operating_system.deserialize_cbor(
+                data["OperatingSystem"]
+            )
+        )
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("ContainerGroupType") is not None:
+        import capo_gamelift.types.container_group_type
+
+        out["container_group_type"] = (
+            capo_gamelift.types.container_group_type.deserialize_cbor(
+                data["ContainerGroupType"]
+            )
+        )
+    if data.get("TotalMemoryLimitMebibytes") is not None:
+        out["total_memory_limit_mebibytes"] = data["TotalMemoryLimitMebibytes"]
+    if data.get("TotalVcpuLimit") is not None:
+        out["total_vcpu_limit"] = float(data["TotalVcpuLimit"])
+    if data.get("GameServerContainerDefinition") is not None:
+        import capo_gamelift.types.game_server_container_definition
+
+        out["game_server_container_definition"] = (
+            capo_gamelift.types.game_server_container_definition.deserialize_cbor(
+                data["GameServerContainerDefinition"]
+            )
+        )
+    if data.get("SupportContainerDefinitions") is not None:
+        import capo_gamelift.types.support_container_definition_list
+
+        out["support_container_definitions"] = (
+            capo_gamelift.types.support_container_definition_list.deserialize_cbor(
+                data["SupportContainerDefinitions"]
+            )
+        )
+    if data.get("VersionNumber") is not None:
+        out["version_number"] = data["VersionNumber"]
+    if data.get("VersionDescription") is not None:
+        out["version_description"] = data["VersionDescription"]
+    if data.get("Status") is not None:
+        import capo_gamelift.types.container_group_definition_status
+
+        out["status"] = (
+            capo_gamelift.types.container_group_definition_status.deserialize_cbor(
+                data["Status"]
+            )
+        )
+    if data.get("StatusReason") is not None:
+        out["status_reason"] = data["StatusReason"]
+    return out
+
+
 def redact_sensitive(value: ContainerGroupDefinition) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "game_server_container_definition" in value:

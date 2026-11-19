@@ -34,3 +34,22 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateWebhookOutput:
             data["webhook"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateWebhookOutput) -> dict:
+    out: dict = {}
+    if "webhook" in value:
+        import capo_codebuild.types.webhook
+
+        out["webhook"] = capo_codebuild.types.webhook.serialize_cbor(value["webhook"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateWebhookOutput:
+    out: UpdateWebhookOutput = {}  # type: ignore[typeddict-item]
+    if data.get("webhook") is not None:
+        import capo_codebuild.types.webhook
+
+        out["webhook"] = capo_codebuild.types.webhook.deserialize_cbor(data["webhook"])
+    return out

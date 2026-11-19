@@ -49,3 +49,36 @@ def deserialize_aws_json_1_1(data: dict) -> EncryptionKey:
             "capo_codepipeline.types.encryption_key_type.EncryptionKeyType", ""
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EncryptionKey) -> dict:
+    out: dict = {}
+    out["id"] = value["id"]
+    import capo_codepipeline.types.encryption_key_type
+
+    out["type"] = capo_codepipeline.types.encryption_key_type.serialize_cbor(
+        value["type"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> EncryptionKey:
+    out: EncryptionKey = {}  # type: ignore[typeddict-item]
+    if data.get("id") is not None:
+        out["id"] = data["id"]
+    else:
+        out["id"] = ""
+    if data.get("type") is not None:
+        import capo_codepipeline.types.encryption_key_type
+
+        out["type"] = capo_codepipeline.types.encryption_key_type.deserialize_cbor(
+            data["type"]
+        )
+    else:
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_codepipeline.types.encryption_key_type.EncryptionKeyType", ""
+        )
+    return out

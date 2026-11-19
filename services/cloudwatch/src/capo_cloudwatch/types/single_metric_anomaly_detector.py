@@ -111,3 +111,42 @@ def deserialize_query(el: Element) -> SingleMetricAnomalyDetector:
     if child_stat is not None:
         out["stat"] = str(child_stat.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SingleMetricAnomalyDetector) -> dict:
+    out: dict = {}
+    if "account_id" in value:
+        out["AccountId"] = value["account_id"]
+    if "namespace" in value:
+        out["Namespace"] = value["namespace"]
+    if "metric_name" in value:
+        out["MetricName"] = value["metric_name"]
+    if "dimensions" in value:
+        import capo_cloudwatch.types.dimensions
+
+        out["Dimensions"] = capo_cloudwatch.types.dimensions.serialize_cbor(
+            value["dimensions"]
+        )
+    if "stat" in value:
+        out["Stat"] = value["stat"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> SingleMetricAnomalyDetector:
+    out: SingleMetricAnomalyDetector = {}  # type: ignore[typeddict-item]
+    if data.get("AccountId") is not None:
+        out["account_id"] = data["AccountId"]
+    if data.get("Namespace") is not None:
+        out["namespace"] = data["Namespace"]
+    if data.get("MetricName") is not None:
+        out["metric_name"] = data["MetricName"]
+    if data.get("Dimensions") is not None:
+        import capo_cloudwatch.types.dimensions
+
+        out["dimensions"] = capo_cloudwatch.types.dimensions.deserialize_cbor(
+            data["Dimensions"]
+        )
+    if data.get("Stat") is not None:
+        out["stat"] = data["Stat"]
+    return out

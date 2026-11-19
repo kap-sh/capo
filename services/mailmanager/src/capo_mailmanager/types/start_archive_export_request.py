@@ -127,3 +127,94 @@ def deserialize_aws_json_1_0(data: dict) -> StartArchiveExportRequest:
     if data.get("IncludeMetadata") is not None:
         out["include_metadata"] = data["IncludeMetadata"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartArchiveExportRequest) -> dict:
+    out: dict = {}
+    out["ArchiveId"] = value["archive_id"]
+    if "filters" in value:
+        import capo_mailmanager.types.archive_filters
+
+        out["Filters"] = capo_mailmanager.types.archive_filters.serialize_cbor(
+            value["filters"]
+        )
+    import capo_mailmanager.types._prelude.timestamp
+
+    out["FromTimestamp"] = capo_mailmanager.types._prelude.timestamp.serialize_cbor(
+        value["from_timestamp"]
+    )
+    import capo_mailmanager.types._prelude.timestamp
+
+    out["ToTimestamp"] = capo_mailmanager.types._prelude.timestamp.serialize_cbor(
+        value["to_timestamp"]
+    )
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    import capo_mailmanager.types.export_destination_configuration
+
+    out["ExportDestinationConfiguration"] = (
+        capo_mailmanager.types.export_destination_configuration.serialize_cbor(
+            value["export_destination_configuration"]
+        )
+    )
+    if "include_metadata" in value:
+        out["IncludeMetadata"] = value["include_metadata"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartArchiveExportRequest:
+    out: StartArchiveExportRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ArchiveId") is not None:
+        out["archive_id"] = data["ArchiveId"]
+    else:
+        out["archive_id"] = ""
+    if data.get("Filters") is not None:
+        import capo_mailmanager.types.archive_filters
+
+        out["filters"] = capo_mailmanager.types.archive_filters.deserialize_cbor(
+            data["Filters"]
+        )
+    if data.get("FromTimestamp") is not None:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["from_timestamp"] = (
+            capo_mailmanager.types._prelude.timestamp.deserialize_cbor(
+                data["FromTimestamp"]
+            )
+        )
+    else:
+        import datetime
+
+        out["from_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
+    if data.get("ToTimestamp") is not None:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["to_timestamp"] = (
+            capo_mailmanager.types._prelude.timestamp.deserialize_cbor(
+                data["ToTimestamp"]
+            )
+        )
+    else:
+        import datetime
+
+        out["to_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("ExportDestinationConfiguration") is not None:
+        import capo_mailmanager.types.export_destination_configuration
+
+        out["export_destination_configuration"] = (
+            capo_mailmanager.types.export_destination_configuration.deserialize_cbor(
+                data["ExportDestinationConfiguration"]
+            )
+        )
+    else:
+        out["export_destination_configuration"] = {"$unknown": {"name": ""}}
+    if data.get("IncludeMetadata") is not None:
+        out["include_metadata"] = data["IncludeMetadata"]
+    return out

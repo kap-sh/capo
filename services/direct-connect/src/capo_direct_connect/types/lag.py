@@ -314,3 +314,195 @@ def deserialize_aws_json_1_1(data: dict) -> Lag:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Lag) -> dict:
+    out: dict = {}
+    if "connections_bandwidth" in value:
+        out["connectionsBandwidth"] = value["connections_bandwidth"]
+    out["numberOfConnections"] = value.get("number_of_connections", 0)
+    if "lag_id" in value:
+        out["lagId"] = value["lag_id"]
+    if "owner_account" in value:
+        out["ownerAccount"] = value["owner_account"]
+    if "lag_name" in value:
+        out["lagName"] = value["lag_name"]
+    if "lag_state" in value:
+        import capo_direct_connect.types.lag_state
+
+        out["lagState"] = capo_direct_connect.types.lag_state.serialize_cbor(
+            value["lag_state"]
+        )
+    if "location" in value:
+        out["location"] = value["location"]
+    if "region" in value:
+        out["region"] = value["region"]
+    out["minimumLinks"] = value.get("minimum_links", 0)
+    if "aws_device" in value:
+        out["awsDevice"] = value["aws_device"]
+    if "aws_device_v2" in value:
+        out["awsDeviceV2"] = value["aws_device_v2"]
+    if "aws_logical_device_id" in value:
+        out["awsLogicalDeviceId"] = value["aws_logical_device_id"]
+    if "connections" in value:
+        import capo_direct_connect.types.connection_list
+
+        out["connections"] = capo_direct_connect.types.connection_list.serialize_cbor(
+            value["connections"]
+        )
+    out["allowsHostedConnections"] = value.get("allows_hosted_connections", False)
+    if "jumbo_frame_capable" in value:
+        out["jumboFrameCapable"] = value["jumbo_frame_capable"]
+    if "has_logical_redundancy" in value:
+        import capo_direct_connect.types.has_logical_redundancy
+
+        out["hasLogicalRedundancy"] = (
+            capo_direct_connect.types.has_logical_redundancy.serialize_cbor(
+                value["has_logical_redundancy"]
+            )
+        )
+    if "tags" in value:
+        import capo_direct_connect.types.tag_list
+
+        out["tags"] = capo_direct_connect.types.tag_list.serialize_cbor(value["tags"])
+    if "provider_name" in value:
+        out["providerName"] = value["provider_name"]
+    if "mac_sec_capable" in value:
+        out["macSecCapable"] = value["mac_sec_capable"]
+    if "encryption_mode" in value:
+        out["encryptionMode"] = value["encryption_mode"]
+    if "mac_sec_keys" in value:
+        import capo_direct_connect.types.mac_sec_key_list
+
+        out["macSecKeys"] = capo_direct_connect.types.mac_sec_key_list.serialize_cbor(
+            value["mac_sec_keys"]
+        )
+    if "prefix_pool_size_ipv4" in value:
+        out["prefixPoolSizeIpv4"] = value["prefix_pool_size_ipv4"]
+    if "prefix_pool_size_ipv6" in value:
+        out["prefixPoolSizeIpv6"] = value["prefix_pool_size_ipv6"]
+    if "prefix_pool_unallocated_count_ipv4" in value:
+        out["prefixPoolUnallocatedCountIpv4"] = value[
+            "prefix_pool_unallocated_count_ipv4"
+        ]
+    if "prefix_pool_unallocated_count_ipv6" in value:
+        out["prefixPoolUnallocatedCountIpv6"] = value[
+            "prefix_pool_unallocated_count_ipv6"
+        ]
+    if "rate_limiter_status" in value:
+        import capo_direct_connect.types.rate_limiter_status
+
+        out["rateLimiterStatus"] = (
+            capo_direct_connect.types.rate_limiter_status.serialize_cbor(
+                value["rate_limiter_status"]
+            )
+        )
+    if "billing_mode" in value:
+        import capo_direct_connect.types.billing_mode
+
+        out["billingMode"] = capo_direct_connect.types.billing_mode.serialize_cbor(
+            value["billing_mode"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Lag:
+    out: Lag = {}  # type: ignore[typeddict-item]
+    if data.get("connectionsBandwidth") is not None:
+        out["connections_bandwidth"] = data["connectionsBandwidth"]
+    if data.get("numberOfConnections") is not None:
+        out["number_of_connections"] = data["numberOfConnections"]
+    else:
+        out["number_of_connections"] = 0
+    if data.get("lagId") is not None:
+        out["lag_id"] = data["lagId"]
+    if data.get("ownerAccount") is not None:
+        out["owner_account"] = data["ownerAccount"]
+    if data.get("lagName") is not None:
+        out["lag_name"] = data["lagName"]
+    if data.get("lagState") is not None:
+        import capo_direct_connect.types.lag_state
+
+        out["lag_state"] = capo_direct_connect.types.lag_state.deserialize_cbor(
+            data["lagState"]
+        )
+    if data.get("location") is not None:
+        out["location"] = data["location"]
+    if data.get("region") is not None:
+        out["region"] = data["region"]
+    if data.get("minimumLinks") is not None:
+        out["minimum_links"] = data["minimumLinks"]
+    else:
+        out["minimum_links"] = 0
+    if data.get("awsDevice") is not None:
+        out["aws_device"] = data["awsDevice"]
+    if data.get("awsDeviceV2") is not None:
+        out["aws_device_v2"] = data["awsDeviceV2"]
+    if data.get("awsLogicalDeviceId") is not None:
+        out["aws_logical_device_id"] = data["awsLogicalDeviceId"]
+    if data.get("connections") is not None:
+        import capo_direct_connect.types.connection_list
+
+        out["connections"] = capo_direct_connect.types.connection_list.deserialize_cbor(
+            data["connections"]
+        )
+    if data.get("allowsHostedConnections") is not None:
+        out["allows_hosted_connections"] = data["allowsHostedConnections"]
+    else:
+        out["allows_hosted_connections"] = False
+    if data.get("jumboFrameCapable") is not None:
+        out["jumbo_frame_capable"] = data["jumboFrameCapable"]
+    if data.get("hasLogicalRedundancy") is not None:
+        import capo_direct_connect.types.has_logical_redundancy
+
+        out["has_logical_redundancy"] = (
+            capo_direct_connect.types.has_logical_redundancy.deserialize_cbor(
+                data["hasLogicalRedundancy"]
+            )
+        )
+    if data.get("tags") is not None:
+        import capo_direct_connect.types.tag_list
+
+        out["tags"] = capo_direct_connect.types.tag_list.deserialize_cbor(data["tags"])
+    if data.get("providerName") is not None:
+        out["provider_name"] = data["providerName"]
+    if data.get("macSecCapable") is not None:
+        out["mac_sec_capable"] = data["macSecCapable"]
+    if data.get("encryptionMode") is not None:
+        out["encryption_mode"] = data["encryptionMode"]
+    if data.get("macSecKeys") is not None:
+        import capo_direct_connect.types.mac_sec_key_list
+
+        out["mac_sec_keys"] = (
+            capo_direct_connect.types.mac_sec_key_list.deserialize_cbor(
+                data["macSecKeys"]
+            )
+        )
+    if data.get("prefixPoolSizeIpv4") is not None:
+        out["prefix_pool_size_ipv4"] = data["prefixPoolSizeIpv4"]
+    if data.get("prefixPoolSizeIpv6") is not None:
+        out["prefix_pool_size_ipv6"] = data["prefixPoolSizeIpv6"]
+    if data.get("prefixPoolUnallocatedCountIpv4") is not None:
+        out["prefix_pool_unallocated_count_ipv4"] = data[
+            "prefixPoolUnallocatedCountIpv4"
+        ]
+    if data.get("prefixPoolUnallocatedCountIpv6") is not None:
+        out["prefix_pool_unallocated_count_ipv6"] = data[
+            "prefixPoolUnallocatedCountIpv6"
+        ]
+    if data.get("rateLimiterStatus") is not None:
+        import capo_direct_connect.types.rate_limiter_status
+
+        out["rate_limiter_status"] = (
+            capo_direct_connect.types.rate_limiter_status.deserialize_cbor(
+                data["rateLimiterStatus"]
+            )
+        )
+    if data.get("billingMode") is not None:
+        import capo_direct_connect.types.billing_mode
+
+        out["billing_mode"] = capo_direct_connect.types.billing_mode.deserialize_cbor(
+            data["billingMode"]
+        )
+    return out

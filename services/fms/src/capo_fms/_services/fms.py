@@ -143,6 +143,7 @@ class FMSClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[Interceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_1", "rpcv2Cbor"]
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -159,6 +160,7 @@ class FMSClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -174,6 +176,7 @@ class FMSClient:
         operation_interceptors: Iterable[Interceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_1", "rpcv2Cbor"] = "awsJson1_1",
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -210,6 +213,7 @@ class FMSClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -243,6 +247,9 @@ class FMSClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_1")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -279,13 +286,24 @@ class FMSClient:
         def _handler(
             req: "OperationRequest[capo_fms.types.associate_admin_account_request.AssociateAdminAccountRequest]",
         ) -> OperationResponse[None]:
-            import capo_fms._operations.awsfms_20180101.associate_admin_account
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.associate_admin_account
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.associate_admin_account.associate_admin_account(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.associate_admin_account.associate_admin_account(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.associate_admin_account
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.associate_admin_account.associate_admin_account(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -327,13 +345,24 @@ class FMSClient:
         ) -> OperationResponse[
             "capo_fms.types.associate_third_party_firewall_response.AssociateThirdPartyFirewallResponse"
         ]:
-            import capo_fms._operations.awsfms_20180101.associate_third_party_firewall
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.associate_third_party_firewall
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.associate_third_party_firewall.associate_third_party_firewall(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.associate_third_party_firewall.associate_third_party_firewall(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.associate_third_party_firewall
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.associate_third_party_firewall.associate_third_party_firewall(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -378,13 +407,24 @@ class FMSClient:
         ) -> OperationResponse[
             "capo_fms.types.batch_associate_resource_response.BatchAssociateResourceResponse"
         ]:
-            import capo_fms._operations.awsfms_20180101.batch_associate_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.batch_associate_resource
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.batch_associate_resource.batch_associate_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.batch_associate_resource.batch_associate_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.batch_associate_resource
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.batch_associate_resource.batch_associate_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -429,13 +469,24 @@ class FMSClient:
         ) -> OperationResponse[
             "capo_fms.types.batch_disassociate_resource_response.BatchDisassociateResourceResponse"
         ]:
-            import capo_fms._operations.awsfms_20180101.batch_disassociate_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.batch_disassociate_resource
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.batch_disassociate_resource.batch_disassociate_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.batch_disassociate_resource.batch_disassociate_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.batch_disassociate_resource
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.batch_disassociate_resource.batch_disassociate_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -475,13 +526,24 @@ class FMSClient:
         def _handler(
             req: "OperationRequest[capo_fms.types.delete_apps_list_request.DeleteAppsListRequest]",
         ) -> OperationResponse[None]:
-            import capo_fms._operations.awsfms_20180101.delete_apps_list
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.delete_apps_list
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.delete_apps_list.delete_apps_list(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.delete_apps_list.delete_apps_list(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.delete_apps_list
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.delete_apps_list.delete_apps_list(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -514,13 +576,24 @@ class FMSClient:
         def _handler(
             req: "OperationRequest[capo_fms.types.delete_notification_channel_request.DeleteNotificationChannelRequest]",
         ) -> OperationResponse[None]:
-            import capo_fms._operations.awsfms_20180101.delete_notification_channel
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.delete_notification_channel
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.delete_notification_channel.delete_notification_channel(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.delete_notification_channel.delete_notification_channel(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.delete_notification_channel
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.delete_notification_channel.delete_notification_channel(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -561,13 +634,24 @@ class FMSClient:
         def _handler(
             req: "OperationRequest[capo_fms.types.delete_policy_request.DeletePolicyRequest]",
         ) -> OperationResponse[None]:
-            import capo_fms._operations.awsfms_20180101.delete_policy
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.delete_policy
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.delete_policy.delete_policy(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.delete_policy.delete_policy(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.delete_policy
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.delete_policy.delete_policy(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -608,13 +692,24 @@ class FMSClient:
         def _handler(
             req: "OperationRequest[capo_fms.types.delete_protocols_list_request.DeleteProtocolsListRequest]",
         ) -> OperationResponse[None]:
-            import capo_fms._operations.awsfms_20180101.delete_protocols_list
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.delete_protocols_list
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.delete_protocols_list.delete_protocols_list(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.delete_protocols_list.delete_protocols_list(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.delete_protocols_list
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.delete_protocols_list.delete_protocols_list(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -654,13 +749,24 @@ class FMSClient:
         def _handler(
             req: "OperationRequest[capo_fms.types.delete_resource_set_request.DeleteResourceSetRequest]",
         ) -> OperationResponse[None]:
-            import capo_fms._operations.awsfms_20180101.delete_resource_set
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.delete_resource_set
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.delete_resource_set.delete_resource_set(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.delete_resource_set.delete_resource_set(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.delete_resource_set
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.delete_resource_set.delete_resource_set(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -693,13 +799,24 @@ class FMSClient:
         def _handler(
             req: "OperationRequest[capo_fms.types.disassociate_admin_account_request.DisassociateAdminAccountRequest]",
         ) -> OperationResponse[None]:
-            import capo_fms._operations.awsfms_20180101.disassociate_admin_account
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.disassociate_admin_account
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.disassociate_admin_account.disassociate_admin_account(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.disassociate_admin_account.disassociate_admin_account(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.disassociate_admin_account
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.disassociate_admin_account.disassociate_admin_account(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -739,13 +856,24 @@ class FMSClient:
         ) -> OperationResponse[
             "capo_fms.types.disassociate_third_party_firewall_response.DisassociateThirdPartyFirewallResponse"
         ]:
-            import capo_fms._operations.awsfms_20180101.disassociate_third_party_firewall
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.disassociate_third_party_firewall
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.disassociate_third_party_firewall.disassociate_third_party_firewall(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.disassociate_third_party_firewall.disassociate_third_party_firewall(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.disassociate_third_party_firewall
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.disassociate_third_party_firewall.disassociate_third_party_firewall(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -780,13 +908,24 @@ class FMSClient:
         ) -> OperationResponse[
             "capo_fms.types.get_admin_account_response.GetAdminAccountResponse"
         ]:
-            import capo_fms._operations.awsfms_20180101.get_admin_account
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.get_admin_account
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.get_admin_account.get_admin_account(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.get_admin_account.get_admin_account(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.get_admin_account
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.get_admin_account.get_admin_account(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -827,13 +966,24 @@ class FMSClient:
         ) -> OperationResponse[
             "capo_fms.types.get_admin_scope_response.GetAdminScopeResponse"
         ]:
-            import capo_fms._operations.awsfms_20180101.get_admin_scope
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.get_admin_scope
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.get_admin_scope.get_admin_scope(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.get_admin_scope.get_admin_scope(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.get_admin_scope
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.get_admin_scope.get_admin_scope(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -876,13 +1026,24 @@ class FMSClient:
         ) -> OperationResponse[
             "capo_fms.types.get_apps_list_response.GetAppsListResponse"
         ]:
-            import capo_fms._operations.awsfms_20180101.get_apps_list
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.get_apps_list
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.get_apps_list.get_apps_list(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.get_apps_list.get_apps_list(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.get_apps_list
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.get_apps_list.get_apps_list(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -928,13 +1089,24 @@ class FMSClient:
         ) -> OperationResponse[
             "capo_fms.types.get_compliance_detail_response.GetComplianceDetailResponse"
         ]:
-            import capo_fms._operations.awsfms_20180101.get_compliance_detail
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.get_compliance_detail
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.get_compliance_detail.get_compliance_detail(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.get_compliance_detail.get_compliance_detail(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.get_compliance_detail
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.get_compliance_detail.get_compliance_detail(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -970,13 +1142,24 @@ class FMSClient:
         ) -> OperationResponse[
             "capo_fms.types.get_notification_channel_response.GetNotificationChannelResponse"
         ]:
-            import capo_fms._operations.awsfms_20180101.get_notification_channel
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.get_notification_channel
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.get_notification_channel.get_notification_channel(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.get_notification_channel.get_notification_channel(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.get_notification_channel
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.get_notification_channel.get_notification_channel(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1014,13 +1197,24 @@ class FMSClient:
         def _handler(
             req: "OperationRequest[capo_fms.types.get_policy_request.GetPolicyRequest]",
         ) -> OperationResponse["capo_fms.types.get_policy_response.GetPolicyResponse"]:
-            import capo_fms._operations.awsfms_20180101.get_policy
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.get_policy
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.get_policy.get_policy(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.get_policy.get_policy(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.get_policy
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.get_policy.get_policy(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1075,13 +1269,24 @@ class FMSClient:
         ) -> OperationResponse[
             "capo_fms.types.get_protection_status_response.GetProtectionStatusResponse"
         ]:
-            import capo_fms._operations.awsfms_20180101.get_protection_status
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.get_protection_status
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.get_protection_status.get_protection_status(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.get_protection_status.get_protection_status(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.get_protection_status
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.get_protection_status.get_protection_status(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1134,13 +1339,24 @@ class FMSClient:
         ) -> OperationResponse[
             "capo_fms.types.get_protocols_list_response.GetProtocolsListResponse"
         ]:
-            import capo_fms._operations.awsfms_20180101.get_protocols_list
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.get_protocols_list
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.get_protocols_list.get_protocols_list(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.get_protocols_list.get_protocols_list(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.get_protocols_list
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.get_protocols_list.get_protocols_list(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1184,13 +1400,24 @@ class FMSClient:
         ) -> OperationResponse[
             "capo_fms.types.get_resource_set_response.GetResourceSetResponse"
         ]:
-            import capo_fms._operations.awsfms_20180101.get_resource_set
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.get_resource_set
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.get_resource_set.get_resource_set(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.get_resource_set.get_resource_set(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.get_resource_set
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.get_resource_set.get_resource_set(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1232,13 +1459,24 @@ class FMSClient:
         ) -> OperationResponse[
             "capo_fms.types.get_third_party_firewall_association_status_response.GetThirdPartyFirewallAssociationStatusResponse"
         ]:
-            import capo_fms._operations.awsfms_20180101.get_third_party_firewall_association_status
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.get_third_party_firewall_association_status
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.get_third_party_firewall_association_status.get_third_party_firewall_association_status(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.get_third_party_firewall_association_status.get_third_party_firewall_association_status(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.get_third_party_firewall_association_status
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.get_third_party_firewall_association_status.get_third_party_firewall_association_status(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1285,13 +1523,24 @@ class FMSClient:
         ) -> OperationResponse[
             "capo_fms.types.get_violation_details_response.GetViolationDetailsResponse"
         ]:
-            import capo_fms._operations.awsfms_20180101.get_violation_details
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.get_violation_details
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.get_violation_details.get_violation_details(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.get_violation_details.get_violation_details(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.get_violation_details
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.get_violation_details.get_violation_details(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1340,13 +1589,24 @@ class FMSClient:
         ) -> OperationResponse[
             "capo_fms.types.list_admin_accounts_for_organization_response.ListAdminAccountsForOrganizationResponse"
         ]:
-            import capo_fms._operations.awsfms_20180101.list_admin_accounts_for_organization
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.list_admin_accounts_for_organization
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.list_admin_accounts_for_organization.list_admin_accounts_for_organization(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.list_admin_accounts_for_organization.list_admin_accounts_for_organization(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.list_admin_accounts_for_organization
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.list_admin_accounts_for_organization.list_admin_accounts_for_organization(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1416,13 +1676,24 @@ class FMSClient:
         ) -> OperationResponse[
             "capo_fms.types.list_admins_managing_account_response.ListAdminsManagingAccountResponse"
         ]:
-            import capo_fms._operations.awsfms_20180101.list_admins_managing_account
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.list_admins_managing_account
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.list_admins_managing_account.list_admins_managing_account(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.list_admins_managing_account.list_admins_managing_account(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.list_admins_managing_account
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.list_admins_managing_account.list_admins_managing_account(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1493,13 +1764,24 @@ class FMSClient:
         ) -> OperationResponse[
             "capo_fms.types.list_apps_lists_response.ListAppsListsResponse"
         ]:
-            import capo_fms._operations.awsfms_20180101.list_apps_lists
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.list_apps_lists
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.list_apps_lists.list_apps_lists(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.list_apps_lists.list_apps_lists(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.list_apps_lists
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.list_apps_lists.list_apps_lists(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1572,13 +1854,24 @@ class FMSClient:
         ) -> OperationResponse[
             "capo_fms.types.list_compliance_status_response.ListComplianceStatusResponse"
         ]:
-            import capo_fms._operations.awsfms_20180101.list_compliance_status
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.list_compliance_status
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.list_compliance_status.list_compliance_status(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.list_compliance_status.list_compliance_status(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.list_compliance_status
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.list_compliance_status.list_compliance_status(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1656,13 +1949,24 @@ class FMSClient:
         ) -> OperationResponse[
             "capo_fms.types.list_discovered_resources_response.ListDiscoveredResourcesResponse"
         ]:
-            import capo_fms._operations.awsfms_20180101.list_discovered_resources
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.list_discovered_resources
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.list_discovered_resources.list_discovered_resources(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.list_discovered_resources.list_discovered_resources(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.list_discovered_resources
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.list_discovered_resources.list_discovered_resources(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1711,13 +2015,24 @@ class FMSClient:
         ) -> OperationResponse[
             "capo_fms.types.list_member_accounts_response.ListMemberAccountsResponse"
         ]:
-            import capo_fms._operations.awsfms_20180101.list_member_accounts
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.list_member_accounts
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.list_member_accounts.list_member_accounts(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.list_member_accounts.list_member_accounts(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.list_member_accounts
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.list_member_accounts.list_member_accounts(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1788,13 +2103,24 @@ class FMSClient:
         ) -> OperationResponse[
             "capo_fms.types.list_policies_response.ListPoliciesResponse"
         ]:
-            import capo_fms._operations.awsfms_20180101.list_policies
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.list_policies
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.list_policies.list_policies(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.list_policies.list_policies(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.list_policies
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.list_policies.list_policies(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1864,13 +2190,24 @@ class FMSClient:
         ) -> OperationResponse[
             "capo_fms.types.list_protocols_lists_response.ListProtocolsListsResponse"
         ]:
-            import capo_fms._operations.awsfms_20180101.list_protocols_lists
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.list_protocols_lists
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.list_protocols_lists.list_protocols_lists(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.list_protocols_lists.list_protocols_lists(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.list_protocols_lists
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.list_protocols_lists.list_protocols_lists(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1947,13 +2284,24 @@ class FMSClient:
         ) -> OperationResponse[
             "capo_fms.types.list_resource_set_resources_response.ListResourceSetResourcesResponse"
         ]:
-            import capo_fms._operations.awsfms_20180101.list_resource_set_resources
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.list_resource_set_resources
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.list_resource_set_resources.list_resource_set_resources(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.list_resource_set_resources.list_resource_set_resources(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.list_resource_set_resources
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.list_resource_set_resources.list_resource_set_resources(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2002,13 +2350,24 @@ class FMSClient:
         ) -> OperationResponse[
             "capo_fms.types.list_resource_sets_response.ListResourceSetsResponse"
         ]:
-            import capo_fms._operations.awsfms_20180101.list_resource_sets
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.list_resource_sets
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.list_resource_sets.list_resource_sets(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.list_resource_sets.list_resource_sets(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.list_resource_sets
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.list_resource_sets.list_resource_sets(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2052,13 +2411,24 @@ class FMSClient:
         ) -> OperationResponse[
             "capo_fms.types.list_tags_for_resource_response.ListTagsForResourceResponse"
         ]:
-            import capo_fms._operations.awsfms_20180101.list_tags_for_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.list_tags_for_resource
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.list_tags_for_resource.list_tags_for_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.list_tags_for_resource
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2104,13 +2474,24 @@ class FMSClient:
         ) -> OperationResponse[
             "capo_fms.types.list_third_party_firewall_firewall_policies_response.ListThirdPartyFirewallFirewallPoliciesResponse"
         ]:
-            import capo_fms._operations.awsfms_20180101.list_third_party_firewall_firewall_policies
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.list_third_party_firewall_firewall_policies
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.list_third_party_firewall_firewall_policies.list_third_party_firewall_firewall_policies(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.list_third_party_firewall_firewall_policies.list_third_party_firewall_firewall_policies(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.list_third_party_firewall_firewall_policies
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.list_third_party_firewall_firewall_policies.list_third_party_firewall_firewall_policies(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2180,13 +2561,24 @@ class FMSClient:
         def _handler(
             req: "OperationRequest[capo_fms.types.put_admin_account_request.PutAdminAccountRequest]",
         ) -> OperationResponse[None]:
-            import capo_fms._operations.awsfms_20180101.put_admin_account
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.put_admin_account
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.put_admin_account.put_admin_account(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.put_admin_account.put_admin_account(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.put_admin_account
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.put_admin_account.put_admin_account(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2233,13 +2625,24 @@ class FMSClient:
         ) -> OperationResponse[
             "capo_fms.types.put_apps_list_response.PutAppsListResponse"
         ]:
-            import capo_fms._operations.awsfms_20180101.put_apps_list
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.put_apps_list
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.put_apps_list.put_apps_list(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.put_apps_list.put_apps_list(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.put_apps_list
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.put_apps_list.put_apps_list(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2282,13 +2685,24 @@ class FMSClient:
         def _handler(
             req: "OperationRequest[capo_fms.types.put_notification_channel_request.PutNotificationChannelRequest]",
         ) -> OperationResponse[None]:
-            import capo_fms._operations.awsfms_20180101.put_notification_channel
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.put_notification_channel
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.put_notification_channel.put_notification_channel(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.put_notification_channel.put_notification_channel(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.put_notification_channel
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.put_notification_channel.put_notification_channel(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2333,13 +2747,24 @@ class FMSClient:
         def _handler(
             req: "OperationRequest[capo_fms.types.put_policy_request.PutPolicyRequest]",
         ) -> OperationResponse["capo_fms.types.put_policy_response.PutPolicyResponse"]:
-            import capo_fms._operations.awsfms_20180101.put_policy
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.put_policy
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.put_policy.put_policy(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.put_policy.put_policy(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.put_policy
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.put_policy.put_policy(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2384,13 +2809,24 @@ class FMSClient:
         ) -> OperationResponse[
             "capo_fms.types.put_protocols_list_response.PutProtocolsListResponse"
         ]:
-            import capo_fms._operations.awsfms_20180101.put_protocols_list
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.put_protocols_list
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.put_protocols_list.put_protocols_list(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.put_protocols_list.put_protocols_list(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.put_protocols_list
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.put_protocols_list.put_protocols_list(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2436,13 +2872,24 @@ class FMSClient:
         ) -> OperationResponse[
             "capo_fms.types.put_resource_set_response.PutResourceSetResponse"
         ]:
-            import capo_fms._operations.awsfms_20180101.put_resource_set
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.put_resource_set
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.put_resource_set.put_resource_set(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.put_resource_set.put_resource_set(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.put_resource_set
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.put_resource_set.put_resource_set(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2489,13 +2936,24 @@ class FMSClient:
         ) -> OperationResponse[
             "capo_fms.types.tag_resource_response.TagResourceResponse"
         ]:
-            import capo_fms._operations.awsfms_20180101.tag_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.tag_resource
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.tag_resource.tag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.tag_resource
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2540,13 +2998,24 @@ class FMSClient:
         ) -> OperationResponse[
             "capo_fms.types.untag_resource_response.UntagResourceResponse"
         ]:
-            import capo_fms._operations.awsfms_20180101.untag_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_fms._operations.awsfms_20180101.aws_json1_1.untag_resource
 
-            output, http_response = (
-                capo_fms._operations.awsfms_20180101.untag_resource.untag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.aws_json1_1.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_fms._operations.awsfms_20180101.rpcv2_cbor.untag_resource
+
+                output, http_response = (
+                    capo_fms._operations.awsfms_20180101.rpcv2_cbor.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

@@ -16,3 +16,12 @@ def serialize_aws_json_1_1(value: EventTypePersona) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> EventTypePersona:
     return cast(EventTypePersona, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EventTypePersona) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> EventTypePersona:
+    return cast(EventTypePersona, data)

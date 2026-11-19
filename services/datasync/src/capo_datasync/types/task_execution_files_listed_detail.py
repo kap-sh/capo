@@ -34,3 +34,24 @@ def deserialize_aws_json_1_1(data: dict) -> TaskExecutionFilesListedDetail:
     else:
         out["at_destination_for_delete"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TaskExecutionFilesListedDetail) -> dict:
+    out: dict = {}
+    out["AtSource"] = value.get("at_source", 0)
+    out["AtDestinationForDelete"] = value.get("at_destination_for_delete", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> TaskExecutionFilesListedDetail:
+    out: TaskExecutionFilesListedDetail = {}  # type: ignore[typeddict-item]
+    if data.get("AtSource") is not None:
+        out["at_source"] = data["AtSource"]
+    else:
+        out["at_source"] = 0
+    if data.get("AtDestinationForDelete") is not None:
+        out["at_destination_for_delete"] = data["AtDestinationForDelete"]
+    else:
+        out["at_destination_for_delete"] = 0
+    return out

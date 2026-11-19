@@ -33,3 +33,22 @@ def deserialize_aws_json_1_0(data: dict) -> ListPlansRequest:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListPlansRequest) -> dict:
+    out: dict = {}
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListPlansRequest:
+    out: ListPlansRequest = {}  # type: ignore[typeddict-item]
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

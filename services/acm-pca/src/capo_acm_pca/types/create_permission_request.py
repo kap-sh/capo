@@ -58,3 +58,39 @@ def deserialize_aws_json_1_1(data: dict) -> CreatePermissionRequest:
     else:
         out["actions"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreatePermissionRequest) -> dict:
+    out: dict = {}
+    out["CertificateAuthorityArn"] = value["certificate_authority_arn"]
+    out["Principal"] = value["principal"]
+    if "source_account" in value:
+        out["SourceAccount"] = value["source_account"]
+    import capo_acm_pca.types.action_list
+
+    out["Actions"] = capo_acm_pca.types.action_list.serialize_cbor(value["actions"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreatePermissionRequest:
+    out: CreatePermissionRequest = {}  # type: ignore[typeddict-item]
+    if data.get("CertificateAuthorityArn") is not None:
+        out["certificate_authority_arn"] = data["CertificateAuthorityArn"]
+    else:
+        out["certificate_authority_arn"] = ""
+    if data.get("Principal") is not None:
+        out["principal"] = data["Principal"]
+    else:
+        out["principal"] = ""
+    if data.get("SourceAccount") is not None:
+        out["source_account"] = data["SourceAccount"]
+    if data.get("Actions") is not None:
+        import capo_acm_pca.types.action_list
+
+        out["actions"] = capo_acm_pca.types.action_list.deserialize_cbor(
+            data["Actions"]
+        )
+    else:
+        out["actions"] = []
+    return out

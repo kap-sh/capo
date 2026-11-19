@@ -33,6 +33,27 @@ def deserialize_aws_json_1_1(data: list) -> CommandExecutions:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CommandExecutions) -> list:
+    import capo_codebuild.types.command_execution
+
+    out: list = []
+    for item in value:
+        out.append(capo_codebuild.types.command_execution.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> CommandExecutions:
+    import capo_codebuild.types.command_execution
+
+    out: CommandExecutions = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_codebuild.types.command_execution.deserialize_cbor(item))
+    return out
+
+
 def redact_sensitive(value: CommandExecutions) -> list[Any]:
     import capo_codebuild.types.command_execution
 

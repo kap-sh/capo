@@ -49,3 +49,18 @@ def deserialize_query(el: Element) -> GetDatasetInput:
     if child_dataset_identifier is not None:
         out["dataset_identifier"] = str(child_dataset_identifier.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetDatasetInput) -> dict:
+    out: dict = {}
+    if "dataset_identifier" in value:
+        out["DatasetIdentifier"] = value["dataset_identifier"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetDatasetInput:
+    out: GetDatasetInput = {}  # type: ignore[typeddict-item]
+    if data.get("DatasetIdentifier") is not None:
+        out["dataset_identifier"] = data["DatasetIdentifier"]
+    return out

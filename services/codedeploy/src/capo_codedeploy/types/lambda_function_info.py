@@ -67,3 +67,35 @@ def deserialize_aws_json_1_1(data: dict) -> LambdaFunctionInfo:
     else:
         out["target_version_weight"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LambdaFunctionInfo) -> dict:
+    out: dict = {}
+    if "function_name" in value:
+        out["functionName"] = value["function_name"]
+    if "function_alias" in value:
+        out["functionAlias"] = value["function_alias"]
+    if "current_version" in value:
+        out["currentVersion"] = value["current_version"]
+    if "target_version" in value:
+        out["targetVersion"] = value["target_version"]
+    out["targetVersionWeight"] = value.get("target_version_weight", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> LambdaFunctionInfo:
+    out: LambdaFunctionInfo = {}  # type: ignore[typeddict-item]
+    if data.get("functionName") is not None:
+        out["function_name"] = data["functionName"]
+    if data.get("functionAlias") is not None:
+        out["function_alias"] = data["functionAlias"]
+    if data.get("currentVersion") is not None:
+        out["current_version"] = data["currentVersion"]
+    if data.get("targetVersion") is not None:
+        out["target_version"] = data["targetVersion"]
+    if data.get("targetVersionWeight") is not None:
+        out["target_version_weight"] = float(data["targetVersionWeight"])
+    else:
+        out["target_version_weight"] = 0
+    return out

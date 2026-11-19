@@ -71,3 +71,42 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAliasInput:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateAliasInput) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "routing_strategy" in value:
+        import capo_gamelift.types.routing_strategy
+
+        out["RoutingStrategy"] = capo_gamelift.types.routing_strategy.serialize_cbor(
+            value["routing_strategy"]
+        )
+    if "tags" in value:
+        import capo_gamelift.types.tag_list
+
+        out["Tags"] = capo_gamelift.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateAliasInput:
+    out: CreateAliasInput = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("RoutingStrategy") is not None:
+        import capo_gamelift.types.routing_strategy
+
+        out["routing_strategy"] = capo_gamelift.types.routing_strategy.deserialize_cbor(
+            data["RoutingStrategy"]
+        )
+    if data.get("Tags") is not None:
+        import capo_gamelift.types.tag_list
+
+        out["tags"] = capo_gamelift.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

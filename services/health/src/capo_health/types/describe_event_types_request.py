@@ -55,3 +55,38 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeEventTypesRequest:
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeEventTypesRequest) -> dict:
+    out: dict = {}
+    if "filter" in value:
+        import capo_health.types.event_type_filter
+
+        out["filter"] = capo_health.types.event_type_filter.serialize_cbor(
+            value["filter"]
+        )
+    if "locale" in value:
+        out["locale"] = value["locale"]
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeEventTypesRequest:
+    out: DescribeEventTypesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("filter") is not None:
+        import capo_health.types.event_type_filter
+
+        out["filter"] = capo_health.types.event_type_filter.deserialize_cbor(
+            data["filter"]
+        )
+    if data.get("locale") is not None:
+        out["locale"] = data["locale"]
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    return out

@@ -27,3 +27,24 @@ def deserialize_aws_json_1_0(data: list) -> Gateways:
             continue
         out.append(capo_backup_gateway.types.gateway.deserialize_aws_json_1_0(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Gateways) -> list:
+    import capo_backup_gateway.types.gateway
+
+    out: list = []
+    for item in value:
+        out.append(capo_backup_gateway.types.gateway.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> Gateways:
+    import capo_backup_gateway.types.gateway
+
+    out: Gateways = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_backup_gateway.types.gateway.deserialize_cbor(item))
+    return out

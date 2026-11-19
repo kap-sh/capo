@@ -76,3 +76,30 @@ def deserialize_aws_json_1_1(data: dict) -> FlywheelModelEvaluationMetrics:
     if data.get("AverageAccuracy") is not None:
         out["average_accuracy"] = float(data["AverageAccuracy"])
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FlywheelModelEvaluationMetrics) -> dict:
+    out: dict = {}
+    if "average_f1_score" in value:
+        out["AverageF1Score"] = value["average_f1_score"]
+    if "average_precision" in value:
+        out["AveragePrecision"] = value["average_precision"]
+    if "average_recall" in value:
+        out["AverageRecall"] = value["average_recall"]
+    if "average_accuracy" in value:
+        out["AverageAccuracy"] = value["average_accuracy"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> FlywheelModelEvaluationMetrics:
+    out: FlywheelModelEvaluationMetrics = {}  # type: ignore[typeddict-item]
+    if data.get("AverageF1Score") is not None:
+        out["average_f1_score"] = float(data["AverageF1Score"])
+    if data.get("AveragePrecision") is not None:
+        out["average_precision"] = float(data["AveragePrecision"])
+    if data.get("AverageRecall") is not None:
+        out["average_recall"] = float(data["AverageRecall"])
+    if data.get("AverageAccuracy") is not None:
+        out["average_accuracy"] = float(data["AverageAccuracy"])
+    return out

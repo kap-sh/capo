@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: PreserveDevices) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> PreserveDevices:
     return cast(PreserveDevices, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PreserveDevices) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> PreserveDevices:
+    return cast(PreserveDevices, data)

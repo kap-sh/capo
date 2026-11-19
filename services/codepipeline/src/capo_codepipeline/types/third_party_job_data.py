@@ -168,6 +168,119 @@ def deserialize_aws_json_1_1(data: dict) -> ThirdPartyJobData:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ThirdPartyJobData) -> dict:
+    out: dict = {}
+    if "action_type_id" in value:
+        import capo_codepipeline.types.action_type_id
+
+        out["actionTypeId"] = capo_codepipeline.types.action_type_id.serialize_cbor(
+            value["action_type_id"]
+        )
+    if "action_configuration" in value:
+        import capo_codepipeline.types.action_configuration
+
+        out["actionConfiguration"] = (
+            capo_codepipeline.types.action_configuration.serialize_cbor(
+                value["action_configuration"]
+            )
+        )
+    if "pipeline_context" in value:
+        import capo_codepipeline.types.pipeline_context
+
+        out["pipelineContext"] = (
+            capo_codepipeline.types.pipeline_context.serialize_cbor(
+                value["pipeline_context"]
+            )
+        )
+    if "input_artifacts" in value:
+        import capo_codepipeline.types.artifact_list
+
+        out["inputArtifacts"] = capo_codepipeline.types.artifact_list.serialize_cbor(
+            value["input_artifacts"]
+        )
+    if "output_artifacts" in value:
+        import capo_codepipeline.types.artifact_list
+
+        out["outputArtifacts"] = capo_codepipeline.types.artifact_list.serialize_cbor(
+            value["output_artifacts"]
+        )
+    if "artifact_credentials" in value:
+        import capo_codepipeline.types.aws_session_credentials
+
+        out["artifactCredentials"] = (
+            capo_codepipeline.types.aws_session_credentials.serialize_cbor(
+                value["artifact_credentials"]
+            )
+        )
+    if "continuation_token" in value:
+        out["continuationToken"] = value["continuation_token"]
+    if "encryption_key" in value:
+        import capo_codepipeline.types.encryption_key
+
+        out["encryptionKey"] = capo_codepipeline.types.encryption_key.serialize_cbor(
+            value["encryption_key"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ThirdPartyJobData:
+    out: ThirdPartyJobData = {}  # type: ignore[typeddict-item]
+    if data.get("actionTypeId") is not None:
+        import capo_codepipeline.types.action_type_id
+
+        out["action_type_id"] = capo_codepipeline.types.action_type_id.deserialize_cbor(
+            data["actionTypeId"]
+        )
+    if data.get("actionConfiguration") is not None:
+        import capo_codepipeline.types.action_configuration
+
+        out["action_configuration"] = (
+            capo_codepipeline.types.action_configuration.deserialize_cbor(
+                data["actionConfiguration"]
+            )
+        )
+    if data.get("pipelineContext") is not None:
+        import capo_codepipeline.types.pipeline_context
+
+        out["pipeline_context"] = (
+            capo_codepipeline.types.pipeline_context.deserialize_cbor(
+                data["pipelineContext"]
+            )
+        )
+    if data.get("inputArtifacts") is not None:
+        import capo_codepipeline.types.artifact_list
+
+        out["input_artifacts"] = capo_codepipeline.types.artifact_list.deserialize_cbor(
+            data["inputArtifacts"]
+        )
+    if data.get("outputArtifacts") is not None:
+        import capo_codepipeline.types.artifact_list
+
+        out["output_artifacts"] = (
+            capo_codepipeline.types.artifact_list.deserialize_cbor(
+                data["outputArtifacts"]
+            )
+        )
+    if data.get("artifactCredentials") is not None:
+        import capo_codepipeline.types.aws_session_credentials
+
+        out["artifact_credentials"] = (
+            capo_codepipeline.types.aws_session_credentials.deserialize_cbor(
+                data["artifactCredentials"]
+            )
+        )
+    if data.get("continuationToken") is not None:
+        out["continuation_token"] = data["continuationToken"]
+    if data.get("encryptionKey") is not None:
+        import capo_codepipeline.types.encryption_key
+
+        out["encryption_key"] = capo_codepipeline.types.encryption_key.deserialize_cbor(
+            data["encryptionKey"]
+        )
+    return out
+
+
 def redact_sensitive(value: ThirdPartyJobData) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "artifact_credentials" in value:

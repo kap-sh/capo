@@ -54,3 +54,38 @@ def deserialize_aws_json_1_1(data: dict) -> DomainSummary:
             data["Expiry"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DomainSummary) -> dict:
+    out: dict = {}
+    if "domain_name" in value:
+        out["DomainName"] = value["domain_name"]
+    if "auto_renew" in value:
+        out["AutoRenew"] = value["auto_renew"]
+    if "transfer_lock" in value:
+        out["TransferLock"] = value["transfer_lock"]
+    if "expiry" in value:
+        import capo_route_53_domains.types.timestamp
+
+        out["Expiry"] = capo_route_53_domains.types.timestamp.serialize_cbor(
+            value["expiry"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DomainSummary:
+    out: DomainSummary = {}  # type: ignore[typeddict-item]
+    if data.get("DomainName") is not None:
+        out["domain_name"] = data["DomainName"]
+    if data.get("AutoRenew") is not None:
+        out["auto_renew"] = data["AutoRenew"]
+    if data.get("TransferLock") is not None:
+        out["transfer_lock"] = data["TransferLock"]
+    if data.get("Expiry") is not None:
+        import capo_route_53_domains.types.timestamp
+
+        out["expiry"] = capo_route_53_domains.types.timestamp.deserialize_cbor(
+            data["Expiry"]
+        )
+    return out

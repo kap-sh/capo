@@ -48,3 +48,35 @@ def deserialize_aws_json_1_0(data: dict) -> ListAttachPointsResponse:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListAttachPointsResponse) -> dict:
+    out: dict = {}
+    import capo_interconnect.types.attach_point_descriptor_list
+
+    out["attachPoints"] = (
+        capo_interconnect.types.attach_point_descriptor_list.serialize_cbor(
+            value["attach_points"]
+        )
+    )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListAttachPointsResponse:
+    out: ListAttachPointsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("attachPoints") is not None:
+        import capo_interconnect.types.attach_point_descriptor_list
+
+        out["attach_points"] = (
+            capo_interconnect.types.attach_point_descriptor_list.deserialize_cbor(
+                data["attachPoints"]
+            )
+        )
+    else:
+        out["attach_points"] = []
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

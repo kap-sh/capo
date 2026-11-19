@@ -53,3 +53,34 @@ def deserialize_aws_json_1_1(
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeDirectConnectGatewayAttachmentsResult) -> dict:
+    out: dict = {}
+    if "direct_connect_gateway_attachments" in value:
+        import capo_direct_connect.types.direct_connect_gateway_attachment_list
+
+        out["directConnectGatewayAttachments"] = (
+            capo_direct_connect.types.direct_connect_gateway_attachment_list.serialize_cbor(
+                value["direct_connect_gateway_attachments"]
+            )
+        )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeDirectConnectGatewayAttachmentsResult:
+    out: DescribeDirectConnectGatewayAttachmentsResult = {}  # type: ignore[typeddict-item]
+    if data.get("directConnectGatewayAttachments") is not None:
+        import capo_direct_connect.types.direct_connect_gateway_attachment_list
+
+        out["direct_connect_gateway_attachments"] = (
+            capo_direct_connect.types.direct_connect_gateway_attachment_list.deserialize_cbor(
+                data["directConnectGatewayAttachments"]
+            )
+        )
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

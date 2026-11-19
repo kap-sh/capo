@@ -37,3 +37,22 @@ def deserialize_aws_json_1_1(data: dict) -> VirtualGateway:
     if data.get("virtualGatewayState") is not None:
         out["virtual_gateway_state"] = data["virtualGatewayState"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: VirtualGateway) -> dict:
+    out: dict = {}
+    if "virtual_gateway_id" in value:
+        out["virtualGatewayId"] = value["virtual_gateway_id"]
+    if "virtual_gateway_state" in value:
+        out["virtualGatewayState"] = value["virtual_gateway_state"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> VirtualGateway:
+    out: VirtualGateway = {}  # type: ignore[typeddict-item]
+    if data.get("virtualGatewayId") is not None:
+        out["virtual_gateway_id"] = data["virtualGatewayId"]
+    if data.get("virtualGatewayState") is not None:
+        out["virtual_gateway_state"] = data["virtualGatewayState"]
+    return out

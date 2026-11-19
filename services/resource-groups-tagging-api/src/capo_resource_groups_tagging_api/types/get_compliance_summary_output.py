@@ -49,3 +49,34 @@ def deserialize_aws_json_1_1(data: dict) -> GetComplianceSummaryOutput:
     if data.get("PaginationToken") is not None:
         out["pagination_token"] = data["PaginationToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetComplianceSummaryOutput) -> dict:
+    out: dict = {}
+    if "summary_list" in value:
+        import capo_resource_groups_tagging_api.types.summary_list
+
+        out["SummaryList"] = (
+            capo_resource_groups_tagging_api.types.summary_list.serialize_cbor(
+                value["summary_list"]
+            )
+        )
+    if "pagination_token" in value:
+        out["PaginationToken"] = value["pagination_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetComplianceSummaryOutput:
+    out: GetComplianceSummaryOutput = {}  # type: ignore[typeddict-item]
+    if data.get("SummaryList") is not None:
+        import capo_resource_groups_tagging_api.types.summary_list
+
+        out["summary_list"] = (
+            capo_resource_groups_tagging_api.types.summary_list.deserialize_cbor(
+                data["SummaryList"]
+            )
+        )
+    if data.get("PaginationToken") is not None:
+        out["pagination_token"] = data["PaginationToken"]
+    return out

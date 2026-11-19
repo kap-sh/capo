@@ -46,3 +46,26 @@ def deserialize_aws_json_1_1(data: dict) -> ServerProcess:
     if data.get("ConcurrentExecutions") is not None:
         out["concurrent_executions"] = data["ConcurrentExecutions"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ServerProcess) -> dict:
+    out: dict = {}
+    if "launch_path" in value:
+        out["LaunchPath"] = value["launch_path"]
+    if "parameters" in value:
+        out["Parameters"] = value["parameters"]
+    if "concurrent_executions" in value:
+        out["ConcurrentExecutions"] = value["concurrent_executions"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ServerProcess:
+    out: ServerProcess = {}  # type: ignore[typeddict-item]
+    if data.get("LaunchPath") is not None:
+        out["launch_path"] = data["LaunchPath"]
+    if data.get("Parameters") is not None:
+        out["parameters"] = data["Parameters"]
+    if data.get("ConcurrentExecutions") is not None:
+        out["concurrent_executions"] = data["ConcurrentExecutions"]
+    return out

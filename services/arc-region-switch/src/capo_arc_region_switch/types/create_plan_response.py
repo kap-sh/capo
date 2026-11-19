@@ -36,6 +36,25 @@ def deserialize_aws_json_1_0(data: dict) -> CreatePlanResponse:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreatePlanResponse) -> dict:
+    out: dict = {}
+    if "plan" in value:
+        import capo_arc_region_switch.types.plan
+
+        out["plan"] = capo_arc_region_switch.types.plan.serialize_cbor(value["plan"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreatePlanResponse:
+    out: CreatePlanResponse = {}  # type: ignore[typeddict-item]
+    if data.get("plan") is not None:
+        import capo_arc_region_switch.types.plan
+
+        out["plan"] = capo_arc_region_switch.types.plan.deserialize_cbor(data["plan"])
+    return out
+
+
 def redact_sensitive(value: CreatePlanResponse) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "plan" in value:

@@ -242,3 +242,98 @@ def deserialize_query(el: Element) -> GetMetricStatisticsInput:
 
         out["unit"] = capo_cloudwatch.types.standard_unit.deserialize_query(child_unit)
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetMetricStatisticsInput) -> dict:
+    out: dict = {}
+    if "namespace" in value:
+        out["Namespace"] = value["namespace"]
+    if "metric_name" in value:
+        out["MetricName"] = value["metric_name"]
+    if "dimensions" in value:
+        import capo_cloudwatch.types.dimensions
+
+        out["Dimensions"] = capo_cloudwatch.types.dimensions.serialize_cbor(
+            value["dimensions"]
+        )
+    if "start_time" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["StartTime"] = capo_cloudwatch.types.timestamp.serialize_cbor(
+            value["start_time"]
+        )
+    if "end_time" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["EndTime"] = capo_cloudwatch.types.timestamp.serialize_cbor(
+            value["end_time"]
+        )
+    if "period" in value:
+        out["Period"] = value["period"]
+    if "statistics" in value:
+        import capo_cloudwatch.types.statistics
+
+        out["Statistics"] = capo_cloudwatch.types.statistics.serialize_cbor(
+            value["statistics"]
+        )
+    if "extended_statistics" in value:
+        import capo_cloudwatch.types.extended_statistics
+
+        out["ExtendedStatistics"] = (
+            capo_cloudwatch.types.extended_statistics.serialize_cbor(
+                value["extended_statistics"]
+            )
+        )
+    if "unit" in value:
+        import capo_cloudwatch.types.standard_unit
+
+        out["Unit"] = capo_cloudwatch.types.standard_unit.serialize_cbor(value["unit"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetMetricStatisticsInput:
+    out: GetMetricStatisticsInput = {}  # type: ignore[typeddict-item]
+    if data.get("Namespace") is not None:
+        out["namespace"] = data["Namespace"]
+    if data.get("MetricName") is not None:
+        out["metric_name"] = data["MetricName"]
+    if data.get("Dimensions") is not None:
+        import capo_cloudwatch.types.dimensions
+
+        out["dimensions"] = capo_cloudwatch.types.dimensions.deserialize_cbor(
+            data["Dimensions"]
+        )
+    if data.get("StartTime") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["start_time"] = capo_cloudwatch.types.timestamp.deserialize_cbor(
+            data["StartTime"]
+        )
+    if data.get("EndTime") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["end_time"] = capo_cloudwatch.types.timestamp.deserialize_cbor(
+            data["EndTime"]
+        )
+    if data.get("Period") is not None:
+        out["period"] = data["Period"]
+    if data.get("Statistics") is not None:
+        import capo_cloudwatch.types.statistics
+
+        out["statistics"] = capo_cloudwatch.types.statistics.deserialize_cbor(
+            data["Statistics"]
+        )
+    if data.get("ExtendedStatistics") is not None:
+        import capo_cloudwatch.types.extended_statistics
+
+        out["extended_statistics"] = (
+            capo_cloudwatch.types.extended_statistics.deserialize_cbor(
+                data["ExtendedStatistics"]
+            )
+        )
+    if data.get("Unit") is not None:
+        import capo_cloudwatch.types.standard_unit
+
+        out["unit"] = capo_cloudwatch.types.standard_unit.deserialize_cbor(data["Unit"])
+    return out

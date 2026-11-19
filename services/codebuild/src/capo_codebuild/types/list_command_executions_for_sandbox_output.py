@@ -49,6 +49,37 @@ def deserialize_aws_json_1_1(data: dict) -> ListCommandExecutionsForSandboxOutpu
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListCommandExecutionsForSandboxOutput) -> dict:
+    out: dict = {}
+    if "command_executions" in value:
+        import capo_codebuild.types.command_executions
+
+        out["commandExecutions"] = (
+            capo_codebuild.types.command_executions.serialize_cbor(
+                value["command_executions"]
+            )
+        )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListCommandExecutionsForSandboxOutput:
+    out: ListCommandExecutionsForSandboxOutput = {}  # type: ignore[typeddict-item]
+    if data.get("commandExecutions") is not None:
+        import capo_codebuild.types.command_executions
+
+        out["command_executions"] = (
+            capo_codebuild.types.command_executions.deserialize_cbor(
+                data["commandExecutions"]
+            )
+        )
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out
+
+
 def redact_sensitive(value: ListCommandExecutionsForSandboxOutput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "command_executions" in value:

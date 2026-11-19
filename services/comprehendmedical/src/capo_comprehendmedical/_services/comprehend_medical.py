@@ -104,6 +104,7 @@ class ComprehendMedicalClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[Interceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_1", "rpcv2Cbor"]
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -120,6 +121,7 @@ class ComprehendMedicalClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -135,6 +137,7 @@ class ComprehendMedicalClient:
         operation_interceptors: Iterable[Interceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_1", "rpcv2Cbor"] = "awsJson1_1",
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -171,6 +174,7 @@ class ComprehendMedicalClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -204,6 +208,9 @@ class ComprehendMedicalClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_1")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -241,13 +248,24 @@ class ComprehendMedicalClient:
         ) -> OperationResponse[
             "capo_comprehendmedical.types.describe_entities_detection_v2_job_response.DescribeEntitiesDetectionV2JobResponse"
         ]:
-            import capo_comprehendmedical._operations.comprehend_medical_20181030.describe_entities_detection_v2_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.describe_entities_detection_v2_job
 
-            output, http_response = (
-                capo_comprehendmedical._operations.comprehend_medical_20181030.describe_entities_detection_v2_job.describe_entities_detection_v2_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.describe_entities_detection_v2_job.describe_entities_detection_v2_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.describe_entities_detection_v2_job
+
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.describe_entities_detection_v2_job.describe_entities_detection_v2_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -289,13 +307,24 @@ class ComprehendMedicalClient:
         ) -> OperationResponse[
             "capo_comprehendmedical.types.describe_icd10_cm_inference_job_response.DescribeICD10CMInferenceJobResponse"
         ]:
-            import capo_comprehendmedical._operations.comprehend_medical_20181030.describe_icd10_cm_inference_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.describe_icd10_cm_inference_job
 
-            output, http_response = (
-                capo_comprehendmedical._operations.comprehend_medical_20181030.describe_icd10_cm_inference_job.describe_icd10_cm_inference_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.describe_icd10_cm_inference_job.describe_icd10_cm_inference_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.describe_icd10_cm_inference_job
+
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.describe_icd10_cm_inference_job.describe_icd10_cm_inference_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -337,13 +366,24 @@ class ComprehendMedicalClient:
         ) -> OperationResponse[
             "capo_comprehendmedical.types.describe_phi_detection_job_response.DescribePHIDetectionJobResponse"
         ]:
-            import capo_comprehendmedical._operations.comprehend_medical_20181030.describe_phi_detection_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.describe_phi_detection_job
 
-            output, http_response = (
-                capo_comprehendmedical._operations.comprehend_medical_20181030.describe_phi_detection_job.describe_phi_detection_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.describe_phi_detection_job.describe_phi_detection_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.describe_phi_detection_job
+
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.describe_phi_detection_job.describe_phi_detection_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -385,13 +425,24 @@ class ComprehendMedicalClient:
         ) -> OperationResponse[
             "capo_comprehendmedical.types.describe_rx_norm_inference_job_response.DescribeRxNormInferenceJobResponse"
         ]:
-            import capo_comprehendmedical._operations.comprehend_medical_20181030.describe_rx_norm_inference_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.describe_rx_norm_inference_job
 
-            output, http_response = (
-                capo_comprehendmedical._operations.comprehend_medical_20181030.describe_rx_norm_inference_job.describe_rx_norm_inference_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.describe_rx_norm_inference_job.describe_rx_norm_inference_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.describe_rx_norm_inference_job
+
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.describe_rx_norm_inference_job.describe_rx_norm_inference_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -433,13 +484,24 @@ class ComprehendMedicalClient:
         ) -> OperationResponse[
             "capo_comprehendmedical.types.describe_snomedct_inference_job_response.DescribeSNOMEDCTInferenceJobResponse"
         ]:
-            import capo_comprehendmedical._operations.comprehend_medical_20181030.describe_snomedct_inference_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.describe_snomedct_inference_job
 
-            output, http_response = (
-                capo_comprehendmedical._operations.comprehend_medical_20181030.describe_snomedct_inference_job.describe_snomedct_inference_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.describe_snomedct_inference_job.describe_snomedct_inference_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.describe_snomedct_inference_job
+
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.describe_snomedct_inference_job.describe_snomedct_inference_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -483,13 +545,24 @@ class ComprehendMedicalClient:
         ) -> OperationResponse[
             "capo_comprehendmedical.types.detect_entities_response.DetectEntitiesResponse"
         ]:
-            import capo_comprehendmedical._operations.comprehend_medical_20181030.detect_entities
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.detect_entities
 
-            output, http_response = (
-                capo_comprehendmedical._operations.comprehend_medical_20181030.detect_entities.detect_entities(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.detect_entities.detect_entities(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.detect_entities
+
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.detect_entities.detect_entities(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -533,13 +606,24 @@ class ComprehendMedicalClient:
         ) -> OperationResponse[
             "capo_comprehendmedical.types.detect_entities_v2_response.DetectEntitiesV2Response"
         ]:
-            import capo_comprehendmedical._operations.comprehend_medical_20181030.detect_entities_v2
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.detect_entities_v2
 
-            output, http_response = (
-                capo_comprehendmedical._operations.comprehend_medical_20181030.detect_entities_v2.detect_entities_v2(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.detect_entities_v2.detect_entities_v2(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.detect_entities_v2
+
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.detect_entities_v2.detect_entities_v2(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -583,13 +667,24 @@ class ComprehendMedicalClient:
         ) -> OperationResponse[
             "capo_comprehendmedical.types.detect_phi_response.DetectPHIResponse"
         ]:
-            import capo_comprehendmedical._operations.comprehend_medical_20181030.detect_phi
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.detect_phi
 
-            output, http_response = (
-                capo_comprehendmedical._operations.comprehend_medical_20181030.detect_phi.detect_phi(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.detect_phi.detect_phi(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.detect_phi
+
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.detect_phi.detect_phi(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -633,13 +728,24 @@ class ComprehendMedicalClient:
         ) -> OperationResponse[
             "capo_comprehendmedical.types.infer_icd10_cm_response.InferICD10CMResponse"
         ]:
-            import capo_comprehendmedical._operations.comprehend_medical_20181030.infer_icd10_cm
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.infer_icd10_cm
 
-            output, http_response = (
-                capo_comprehendmedical._operations.comprehend_medical_20181030.infer_icd10_cm.infer_icd10_cm(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.infer_icd10_cm.infer_icd10_cm(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.infer_icd10_cm
+
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.infer_icd10_cm.infer_icd10_cm(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -683,13 +789,24 @@ class ComprehendMedicalClient:
         ) -> OperationResponse[
             "capo_comprehendmedical.types.infer_rx_norm_response.InferRxNormResponse"
         ]:
-            import capo_comprehendmedical._operations.comprehend_medical_20181030.infer_rx_norm
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.infer_rx_norm
 
-            output, http_response = (
-                capo_comprehendmedical._operations.comprehend_medical_20181030.infer_rx_norm.infer_rx_norm(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.infer_rx_norm.infer_rx_norm(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.infer_rx_norm
+
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.infer_rx_norm.infer_rx_norm(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -733,13 +850,24 @@ class ComprehendMedicalClient:
         ) -> OperationResponse[
             "capo_comprehendmedical.types.infer_snomedct_response.InferSNOMEDCTResponse"
         ]:
-            import capo_comprehendmedical._operations.comprehend_medical_20181030.infer_snomedct
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.infer_snomedct
 
-            output, http_response = (
-                capo_comprehendmedical._operations.comprehend_medical_20181030.infer_snomedct.infer_snomedct(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.infer_snomedct.infer_snomedct(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.infer_snomedct
+
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.infer_snomedct.infer_snomedct(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -789,13 +917,24 @@ class ComprehendMedicalClient:
         ) -> OperationResponse[
             "capo_comprehendmedical.types.list_entities_detection_v2_jobs_response.ListEntitiesDetectionV2JobsResponse"
         ]:
-            import capo_comprehendmedical._operations.comprehend_medical_20181030.list_entities_detection_v2_jobs
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.list_entities_detection_v2_jobs
 
-            output, http_response = (
-                capo_comprehendmedical._operations.comprehend_medical_20181030.list_entities_detection_v2_jobs.list_entities_detection_v2_jobs(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.list_entities_detection_v2_jobs.list_entities_detection_v2_jobs(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.list_entities_detection_v2_jobs
+
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.list_entities_detection_v2_jobs.list_entities_detection_v2_jobs(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -849,13 +988,24 @@ class ComprehendMedicalClient:
         ) -> OperationResponse[
             "capo_comprehendmedical.types.list_icd10_cm_inference_jobs_response.ListICD10CMInferenceJobsResponse"
         ]:
-            import capo_comprehendmedical._operations.comprehend_medical_20181030.list_icd10_cm_inference_jobs
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.list_icd10_cm_inference_jobs
 
-            output, http_response = (
-                capo_comprehendmedical._operations.comprehend_medical_20181030.list_icd10_cm_inference_jobs.list_icd10_cm_inference_jobs(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.list_icd10_cm_inference_jobs.list_icd10_cm_inference_jobs(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.list_icd10_cm_inference_jobs
+
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.list_icd10_cm_inference_jobs.list_icd10_cm_inference_jobs(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -909,13 +1059,24 @@ class ComprehendMedicalClient:
         ) -> OperationResponse[
             "capo_comprehendmedical.types.list_phi_detection_jobs_response.ListPHIDetectionJobsResponse"
         ]:
-            import capo_comprehendmedical._operations.comprehend_medical_20181030.list_phi_detection_jobs
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.list_phi_detection_jobs
 
-            output, http_response = (
-                capo_comprehendmedical._operations.comprehend_medical_20181030.list_phi_detection_jobs.list_phi_detection_jobs(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.list_phi_detection_jobs.list_phi_detection_jobs(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.list_phi_detection_jobs
+
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.list_phi_detection_jobs.list_phi_detection_jobs(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -969,13 +1130,24 @@ class ComprehendMedicalClient:
         ) -> OperationResponse[
             "capo_comprehendmedical.types.list_rx_norm_inference_jobs_response.ListRxNormInferenceJobsResponse"
         ]:
-            import capo_comprehendmedical._operations.comprehend_medical_20181030.list_rx_norm_inference_jobs
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.list_rx_norm_inference_jobs
 
-            output, http_response = (
-                capo_comprehendmedical._operations.comprehend_medical_20181030.list_rx_norm_inference_jobs.list_rx_norm_inference_jobs(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.list_rx_norm_inference_jobs.list_rx_norm_inference_jobs(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.list_rx_norm_inference_jobs
+
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.list_rx_norm_inference_jobs.list_rx_norm_inference_jobs(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1028,13 +1200,24 @@ class ComprehendMedicalClient:
         ) -> OperationResponse[
             "capo_comprehendmedical.types.list_snomedct_inference_jobs_response.ListSNOMEDCTInferenceJobsResponse"
         ]:
-            import capo_comprehendmedical._operations.comprehend_medical_20181030.list_snomedct_inference_jobs
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.list_snomedct_inference_jobs
 
-            output, http_response = (
-                capo_comprehendmedical._operations.comprehend_medical_20181030.list_snomedct_inference_jobs.list_snomedct_inference_jobs(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.list_snomedct_inference_jobs.list_snomedct_inference_jobs(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.list_snomedct_inference_jobs
+
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.list_snomedct_inference_jobs.list_snomedct_inference_jobs(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1094,13 +1277,24 @@ class ComprehendMedicalClient:
         ) -> OperationResponse[
             "capo_comprehendmedical.types.start_entities_detection_v2_job_response.StartEntitiesDetectionV2JobResponse"
         ]:
-            import capo_comprehendmedical._operations.comprehend_medical_20181030.start_entities_detection_v2_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.start_entities_detection_v2_job
 
-            output, http_response = (
-                capo_comprehendmedical._operations.comprehend_medical_20181030.start_entities_detection_v2_job.start_entities_detection_v2_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.start_entities_detection_v2_job.start_entities_detection_v2_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.start_entities_detection_v2_job
+
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.start_entities_detection_v2_job.start_entities_detection_v2_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1166,13 +1360,24 @@ class ComprehendMedicalClient:
         ) -> OperationResponse[
             "capo_comprehendmedical.types.start_icd10_cm_inference_job_response.StartICD10CMInferenceJobResponse"
         ]:
-            import capo_comprehendmedical._operations.comprehend_medical_20181030.start_icd10_cm_inference_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.start_icd10_cm_inference_job
 
-            output, http_response = (
-                capo_comprehendmedical._operations.comprehend_medical_20181030.start_icd10_cm_inference_job.start_icd10_cm_inference_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.start_icd10_cm_inference_job.start_icd10_cm_inference_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.start_icd10_cm_inference_job
+
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.start_icd10_cm_inference_job.start_icd10_cm_inference_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1238,13 +1443,24 @@ class ComprehendMedicalClient:
         ) -> OperationResponse[
             "capo_comprehendmedical.types.start_phi_detection_job_response.StartPHIDetectionJobResponse"
         ]:
-            import capo_comprehendmedical._operations.comprehend_medical_20181030.start_phi_detection_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.start_phi_detection_job
 
-            output, http_response = (
-                capo_comprehendmedical._operations.comprehend_medical_20181030.start_phi_detection_job.start_phi_detection_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.start_phi_detection_job.start_phi_detection_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.start_phi_detection_job
+
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.start_phi_detection_job.start_phi_detection_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1310,13 +1526,24 @@ class ComprehendMedicalClient:
         ) -> OperationResponse[
             "capo_comprehendmedical.types.start_rx_norm_inference_job_response.StartRxNormInferenceJobResponse"
         ]:
-            import capo_comprehendmedical._operations.comprehend_medical_20181030.start_rx_norm_inference_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.start_rx_norm_inference_job
 
-            output, http_response = (
-                capo_comprehendmedical._operations.comprehend_medical_20181030.start_rx_norm_inference_job.start_rx_norm_inference_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.start_rx_norm_inference_job.start_rx_norm_inference_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.start_rx_norm_inference_job
+
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.start_rx_norm_inference_job.start_rx_norm_inference_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1380,13 +1607,24 @@ class ComprehendMedicalClient:
         ) -> OperationResponse[
             "capo_comprehendmedical.types.start_snomedct_inference_job_response.StartSNOMEDCTInferenceJobResponse"
         ]:
-            import capo_comprehendmedical._operations.comprehend_medical_20181030.start_snomedct_inference_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.start_snomedct_inference_job
 
-            output, http_response = (
-                capo_comprehendmedical._operations.comprehend_medical_20181030.start_snomedct_inference_job.start_snomedct_inference_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.start_snomedct_inference_job.start_snomedct_inference_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.start_snomedct_inference_job
+
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.start_snomedct_inference_job.start_snomedct_inference_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1437,13 +1675,24 @@ class ComprehendMedicalClient:
         ) -> OperationResponse[
             "capo_comprehendmedical.types.stop_entities_detection_v2_job_response.StopEntitiesDetectionV2JobResponse"
         ]:
-            import capo_comprehendmedical._operations.comprehend_medical_20181030.stop_entities_detection_v2_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.stop_entities_detection_v2_job
 
-            output, http_response = (
-                capo_comprehendmedical._operations.comprehend_medical_20181030.stop_entities_detection_v2_job.stop_entities_detection_v2_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.stop_entities_detection_v2_job.stop_entities_detection_v2_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.stop_entities_detection_v2_job
+
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.stop_entities_detection_v2_job.stop_entities_detection_v2_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1484,13 +1733,24 @@ class ComprehendMedicalClient:
         ) -> OperationResponse[
             "capo_comprehendmedical.types.stop_icd10_cm_inference_job_response.StopICD10CMInferenceJobResponse"
         ]:
-            import capo_comprehendmedical._operations.comprehend_medical_20181030.stop_icd10_cm_inference_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.stop_icd10_cm_inference_job
 
-            output, http_response = (
-                capo_comprehendmedical._operations.comprehend_medical_20181030.stop_icd10_cm_inference_job.stop_icd10_cm_inference_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.stop_icd10_cm_inference_job.stop_icd10_cm_inference_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.stop_icd10_cm_inference_job
+
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.stop_icd10_cm_inference_job.stop_icd10_cm_inference_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1531,13 +1791,24 @@ class ComprehendMedicalClient:
         ) -> OperationResponse[
             "capo_comprehendmedical.types.stop_phi_detection_job_response.StopPHIDetectionJobResponse"
         ]:
-            import capo_comprehendmedical._operations.comprehend_medical_20181030.stop_phi_detection_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.stop_phi_detection_job
 
-            output, http_response = (
-                capo_comprehendmedical._operations.comprehend_medical_20181030.stop_phi_detection_job.stop_phi_detection_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.stop_phi_detection_job.stop_phi_detection_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.stop_phi_detection_job
+
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.stop_phi_detection_job.stop_phi_detection_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1578,13 +1849,24 @@ class ComprehendMedicalClient:
         ) -> OperationResponse[
             "capo_comprehendmedical.types.stop_rx_norm_inference_job_response.StopRxNormInferenceJobResponse"
         ]:
-            import capo_comprehendmedical._operations.comprehend_medical_20181030.stop_rx_norm_inference_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.stop_rx_norm_inference_job
 
-            output, http_response = (
-                capo_comprehendmedical._operations.comprehend_medical_20181030.stop_rx_norm_inference_job.stop_rx_norm_inference_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.stop_rx_norm_inference_job.stop_rx_norm_inference_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.stop_rx_norm_inference_job
+
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.stop_rx_norm_inference_job.stop_rx_norm_inference_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1626,13 +1908,24 @@ class ComprehendMedicalClient:
         ) -> OperationResponse[
             "capo_comprehendmedical.types.stop_snomedct_inference_job_response.StopSNOMEDCTInferenceJobResponse"
         ]:
-            import capo_comprehendmedical._operations.comprehend_medical_20181030.stop_snomedct_inference_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.stop_snomedct_inference_job
 
-            output, http_response = (
-                capo_comprehendmedical._operations.comprehend_medical_20181030.stop_snomedct_inference_job.stop_snomedct_inference_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.aws_json1_1.stop_snomedct_inference_job.stop_snomedct_inference_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.stop_snomedct_inference_job
+
+                output, http_response = (
+                    capo_comprehendmedical._operations.comprehend_medical_20181030.rpcv2_cbor.stop_snomedct_inference_job.stop_snomedct_inference_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

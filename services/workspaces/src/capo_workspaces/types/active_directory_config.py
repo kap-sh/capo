@@ -37,3 +37,24 @@ def deserialize_aws_json_1_1(data: dict) -> ActiveDirectoryConfig:
     else:
         out["service_account_secret_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ActiveDirectoryConfig) -> dict:
+    out: dict = {}
+    out["DomainName"] = value["domain_name"]
+    out["ServiceAccountSecretArn"] = value["service_account_secret_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ActiveDirectoryConfig:
+    out: ActiveDirectoryConfig = {}  # type: ignore[typeddict-item]
+    if data.get("DomainName") is not None:
+        out["domain_name"] = data["DomainName"]
+    else:
+        out["domain_name"] = ""
+    if data.get("ServiceAccountSecretArn") is not None:
+        out["service_account_secret_arn"] = data["ServiceAccountSecretArn"]
+    else:
+        out["service_account_secret_arn"] = ""
+    return out

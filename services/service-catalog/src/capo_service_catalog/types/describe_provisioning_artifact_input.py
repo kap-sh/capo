@@ -79,3 +79,46 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeProvisioningArtifactInput:
             "IncludeProvisioningArtifactParameters"
         ]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeProvisioningArtifactInput) -> dict:
+    out: dict = {}
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    if "provisioning_artifact_id" in value:
+        out["ProvisioningArtifactId"] = value["provisioning_artifact_id"]
+    if "product_id" in value:
+        out["ProductId"] = value["product_id"]
+    if "provisioning_artifact_name" in value:
+        out["ProvisioningArtifactName"] = value["provisioning_artifact_name"]
+    if "product_name" in value:
+        out["ProductName"] = value["product_name"]
+    if "verbose" in value:
+        out["Verbose"] = value["verbose"]
+    if "include_provisioning_artifact_parameters" in value:
+        out["IncludeProvisioningArtifactParameters"] = value[
+            "include_provisioning_artifact_parameters"
+        ]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeProvisioningArtifactInput:
+    out: DescribeProvisioningArtifactInput = {}  # type: ignore[typeddict-item]
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    if data.get("ProvisioningArtifactId") is not None:
+        out["provisioning_artifact_id"] = data["ProvisioningArtifactId"]
+    if data.get("ProductId") is not None:
+        out["product_id"] = data["ProductId"]
+    if data.get("ProvisioningArtifactName") is not None:
+        out["provisioning_artifact_name"] = data["ProvisioningArtifactName"]
+    if data.get("ProductName") is not None:
+        out["product_name"] = data["ProductName"]
+    if data.get("Verbose") is not None:
+        out["verbose"] = data["Verbose"]
+    if data.get("IncludeProvisioningArtifactParameters") is not None:
+        out["include_provisioning_artifact_parameters"] = data[
+            "IncludeProvisioningArtifactParameters"
+        ]
+    return out

@@ -98,3 +98,59 @@ def deserialize_aws_json_1_1(data: dict) -> Hsm:
     if data.get("StateMessage") is not None:
         out["state_message"] = data["StateMessage"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Hsm) -> dict:
+    out: dict = {}
+    if "availability_zone" in value:
+        out["AvailabilityZone"] = value["availability_zone"]
+    if "cluster_id" in value:
+        out["ClusterId"] = value["cluster_id"]
+    if "subnet_id" in value:
+        out["SubnetId"] = value["subnet_id"]
+    if "eni_id" in value:
+        out["EniId"] = value["eni_id"]
+    if "eni_ip" in value:
+        out["EniIp"] = value["eni_ip"]
+    if "eni_ip_v6" in value:
+        out["EniIpV6"] = value["eni_ip_v6"]
+    out["HsmId"] = value["hsm_id"]
+    if "hsm_type" in value:
+        out["HsmType"] = value["hsm_type"]
+    if "state" in value:
+        import capo_cloudhsm_v2.types.hsm_state
+
+        out["State"] = capo_cloudhsm_v2.types.hsm_state.serialize_cbor(value["state"])
+    if "state_message" in value:
+        out["StateMessage"] = value["state_message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Hsm:
+    out: Hsm = {}  # type: ignore[typeddict-item]
+    if data.get("AvailabilityZone") is not None:
+        out["availability_zone"] = data["AvailabilityZone"]
+    if data.get("ClusterId") is not None:
+        out["cluster_id"] = data["ClusterId"]
+    if data.get("SubnetId") is not None:
+        out["subnet_id"] = data["SubnetId"]
+    if data.get("EniId") is not None:
+        out["eni_id"] = data["EniId"]
+    if data.get("EniIp") is not None:
+        out["eni_ip"] = data["EniIp"]
+    if data.get("EniIpV6") is not None:
+        out["eni_ip_v6"] = data["EniIpV6"]
+    if data.get("HsmId") is not None:
+        out["hsm_id"] = data["HsmId"]
+    else:
+        out["hsm_id"] = ""
+    if data.get("HsmType") is not None:
+        out["hsm_type"] = data["HsmType"]
+    if data.get("State") is not None:
+        import capo_cloudhsm_v2.types.hsm_state
+
+        out["state"] = capo_cloudhsm_v2.types.hsm_state.deserialize_cbor(data["State"])
+    if data.get("StateMessage") is not None:
+        out["state_message"] = data["StateMessage"]
+    return out

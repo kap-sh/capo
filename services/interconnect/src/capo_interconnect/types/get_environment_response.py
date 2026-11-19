@@ -39,3 +39,27 @@ def deserialize_aws_json_1_0(data: dict) -> GetEnvironmentResponse:
     else:
         raise DeserializationError("GetEnvironmentResponse.environment required")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetEnvironmentResponse) -> dict:
+    out: dict = {}
+    import capo_interconnect.types.environment
+
+    out["environment"] = capo_interconnect.types.environment.serialize_cbor(
+        value["environment"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetEnvironmentResponse:
+    out: GetEnvironmentResponse = {}  # type: ignore[typeddict-item]
+    if data.get("environment") is not None:
+        import capo_interconnect.types.environment
+
+        out["environment"] = capo_interconnect.types.environment.deserialize_cbor(
+            data["environment"]
+        )
+    else:
+        raise DeserializationError("GetEnvironmentResponse.environment required")
+    return out

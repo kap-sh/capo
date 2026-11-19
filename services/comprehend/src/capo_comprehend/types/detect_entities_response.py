@@ -108,3 +108,82 @@ def deserialize_aws_json_1_1(data: dict) -> DetectEntitiesResponse:
             data["Errors"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DetectEntitiesResponse) -> dict:
+    out: dict = {}
+    if "entities" in value:
+        import capo_comprehend.types.list_of_entities
+
+        out["Entities"] = capo_comprehend.types.list_of_entities.serialize_cbor(
+            value["entities"]
+        )
+    if "document_metadata" in value:
+        import capo_comprehend.types.document_metadata
+
+        out["DocumentMetadata"] = (
+            capo_comprehend.types.document_metadata.serialize_cbor(
+                value["document_metadata"]
+            )
+        )
+    if "document_type" in value:
+        import capo_comprehend.types.list_of_document_type
+
+        out["DocumentType"] = (
+            capo_comprehend.types.list_of_document_type.serialize_cbor(
+                value["document_type"]
+            )
+        )
+    if "blocks" in value:
+        import capo_comprehend.types.list_of_blocks
+
+        out["Blocks"] = capo_comprehend.types.list_of_blocks.serialize_cbor(
+            value["blocks"]
+        )
+    if "errors" in value:
+        import capo_comprehend.types.list_of_errors
+
+        out["Errors"] = capo_comprehend.types.list_of_errors.serialize_cbor(
+            value["errors"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DetectEntitiesResponse:
+    out: DetectEntitiesResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Entities") is not None:
+        import capo_comprehend.types.list_of_entities
+
+        out["entities"] = capo_comprehend.types.list_of_entities.deserialize_cbor(
+            data["Entities"]
+        )
+    if data.get("DocumentMetadata") is not None:
+        import capo_comprehend.types.document_metadata
+
+        out["document_metadata"] = (
+            capo_comprehend.types.document_metadata.deserialize_cbor(
+                data["DocumentMetadata"]
+            )
+        )
+    if data.get("DocumentType") is not None:
+        import capo_comprehend.types.list_of_document_type
+
+        out["document_type"] = (
+            capo_comprehend.types.list_of_document_type.deserialize_cbor(
+                data["DocumentType"]
+            )
+        )
+    if data.get("Blocks") is not None:
+        import capo_comprehend.types.list_of_blocks
+
+        out["blocks"] = capo_comprehend.types.list_of_blocks.deserialize_cbor(
+            data["Blocks"]
+        )
+    if data.get("Errors") is not None:
+        import capo_comprehend.types.list_of_errors
+
+        out["errors"] = capo_comprehend.types.list_of_errors.deserialize_cbor(
+            data["Errors"]
+        )
+    return out

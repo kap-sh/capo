@@ -59,3 +59,45 @@ def deserialize_aws_json_1_1(data: dict) -> EnableStageTransitionInput:
             "capo_codepipeline.types.stage_transition_type.StageTransitionType", ""
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EnableStageTransitionInput) -> dict:
+    out: dict = {}
+    out["pipelineName"] = value["pipeline_name"]
+    out["stageName"] = value["stage_name"]
+    import capo_codepipeline.types.stage_transition_type
+
+    out["transitionType"] = (
+        capo_codepipeline.types.stage_transition_type.serialize_cbor(
+            value["transition_type"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> EnableStageTransitionInput:
+    out: EnableStageTransitionInput = {}  # type: ignore[typeddict-item]
+    if data.get("pipelineName") is not None:
+        out["pipeline_name"] = data["pipelineName"]
+    else:
+        out["pipeline_name"] = ""
+    if data.get("stageName") is not None:
+        out["stage_name"] = data["stageName"]
+    else:
+        out["stage_name"] = ""
+    if data.get("transitionType") is not None:
+        import capo_codepipeline.types.stage_transition_type
+
+        out["transition_type"] = (
+            capo_codepipeline.types.stage_transition_type.deserialize_cbor(
+                data["transitionType"]
+            )
+        )
+    else:
+        import typing
+
+        out["transition_type"] = typing.cast(
+            "capo_codepipeline.types.stage_transition_type.StageTransitionType", ""
+        )
+    return out

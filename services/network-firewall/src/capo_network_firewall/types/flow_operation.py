@@ -45,3 +45,30 @@ def deserialize_aws_json_1_0(data: dict) -> FlowOperation:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FlowOperation) -> dict:
+    out: dict = {}
+    if "minimum_flow_age_in_seconds" in value:
+        out["MinimumFlowAgeInSeconds"] = value["minimum_flow_age_in_seconds"]
+    if "flow_filters" in value:
+        import capo_network_firewall.types.flow_filters
+
+        out["FlowFilters"] = capo_network_firewall.types.flow_filters.serialize_cbor(
+            value["flow_filters"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> FlowOperation:
+    out: FlowOperation = {}  # type: ignore[typeddict-item]
+    if data.get("MinimumFlowAgeInSeconds") is not None:
+        out["minimum_flow_age_in_seconds"] = data["MinimumFlowAgeInSeconds"]
+    if data.get("FlowFilters") is not None:
+        import capo_network_firewall.types.flow_filters
+
+        out["flow_filters"] = capo_network_firewall.types.flow_filters.deserialize_cbor(
+            data["FlowFilters"]
+        )
+    return out

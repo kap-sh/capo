@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> OnPremisesTagSet:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: OnPremisesTagSet) -> dict:
+    out: dict = {}
+    if "on_premises_tag_set_list" in value:
+        import capo_codedeploy.types.on_premises_tag_set_list
+
+        out["onPremisesTagSetList"] = (
+            capo_codedeploy.types.on_premises_tag_set_list.serialize_cbor(
+                value["on_premises_tag_set_list"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> OnPremisesTagSet:
+    out: OnPremisesTagSet = {}  # type: ignore[typeddict-item]
+    if data.get("onPremisesTagSetList") is not None:
+        import capo_codedeploy.types.on_premises_tag_set_list
+
+        out["on_premises_tag_set_list"] = (
+            capo_codedeploy.types.on_premises_tag_set_list.deserialize_cbor(
+                data["onPremisesTagSetList"]
+            )
+        )
+    return out

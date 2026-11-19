@@ -18,3 +18,12 @@ def serialize_aws_json_1_0(value: DeleteTime) -> float:
 
 def deserialize_aws_json_1_0(data: float) -> DeleteTime:
     return datetime.datetime.fromtimestamp(float(data), tz=datetime.timezone.utc)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteTime) -> DeleteTime:
+    return value
+
+
+def deserialize_cbor(data: DeleteTime) -> DeleteTime:
+    return data

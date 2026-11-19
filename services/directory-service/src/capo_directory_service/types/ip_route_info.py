@@ -98,3 +98,66 @@ def deserialize_aws_json_1_1(data: dict) -> IpRouteInfo:
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IpRouteInfo) -> dict:
+    out: dict = {}
+    if "directory_id" in value:
+        out["DirectoryId"] = value["directory_id"]
+    if "cidr_ip" in value:
+        out["CidrIp"] = value["cidr_ip"]
+    if "cidr_ipv6" in value:
+        out["CidrIpv6"] = value["cidr_ipv6"]
+    if "ip_route_status_msg" in value:
+        import capo_directory_service.types.ip_route_status_msg
+
+        out["IpRouteStatusMsg"] = (
+            capo_directory_service.types.ip_route_status_msg.serialize_cbor(
+                value["ip_route_status_msg"]
+            )
+        )
+    if "added_date_time" in value:
+        import capo_directory_service.types.added_date_time
+
+        out["AddedDateTime"] = (
+            capo_directory_service.types.added_date_time.serialize_cbor(
+                value["added_date_time"]
+            )
+        )
+    if "ip_route_status_reason" in value:
+        out["IpRouteStatusReason"] = value["ip_route_status_reason"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> IpRouteInfo:
+    out: IpRouteInfo = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    if data.get("CidrIp") is not None:
+        out["cidr_ip"] = data["CidrIp"]
+    if data.get("CidrIpv6") is not None:
+        out["cidr_ipv6"] = data["CidrIpv6"]
+    if data.get("IpRouteStatusMsg") is not None:
+        import capo_directory_service.types.ip_route_status_msg
+
+        out["ip_route_status_msg"] = (
+            capo_directory_service.types.ip_route_status_msg.deserialize_cbor(
+                data["IpRouteStatusMsg"]
+            )
+        )
+    if data.get("AddedDateTime") is not None:
+        import capo_directory_service.types.added_date_time
+
+        out["added_date_time"] = (
+            capo_directory_service.types.added_date_time.deserialize_cbor(
+                data["AddedDateTime"]
+            )
+        )
+    if data.get("IpRouteStatusReason") is not None:
+        out["ip_route_status_reason"] = data["IpRouteStatusReason"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    return out

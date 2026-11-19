@@ -228,3 +228,138 @@ def deserialize_aws_json_1_1(data: dict) -> Interconnect:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Interconnect) -> dict:
+    out: dict = {}
+    if "interconnect_id" in value:
+        out["interconnectId"] = value["interconnect_id"]
+    if "interconnect_name" in value:
+        out["interconnectName"] = value["interconnect_name"]
+    if "interconnect_state" in value:
+        import capo_direct_connect.types.interconnect_state
+
+        out["interconnectState"] = (
+            capo_direct_connect.types.interconnect_state.serialize_cbor(
+                value["interconnect_state"]
+            )
+        )
+    if "region" in value:
+        out["region"] = value["region"]
+    if "location" in value:
+        out["location"] = value["location"]
+    if "bandwidth" in value:
+        out["bandwidth"] = value["bandwidth"]
+    if "loa_issue_time" in value:
+        import capo_direct_connect.types.loa_issue_time
+
+        out["loaIssueTime"] = capo_direct_connect.types.loa_issue_time.serialize_cbor(
+            value["loa_issue_time"]
+        )
+    if "lag_id" in value:
+        out["lagId"] = value["lag_id"]
+    if "aws_device" in value:
+        out["awsDevice"] = value["aws_device"]
+    if "jumbo_frame_capable" in value:
+        out["jumboFrameCapable"] = value["jumbo_frame_capable"]
+    if "aws_device_v2" in value:
+        out["awsDeviceV2"] = value["aws_device_v2"]
+    if "aws_logical_device_id" in value:
+        out["awsLogicalDeviceId"] = value["aws_logical_device_id"]
+    if "has_logical_redundancy" in value:
+        import capo_direct_connect.types.has_logical_redundancy
+
+        out["hasLogicalRedundancy"] = (
+            capo_direct_connect.types.has_logical_redundancy.serialize_cbor(
+                value["has_logical_redundancy"]
+            )
+        )
+    if "tags" in value:
+        import capo_direct_connect.types.tag_list
+
+        out["tags"] = capo_direct_connect.types.tag_list.serialize_cbor(value["tags"])
+    if "provider_name" in value:
+        out["providerName"] = value["provider_name"]
+    if "mac_sec_capable" in value:
+        out["macSecCapable"] = value["mac_sec_capable"]
+    if "port_encryption_status" in value:
+        out["portEncryptionStatus"] = value["port_encryption_status"]
+    if "encryption_mode" in value:
+        out["encryptionMode"] = value["encryption_mode"]
+    if "mac_sec_keys" in value:
+        import capo_direct_connect.types.mac_sec_key_list
+
+        out["macSecKeys"] = capo_direct_connect.types.mac_sec_key_list.serialize_cbor(
+            value["mac_sec_keys"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Interconnect:
+    out: Interconnect = {}  # type: ignore[typeddict-item]
+    if data.get("interconnectId") is not None:
+        out["interconnect_id"] = data["interconnectId"]
+    if data.get("interconnectName") is not None:
+        out["interconnect_name"] = data["interconnectName"]
+    if data.get("interconnectState") is not None:
+        import capo_direct_connect.types.interconnect_state
+
+        out["interconnect_state"] = (
+            capo_direct_connect.types.interconnect_state.deserialize_cbor(
+                data["interconnectState"]
+            )
+        )
+    if data.get("region") is not None:
+        out["region"] = data["region"]
+    if data.get("location") is not None:
+        out["location"] = data["location"]
+    if data.get("bandwidth") is not None:
+        out["bandwidth"] = data["bandwidth"]
+    if data.get("loaIssueTime") is not None:
+        import capo_direct_connect.types.loa_issue_time
+
+        out["loa_issue_time"] = (
+            capo_direct_connect.types.loa_issue_time.deserialize_cbor(
+                data["loaIssueTime"]
+            )
+        )
+    if data.get("lagId") is not None:
+        out["lag_id"] = data["lagId"]
+    if data.get("awsDevice") is not None:
+        out["aws_device"] = data["awsDevice"]
+    if data.get("jumboFrameCapable") is not None:
+        out["jumbo_frame_capable"] = data["jumboFrameCapable"]
+    if data.get("awsDeviceV2") is not None:
+        out["aws_device_v2"] = data["awsDeviceV2"]
+    if data.get("awsLogicalDeviceId") is not None:
+        out["aws_logical_device_id"] = data["awsLogicalDeviceId"]
+    if data.get("hasLogicalRedundancy") is not None:
+        import capo_direct_connect.types.has_logical_redundancy
+
+        out["has_logical_redundancy"] = (
+            capo_direct_connect.types.has_logical_redundancy.deserialize_cbor(
+                data["hasLogicalRedundancy"]
+            )
+        )
+    if data.get("tags") is not None:
+        import capo_direct_connect.types.tag_list
+
+        out["tags"] = capo_direct_connect.types.tag_list.deserialize_cbor(data["tags"])
+    if data.get("providerName") is not None:
+        out["provider_name"] = data["providerName"]
+    if data.get("macSecCapable") is not None:
+        out["mac_sec_capable"] = data["macSecCapable"]
+    if data.get("portEncryptionStatus") is not None:
+        out["port_encryption_status"] = data["portEncryptionStatus"]
+    if data.get("encryptionMode") is not None:
+        out["encryption_mode"] = data["encryptionMode"]
+    if data.get("macSecKeys") is not None:
+        import capo_direct_connect.types.mac_sec_key_list
+
+        out["mac_sec_keys"] = (
+            capo_direct_connect.types.mac_sec_key_list.deserialize_cbor(
+                data["macSecKeys"]
+            )
+        )
+    return out

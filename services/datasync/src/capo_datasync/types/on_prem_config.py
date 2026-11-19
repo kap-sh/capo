@@ -35,3 +35,27 @@ def deserialize_aws_json_1_1(data: dict) -> OnPremConfig:
     else:
         out["agent_arns"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: OnPremConfig) -> dict:
+    out: dict = {}
+    import capo_datasync.types.agent_arn_list
+
+    out["AgentArns"] = capo_datasync.types.agent_arn_list.serialize_cbor(
+        value["agent_arns"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> OnPremConfig:
+    out: OnPremConfig = {}  # type: ignore[typeddict-item]
+    if data.get("AgentArns") is not None:
+        import capo_datasync.types.agent_arn_list
+
+        out["agent_arns"] = capo_datasync.types.agent_arn_list.deserialize_cbor(
+            data["AgentArns"]
+        )
+    else:
+        out["agent_arns"] = []
+    return out

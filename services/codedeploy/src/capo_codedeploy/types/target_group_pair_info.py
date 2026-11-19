@@ -77,3 +77,58 @@ def deserialize_aws_json_1_1(data: dict) -> TargetGroupPairInfo:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TargetGroupPairInfo) -> dict:
+    out: dict = {}
+    if "target_groups" in value:
+        import capo_codedeploy.types.target_group_info_list
+
+        out["targetGroups"] = (
+            capo_codedeploy.types.target_group_info_list.serialize_cbor(
+                value["target_groups"]
+            )
+        )
+    if "prod_traffic_route" in value:
+        import capo_codedeploy.types.traffic_route
+
+        out["prodTrafficRoute"] = capo_codedeploy.types.traffic_route.serialize_cbor(
+            value["prod_traffic_route"]
+        )
+    if "test_traffic_route" in value:
+        import capo_codedeploy.types.traffic_route
+
+        out["testTrafficRoute"] = capo_codedeploy.types.traffic_route.serialize_cbor(
+            value["test_traffic_route"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TargetGroupPairInfo:
+    out: TargetGroupPairInfo = {}  # type: ignore[typeddict-item]
+    if data.get("targetGroups") is not None:
+        import capo_codedeploy.types.target_group_info_list
+
+        out["target_groups"] = (
+            capo_codedeploy.types.target_group_info_list.deserialize_cbor(
+                data["targetGroups"]
+            )
+        )
+    if data.get("prodTrafficRoute") is not None:
+        import capo_codedeploy.types.traffic_route
+
+        out["prod_traffic_route"] = (
+            capo_codedeploy.types.traffic_route.deserialize_cbor(
+                data["prodTrafficRoute"]
+            )
+        )
+    if data.get("testTrafficRoute") is not None:
+        import capo_codedeploy.types.traffic_route
+
+        out["test_traffic_route"] = (
+            capo_codedeploy.types.traffic_route.deserialize_cbor(
+                data["testTrafficRoute"]
+            )
+        )
+    return out

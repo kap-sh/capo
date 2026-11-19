@@ -80,3 +80,52 @@ def deserialize_aws_json_1_1(data: dict) -> HttpInstanceSummary:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: HttpInstanceSummary) -> dict:
+    out: dict = {}
+    if "instance_id" in value:
+        out["InstanceId"] = value["instance_id"]
+    if "namespace_name" in value:
+        out["NamespaceName"] = value["namespace_name"]
+    if "service_name" in value:
+        out["ServiceName"] = value["service_name"]
+    if "health_status" in value:
+        import capo_servicediscovery.types.health_status
+
+        out["HealthStatus"] = capo_servicediscovery.types.health_status.serialize_cbor(
+            value["health_status"]
+        )
+    if "attributes" in value:
+        import capo_servicediscovery.types.attributes
+
+        out["Attributes"] = capo_servicediscovery.types.attributes.serialize_cbor(
+            value["attributes"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> HttpInstanceSummary:
+    out: HttpInstanceSummary = {}  # type: ignore[typeddict-item]
+    if data.get("InstanceId") is not None:
+        out["instance_id"] = data["InstanceId"]
+    if data.get("NamespaceName") is not None:
+        out["namespace_name"] = data["NamespaceName"]
+    if data.get("ServiceName") is not None:
+        out["service_name"] = data["ServiceName"]
+    if data.get("HealthStatus") is not None:
+        import capo_servicediscovery.types.health_status
+
+        out["health_status"] = (
+            capo_servicediscovery.types.health_status.deserialize_cbor(
+                data["HealthStatus"]
+            )
+        )
+    if data.get("Attributes") is not None:
+        import capo_servicediscovery.types.attributes
+
+        out["attributes"] = capo_servicediscovery.types.attributes.deserialize_cbor(
+            data["Attributes"]
+        )
+    return out

@@ -43,3 +43,32 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteTagsRequest:
     else:
         out["tag_keys"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteTagsRequest) -> dict:
+    out: dict = {}
+    out["ResourceId"] = value["resource_id"]
+    import capo_workspaces.types.tag_key_list
+
+    out["TagKeys"] = capo_workspaces.types.tag_key_list.serialize_cbor(
+        value["tag_keys"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteTagsRequest:
+    out: DeleteTagsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceId") is not None:
+        out["resource_id"] = data["ResourceId"]
+    else:
+        out["resource_id"] = ""
+    if data.get("TagKeys") is not None:
+        import capo_workspaces.types.tag_key_list
+
+        out["tag_keys"] = capo_workspaces.types.tag_key_list.deserialize_cbor(
+            data["TagKeys"]
+        )
+    else:
+        out["tag_keys"] = []
+    return out

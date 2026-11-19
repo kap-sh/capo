@@ -149,3 +149,115 @@ def deserialize_aws_json_1_1(data: dict) -> ImportClientBrandingRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ImportClientBrandingRequest) -> dict:
+    out: dict = {}
+    out["ResourceId"] = value["resource_id"]
+    if "device_type_windows" in value:
+        import capo_workspaces.types.default_import_client_branding_attributes
+
+        out["DeviceTypeWindows"] = (
+            capo_workspaces.types.default_import_client_branding_attributes.serialize_cbor(
+                value["device_type_windows"]
+            )
+        )
+    if "device_type_osx" in value:
+        import capo_workspaces.types.default_import_client_branding_attributes
+
+        out["DeviceTypeOsx"] = (
+            capo_workspaces.types.default_import_client_branding_attributes.serialize_cbor(
+                value["device_type_osx"]
+            )
+        )
+    if "device_type_android" in value:
+        import capo_workspaces.types.default_import_client_branding_attributes
+
+        out["DeviceTypeAndroid"] = (
+            capo_workspaces.types.default_import_client_branding_attributes.serialize_cbor(
+                value["device_type_android"]
+            )
+        )
+    if "device_type_ios" in value:
+        import capo_workspaces.types.ios_import_client_branding_attributes
+
+        out["DeviceTypeIos"] = (
+            capo_workspaces.types.ios_import_client_branding_attributes.serialize_cbor(
+                value["device_type_ios"]
+            )
+        )
+    if "device_type_linux" in value:
+        import capo_workspaces.types.default_import_client_branding_attributes
+
+        out["DeviceTypeLinux"] = (
+            capo_workspaces.types.default_import_client_branding_attributes.serialize_cbor(
+                value["device_type_linux"]
+            )
+        )
+    if "device_type_web" in value:
+        import capo_workspaces.types.default_import_client_branding_attributes
+
+        out["DeviceTypeWeb"] = (
+            capo_workspaces.types.default_import_client_branding_attributes.serialize_cbor(
+                value["device_type_web"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ImportClientBrandingRequest:
+    out: ImportClientBrandingRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceId") is not None:
+        out["resource_id"] = data["ResourceId"]
+    else:
+        out["resource_id"] = ""
+    if data.get("DeviceTypeWindows") is not None:
+        import capo_workspaces.types.default_import_client_branding_attributes
+
+        out["device_type_windows"] = (
+            capo_workspaces.types.default_import_client_branding_attributes.deserialize_cbor(
+                data["DeviceTypeWindows"]
+            )
+        )
+    if data.get("DeviceTypeOsx") is not None:
+        import capo_workspaces.types.default_import_client_branding_attributes
+
+        out["device_type_osx"] = (
+            capo_workspaces.types.default_import_client_branding_attributes.deserialize_cbor(
+                data["DeviceTypeOsx"]
+            )
+        )
+    if data.get("DeviceTypeAndroid") is not None:
+        import capo_workspaces.types.default_import_client_branding_attributes
+
+        out["device_type_android"] = (
+            capo_workspaces.types.default_import_client_branding_attributes.deserialize_cbor(
+                data["DeviceTypeAndroid"]
+            )
+        )
+    if data.get("DeviceTypeIos") is not None:
+        import capo_workspaces.types.ios_import_client_branding_attributes
+
+        out["device_type_ios"] = (
+            capo_workspaces.types.ios_import_client_branding_attributes.deserialize_cbor(
+                data["DeviceTypeIos"]
+            )
+        )
+    if data.get("DeviceTypeLinux") is not None:
+        import capo_workspaces.types.default_import_client_branding_attributes
+
+        out["device_type_linux"] = (
+            capo_workspaces.types.default_import_client_branding_attributes.deserialize_cbor(
+                data["DeviceTypeLinux"]
+            )
+        )
+    if data.get("DeviceTypeWeb") is not None:
+        import capo_workspaces.types.default_import_client_branding_attributes
+
+        out["device_type_web"] = (
+            capo_workspaces.types.default_import_client_branding_attributes.deserialize_cbor(
+                data["DeviceTypeWeb"]
+            )
+        )
+    return out

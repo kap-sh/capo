@@ -33,3 +33,22 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeLoggingConfigurationRequest:
     if data.get("FirewallName") is not None:
         out["firewall_name"] = data["FirewallName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeLoggingConfigurationRequest) -> dict:
+    out: dict = {}
+    if "firewall_arn" in value:
+        out["FirewallArn"] = value["firewall_arn"]
+    if "firewall_name" in value:
+        out["FirewallName"] = value["firewall_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeLoggingConfigurationRequest:
+    out: DescribeLoggingConfigurationRequest = {}  # type: ignore[typeddict-item]
+    if data.get("FirewallArn") is not None:
+        out["firewall_arn"] = data["FirewallArn"]
+    if data.get("FirewallName") is not None:
+        out["firewall_name"] = data["FirewallName"]
+    return out

@@ -71,6 +71,53 @@ def deserialize_aws_json_1_1(data: dict) -> PlayerConnectionDetail:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PlayerConnectionDetail) -> dict:
+    out: dict = {}
+    if "player_id" in value:
+        out["PlayerId"] = value["player_id"]
+    if "endpoints" in value:
+        import capo_gamelift.types.player_connection_endpoint_list
+
+        out["Endpoints"] = (
+            capo_gamelift.types.player_connection_endpoint_list.serialize_cbor(
+                value["endpoints"]
+            )
+        )
+    if "player_gateway_token" in value:
+        out["PlayerGatewayToken"] = value["player_gateway_token"]
+    if "expiration" in value:
+        import capo_gamelift.types.timestamp
+
+        out["Expiration"] = capo_gamelift.types.timestamp.serialize_cbor(
+            value["expiration"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PlayerConnectionDetail:
+    out: PlayerConnectionDetail = {}  # type: ignore[typeddict-item]
+    if data.get("PlayerId") is not None:
+        out["player_id"] = data["PlayerId"]
+    if data.get("Endpoints") is not None:
+        import capo_gamelift.types.player_connection_endpoint_list
+
+        out["endpoints"] = (
+            capo_gamelift.types.player_connection_endpoint_list.deserialize_cbor(
+                data["Endpoints"]
+            )
+        )
+    if data.get("PlayerGatewayToken") is not None:
+        out["player_gateway_token"] = data["PlayerGatewayToken"]
+    if data.get("Expiration") is not None:
+        import capo_gamelift.types.timestamp
+
+        out["expiration"] = capo_gamelift.types.timestamp.deserialize_cbor(
+            data["Expiration"]
+        )
+    return out
+
+
 def redact_sensitive(value: PlayerConnectionDetail) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "player_id" in value:

@@ -34,3 +34,22 @@ def deserialize_aws_json_1_0(data: dict) -> RateCardItem:
     if data.get("price") is not None:
         out["price"] = data["price"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RateCardItem) -> dict:
+    out: dict = {}
+    if "dimension_key" in value:
+        out["dimensionKey"] = value["dimension_key"]
+    if "price" in value:
+        out["price"] = value["price"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RateCardItem:
+    out: RateCardItem = {}  # type: ignore[typeddict-item]
+    if data.get("dimensionKey") is not None:
+        out["dimension_key"] = data["dimensionKey"]
+    if data.get("price") is not None:
+        out["price"] = data["price"]
+    return out

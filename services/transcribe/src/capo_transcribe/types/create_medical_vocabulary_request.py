@@ -72,3 +72,49 @@ def deserialize_aws_json_1_1(data: dict) -> CreateMedicalVocabularyRequest:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateMedicalVocabularyRequest) -> dict:
+    out: dict = {}
+    out["VocabularyName"] = value["vocabulary_name"]
+    import capo_transcribe.types.language_code
+
+    out["LanguageCode"] = capo_transcribe.types.language_code.serialize_cbor(
+        value["language_code"]
+    )
+    out["VocabularyFileUri"] = value["vocabulary_file_uri"]
+    if "tags" in value:
+        import capo_transcribe.types.tag_list
+
+        out["Tags"] = capo_transcribe.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateMedicalVocabularyRequest:
+    out: CreateMedicalVocabularyRequest = {}  # type: ignore[typeddict-item]
+    if data.get("VocabularyName") is not None:
+        out["vocabulary_name"] = data["VocabularyName"]
+    else:
+        out["vocabulary_name"] = ""
+    if data.get("LanguageCode") is not None:
+        import capo_transcribe.types.language_code
+
+        out["language_code"] = capo_transcribe.types.language_code.deserialize_cbor(
+            data["LanguageCode"]
+        )
+    else:
+        import typing
+
+        out["language_code"] = typing.cast(
+            "capo_transcribe.types.language_code.LanguageCode", ""
+        )
+    if data.get("VocabularyFileUri") is not None:
+        out["vocabulary_file_uri"] = data["VocabularyFileUri"]
+    else:
+        out["vocabulary_file_uri"] = ""
+    if data.get("Tags") is not None:
+        import capo_transcribe.types.tag_list
+
+        out["tags"] = capo_transcribe.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

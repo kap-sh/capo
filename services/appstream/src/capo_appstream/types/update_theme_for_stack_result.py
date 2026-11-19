@@ -32,3 +32,22 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateThemeForStackResult:
             data["Theme"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateThemeForStackResult) -> dict:
+    out: dict = {}
+    if "theme" in value:
+        import capo_appstream.types.theme
+
+        out["Theme"] = capo_appstream.types.theme.serialize_cbor(value["theme"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateThemeForStackResult:
+    out: UpdateThemeForStackResult = {}  # type: ignore[typeddict-item]
+    if data.get("Theme") is not None:
+        import capo_appstream.types.theme
+
+        out["theme"] = capo_appstream.types.theme.deserialize_cbor(data["Theme"])
+    return out

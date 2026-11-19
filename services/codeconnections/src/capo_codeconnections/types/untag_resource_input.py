@@ -45,3 +45,32 @@ def deserialize_aws_json_1_0(data: dict) -> UntagResourceInput:
     else:
         out["tag_keys"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UntagResourceInput) -> dict:
+    out: dict = {}
+    out["ResourceArn"] = value["resource_arn"]
+    import capo_codeconnections.types.tag_key_list
+
+    out["TagKeys"] = capo_codeconnections.types.tag_key_list.serialize_cbor(
+        value["tag_keys"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UntagResourceInput:
+    out: UntagResourceInput = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceArn") is not None:
+        out["resource_arn"] = data["ResourceArn"]
+    else:
+        out["resource_arn"] = ""
+    if data.get("TagKeys") is not None:
+        import capo_codeconnections.types.tag_key_list
+
+        out["tag_keys"] = capo_codeconnections.types.tag_key_list.deserialize_cbor(
+            data["TagKeys"]
+        )
+    else:
+        out["tag_keys"] = []
+    return out

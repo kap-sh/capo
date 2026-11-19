@@ -86,6 +86,59 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeFleetPortSettingsOutput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeFleetPortSettingsOutput) -> dict:
+    out: dict = {}
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "fleet_arn" in value:
+        out["FleetArn"] = value["fleet_arn"]
+    if "inbound_permissions" in value:
+        import capo_gamelift.types.ip_permissions_list
+
+        out["InboundPermissions"] = (
+            capo_gamelift.types.ip_permissions_list.serialize_cbor(
+                value["inbound_permissions"]
+            )
+        )
+    if "update_status" in value:
+        import capo_gamelift.types.location_update_status
+
+        out["UpdateStatus"] = capo_gamelift.types.location_update_status.serialize_cbor(
+            value["update_status"]
+        )
+    if "location" in value:
+        out["Location"] = value["location"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeFleetPortSettingsOutput:
+    out: DescribeFleetPortSettingsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("FleetArn") is not None:
+        out["fleet_arn"] = data["FleetArn"]
+    if data.get("InboundPermissions") is not None:
+        import capo_gamelift.types.ip_permissions_list
+
+        out["inbound_permissions"] = (
+            capo_gamelift.types.ip_permissions_list.deserialize_cbor(
+                data["InboundPermissions"]
+            )
+        )
+    if data.get("UpdateStatus") is not None:
+        import capo_gamelift.types.location_update_status
+
+        out["update_status"] = (
+            capo_gamelift.types.location_update_status.deserialize_cbor(
+                data["UpdateStatus"]
+            )
+        )
+    if data.get("Location") is not None:
+        out["location"] = data["Location"]
+    return out
+
+
 def redact_sensitive(value: DescribeFleetPortSettingsOutput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "inbound_permissions" in value:

@@ -49,3 +49,32 @@ def deserialize_aws_json_1_0(data: dict) -> MaintenanceStartTime:
     else:
         out["minute_of_hour"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MaintenanceStartTime) -> dict:
+    out: dict = {}
+    if "day_of_month" in value:
+        out["DayOfMonth"] = value["day_of_month"]
+    if "day_of_week" in value:
+        out["DayOfWeek"] = value["day_of_week"]
+    out["HourOfDay"] = value["hour_of_day"]
+    out["MinuteOfHour"] = value["minute_of_hour"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> MaintenanceStartTime:
+    out: MaintenanceStartTime = {}  # type: ignore[typeddict-item]
+    if data.get("DayOfMonth") is not None:
+        out["day_of_month"] = data["DayOfMonth"]
+    if data.get("DayOfWeek") is not None:
+        out["day_of_week"] = data["DayOfWeek"]
+    if data.get("HourOfDay") is not None:
+        out["hour_of_day"] = data["HourOfDay"]
+    else:
+        out["hour_of_day"] = 0
+    if data.get("MinuteOfHour") is not None:
+        out["minute_of_hour"] = data["MinuteOfHour"]
+    else:
+        out["minute_of_hour"] = 0
+    return out

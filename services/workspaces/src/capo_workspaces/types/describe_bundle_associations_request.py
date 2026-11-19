@@ -47,3 +47,36 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeBundleAssociationsRequest:
     else:
         out["associated_resource_types"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeBundleAssociationsRequest) -> dict:
+    out: dict = {}
+    out["BundleId"] = value["bundle_id"]
+    import capo_workspaces.types.bundle_associated_resource_type_list
+
+    out["AssociatedResourceTypes"] = (
+        capo_workspaces.types.bundle_associated_resource_type_list.serialize_cbor(
+            value["associated_resource_types"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeBundleAssociationsRequest:
+    out: DescribeBundleAssociationsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("BundleId") is not None:
+        out["bundle_id"] = data["BundleId"]
+    else:
+        out["bundle_id"] = ""
+    if data.get("AssociatedResourceTypes") is not None:
+        import capo_workspaces.types.bundle_associated_resource_type_list
+
+        out["associated_resource_types"] = (
+            capo_workspaces.types.bundle_associated_resource_type_list.deserialize_cbor(
+                data["AssociatedResourceTypes"]
+            )
+        )
+    else:
+        out["associated_resource_types"] = []
+    return out

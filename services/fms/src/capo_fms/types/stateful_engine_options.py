@@ -55,3 +55,40 @@ def deserialize_aws_json_1_1(data: dict) -> StatefulEngineOptions:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StatefulEngineOptions) -> dict:
+    out: dict = {}
+    if "rule_order" in value:
+        import capo_fms.types.rule_order
+
+        out["RuleOrder"] = capo_fms.types.rule_order.serialize_cbor(value["rule_order"])
+    if "stream_exception_policy" in value:
+        import capo_fms.types.stream_exception_policy
+
+        out["StreamExceptionPolicy"] = (
+            capo_fms.types.stream_exception_policy.serialize_cbor(
+                value["stream_exception_policy"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StatefulEngineOptions:
+    out: StatefulEngineOptions = {}  # type: ignore[typeddict-item]
+    if data.get("RuleOrder") is not None:
+        import capo_fms.types.rule_order
+
+        out["rule_order"] = capo_fms.types.rule_order.deserialize_cbor(
+            data["RuleOrder"]
+        )
+    if data.get("StreamExceptionPolicy") is not None:
+        import capo_fms.types.stream_exception_policy
+
+        out["stream_exception_policy"] = (
+            capo_fms.types.stream_exception_policy.deserialize_cbor(
+                data["StreamExceptionPolicy"]
+            )
+        )
+    return out

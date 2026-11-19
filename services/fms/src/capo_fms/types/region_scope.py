@@ -42,3 +42,29 @@ def deserialize_aws_json_1_1(data: dict) -> RegionScope:
     else:
         out["all_regions_enabled"] = False
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RegionScope) -> dict:
+    out: dict = {}
+    if "regions" in value:
+        import capo_fms.types.aws_region_list
+
+        out["Regions"] = capo_fms.types.aws_region_list.serialize_cbor(value["regions"])
+    out["AllRegionsEnabled"] = value.get("all_regions_enabled", False)
+    return out
+
+
+def deserialize_cbor(data: dict) -> RegionScope:
+    out: RegionScope = {}  # type: ignore[typeddict-item]
+    if data.get("Regions") is not None:
+        import capo_fms.types.aws_region_list
+
+        out["regions"] = capo_fms.types.aws_region_list.deserialize_cbor(
+            data["Regions"]
+        )
+    if data.get("AllRegionsEnabled") is not None:
+        out["all_regions_enabled"] = data["AllRegionsEnabled"]
+    else:
+        out["all_regions_enabled"] = False
+    return out

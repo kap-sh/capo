@@ -57,3 +57,41 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateMedicalVocabularyRequest:
     else:
         out["vocabulary_file_uri"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateMedicalVocabularyRequest) -> dict:
+    out: dict = {}
+    out["VocabularyName"] = value["vocabulary_name"]
+    import capo_transcribe.types.language_code
+
+    out["LanguageCode"] = capo_transcribe.types.language_code.serialize_cbor(
+        value["language_code"]
+    )
+    out["VocabularyFileUri"] = value["vocabulary_file_uri"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateMedicalVocabularyRequest:
+    out: UpdateMedicalVocabularyRequest = {}  # type: ignore[typeddict-item]
+    if data.get("VocabularyName") is not None:
+        out["vocabulary_name"] = data["VocabularyName"]
+    else:
+        out["vocabulary_name"] = ""
+    if data.get("LanguageCode") is not None:
+        import capo_transcribe.types.language_code
+
+        out["language_code"] = capo_transcribe.types.language_code.deserialize_cbor(
+            data["LanguageCode"]
+        )
+    else:
+        import typing
+
+        out["language_code"] = typing.cast(
+            "capo_transcribe.types.language_code.LanguageCode", ""
+        )
+    if data.get("VocabularyFileUri") is not None:
+        out["vocabulary_file_uri"] = data["VocabularyFileUri"]
+    else:
+        out["vocabulary_file_uri"] = ""
+    return out

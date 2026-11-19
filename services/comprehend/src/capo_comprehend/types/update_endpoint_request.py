@@ -63,3 +63,35 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateEndpointRequest:
     if data.get("FlywheelArn") is not None:
         out["flywheel_arn"] = data["FlywheelArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateEndpointRequest) -> dict:
+    out: dict = {}
+    out["EndpointArn"] = value["endpoint_arn"]
+    if "desired_model_arn" in value:
+        out["DesiredModelArn"] = value["desired_model_arn"]
+    if "desired_inference_units" in value:
+        out["DesiredInferenceUnits"] = value["desired_inference_units"]
+    if "desired_data_access_role_arn" in value:
+        out["DesiredDataAccessRoleArn"] = value["desired_data_access_role_arn"]
+    if "flywheel_arn" in value:
+        out["FlywheelArn"] = value["flywheel_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateEndpointRequest:
+    out: UpdateEndpointRequest = {}  # type: ignore[typeddict-item]
+    if data.get("EndpointArn") is not None:
+        out["endpoint_arn"] = data["EndpointArn"]
+    else:
+        out["endpoint_arn"] = ""
+    if data.get("DesiredModelArn") is not None:
+        out["desired_model_arn"] = data["DesiredModelArn"]
+    if data.get("DesiredInferenceUnits") is not None:
+        out["desired_inference_units"] = data["DesiredInferenceUnits"]
+    if data.get("DesiredDataAccessRoleArn") is not None:
+        out["desired_data_access_role_arn"] = data["DesiredDataAccessRoleArn"]
+    if data.get("FlywheelArn") is not None:
+        out["flywheel_arn"] = data["FlywheelArn"]
+    return out

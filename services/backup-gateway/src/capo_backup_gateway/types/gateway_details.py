@@ -130,3 +130,94 @@ def deserialize_aws_json_1_0(data: dict) -> GatewayDetails:
     if data.get("SoftwareVersion") is not None:
         out["software_version"] = data["SoftwareVersion"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GatewayDetails) -> dict:
+    out: dict = {}
+    if "gateway_arn" in value:
+        out["GatewayArn"] = value["gateway_arn"]
+    if "gateway_display_name" in value:
+        out["GatewayDisplayName"] = value["gateway_display_name"]
+    if "gateway_type" in value:
+        out["GatewayType"] = value["gateway_type"]
+    if "hypervisor_id" in value:
+        out["HypervisorId"] = value["hypervisor_id"]
+    if "last_seen_time" in value:
+        import capo_backup_gateway.types.time
+
+        out["LastSeenTime"] = capo_backup_gateway.types.time.serialize_cbor(
+            value["last_seen_time"]
+        )
+    if "maintenance_start_time" in value:
+        import capo_backup_gateway.types.maintenance_start_time
+
+        out["MaintenanceStartTime"] = (
+            capo_backup_gateway.types.maintenance_start_time.serialize_cbor(
+                value["maintenance_start_time"]
+            )
+        )
+    if "next_update_availability_time" in value:
+        import capo_backup_gateway.types.time
+
+        out["NextUpdateAvailabilityTime"] = (
+            capo_backup_gateway.types.time.serialize_cbor(
+                value["next_update_availability_time"]
+            )
+        )
+    if "vpc_endpoint" in value:
+        out["VpcEndpoint"] = value["vpc_endpoint"]
+    if "deprecation_date" in value:
+        import capo_backup_gateway.types.time
+
+        out["DeprecationDate"] = capo_backup_gateway.types.time.serialize_cbor(
+            value["deprecation_date"]
+        )
+    if "software_version" in value:
+        out["SoftwareVersion"] = value["software_version"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GatewayDetails:
+    out: GatewayDetails = {}  # type: ignore[typeddict-item]
+    if data.get("GatewayArn") is not None:
+        out["gateway_arn"] = data["GatewayArn"]
+    if data.get("GatewayDisplayName") is not None:
+        out["gateway_display_name"] = data["GatewayDisplayName"]
+    if data.get("GatewayType") is not None:
+        out["gateway_type"] = data["GatewayType"]
+    if data.get("HypervisorId") is not None:
+        out["hypervisor_id"] = data["HypervisorId"]
+    if data.get("LastSeenTime") is not None:
+        import capo_backup_gateway.types.time
+
+        out["last_seen_time"] = capo_backup_gateway.types.time.deserialize_cbor(
+            data["LastSeenTime"]
+        )
+    if data.get("MaintenanceStartTime") is not None:
+        import capo_backup_gateway.types.maintenance_start_time
+
+        out["maintenance_start_time"] = (
+            capo_backup_gateway.types.maintenance_start_time.deserialize_cbor(
+                data["MaintenanceStartTime"]
+            )
+        )
+    if data.get("NextUpdateAvailabilityTime") is not None:
+        import capo_backup_gateway.types.time
+
+        out["next_update_availability_time"] = (
+            capo_backup_gateway.types.time.deserialize_cbor(
+                data["NextUpdateAvailabilityTime"]
+            )
+        )
+    if data.get("VpcEndpoint") is not None:
+        out["vpc_endpoint"] = data["VpcEndpoint"]
+    if data.get("DeprecationDate") is not None:
+        import capo_backup_gateway.types.time
+
+        out["deprecation_date"] = capo_backup_gateway.types.time.deserialize_cbor(
+            data["DeprecationDate"]
+        )
+    if data.get("SoftwareVersion") is not None:
+        out["software_version"] = data["SoftwareVersion"]
+    return out

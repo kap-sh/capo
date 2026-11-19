@@ -53,3 +53,37 @@ def deserialize_aws_json_1_0(data: dict) -> CreateTypeRequest:
     else:
         out["field_definitions"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateTypeRequest) -> dict:
+    out: dict = {}
+    out["keyspaceName"] = value["keyspace_name"]
+    out["typeName"] = value["type_name"]
+    import capo_keyspaces.types.field_list
+
+    out["fieldDefinitions"] = capo_keyspaces.types.field_list.serialize_cbor(
+        value["field_definitions"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateTypeRequest:
+    out: CreateTypeRequest = {}  # type: ignore[typeddict-item]
+    if data.get("keyspaceName") is not None:
+        out["keyspace_name"] = data["keyspaceName"]
+    else:
+        out["keyspace_name"] = ""
+    if data.get("typeName") is not None:
+        out["type_name"] = data["typeName"]
+    else:
+        out["type_name"] = ""
+    if data.get("fieldDefinitions") is not None:
+        import capo_keyspaces.types.field_list
+
+        out["field_definitions"] = capo_keyspaces.types.field_list.deserialize_cbor(
+            data["fieldDefinitions"]
+        )
+    else:
+        out["field_definitions"] = []
+    return out

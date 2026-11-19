@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: Directionality) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> Directionality:
     return cast(Directionality, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Directionality) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> Directionality:
+    return cast(Directionality, data)

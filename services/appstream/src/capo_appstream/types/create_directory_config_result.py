@@ -42,6 +42,31 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDirectoryConfigResult:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateDirectoryConfigResult) -> dict:
+    out: dict = {}
+    if "directory_config" in value:
+        import capo_appstream.types.directory_config
+
+        out["DirectoryConfig"] = capo_appstream.types.directory_config.serialize_cbor(
+            value["directory_config"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateDirectoryConfigResult:
+    out: CreateDirectoryConfigResult = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryConfig") is not None:
+        import capo_appstream.types.directory_config
+
+        out["directory_config"] = (
+            capo_appstream.types.directory_config.deserialize_cbor(
+                data["DirectoryConfig"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: CreateDirectoryConfigResult) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "directory_config" in value:

@@ -131,3 +131,54 @@ def deserialize_query(el: Element) -> AlarmContributor:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AlarmContributor) -> dict:
+    out: dict = {}
+    if "contributor_id" in value:
+        out["ContributorId"] = value["contributor_id"]
+    if "contributor_attributes" in value:
+        import capo_cloudwatch.types.contributor_attributes
+
+        out["ContributorAttributes"] = (
+            capo_cloudwatch.types.contributor_attributes.serialize_cbor(
+                value["contributor_attributes"]
+            )
+        )
+    if "state_reason" in value:
+        out["StateReason"] = value["state_reason"]
+    if "state_transitioned_timestamp" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["StateTransitionedTimestamp"] = (
+            capo_cloudwatch.types.timestamp.serialize_cbor(
+                value["state_transitioned_timestamp"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AlarmContributor:
+    out: AlarmContributor = {}  # type: ignore[typeddict-item]
+    if data.get("ContributorId") is not None:
+        out["contributor_id"] = data["ContributorId"]
+    if data.get("ContributorAttributes") is not None:
+        import capo_cloudwatch.types.contributor_attributes
+
+        out["contributor_attributes"] = (
+            capo_cloudwatch.types.contributor_attributes.deserialize_cbor(
+                data["ContributorAttributes"]
+            )
+        )
+    if data.get("StateReason") is not None:
+        out["state_reason"] = data["StateReason"]
+    if data.get("StateTransitionedTimestamp") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["state_transitioned_timestamp"] = (
+            capo_cloudwatch.types.timestamp.deserialize_cbor(
+                data["StateTransitionedTimestamp"]
+            )
+        )
+    return out

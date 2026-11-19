@@ -68,6 +68,45 @@ def deserialize_aws_json_1_0(data: dict) -> ConflictException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ConflictException_) -> dict:
+    out: dict = {}
+    if "request_id" in value:
+        out["requestId"] = value["request_id"]
+    if "message" in value:
+        out["message"] = value["message"]
+    if "resource_id" in value:
+        out["resourceId"] = value["resource_id"]
+    if "resource_type" in value:
+        import capo_marketplace_agreement.types.resource_type
+
+        out["resourceType"] = (
+            capo_marketplace_agreement.types.resource_type.serialize_cbor(
+                value["resource_type"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ConflictException_:
+    out: ConflictException_ = {}  # type: ignore[typeddict-item]
+    if data.get("requestId") is not None:
+        out["request_id"] = data["requestId"]
+    if data.get("message") is not None:
+        out["message"] = data["message"]
+    if data.get("resourceId") is not None:
+        out["resource_id"] = data["resourceId"]
+    if data.get("resourceType") is not None:
+        import capo_marketplace_agreement.types.resource_type
+
+        out["resource_type"] = (
+            capo_marketplace_agreement.types.resource_type.deserialize_cbor(
+                data["resourceType"]
+            )
+        )
+    return out
+
+
 class ConflictException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.marketplaceagreement#ConflictException``."""
 
@@ -95,3 +134,9 @@ class ConflictException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ConflictException":
         return cls(deserialize_aws_json_1_0(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "ConflictException":
+        return cls(deserialize_cbor(data), message, response=response)

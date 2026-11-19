@@ -15,3 +15,12 @@ def serialize_aws_json_1_0(value: TlsInterceptMode) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> TlsInterceptMode:
     return cast(TlsInterceptMode, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TlsInterceptMode) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> TlsInterceptMode:
+    return cast(TlsInterceptMode, data)

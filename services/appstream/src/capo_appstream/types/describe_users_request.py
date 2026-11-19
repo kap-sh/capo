@@ -54,3 +54,38 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeUsersRequest:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeUsersRequest) -> dict:
+    out: dict = {}
+    if "authentication_type" in value:
+        import capo_appstream.types.authentication_type
+
+        out["AuthenticationType"] = (
+            capo_appstream.types.authentication_type.serialize_cbor(
+                value["authentication_type"]
+            )
+        )
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeUsersRequest:
+    out: DescribeUsersRequest = {}  # type: ignore[typeddict-item]
+    if data.get("AuthenticationType") is not None:
+        import capo_appstream.types.authentication_type
+
+        out["authentication_type"] = (
+            capo_appstream.types.authentication_type.deserialize_cbor(
+                data["AuthenticationType"]
+            )
+        )
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

@@ -49,3 +49,38 @@ def deserialize_aws_json_1_1(data: dict) -> GetAdminScopeResponse:
             data["Status"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetAdminScopeResponse) -> dict:
+    out: dict = {}
+    if "admin_scope" in value:
+        import capo_fms.types.admin_scope
+
+        out["AdminScope"] = capo_fms.types.admin_scope.serialize_cbor(
+            value["admin_scope"]
+        )
+    if "status" in value:
+        import capo_fms.types.organization_status
+
+        out["Status"] = capo_fms.types.organization_status.serialize_cbor(
+            value["status"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetAdminScopeResponse:
+    out: GetAdminScopeResponse = {}  # type: ignore[typeddict-item]
+    if data.get("AdminScope") is not None:
+        import capo_fms.types.admin_scope
+
+        out["admin_scope"] = capo_fms.types.admin_scope.deserialize_cbor(
+            data["AdminScope"]
+        )
+    if data.get("Status") is not None:
+        import capo_fms.types.organization_status
+
+        out["status"] = capo_fms.types.organization_status.deserialize_cbor(
+            data["Status"]
+        )
+    return out

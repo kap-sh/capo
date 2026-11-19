@@ -68,3 +68,48 @@ def deserialize_aws_json_1_1(data: dict) -> StageExecution:
             data["type"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StageExecution) -> dict:
+    out: dict = {}
+    out["pipelineExecutionId"] = value["pipeline_execution_id"]
+    import capo_codepipeline.types.stage_execution_status
+
+    out["status"] = capo_codepipeline.types.stage_execution_status.serialize_cbor(
+        value["status"]
+    )
+    if "type" in value:
+        import capo_codepipeline.types.execution_type
+
+        out["type"] = capo_codepipeline.types.execution_type.serialize_cbor(
+            value["type"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StageExecution:
+    out: StageExecution = {}  # type: ignore[typeddict-item]
+    if data.get("pipelineExecutionId") is not None:
+        out["pipeline_execution_id"] = data["pipelineExecutionId"]
+    else:
+        out["pipeline_execution_id"] = ""
+    if data.get("status") is not None:
+        import capo_codepipeline.types.stage_execution_status
+
+        out["status"] = capo_codepipeline.types.stage_execution_status.deserialize_cbor(
+            data["status"]
+        )
+    else:
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_codepipeline.types.stage_execution_status.StageExecutionStatus", ""
+        )
+    if data.get("type") is not None:
+        import capo_codepipeline.types.execution_type
+
+        out["type"] = capo_codepipeline.types.execution_type.deserialize_cbor(
+            data["type"]
+        )
+    return out

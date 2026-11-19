@@ -81,3 +81,34 @@ def deserialize_query(el: Element) -> OTelEnrichmentMetricSelector:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: OTelEnrichmentMetricSelector) -> dict:
+    out: dict = {}
+    if "namespace" in value:
+        out["Namespace"] = value["namespace"]
+    if "metric_names" in value:
+        import capo_cloudwatch.types.o_tel_enrichment_metric_name_list
+
+        out["MetricNames"] = (
+            capo_cloudwatch.types.o_tel_enrichment_metric_name_list.serialize_cbor(
+                value["metric_names"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> OTelEnrichmentMetricSelector:
+    out: OTelEnrichmentMetricSelector = {}  # type: ignore[typeddict-item]
+    if data.get("Namespace") is not None:
+        out["namespace"] = data["Namespace"]
+    if data.get("MetricNames") is not None:
+        import capo_cloudwatch.types.o_tel_enrichment_metric_name_list
+
+        out["metric_names"] = (
+            capo_cloudwatch.types.o_tel_enrichment_metric_name_list.deserialize_cbor(
+                data["MetricNames"]
+            )
+        )
+    return out

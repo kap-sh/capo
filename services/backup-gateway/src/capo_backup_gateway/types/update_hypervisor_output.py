@@ -26,3 +26,18 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateHypervisorOutput:
     if data.get("HypervisorArn") is not None:
         out["hypervisor_arn"] = data["HypervisorArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateHypervisorOutput) -> dict:
+    out: dict = {}
+    if "hypervisor_arn" in value:
+        out["HypervisorArn"] = value["hypervisor_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateHypervisorOutput:
+    out: UpdateHypervisorOutput = {}  # type: ignore[typeddict-item]
+    if data.get("HypervisorArn") is not None:
+        out["hypervisor_arn"] = data["HypervisorArn"]
+    return out

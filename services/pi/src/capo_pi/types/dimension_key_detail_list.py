@@ -29,3 +29,24 @@ def deserialize_aws_json_1_1(data: list) -> DimensionKeyDetailList:
             continue
         out.append(capo_pi.types.dimension_key_detail.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DimensionKeyDetailList) -> list:
+    import capo_pi.types.dimension_key_detail
+
+    out: list = []
+    for item in value:
+        out.append(capo_pi.types.dimension_key_detail.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> DimensionKeyDetailList:
+    import capo_pi.types.dimension_key_detail
+
+    out: DimensionKeyDetailList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_pi.types.dimension_key_detail.deserialize_cbor(item))
+    return out

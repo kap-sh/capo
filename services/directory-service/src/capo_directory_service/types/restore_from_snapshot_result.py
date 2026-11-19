@@ -16,3 +16,14 @@ def serialize_aws_json_1_1(value: RestoreFromSnapshotResult) -> dict:
 def deserialize_aws_json_1_1(data: dict) -> RestoreFromSnapshotResult:
     out: RestoreFromSnapshotResult = {}  # type: ignore[typeddict-item]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RestoreFromSnapshotResult) -> dict:
+    out: dict = {}
+    return out
+
+
+def deserialize_cbor(data: dict) -> RestoreFromSnapshotResult:
+    out: RestoreFromSnapshotResult = {}  # type: ignore[typeddict-item]
+    return out

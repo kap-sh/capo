@@ -74,3 +74,24 @@ def deserialize_aws_json_1_0(data: list) -> AnomalyDetectorExcludedTimeRanges:
             continue
         out.append(capo_cloudwatch.types.range.deserialize_aws_json_1_0(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AnomalyDetectorExcludedTimeRanges) -> list:
+    import capo_cloudwatch.types.range
+
+    out: list = []
+    for item in value:
+        out.append(capo_cloudwatch.types.range.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> AnomalyDetectorExcludedTimeRanges:
+    import capo_cloudwatch.types.range
+
+    out: AnomalyDetectorExcludedTimeRanges = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_cloudwatch.types.range.deserialize_cbor(item))
+    return out

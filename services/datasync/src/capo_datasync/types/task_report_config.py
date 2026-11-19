@@ -110,3 +110,76 @@ def deserialize_aws_json_1_1(data: dict) -> TaskReportConfig:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TaskReportConfig) -> dict:
+    out: dict = {}
+    if "destination" in value:
+        import capo_datasync.types.report_destination
+
+        out["Destination"] = capo_datasync.types.report_destination.serialize_cbor(
+            value["destination"]
+        )
+    if "output_type" in value:
+        import capo_datasync.types.report_output_type
+
+        out["OutputType"] = capo_datasync.types.report_output_type.serialize_cbor(
+            value["output_type"]
+        )
+    if "report_level" in value:
+        import capo_datasync.types.report_level
+
+        out["ReportLevel"] = capo_datasync.types.report_level.serialize_cbor(
+            value["report_level"]
+        )
+    if "object_version_ids" in value:
+        import capo_datasync.types.object_version_ids
+
+        out["ObjectVersionIds"] = capo_datasync.types.object_version_ids.serialize_cbor(
+            value["object_version_ids"]
+        )
+    if "overrides" in value:
+        import capo_datasync.types.report_overrides
+
+        out["Overrides"] = capo_datasync.types.report_overrides.serialize_cbor(
+            value["overrides"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TaskReportConfig:
+    out: TaskReportConfig = {}  # type: ignore[typeddict-item]
+    if data.get("Destination") is not None:
+        import capo_datasync.types.report_destination
+
+        out["destination"] = capo_datasync.types.report_destination.deserialize_cbor(
+            data["Destination"]
+        )
+    if data.get("OutputType") is not None:
+        import capo_datasync.types.report_output_type
+
+        out["output_type"] = capo_datasync.types.report_output_type.deserialize_cbor(
+            data["OutputType"]
+        )
+    if data.get("ReportLevel") is not None:
+        import capo_datasync.types.report_level
+
+        out["report_level"] = capo_datasync.types.report_level.deserialize_cbor(
+            data["ReportLevel"]
+        )
+    if data.get("ObjectVersionIds") is not None:
+        import capo_datasync.types.object_version_ids
+
+        out["object_version_ids"] = (
+            capo_datasync.types.object_version_ids.deserialize_cbor(
+                data["ObjectVersionIds"]
+            )
+        )
+    if data.get("Overrides") is not None:
+        import capo_datasync.types.report_overrides
+
+        out["overrides"] = capo_datasync.types.report_overrides.deserialize_cbor(
+            data["Overrides"]
+        )
+    return out

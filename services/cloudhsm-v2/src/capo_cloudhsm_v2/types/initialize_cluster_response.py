@@ -41,3 +41,30 @@ def deserialize_aws_json_1_1(data: dict) -> InitializeClusterResponse:
     if data.get("StateMessage") is not None:
         out["state_message"] = data["StateMessage"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InitializeClusterResponse) -> dict:
+    out: dict = {}
+    if "state" in value:
+        import capo_cloudhsm_v2.types.cluster_state
+
+        out["State"] = capo_cloudhsm_v2.types.cluster_state.serialize_cbor(
+            value["state"]
+        )
+    if "state_message" in value:
+        out["StateMessage"] = value["state_message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> InitializeClusterResponse:
+    out: InitializeClusterResponse = {}  # type: ignore[typeddict-item]
+    if data.get("State") is not None:
+        import capo_cloudhsm_v2.types.cluster_state
+
+        out["state"] = capo_cloudhsm_v2.types.cluster_state.deserialize_cbor(
+            data["State"]
+        )
+    if data.get("StateMessage") is not None:
+        out["state_message"] = data["StateMessage"]
+    return out

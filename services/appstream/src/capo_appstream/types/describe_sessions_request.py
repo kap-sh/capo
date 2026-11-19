@@ -80,3 +80,54 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeSessionsRequest:
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeSessionsRequest) -> dict:
+    out: dict = {}
+    if "stack_name" in value:
+        out["StackName"] = value["stack_name"]
+    if "fleet_name" in value:
+        out["FleetName"] = value["fleet_name"]
+    if "user_id" in value:
+        out["UserId"] = value["user_id"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "limit" in value:
+        out["Limit"] = value["limit"]
+    if "authentication_type" in value:
+        import capo_appstream.types.authentication_type
+
+        out["AuthenticationType"] = (
+            capo_appstream.types.authentication_type.serialize_cbor(
+                value["authentication_type"]
+            )
+        )
+    if "instance_id" in value:
+        out["InstanceId"] = value["instance_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeSessionsRequest:
+    out: DescribeSessionsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("StackName") is not None:
+        out["stack_name"] = data["StackName"]
+    if data.get("FleetName") is not None:
+        out["fleet_name"] = data["FleetName"]
+    if data.get("UserId") is not None:
+        out["user_id"] = data["UserId"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("Limit") is not None:
+        out["limit"] = data["Limit"]
+    if data.get("AuthenticationType") is not None:
+        import capo_appstream.types.authentication_type
+
+        out["authentication_type"] = (
+            capo_appstream.types.authentication_type.deserialize_cbor(
+                data["AuthenticationType"]
+            )
+        )
+    if data.get("InstanceId") is not None:
+        out["instance_id"] = data["InstanceId"]
+    return out

@@ -41,3 +41,27 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateTagOptionInput:
     if data.get("Active") is not None:
         out["active"] = data["Active"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateTagOptionInput) -> dict:
+    out: dict = {}
+    out["Id"] = value["id"]
+    if "value" in value:
+        out["Value"] = value["value"]
+    if "active" in value:
+        out["Active"] = value["active"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateTagOptionInput:
+    out: UpdateTagOptionInput = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    else:
+        out["id"] = ""
+    if data.get("Value") is not None:
+        out["value"] = data["Value"]
+    if data.get("Active") is not None:
+        out["active"] = data["Active"]
+    return out

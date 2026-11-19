@@ -32,3 +32,22 @@ def deserialize_aws_json_1_1(data: dict) -> GetSnowballUsageResult:
     if data.get("SnowballsInUse") is not None:
         out["snowballs_in_use"] = data["SnowballsInUse"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetSnowballUsageResult) -> dict:
+    out: dict = {}
+    if "snowball_limit" in value:
+        out["SnowballLimit"] = value["snowball_limit"]
+    if "snowballs_in_use" in value:
+        out["SnowballsInUse"] = value["snowballs_in_use"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetSnowballUsageResult:
+    out: GetSnowballUsageResult = {}  # type: ignore[typeddict-item]
+    if data.get("SnowballLimit") is not None:
+        out["snowball_limit"] = data["SnowballLimit"]
+    if data.get("SnowballsInUse") is not None:
+        out["snowballs_in_use"] = data["SnowballsInUse"]
+    return out

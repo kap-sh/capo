@@ -41,3 +41,31 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateProactiveEngagementDetailsR
     else:
         out["emergency_contact_list"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AssociateProactiveEngagementDetailsRequest) -> dict:
+    out: dict = {}
+    import capo_shield.types.emergency_contact_list
+
+    out["EmergencyContactList"] = (
+        capo_shield.types.emergency_contact_list.serialize_cbor(
+            value["emergency_contact_list"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AssociateProactiveEngagementDetailsRequest:
+    out: AssociateProactiveEngagementDetailsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("EmergencyContactList") is not None:
+        import capo_shield.types.emergency_contact_list
+
+        out["emergency_contact_list"] = (
+            capo_shield.types.emergency_contact_list.deserialize_cbor(
+                data["EmergencyContactList"]
+            )
+        )
+    else:
+        out["emergency_contact_list"] = []
+    return out

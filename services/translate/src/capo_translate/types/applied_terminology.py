@@ -41,3 +41,26 @@ def deserialize_aws_json_1_1(data: dict) -> AppliedTerminology:
             data["Terms"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AppliedTerminology) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "terms" in value:
+        import capo_translate.types.term_list
+
+        out["Terms"] = capo_translate.types.term_list.serialize_cbor(value["terms"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> AppliedTerminology:
+    out: AppliedTerminology = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Terms") is not None:
+        import capo_translate.types.term_list
+
+        out["terms"] = capo_translate.types.term_list.deserialize_cbor(data["Terms"])
+    return out

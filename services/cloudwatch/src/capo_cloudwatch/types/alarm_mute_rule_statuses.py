@@ -86,3 +86,24 @@ def deserialize_aws_json_1_0(data: list) -> AlarmMuteRuleStatuses:
             capo_cloudwatch.types.alarm_mute_rule_status.deserialize_aws_json_1_0(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AlarmMuteRuleStatuses) -> list:
+    import capo_cloudwatch.types.alarm_mute_rule_status
+
+    out: list = []
+    for item in value:
+        out.append(capo_cloudwatch.types.alarm_mute_rule_status.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> AlarmMuteRuleStatuses:
+    import capo_cloudwatch.types.alarm_mute_rule_status
+
+    out: AlarmMuteRuleStatuses = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_cloudwatch.types.alarm_mute_rule_status.deserialize_cbor(item))
+    return out

@@ -63,3 +63,44 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeApplicationAssociationsReque
     else:
         out["associated_resource_types"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeApplicationAssociationsRequest) -> dict:
+    out: dict = {}
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    out["ApplicationId"] = value["application_id"]
+    import capo_workspaces.types.application_associated_resource_type_list
+
+    out["AssociatedResourceTypes"] = (
+        capo_workspaces.types.application_associated_resource_type_list.serialize_cbor(
+            value["associated_resource_types"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeApplicationAssociationsRequest:
+    out: DescribeApplicationAssociationsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("ApplicationId") is not None:
+        out["application_id"] = data["ApplicationId"]
+    else:
+        out["application_id"] = ""
+    if data.get("AssociatedResourceTypes") is not None:
+        import capo_workspaces.types.application_associated_resource_type_list
+
+        out["associated_resource_types"] = (
+            capo_workspaces.types.application_associated_resource_type_list.deserialize_cbor(
+                data["AssociatedResourceTypes"]
+            )
+        )
+    else:
+        out["associated_resource_types"] = []
+    return out

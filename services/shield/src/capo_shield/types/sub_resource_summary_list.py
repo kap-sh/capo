@@ -31,3 +31,24 @@ def deserialize_aws_json_1_1(data: list) -> SubResourceSummaryList:
             capo_shield.types.sub_resource_summary.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SubResourceSummaryList) -> list:
+    import capo_shield.types.sub_resource_summary
+
+    out: list = []
+    for item in value:
+        out.append(capo_shield.types.sub_resource_summary.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> SubResourceSummaryList:
+    import capo_shield.types.sub_resource_summary
+
+    out: SubResourceSummaryList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_shield.types.sub_resource_summary.deserialize_cbor(item))
+    return out

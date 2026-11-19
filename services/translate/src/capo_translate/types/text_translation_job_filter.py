@@ -78,3 +78,54 @@ def deserialize_aws_json_1_1(data: dict) -> TextTranslationJobFilter:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TextTranslationJobFilter) -> dict:
+    out: dict = {}
+    if "job_name" in value:
+        out["JobName"] = value["job_name"]
+    if "job_status" in value:
+        import capo_translate.types.job_status
+
+        out["JobStatus"] = capo_translate.types.job_status.serialize_cbor(
+            value["job_status"]
+        )
+    if "submitted_before_time" in value:
+        import capo_translate.types.timestamp
+
+        out["SubmittedBeforeTime"] = capo_translate.types.timestamp.serialize_cbor(
+            value["submitted_before_time"]
+        )
+    if "submitted_after_time" in value:
+        import capo_translate.types.timestamp
+
+        out["SubmittedAfterTime"] = capo_translate.types.timestamp.serialize_cbor(
+            value["submitted_after_time"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TextTranslationJobFilter:
+    out: TextTranslationJobFilter = {}  # type: ignore[typeddict-item]
+    if data.get("JobName") is not None:
+        out["job_name"] = data["JobName"]
+    if data.get("JobStatus") is not None:
+        import capo_translate.types.job_status
+
+        out["job_status"] = capo_translate.types.job_status.deserialize_cbor(
+            data["JobStatus"]
+        )
+    if data.get("SubmittedBeforeTime") is not None:
+        import capo_translate.types.timestamp
+
+        out["submitted_before_time"] = capo_translate.types.timestamp.deserialize_cbor(
+            data["SubmittedBeforeTime"]
+        )
+    if data.get("SubmittedAfterTime") is not None:
+        import capo_translate.types.timestamp
+
+        out["submitted_after_time"] = capo_translate.types.timestamp.deserialize_cbor(
+            data["SubmittedAfterTime"]
+        )
+    return out

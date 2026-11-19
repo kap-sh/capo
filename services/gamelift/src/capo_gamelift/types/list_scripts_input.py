@@ -33,3 +33,22 @@ def deserialize_aws_json_1_1(data: dict) -> ListScriptsInput:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListScriptsInput) -> dict:
+    out: dict = {}
+    if "limit" in value:
+        out["Limit"] = value["limit"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListScriptsInput:
+    out: ListScriptsInput = {}  # type: ignore[typeddict-item]
+    if data.get("Limit") is not None:
+        out["limit"] = data["Limit"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

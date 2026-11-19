@@ -56,3 +56,34 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeServiceLifecycleRequest:
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeServiceLifecycleRequest) -> dict:
+    out: dict = {}
+    if "filter" in value:
+        import capo_health.types.service_lifecycle_filter
+
+        out["filter"] = capo_health.types.service_lifecycle_filter.serialize_cbor(
+            value["filter"]
+        )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeServiceLifecycleRequest:
+    out: DescribeServiceLifecycleRequest = {}  # type: ignore[typeddict-item]
+    if data.get("filter") is not None:
+        import capo_health.types.service_lifecycle_filter
+
+        out["filter"] = capo_health.types.service_lifecycle_filter.deserialize_cbor(
+            data["filter"]
+        )
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    return out

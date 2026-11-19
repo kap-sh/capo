@@ -65,3 +65,42 @@ def deserialize_aws_json_1_1(data: dict) -> ListLogPatternsResponse:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListLogPatternsResponse) -> dict:
+    out: dict = {}
+    if "resource_group_name" in value:
+        out["ResourceGroupName"] = value["resource_group_name"]
+    if "account_id" in value:
+        out["AccountId"] = value["account_id"]
+    if "log_patterns" in value:
+        import capo_application_insights.types.log_pattern_list
+
+        out["LogPatterns"] = (
+            capo_application_insights.types.log_pattern_list.serialize_cbor(
+                value["log_patterns"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListLogPatternsResponse:
+    out: ListLogPatternsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceGroupName") is not None:
+        out["resource_group_name"] = data["ResourceGroupName"]
+    if data.get("AccountId") is not None:
+        out["account_id"] = data["AccountId"]
+    if data.get("LogPatterns") is not None:
+        import capo_application_insights.types.log_pattern_list
+
+        out["log_patterns"] = (
+            capo_application_insights.types.log_pattern_list.deserialize_cbor(
+                data["LogPatterns"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

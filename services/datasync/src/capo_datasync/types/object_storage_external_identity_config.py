@@ -38,3 +38,26 @@ def deserialize_aws_json_1_1(data: dict) -> ObjectStorageExternalIdentityConfig:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ObjectStorageExternalIdentityConfig) -> dict:
+    out: dict = {}
+    if "google_oidc" in value:
+        import capo_datasync.types.google_oidc_config
+
+        out["GoogleOidc"] = capo_datasync.types.google_oidc_config.serialize_cbor(
+            value["google_oidc"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ObjectStorageExternalIdentityConfig:
+    out: ObjectStorageExternalIdentityConfig = {}  # type: ignore[typeddict-item]
+    if data.get("GoogleOidc") is not None:
+        import capo_datasync.types.google_oidc_config
+
+        out["google_oidc"] = capo_datasync.types.google_oidc_config.deserialize_cbor(
+            data["GoogleOidc"]
+        )
+    return out

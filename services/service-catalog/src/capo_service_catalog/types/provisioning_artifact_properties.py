@@ -87,3 +87,59 @@ def deserialize_aws_json_1_1(data: dict) -> ProvisioningArtifactProperties:
     else:
         out["disable_template_validation"] = False
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ProvisioningArtifactProperties) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "info" in value:
+        import capo_service_catalog.types.provisioning_artifact_info
+
+        out["Info"] = (
+            capo_service_catalog.types.provisioning_artifact_info.serialize_cbor(
+                value["info"]
+            )
+        )
+    if "type" in value:
+        import capo_service_catalog.types.provisioning_artifact_type
+
+        out["Type"] = (
+            capo_service_catalog.types.provisioning_artifact_type.serialize_cbor(
+                value["type"]
+            )
+        )
+    out["DisableTemplateValidation"] = value.get("disable_template_validation", False)
+    return out
+
+
+def deserialize_cbor(data: dict) -> ProvisioningArtifactProperties:
+    out: ProvisioningArtifactProperties = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("Info") is not None:
+        import capo_service_catalog.types.provisioning_artifact_info
+
+        out["info"] = (
+            capo_service_catalog.types.provisioning_artifact_info.deserialize_cbor(
+                data["Info"]
+            )
+        )
+    if data.get("Type") is not None:
+        import capo_service_catalog.types.provisioning_artifact_type
+
+        out["type"] = (
+            capo_service_catalog.types.provisioning_artifact_type.deserialize_cbor(
+                data["Type"]
+            )
+        )
+    if data.get("DisableTemplateValidation") is not None:
+        out["disable_template_validation"] = data["DisableTemplateValidation"]
+    else:
+        out["disable_template_validation"] = False
+    return out

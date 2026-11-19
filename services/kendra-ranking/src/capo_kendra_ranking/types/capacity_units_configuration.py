@@ -29,3 +29,19 @@ def deserialize_aws_json_1_0(data: dict) -> CapacityUnitsConfiguration:
     else:
         out["rescore_capacity_units"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CapacityUnitsConfiguration) -> dict:
+    out: dict = {}
+    out["RescoreCapacityUnits"] = value["rescore_capacity_units"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CapacityUnitsConfiguration:
+    out: CapacityUnitsConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("RescoreCapacityUnits") is not None:
+        out["rescore_capacity_units"] = data["RescoreCapacityUnits"]
+    else:
+        out["rescore_capacity_units"] = 0
+    return out

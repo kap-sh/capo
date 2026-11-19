@@ -35,3 +35,22 @@ def deserialize_aws_json_1_0(data: dict) -> ByolPricingTerm:
     if data.get("id") is not None:
         out["id"] = data["id"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ByolPricingTerm) -> dict:
+    out: dict = {}
+    if "type" in value:
+        out["type"] = value["type"]
+    if "id" in value:
+        out["id"] = value["id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ByolPricingTerm:
+    out: ByolPricingTerm = {}  # type: ignore[typeddict-item]
+    if data.get("type") is not None:
+        out["type"] = data["type"]
+    if data.get("id") is not None:
+        out["id"] = data["id"]
+    return out

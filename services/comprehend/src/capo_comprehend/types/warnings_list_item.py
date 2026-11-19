@@ -54,3 +54,36 @@ def deserialize_aws_json_1_1(data: dict) -> WarningsListItem:
     if data.get("WarnMessage") is not None:
         out["warn_message"] = data["WarnMessage"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: WarningsListItem) -> dict:
+    out: dict = {}
+    if "page" in value:
+        out["Page"] = value["page"]
+    if "warn_code" in value:
+        import capo_comprehend.types.page_based_warning_code
+
+        out["WarnCode"] = capo_comprehend.types.page_based_warning_code.serialize_cbor(
+            value["warn_code"]
+        )
+    if "warn_message" in value:
+        out["WarnMessage"] = value["warn_message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> WarningsListItem:
+    out: WarningsListItem = {}  # type: ignore[typeddict-item]
+    if data.get("Page") is not None:
+        out["page"] = data["Page"]
+    if data.get("WarnCode") is not None:
+        import capo_comprehend.types.page_based_warning_code
+
+        out["warn_code"] = (
+            capo_comprehend.types.page_based_warning_code.deserialize_cbor(
+                data["WarnCode"]
+            )
+        )
+    if data.get("WarnMessage") is not None:
+        out["warn_message"] = data["WarnMessage"]
+    return out

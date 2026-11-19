@@ -34,3 +34,23 @@ def deserialize_aws_json_1_1(data: dict) -> EventAggregate:
     else:
         out["count"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EventAggregate) -> dict:
+    out: dict = {}
+    if "aggregate_value" in value:
+        out["aggregateValue"] = value["aggregate_value"]
+    out["count"] = value.get("count", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> EventAggregate:
+    out: EventAggregate = {}  # type: ignore[typeddict-item]
+    if data.get("aggregateValue") is not None:
+        out["aggregate_value"] = data["aggregateValue"]
+    if data.get("count") is not None:
+        out["count"] = data["count"]
+    else:
+        out["count"] = 0
+    return out

@@ -69,3 +69,47 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateRelayRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateRelayRequest) -> dict:
+    out: dict = {}
+    out["RelayId"] = value["relay_id"]
+    if "relay_name" in value:
+        out["RelayName"] = value["relay_name"]
+    if "server_name" in value:
+        out["ServerName"] = value["server_name"]
+    if "server_port" in value:
+        out["ServerPort"] = value["server_port"]
+    if "authentication" in value:
+        import capo_mailmanager.types.relay_authentication
+
+        out["Authentication"] = (
+            capo_mailmanager.types.relay_authentication.serialize_cbor(
+                value["authentication"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateRelayRequest:
+    out: UpdateRelayRequest = {}  # type: ignore[typeddict-item]
+    if data.get("RelayId") is not None:
+        out["relay_id"] = data["RelayId"]
+    else:
+        out["relay_id"] = ""
+    if data.get("RelayName") is not None:
+        out["relay_name"] = data["RelayName"]
+    if data.get("ServerName") is not None:
+        out["server_name"] = data["ServerName"]
+    if data.get("ServerPort") is not None:
+        out["server_port"] = data["ServerPort"]
+    if data.get("Authentication") is not None:
+        import capo_mailmanager.types.relay_authentication
+
+        out["authentication"] = (
+            capo_mailmanager.types.relay_authentication.deserialize_cbor(
+                data["Authentication"]
+            )
+        )
+    return out

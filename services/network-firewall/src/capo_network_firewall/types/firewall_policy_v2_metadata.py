@@ -33,3 +33,22 @@ def deserialize_aws_json_1_0(data: dict) -> FirewallPolicyV2Metadata:
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FirewallPolicyV2Metadata) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "arn" in value:
+        out["Arn"] = value["arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> FirewallPolicyV2Metadata:
+    out: FirewallPolicyV2Metadata = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Arn") is not None:
+        out["arn"] = data["Arn"]
+    return out

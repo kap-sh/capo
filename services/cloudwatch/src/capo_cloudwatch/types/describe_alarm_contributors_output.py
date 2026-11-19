@@ -81,3 +81,34 @@ def deserialize_query(el: Element) -> DescribeAlarmContributorsOutput:
     if child_next_token is not None:
         out["next_token"] = str(child_next_token.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeAlarmContributorsOutput) -> dict:
+    out: dict = {}
+    if "alarm_contributors" in value:
+        import capo_cloudwatch.types.alarm_contributors
+
+        out["AlarmContributors"] = (
+            capo_cloudwatch.types.alarm_contributors.serialize_cbor(
+                value["alarm_contributors"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeAlarmContributorsOutput:
+    out: DescribeAlarmContributorsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("AlarmContributors") is not None:
+        import capo_cloudwatch.types.alarm_contributors
+
+        out["alarm_contributors"] = (
+            capo_cloudwatch.types.alarm_contributors.deserialize_cbor(
+                data["AlarmContributors"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

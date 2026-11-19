@@ -59,3 +59,35 @@ def deserialize_aws_json_1_0(data: dict) -> DBStorageConfiguration:
     if data.get("storageThroughput") is not None:
         out["storage_throughput"] = data["storageThroughput"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DBStorageConfiguration) -> dict:
+    out: dict = {}
+    if "storage_type" in value:
+        out["storageType"] = value["storage_type"]
+    out["allocatedStorage"] = value.get("allocated_storage", 0)
+    if "iops" in value:
+        out["iops"] = value["iops"]
+    if "max_allocated_storage" in value:
+        out["maxAllocatedStorage"] = value["max_allocated_storage"]
+    if "storage_throughput" in value:
+        out["storageThroughput"] = value["storage_throughput"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DBStorageConfiguration:
+    out: DBStorageConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("storageType") is not None:
+        out["storage_type"] = data["storageType"]
+    if data.get("allocatedStorage") is not None:
+        out["allocated_storage"] = data["allocatedStorage"]
+    else:
+        out["allocated_storage"] = 0
+    if data.get("iops") is not None:
+        out["iops"] = data["iops"]
+    if data.get("maxAllocatedStorage") is not None:
+        out["max_allocated_storage"] = data["maxAllocatedStorage"]
+    if data.get("storageThroughput") is not None:
+        out["storage_throughput"] = data["storageThroughput"]
+    return out

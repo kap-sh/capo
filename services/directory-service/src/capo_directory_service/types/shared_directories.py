@@ -35,6 +35,27 @@ def deserialize_aws_json_1_1(data: list) -> SharedDirectories:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SharedDirectories) -> list:
+    import capo_directory_service.types.shared_directory
+
+    out: list = []
+    for item in value:
+        out.append(capo_directory_service.types.shared_directory.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> SharedDirectories:
+    import capo_directory_service.types.shared_directory
+
+    out: SharedDirectories = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_directory_service.types.shared_directory.deserialize_cbor(item))
+    return out
+
+
 def redact_sensitive(value: SharedDirectories) -> list[Any]:
     import capo_directory_service.types.shared_directory
 

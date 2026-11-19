@@ -43,3 +43,30 @@ def deserialize_aws_json_1_1(data: dict) -> ListPermissionsResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListPermissionsResponse) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "permissions" in value:
+        import capo_acm_pca.types.permission_list
+
+        out["Permissions"] = capo_acm_pca.types.permission_list.serialize_cbor(
+            value["permissions"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListPermissionsResponse:
+    out: ListPermissionsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("Permissions") is not None:
+        import capo_acm_pca.types.permission_list
+
+        out["permissions"] = capo_acm_pca.types.permission_list.deserialize_cbor(
+            data["Permissions"]
+        )
+    return out

@@ -48,3 +48,35 @@ def deserialize_aws_json_1_0(data: dict) -> AssociateAccountsRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AssociateAccountsRequest) -> dict:
+    out: dict = {}
+    import capo_compute_optimizer_automation.types.account_id_list
+
+    out["accountIds"] = (
+        capo_compute_optimizer_automation.types.account_id_list.serialize_cbor(
+            value["account_ids"]
+        )
+    )
+    if "client_token" in value:
+        out["clientToken"] = value["client_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AssociateAccountsRequest:
+    out: AssociateAccountsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("accountIds") is not None:
+        import capo_compute_optimizer_automation.types.account_id_list
+
+        out["account_ids"] = (
+            capo_compute_optimizer_automation.types.account_id_list.deserialize_cbor(
+                data["accountIds"]
+            )
+        )
+    else:
+        out["account_ids"] = []
+    if data.get("clientToken") is not None:
+        out["client_token"] = data["clientToken"]
+    return out

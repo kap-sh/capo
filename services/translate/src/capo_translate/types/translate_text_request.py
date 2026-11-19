@@ -84,3 +84,57 @@ def deserialize_aws_json_1_1(data: dict) -> TranslateTextRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TranslateTextRequest) -> dict:
+    out: dict = {}
+    out["Text"] = value["text"]
+    if "terminology_names" in value:
+        import capo_translate.types.resource_name_list
+
+        out["TerminologyNames"] = (
+            capo_translate.types.resource_name_list.serialize_cbor(
+                value["terminology_names"]
+            )
+        )
+    out["SourceLanguageCode"] = value["source_language_code"]
+    out["TargetLanguageCode"] = value["target_language_code"]
+    if "settings" in value:
+        import capo_translate.types.translation_settings
+
+        out["Settings"] = capo_translate.types.translation_settings.serialize_cbor(
+            value["settings"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TranslateTextRequest:
+    out: TranslateTextRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Text") is not None:
+        out["text"] = data["Text"]
+    else:
+        out["text"] = ""
+    if data.get("TerminologyNames") is not None:
+        import capo_translate.types.resource_name_list
+
+        out["terminology_names"] = (
+            capo_translate.types.resource_name_list.deserialize_cbor(
+                data["TerminologyNames"]
+            )
+        )
+    if data.get("SourceLanguageCode") is not None:
+        out["source_language_code"] = data["SourceLanguageCode"]
+    else:
+        out["source_language_code"] = ""
+    if data.get("TargetLanguageCode") is not None:
+        out["target_language_code"] = data["TargetLanguageCode"]
+    else:
+        out["target_language_code"] = ""
+    if data.get("Settings") is not None:
+        import capo_translate.types.translation_settings
+
+        out["settings"] = capo_translate.types.translation_settings.deserialize_cbor(
+            data["Settings"]
+        )
+    return out

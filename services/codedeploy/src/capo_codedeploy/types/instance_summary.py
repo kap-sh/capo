@@ -105,3 +105,74 @@ def deserialize_aws_json_1_1(data: dict) -> InstanceSummary:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InstanceSummary) -> dict:
+    out: dict = {}
+    if "deployment_id" in value:
+        out["deploymentId"] = value["deployment_id"]
+    if "instance_id" in value:
+        out["instanceId"] = value["instance_id"]
+    if "status" in value:
+        import capo_codedeploy.types.instance_status
+
+        out["status"] = capo_codedeploy.types.instance_status.serialize_cbor(
+            value["status"]
+        )
+    if "last_updated_at" in value:
+        import capo_codedeploy.types.timestamp
+
+        out["lastUpdatedAt"] = capo_codedeploy.types.timestamp.serialize_cbor(
+            value["last_updated_at"]
+        )
+    if "lifecycle_events" in value:
+        import capo_codedeploy.types.lifecycle_event_list
+
+        out["lifecycleEvents"] = (
+            capo_codedeploy.types.lifecycle_event_list.serialize_cbor(
+                value["lifecycle_events"]
+            )
+        )
+    if "instance_type" in value:
+        import capo_codedeploy.types.instance_type
+
+        out["instanceType"] = capo_codedeploy.types.instance_type.serialize_cbor(
+            value["instance_type"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> InstanceSummary:
+    out: InstanceSummary = {}  # type: ignore[typeddict-item]
+    if data.get("deploymentId") is not None:
+        out["deployment_id"] = data["deploymentId"]
+    if data.get("instanceId") is not None:
+        out["instance_id"] = data["instanceId"]
+    if data.get("status") is not None:
+        import capo_codedeploy.types.instance_status
+
+        out["status"] = capo_codedeploy.types.instance_status.deserialize_cbor(
+            data["status"]
+        )
+    if data.get("lastUpdatedAt") is not None:
+        import capo_codedeploy.types.timestamp
+
+        out["last_updated_at"] = capo_codedeploy.types.timestamp.deserialize_cbor(
+            data["lastUpdatedAt"]
+        )
+    if data.get("lifecycleEvents") is not None:
+        import capo_codedeploy.types.lifecycle_event_list
+
+        out["lifecycle_events"] = (
+            capo_codedeploy.types.lifecycle_event_list.deserialize_cbor(
+                data["lifecycleEvents"]
+            )
+        )
+    if data.get("instanceType") is not None:
+        import capo_codedeploy.types.instance_type
+
+        out["instance_type"] = capo_codedeploy.types.instance_type.deserialize_cbor(
+            data["instanceType"]
+        )
+    return out

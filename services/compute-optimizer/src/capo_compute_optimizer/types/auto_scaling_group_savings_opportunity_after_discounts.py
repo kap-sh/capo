@@ -63,3 +63,37 @@ def deserialize_aws_json_1_0(
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AutoScalingGroupSavingsOpportunityAfterDiscounts) -> dict:
+    out: dict = {}
+    out["savingsOpportunityPercentage"] = value.get("savings_opportunity_percentage", 0)
+    if "estimated_monthly_savings" in value:
+        import capo_compute_optimizer.types.auto_scaling_group_estimated_monthly_savings
+
+        out["estimatedMonthlySavings"] = (
+            capo_compute_optimizer.types.auto_scaling_group_estimated_monthly_savings.serialize_cbor(
+                value["estimated_monthly_savings"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AutoScalingGroupSavingsOpportunityAfterDiscounts:
+    out: AutoScalingGroupSavingsOpportunityAfterDiscounts = {}  # type: ignore[typeddict-item]
+    if data.get("savingsOpportunityPercentage") is not None:
+        out["savings_opportunity_percentage"] = float(
+            data["savingsOpportunityPercentage"]
+        )
+    else:
+        out["savings_opportunity_percentage"] = 0
+    if data.get("estimatedMonthlySavings") is not None:
+        import capo_compute_optimizer.types.auto_scaling_group_estimated_monthly_savings
+
+        out["estimated_monthly_savings"] = (
+            capo_compute_optimizer.types.auto_scaling_group_estimated_monthly_savings.deserialize_cbor(
+                data["estimatedMonthlySavings"]
+            )
+        )
+    return out

@@ -49,3 +49,32 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeMatchmakingRuleSetsOutput:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeMatchmakingRuleSetsOutput) -> dict:
+    out: dict = {}
+    if "rule_sets" in value:
+        import capo_gamelift.types.matchmaking_rule_set_list
+
+        out["RuleSets"] = capo_gamelift.types.matchmaking_rule_set_list.serialize_cbor(
+            value["rule_sets"]
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeMatchmakingRuleSetsOutput:
+    out: DescribeMatchmakingRuleSetsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("RuleSets") is not None:
+        import capo_gamelift.types.matchmaking_rule_set_list
+
+        out["rule_sets"] = (
+            capo_gamelift.types.matchmaking_rule_set_list.deserialize_cbor(
+                data["RuleSets"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

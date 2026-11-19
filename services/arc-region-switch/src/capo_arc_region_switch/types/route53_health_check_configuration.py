@@ -80,3 +80,53 @@ def deserialize_aws_json_1_0(data: dict) -> Route53HealthCheckConfiguration:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Route53HealthCheckConfiguration) -> dict:
+    out: dict = {}
+    out["timeoutMinutes"] = value.get("timeout_minutes", 60)
+    if "cross_account_role" in value:
+        out["crossAccountRole"] = value["cross_account_role"]
+    if "external_id" in value:
+        out["externalId"] = value["external_id"]
+    out["hostedZoneId"] = value["hosted_zone_id"]
+    out["recordName"] = value["record_name"]
+    if "record_sets" in value:
+        import capo_arc_region_switch.types.route53_resource_record_set_list
+
+        out["recordSets"] = (
+            capo_arc_region_switch.types.route53_resource_record_set_list.serialize_cbor(
+                value["record_sets"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Route53HealthCheckConfiguration:
+    out: Route53HealthCheckConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("timeoutMinutes") is not None:
+        out["timeout_minutes"] = data["timeoutMinutes"]
+    else:
+        out["timeout_minutes"] = 60
+    if data.get("crossAccountRole") is not None:
+        out["cross_account_role"] = data["crossAccountRole"]
+    if data.get("externalId") is not None:
+        out["external_id"] = data["externalId"]
+    if data.get("hostedZoneId") is not None:
+        out["hosted_zone_id"] = data["hostedZoneId"]
+    else:
+        out["hosted_zone_id"] = ""
+    if data.get("recordName") is not None:
+        out["record_name"] = data["recordName"]
+    else:
+        out["record_name"] = ""
+    if data.get("recordSets") is not None:
+        import capo_arc_region_switch.types.route53_resource_record_set_list
+
+        out["record_sets"] = (
+            capo_arc_region_switch.types.route53_resource_record_set_list.deserialize_cbor(
+                data["recordSets"]
+            )
+        )
+    return out

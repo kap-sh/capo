@@ -77,6 +77,51 @@ def deserialize_aws_json_1_0(data: dict) -> AcceptConnectionProposalRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AcceptConnectionProposalRequest) -> dict:
+    out: dict = {}
+    import capo_interconnect.types.attach_point
+
+    out["attachPoint"] = capo_interconnect.types.attach_point.serialize_cbor(
+        value["attach_point"]
+    )
+    out["activationKey"] = value["activation_key"]
+    if "description" in value:
+        out["description"] = value["description"]
+    if "tags" in value:
+        import capo_interconnect.types.tag_map
+
+        out["tags"] = capo_interconnect.types.tag_map.serialize_cbor(value["tags"])
+    if "client_token" in value:
+        out["clientToken"] = value["client_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AcceptConnectionProposalRequest:
+    out: AcceptConnectionProposalRequest = {}  # type: ignore[typeddict-item]
+    if data.get("attachPoint") is not None:
+        import capo_interconnect.types.attach_point
+
+        out["attach_point"] = capo_interconnect.types.attach_point.deserialize_cbor(
+            data["attachPoint"]
+        )
+    else:
+        out["attach_point"] = {"$unknown": {"name": ""}}
+    if data.get("activationKey") is not None:
+        out["activation_key"] = data["activationKey"]
+    else:
+        out["activation_key"] = ""
+    if data.get("description") is not None:
+        out["description"] = data["description"]
+    if data.get("tags") is not None:
+        import capo_interconnect.types.tag_map
+
+        out["tags"] = capo_interconnect.types.tag_map.deserialize_cbor(data["tags"])
+    if data.get("clientToken") is not None:
+        out["client_token"] = data["clientToken"]
+    return out
+
+
 def redact_sensitive(value: AcceptConnectionProposalRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "activation_key" in value:

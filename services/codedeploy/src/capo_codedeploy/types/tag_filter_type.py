@@ -16,3 +16,12 @@ def serialize_aws_json_1_1(value: TagFilterType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> TagFilterType:
     return cast(TagFilterType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TagFilterType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> TagFilterType:
+    return cast(TagFilterType, data)

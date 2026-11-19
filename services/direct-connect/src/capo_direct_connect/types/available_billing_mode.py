@@ -80,3 +80,58 @@ def deserialize_aws_json_1_1(data: dict) -> AvailableBillingMode:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AvailableBillingMode) -> dict:
+    out: dict = {}
+    if "billing_mode" in value:
+        import capo_direct_connect.types.billing_mode
+
+        out["billingMode"] = capo_direct_connect.types.billing_mode.serialize_cbor(
+            value["billing_mode"]
+        )
+    if "available_port_speeds" in value:
+        import capo_direct_connect.types.available_port_speeds
+
+        out["availablePortSpeeds"] = (
+            capo_direct_connect.types.available_port_speeds.serialize_cbor(
+                value["available_port_speeds"]
+            )
+        )
+    if "included_regions" in value:
+        import capo_direct_connect.types.included_region_list
+
+        out["includedRegions"] = (
+            capo_direct_connect.types.included_region_list.serialize_cbor(
+                value["included_regions"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AvailableBillingMode:
+    out: AvailableBillingMode = {}  # type: ignore[typeddict-item]
+    if data.get("billingMode") is not None:
+        import capo_direct_connect.types.billing_mode
+
+        out["billing_mode"] = capo_direct_connect.types.billing_mode.deserialize_cbor(
+            data["billingMode"]
+        )
+    if data.get("availablePortSpeeds") is not None:
+        import capo_direct_connect.types.available_port_speeds
+
+        out["available_port_speeds"] = (
+            capo_direct_connect.types.available_port_speeds.deserialize_cbor(
+                data["availablePortSpeeds"]
+            )
+        )
+    if data.get("includedRegions") is not None:
+        import capo_direct_connect.types.included_region_list
+
+        out["included_regions"] = (
+            capo_direct_connect.types.included_region_list.deserialize_cbor(
+                data["includedRegions"]
+            )
+        )
+    return out

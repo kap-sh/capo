@@ -92,3 +92,62 @@ def deserialize_aws_json_1_1(data: dict) -> Snapshot:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Snapshot) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "status" in value:
+        out["Status"] = value["status"]
+    if "source" in value:
+        out["Source"] = value["source"]
+    if "kms_key_id" in value:
+        out["KmsKeyId"] = value["kms_key_id"]
+    if "arn" in value:
+        out["ARN"] = value["arn"]
+    if "cluster_configuration" in value:
+        import capo_memorydb.types.cluster_configuration
+
+        out["ClusterConfiguration"] = (
+            capo_memorydb.types.cluster_configuration.serialize_cbor(
+                value["cluster_configuration"]
+            )
+        )
+    if "data_tiering" in value:
+        import capo_memorydb.types.data_tiering_status
+
+        out["DataTiering"] = capo_memorydb.types.data_tiering_status.serialize_cbor(
+            value["data_tiering"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Snapshot:
+    out: Snapshot = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Status") is not None:
+        out["status"] = data["Status"]
+    if data.get("Source") is not None:
+        out["source"] = data["Source"]
+    if data.get("KmsKeyId") is not None:
+        out["kms_key_id"] = data["KmsKeyId"]
+    if data.get("ARN") is not None:
+        out["arn"] = data["ARN"]
+    if data.get("ClusterConfiguration") is not None:
+        import capo_memorydb.types.cluster_configuration
+
+        out["cluster_configuration"] = (
+            capo_memorydb.types.cluster_configuration.deserialize_cbor(
+                data["ClusterConfiguration"]
+            )
+        )
+    if data.get("DataTiering") is not None:
+        import capo_memorydb.types.data_tiering_status
+
+        out["data_tiering"] = capo_memorydb.types.data_tiering_status.deserialize_cbor(
+            data["DataTiering"]
+        )
+    return out

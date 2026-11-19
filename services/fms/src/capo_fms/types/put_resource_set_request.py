@@ -52,3 +52,35 @@ def deserialize_aws_json_1_1(data: dict) -> PutResourceSetRequest:
             data["TagList"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PutResourceSetRequest) -> dict:
+    out: dict = {}
+    import capo_fms.types.resource_set
+
+    out["ResourceSet"] = capo_fms.types.resource_set.serialize_cbor(
+        value["resource_set"]
+    )
+    if "tag_list" in value:
+        import capo_fms.types.tag_list
+
+        out["TagList"] = capo_fms.types.tag_list.serialize_cbor(value["tag_list"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> PutResourceSetRequest:
+    out: PutResourceSetRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceSet") is not None:
+        import capo_fms.types.resource_set
+
+        out["resource_set"] = capo_fms.types.resource_set.deserialize_cbor(
+            data["ResourceSet"]
+        )
+    else:
+        raise DeserializationError("PutResourceSetRequest.resource_set required")
+    if data.get("TagList") is not None:
+        import capo_fms.types.tag_list
+
+        out["tag_list"] = capo_fms.types.tag_list.deserialize_cbor(data["TagList"])
+    return out

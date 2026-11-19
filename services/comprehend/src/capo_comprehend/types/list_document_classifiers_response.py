@@ -49,6 +49,37 @@ def deserialize_aws_json_1_1(data: dict) -> ListDocumentClassifiersResponse:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListDocumentClassifiersResponse) -> dict:
+    out: dict = {}
+    if "document_classifier_properties_list" in value:
+        import capo_comprehend.types.document_classifier_properties_list
+
+        out["DocumentClassifierPropertiesList"] = (
+            capo_comprehend.types.document_classifier_properties_list.serialize_cbor(
+                value["document_classifier_properties_list"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListDocumentClassifiersResponse:
+    out: ListDocumentClassifiersResponse = {}  # type: ignore[typeddict-item]
+    if data.get("DocumentClassifierPropertiesList") is not None:
+        import capo_comprehend.types.document_classifier_properties_list
+
+        out["document_classifier_properties_list"] = (
+            capo_comprehend.types.document_classifier_properties_list.deserialize_cbor(
+                data["DocumentClassifierPropertiesList"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out
+
+
 def redact_sensitive(value: ListDocumentClassifiersResponse) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "document_classifier_properties_list" in value:

@@ -35,3 +35,24 @@ def deserialize_aws_json_1_1(data: dict) -> TimeBasedCanary:
     else:
         out["canary_interval"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TimeBasedCanary) -> dict:
+    out: dict = {}
+    out["canaryPercentage"] = value.get("canary_percentage", 0)
+    out["canaryInterval"] = value.get("canary_interval", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> TimeBasedCanary:
+    out: TimeBasedCanary = {}  # type: ignore[typeddict-item]
+    if data.get("canaryPercentage") is not None:
+        out["canary_percentage"] = data["canaryPercentage"]
+    else:
+        out["canary_percentage"] = 0
+    if data.get("canaryInterval") is not None:
+        out["canary_interval"] = data["canaryInterval"]
+    else:
+        out["canary_interval"] = 0
+    return out

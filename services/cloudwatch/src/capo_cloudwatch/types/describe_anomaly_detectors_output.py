@@ -81,3 +81,34 @@ def deserialize_query(el: Element) -> DescribeAnomalyDetectorsOutput:
     if child_next_token is not None:
         out["next_token"] = str(child_next_token.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeAnomalyDetectorsOutput) -> dict:
+    out: dict = {}
+    if "anomaly_detectors" in value:
+        import capo_cloudwatch.types.anomaly_detectors
+
+        out["AnomalyDetectors"] = (
+            capo_cloudwatch.types.anomaly_detectors.serialize_cbor(
+                value["anomaly_detectors"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeAnomalyDetectorsOutput:
+    out: DescribeAnomalyDetectorsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("AnomalyDetectors") is not None:
+        import capo_cloudwatch.types.anomaly_detectors
+
+        out["anomaly_detectors"] = (
+            capo_cloudwatch.types.anomaly_detectors.deserialize_cbor(
+                data["AnomalyDetectors"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

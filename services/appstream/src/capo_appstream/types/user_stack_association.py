@@ -63,6 +63,45 @@ def deserialize_aws_json_1_1(data: dict) -> UserStackAssociation:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UserStackAssociation) -> dict:
+    out: dict = {}
+    if "stack_name" in value:
+        out["StackName"] = value["stack_name"]
+    if "user_name" in value:
+        out["UserName"] = value["user_name"]
+    if "authentication_type" in value:
+        import capo_appstream.types.authentication_type
+
+        out["AuthenticationType"] = (
+            capo_appstream.types.authentication_type.serialize_cbor(
+                value["authentication_type"]
+            )
+        )
+    if "send_email_notification" in value:
+        out["SendEmailNotification"] = value["send_email_notification"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UserStackAssociation:
+    out: UserStackAssociation = {}  # type: ignore[typeddict-item]
+    if data.get("StackName") is not None:
+        out["stack_name"] = data["StackName"]
+    if data.get("UserName") is not None:
+        out["user_name"] = data["UserName"]
+    if data.get("AuthenticationType") is not None:
+        import capo_appstream.types.authentication_type
+
+        out["authentication_type"] = (
+            capo_appstream.types.authentication_type.deserialize_cbor(
+                data["AuthenticationType"]
+            )
+        )
+    if data.get("SendEmailNotification") is not None:
+        out["send_email_notification"] = data["SendEmailNotification"]
+    return out
+
+
 def redact_sensitive(value: UserStackAssociation) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "user_name" in value:

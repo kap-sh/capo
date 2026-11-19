@@ -81,3 +81,60 @@ def deserialize_aws_json_1_1(data: dict) -> GetDimensionKeyDetailsRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetDimensionKeyDetailsRequest) -> dict:
+    out: dict = {}
+    import capo_pi.types.service_type
+
+    out["ServiceType"] = capo_pi.types.service_type.serialize_cbor(
+        value["service_type"]
+    )
+    out["Identifier"] = value["identifier"]
+    out["Group"] = value["group"]
+    out["GroupIdentifier"] = value["group_identifier"]
+    if "requested_dimensions" in value:
+        import capo_pi.types.requested_dimension_list
+
+        out["RequestedDimensions"] = (
+            capo_pi.types.requested_dimension_list.serialize_cbor(
+                value["requested_dimensions"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetDimensionKeyDetailsRequest:
+    out: GetDimensionKeyDetailsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ServiceType") is not None:
+        import capo_pi.types.service_type
+
+        out["service_type"] = capo_pi.types.service_type.deserialize_cbor(
+            data["ServiceType"]
+        )
+    else:
+        import typing
+
+        out["service_type"] = typing.cast("capo_pi.types.service_type.ServiceType", "")
+    if data.get("Identifier") is not None:
+        out["identifier"] = data["Identifier"]
+    else:
+        out["identifier"] = ""
+    if data.get("Group") is not None:
+        out["group"] = data["Group"]
+    else:
+        out["group"] = ""
+    if data.get("GroupIdentifier") is not None:
+        out["group_identifier"] = data["GroupIdentifier"]
+    else:
+        out["group_identifier"] = ""
+    if data.get("RequestedDimensions") is not None:
+        import capo_pi.types.requested_dimension_list
+
+        out["requested_dimensions"] = (
+            capo_pi.types.requested_dimension_list.deserialize_cbor(
+                data["RequestedDimensions"]
+            )
+        )
+    return out

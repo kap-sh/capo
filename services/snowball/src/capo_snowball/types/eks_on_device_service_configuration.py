@@ -32,3 +32,22 @@ def deserialize_aws_json_1_1(data: dict) -> EKSOnDeviceServiceConfiguration:
     if data.get("EKSAnywhereVersion") is not None:
         out["eks_anywhere_version"] = data["EKSAnywhereVersion"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EKSOnDeviceServiceConfiguration) -> dict:
+    out: dict = {}
+    if "kubernetes_version" in value:
+        out["KubernetesVersion"] = value["kubernetes_version"]
+    if "eks_anywhere_version" in value:
+        out["EKSAnywhereVersion"] = value["eks_anywhere_version"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> EKSOnDeviceServiceConfiguration:
+    out: EKSOnDeviceServiceConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("KubernetesVersion") is not None:
+        out["kubernetes_version"] = data["KubernetesVersion"]
+    if data.get("EKSAnywhereVersion") is not None:
+        out["eks_anywhere_version"] = data["EKSAnywhereVersion"]
+    return out

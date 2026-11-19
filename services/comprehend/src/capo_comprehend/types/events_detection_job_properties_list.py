@@ -37,3 +37,28 @@ def deserialize_aws_json_1_1(data: list) -> EventsDetectionJobPropertiesList:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EventsDetectionJobPropertiesList) -> list:
+    import capo_comprehend.types.events_detection_job_properties
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_comprehend.types.events_detection_job_properties.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> EventsDetectionJobPropertiesList:
+    import capo_comprehend.types.events_detection_job_properties
+
+    out: EventsDetectionJobPropertiesList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_comprehend.types.events_detection_job_properties.deserialize_cbor(item)
+        )
+    return out

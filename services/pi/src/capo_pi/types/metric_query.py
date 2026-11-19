@@ -57,3 +57,41 @@ def deserialize_aws_json_1_1(data: dict) -> MetricQuery:
             data["Filter"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MetricQuery) -> dict:
+    out: dict = {}
+    out["Metric"] = value["metric"]
+    if "group_by" in value:
+        import capo_pi.types.dimension_group
+
+        out["GroupBy"] = capo_pi.types.dimension_group.serialize_cbor(value["group_by"])
+    if "filter" in value:
+        import capo_pi.types.metric_query_filter_map
+
+        out["Filter"] = capo_pi.types.metric_query_filter_map.serialize_cbor(
+            value["filter"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> MetricQuery:
+    out: MetricQuery = {}  # type: ignore[typeddict-item]
+    if data.get("Metric") is not None:
+        out["metric"] = data["Metric"]
+    else:
+        out["metric"] = ""
+    if data.get("GroupBy") is not None:
+        import capo_pi.types.dimension_group
+
+        out["group_by"] = capo_pi.types.dimension_group.deserialize_cbor(
+            data["GroupBy"]
+        )
+    if data.get("Filter") is not None:
+        import capo_pi.types.metric_query_filter_map
+
+        out["filter"] = capo_pi.types.metric_query_filter_map.deserialize_cbor(
+            data["Filter"]
+        )
+    return out

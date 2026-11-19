@@ -42,3 +42,31 @@ def deserialize_aws_json_1_0(data: dict) -> RuleOption:
             data["Settings"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RuleOption) -> dict:
+    out: dict = {}
+    out["Keyword"] = value["keyword"]
+    if "settings" in value:
+        import capo_network_firewall.types.settings
+
+        out["Settings"] = capo_network_firewall.types.settings.serialize_cbor(
+            value["settings"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RuleOption:
+    out: RuleOption = {}  # type: ignore[typeddict-item]
+    if data.get("Keyword") is not None:
+        out["keyword"] = data["Keyword"]
+    else:
+        out["keyword"] = ""
+    if data.get("Settings") is not None:
+        import capo_network_firewall.types.settings
+
+        out["settings"] = capo_network_firewall.types.settings.deserialize_cbor(
+            data["Settings"]
+        )
+    return out

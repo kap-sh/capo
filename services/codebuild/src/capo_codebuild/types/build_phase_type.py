@@ -24,3 +24,12 @@ def serialize_aws_json_1_1(value: BuildPhaseType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> BuildPhaseType:
     return cast(BuildPhaseType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BuildPhaseType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> BuildPhaseType:
+    return cast(BuildPhaseType, data)

@@ -48,3 +48,34 @@ def deserialize_aws_json_1_1(data: dict) -> DataTransfer:
     else:
         out["total_objects"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DataTransfer) -> dict:
+    out: dict = {}
+    out["BytesTransferred"] = value.get("bytes_transferred", 0)
+    out["ObjectsTransferred"] = value.get("objects_transferred", 0)
+    out["TotalBytes"] = value.get("total_bytes", 0)
+    out["TotalObjects"] = value.get("total_objects", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> DataTransfer:
+    out: DataTransfer = {}  # type: ignore[typeddict-item]
+    if data.get("BytesTransferred") is not None:
+        out["bytes_transferred"] = data["BytesTransferred"]
+    else:
+        out["bytes_transferred"] = 0
+    if data.get("ObjectsTransferred") is not None:
+        out["objects_transferred"] = data["ObjectsTransferred"]
+    else:
+        out["objects_transferred"] = 0
+    if data.get("TotalBytes") is not None:
+        out["total_bytes"] = data["TotalBytes"]
+    else:
+        out["total_bytes"] = 0
+    if data.get("TotalObjects") is not None:
+        out["total_objects"] = data["TotalObjects"]
+    else:
+        out["total_objects"] = 0
+    return out

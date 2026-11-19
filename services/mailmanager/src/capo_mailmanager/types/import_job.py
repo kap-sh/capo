@@ -182,6 +182,132 @@ def deserialize_aws_json_1_0(data: dict) -> ImportJob:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ImportJob) -> dict:
+    out: dict = {}
+    out["JobId"] = value["job_id"]
+    out["Name"] = value["name"]
+    import capo_mailmanager.types.import_job_status
+
+    out["Status"] = capo_mailmanager.types.import_job_status.serialize_cbor(
+        value["status"]
+    )
+    out["PreSignedUrl"] = value["pre_signed_url"]
+    if "imported_items_count" in value:
+        out["ImportedItemsCount"] = value["imported_items_count"]
+    if "failed_items_count" in value:
+        out["FailedItemsCount"] = value["failed_items_count"]
+    import capo_mailmanager.types.import_data_format
+
+    out["ImportDataFormat"] = capo_mailmanager.types.import_data_format.serialize_cbor(
+        value["import_data_format"]
+    )
+    out["AddressListId"] = value["address_list_id"]
+    import capo_mailmanager.types._prelude.timestamp
+
+    out["CreatedTimestamp"] = capo_mailmanager.types._prelude.timestamp.serialize_cbor(
+        value["created_timestamp"]
+    )
+    if "start_timestamp" in value:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["StartTimestamp"] = (
+            capo_mailmanager.types._prelude.timestamp.serialize_cbor(
+                value["start_timestamp"]
+            )
+        )
+    if "completed_timestamp" in value:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["CompletedTimestamp"] = (
+            capo_mailmanager.types._prelude.timestamp.serialize_cbor(
+                value["completed_timestamp"]
+            )
+        )
+    if "error" in value:
+        out["Error"] = value["error"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ImportJob:
+    out: ImportJob = {}  # type: ignore[typeddict-item]
+    if data.get("JobId") is not None:
+        out["job_id"] = data["JobId"]
+    else:
+        out["job_id"] = ""
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    else:
+        out["name"] = ""
+    if data.get("Status") is not None:
+        import capo_mailmanager.types.import_job_status
+
+        out["status"] = capo_mailmanager.types.import_job_status.deserialize_cbor(
+            data["Status"]
+        )
+    else:
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_mailmanager.types.import_job_status.ImportJobStatus", ""
+        )
+    if data.get("PreSignedUrl") is not None:
+        out["pre_signed_url"] = data["PreSignedUrl"]
+    else:
+        out["pre_signed_url"] = ""
+    if data.get("ImportedItemsCount") is not None:
+        out["imported_items_count"] = data["ImportedItemsCount"]
+    if data.get("FailedItemsCount") is not None:
+        out["failed_items_count"] = data["FailedItemsCount"]
+    if data.get("ImportDataFormat") is not None:
+        import capo_mailmanager.types.import_data_format
+
+        out["import_data_format"] = (
+            capo_mailmanager.types.import_data_format.deserialize_cbor(
+                data["ImportDataFormat"]
+            )
+        )
+    else:
+        raise DeserializationError("ImportJob.import_data_format required")
+    if data.get("AddressListId") is not None:
+        out["address_list_id"] = data["AddressListId"]
+    else:
+        out["address_list_id"] = ""
+    if data.get("CreatedTimestamp") is not None:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["created_timestamp"] = (
+            capo_mailmanager.types._prelude.timestamp.deserialize_cbor(
+                data["CreatedTimestamp"]
+            )
+        )
+    else:
+        import datetime
+
+        out["created_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
+    if data.get("StartTimestamp") is not None:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["start_timestamp"] = (
+            capo_mailmanager.types._prelude.timestamp.deserialize_cbor(
+                data["StartTimestamp"]
+            )
+        )
+    if data.get("CompletedTimestamp") is not None:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["completed_timestamp"] = (
+            capo_mailmanager.types._prelude.timestamp.deserialize_cbor(
+                data["CompletedTimestamp"]
+            )
+        )
+    if data.get("Error") is not None:
+        out["error"] = data["Error"]
+    return out
+
+
 def redact_sensitive(value: ImportJob) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "pre_signed_url" in value:

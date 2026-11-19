@@ -40,3 +40,26 @@ def deserialize_aws_json_1_1(data: dict) -> IpRoute:
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IpRoute) -> dict:
+    out: dict = {}
+    if "cidr_ip" in value:
+        out["CidrIp"] = value["cidr_ip"]
+    if "cidr_ipv6" in value:
+        out["CidrIpv6"] = value["cidr_ipv6"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> IpRoute:
+    out: IpRoute = {}  # type: ignore[typeddict-item]
+    if data.get("CidrIp") is not None:
+        out["cidr_ip"] = data["CidrIp"]
+    if data.get("CidrIpv6") is not None:
+        out["cidr_ipv6"] = data["CidrIpv6"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    return out

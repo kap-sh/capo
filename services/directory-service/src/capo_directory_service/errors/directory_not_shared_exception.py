@@ -38,6 +38,25 @@ def deserialize_aws_json_1_1(data: dict) -> DirectoryNotSharedException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DirectoryNotSharedException_) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["Message"] = value["message"]
+    if "request_id" in value:
+        out["RequestId"] = value["request_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DirectoryNotSharedException_:
+    out: DirectoryNotSharedException_ = {}  # type: ignore[typeddict-item]
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    if data.get("RequestId") is not None:
+        out["request_id"] = data["RequestId"]
+    return out
+
+
 class DirectoryNotSharedException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.directoryservice#DirectoryNotSharedException``."""
 
@@ -65,3 +84,9 @@ class DirectoryNotSharedException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "DirectoryNotSharedException":
         return cls(deserialize_aws_json_1_1(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "DirectoryNotSharedException":
+        return cls(deserialize_cbor(data), message, response=response)

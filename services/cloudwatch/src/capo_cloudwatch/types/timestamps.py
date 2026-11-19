@@ -74,3 +74,24 @@ def deserialize_aws_json_1_0(data: list) -> Timestamps:
             continue
         out.append(capo_cloudwatch.types.timestamp.deserialize_aws_json_1_0(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Timestamps) -> list:
+    import capo_cloudwatch.types.timestamp
+
+    out: list = []
+    for item in value:
+        out.append(capo_cloudwatch.types.timestamp.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> Timestamps:
+    import capo_cloudwatch.types.timestamp
+
+    out: Timestamps = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_cloudwatch.types.timestamp.deserialize_cbor(item))
+    return out

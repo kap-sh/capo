@@ -91,3 +91,66 @@ def deserialize_aws_json_1_1(data: dict) -> DescribePortfolioOutput:
             data["Budgets"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribePortfolioOutput) -> dict:
+    out: dict = {}
+    if "portfolio_detail" in value:
+        import capo_service_catalog.types.portfolio_detail
+
+        out["PortfolioDetail"] = (
+            capo_service_catalog.types.portfolio_detail.serialize_cbor(
+                value["portfolio_detail"]
+            )
+        )
+    if "tags" in value:
+        import capo_service_catalog.types.tags
+
+        out["Tags"] = capo_service_catalog.types.tags.serialize_cbor(value["tags"])
+    if "tag_options" in value:
+        import capo_service_catalog.types.tag_option_details
+
+        out["TagOptions"] = (
+            capo_service_catalog.types.tag_option_details.serialize_cbor(
+                value["tag_options"]
+            )
+        )
+    if "budgets" in value:
+        import capo_service_catalog.types.budgets
+
+        out["Budgets"] = capo_service_catalog.types.budgets.serialize_cbor(
+            value["budgets"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribePortfolioOutput:
+    out: DescribePortfolioOutput = {}  # type: ignore[typeddict-item]
+    if data.get("PortfolioDetail") is not None:
+        import capo_service_catalog.types.portfolio_detail
+
+        out["portfolio_detail"] = (
+            capo_service_catalog.types.portfolio_detail.deserialize_cbor(
+                data["PortfolioDetail"]
+            )
+        )
+    if data.get("Tags") is not None:
+        import capo_service_catalog.types.tags
+
+        out["tags"] = capo_service_catalog.types.tags.deserialize_cbor(data["Tags"])
+    if data.get("TagOptions") is not None:
+        import capo_service_catalog.types.tag_option_details
+
+        out["tag_options"] = (
+            capo_service_catalog.types.tag_option_details.deserialize_cbor(
+                data["TagOptions"]
+            )
+        )
+    if data.get("Budgets") is not None:
+        import capo_service_catalog.types.budgets
+
+        out["budgets"] = capo_service_catalog.types.budgets.deserialize_cbor(
+            data["Budgets"]
+        )
+    return out

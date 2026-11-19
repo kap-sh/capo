@@ -34,3 +34,26 @@ def deserialize_aws_json_1_1(data: dict) -> PutApprovalResultOutput:
             data["approvedAt"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PutApprovalResultOutput) -> dict:
+    out: dict = {}
+    if "approved_at" in value:
+        import capo_codepipeline.types.timestamp
+
+        out["approvedAt"] = capo_codepipeline.types.timestamp.serialize_cbor(
+            value["approved_at"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PutApprovalResultOutput:
+    out: PutApprovalResultOutput = {}  # type: ignore[typeddict-item]
+    if data.get("approvedAt") is not None:
+        import capo_codepipeline.types.timestamp
+
+        out["approved_at"] = capo_codepipeline.types.timestamp.deserialize_cbor(
+            data["approvedAt"]
+        )
+    return out

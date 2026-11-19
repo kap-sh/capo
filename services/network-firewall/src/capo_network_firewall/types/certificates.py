@@ -37,3 +37,28 @@ def deserialize_aws_json_1_0(data: list) -> Certificates:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Certificates) -> list:
+    import capo_network_firewall.types.tls_certificate_data
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_network_firewall.types.tls_certificate_data.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> Certificates:
+    import capo_network_firewall.types.tls_certificate_data
+
+    out: Certificates = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_network_firewall.types.tls_certificate_data.deserialize_cbor(item)
+        )
+    return out

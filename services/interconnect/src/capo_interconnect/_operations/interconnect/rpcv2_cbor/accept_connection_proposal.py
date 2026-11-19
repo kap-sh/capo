@@ -1,0 +1,191 @@
+"""Generated from Smithy shape ``com.amazonaws.interconnect#AcceptConnectionProposal``."""
+
+from __future__ import annotations
+
+from typing import Any
+
+import zapros
+from typing_extensions import Never
+
+import capo_interconnect._auth._signers
+import capo_interconnect._auth._sigv4
+import capo_interconnect._protocol.eventstream
+import capo_interconnect.errors.access_denied_exception
+import capo_interconnect.errors.interconnect_client_exception
+import capo_interconnect.errors.interconnect_server_exception
+import capo_interconnect.errors.interconnect_validation_exception
+import capo_interconnect.errors.resource_not_found_exception
+import capo_interconnect.errors.service_quota_exceeded_exception
+import capo_interconnect.errors.throttling_exception
+import capo_interconnect.types.accept_connection_proposal_request
+import capo_interconnect.types.accept_connection_proposal_response
+import capo_interconnect.types.attach_point
+import capo_interconnect.types.connection
+import capo_interconnect.types.tag_map
+from capo_interconnect._protocol import cbor
+from capo_interconnect._rule_engine._endpoint_rule_set import EndpointParams, resolve
+from capo_interconnect._services._pipeline import (
+    AsyncOperationOptions,
+    OperationOptions,
+    raise_error,
+)
+from capo_interconnect.errors import UnknownServiceError
+
+
+def handle_error(response: zapros.Response) -> Never:
+    data, code, message = cbor.parse_error(response)
+    match code:
+        case "AccessDeniedException":
+            raise capo_interconnect.errors.access_denied_exception.AccessDeniedException.from_cbor(
+                data, message, response=response
+            )
+        case "InterconnectClientException":
+            raise capo_interconnect.errors.interconnect_client_exception.InterconnectClientException.from_cbor(
+                data, message, response=response
+            )
+        case "InterconnectServerException":
+            raise capo_interconnect.errors.interconnect_server_exception.InterconnectServerException.from_cbor(
+                data, message, response=response
+            )
+        case "InterconnectValidationException":
+            raise capo_interconnect.errors.interconnect_validation_exception.InterconnectValidationException.from_cbor(
+                data, message, response=response
+            )
+        case "ResourceNotFoundException":
+            raise capo_interconnect.errors.resource_not_found_exception.ResourceNotFoundException.from_cbor(
+                data, message, response=response
+            )
+        case "ServiceQuotaExceededException":
+            raise capo_interconnect.errors.service_quota_exceeded_exception.ServiceQuotaExceededException.from_cbor(
+                data, message, response=response
+            )
+        case "ThrottlingException":
+            raise capo_interconnect.errors.throttling_exception.ThrottlingException.from_cbor(
+                data, message, response=response
+            )
+        case _:
+            raise UnknownServiceError(code=code, message=message, response=response)
+
+
+def handle_response(
+    response: zapros.Response,
+) -> capo_interconnect.types.accept_connection_proposal_response.AcceptConnectionProposalResponse:
+    out: capo_interconnect.types.accept_connection_proposal_response.AcceptConnectionProposalResponse = capo_interconnect.types.accept_connection_proposal_response.deserialize_cbor(
+        cbor.loads(response.read())
+    )
+    return out
+
+
+async def async_handle_response(
+    response: zapros.Response,
+) -> capo_interconnect.types.accept_connection_proposal_response.AcceptConnectionProposalResponse:
+    out: capo_interconnect.types.accept_connection_proposal_response.AcceptConnectionProposalResponse = capo_interconnect.types.accept_connection_proposal_response.deserialize_cbor(
+        cbor.loads(await response.aread())
+    )
+    return out
+
+
+def get_signer(
+    options: AsyncOperationOptions | OperationOptions,
+    auth_schemes: list[dict[str, Any]] | None = None,
+) -> capo_interconnect._auth._signers.Signer | None:
+    name_to_schema = {s["name"]: s for s in (auth_schemes or [])}  # noqa: F841
+    if (
+        options.credentials_provider is not None
+        and name_to_schema
+        and not name_to_schema.keys() & {"sigv4", "sigv4-s3express"}
+    ):
+        raise RuntimeError(
+            "Endpoint requires an unsupported auth scheme: " + ", ".join(name_to_schema)
+        )
+    if options.credentials_provider is not None:
+        endpoint_scheme = name_to_schema.get("sigv4") or name_to_schema.get(
+            "sigv4-s3express"
+        )
+        if endpoint_scheme is not None or not name_to_schema:
+            sigv4_config = capo_interconnect._auth._sigv4.build_sigv4_auth_scheme(
+                "interconnect", options.region, endpoint_scheme
+            )
+            if sigv4_config is not None:
+                return capo_interconnect._auth._signers.SigV4Signer(
+                    options.credentials_provider, auth_scheme=sigv4_config
+                )
+    raise RuntimeError("Auth was not resolved")
+
+
+def build_request(
+    options: OperationOptions | AsyncOperationOptions,
+    input_: capo_interconnect.types.accept_connection_proposal_request.AcceptConnectionProposalRequest,
+) -> zapros.Request:
+    endpoint = resolve(
+        EndpointParams(
+            UseFIPS=options.use_fips, Endpoint=options.endpoint, Region=options.region
+        )
+    )  # noqa: F841
+    url = (
+        endpoint.url.rstrip("/")
+        + "/service/Interconnect/operation/AcceptConnectionProposal"
+    )
+    params: list[tuple[str, str]] = []
+    headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
+    headers["smithy-protocol"] = "rpc-v2-cbor"
+    headers["accept"] = "application/cbor"
+    body: bytes | None = cbor.dumps(
+        capo_interconnect.types.accept_connection_proposal_request.serialize_cbor(
+            input_
+        )
+    )
+    headers["content-type"] = "application/cbor"
+    signer = (
+        None
+        if options.anonymous
+        else get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    )
+    normalized_url = zapros.URL(url)
+    for k, v in params:
+        normalized_url.search_params.append(k, v)
+    return zapros.Request(
+        normalized_url, "POST", headers=headers, body=body, context={"signer": signer}
+    )
+
+
+def accept_connection_proposal(
+    options: OperationOptions,
+    input_: capo_interconnect.types.accept_connection_proposal_request.AcceptConnectionProposalRequest,
+) -> tuple[
+    capo_interconnect.types.accept_connection_proposal_response.AcceptConnectionProposalResponse,
+    zapros.Response,
+]:
+    response = options.client.handler.handle(build_request(options, input_))
+    try:
+        if (
+            response.status != 200
+            or response.headers.get("smithy-protocol") != "rpc-v2-cbor"
+        ):
+            response.read()
+            raise_error(response, handle_error)
+        return handle_response(response), response
+    except BaseException:
+        response.close()
+        raise
+
+
+async def async_accept_connection_proposal(
+    options: AsyncOperationOptions,
+    input_: capo_interconnect.types.accept_connection_proposal_request.AcceptConnectionProposalRequest,
+) -> tuple[
+    capo_interconnect.types.accept_connection_proposal_response.AcceptConnectionProposalResponse,
+    zapros.Response,
+]:
+    response = await options.client.handler.ahandle(build_request(options, input_))
+    try:
+        if (
+            response.status != 200
+            or response.headers.get("smithy-protocol") != "rpc-v2-cbor"
+        ):
+            await response.aread()
+            raise_error(response, handle_error)
+        return await async_handle_response(response), response
+    except BaseException:
+        await response.aclose()
+        raise

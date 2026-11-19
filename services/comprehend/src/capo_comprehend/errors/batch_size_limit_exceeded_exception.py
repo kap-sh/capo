@@ -30,6 +30,21 @@ def deserialize_aws_json_1_1(data: dict) -> BatchSizeLimitExceededException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchSizeLimitExceededException_) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["Message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> BatchSizeLimitExceededException_:
+    out: BatchSizeLimitExceededException_ = {}  # type: ignore[typeddict-item]
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    return out
+
+
 class BatchSizeLimitExceededException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.comprehend#BatchSizeLimitExceededException``."""
 
@@ -57,3 +72,9 @@ class BatchSizeLimitExceededException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "BatchSizeLimitExceededException":
         return cls(deserialize_aws_json_1_1(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "BatchSizeLimitExceededException":
+        return cls(deserialize_cbor(data), message, response=response)

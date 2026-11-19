@@ -83,3 +83,54 @@ def deserialize_aws_json_1_1(data: dict) -> SubResourceSummary:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SubResourceSummary) -> dict:
+    out: dict = {}
+    if "type" in value:
+        import capo_shield.types.sub_resource_type
+
+        out["Type"] = capo_shield.types.sub_resource_type.serialize_cbor(value["type"])
+    if "id" in value:
+        out["Id"] = value["id"]
+    if "attack_vectors" in value:
+        import capo_shield.types.summarized_attack_vector_list
+
+        out["AttackVectors"] = (
+            capo_shield.types.summarized_attack_vector_list.serialize_cbor(
+                value["attack_vectors"]
+            )
+        )
+    if "counters" in value:
+        import capo_shield.types.summarized_counter_list
+
+        out["Counters"] = capo_shield.types.summarized_counter_list.serialize_cbor(
+            value["counters"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> SubResourceSummary:
+    out: SubResourceSummary = {}  # type: ignore[typeddict-item]
+    if data.get("Type") is not None:
+        import capo_shield.types.sub_resource_type
+
+        out["type"] = capo_shield.types.sub_resource_type.deserialize_cbor(data["Type"])
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    if data.get("AttackVectors") is not None:
+        import capo_shield.types.summarized_attack_vector_list
+
+        out["attack_vectors"] = (
+            capo_shield.types.summarized_attack_vector_list.deserialize_cbor(
+                data["AttackVectors"]
+            )
+        )
+    if data.get("Counters") is not None:
+        import capo_shield.types.summarized_counter_list
+
+        out["counters"] = capo_shield.types.summarized_counter_list.deserialize_cbor(
+            data["Counters"]
+        )
+    return out

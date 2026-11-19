@@ -142,3 +142,107 @@ def deserialize_aws_json_1_0(data: dict) -> ServiceQuotaWarningSummary:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ServiceQuotaWarningSummary) -> dict:
+    out: dict = {}
+    out["accountId"] = value["account_id"]
+    out["quotaRegion"] = value["quota_region"]
+    if "service_code" in value:
+        out["serviceCode"] = value["service_code"]
+    if "quota_code" in value:
+        out["quotaCode"] = value["quota_code"]
+    if "quota_name" in value:
+        out["quotaName"] = value["quota_name"]
+    import capo_arc_region_switch.types.service_quota_warning_status
+
+    out["status"] = (
+        capo_arc_region_switch.types.service_quota_warning_status.serialize_cbor(
+            value["status"]
+        )
+    )
+    out["planArn"] = value["plan_arn"]
+    if "request_id" in value:
+        out["requestId"] = value["request_id"]
+    if "case_id" in value:
+        out["caseId"] = value["case_id"]
+    if "warning_message" in value:
+        out["warningMessage"] = value["warning_message"]
+    if "last_checked_at" in value:
+        import capo_arc_region_switch.types._prelude.timestamp
+
+        out["lastCheckedAt"] = (
+            capo_arc_region_switch.types._prelude.timestamp.serialize_cbor(
+                value["last_checked_at"]
+            )
+        )
+    if "warning_created_at" in value:
+        import capo_arc_region_switch.types._prelude.timestamp
+
+        out["warningCreatedAt"] = (
+            capo_arc_region_switch.types._prelude.timestamp.serialize_cbor(
+                value["warning_created_at"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ServiceQuotaWarningSummary:
+    out: ServiceQuotaWarningSummary = {}  # type: ignore[typeddict-item]
+    if data.get("accountId") is not None:
+        out["account_id"] = data["accountId"]
+    else:
+        out["account_id"] = ""
+    if data.get("quotaRegion") is not None:
+        out["quota_region"] = data["quotaRegion"]
+    else:
+        out["quota_region"] = ""
+    if data.get("serviceCode") is not None:
+        out["service_code"] = data["serviceCode"]
+    if data.get("quotaCode") is not None:
+        out["quota_code"] = data["quotaCode"]
+    if data.get("quotaName") is not None:
+        out["quota_name"] = data["quotaName"]
+    if data.get("status") is not None:
+        import capo_arc_region_switch.types.service_quota_warning_status
+
+        out["status"] = (
+            capo_arc_region_switch.types.service_quota_warning_status.deserialize_cbor(
+                data["status"]
+            )
+        )
+    else:
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_arc_region_switch.types.service_quota_warning_status.ServiceQuotaWarningStatus",
+            "",
+        )
+    if data.get("planArn") is not None:
+        out["plan_arn"] = data["planArn"]
+    else:
+        out["plan_arn"] = ""
+    if data.get("requestId") is not None:
+        out["request_id"] = data["requestId"]
+    if data.get("caseId") is not None:
+        out["case_id"] = data["caseId"]
+    if data.get("warningMessage") is not None:
+        out["warning_message"] = data["warningMessage"]
+    if data.get("lastCheckedAt") is not None:
+        import capo_arc_region_switch.types._prelude.timestamp
+
+        out["last_checked_at"] = (
+            capo_arc_region_switch.types._prelude.timestamp.deserialize_cbor(
+                data["lastCheckedAt"]
+            )
+        )
+    if data.get("warningCreatedAt") is not None:
+        import capo_arc_region_switch.types._prelude.timestamp
+
+        out["warning_created_at"] = (
+            capo_arc_region_switch.types._prelude.timestamp.deserialize_cbor(
+                data["warningCreatedAt"]
+            )
+        )
+    return out

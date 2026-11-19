@@ -18,3 +18,14 @@ def deserialize_aws_json_1_1(
 ) -> DisassociateApplicationFromEntitlementResult:
     out: DisassociateApplicationFromEntitlementResult = {}  # type: ignore[typeddict-item]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DisassociateApplicationFromEntitlementResult) -> dict:
+    out: dict = {}
+    return out
+
+
+def deserialize_cbor(data: dict) -> DisassociateApplicationFromEntitlementResult:
+    out: DisassociateApplicationFromEntitlementResult = {}  # type: ignore[typeddict-item]
+    return out

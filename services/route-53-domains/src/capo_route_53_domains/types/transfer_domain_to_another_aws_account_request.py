@@ -35,3 +35,24 @@ def deserialize_aws_json_1_1(data: dict) -> TransferDomainToAnotherAwsAccountReq
     else:
         out["account_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TransferDomainToAnotherAwsAccountRequest) -> dict:
+    out: dict = {}
+    out["DomainName"] = value["domain_name"]
+    out["AccountId"] = value["account_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> TransferDomainToAnotherAwsAccountRequest:
+    out: TransferDomainToAnotherAwsAccountRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DomainName") is not None:
+        out["domain_name"] = data["DomainName"]
+    else:
+        out["domain_name"] = ""
+    if data.get("AccountId") is not None:
+        out["account_id"] = data["AccountId"]
+    else:
+        out["account_id"] = ""
+    return out

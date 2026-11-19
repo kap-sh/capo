@@ -69,3 +69,49 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateCertificateAuthorityRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateCertificateAuthorityRequest) -> dict:
+    out: dict = {}
+    out["CertificateAuthorityArn"] = value["certificate_authority_arn"]
+    if "revocation_configuration" in value:
+        import capo_acm_pca.types.revocation_configuration
+
+        out["RevocationConfiguration"] = (
+            capo_acm_pca.types.revocation_configuration.serialize_cbor(
+                value["revocation_configuration"]
+            )
+        )
+    if "status" in value:
+        import capo_acm_pca.types.certificate_authority_status
+
+        out["Status"] = capo_acm_pca.types.certificate_authority_status.serialize_cbor(
+            value["status"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateCertificateAuthorityRequest:
+    out: UpdateCertificateAuthorityRequest = {}  # type: ignore[typeddict-item]
+    if data.get("CertificateAuthorityArn") is not None:
+        out["certificate_authority_arn"] = data["CertificateAuthorityArn"]
+    else:
+        out["certificate_authority_arn"] = ""
+    if data.get("RevocationConfiguration") is not None:
+        import capo_acm_pca.types.revocation_configuration
+
+        out["revocation_configuration"] = (
+            capo_acm_pca.types.revocation_configuration.deserialize_cbor(
+                data["RevocationConfiguration"]
+            )
+        )
+    if data.get("Status") is not None:
+        import capo_acm_pca.types.certificate_authority_status
+
+        out["status"] = (
+            capo_acm_pca.types.certificate_authority_status.deserialize_cbor(
+                data["Status"]
+            )
+        )
+    return out

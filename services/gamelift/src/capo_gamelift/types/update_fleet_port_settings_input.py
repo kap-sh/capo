@@ -69,6 +69,53 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateFleetPortSettingsInput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateFleetPortSettingsInput) -> dict:
+    out: dict = {}
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "inbound_permission_authorizations" in value:
+        import capo_gamelift.types.ip_permissions_list
+
+        out["InboundPermissionAuthorizations"] = (
+            capo_gamelift.types.ip_permissions_list.serialize_cbor(
+                value["inbound_permission_authorizations"]
+            )
+        )
+    if "inbound_permission_revocations" in value:
+        import capo_gamelift.types.ip_permissions_list
+
+        out["InboundPermissionRevocations"] = (
+            capo_gamelift.types.ip_permissions_list.serialize_cbor(
+                value["inbound_permission_revocations"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateFleetPortSettingsInput:
+    out: UpdateFleetPortSettingsInput = {}  # type: ignore[typeddict-item]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("InboundPermissionAuthorizations") is not None:
+        import capo_gamelift.types.ip_permissions_list
+
+        out["inbound_permission_authorizations"] = (
+            capo_gamelift.types.ip_permissions_list.deserialize_cbor(
+                data["InboundPermissionAuthorizations"]
+            )
+        )
+    if data.get("InboundPermissionRevocations") is not None:
+        import capo_gamelift.types.ip_permissions_list
+
+        out["inbound_permission_revocations"] = (
+            capo_gamelift.types.ip_permissions_list.deserialize_cbor(
+                data["InboundPermissionRevocations"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: UpdateFleetPortSettingsInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "inbound_permission_authorizations" in value:

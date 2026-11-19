@@ -40,3 +40,26 @@ def deserialize_aws_json_1_1(data: dict) -> CertificateConfiguration:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CertificateConfiguration) -> dict:
+    out: dict = {}
+    if "certificate_type" in value:
+        import capo_gamelift.types.certificate_type
+
+        out["CertificateType"] = capo_gamelift.types.certificate_type.serialize_cbor(
+            value["certificate_type"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CertificateConfiguration:
+    out: CertificateConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("CertificateType") is not None:
+        import capo_gamelift.types.certificate_type
+
+        out["certificate_type"] = capo_gamelift.types.certificate_type.deserialize_cbor(
+            data["CertificateType"]
+        )
+    return out

@@ -56,3 +56,43 @@ def deserialize_aws_json_1_1(data: dict) -> DocumentClassificationConfig:
             data["Labels"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DocumentClassificationConfig) -> dict:
+    out: dict = {}
+    import capo_comprehend.types.document_classifier_mode
+
+    out["Mode"] = capo_comprehend.types.document_classifier_mode.serialize_cbor(
+        value["mode"]
+    )
+    if "labels" in value:
+        import capo_comprehend.types.labels_list
+
+        out["Labels"] = capo_comprehend.types.labels_list.serialize_cbor(
+            value["labels"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DocumentClassificationConfig:
+    out: DocumentClassificationConfig = {}  # type: ignore[typeddict-item]
+    if data.get("Mode") is not None:
+        import capo_comprehend.types.document_classifier_mode
+
+        out["mode"] = capo_comprehend.types.document_classifier_mode.deserialize_cbor(
+            data["Mode"]
+        )
+    else:
+        import typing
+
+        out["mode"] = typing.cast(
+            "capo_comprehend.types.document_classifier_mode.DocumentClassifierMode", ""
+        )
+    if data.get("Labels") is not None:
+        import capo_comprehend.types.labels_list
+
+        out["labels"] = capo_comprehend.types.labels_list.deserialize_cbor(
+            data["Labels"]
+        )
+    return out

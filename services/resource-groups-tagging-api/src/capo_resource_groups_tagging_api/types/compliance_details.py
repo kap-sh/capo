@@ -89,3 +89,66 @@ def deserialize_aws_json_1_1(data: dict) -> ComplianceDetails:
     if data.get("ComplianceStatus") is not None:
         out["compliance_status"] = data["ComplianceStatus"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ComplianceDetails) -> dict:
+    out: dict = {}
+    if "noncompliant_keys" in value:
+        import capo_resource_groups_tagging_api.types.tag_key_list
+
+        out["NoncompliantKeys"] = (
+            capo_resource_groups_tagging_api.types.tag_key_list.serialize_cbor(
+                value["noncompliant_keys"]
+            )
+        )
+    if "keys_with_noncompliant_values" in value:
+        import capo_resource_groups_tagging_api.types.tag_key_list
+
+        out["KeysWithNoncompliantValues"] = (
+            capo_resource_groups_tagging_api.types.tag_key_list.serialize_cbor(
+                value["keys_with_noncompliant_values"]
+            )
+        )
+    if "missing_tag_keys" in value:
+        import capo_resource_groups_tagging_api.types.tag_key_list
+
+        out["MissingTagKeys"] = (
+            capo_resource_groups_tagging_api.types.tag_key_list.serialize_cbor(
+                value["missing_tag_keys"]
+            )
+        )
+    if "compliance_status" in value:
+        out["ComplianceStatus"] = value["compliance_status"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ComplianceDetails:
+    out: ComplianceDetails = {}  # type: ignore[typeddict-item]
+    if data.get("NoncompliantKeys") is not None:
+        import capo_resource_groups_tagging_api.types.tag_key_list
+
+        out["noncompliant_keys"] = (
+            capo_resource_groups_tagging_api.types.tag_key_list.deserialize_cbor(
+                data["NoncompliantKeys"]
+            )
+        )
+    if data.get("KeysWithNoncompliantValues") is not None:
+        import capo_resource_groups_tagging_api.types.tag_key_list
+
+        out["keys_with_noncompliant_values"] = (
+            capo_resource_groups_tagging_api.types.tag_key_list.deserialize_cbor(
+                data["KeysWithNoncompliantValues"]
+            )
+        )
+    if data.get("MissingTagKeys") is not None:
+        import capo_resource_groups_tagging_api.types.tag_key_list
+
+        out["missing_tag_keys"] = (
+            capo_resource_groups_tagging_api.types.tag_key_list.deserialize_cbor(
+                data["MissingTagKeys"]
+            )
+        )
+    if data.get("ComplianceStatus") is not None:
+        out["compliance_status"] = data["ComplianceStatus"]
+    return out

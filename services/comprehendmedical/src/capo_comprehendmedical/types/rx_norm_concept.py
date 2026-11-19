@@ -47,3 +47,26 @@ def deserialize_aws_json_1_1(data: dict) -> RxNormConcept:
     if data.get("Score") is not None:
         out["score"] = float(data["Score"])
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RxNormConcept) -> dict:
+    out: dict = {}
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "code" in value:
+        out["Code"] = value["code"]
+    if "score" in value:
+        out["Score"] = value["score"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RxNormConcept:
+    out: RxNormConcept = {}  # type: ignore[typeddict-item]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("Code") is not None:
+        out["code"] = data["Code"]
+    if data.get("Score") is not None:
+        out["score"] = float(data["Score"])
+    return out

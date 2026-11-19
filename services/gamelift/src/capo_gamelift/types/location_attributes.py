@@ -80,3 +80,52 @@ def deserialize_aws_json_1_1(data: dict) -> LocationAttributes:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LocationAttributes) -> dict:
+    out: dict = {}
+    if "location_state" in value:
+        import capo_gamelift.types.location_state
+
+        out["LocationState"] = capo_gamelift.types.location_state.serialize_cbor(
+            value["location_state"]
+        )
+    if "stopped_actions" in value:
+        import capo_gamelift.types.fleet_action_list
+
+        out["StoppedActions"] = capo_gamelift.types.fleet_action_list.serialize_cbor(
+            value["stopped_actions"]
+        )
+    if "update_status" in value:
+        import capo_gamelift.types.location_update_status
+
+        out["UpdateStatus"] = capo_gamelift.types.location_update_status.serialize_cbor(
+            value["update_status"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> LocationAttributes:
+    out: LocationAttributes = {}  # type: ignore[typeddict-item]
+    if data.get("LocationState") is not None:
+        import capo_gamelift.types.location_state
+
+        out["location_state"] = capo_gamelift.types.location_state.deserialize_cbor(
+            data["LocationState"]
+        )
+    if data.get("StoppedActions") is not None:
+        import capo_gamelift.types.fleet_action_list
+
+        out["stopped_actions"] = capo_gamelift.types.fleet_action_list.deserialize_cbor(
+            data["StoppedActions"]
+        )
+    if data.get("UpdateStatus") is not None:
+        import capo_gamelift.types.location_update_status
+
+        out["update_status"] = (
+            capo_gamelift.types.location_update_status.deserialize_cbor(
+                data["UpdateStatus"]
+            )
+        )
+    return out

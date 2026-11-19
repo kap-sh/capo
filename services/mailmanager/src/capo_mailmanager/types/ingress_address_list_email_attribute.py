@@ -12,3 +12,12 @@ def serialize_aws_json_1_0(value: IngressAddressListEmailAttribute) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> IngressAddressListEmailAttribute:
     return cast(IngressAddressListEmailAttribute, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IngressAddressListEmailAttribute) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> IngressAddressListEmailAttribute:
+    return cast(IngressAddressListEmailAttribute, data)

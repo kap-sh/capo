@@ -75,3 +75,50 @@ def deserialize_aws_json_1_1(data: dict) -> ListAdapterVersionsRequest:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListAdapterVersionsRequest) -> dict:
+    out: dict = {}
+    if "adapter_id" in value:
+        out["AdapterId"] = value["adapter_id"]
+    if "after_creation_time" in value:
+        import capo_textract.types.date_time
+
+        out["AfterCreationTime"] = capo_textract.types.date_time.serialize_cbor(
+            value["after_creation_time"]
+        )
+    if "before_creation_time" in value:
+        import capo_textract.types.date_time
+
+        out["BeforeCreationTime"] = capo_textract.types.date_time.serialize_cbor(
+            value["before_creation_time"]
+        )
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListAdapterVersionsRequest:
+    out: ListAdapterVersionsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("AdapterId") is not None:
+        out["adapter_id"] = data["AdapterId"]
+    if data.get("AfterCreationTime") is not None:
+        import capo_textract.types.date_time
+
+        out["after_creation_time"] = capo_textract.types.date_time.deserialize_cbor(
+            data["AfterCreationTime"]
+        )
+    if data.get("BeforeCreationTime") is not None:
+        import capo_textract.types.date_time
+
+        out["before_creation_time"] = capo_textract.types.date_time.deserialize_cbor(
+            data["BeforeCreationTime"]
+        )
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

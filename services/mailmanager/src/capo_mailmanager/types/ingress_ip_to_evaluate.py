@@ -52,3 +52,39 @@ def deserialize_aws_json_1_0(data: dict) -> IngressIpToEvaluate:
         if name is not None:
             return {"$unknown": {"name": name}}
         raise DeserializationError("IngressIpToEvaluate: no recognized variant key")
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IngressIpToEvaluate) -> dict:
+    if "$unknown" in value:
+        raise SerializationError(
+            f"IngressIpToEvaluate: cannot serialize unknown variant {value['$unknown']['name']!r}"
+        )
+    elif "Attribute" in value:
+        import capo_mailmanager.types.ingress_ipv4_attribute
+
+        return {
+            "Attribute": capo_mailmanager.types.ingress_ipv4_attribute.serialize_cbor(
+                value["Attribute"]
+            )
+        }
+    else:
+        raise SerializationError("IngressIpToEvaluate: no variant present")
+
+
+def deserialize_cbor(data: dict) -> IngressIpToEvaluate:
+    if data.get("Attribute") is not None:
+        import capo_mailmanager.types.ingress_ipv4_attribute
+
+        return {
+            "Attribute": capo_mailmanager.types.ingress_ipv4_attribute.deserialize_cbor(
+                data["Attribute"]
+            )
+        }
+    else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return {"$unknown": {"name": name}}
+        raise DeserializationError("IngressIpToEvaluate: no recognized variant key")

@@ -52,3 +52,39 @@ def deserialize_aws_json_1_1(
     if data.get("AcceptLanguage") is not None:
         out["accept_language"] = data["AcceptLanguage"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(
+    value: BatchAssociateServiceActionWithProvisioningArtifactInput,
+) -> dict:
+    out: dict = {}
+    import capo_service_catalog.types.service_action_associations
+
+    out["ServiceActionAssociations"] = (
+        capo_service_catalog.types.service_action_associations.serialize_cbor(
+            value["service_action_associations"]
+        )
+    )
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    return out
+
+
+def deserialize_cbor(
+    data: dict,
+) -> BatchAssociateServiceActionWithProvisioningArtifactInput:
+    out: BatchAssociateServiceActionWithProvisioningArtifactInput = {}  # type: ignore[typeddict-item]
+    if data.get("ServiceActionAssociations") is not None:
+        import capo_service_catalog.types.service_action_associations
+
+        out["service_action_associations"] = (
+            capo_service_catalog.types.service_action_associations.deserialize_cbor(
+                data["ServiceActionAssociations"]
+            )
+        )
+    else:
+        out["service_action_associations"] = []
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    return out

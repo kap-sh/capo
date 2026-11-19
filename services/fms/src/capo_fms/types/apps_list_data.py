@@ -107,3 +107,72 @@ def deserialize_aws_json_1_1(data: dict) -> AppsListData:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AppsListData) -> dict:
+    out: dict = {}
+    if "list_id" in value:
+        out["ListId"] = value["list_id"]
+    out["ListName"] = value["list_name"]
+    if "list_update_token" in value:
+        out["ListUpdateToken"] = value["list_update_token"]
+    if "create_time" in value:
+        import capo_fms.types.time_stamp
+
+        out["CreateTime"] = capo_fms.types.time_stamp.serialize_cbor(
+            value["create_time"]
+        )
+    if "last_update_time" in value:
+        import capo_fms.types.time_stamp
+
+        out["LastUpdateTime"] = capo_fms.types.time_stamp.serialize_cbor(
+            value["last_update_time"]
+        )
+    import capo_fms.types.apps_list
+
+    out["AppsList"] = capo_fms.types.apps_list.serialize_cbor(value["apps_list"])
+    if "previous_apps_list" in value:
+        import capo_fms.types.previous_apps_list
+
+        out["PreviousAppsList"] = capo_fms.types.previous_apps_list.serialize_cbor(
+            value["previous_apps_list"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AppsListData:
+    out: AppsListData = {}  # type: ignore[typeddict-item]
+    if data.get("ListId") is not None:
+        out["list_id"] = data["ListId"]
+    if data.get("ListName") is not None:
+        out["list_name"] = data["ListName"]
+    else:
+        out["list_name"] = ""
+    if data.get("ListUpdateToken") is not None:
+        out["list_update_token"] = data["ListUpdateToken"]
+    if data.get("CreateTime") is not None:
+        import capo_fms.types.time_stamp
+
+        out["create_time"] = capo_fms.types.time_stamp.deserialize_cbor(
+            data["CreateTime"]
+        )
+    if data.get("LastUpdateTime") is not None:
+        import capo_fms.types.time_stamp
+
+        out["last_update_time"] = capo_fms.types.time_stamp.deserialize_cbor(
+            data["LastUpdateTime"]
+        )
+    if data.get("AppsList") is not None:
+        import capo_fms.types.apps_list
+
+        out["apps_list"] = capo_fms.types.apps_list.deserialize_cbor(data["AppsList"])
+    else:
+        out["apps_list"] = []
+    if data.get("PreviousAppsList") is not None:
+        import capo_fms.types.previous_apps_list
+
+        out["previous_apps_list"] = capo_fms.types.previous_apps_list.deserialize_cbor(
+            data["PreviousAppsList"]
+        )
+    return out

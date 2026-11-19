@@ -33,3 +33,22 @@ def deserialize_aws_json_1_1(data: dict) -> RetryBuildInput:
     if data.get("idempotencyToken") is not None:
         out["idempotency_token"] = data["idempotencyToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RetryBuildInput) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["id"] = value["id"]
+    if "idempotency_token" in value:
+        out["idempotencyToken"] = value["idempotency_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RetryBuildInput:
+    out: RetryBuildInput = {}  # type: ignore[typeddict-item]
+    if data.get("id") is not None:
+        out["id"] = data["id"]
+    if data.get("idempotencyToken") is not None:
+        out["idempotency_token"] = data["idempotencyToken"]
+    return out

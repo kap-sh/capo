@@ -22,3 +22,19 @@ def deserialize_aws_json_1_0(data: dict) -> Ec2Ungraceful:
     else:
         out["minimum_success_percentage"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Ec2Ungraceful) -> dict:
+    out: dict = {}
+    out["minimumSuccessPercentage"] = value["minimum_success_percentage"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Ec2Ungraceful:
+    out: Ec2Ungraceful = {}  # type: ignore[typeddict-item]
+    if data.get("minimumSuccessPercentage") is not None:
+        out["minimum_success_percentage"] = data["minimumSuccessPercentage"]
+    else:
+        out["minimum_success_percentage"] = 0
+    return out

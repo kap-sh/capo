@@ -293,6 +293,7 @@ class DirectoryServiceClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[Interceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_1", "rpcv2Cbor"]
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -309,6 +310,7 @@ class DirectoryServiceClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -324,6 +326,7 @@ class DirectoryServiceClient:
         operation_interceptors: Iterable[Interceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_1", "rpcv2Cbor"] = "awsJson1_1",
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -360,6 +363,7 @@ class DirectoryServiceClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -393,6 +397,9 @@ class DirectoryServiceClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_1")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -431,13 +438,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.accept_shared_directory_result.AcceptSharedDirectoryResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.accept_shared_directory
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.accept_shared_directory
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.accept_shared_directory.accept_shared_directory(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.accept_shared_directory.accept_shared_directory(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.accept_shared_directory
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.accept_shared_directory.accept_shared_directory(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -504,13 +522,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.add_ip_routes_result.AddIpRoutesResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.add_ip_routes
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.add_ip_routes
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.add_ip_routes.add_ip_routes(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.add_ip_routes.add_ip_routes(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.add_ip_routes
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.add_ip_routes.add_ip_routes(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -566,13 +595,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.add_region_result.AddRegionResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.add_region
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.add_region
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.add_region.add_region(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.add_region.add_region(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.add_region
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.add_region.add_region(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -625,13 +665,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.add_tags_to_resource_result.AddTagsToResourceResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.add_tags_to_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.add_tags_to_resource
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.add_tags_to_resource.add_tags_to_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.add_tags_to_resource.add_tags_to_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.add_tags_to_resource
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.add_tags_to_resource.add_tags_to_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -681,13 +732,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.cancel_schema_extension_result.CancelSchemaExtensionResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.cancel_schema_extension
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.cancel_schema_extension
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.cancel_schema_extension.cancel_schema_extension(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.cancel_schema_extension.cancel_schema_extension(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.cancel_schema_extension
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.cancel_schema_extension.cancel_schema_extension(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -756,13 +818,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.connect_directory_result.ConnectDirectoryResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.connect_directory
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.connect_directory
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.connect_directory.connect_directory(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.connect_directory.connect_directory(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.connect_directory
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.connect_directory.connect_directory(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -836,13 +909,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.create_alias_result.CreateAliasResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.create_alias
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.create_alias
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.create_alias.create_alias(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.create_alias.create_alias(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.create_alias
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.create_alias.create_alias(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -907,13 +991,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.create_computer_result.CreateComputerResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.create_computer
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.create_computer
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.create_computer.create_computer(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.create_computer.create_computer(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.create_computer
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.create_computer.create_computer(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -994,13 +1089,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.create_conditional_forwarder_result.CreateConditionalForwarderResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.create_conditional_forwarder
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.create_conditional_forwarder
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.create_conditional_forwarder.create_conditional_forwarder(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.create_conditional_forwarder.create_conditional_forwarder(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.create_conditional_forwarder
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.create_conditional_forwarder.create_conditional_forwarder(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1075,13 +1181,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.create_directory_result.CreateDirectoryResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.create_directory
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.create_directory
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.create_directory.create_directory(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.create_directory.create_directory(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.create_directory
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.create_directory.create_directory(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -1154,13 +1271,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.create_hybrid_ad_result.CreateHybridADResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.create_hybrid_ad
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.create_hybrid_ad
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.create_hybrid_ad.create_hybrid_ad(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.create_hybrid_ad.create_hybrid_ad(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.create_hybrid_ad
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.create_hybrid_ad.create_hybrid_ad(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1209,13 +1337,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.create_log_subscription_result.CreateLogSubscriptionResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.create_log_subscription
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.create_log_subscription
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.create_log_subscription.create_log_subscription(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.create_log_subscription.create_log_subscription(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.create_log_subscription
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.create_log_subscription.create_log_subscription(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1287,13 +1426,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.create_microsoft_ad_result.CreateMicrosoftADResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.create_microsoft_ad
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.create_microsoft_ad
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.create_microsoft_ad.create_microsoft_ad(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.create_microsoft_ad.create_microsoft_ad(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.create_microsoft_ad
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.create_microsoft_ad.create_microsoft_ad(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -1368,13 +1518,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.create_snapshot_result.CreateSnapshotResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.create_snapshot
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.create_snapshot
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.create_snapshot.create_snapshot(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.create_snapshot.create_snapshot(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.create_snapshot
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.create_snapshot.create_snapshot(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1448,13 +1609,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.create_trust_result.CreateTrustResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.create_trust
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.create_trust
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.create_trust.create_trust(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.create_trust.create_trust(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.create_trust
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.create_trust.create_trust(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -1520,13 +1692,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.delete_ad_assessment_result.DeleteADAssessmentResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.delete_ad_assessment
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.delete_ad_assessment
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.delete_ad_assessment.delete_ad_assessment(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.delete_ad_assessment.delete_ad_assessment(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.delete_ad_assessment
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.delete_ad_assessment.delete_ad_assessment(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1578,13 +1761,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.delete_conditional_forwarder_result.DeleteConditionalForwarderResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.delete_conditional_forwarder
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.delete_conditional_forwarder
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.delete_conditional_forwarder.delete_conditional_forwarder(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.delete_conditional_forwarder.delete_conditional_forwarder(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.delete_conditional_forwarder
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.delete_conditional_forwarder.delete_conditional_forwarder(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1632,13 +1826,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.delete_directory_result.DeleteDirectoryResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.delete_directory
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.delete_directory
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.delete_directory.delete_directory(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.delete_directory.delete_directory(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.delete_directory
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.delete_directory.delete_directory(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1680,13 +1885,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.delete_log_subscription_result.DeleteLogSubscriptionResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.delete_log_subscription
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.delete_log_subscription
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.delete_log_subscription.delete_log_subscription(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.delete_log_subscription.delete_log_subscription(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.delete_log_subscription
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.delete_log_subscription.delete_log_subscription(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1734,13 +1950,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.delete_snapshot_result.DeleteSnapshotResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.delete_snapshot
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.delete_snapshot
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.delete_snapshot.delete_snapshot(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.delete_snapshot.delete_snapshot(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.delete_snapshot
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.delete_snapshot.delete_snapshot(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1793,13 +2020,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.delete_trust_result.DeleteTrustResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.delete_trust
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.delete_trust
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.delete_trust.delete_trust(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.delete_trust.delete_trust(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.delete_trust
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.delete_trust.delete_trust(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1851,13 +2089,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.deregister_certificate_result.DeregisterCertificateResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.deregister_certificate
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.deregister_certificate
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.deregister_certificate.deregister_certificate(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.deregister_certificate.deregister_certificate(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.deregister_certificate
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.deregister_certificate.deregister_certificate(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1908,13 +2157,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.deregister_event_topic_result.DeregisterEventTopicResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.deregister_event_topic
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.deregister_event_topic
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.deregister_event_topic.deregister_event_topic(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.deregister_event_topic.deregister_event_topic(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.deregister_event_topic
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.deregister_event_topic.deregister_event_topic(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1958,13 +2218,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.describe_ad_assessment_result.DescribeADAssessmentResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.describe_ad_assessment
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_ad_assessment
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.describe_ad_assessment.describe_ad_assessment(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_ad_assessment.describe_ad_assessment(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_ad_assessment
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_ad_assessment.describe_ad_assessment(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2006,13 +2277,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.describe_ca_enrollment_policy_result.DescribeCAEnrollmentPolicyResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.describe_ca_enrollment_policy
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_ca_enrollment_policy
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.describe_ca_enrollment_policy.describe_ca_enrollment_policy(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_ca_enrollment_policy.describe_ca_enrollment_policy(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_ca_enrollment_policy
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_ca_enrollment_policy.describe_ca_enrollment_policy(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2058,13 +2340,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.describe_certificate_result.DescribeCertificateResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.describe_certificate
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_certificate
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.describe_certificate.describe_certificate(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_certificate.describe_certificate(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_certificate
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_certificate.describe_certificate(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2119,13 +2412,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.describe_client_authentication_settings_result.DescribeClientAuthenticationSettingsResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.describe_client_authentication_settings
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_client_authentication_settings
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.describe_client_authentication_settings.describe_client_authentication_settings(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_client_authentication_settings.describe_client_authentication_settings(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_client_authentication_settings
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_client_authentication_settings.describe_client_authentication_settings(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2214,13 +2518,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.describe_conditional_forwarders_result.DescribeConditionalForwardersResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.describe_conditional_forwarders
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_conditional_forwarders
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.describe_conditional_forwarders.describe_conditional_forwarders(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_conditional_forwarders.describe_conditional_forwarders(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_conditional_forwarders
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_conditional_forwarders.describe_conditional_forwarders(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2279,13 +2594,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.describe_directories_result.DescribeDirectoriesResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.describe_directories
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_directories
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.describe_directories.describe_directories(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_directories.describe_directories(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_directories
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_directories.describe_directories(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -2369,13 +2695,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.describe_directory_data_access_result.DescribeDirectoryDataAccessResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.describe_directory_data_access
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_directory_data_access
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.describe_directory_data_access.describe_directory_data_access(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_directory_data_access.describe_directory_data_access(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_directory_data_access
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_directory_data_access.describe_directory_data_access(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2429,13 +2766,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.describe_domain_controllers_result.DescribeDomainControllersResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.describe_domain_controllers
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_domain_controllers
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.describe_domain_controllers.describe_domain_controllers(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_domain_controllers.describe_domain_controllers(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_domain_controllers
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_domain_controllers.describe_domain_controllers(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2522,13 +2870,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.describe_event_topics_result.DescribeEventTopicsResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.describe_event_topics
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_event_topics
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.describe_event_topics.describe_event_topics(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_event_topics.describe_event_topics(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_event_topics
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_event_topics.describe_event_topics(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2582,13 +2941,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.describe_hybrid_ad_update_result.DescribeHybridADUpdateResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.describe_hybrid_ad_update
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_hybrid_ad_update
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.describe_hybrid_ad_update.describe_hybrid_ad_update(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_hybrid_ad_update.describe_hybrid_ad_update(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_hybrid_ad_update
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_hybrid_ad_update.describe_hybrid_ad_update(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2644,13 +3014,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.describe_ldaps_settings_result.DescribeLDAPSSettingsResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.describe_ldaps_settings
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_ldaps_settings
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.describe_ldaps_settings.describe_ldaps_settings(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_ldaps_settings.describe_ldaps_settings(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_ldaps_settings
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_ldaps_settings.describe_ldaps_settings(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2736,13 +3117,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.describe_regions_result.DescribeRegionsResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.describe_regions
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_regions
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.describe_regions.describe_regions(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_regions.describe_regions(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_regions
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_regions.describe_regions(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2825,13 +3217,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.describe_settings_result.DescribeSettingsResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.describe_settings
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_settings
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.describe_settings.describe_settings(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_settings.describe_settings(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_settings
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_settings.describe_settings(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2889,13 +3292,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.describe_shared_directories_result.DescribeSharedDirectoriesResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.describe_shared_directories
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_shared_directories
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.describe_shared_directories.describe_shared_directories(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_shared_directories.describe_shared_directories(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_shared_directories
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_shared_directories.describe_shared_directories(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -3003,13 +3417,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.describe_snapshots_result.DescribeSnapshotsResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.describe_snapshots
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_snapshots
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.describe_snapshots.describe_snapshots(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_snapshots.describe_snapshots(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_snapshots
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_snapshots.describe_snapshots(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3106,13 +3531,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.describe_trusts_result.DescribeTrustsResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.describe_trusts
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_trusts
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.describe_trusts.describe_trusts(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_trusts.describe_trusts(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_trusts
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_trusts.describe_trusts(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3201,13 +3637,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.describe_update_directory_result.DescribeUpdateDirectoryResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.describe_update_directory
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_update_directory
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.describe_update_directory.describe_update_directory(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.describe_update_directory.describe_update_directory(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_update_directory
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.describe_update_directory.describe_update_directory(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3287,13 +3734,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.disable_ca_enrollment_policy_result.DisableCAEnrollmentPolicyResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.disable_ca_enrollment_policy
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.disable_ca_enrollment_policy
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.disable_ca_enrollment_policy.disable_ca_enrollment_policy(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.disable_ca_enrollment_policy.disable_ca_enrollment_policy(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.disable_ca_enrollment_policy
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.disable_ca_enrollment_policy.disable_ca_enrollment_policy(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3339,13 +3797,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.disable_client_authentication_result.DisableClientAuthenticationResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.disable_client_authentication
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.disable_client_authentication
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.disable_client_authentication.disable_client_authentication(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.disable_client_authentication.disable_client_authentication(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.disable_client_authentication
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.disable_client_authentication.disable_client_authentication(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3391,13 +3860,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.disable_directory_data_access_result.DisableDirectoryDataAccessResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.disable_directory_data_access
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.disable_directory_data_access
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.disable_directory_data_access.disable_directory_data_access(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.disable_directory_data_access.disable_directory_data_access(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.disable_directory_data_access
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.disable_directory_data_access.disable_directory_data_access(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3444,13 +3924,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.disable_ldaps_result.DisableLDAPSResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.disable_ldaps
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.disable_ldaps
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.disable_ldaps.disable_ldaps(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.disable_ldaps.disable_ldaps(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.disable_ldaps
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.disable_ldaps.disable_ldaps(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3498,13 +3989,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.disable_radius_result.DisableRadiusResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.disable_radius
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.disable_radius
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.disable_radius.disable_radius(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.disable_radius.disable_radius(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.disable_radius
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.disable_radius.disable_radius(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3559,13 +4061,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.disable_sso_result.DisableSsoResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.disable_sso
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.disable_sso
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.disable_sso.disable_sso(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.disable_sso.disable_sso(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.disable_sso
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.disable_sso.disable_sso(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -3627,13 +4140,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.enable_ca_enrollment_policy_result.EnableCAEnrollmentPolicyResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.enable_ca_enrollment_policy
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.enable_ca_enrollment_policy
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.enable_ca_enrollment_policy.enable_ca_enrollment_policy(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.enable_ca_enrollment_policy.enable_ca_enrollment_policy(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.enable_ca_enrollment_policy
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.enable_ca_enrollment_policy.enable_ca_enrollment_policy(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3681,13 +4205,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.enable_client_authentication_result.EnableClientAuthenticationResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.enable_client_authentication
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.enable_client_authentication
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.enable_client_authentication.enable_client_authentication(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.enable_client_authentication.enable_client_authentication(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.enable_client_authentication
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.enable_client_authentication.enable_client_authentication(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3733,13 +4268,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.enable_directory_data_access_result.EnableDirectoryDataAccessResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.enable_directory_data_access
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.enable_directory_data_access
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.enable_directory_data_access.enable_directory_data_access(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.enable_directory_data_access.enable_directory_data_access(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.enable_directory_data_access
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.enable_directory_data_access.enable_directory_data_access(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3787,13 +4333,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.enable_ldaps_result.EnableLDAPSResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.enable_ldaps
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.enable_ldaps
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.enable_ldaps.enable_ldaps(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.enable_ldaps.enable_ldaps(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.enable_ldaps
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.enable_ldaps.enable_ldaps(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3845,13 +4402,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.enable_radius_result.EnableRadiusResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.enable_radius
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.enable_radius
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.enable_radius.enable_radius(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.enable_radius.enable_radius(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.enable_radius
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.enable_radius.enable_radius(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -3917,13 +4485,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.enable_sso_result.EnableSsoResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.enable_sso
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.enable_sso
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.enable_sso.enable_sso(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.enable_sso.enable_sso(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.enable_sso
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.enable_sso.enable_sso(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -3977,13 +4556,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.get_directory_limits_result.GetDirectoryLimitsResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.get_directory_limits
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.get_directory_limits
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.get_directory_limits.get_directory_limits(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.get_directory_limits.get_directory_limits(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.get_directory_limits
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.get_directory_limits.get_directory_limits(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4028,13 +4618,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.get_snapshot_limits_result.GetSnapshotLimitsResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.get_snapshot_limits
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.get_snapshot_limits
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.get_snapshot_limits.get_snapshot_limits(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.get_snapshot_limits.get_snapshot_limits(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.get_snapshot_limits
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.get_snapshot_limits.get_snapshot_limits(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4087,13 +4688,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.list_ad_assessments_result.ListADAssessmentsResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.list_ad_assessments
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.list_ad_assessments
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.list_ad_assessments.list_ad_assessments(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.list_ad_assessments.list_ad_assessments(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.list_ad_assessments
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.list_ad_assessments.list_ad_assessments(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4176,13 +4788,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.list_certificates_result.ListCertificatesResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.list_certificates
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.list_certificates
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.list_certificates.list_certificates(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.list_certificates.list_certificates(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.list_certificates
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.list_certificates.list_certificates(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4266,13 +4889,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.list_ip_routes_result.ListIpRoutesResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.list_ip_routes
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.list_ip_routes
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.list_ip_routes.list_ip_routes(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.list_ip_routes.list_ip_routes(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.list_ip_routes
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.list_ip_routes.list_ip_routes(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4351,13 +4985,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.list_log_subscriptions_result.ListLogSubscriptionsResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.list_log_subscriptions
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.list_log_subscriptions
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.list_log_subscriptions.list_log_subscriptions(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.list_log_subscriptions.list_log_subscriptions(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.list_log_subscriptions
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.list_log_subscriptions.list_log_subscriptions(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4442,13 +5087,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.list_schema_extensions_result.ListSchemaExtensionsResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.list_schema_extensions
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.list_schema_extensions
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.list_schema_extensions.list_schema_extensions(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.list_schema_extensions.list_schema_extensions(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.list_schema_extensions
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.list_schema_extensions.list_schema_extensions(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4532,13 +5188,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.list_tags_for_resource_result.ListTagsForResourceResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.list_tags_for_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.list_tags_for_resource
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.list_tags_for_resource.list_tags_for_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.list_tags_for_resource
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4624,13 +5291,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.register_certificate_result.RegisterCertificateResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.register_certificate
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.register_certificate
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.register_certificate.register_certificate(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.register_certificate.register_certificate(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.register_certificate
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.register_certificate.register_certificate(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4685,13 +5363,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.register_event_topic_result.RegisterEventTopicResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.register_event_topic
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.register_event_topic
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.register_event_topic.register_event_topic(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.register_event_topic.register_event_topic(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.register_event_topic
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.register_event_topic.register_event_topic(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4735,13 +5424,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.reject_shared_directory_result.RejectSharedDirectoryResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.reject_shared_directory
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.reject_shared_directory
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.reject_shared_directory.reject_shared_directory(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.reject_shared_directory.reject_shared_directory(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.reject_shared_directory
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.reject_shared_directory.reject_shared_directory(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4796,13 +5496,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.remove_ip_routes_result.RemoveIpRoutesResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.remove_ip_routes
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.remove_ip_routes
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.remove_ip_routes.remove_ip_routes(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.remove_ip_routes.remove_ip_routes(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.remove_ip_routes
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.remove_ip_routes.remove_ip_routes(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4850,13 +5561,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.remove_region_result.RemoveRegionResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.remove_region
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.remove_region
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.remove_region.remove_region(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.remove_region.remove_region(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.remove_region
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.remove_region.remove_region(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4906,13 +5628,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.remove_tags_from_resource_result.RemoveTagsFromResourceResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.remove_tags_from_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.remove_tags_from_resource
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.remove_tags_from_resource.remove_tags_from_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.remove_tags_from_resource.remove_tags_from_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.remove_tags_from_resource
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.remove_tags_from_resource.remove_tags_from_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4962,13 +5695,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.reset_user_password_result.ResetUserPasswordResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.reset_user_password
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.reset_user_password
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.reset_user_password.reset_user_password(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.reset_user_password.reset_user_password(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.reset_user_password
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.reset_user_password.reset_user_password(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -5028,13 +5772,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.restore_from_snapshot_result.RestoreFromSnapshotResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.restore_from_snapshot
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.restore_from_snapshot
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.restore_from_snapshot.restore_from_snapshot(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.restore_from_snapshot.restore_from_snapshot(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.restore_from_snapshot
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.restore_from_snapshot.restore_from_snapshot(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5088,13 +5843,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.share_directory_result.ShareDirectoryResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.share_directory
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.share_directory
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.share_directory.share_directory(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.share_directory.share_directory(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.share_directory
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.share_directory.share_directory(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -5160,13 +5926,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.start_ad_assessment_result.StartADAssessmentResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.start_ad_assessment
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.start_ad_assessment
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.start_ad_assessment.start_ad_assessment(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.start_ad_assessment.start_ad_assessment(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.start_ad_assessment
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.start_ad_assessment.start_ad_assessment(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5224,13 +6001,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.start_schema_extension_result.StartSchemaExtensionResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.start_schema_extension
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.start_schema_extension
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.start_schema_extension.start_schema_extension(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.start_schema_extension.start_schema_extension(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.start_schema_extension
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.start_schema_extension.start_schema_extension(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5278,13 +6066,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.unshare_directory_result.UnshareDirectoryResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.unshare_directory
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.unshare_directory
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.unshare_directory.unshare_directory(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.unshare_directory.unshare_directory(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.unshare_directory
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.unshare_directory.unshare_directory(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5345,13 +6144,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.update_conditional_forwarder_result.UpdateConditionalForwarderResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.update_conditional_forwarder
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.update_conditional_forwarder
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.update_conditional_forwarder.update_conditional_forwarder(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.update_conditional_forwarder.update_conditional_forwarder(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.update_conditional_forwarder
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.update_conditional_forwarder.update_conditional_forwarder(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5421,13 +6231,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.update_directory_setup_result.UpdateDirectorySetupResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.update_directory_setup
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.update_directory_setup
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.update_directory_setup.update_directory_setup(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.update_directory_setup.update_directory_setup(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.update_directory_setup
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.update_directory_setup.update_directory_setup(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5488,13 +6309,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.update_hybrid_ad_result.UpdateHybridADResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.update_hybrid_ad
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.update_hybrid_ad
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.update_hybrid_ad.update_hybrid_ad(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.update_hybrid_ad.update_hybrid_ad(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.update_hybrid_ad
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.update_hybrid_ad.update_hybrid_ad(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5547,13 +6379,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.update_number_of_domain_controllers_result.UpdateNumberOfDomainControllersResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.update_number_of_domain_controllers
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.update_number_of_domain_controllers
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.update_number_of_domain_controllers.update_number_of_domain_controllers(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.update_number_of_domain_controllers.update_number_of_domain_controllers(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.update_number_of_domain_controllers
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.update_number_of_domain_controllers.update_number_of_domain_controllers(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5604,13 +6447,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.update_radius_result.UpdateRadiusResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.update_radius
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.update_radius
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.update_radius.update_radius(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.update_radius.update_radius(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.update_radius
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.update_radius.update_radius(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -5669,13 +6523,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.update_settings_result.UpdateSettingsResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.update_settings
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.update_settings
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.update_settings.update_settings(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.update_settings.update_settings(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.update_settings
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.update_settings.update_settings(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5722,13 +6587,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.update_trust_result.UpdateTrustResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.update_trust
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.update_trust
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.update_trust.update_trust(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.update_trust.update_trust(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.update_trust
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.update_trust.update_trust(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5779,13 +6655,24 @@ class DirectoryServiceClient:
         ) -> OperationResponse[
             "capo_directory_service.types.verify_trust_result.VerifyTrustResult"
         ]:
-            import capo_directory_service._operations.directory_service_20150416.verify_trust
+            if req.options.protocol == "awsJson1_1":
+                import capo_directory_service._operations.directory_service_20150416.aws_json1_1.verify_trust
 
-            output, http_response = (
-                capo_directory_service._operations.directory_service_20150416.verify_trust.verify_trust(
-                    req.options, req.input
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.aws_json1_1.verify_trust.verify_trust(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.verify_trust
+
+                output, http_response = (
+                    capo_directory_service._operations.directory_service_20150416.rpcv2_cbor.verify_trust.verify_trust(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

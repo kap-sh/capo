@@ -17,3 +17,12 @@ def serialize_aws_json_1_1(value: DependentServiceName) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> DependentServiceName:
     return cast(DependentServiceName, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DependentServiceName) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> DependentServiceName:
+    return cast(DependentServiceName, data)

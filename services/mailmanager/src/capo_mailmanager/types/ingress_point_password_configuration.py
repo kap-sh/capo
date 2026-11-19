@@ -50,3 +50,38 @@ def deserialize_aws_json_1_0(data: dict) -> IngressPointPasswordConfiguration:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IngressPointPasswordConfiguration) -> dict:
+    out: dict = {}
+    if "smtp_password_version" in value:
+        out["SmtpPasswordVersion"] = value["smtp_password_version"]
+    if "previous_smtp_password_version" in value:
+        out["PreviousSmtpPasswordVersion"] = value["previous_smtp_password_version"]
+    if "previous_smtp_password_expiry_timestamp" in value:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["PreviousSmtpPasswordExpiryTimestamp"] = (
+            capo_mailmanager.types._prelude.timestamp.serialize_cbor(
+                value["previous_smtp_password_expiry_timestamp"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> IngressPointPasswordConfiguration:
+    out: IngressPointPasswordConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("SmtpPasswordVersion") is not None:
+        out["smtp_password_version"] = data["SmtpPasswordVersion"]
+    if data.get("PreviousSmtpPasswordVersion") is not None:
+        out["previous_smtp_password_version"] = data["PreviousSmtpPasswordVersion"]
+    if data.get("PreviousSmtpPasswordExpiryTimestamp") is not None:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["previous_smtp_password_expiry_timestamp"] = (
+            capo_mailmanager.types._prelude.timestamp.deserialize_cbor(
+                data["PreviousSmtpPasswordExpiryTimestamp"]
+            )
+        )
+    return out

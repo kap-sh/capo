@@ -69,3 +69,50 @@ def deserialize_aws_json_1_0(data: dict) -> UpdatePlanExecutionRequest:
     if data.get("comment") is not None:
         out["comment"] = data["comment"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdatePlanExecutionRequest) -> dict:
+    out: dict = {}
+    out["planArn"] = value["plan_arn"]
+    out["executionId"] = value["execution_id"]
+    import capo_arc_region_switch.types.update_plan_execution_action
+
+    out["action"] = (
+        capo_arc_region_switch.types.update_plan_execution_action.serialize_cbor(
+            value["action"]
+        )
+    )
+    if "comment" in value:
+        out["comment"] = value["comment"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdatePlanExecutionRequest:
+    out: UpdatePlanExecutionRequest = {}  # type: ignore[typeddict-item]
+    if data.get("planArn") is not None:
+        out["plan_arn"] = data["planArn"]
+    else:
+        out["plan_arn"] = ""
+    if data.get("executionId") is not None:
+        out["execution_id"] = data["executionId"]
+    else:
+        out["execution_id"] = ""
+    if data.get("action") is not None:
+        import capo_arc_region_switch.types.update_plan_execution_action
+
+        out["action"] = (
+            capo_arc_region_switch.types.update_plan_execution_action.deserialize_cbor(
+                data["action"]
+            )
+        )
+    else:
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_arc_region_switch.types.update_plan_execution_action.UpdatePlanExecutionAction",
+            "",
+        )
+    if data.get("comment") is not None:
+        out["comment"] = data["comment"]
+    return out

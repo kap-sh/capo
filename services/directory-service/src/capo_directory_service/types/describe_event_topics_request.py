@@ -45,3 +45,30 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeEventTopicsRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeEventTopicsRequest) -> dict:
+    out: dict = {}
+    if "directory_id" in value:
+        out["DirectoryId"] = value["directory_id"]
+    if "topic_names" in value:
+        import capo_directory_service.types.topic_names
+
+        out["TopicNames"] = capo_directory_service.types.topic_names.serialize_cbor(
+            value["topic_names"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeEventTopicsRequest:
+    out: DescribeEventTopicsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    if data.get("TopicNames") is not None:
+        import capo_directory_service.types.topic_names
+
+        out["topic_names"] = capo_directory_service.types.topic_names.deserialize_cbor(
+            data["TopicNames"]
+        )
+    return out

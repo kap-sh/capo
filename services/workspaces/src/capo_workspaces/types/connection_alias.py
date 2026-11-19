@@ -84,3 +84,54 @@ def deserialize_aws_json_1_1(data: dict) -> ConnectionAlias:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ConnectionAlias) -> dict:
+    out: dict = {}
+    if "connection_string" in value:
+        out["ConnectionString"] = value["connection_string"]
+    if "alias_id" in value:
+        out["AliasId"] = value["alias_id"]
+    if "state" in value:
+        import capo_workspaces.types.connection_alias_state
+
+        out["State"] = capo_workspaces.types.connection_alias_state.serialize_cbor(
+            value["state"]
+        )
+    if "owner_account_id" in value:
+        out["OwnerAccountId"] = value["owner_account_id"]
+    if "associations" in value:
+        import capo_workspaces.types.connection_alias_association_list
+
+        out["Associations"] = (
+            capo_workspaces.types.connection_alias_association_list.serialize_cbor(
+                value["associations"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ConnectionAlias:
+    out: ConnectionAlias = {}  # type: ignore[typeddict-item]
+    if data.get("ConnectionString") is not None:
+        out["connection_string"] = data["ConnectionString"]
+    if data.get("AliasId") is not None:
+        out["alias_id"] = data["AliasId"]
+    if data.get("State") is not None:
+        import capo_workspaces.types.connection_alias_state
+
+        out["state"] = capo_workspaces.types.connection_alias_state.deserialize_cbor(
+            data["State"]
+        )
+    if data.get("OwnerAccountId") is not None:
+        out["owner_account_id"] = data["OwnerAccountId"]
+    if data.get("Associations") is not None:
+        import capo_workspaces.types.connection_alias_association_list
+
+        out["associations"] = (
+            capo_workspaces.types.connection_alias_association_list.deserialize_cbor(
+                data["Associations"]
+            )
+        )
+    return out

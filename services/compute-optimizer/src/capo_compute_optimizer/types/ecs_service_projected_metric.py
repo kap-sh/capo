@@ -100,3 +100,74 @@ def deserialize_aws_json_1_0(data: dict) -> ECSServiceProjectedMetric:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ECSServiceProjectedMetric) -> dict:
+    out: dict = {}
+    if "name" in value:
+        import capo_compute_optimizer.types.ecs_service_metric_name
+
+        out["name"] = (
+            capo_compute_optimizer.types.ecs_service_metric_name.serialize_cbor(
+                value["name"]
+            )
+        )
+    if "timestamps" in value:
+        import capo_compute_optimizer.types.timestamps
+
+        out["timestamps"] = capo_compute_optimizer.types.timestamps.serialize_cbor(
+            value["timestamps"]
+        )
+    if "upper_bound_values" in value:
+        import capo_compute_optimizer.types.metric_values
+
+        out["upperBoundValues"] = (
+            capo_compute_optimizer.types.metric_values.serialize_cbor(
+                value["upper_bound_values"]
+            )
+        )
+    if "lower_bound_values" in value:
+        import capo_compute_optimizer.types.metric_values
+
+        out["lowerBoundValues"] = (
+            capo_compute_optimizer.types.metric_values.serialize_cbor(
+                value["lower_bound_values"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ECSServiceProjectedMetric:
+    out: ECSServiceProjectedMetric = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        import capo_compute_optimizer.types.ecs_service_metric_name
+
+        out["name"] = (
+            capo_compute_optimizer.types.ecs_service_metric_name.deserialize_cbor(
+                data["name"]
+            )
+        )
+    if data.get("timestamps") is not None:
+        import capo_compute_optimizer.types.timestamps
+
+        out["timestamps"] = capo_compute_optimizer.types.timestamps.deserialize_cbor(
+            data["timestamps"]
+        )
+    if data.get("upperBoundValues") is not None:
+        import capo_compute_optimizer.types.metric_values
+
+        out["upper_bound_values"] = (
+            capo_compute_optimizer.types.metric_values.deserialize_cbor(
+                data["upperBoundValues"]
+            )
+        )
+    if data.get("lowerBoundValues") is not None:
+        import capo_compute_optimizer.types.metric_values
+
+        out["lower_bound_values"] = (
+            capo_compute_optimizer.types.metric_values.deserialize_cbor(
+                data["lowerBoundValues"]
+            )
+        )
+    return out

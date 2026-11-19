@@ -34,3 +34,22 @@ def deserialize_aws_json_1_0(data: dict) -> GetArchiveMessageContentResponse:
             data["Body"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetArchiveMessageContentResponse) -> dict:
+    out: dict = {}
+    if "body" in value:
+        import capo_mailmanager.types.message_body
+
+        out["Body"] = capo_mailmanager.types.message_body.serialize_cbor(value["body"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetArchiveMessageContentResponse:
+    out: GetArchiveMessageContentResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Body") is not None:
+        import capo_mailmanager.types.message_body
+
+        out["body"] = capo_mailmanager.types.message_body.deserialize_cbor(data["Body"])
+    return out

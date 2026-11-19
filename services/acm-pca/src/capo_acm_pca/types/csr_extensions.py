@@ -55,3 +55,42 @@ def deserialize_aws_json_1_1(data: dict) -> CsrExtensions:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CsrExtensions) -> dict:
+    out: dict = {}
+    if "key_usage" in value:
+        import capo_acm_pca.types.key_usage
+
+        out["KeyUsage"] = capo_acm_pca.types.key_usage.serialize_cbor(
+            value["key_usage"]
+        )
+    if "subject_information_access" in value:
+        import capo_acm_pca.types.access_description_list
+
+        out["SubjectInformationAccess"] = (
+            capo_acm_pca.types.access_description_list.serialize_cbor(
+                value["subject_information_access"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CsrExtensions:
+    out: CsrExtensions = {}  # type: ignore[typeddict-item]
+    if data.get("KeyUsage") is not None:
+        import capo_acm_pca.types.key_usage
+
+        out["key_usage"] = capo_acm_pca.types.key_usage.deserialize_cbor(
+            data["KeyUsage"]
+        )
+    if data.get("SubjectInformationAccess") is not None:
+        import capo_acm_pca.types.access_description_list
+
+        out["subject_information_access"] = (
+            capo_acm_pca.types.access_description_list.deserialize_cbor(
+                data["SubjectInformationAccess"]
+            )
+        )
+    return out

@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> Mitigation:
     if data.get("MitigationName") is not None:
         out["mitigation_name"] = data["MitigationName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Mitigation) -> dict:
+    out: dict = {}
+    if "mitigation_name" in value:
+        out["MitigationName"] = value["mitigation_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Mitigation:
+    out: Mitigation = {}  # type: ignore[typeddict-item]
+    if data.get("MitigationName") is not None:
+        out["mitigation_name"] = data["MitigationName"]
+    return out

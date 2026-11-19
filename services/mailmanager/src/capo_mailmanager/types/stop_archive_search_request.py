@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> StopArchiveSearchRequest:
     else:
         out["search_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StopArchiveSearchRequest) -> dict:
+    out: dict = {}
+    out["SearchId"] = value["search_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StopArchiveSearchRequest:
+    out: StopArchiveSearchRequest = {}  # type: ignore[typeddict-item]
+    if data.get("SearchId") is not None:
+        out["search_id"] = data["SearchId"]
+    else:
+        out["search_id"] = ""
+    return out

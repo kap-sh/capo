@@ -58,3 +58,38 @@ def deserialize_aws_json_1_1(
             data["ViolatingRoutes"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: NetworkFirewallBlackHoleRouteDetectedViolation) -> dict:
+    out: dict = {}
+    if "violation_target" in value:
+        out["ViolationTarget"] = value["violation_target"]
+    if "route_table_id" in value:
+        out["RouteTableId"] = value["route_table_id"]
+    if "vpc_id" in value:
+        out["VpcId"] = value["vpc_id"]
+    if "violating_routes" in value:
+        import capo_fms.types.routes
+
+        out["ViolatingRoutes"] = capo_fms.types.routes.serialize_cbor(
+            value["violating_routes"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> NetworkFirewallBlackHoleRouteDetectedViolation:
+    out: NetworkFirewallBlackHoleRouteDetectedViolation = {}  # type: ignore[typeddict-item]
+    if data.get("ViolationTarget") is not None:
+        out["violation_target"] = data["ViolationTarget"]
+    if data.get("RouteTableId") is not None:
+        out["route_table_id"] = data["RouteTableId"]
+    if data.get("VpcId") is not None:
+        out["vpc_id"] = data["VpcId"]
+    if data.get("ViolatingRoutes") is not None:
+        import capo_fms.types.routes
+
+        out["violating_routes"] = capo_fms.types.routes.deserialize_cbor(
+            data["ViolatingRoutes"]
+        )
+    return out

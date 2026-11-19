@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> StreamingExperienceSettings:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StreamingExperienceSettings) -> dict:
+    out: dict = {}
+    if "preferred_protocol" in value:
+        import capo_appstream.types.preferred_protocol
+
+        out["PreferredProtocol"] = (
+            capo_appstream.types.preferred_protocol.serialize_cbor(
+                value["preferred_protocol"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StreamingExperienceSettings:
+    out: StreamingExperienceSettings = {}  # type: ignore[typeddict-item]
+    if data.get("PreferredProtocol") is not None:
+        import capo_appstream.types.preferred_protocol
+
+        out["preferred_protocol"] = (
+            capo_appstream.types.preferred_protocol.deserialize_cbor(
+                data["PreferredProtocol"]
+            )
+        )
+    return out

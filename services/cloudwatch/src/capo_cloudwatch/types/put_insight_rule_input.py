@@ -118,3 +118,38 @@ def deserialize_query(el: Element) -> PutInsightRuleInput:
             child_apply_on_transformed_logs.text or ""
         ).lower() == "true"
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PutInsightRuleInput) -> dict:
+    out: dict = {}
+    if "rule_name" in value:
+        out["RuleName"] = value["rule_name"]
+    if "rule_state" in value:
+        out["RuleState"] = value["rule_state"]
+    if "rule_definition" in value:
+        out["RuleDefinition"] = value["rule_definition"]
+    if "tags" in value:
+        import capo_cloudwatch.types.tag_list
+
+        out["Tags"] = capo_cloudwatch.types.tag_list.serialize_cbor(value["tags"])
+    if "apply_on_transformed_logs" in value:
+        out["ApplyOnTransformedLogs"] = value["apply_on_transformed_logs"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> PutInsightRuleInput:
+    out: PutInsightRuleInput = {}  # type: ignore[typeddict-item]
+    if data.get("RuleName") is not None:
+        out["rule_name"] = data["RuleName"]
+    if data.get("RuleState") is not None:
+        out["rule_state"] = data["RuleState"]
+    if data.get("RuleDefinition") is not None:
+        out["rule_definition"] = data["RuleDefinition"]
+    if data.get("Tags") is not None:
+        import capo_cloudwatch.types.tag_list
+
+        out["tags"] = capo_cloudwatch.types.tag_list.deserialize_cbor(data["Tags"])
+    if data.get("ApplyOnTransformedLogs") is not None:
+        out["apply_on_transformed_logs"] = data["ApplyOnTransformedLogs"]
+    return out

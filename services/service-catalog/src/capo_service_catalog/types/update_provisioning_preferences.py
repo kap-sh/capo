@@ -128,3 +128,88 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateProvisioningPreferences:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateProvisioningPreferences) -> dict:
+    out: dict = {}
+    if "stack_set_accounts" in value:
+        import capo_service_catalog.types.stack_set_accounts
+
+        out["StackSetAccounts"] = (
+            capo_service_catalog.types.stack_set_accounts.serialize_cbor(
+                value["stack_set_accounts"]
+            )
+        )
+    if "stack_set_regions" in value:
+        import capo_service_catalog.types.stack_set_regions
+
+        out["StackSetRegions"] = (
+            capo_service_catalog.types.stack_set_regions.serialize_cbor(
+                value["stack_set_regions"]
+            )
+        )
+    if "stack_set_failure_tolerance_count" in value:
+        out["StackSetFailureToleranceCount"] = value[
+            "stack_set_failure_tolerance_count"
+        ]
+    if "stack_set_failure_tolerance_percentage" in value:
+        out["StackSetFailureTolerancePercentage"] = value[
+            "stack_set_failure_tolerance_percentage"
+        ]
+    if "stack_set_max_concurrency_count" in value:
+        out["StackSetMaxConcurrencyCount"] = value["stack_set_max_concurrency_count"]
+    if "stack_set_max_concurrency_percentage" in value:
+        out["StackSetMaxConcurrencyPercentage"] = value[
+            "stack_set_max_concurrency_percentage"
+        ]
+    if "stack_set_operation_type" in value:
+        import capo_service_catalog.types.stack_set_operation_type
+
+        out["StackSetOperationType"] = (
+            capo_service_catalog.types.stack_set_operation_type.serialize_cbor(
+                value["stack_set_operation_type"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateProvisioningPreferences:
+    out: UpdateProvisioningPreferences = {}  # type: ignore[typeddict-item]
+    if data.get("StackSetAccounts") is not None:
+        import capo_service_catalog.types.stack_set_accounts
+
+        out["stack_set_accounts"] = (
+            capo_service_catalog.types.stack_set_accounts.deserialize_cbor(
+                data["StackSetAccounts"]
+            )
+        )
+    if data.get("StackSetRegions") is not None:
+        import capo_service_catalog.types.stack_set_regions
+
+        out["stack_set_regions"] = (
+            capo_service_catalog.types.stack_set_regions.deserialize_cbor(
+                data["StackSetRegions"]
+            )
+        )
+    if data.get("StackSetFailureToleranceCount") is not None:
+        out["stack_set_failure_tolerance_count"] = data["StackSetFailureToleranceCount"]
+    if data.get("StackSetFailureTolerancePercentage") is not None:
+        out["stack_set_failure_tolerance_percentage"] = data[
+            "StackSetFailureTolerancePercentage"
+        ]
+    if data.get("StackSetMaxConcurrencyCount") is not None:
+        out["stack_set_max_concurrency_count"] = data["StackSetMaxConcurrencyCount"]
+    if data.get("StackSetMaxConcurrencyPercentage") is not None:
+        out["stack_set_max_concurrency_percentage"] = data[
+            "StackSetMaxConcurrencyPercentage"
+        ]
+    if data.get("StackSetOperationType") is not None:
+        import capo_service_catalog.types.stack_set_operation_type
+
+        out["stack_set_operation_type"] = (
+            capo_service_catalog.types.stack_set_operation_type.deserialize_cbor(
+                data["StackSetOperationType"]
+            )
+        )
+    return out

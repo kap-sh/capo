@@ -37,6 +37,25 @@ def deserialize_aws_json_1_1(data: dict) -> StartSandboxInput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartSandboxInput) -> dict:
+    out: dict = {}
+    if "project_name" in value:
+        out["projectName"] = value["project_name"]
+    if "idempotency_token" in value:
+        out["idempotencyToken"] = value["idempotency_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartSandboxInput:
+    out: StartSandboxInput = {}  # type: ignore[typeddict-item]
+    if data.get("projectName") is not None:
+        out["project_name"] = data["projectName"]
+    if data.get("idempotencyToken") is not None:
+        out["idempotency_token"] = data["idempotencyToken"]
+    return out
+
+
 def redact_sensitive(value: StartSandboxInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "idempotency_token" in value:

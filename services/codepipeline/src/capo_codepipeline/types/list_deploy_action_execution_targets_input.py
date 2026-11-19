@@ -67,3 +67,43 @@ def deserialize_aws_json_1_1(data: dict) -> ListDeployActionExecutionTargetsInpu
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListDeployActionExecutionTargetsInput) -> dict:
+    out: dict = {}
+    if "pipeline_name" in value:
+        out["pipelineName"] = value["pipeline_name"]
+    out["actionExecutionId"] = value["action_execution_id"]
+    if "filters" in value:
+        import capo_codepipeline.types.target_filter_list
+
+        out["filters"] = capo_codepipeline.types.target_filter_list.serialize_cbor(
+            value["filters"]
+        )
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListDeployActionExecutionTargetsInput:
+    out: ListDeployActionExecutionTargetsInput = {}  # type: ignore[typeddict-item]
+    if data.get("pipelineName") is not None:
+        out["pipeline_name"] = data["pipelineName"]
+    if data.get("actionExecutionId") is not None:
+        out["action_execution_id"] = data["actionExecutionId"]
+    else:
+        out["action_execution_id"] = ""
+    if data.get("filters") is not None:
+        import capo_codepipeline.types.target_filter_list
+
+        out["filters"] = capo_codepipeline.types.target_filter_list.deserialize_cbor(
+            data["filters"]
+        )
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

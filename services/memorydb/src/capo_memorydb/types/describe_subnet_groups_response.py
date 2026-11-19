@@ -45,3 +45,30 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeSubnetGroupsResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeSubnetGroupsResponse) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "subnet_groups" in value:
+        import capo_memorydb.types.subnet_group_list
+
+        out["SubnetGroups"] = capo_memorydb.types.subnet_group_list.serialize_cbor(
+            value["subnet_groups"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeSubnetGroupsResponse:
+    out: DescribeSubnetGroupsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("SubnetGroups") is not None:
+        import capo_memorydb.types.subnet_group_list
+
+        out["subnet_groups"] = capo_memorydb.types.subnet_group_list.deserialize_cbor(
+            data["SubnetGroups"]
+        )
+    return out

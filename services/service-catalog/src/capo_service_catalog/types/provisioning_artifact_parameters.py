@@ -37,3 +37,32 @@ def deserialize_aws_json_1_1(data: list) -> ProvisioningArtifactParameters:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ProvisioningArtifactParameters) -> list:
+    import capo_service_catalog.types.provisioning_artifact_parameter
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_service_catalog.types.provisioning_artifact_parameter.serialize_cbor(
+                item
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> ProvisioningArtifactParameters:
+    import capo_service_catalog.types.provisioning_artifact_parameter
+
+    out: ProvisioningArtifactParameters = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_service_catalog.types.provisioning_artifact_parameter.deserialize_cbor(
+                item
+            )
+        )
+    return out

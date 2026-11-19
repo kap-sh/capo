@@ -536,3 +536,383 @@ def deserialize_aws_json_1_1(data: dict) -> DeploymentInfo:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeploymentInfo) -> dict:
+    out: dict = {}
+    if "application_name" in value:
+        out["applicationName"] = value["application_name"]
+    if "deployment_group_name" in value:
+        out["deploymentGroupName"] = value["deployment_group_name"]
+    if "deployment_config_name" in value:
+        out["deploymentConfigName"] = value["deployment_config_name"]
+    if "deployment_id" in value:
+        out["deploymentId"] = value["deployment_id"]
+    if "previous_revision" in value:
+        import capo_codedeploy.types.revision_location
+
+        out["previousRevision"] = (
+            capo_codedeploy.types.revision_location.serialize_cbor(
+                value["previous_revision"]
+            )
+        )
+    if "revision" in value:
+        import capo_codedeploy.types.revision_location
+
+        out["revision"] = capo_codedeploy.types.revision_location.serialize_cbor(
+            value["revision"]
+        )
+    if "status" in value:
+        import capo_codedeploy.types.deployment_status
+
+        out["status"] = capo_codedeploy.types.deployment_status.serialize_cbor(
+            value["status"]
+        )
+    if "error_information" in value:
+        import capo_codedeploy.types.error_information
+
+        out["errorInformation"] = (
+            capo_codedeploy.types.error_information.serialize_cbor(
+                value["error_information"]
+            )
+        )
+    if "create_time" in value:
+        import capo_codedeploy.types.timestamp
+
+        out["createTime"] = capo_codedeploy.types.timestamp.serialize_cbor(
+            value["create_time"]
+        )
+    if "start_time" in value:
+        import capo_codedeploy.types.timestamp
+
+        out["startTime"] = capo_codedeploy.types.timestamp.serialize_cbor(
+            value["start_time"]
+        )
+    if "complete_time" in value:
+        import capo_codedeploy.types.timestamp
+
+        out["completeTime"] = capo_codedeploy.types.timestamp.serialize_cbor(
+            value["complete_time"]
+        )
+    if "deployment_overview" in value:
+        import capo_codedeploy.types.deployment_overview
+
+        out["deploymentOverview"] = (
+            capo_codedeploy.types.deployment_overview.serialize_cbor(
+                value["deployment_overview"]
+            )
+        )
+    if "description" in value:
+        out["description"] = value["description"]
+    if "creator" in value:
+        import capo_codedeploy.types.deployment_creator
+
+        out["creator"] = capo_codedeploy.types.deployment_creator.serialize_cbor(
+            value["creator"]
+        )
+    out["ignoreApplicationStopFailures"] = value.get(
+        "ignore_application_stop_failures", False
+    )
+    if "auto_rollback_configuration" in value:
+        import capo_codedeploy.types.auto_rollback_configuration
+
+        out["autoRollbackConfiguration"] = (
+            capo_codedeploy.types.auto_rollback_configuration.serialize_cbor(
+                value["auto_rollback_configuration"]
+            )
+        )
+    out["updateOutdatedInstancesOnly"] = value.get(
+        "update_outdated_instances_only", False
+    )
+    if "rollback_info" in value:
+        import capo_codedeploy.types.rollback_info
+
+        out["rollbackInfo"] = capo_codedeploy.types.rollback_info.serialize_cbor(
+            value["rollback_info"]
+        )
+    if "deployment_style" in value:
+        import capo_codedeploy.types.deployment_style
+
+        out["deploymentStyle"] = capo_codedeploy.types.deployment_style.serialize_cbor(
+            value["deployment_style"]
+        )
+    if "target_instances" in value:
+        import capo_codedeploy.types.target_instances
+
+        out["targetInstances"] = capo_codedeploy.types.target_instances.serialize_cbor(
+            value["target_instances"]
+        )
+    out["instanceTerminationWaitTimeStarted"] = value.get(
+        "instance_termination_wait_time_started", False
+    )
+    if "blue_green_deployment_configuration" in value:
+        import capo_codedeploy.types.blue_green_deployment_configuration
+
+        out["blueGreenDeploymentConfiguration"] = (
+            capo_codedeploy.types.blue_green_deployment_configuration.serialize_cbor(
+                value["blue_green_deployment_configuration"]
+            )
+        )
+    if "load_balancer_info" in value:
+        import capo_codedeploy.types.load_balancer_info
+
+        out["loadBalancerInfo"] = (
+            capo_codedeploy.types.load_balancer_info.serialize_cbor(
+                value["load_balancer_info"]
+            )
+        )
+    if "additional_deployment_status_info" in value:
+        out["additionalDeploymentStatusInfo"] = value[
+            "additional_deployment_status_info"
+        ]
+    if "file_exists_behavior" in value:
+        import capo_codedeploy.types.file_exists_behavior
+
+        out["fileExistsBehavior"] = (
+            capo_codedeploy.types.file_exists_behavior.serialize_cbor(
+                value["file_exists_behavior"]
+            )
+        )
+    if "deployment_mode" in value:
+        import capo_codedeploy.types.deployment_mode
+
+        out["deploymentMode"] = capo_codedeploy.types.deployment_mode.serialize_cbor(
+            value["deployment_mode"]
+        )
+    if "deployment_status_messages" in value:
+        import capo_codedeploy.types.deployment_status_message_list
+
+        out["deploymentStatusMessages"] = (
+            capo_codedeploy.types.deployment_status_message_list.serialize_cbor(
+                value["deployment_status_messages"]
+            )
+        )
+    if "compute_platform" in value:
+        import capo_codedeploy.types.compute_platform
+
+        out["computePlatform"] = capo_codedeploy.types.compute_platform.serialize_cbor(
+            value["compute_platform"]
+        )
+    if "external_id" in value:
+        out["externalId"] = value["external_id"]
+    if "related_deployments" in value:
+        import capo_codedeploy.types.related_deployments
+
+        out["relatedDeployments"] = (
+            capo_codedeploy.types.related_deployments.serialize_cbor(
+                value["related_deployments"]
+            )
+        )
+    if "override_alarm_configuration" in value:
+        import capo_codedeploy.types.alarm_configuration
+
+        out["overrideAlarmConfiguration"] = (
+            capo_codedeploy.types.alarm_configuration.serialize_cbor(
+                value["override_alarm_configuration"]
+            )
+        )
+    if "ec2_deployment_options" in value:
+        import capo_codedeploy.types.ec2_deployment_options
+
+        out["ec2DeploymentOptions"] = (
+            capo_codedeploy.types.ec2_deployment_options.serialize_cbor(
+                value["ec2_deployment_options"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeploymentInfo:
+    out: DeploymentInfo = {}  # type: ignore[typeddict-item]
+    if data.get("applicationName") is not None:
+        out["application_name"] = data["applicationName"]
+    if data.get("deploymentGroupName") is not None:
+        out["deployment_group_name"] = data["deploymentGroupName"]
+    if data.get("deploymentConfigName") is not None:
+        out["deployment_config_name"] = data["deploymentConfigName"]
+    if data.get("deploymentId") is not None:
+        out["deployment_id"] = data["deploymentId"]
+    if data.get("previousRevision") is not None:
+        import capo_codedeploy.types.revision_location
+
+        out["previous_revision"] = (
+            capo_codedeploy.types.revision_location.deserialize_cbor(
+                data["previousRevision"]
+            )
+        )
+    if data.get("revision") is not None:
+        import capo_codedeploy.types.revision_location
+
+        out["revision"] = capo_codedeploy.types.revision_location.deserialize_cbor(
+            data["revision"]
+        )
+    if data.get("status") is not None:
+        import capo_codedeploy.types.deployment_status
+
+        out["status"] = capo_codedeploy.types.deployment_status.deserialize_cbor(
+            data["status"]
+        )
+    if data.get("errorInformation") is not None:
+        import capo_codedeploy.types.error_information
+
+        out["error_information"] = (
+            capo_codedeploy.types.error_information.deserialize_cbor(
+                data["errorInformation"]
+            )
+        )
+    if data.get("createTime") is not None:
+        import capo_codedeploy.types.timestamp
+
+        out["create_time"] = capo_codedeploy.types.timestamp.deserialize_cbor(
+            data["createTime"]
+        )
+    if data.get("startTime") is not None:
+        import capo_codedeploy.types.timestamp
+
+        out["start_time"] = capo_codedeploy.types.timestamp.deserialize_cbor(
+            data["startTime"]
+        )
+    if data.get("completeTime") is not None:
+        import capo_codedeploy.types.timestamp
+
+        out["complete_time"] = capo_codedeploy.types.timestamp.deserialize_cbor(
+            data["completeTime"]
+        )
+    if data.get("deploymentOverview") is not None:
+        import capo_codedeploy.types.deployment_overview
+
+        out["deployment_overview"] = (
+            capo_codedeploy.types.deployment_overview.deserialize_cbor(
+                data["deploymentOverview"]
+            )
+        )
+    if data.get("description") is not None:
+        out["description"] = data["description"]
+    if data.get("creator") is not None:
+        import capo_codedeploy.types.deployment_creator
+
+        out["creator"] = capo_codedeploy.types.deployment_creator.deserialize_cbor(
+            data["creator"]
+        )
+    if data.get("ignoreApplicationStopFailures") is not None:
+        out["ignore_application_stop_failures"] = data["ignoreApplicationStopFailures"]
+    else:
+        out["ignore_application_stop_failures"] = False
+    if data.get("autoRollbackConfiguration") is not None:
+        import capo_codedeploy.types.auto_rollback_configuration
+
+        out["auto_rollback_configuration"] = (
+            capo_codedeploy.types.auto_rollback_configuration.deserialize_cbor(
+                data["autoRollbackConfiguration"]
+            )
+        )
+    if data.get("updateOutdatedInstancesOnly") is not None:
+        out["update_outdated_instances_only"] = data["updateOutdatedInstancesOnly"]
+    else:
+        out["update_outdated_instances_only"] = False
+    if data.get("rollbackInfo") is not None:
+        import capo_codedeploy.types.rollback_info
+
+        out["rollback_info"] = capo_codedeploy.types.rollback_info.deserialize_cbor(
+            data["rollbackInfo"]
+        )
+    if data.get("deploymentStyle") is not None:
+        import capo_codedeploy.types.deployment_style
+
+        out["deployment_style"] = (
+            capo_codedeploy.types.deployment_style.deserialize_cbor(
+                data["deploymentStyle"]
+            )
+        )
+    if data.get("targetInstances") is not None:
+        import capo_codedeploy.types.target_instances
+
+        out["target_instances"] = (
+            capo_codedeploy.types.target_instances.deserialize_cbor(
+                data["targetInstances"]
+            )
+        )
+    if data.get("instanceTerminationWaitTimeStarted") is not None:
+        out["instance_termination_wait_time_started"] = data[
+            "instanceTerminationWaitTimeStarted"
+        ]
+    else:
+        out["instance_termination_wait_time_started"] = False
+    if data.get("blueGreenDeploymentConfiguration") is not None:
+        import capo_codedeploy.types.blue_green_deployment_configuration
+
+        out["blue_green_deployment_configuration"] = (
+            capo_codedeploy.types.blue_green_deployment_configuration.deserialize_cbor(
+                data["blueGreenDeploymentConfiguration"]
+            )
+        )
+    if data.get("loadBalancerInfo") is not None:
+        import capo_codedeploy.types.load_balancer_info
+
+        out["load_balancer_info"] = (
+            capo_codedeploy.types.load_balancer_info.deserialize_cbor(
+                data["loadBalancerInfo"]
+            )
+        )
+    if data.get("additionalDeploymentStatusInfo") is not None:
+        out["additional_deployment_status_info"] = data[
+            "additionalDeploymentStatusInfo"
+        ]
+    if data.get("fileExistsBehavior") is not None:
+        import capo_codedeploy.types.file_exists_behavior
+
+        out["file_exists_behavior"] = (
+            capo_codedeploy.types.file_exists_behavior.deserialize_cbor(
+                data["fileExistsBehavior"]
+            )
+        )
+    if data.get("deploymentMode") is not None:
+        import capo_codedeploy.types.deployment_mode
+
+        out["deployment_mode"] = capo_codedeploy.types.deployment_mode.deserialize_cbor(
+            data["deploymentMode"]
+        )
+    if data.get("deploymentStatusMessages") is not None:
+        import capo_codedeploy.types.deployment_status_message_list
+
+        out["deployment_status_messages"] = (
+            capo_codedeploy.types.deployment_status_message_list.deserialize_cbor(
+                data["deploymentStatusMessages"]
+            )
+        )
+    if data.get("computePlatform") is not None:
+        import capo_codedeploy.types.compute_platform
+
+        out["compute_platform"] = (
+            capo_codedeploy.types.compute_platform.deserialize_cbor(
+                data["computePlatform"]
+            )
+        )
+    if data.get("externalId") is not None:
+        out["external_id"] = data["externalId"]
+    if data.get("relatedDeployments") is not None:
+        import capo_codedeploy.types.related_deployments
+
+        out["related_deployments"] = (
+            capo_codedeploy.types.related_deployments.deserialize_cbor(
+                data["relatedDeployments"]
+            )
+        )
+    if data.get("overrideAlarmConfiguration") is not None:
+        import capo_codedeploy.types.alarm_configuration
+
+        out["override_alarm_configuration"] = (
+            capo_codedeploy.types.alarm_configuration.deserialize_cbor(
+                data["overrideAlarmConfiguration"]
+            )
+        )
+    if data.get("ec2DeploymentOptions") is not None:
+        import capo_codedeploy.types.ec2_deployment_options
+
+        out["ec2_deployment_options"] = (
+            capo_codedeploy.types.ec2_deployment_options.deserialize_cbor(
+                data["ec2DeploymentOptions"]
+            )
+        )
+    return out

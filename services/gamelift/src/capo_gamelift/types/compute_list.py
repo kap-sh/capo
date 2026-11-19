@@ -29,6 +29,27 @@ def deserialize_aws_json_1_1(data: list) -> ComputeList:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ComputeList) -> list:
+    import capo_gamelift.types.compute
+
+    out: list = []
+    for item in value:
+        out.append(capo_gamelift.types.compute.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> ComputeList:
+    import capo_gamelift.types.compute
+
+    out: ComputeList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_gamelift.types.compute.deserialize_cbor(item))
+    return out
+
+
 def redact_sensitive(value: ComputeList) -> list[Any]:
     import capo_gamelift.types.compute
 

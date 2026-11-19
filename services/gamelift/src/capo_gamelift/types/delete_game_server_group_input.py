@@ -49,3 +49,34 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteGameServerGroupInput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteGameServerGroupInput) -> dict:
+    out: dict = {}
+    if "game_server_group_name" in value:
+        out["GameServerGroupName"] = value["game_server_group_name"]
+    if "delete_option" in value:
+        import capo_gamelift.types.game_server_group_delete_option
+
+        out["DeleteOption"] = (
+            capo_gamelift.types.game_server_group_delete_option.serialize_cbor(
+                value["delete_option"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteGameServerGroupInput:
+    out: DeleteGameServerGroupInput = {}  # type: ignore[typeddict-item]
+    if data.get("GameServerGroupName") is not None:
+        out["game_server_group_name"] = data["GameServerGroupName"]
+    if data.get("DeleteOption") is not None:
+        import capo_gamelift.types.game_server_group_delete_option
+
+        out["delete_option"] = (
+            capo_gamelift.types.game_server_group_delete_option.deserialize_cbor(
+                data["DeleteOption"]
+            )
+        )
+    return out

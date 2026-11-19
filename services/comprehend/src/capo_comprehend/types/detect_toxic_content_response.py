@@ -40,3 +40,28 @@ def deserialize_aws_json_1_1(data: dict) -> DetectToxicContentResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DetectToxicContentResponse) -> dict:
+    out: dict = {}
+    if "result_list" in value:
+        import capo_comprehend.types.list_of_toxic_labels
+
+        out["ResultList"] = capo_comprehend.types.list_of_toxic_labels.serialize_cbor(
+            value["result_list"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DetectToxicContentResponse:
+    out: DetectToxicContentResponse = {}  # type: ignore[typeddict-item]
+    if data.get("ResultList") is not None:
+        import capo_comprehend.types.list_of_toxic_labels
+
+        out["result_list"] = (
+            capo_comprehend.types.list_of_toxic_labels.deserialize_cbor(
+                data["ResultList"]
+            )
+        )
+    return out

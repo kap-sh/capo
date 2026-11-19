@@ -49,3 +49,34 @@ def deserialize_aws_json_1_1(data: dict) -> ListConfigurationHistoryResponse:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListConfigurationHistoryResponse) -> dict:
+    out: dict = {}
+    if "event_list" in value:
+        import capo_application_insights.types.configuration_event_list
+
+        out["EventList"] = (
+            capo_application_insights.types.configuration_event_list.serialize_cbor(
+                value["event_list"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListConfigurationHistoryResponse:
+    out: ListConfigurationHistoryResponse = {}  # type: ignore[typeddict-item]
+    if data.get("EventList") is not None:
+        import capo_application_insights.types.configuration_event_list
+
+        out["event_list"] = (
+            capo_application_insights.types.configuration_event_list.deserialize_cbor(
+                data["EventList"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

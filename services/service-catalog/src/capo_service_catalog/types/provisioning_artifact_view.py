@@ -61,3 +61,46 @@ def deserialize_aws_json_1_1(data: dict) -> ProvisioningArtifactView:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ProvisioningArtifactView) -> dict:
+    out: dict = {}
+    if "product_view_summary" in value:
+        import capo_service_catalog.types.product_view_summary
+
+        out["ProductViewSummary"] = (
+            capo_service_catalog.types.product_view_summary.serialize_cbor(
+                value["product_view_summary"]
+            )
+        )
+    if "provisioning_artifact" in value:
+        import capo_service_catalog.types.provisioning_artifact
+
+        out["ProvisioningArtifact"] = (
+            capo_service_catalog.types.provisioning_artifact.serialize_cbor(
+                value["provisioning_artifact"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ProvisioningArtifactView:
+    out: ProvisioningArtifactView = {}  # type: ignore[typeddict-item]
+    if data.get("ProductViewSummary") is not None:
+        import capo_service_catalog.types.product_view_summary
+
+        out["product_view_summary"] = (
+            capo_service_catalog.types.product_view_summary.deserialize_cbor(
+                data["ProductViewSummary"]
+            )
+        )
+    if data.get("ProvisioningArtifact") is not None:
+        import capo_service_catalog.types.provisioning_artifact
+
+        out["provisioning_artifact"] = (
+            capo_service_catalog.types.provisioning_artifact.deserialize_cbor(
+                data["ProvisioningArtifact"]
+            )
+        )
+    return out

@@ -77,3 +77,55 @@ def deserialize_aws_json_1_1(data: dict) -> S3LogsConfig:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: S3LogsConfig) -> dict:
+    out: dict = {}
+    import capo_codebuild.types.logs_config_status_type
+
+    out["status"] = capo_codebuild.types.logs_config_status_type.serialize_cbor(
+        value["status"]
+    )
+    if "location" in value:
+        out["location"] = value["location"]
+    if "encryption_disabled" in value:
+        out["encryptionDisabled"] = value["encryption_disabled"]
+    if "bucket_owner_access" in value:
+        import capo_codebuild.types.bucket_owner_access
+
+        out["bucketOwnerAccess"] = (
+            capo_codebuild.types.bucket_owner_access.serialize_cbor(
+                value["bucket_owner_access"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> S3LogsConfig:
+    out: S3LogsConfig = {}  # type: ignore[typeddict-item]
+    if data.get("status") is not None:
+        import capo_codebuild.types.logs_config_status_type
+
+        out["status"] = capo_codebuild.types.logs_config_status_type.deserialize_cbor(
+            data["status"]
+        )
+    else:
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_codebuild.types.logs_config_status_type.LogsConfigStatusType", ""
+        )
+    if data.get("location") is not None:
+        out["location"] = data["location"]
+    if data.get("encryptionDisabled") is not None:
+        out["encryption_disabled"] = data["encryptionDisabled"]
+    if data.get("bucketOwnerAccess") is not None:
+        import capo_codebuild.types.bucket_owner_access
+
+        out["bucket_owner_access"] = (
+            capo_codebuild.types.bucket_owner_access.deserialize_cbor(
+                data["bucketOwnerAccess"]
+            )
+        )
+    return out

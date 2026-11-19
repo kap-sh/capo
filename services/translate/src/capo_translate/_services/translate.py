@@ -103,6 +103,7 @@ class TranslateClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[Interceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_1", "rpcv2Cbor"]
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -119,6 +120,7 @@ class TranslateClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -134,6 +136,7 @@ class TranslateClient:
         operation_interceptors: Iterable[Interceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_1", "rpcv2Cbor"] = "awsJson1_1",
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -170,6 +173,7 @@ class TranslateClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -203,6 +207,9 @@ class TranslateClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_1")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -257,13 +264,24 @@ class TranslateClient:
         ) -> OperationResponse[
             "capo_translate.types.create_parallel_data_response.CreateParallelDataResponse"
         ]:
-            import capo_translate._operations.aws_shine_frontend_service_20170701.create_parallel_data
+            if req.options.protocol == "awsJson1_1":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.create_parallel_data
 
-            output, http_response = (
-                capo_translate._operations.aws_shine_frontend_service_20170701.create_parallel_data.create_parallel_data(
-                    req.options, req.input
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.create_parallel_data.create_parallel_data(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.create_parallel_data
+
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.create_parallel_data.create_parallel_data(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -315,13 +333,24 @@ class TranslateClient:
         ) -> OperationResponse[
             "capo_translate.types.delete_parallel_data_response.DeleteParallelDataResponse"
         ]:
-            import capo_translate._operations.aws_shine_frontend_service_20170701.delete_parallel_data
+            if req.options.protocol == "awsJson1_1":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.delete_parallel_data
 
-            output, http_response = (
-                capo_translate._operations.aws_shine_frontend_service_20170701.delete_parallel_data.delete_parallel_data(
-                    req.options, req.input
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.delete_parallel_data.delete_parallel_data(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.delete_parallel_data
+
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.delete_parallel_data.delete_parallel_data(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -361,13 +390,24 @@ class TranslateClient:
         def _handler(
             req: "OperationRequest[capo_translate.types.delete_terminology_request.DeleteTerminologyRequest]",
         ) -> OperationResponse[None]:
-            import capo_translate._operations.aws_shine_frontend_service_20170701.delete_terminology
+            if req.options.protocol == "awsJson1_1":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.delete_terminology
 
-            output, http_response = (
-                capo_translate._operations.aws_shine_frontend_service_20170701.delete_terminology.delete_terminology(
-                    req.options, req.input
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.delete_terminology.delete_terminology(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.delete_terminology
+
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.delete_terminology.delete_terminology(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -408,13 +448,24 @@ class TranslateClient:
         ) -> OperationResponse[
             "capo_translate.types.describe_text_translation_job_response.DescribeTextTranslationJobResponse"
         ]:
-            import capo_translate._operations.aws_shine_frontend_service_20170701.describe_text_translation_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.describe_text_translation_job
 
-            output, http_response = (
-                capo_translate._operations.aws_shine_frontend_service_20170701.describe_text_translation_job.describe_text_translation_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.describe_text_translation_job.describe_text_translation_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.describe_text_translation_job
+
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.describe_text_translation_job.describe_text_translation_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -456,13 +507,24 @@ class TranslateClient:
         ) -> OperationResponse[
             "capo_translate.types.get_parallel_data_response.GetParallelDataResponse"
         ]:
-            import capo_translate._operations.aws_shine_frontend_service_20170701.get_parallel_data
+            if req.options.protocol == "awsJson1_1":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.get_parallel_data
 
-            output, http_response = (
-                capo_translate._operations.aws_shine_frontend_service_20170701.get_parallel_data.get_parallel_data(
-                    req.options, req.input
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.get_parallel_data.get_parallel_data(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.get_parallel_data
+
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.get_parallel_data.get_parallel_data(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -508,13 +570,24 @@ class TranslateClient:
         ) -> OperationResponse[
             "capo_translate.types.get_terminology_response.GetTerminologyResponse"
         ]:
-            import capo_translate._operations.aws_shine_frontend_service_20170701.get_terminology
+            if req.options.protocol == "awsJson1_1":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.get_terminology
 
-            output, http_response = (
-                capo_translate._operations.aws_shine_frontend_service_20170701.get_terminology.get_terminology(
-                    req.options, req.input
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.get_terminology.get_terminology(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.get_terminology
+
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.get_terminology.get_terminology(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -572,13 +645,24 @@ class TranslateClient:
         ) -> OperationResponse[
             "capo_translate.types.import_terminology_response.ImportTerminologyResponse"
         ]:
-            import capo_translate._operations.aws_shine_frontend_service_20170701.import_terminology
+            if req.options.protocol == "awsJson1_1":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.import_terminology
 
-            output, http_response = (
-                capo_translate._operations.aws_shine_frontend_service_20170701.import_terminology.import_terminology(
-                    req.options, req.input
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.import_terminology.import_terminology(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.import_terminology
+
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.import_terminology.import_terminology(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -646,13 +730,24 @@ class TranslateClient:
         ) -> OperationResponse[
             "capo_translate.types.list_languages_response.ListLanguagesResponse"
         ]:
-            import capo_translate._operations.aws_shine_frontend_service_20170701.list_languages
+            if req.options.protocol == "awsJson1_1":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.list_languages
 
-            output, http_response = (
-                capo_translate._operations.aws_shine_frontend_service_20170701.list_languages.list_languages(
-                    req.options, req.input
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.list_languages.list_languages(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.list_languages
+
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.list_languages.list_languages(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -726,13 +821,24 @@ class TranslateClient:
         ) -> OperationResponse[
             "capo_translate.types.list_parallel_data_response.ListParallelDataResponse"
         ]:
-            import capo_translate._operations.aws_shine_frontend_service_20170701.list_parallel_data
+            if req.options.protocol == "awsJson1_1":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.list_parallel_data
 
-            output, http_response = (
-                capo_translate._operations.aws_shine_frontend_service_20170701.list_parallel_data.list_parallel_data(
-                    req.options, req.input
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.list_parallel_data.list_parallel_data(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.list_parallel_data
+
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.list_parallel_data.list_parallel_data(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -796,13 +902,24 @@ class TranslateClient:
         ) -> OperationResponse[
             "capo_translate.types.list_tags_for_resource_response.ListTagsForResourceResponse"
         ]:
-            import capo_translate._operations.aws_shine_frontend_service_20170701.list_tags_for_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.list_tags_for_resource
 
-            output, http_response = (
-                capo_translate._operations.aws_shine_frontend_service_20170701.list_tags_for_resource.list_tags_for_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.list_tags_for_resource
+
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -847,13 +964,24 @@ class TranslateClient:
         ) -> OperationResponse[
             "capo_translate.types.list_terminologies_response.ListTerminologiesResponse"
         ]:
-            import capo_translate._operations.aws_shine_frontend_service_20170701.list_terminologies
+            if req.options.protocol == "awsJson1_1":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.list_terminologies
 
-            output, http_response = (
-                capo_translate._operations.aws_shine_frontend_service_20170701.list_terminologies.list_terminologies(
-                    req.options, req.input
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.list_terminologies.list_terminologies(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.list_terminologies
+
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.list_terminologies.list_terminologies(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -926,13 +1054,24 @@ class TranslateClient:
         ) -> OperationResponse[
             "capo_translate.types.list_text_translation_jobs_response.ListTextTranslationJobsResponse"
         ]:
-            import capo_translate._operations.aws_shine_frontend_service_20170701.list_text_translation_jobs
+            if req.options.protocol == "awsJson1_1":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.list_text_translation_jobs
 
-            output, http_response = (
-                capo_translate._operations.aws_shine_frontend_service_20170701.list_text_translation_jobs.list_text_translation_jobs(
-                    req.options, req.input
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.list_text_translation_jobs.list_text_translation_jobs(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.list_text_translation_jobs
+
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.list_text_translation_jobs.list_text_translation_jobs(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1029,13 +1168,24 @@ class TranslateClient:
         ) -> OperationResponse[
             "capo_translate.types.start_text_translation_job_response.StartTextTranslationJobResponse"
         ]:
-            import capo_translate._operations.aws_shine_frontend_service_20170701.start_text_translation_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.start_text_translation_job
 
-            output, http_response = (
-                capo_translate._operations.aws_shine_frontend_service_20170701.start_text_translation_job.start_text_translation_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.start_text_translation_job.start_text_translation_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.start_text_translation_job
+
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.start_text_translation_job.start_text_translation_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1089,13 +1239,24 @@ class TranslateClient:
         ) -> OperationResponse[
             "capo_translate.types.stop_text_translation_job_response.StopTextTranslationJobResponse"
         ]:
-            import capo_translate._operations.aws_shine_frontend_service_20170701.stop_text_translation_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.stop_text_translation_job
 
-            output, http_response = (
-                capo_translate._operations.aws_shine_frontend_service_20170701.stop_text_translation_job.stop_text_translation_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.stop_text_translation_job.stop_text_translation_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.stop_text_translation_job
+
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.stop_text_translation_job.stop_text_translation_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1140,13 +1301,24 @@ class TranslateClient:
         ) -> OperationResponse[
             "capo_translate.types.tag_resource_response.TagResourceResponse"
         ]:
-            import capo_translate._operations.aws_shine_frontend_service_20170701.tag_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.tag_resource
 
-            output, http_response = (
-                capo_translate._operations.aws_shine_frontend_service_20170701.tag_resource.tag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.tag_resource
+
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1204,13 +1376,24 @@ class TranslateClient:
         ) -> OperationResponse[
             "capo_translate.types.translate_document_response.TranslateDocumentResponse"
         ]:
-            import capo_translate._operations.aws_shine_frontend_service_20170701.translate_document
+            if req.options.protocol == "awsJson1_1":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.translate_document
 
-            output, http_response = (
-                capo_translate._operations.aws_shine_frontend_service_20170701.translate_document.translate_document(
-                    req.options, req.input
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.translate_document.translate_document(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.translate_document
+
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.translate_document.translate_document(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -1297,13 +1480,24 @@ class TranslateClient:
         ) -> OperationResponse[
             "capo_translate.types.translate_text_response.TranslateTextResponse"
         ]:
-            import capo_translate._operations.aws_shine_frontend_service_20170701.translate_text
+            if req.options.protocol == "awsJson1_1":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.translate_text
 
-            output, http_response = (
-                capo_translate._operations.aws_shine_frontend_service_20170701.translate_text.translate_text(
-                    req.options, req.input
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.translate_text.translate_text(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.translate_text
+
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.translate_text.translate_text(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1353,13 +1547,24 @@ class TranslateClient:
         ) -> OperationResponse[
             "capo_translate.types.untag_resource_response.UntagResourceResponse"
         ]:
-            import capo_translate._operations.aws_shine_frontend_service_20170701.untag_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.untag_resource
 
-            output, http_response = (
-                capo_translate._operations.aws_shine_frontend_service_20170701.untag_resource.untag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.untag_resource
+
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1414,13 +1619,24 @@ class TranslateClient:
         ) -> OperationResponse[
             "capo_translate.types.update_parallel_data_response.UpdateParallelDataResponse"
         ]:
-            import capo_translate._operations.aws_shine_frontend_service_20170701.update_parallel_data
+            if req.options.protocol == "awsJson1_1":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.update_parallel_data
 
-            output, http_response = (
-                capo_translate._operations.aws_shine_frontend_service_20170701.update_parallel_data.update_parallel_data(
-                    req.options, req.input
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.aws_json1_1.update_parallel_data.update_parallel_data(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.update_parallel_data
+
+                output, http_response = (
+                    capo_translate._operations.aws_shine_frontend_service_20170701.rpcv2_cbor.update_parallel_data.update_parallel_data(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

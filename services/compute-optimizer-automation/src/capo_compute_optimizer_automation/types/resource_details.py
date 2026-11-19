@@ -55,3 +55,39 @@ def deserialize_aws_json_1_0(data: dict) -> ResourceDetails:
         if name is not None:
             return {"$unknown": {"name": name}}
         raise DeserializationError("ResourceDetails: no recognized variant key")
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResourceDetails) -> dict:
+    if "$unknown" in value:
+        raise SerializationError(
+            f"ResourceDetails: cannot serialize unknown variant {value['$unknown']['name']!r}"
+        )
+    elif "ebsVolume" in value:
+        import capo_compute_optimizer_automation.types.ebs_volume
+
+        return {
+            "ebsVolume": capo_compute_optimizer_automation.types.ebs_volume.serialize_cbor(
+                value["ebsVolume"]
+            )
+        }
+    else:
+        raise SerializationError("ResourceDetails: no variant present")
+
+
+def deserialize_cbor(data: dict) -> ResourceDetails:
+    if data.get("ebsVolume") is not None:
+        import capo_compute_optimizer_automation.types.ebs_volume
+
+        return {
+            "ebsVolume": capo_compute_optimizer_automation.types.ebs_volume.deserialize_cbor(
+                data["ebsVolume"]
+            )
+        }
+    else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return {"$unknown": {"name": name}}
+        raise DeserializationError("ResourceDetails: no recognized variant key")

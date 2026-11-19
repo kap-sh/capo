@@ -36,3 +36,22 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateApplicationInput:
     if data.get("newApplicationName") is not None:
         out["new_application_name"] = data["newApplicationName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateApplicationInput) -> dict:
+    out: dict = {}
+    if "application_name" in value:
+        out["applicationName"] = value["application_name"]
+    if "new_application_name" in value:
+        out["newApplicationName"] = value["new_application_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateApplicationInput:
+    out: UpdateApplicationInput = {}  # type: ignore[typeddict-item]
+    if data.get("applicationName") is not None:
+        out["application_name"] = data["applicationName"]
+    if data.get("newApplicationName") is not None:
+        out["new_application_name"] = data["newApplicationName"]
+    return out

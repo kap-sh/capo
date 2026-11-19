@@ -73,3 +73,53 @@ def deserialize_aws_json_1_1(data: dict) -> TaskFilter:
 
         out["operator"] = typing.cast("capo_datasync.types.operator.Operator", "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TaskFilter) -> dict:
+    out: dict = {}
+    import capo_datasync.types.task_filter_name
+
+    out["Name"] = capo_datasync.types.task_filter_name.serialize_cbor(value["name"])
+    import capo_datasync.types.filter_values
+
+    out["Values"] = capo_datasync.types.filter_values.serialize_cbor(value["values"])
+    import capo_datasync.types.operator
+
+    out["Operator"] = capo_datasync.types.operator.serialize_cbor(value["operator"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> TaskFilter:
+    out: TaskFilter = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        import capo_datasync.types.task_filter_name
+
+        out["name"] = capo_datasync.types.task_filter_name.deserialize_cbor(
+            data["Name"]
+        )
+    else:
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_datasync.types.task_filter_name.TaskFilterName", ""
+        )
+    if data.get("Values") is not None:
+        import capo_datasync.types.filter_values
+
+        out["values"] = capo_datasync.types.filter_values.deserialize_cbor(
+            data["Values"]
+        )
+    else:
+        out["values"] = []
+    if data.get("Operator") is not None:
+        import capo_datasync.types.operator
+
+        out["operator"] = capo_datasync.types.operator.deserialize_cbor(
+            data["Operator"]
+        )
+    else:
+        import typing
+
+        out["operator"] = typing.cast("capo_datasync.types.operator.Operator", "")
+    return out

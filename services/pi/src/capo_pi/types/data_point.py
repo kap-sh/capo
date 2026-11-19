@@ -53,3 +53,32 @@ def deserialize_aws_json_1_1(data: dict) -> DataPoint:
     else:
         out["value"] = 0.0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DataPoint) -> dict:
+    out: dict = {}
+    import capo_pi.types.iso_timestamp
+
+    out["Timestamp"] = capo_pi.types.iso_timestamp.serialize_cbor(value["timestamp"])
+    out["Value"] = value["value"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DataPoint:
+    out: DataPoint = {}  # type: ignore[typeddict-item]
+    if data.get("Timestamp") is not None:
+        import capo_pi.types.iso_timestamp
+
+        out["timestamp"] = capo_pi.types.iso_timestamp.deserialize_cbor(
+            data["Timestamp"]
+        )
+    else:
+        import datetime
+
+        out["timestamp"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
+    if data.get("Value") is not None:
+        out["value"] = float(data["Value"])
+    else:
+        out["value"] = 0.0
+    return out

@@ -17,3 +17,12 @@ def serialize_aws_json_1_1(value: FilterCondition) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> FilterCondition:
     return cast(FilterCondition, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FilterCondition) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> FilterCondition:
+    return cast(FilterCondition, data)

@@ -83,3 +83,30 @@ def deserialize_query(el: Element) -> PutDashboardInput:
 
         out["tags"] = capo_cloudwatch.types.tag_list.deserialize_query(child_tags)
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PutDashboardInput) -> dict:
+    out: dict = {}
+    if "dashboard_name" in value:
+        out["DashboardName"] = value["dashboard_name"]
+    if "dashboard_body" in value:
+        out["DashboardBody"] = value["dashboard_body"]
+    if "tags" in value:
+        import capo_cloudwatch.types.tag_list
+
+        out["Tags"] = capo_cloudwatch.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> PutDashboardInput:
+    out: PutDashboardInput = {}  # type: ignore[typeddict-item]
+    if data.get("DashboardName") is not None:
+        out["dashboard_name"] = data["DashboardName"]
+    if data.get("DashboardBody") is not None:
+        out["dashboard_body"] = data["DashboardBody"]
+    if data.get("Tags") is not None:
+        import capo_cloudwatch.types.tag_list
+
+        out["tags"] = capo_cloudwatch.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

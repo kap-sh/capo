@@ -61,3 +61,38 @@ def deserialize_aws_json_1_1(data: dict) -> GetProtectionStatusResponse:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetProtectionStatusResponse) -> dict:
+    out: dict = {}
+    if "admin_account_id" in value:
+        out["AdminAccountId"] = value["admin_account_id"]
+    if "service_type" in value:
+        import capo_fms.types.security_service_type
+
+        out["ServiceType"] = capo_fms.types.security_service_type.serialize_cbor(
+            value["service_type"]
+        )
+    if "data" in value:
+        out["Data"] = value["data"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetProtectionStatusResponse:
+    out: GetProtectionStatusResponse = {}  # type: ignore[typeddict-item]
+    if data.get("AdminAccountId") is not None:
+        out["admin_account_id"] = data["AdminAccountId"]
+    if data.get("ServiceType") is not None:
+        import capo_fms.types.security_service_type
+
+        out["service_type"] = capo_fms.types.security_service_type.deserialize_cbor(
+            data["ServiceType"]
+        )
+    if data.get("Data") is not None:
+        out["data"] = data["Data"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

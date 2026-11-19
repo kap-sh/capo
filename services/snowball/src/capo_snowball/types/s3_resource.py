@@ -62,3 +62,46 @@ def deserialize_aws_json_1_1(data: dict) -> S3Resource:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: S3Resource) -> dict:
+    out: dict = {}
+    if "bucket_arn" in value:
+        out["BucketArn"] = value["bucket_arn"]
+    if "key_range" in value:
+        import capo_snowball.types.key_range
+
+        out["KeyRange"] = capo_snowball.types.key_range.serialize_cbor(
+            value["key_range"]
+        )
+    if "target_on_device_services" in value:
+        import capo_snowball.types.target_on_device_service_list
+
+        out["TargetOnDeviceServices"] = (
+            capo_snowball.types.target_on_device_service_list.serialize_cbor(
+                value["target_on_device_services"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> S3Resource:
+    out: S3Resource = {}  # type: ignore[typeddict-item]
+    if data.get("BucketArn") is not None:
+        out["bucket_arn"] = data["BucketArn"]
+    if data.get("KeyRange") is not None:
+        import capo_snowball.types.key_range
+
+        out["key_range"] = capo_snowball.types.key_range.deserialize_cbor(
+            data["KeyRange"]
+        )
+    if data.get("TargetOnDeviceServices") is not None:
+        import capo_snowball.types.target_on_device_service_list
+
+        out["target_on_device_services"] = (
+            capo_snowball.types.target_on_device_service_list.deserialize_cbor(
+                data["TargetOnDeviceServices"]
+            )
+        )
+    return out

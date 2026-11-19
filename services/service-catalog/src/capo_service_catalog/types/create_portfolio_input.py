@@ -78,3 +78,45 @@ def deserialize_aws_json_1_1(data: dict) -> CreatePortfolioInput:
     else:
         out["idempotency_token"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreatePortfolioInput) -> dict:
+    out: dict = {}
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    out["DisplayName"] = value["display_name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    out["ProviderName"] = value["provider_name"]
+    if "tags" in value:
+        import capo_service_catalog.types.add_tags
+
+        out["Tags"] = capo_service_catalog.types.add_tags.serialize_cbor(value["tags"])
+    out["IdempotencyToken"] = value["idempotency_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreatePortfolioInput:
+    out: CreatePortfolioInput = {}  # type: ignore[typeddict-item]
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    if data.get("DisplayName") is not None:
+        out["display_name"] = data["DisplayName"]
+    else:
+        out["display_name"] = ""
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("ProviderName") is not None:
+        out["provider_name"] = data["ProviderName"]
+    else:
+        out["provider_name"] = ""
+    if data.get("Tags") is not None:
+        import capo_service_catalog.types.add_tags
+
+        out["tags"] = capo_service_catalog.types.add_tags.deserialize_cbor(data["Tags"])
+    if data.get("IdempotencyToken") is not None:
+        out["idempotency_token"] = data["IdempotencyToken"]
+    else:
+        out["idempotency_token"] = ""
+    return out

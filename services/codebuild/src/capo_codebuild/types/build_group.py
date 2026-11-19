@@ -91,3 +91,65 @@ def deserialize_aws_json_1_1(data: dict) -> BuildGroup:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BuildGroup) -> dict:
+    out: dict = {}
+    if "identifier" in value:
+        out["identifier"] = value["identifier"]
+    if "depends_on" in value:
+        import capo_codebuild.types.identifiers
+
+        out["dependsOn"] = capo_codebuild.types.identifiers.serialize_cbor(
+            value["depends_on"]
+        )
+    out["ignoreFailure"] = value.get("ignore_failure", False)
+    if "current_build_summary" in value:
+        import capo_codebuild.types.build_summary
+
+        out["currentBuildSummary"] = capo_codebuild.types.build_summary.serialize_cbor(
+            value["current_build_summary"]
+        )
+    if "prior_build_summary_list" in value:
+        import capo_codebuild.types.build_summaries
+
+        out["priorBuildSummaryList"] = (
+            capo_codebuild.types.build_summaries.serialize_cbor(
+                value["prior_build_summary_list"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BuildGroup:
+    out: BuildGroup = {}  # type: ignore[typeddict-item]
+    if data.get("identifier") is not None:
+        out["identifier"] = data["identifier"]
+    if data.get("dependsOn") is not None:
+        import capo_codebuild.types.identifiers
+
+        out["depends_on"] = capo_codebuild.types.identifiers.deserialize_cbor(
+            data["dependsOn"]
+        )
+    if data.get("ignoreFailure") is not None:
+        out["ignore_failure"] = data["ignoreFailure"]
+    else:
+        out["ignore_failure"] = False
+    if data.get("currentBuildSummary") is not None:
+        import capo_codebuild.types.build_summary
+
+        out["current_build_summary"] = (
+            capo_codebuild.types.build_summary.deserialize_cbor(
+                data["currentBuildSummary"]
+            )
+        )
+    if data.get("priorBuildSummaryList") is not None:
+        import capo_codebuild.types.build_summaries
+
+        out["prior_build_summary_list"] = (
+            capo_codebuild.types.build_summaries.deserialize_cbor(
+                data["priorBuildSummaryList"]
+            )
+        )
+    return out

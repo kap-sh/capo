@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateFlywheelResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateFlywheelResponse) -> dict:
+    out: dict = {}
+    if "flywheel_properties" in value:
+        import capo_comprehend.types.flywheel_properties
+
+        out["FlywheelProperties"] = (
+            capo_comprehend.types.flywheel_properties.serialize_cbor(
+                value["flywheel_properties"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateFlywheelResponse:
+    out: UpdateFlywheelResponse = {}  # type: ignore[typeddict-item]
+    if data.get("FlywheelProperties") is not None:
+        import capo_comprehend.types.flywheel_properties
+
+        out["flywheel_properties"] = (
+            capo_comprehend.types.flywheel_properties.deserialize_cbor(
+                data["FlywheelProperties"]
+            )
+        )
+    return out

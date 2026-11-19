@@ -34,3 +34,22 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeAddressResult:
             data["Address"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeAddressResult) -> dict:
+    out: dict = {}
+    if "address" in value:
+        import capo_snowball.types.address
+
+        out["Address"] = capo_snowball.types.address.serialize_cbor(value["address"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeAddressResult:
+    out: DescribeAddressResult = {}  # type: ignore[typeddict-item]
+    if data.get("Address") is not None:
+        import capo_snowball.types.address
+
+        out["address"] = capo_snowball.types.address.deserialize_cbor(data["Address"])
+    return out

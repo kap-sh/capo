@@ -33,3 +33,24 @@ def deserialize_aws_json_1_0(data: dict) -> SyncStates:
             value
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(input_to_serialize: SyncStates) -> dict:
+    out: dict = {}
+    for key, value in input_to_serialize.items():
+        import capo_network_firewall.types.sync_state
+
+        out[key] = capo_network_firewall.types.sync_state.serialize_cbor(value)
+    return out
+
+
+def deserialize_cbor(data: dict) -> SyncStates:
+    out: SyncStates = {}
+    for key, value in data.items():
+        if value is None:
+            continue
+        import capo_network_firewall.types.sync_state
+
+        out[key] = capo_network_firewall.types.sync_state.deserialize_cbor(value)
+    return out

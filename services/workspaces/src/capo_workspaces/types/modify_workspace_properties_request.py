@@ -69,3 +69,49 @@ def deserialize_aws_json_1_1(data: dict) -> ModifyWorkspacePropertiesRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ModifyWorkspacePropertiesRequest) -> dict:
+    out: dict = {}
+    out["WorkspaceId"] = value["workspace_id"]
+    if "workspace_properties" in value:
+        import capo_workspaces.types.workspace_properties
+
+        out["WorkspaceProperties"] = (
+            capo_workspaces.types.workspace_properties.serialize_cbor(
+                value["workspace_properties"]
+            )
+        )
+    if "data_replication" in value:
+        import capo_workspaces.types.data_replication
+
+        out["DataReplication"] = capo_workspaces.types.data_replication.serialize_cbor(
+            value["data_replication"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ModifyWorkspacePropertiesRequest:
+    out: ModifyWorkspacePropertiesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("WorkspaceId") is not None:
+        out["workspace_id"] = data["WorkspaceId"]
+    else:
+        out["workspace_id"] = ""
+    if data.get("WorkspaceProperties") is not None:
+        import capo_workspaces.types.workspace_properties
+
+        out["workspace_properties"] = (
+            capo_workspaces.types.workspace_properties.deserialize_cbor(
+                data["WorkspaceProperties"]
+            )
+        )
+    if data.get("DataReplication") is not None:
+        import capo_workspaces.types.data_replication
+
+        out["data_replication"] = (
+            capo_workspaces.types.data_replication.deserialize_cbor(
+                data["DataReplication"]
+            )
+        )
+    return out

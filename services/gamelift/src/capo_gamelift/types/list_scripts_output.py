@@ -41,3 +41,30 @@ def deserialize_aws_json_1_1(data: dict) -> ListScriptsOutput:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListScriptsOutput) -> dict:
+    out: dict = {}
+    if "scripts" in value:
+        import capo_gamelift.types.script_list
+
+        out["Scripts"] = capo_gamelift.types.script_list.serialize_cbor(
+            value["scripts"]
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListScriptsOutput:
+    out: ListScriptsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("Scripts") is not None:
+        import capo_gamelift.types.script_list
+
+        out["scripts"] = capo_gamelift.types.script_list.deserialize_cbor(
+            data["Scripts"]
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

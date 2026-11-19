@@ -52,3 +52,30 @@ def deserialize_aws_json_1_1(data: dict) -> AbsoluteTimeRange:
     if data.get("Last") is not None:
         out["last"] = data["Last"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AbsoluteTimeRange) -> dict:
+    out: dict = {}
+    if "start_time" in value:
+        out["StartTime"] = value["start_time"]
+    if "end_time" in value:
+        out["EndTime"] = value["end_time"]
+    if "first" in value:
+        out["First"] = value["first"]
+    if "last" in value:
+        out["Last"] = value["last"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AbsoluteTimeRange:
+    out: AbsoluteTimeRange = {}  # type: ignore[typeddict-item]
+    if data.get("StartTime") is not None:
+        out["start_time"] = data["StartTime"]
+    if data.get("EndTime") is not None:
+        out["end_time"] = data["EndTime"]
+    if data.get("First") is not None:
+        out["first"] = data["First"]
+    if data.get("Last") is not None:
+        out["last"] = data["Last"]
+    return out

@@ -67,6 +67,41 @@ def deserialize_aws_json_1_1(data: dict) -> RegisterComputeInput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RegisterComputeInput) -> dict:
+    out: dict = {}
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "compute_name" in value:
+        out["ComputeName"] = value["compute_name"]
+    if "certificate_path" in value:
+        out["CertificatePath"] = value["certificate_path"]
+    if "dns_name" in value:
+        out["DnsName"] = value["dns_name"]
+    if "ip_address" in value:
+        out["IpAddress"] = value["ip_address"]
+    if "location" in value:
+        out["Location"] = value["location"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RegisterComputeInput:
+    out: RegisterComputeInput = {}  # type: ignore[typeddict-item]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("ComputeName") is not None:
+        out["compute_name"] = data["ComputeName"]
+    if data.get("CertificatePath") is not None:
+        out["certificate_path"] = data["CertificatePath"]
+    if data.get("DnsName") is not None:
+        out["dns_name"] = data["DnsName"]
+    if data.get("IpAddress") is not None:
+        out["ip_address"] = data["IpAddress"]
+    if data.get("Location") is not None:
+        out["location"] = data["Location"]
+    return out
+
+
 def redact_sensitive(value: RegisterComputeInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "ip_address" in value:

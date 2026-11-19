@@ -29,6 +29,22 @@ def deserialize_aws_json_1_1(data: dict) -> AzureBlobSasConfiguration:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AzureBlobSasConfiguration) -> dict:
+    out: dict = {}
+    out["Token"] = value["token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AzureBlobSasConfiguration:
+    out: AzureBlobSasConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("Token") is not None:
+        out["token"] = data["Token"]
+    else:
+        out["token"] = ""
+    return out
+
+
 def redact_sensitive(value: AzureBlobSasConfiguration) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "token" in value:

@@ -33,3 +33,23 @@ def deserialize_aws_json_1_1(data: dict) -> EntityRecognizerAnnotations:
     if data.get("TestS3Uri") is not None:
         out["test_s3_uri"] = data["TestS3Uri"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EntityRecognizerAnnotations) -> dict:
+    out: dict = {}
+    out["S3Uri"] = value["s3_uri"]
+    if "test_s3_uri" in value:
+        out["TestS3Uri"] = value["test_s3_uri"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> EntityRecognizerAnnotations:
+    out: EntityRecognizerAnnotations = {}  # type: ignore[typeddict-item]
+    if data.get("S3Uri") is not None:
+        out["s3_uri"] = data["S3Uri"]
+    else:
+        out["s3_uri"] = ""
+    if data.get("TestS3Uri") is not None:
+        out["test_s3_uri"] = data["TestS3Uri"]
+    return out

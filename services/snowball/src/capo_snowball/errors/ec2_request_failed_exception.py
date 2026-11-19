@@ -30,6 +30,21 @@ def deserialize_aws_json_1_1(data: dict) -> Ec2RequestFailedException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Ec2RequestFailedException_) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["Message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Ec2RequestFailedException_:
+    out: Ec2RequestFailedException_ = {}  # type: ignore[typeddict-item]
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    return out
+
+
 class Ec2RequestFailedException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.snowball#Ec2RequestFailedException``."""
 
@@ -57,3 +72,9 @@ class Ec2RequestFailedException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "Ec2RequestFailedException":
         return cls(deserialize_aws_json_1_1(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "Ec2RequestFailedException":
+        return cls(deserialize_cbor(data), message, response=response)

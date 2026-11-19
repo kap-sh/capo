@@ -69,3 +69,30 @@ def deserialize_query(el: Element) -> GetMetricWidgetImageOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetMetricWidgetImageOutput) -> dict:
+    out: dict = {}
+    if "metric_widget_image" in value:
+        import capo_cloudwatch.types.metric_widget_image
+
+        out["MetricWidgetImage"] = (
+            capo_cloudwatch.types.metric_widget_image.serialize_cbor(
+                value["metric_widget_image"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetMetricWidgetImageOutput:
+    out: GetMetricWidgetImageOutput = {}  # type: ignore[typeddict-item]
+    if data.get("MetricWidgetImage") is not None:
+        import capo_cloudwatch.types.metric_widget_image
+
+        out["metric_widget_image"] = (
+            capo_cloudwatch.types.metric_widget_image.deserialize_cbor(
+                data["MetricWidgetImage"]
+            )
+        )
+    return out

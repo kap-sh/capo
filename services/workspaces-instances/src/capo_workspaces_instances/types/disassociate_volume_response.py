@@ -16,3 +16,14 @@ def serialize_aws_json_1_0(value: DisassociateVolumeResponse) -> dict:
 def deserialize_aws_json_1_0(data: dict) -> DisassociateVolumeResponse:
     out: DisassociateVolumeResponse = {}  # type: ignore[typeddict-item]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DisassociateVolumeResponse) -> dict:
+    out: dict = {}
+    return out
+
+
+def deserialize_cbor(data: dict) -> DisassociateVolumeResponse:
+    out: DisassociateVolumeResponse = {}  # type: ignore[typeddict-item]
+    return out

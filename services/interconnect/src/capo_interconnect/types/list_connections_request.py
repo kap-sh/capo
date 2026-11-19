@@ -91,3 +91,62 @@ def deserialize_aws_json_1_0(data: dict) -> ListConnectionsRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListConnectionsRequest) -> dict:
+    out: dict = {}
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    if "state" in value:
+        import capo_interconnect.types.connection_state
+
+        out["state"] = capo_interconnect.types.connection_state.serialize_cbor(
+            value["state"]
+        )
+    if "environment_id" in value:
+        out["environmentId"] = value["environment_id"]
+    if "provider" in value:
+        import capo_interconnect.types.provider
+
+        out["provider"] = capo_interconnect.types.provider.serialize_cbor(
+            value["provider"]
+        )
+    if "attach_point" in value:
+        import capo_interconnect.types.attach_point
+
+        out["attachPoint"] = capo_interconnect.types.attach_point.serialize_cbor(
+            value["attach_point"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListConnectionsRequest:
+    out: ListConnectionsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    if data.get("state") is not None:
+        import capo_interconnect.types.connection_state
+
+        out["state"] = capo_interconnect.types.connection_state.deserialize_cbor(
+            data["state"]
+        )
+    if data.get("environmentId") is not None:
+        out["environment_id"] = data["environmentId"]
+    if data.get("provider") is not None:
+        import capo_interconnect.types.provider
+
+        out["provider"] = capo_interconnect.types.provider.deserialize_cbor(
+            data["provider"]
+        )
+    if data.get("attachPoint") is not None:
+        import capo_interconnect.types.attach_point
+
+        out["attach_point"] = capo_interconnect.types.attach_point.deserialize_cbor(
+            data["attachPoint"]
+        )
+    return out

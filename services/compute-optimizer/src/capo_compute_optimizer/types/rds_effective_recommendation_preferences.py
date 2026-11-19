@@ -103,3 +103,78 @@ def deserialize_aws_json_1_0(data: dict) -> RDSEffectiveRecommendationPreference
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RDSEffectiveRecommendationPreferences) -> dict:
+    out: dict = {}
+    if "cpu_vendor_architectures" in value:
+        import capo_compute_optimizer.types.cpu_vendor_architectures
+
+        out["cpuVendorArchitectures"] = (
+            capo_compute_optimizer.types.cpu_vendor_architectures.serialize_cbor(
+                value["cpu_vendor_architectures"]
+            )
+        )
+    if "enhanced_infrastructure_metrics" in value:
+        import capo_compute_optimizer.types.enhanced_infrastructure_metrics
+
+        out["enhancedInfrastructureMetrics"] = (
+            capo_compute_optimizer.types.enhanced_infrastructure_metrics.serialize_cbor(
+                value["enhanced_infrastructure_metrics"]
+            )
+        )
+    if "look_back_period" in value:
+        import capo_compute_optimizer.types.look_back_period_preference
+
+        out["lookBackPeriod"] = (
+            capo_compute_optimizer.types.look_back_period_preference.serialize_cbor(
+                value["look_back_period"]
+            )
+        )
+    if "savings_estimation_mode" in value:
+        import capo_compute_optimizer.types.rds_savings_estimation_mode
+
+        out["savingsEstimationMode"] = (
+            capo_compute_optimizer.types.rds_savings_estimation_mode.serialize_cbor(
+                value["savings_estimation_mode"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RDSEffectiveRecommendationPreferences:
+    out: RDSEffectiveRecommendationPreferences = {}  # type: ignore[typeddict-item]
+    if data.get("cpuVendorArchitectures") is not None:
+        import capo_compute_optimizer.types.cpu_vendor_architectures
+
+        out["cpu_vendor_architectures"] = (
+            capo_compute_optimizer.types.cpu_vendor_architectures.deserialize_cbor(
+                data["cpuVendorArchitectures"]
+            )
+        )
+    if data.get("enhancedInfrastructureMetrics") is not None:
+        import capo_compute_optimizer.types.enhanced_infrastructure_metrics
+
+        out["enhanced_infrastructure_metrics"] = (
+            capo_compute_optimizer.types.enhanced_infrastructure_metrics.deserialize_cbor(
+                data["enhancedInfrastructureMetrics"]
+            )
+        )
+    if data.get("lookBackPeriod") is not None:
+        import capo_compute_optimizer.types.look_back_period_preference
+
+        out["look_back_period"] = (
+            capo_compute_optimizer.types.look_back_period_preference.deserialize_cbor(
+                data["lookBackPeriod"]
+            )
+        )
+    if data.get("savingsEstimationMode") is not None:
+        import capo_compute_optimizer.types.rds_savings_estimation_mode
+
+        out["savings_estimation_mode"] = (
+            capo_compute_optimizer.types.rds_savings_estimation_mode.deserialize_cbor(
+                data["savingsEstimationMode"]
+            )
+        )
+    return out

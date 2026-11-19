@@ -20,3 +20,14 @@ def deserialize_aws_json_1_1(
 ) -> UpdateApplicationLayerAutomaticResponseResponse:
     out: UpdateApplicationLayerAutomaticResponseResponse = {}  # type: ignore[typeddict-item]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateApplicationLayerAutomaticResponseResponse) -> dict:
+    out: dict = {}
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateApplicationLayerAutomaticResponseResponse:
+    out: UpdateApplicationLayerAutomaticResponseResponse = {}  # type: ignore[typeddict-item]
+    return out

@@ -56,3 +56,38 @@ def deserialize_aws_json_1_0(data: dict) -> LegalTerm:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LegalTerm) -> dict:
+    out: dict = {}
+    if "type" in value:
+        out["type"] = value["type"]
+    if "id" in value:
+        out["id"] = value["id"]
+    if "documents" in value:
+        import capo_marketplace_agreement.types.document_list
+
+        out["documents"] = (
+            capo_marketplace_agreement.types.document_list.serialize_cbor(
+                value["documents"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> LegalTerm:
+    out: LegalTerm = {}  # type: ignore[typeddict-item]
+    if data.get("type") is not None:
+        out["type"] = data["type"]
+    if data.get("id") is not None:
+        out["id"] = data["id"]
+    if data.get("documents") is not None:
+        import capo_marketplace_agreement.types.document_list
+
+        out["documents"] = (
+            capo_marketplace_agreement.types.document_list.deserialize_cbor(
+                data["documents"]
+            )
+        )
+    return out

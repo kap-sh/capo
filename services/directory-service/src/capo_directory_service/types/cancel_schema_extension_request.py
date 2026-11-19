@@ -37,3 +37,24 @@ def deserialize_aws_json_1_1(data: dict) -> CancelSchemaExtensionRequest:
     else:
         out["schema_extension_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CancelSchemaExtensionRequest) -> dict:
+    out: dict = {}
+    out["DirectoryId"] = value["directory_id"]
+    out["SchemaExtensionId"] = value["schema_extension_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CancelSchemaExtensionRequest:
+    out: CancelSchemaExtensionRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    if data.get("SchemaExtensionId") is not None:
+        out["schema_extension_id"] = data["SchemaExtensionId"]
+    else:
+        out["schema_extension_id"] = ""
+    return out

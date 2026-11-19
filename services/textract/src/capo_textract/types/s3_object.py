@@ -40,3 +40,26 @@ def deserialize_aws_json_1_1(data: dict) -> S3Object:
     if data.get("Version") is not None:
         out["version"] = data["Version"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: S3Object) -> dict:
+    out: dict = {}
+    if "bucket" in value:
+        out["Bucket"] = value["bucket"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "version" in value:
+        out["Version"] = value["version"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> S3Object:
+    out: S3Object = {}  # type: ignore[typeddict-item]
+    if data.get("Bucket") is not None:
+        out["bucket"] = data["Bucket"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Version") is not None:
+        out["version"] = data["Version"]
+    return out

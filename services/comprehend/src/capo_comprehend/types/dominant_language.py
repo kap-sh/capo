@@ -41,3 +41,22 @@ def deserialize_aws_json_1_1(data: dict) -> DominantLanguage:
     if data.get("Score") is not None:
         out["score"] = float(data["Score"])
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DominantLanguage) -> dict:
+    out: dict = {}
+    if "language_code" in value:
+        out["LanguageCode"] = value["language_code"]
+    if "score" in value:
+        out["Score"] = value["score"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DominantLanguage:
+    out: DominantLanguage = {}  # type: ignore[typeddict-item]
+    if data.get("LanguageCode") is not None:
+        out["language_code"] = data["LanguageCode"]
+    if data.get("Score") is not None:
+        out["score"] = float(data["Score"])
+    return out

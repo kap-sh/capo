@@ -75,3 +75,46 @@ def deserialize_aws_json_1_1(data: dict) -> S3ReportExportConfig:
     if data.get("encryptionDisabled") is not None:
         out["encryption_disabled"] = data["encryptionDisabled"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: S3ReportExportConfig) -> dict:
+    out: dict = {}
+    if "bucket" in value:
+        out["bucket"] = value["bucket"]
+    if "bucket_owner" in value:
+        out["bucketOwner"] = value["bucket_owner"]
+    if "path" in value:
+        out["path"] = value["path"]
+    if "packaging" in value:
+        import capo_codebuild.types.report_packaging_type
+
+        out["packaging"] = capo_codebuild.types.report_packaging_type.serialize_cbor(
+            value["packaging"]
+        )
+    if "encryption_key" in value:
+        out["encryptionKey"] = value["encryption_key"]
+    if "encryption_disabled" in value:
+        out["encryptionDisabled"] = value["encryption_disabled"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> S3ReportExportConfig:
+    out: S3ReportExportConfig = {}  # type: ignore[typeddict-item]
+    if data.get("bucket") is not None:
+        out["bucket"] = data["bucket"]
+    if data.get("bucketOwner") is not None:
+        out["bucket_owner"] = data["bucketOwner"]
+    if data.get("path") is not None:
+        out["path"] = data["path"]
+    if data.get("packaging") is not None:
+        import capo_codebuild.types.report_packaging_type
+
+        out["packaging"] = capo_codebuild.types.report_packaging_type.deserialize_cbor(
+            data["packaging"]
+        )
+    if data.get("encryptionKey") is not None:
+        out["encryption_key"] = data["encryptionKey"]
+    if data.get("encryptionDisabled") is not None:
+        out["encryption_disabled"] = data["encryptionDisabled"]
+    return out

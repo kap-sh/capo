@@ -98,3 +98,71 @@ def deserialize_aws_json_1_1(data: dict) -> CreateServiceActionInput:
     else:
         out["idempotency_token"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateServiceActionInput) -> dict:
+    out: dict = {}
+    out["Name"] = value["name"]
+    import capo_service_catalog.types.service_action_definition_type
+
+    out["DefinitionType"] = (
+        capo_service_catalog.types.service_action_definition_type.serialize_cbor(
+            value["definition_type"]
+        )
+    )
+    import capo_service_catalog.types.service_action_definition_map
+
+    out["Definition"] = (
+        capo_service_catalog.types.service_action_definition_map.serialize_cbor(
+            value["definition"]
+        )
+    )
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    out["IdempotencyToken"] = value["idempotency_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateServiceActionInput:
+    out: CreateServiceActionInput = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    else:
+        out["name"] = ""
+    if data.get("DefinitionType") is not None:
+        import capo_service_catalog.types.service_action_definition_type
+
+        out["definition_type"] = (
+            capo_service_catalog.types.service_action_definition_type.deserialize_cbor(
+                data["DefinitionType"]
+            )
+        )
+    else:
+        import typing
+
+        out["definition_type"] = typing.cast(
+            "capo_service_catalog.types.service_action_definition_type.ServiceActionDefinitionType",
+            "",
+        )
+    if data.get("Definition") is not None:
+        import capo_service_catalog.types.service_action_definition_map
+
+        out["definition"] = (
+            capo_service_catalog.types.service_action_definition_map.deserialize_cbor(
+                data["Definition"]
+            )
+        )
+    else:
+        out["definition"] = {}
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    if data.get("IdempotencyToken") is not None:
+        out["idempotency_token"] = data["IdempotencyToken"]
+    else:
+        out["idempotency_token"] = ""
+    return out

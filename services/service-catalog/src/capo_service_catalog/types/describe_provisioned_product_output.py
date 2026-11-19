@@ -61,3 +61,46 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeProvisionedProductOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeProvisionedProductOutput) -> dict:
+    out: dict = {}
+    if "provisioned_product_detail" in value:
+        import capo_service_catalog.types.provisioned_product_detail
+
+        out["ProvisionedProductDetail"] = (
+            capo_service_catalog.types.provisioned_product_detail.serialize_cbor(
+                value["provisioned_product_detail"]
+            )
+        )
+    if "cloud_watch_dashboards" in value:
+        import capo_service_catalog.types.cloud_watch_dashboards
+
+        out["CloudWatchDashboards"] = (
+            capo_service_catalog.types.cloud_watch_dashboards.serialize_cbor(
+                value["cloud_watch_dashboards"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeProvisionedProductOutput:
+    out: DescribeProvisionedProductOutput = {}  # type: ignore[typeddict-item]
+    if data.get("ProvisionedProductDetail") is not None:
+        import capo_service_catalog.types.provisioned_product_detail
+
+        out["provisioned_product_detail"] = (
+            capo_service_catalog.types.provisioned_product_detail.deserialize_cbor(
+                data["ProvisionedProductDetail"]
+            )
+        )
+    if data.get("CloudWatchDashboards") is not None:
+        import capo_service_catalog.types.cloud_watch_dashboards
+
+        out["cloud_watch_dashboards"] = (
+            capo_service_catalog.types.cloud_watch_dashboards.deserialize_cbor(
+                data["CloudWatchDashboards"]
+            )
+        )
+    return out

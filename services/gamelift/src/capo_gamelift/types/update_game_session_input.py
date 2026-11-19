@@ -107,6 +107,73 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateGameSessionInput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateGameSessionInput) -> dict:
+    out: dict = {}
+    if "game_session_id" in value:
+        out["GameSessionId"] = value["game_session_id"]
+    if "maximum_player_session_count" in value:
+        out["MaximumPlayerSessionCount"] = value["maximum_player_session_count"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "player_session_creation_policy" in value:
+        import capo_gamelift.types.player_session_creation_policy
+
+        out["PlayerSessionCreationPolicy"] = (
+            capo_gamelift.types.player_session_creation_policy.serialize_cbor(
+                value["player_session_creation_policy"]
+            )
+        )
+    if "protection_policy" in value:
+        import capo_gamelift.types.protection_policy
+
+        out["ProtectionPolicy"] = capo_gamelift.types.protection_policy.serialize_cbor(
+            value["protection_policy"]
+        )
+    if "game_properties" in value:
+        import capo_gamelift.types.game_property_list
+
+        out["GameProperties"] = capo_gamelift.types.game_property_list.serialize_cbor(
+            value["game_properties"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateGameSessionInput:
+    out: UpdateGameSessionInput = {}  # type: ignore[typeddict-item]
+    if data.get("GameSessionId") is not None:
+        out["game_session_id"] = data["GameSessionId"]
+    if data.get("MaximumPlayerSessionCount") is not None:
+        out["maximum_player_session_count"] = data["MaximumPlayerSessionCount"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("PlayerSessionCreationPolicy") is not None:
+        import capo_gamelift.types.player_session_creation_policy
+
+        out["player_session_creation_policy"] = (
+            capo_gamelift.types.player_session_creation_policy.deserialize_cbor(
+                data["PlayerSessionCreationPolicy"]
+            )
+        )
+    if data.get("ProtectionPolicy") is not None:
+        import capo_gamelift.types.protection_policy
+
+        out["protection_policy"] = (
+            capo_gamelift.types.protection_policy.deserialize_cbor(
+                data["ProtectionPolicy"]
+            )
+        )
+    if data.get("GameProperties") is not None:
+        import capo_gamelift.types.game_property_list
+
+        out["game_properties"] = (
+            capo_gamelift.types.game_property_list.deserialize_cbor(
+                data["GameProperties"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: UpdateGameSessionInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "game_properties" in value:

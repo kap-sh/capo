@@ -43,3 +43,24 @@ def deserialize_aws_json_1_1(data: dict) -> Consent:
     else:
         out["currency"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Consent) -> dict:
+    out: dict = {}
+    out["MaxPrice"] = value.get("max_price", 0)
+    out["Currency"] = value["currency"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Consent:
+    out: Consent = {}  # type: ignore[typeddict-item]
+    if data.get("MaxPrice") is not None:
+        out["max_price"] = float(data["MaxPrice"])
+    else:
+        out["max_price"] = 0
+    if data.get("Currency") is not None:
+        out["currency"] = data["Currency"]
+    else:
+        out["currency"] = ""
+    return out

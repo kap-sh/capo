@@ -101,3 +101,78 @@ def deserialize_aws_json_1_1(data: dict) -> GetParallelDataResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetParallelDataResponse) -> dict:
+    out: dict = {}
+    if "parallel_data_properties" in value:
+        import capo_translate.types.parallel_data_properties
+
+        out["ParallelDataProperties"] = (
+            capo_translate.types.parallel_data_properties.serialize_cbor(
+                value["parallel_data_properties"]
+            )
+        )
+    if "data_location" in value:
+        import capo_translate.types.parallel_data_data_location
+
+        out["DataLocation"] = (
+            capo_translate.types.parallel_data_data_location.serialize_cbor(
+                value["data_location"]
+            )
+        )
+    if "auxiliary_data_location" in value:
+        import capo_translate.types.parallel_data_data_location
+
+        out["AuxiliaryDataLocation"] = (
+            capo_translate.types.parallel_data_data_location.serialize_cbor(
+                value["auxiliary_data_location"]
+            )
+        )
+    if "latest_update_attempt_auxiliary_data_location" in value:
+        import capo_translate.types.parallel_data_data_location
+
+        out["LatestUpdateAttemptAuxiliaryDataLocation"] = (
+            capo_translate.types.parallel_data_data_location.serialize_cbor(
+                value["latest_update_attempt_auxiliary_data_location"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetParallelDataResponse:
+    out: GetParallelDataResponse = {}  # type: ignore[typeddict-item]
+    if data.get("ParallelDataProperties") is not None:
+        import capo_translate.types.parallel_data_properties
+
+        out["parallel_data_properties"] = (
+            capo_translate.types.parallel_data_properties.deserialize_cbor(
+                data["ParallelDataProperties"]
+            )
+        )
+    if data.get("DataLocation") is not None:
+        import capo_translate.types.parallel_data_data_location
+
+        out["data_location"] = (
+            capo_translate.types.parallel_data_data_location.deserialize_cbor(
+                data["DataLocation"]
+            )
+        )
+    if data.get("AuxiliaryDataLocation") is not None:
+        import capo_translate.types.parallel_data_data_location
+
+        out["auxiliary_data_location"] = (
+            capo_translate.types.parallel_data_data_location.deserialize_cbor(
+                data["AuxiliaryDataLocation"]
+            )
+        )
+    if data.get("LatestUpdateAttemptAuxiliaryDataLocation") is not None:
+        import capo_translate.types.parallel_data_data_location
+
+        out["latest_update_attempt_auxiliary_data_location"] = (
+            capo_translate.types.parallel_data_data_location.deserialize_cbor(
+                data["LatestUpdateAttemptAuxiliaryDataLocation"]
+            )
+        )
+    return out

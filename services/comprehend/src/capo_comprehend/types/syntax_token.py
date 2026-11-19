@@ -66,3 +66,44 @@ def deserialize_aws_json_1_1(data: dict) -> SyntaxToken:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SyntaxToken) -> dict:
+    out: dict = {}
+    if "token_id" in value:
+        out["TokenId"] = value["token_id"]
+    if "text" in value:
+        out["Text"] = value["text"]
+    if "begin_offset" in value:
+        out["BeginOffset"] = value["begin_offset"]
+    if "end_offset" in value:
+        out["EndOffset"] = value["end_offset"]
+    if "part_of_speech" in value:
+        import capo_comprehend.types.part_of_speech_tag
+
+        out["PartOfSpeech"] = capo_comprehend.types.part_of_speech_tag.serialize_cbor(
+            value["part_of_speech"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> SyntaxToken:
+    out: SyntaxToken = {}  # type: ignore[typeddict-item]
+    if data.get("TokenId") is not None:
+        out["token_id"] = data["TokenId"]
+    if data.get("Text") is not None:
+        out["text"] = data["Text"]
+    if data.get("BeginOffset") is not None:
+        out["begin_offset"] = data["BeginOffset"]
+    if data.get("EndOffset") is not None:
+        out["end_offset"] = data["EndOffset"]
+    if data.get("PartOfSpeech") is not None:
+        import capo_comprehend.types.part_of_speech_tag
+
+        out["part_of_speech"] = (
+            capo_comprehend.types.part_of_speech_tag.deserialize_cbor(
+                data["PartOfSpeech"]
+            )
+        )
+    return out

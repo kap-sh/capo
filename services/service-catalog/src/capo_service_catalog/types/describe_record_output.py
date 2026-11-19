@@ -66,3 +66,46 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeRecordOutput:
     if data.get("NextPageToken") is not None:
         out["next_page_token"] = data["NextPageToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeRecordOutput) -> dict:
+    out: dict = {}
+    if "record_detail" in value:
+        import capo_service_catalog.types.record_detail
+
+        out["RecordDetail"] = capo_service_catalog.types.record_detail.serialize_cbor(
+            value["record_detail"]
+        )
+    if "record_outputs" in value:
+        import capo_service_catalog.types.record_outputs
+
+        out["RecordOutputs"] = capo_service_catalog.types.record_outputs.serialize_cbor(
+            value["record_outputs"]
+        )
+    if "next_page_token" in value:
+        out["NextPageToken"] = value["next_page_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeRecordOutput:
+    out: DescribeRecordOutput = {}  # type: ignore[typeddict-item]
+    if data.get("RecordDetail") is not None:
+        import capo_service_catalog.types.record_detail
+
+        out["record_detail"] = (
+            capo_service_catalog.types.record_detail.deserialize_cbor(
+                data["RecordDetail"]
+            )
+        )
+    if data.get("RecordOutputs") is not None:
+        import capo_service_catalog.types.record_outputs
+
+        out["record_outputs"] = (
+            capo_service_catalog.types.record_outputs.deserialize_cbor(
+                data["RecordOutputs"]
+            )
+        )
+    if data.get("NextPageToken") is not None:
+        out["next_page_token"] = data["NextPageToken"]
+    return out

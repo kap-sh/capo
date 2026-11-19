@@ -114,6 +114,78 @@ def deserialize_aws_json_1_1(data: dict) -> ImportTerminologyRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ImportTerminologyRequest) -> dict:
+    out: dict = {}
+    out["Name"] = value["name"]
+    import capo_translate.types.merge_strategy
+
+    out["MergeStrategy"] = capo_translate.types.merge_strategy.serialize_cbor(
+        value["merge_strategy"]
+    )
+    if "description" in value:
+        out["Description"] = value["description"]
+    import capo_translate.types.terminology_data
+
+    out["TerminologyData"] = capo_translate.types.terminology_data.serialize_cbor(
+        value["terminology_data"]
+    )
+    if "encryption_key" in value:
+        import capo_translate.types.encryption_key
+
+        out["EncryptionKey"] = capo_translate.types.encryption_key.serialize_cbor(
+            value["encryption_key"]
+        )
+    if "tags" in value:
+        import capo_translate.types.tag_list
+
+        out["Tags"] = capo_translate.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> ImportTerminologyRequest:
+    out: ImportTerminologyRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    else:
+        out["name"] = ""
+    if data.get("MergeStrategy") is not None:
+        import capo_translate.types.merge_strategy
+
+        out["merge_strategy"] = capo_translate.types.merge_strategy.deserialize_cbor(
+            data["MergeStrategy"]
+        )
+    else:
+        import typing
+
+        out["merge_strategy"] = typing.cast(
+            "capo_translate.types.merge_strategy.MergeStrategy", ""
+        )
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("TerminologyData") is not None:
+        import capo_translate.types.terminology_data
+
+        out["terminology_data"] = (
+            capo_translate.types.terminology_data.deserialize_cbor(
+                data["TerminologyData"]
+            )
+        )
+    else:
+        raise DeserializationError("ImportTerminologyRequest.terminology_data required")
+    if data.get("EncryptionKey") is not None:
+        import capo_translate.types.encryption_key
+
+        out["encryption_key"] = capo_translate.types.encryption_key.deserialize_cbor(
+            data["EncryptionKey"]
+        )
+    if data.get("Tags") is not None:
+        import capo_translate.types.tag_list
+
+        out["tags"] = capo_translate.types.tag_list.deserialize_cbor(data["Tags"])
+    return out
+
+
 def redact_sensitive(value: ImportTerminologyRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "terminology_data" in value:

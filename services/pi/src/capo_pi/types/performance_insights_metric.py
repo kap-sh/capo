@@ -76,3 +76,46 @@ def deserialize_aws_json_1_1(data: dict) -> PerformanceInsightsMetric:
     if data.get("Value") is not None:
         out["value"] = float(data["Value"])
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PerformanceInsightsMetric) -> dict:
+    out: dict = {}
+    if "metric" in value:
+        out["Metric"] = value["metric"]
+    if "display_name" in value:
+        out["DisplayName"] = value["display_name"]
+    if "dimensions" in value:
+        import capo_pi.types.descriptive_map
+
+        out["Dimensions"] = capo_pi.types.descriptive_map.serialize_cbor(
+            value["dimensions"]
+        )
+    if "filter" in value:
+        import capo_pi.types.descriptive_map
+
+        out["Filter"] = capo_pi.types.descriptive_map.serialize_cbor(value["filter"])
+    if "value" in value:
+        out["Value"] = value["value"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> PerformanceInsightsMetric:
+    out: PerformanceInsightsMetric = {}  # type: ignore[typeddict-item]
+    if data.get("Metric") is not None:
+        out["metric"] = data["Metric"]
+    if data.get("DisplayName") is not None:
+        out["display_name"] = data["DisplayName"]
+    if data.get("Dimensions") is not None:
+        import capo_pi.types.descriptive_map
+
+        out["dimensions"] = capo_pi.types.descriptive_map.deserialize_cbor(
+            data["Dimensions"]
+        )
+    if data.get("Filter") is not None:
+        import capo_pi.types.descriptive_map
+
+        out["filter"] = capo_pi.types.descriptive_map.deserialize_cbor(data["Filter"])
+    if data.get("Value") is not None:
+        out["value"] = float(data["Value"])
+    return out

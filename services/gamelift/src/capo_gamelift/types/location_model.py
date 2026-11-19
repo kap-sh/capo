@@ -50,3 +50,34 @@ def deserialize_aws_json_1_1(data: dict) -> LocationModel:
             data["PingBeacon"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LocationModel) -> dict:
+    out: dict = {}
+    if "location_name" in value:
+        out["LocationName"] = value["location_name"]
+    if "location_arn" in value:
+        out["LocationArn"] = value["location_arn"]
+    if "ping_beacon" in value:
+        import capo_gamelift.types.ping_beacon
+
+        out["PingBeacon"] = capo_gamelift.types.ping_beacon.serialize_cbor(
+            value["ping_beacon"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> LocationModel:
+    out: LocationModel = {}  # type: ignore[typeddict-item]
+    if data.get("LocationName") is not None:
+        out["location_name"] = data["LocationName"]
+    if data.get("LocationArn") is not None:
+        out["location_arn"] = data["LocationArn"]
+    if data.get("PingBeacon") is not None:
+        import capo_gamelift.types.ping_beacon
+
+        out["ping_beacon"] = capo_gamelift.types.ping_beacon.deserialize_cbor(
+            data["PingBeacon"]
+        )
+    return out

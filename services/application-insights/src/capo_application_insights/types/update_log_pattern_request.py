@@ -63,3 +63,37 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateLogPatternRequest:
     if data.get("Rank") is not None:
         out["rank"] = data["Rank"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateLogPatternRequest) -> dict:
+    out: dict = {}
+    out["ResourceGroupName"] = value["resource_group_name"]
+    out["PatternSetName"] = value["pattern_set_name"]
+    out["PatternName"] = value["pattern_name"]
+    if "pattern" in value:
+        out["Pattern"] = value["pattern"]
+    if "rank" in value:
+        out["Rank"] = value["rank"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateLogPatternRequest:
+    out: UpdateLogPatternRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceGroupName") is not None:
+        out["resource_group_name"] = data["ResourceGroupName"]
+    else:
+        out["resource_group_name"] = ""
+    if data.get("PatternSetName") is not None:
+        out["pattern_set_name"] = data["PatternSetName"]
+    else:
+        out["pattern_set_name"] = ""
+    if data.get("PatternName") is not None:
+        out["pattern_name"] = data["PatternName"]
+    else:
+        out["pattern_name"] = ""
+    if data.get("Pattern") is not None:
+        out["pattern"] = data["Pattern"]
+    if data.get("Rank") is not None:
+        out["rank"] = data["Rank"]
+    return out

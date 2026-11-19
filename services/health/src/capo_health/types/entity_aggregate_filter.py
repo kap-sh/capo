@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> EntityAggregateFilter:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EntityAggregateFilter) -> dict:
+    out: dict = {}
+    if "tags" in value:
+        import capo_health.types.describe_entity_aggregates_tag_filter
+
+        out["tags"] = (
+            capo_health.types.describe_entity_aggregates_tag_filter.serialize_cbor(
+                value["tags"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> EntityAggregateFilter:
+    out: EntityAggregateFilter = {}  # type: ignore[typeddict-item]
+    if data.get("tags") is not None:
+        import capo_health.types.describe_entity_aggregates_tag_filter
+
+        out["tags"] = (
+            capo_health.types.describe_entity_aggregates_tag_filter.deserialize_cbor(
+                data["tags"]
+            )
+        )
+    return out

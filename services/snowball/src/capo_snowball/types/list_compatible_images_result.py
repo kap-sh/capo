@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> ListCompatibleImagesResult:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListCompatibleImagesResult) -> dict:
+    out: dict = {}
+    if "compatible_images" in value:
+        import capo_snowball.types.compatible_image_list
+
+        out["CompatibleImages"] = (
+            capo_snowball.types.compatible_image_list.serialize_cbor(
+                value["compatible_images"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListCompatibleImagesResult:
+    out: ListCompatibleImagesResult = {}  # type: ignore[typeddict-item]
+    if data.get("CompatibleImages") is not None:
+        import capo_snowball.types.compatible_image_list
+
+        out["compatible_images"] = (
+            capo_snowball.types.compatible_image_list.deserialize_cbor(
+                data["CompatibleImages"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

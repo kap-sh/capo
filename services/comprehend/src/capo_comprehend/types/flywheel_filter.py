@@ -71,3 +71,50 @@ def deserialize_aws_json_1_1(data: dict) -> FlywheelFilter:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FlywheelFilter) -> dict:
+    out: dict = {}
+    if "status" in value:
+        import capo_comprehend.types.flywheel_status
+
+        out["Status"] = capo_comprehend.types.flywheel_status.serialize_cbor(
+            value["status"]
+        )
+    if "creation_time_after" in value:
+        import capo_comprehend.types.timestamp
+
+        out["CreationTimeAfter"] = capo_comprehend.types.timestamp.serialize_cbor(
+            value["creation_time_after"]
+        )
+    if "creation_time_before" in value:
+        import capo_comprehend.types.timestamp
+
+        out["CreationTimeBefore"] = capo_comprehend.types.timestamp.serialize_cbor(
+            value["creation_time_before"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> FlywheelFilter:
+    out: FlywheelFilter = {}  # type: ignore[typeddict-item]
+    if data.get("Status") is not None:
+        import capo_comprehend.types.flywheel_status
+
+        out["status"] = capo_comprehend.types.flywheel_status.deserialize_cbor(
+            data["Status"]
+        )
+    if data.get("CreationTimeAfter") is not None:
+        import capo_comprehend.types.timestamp
+
+        out["creation_time_after"] = capo_comprehend.types.timestamp.deserialize_cbor(
+            data["CreationTimeAfter"]
+        )
+    if data.get("CreationTimeBefore") is not None:
+        import capo_comprehend.types.timestamp
+
+        out["creation_time_before"] = capo_comprehend.types.timestamp.deserialize_cbor(
+            data["CreationTimeBefore"]
+        )
+    return out

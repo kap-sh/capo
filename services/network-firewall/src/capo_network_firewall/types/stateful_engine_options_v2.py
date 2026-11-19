@@ -59,3 +59,44 @@ def deserialize_aws_json_1_0(data: dict) -> StatefulEngineOptionsV2:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StatefulEngineOptionsV2) -> dict:
+    out: dict = {}
+    if "stream_exception_policy" in value:
+        import capo_network_firewall.types.stream_exception_policy_v2
+
+        out["StreamExceptionPolicy"] = (
+            capo_network_firewall.types.stream_exception_policy_v2.serialize_cbor(
+                value["stream_exception_policy"]
+            )
+        )
+    if "flow_timeouts" in value:
+        import capo_network_firewall.types.flow_timeouts
+
+        out["FlowTimeouts"] = capo_network_firewall.types.flow_timeouts.serialize_cbor(
+            value["flow_timeouts"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StatefulEngineOptionsV2:
+    out: StatefulEngineOptionsV2 = {}  # type: ignore[typeddict-item]
+    if data.get("StreamExceptionPolicy") is not None:
+        import capo_network_firewall.types.stream_exception_policy_v2
+
+        out["stream_exception_policy"] = (
+            capo_network_firewall.types.stream_exception_policy_v2.deserialize_cbor(
+                data["StreamExceptionPolicy"]
+            )
+        )
+    if data.get("FlowTimeouts") is not None:
+        import capo_network_firewall.types.flow_timeouts
+
+        out["flow_timeouts"] = (
+            capo_network_firewall.types.flow_timeouts.deserialize_cbor(
+                data["FlowTimeouts"]
+            )
+        )
+    return out

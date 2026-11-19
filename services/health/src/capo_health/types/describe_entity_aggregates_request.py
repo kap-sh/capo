@@ -55,3 +55,38 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeEntityAggregatesRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeEntityAggregatesRequest) -> dict:
+    out: dict = {}
+    if "event_arns" in value:
+        import capo_health.types.event_arns_list
+
+        out["eventArns"] = capo_health.types.event_arns_list.serialize_cbor(
+            value["event_arns"]
+        )
+    if "filter" in value:
+        import capo_health.types.entity_aggregate_filter
+
+        out["filter"] = capo_health.types.entity_aggregate_filter.serialize_cbor(
+            value["filter"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeEntityAggregatesRequest:
+    out: DescribeEntityAggregatesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("eventArns") is not None:
+        import capo_health.types.event_arns_list
+
+        out["event_arns"] = capo_health.types.event_arns_list.deserialize_cbor(
+            data["eventArns"]
+        )
+    if data.get("filter") is not None:
+        import capo_health.types.entity_aggregate_filter
+
+        out["filter"] = capo_health.types.entity_aggregate_filter.deserialize_cbor(
+            data["filter"]
+        )
+    return out

@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> Platform:
     if data.get("Version") is not None:
         out["version"] = data["Version"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Platform) -> dict:
+    out: dict = {}
+    if "version" in value:
+        out["Version"] = value["version"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Platform:
+    out: Platform = {}  # type: ignore[typeddict-item]
+    if data.get("Version") is not None:
+        out["version"] = data["Version"]
+    return out

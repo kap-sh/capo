@@ -61,3 +61,36 @@ def deserialize_aws_json_1_1(data: dict) -> CurrentRevision:
     if data.get("revisionSummary") is not None:
         out["revision_summary"] = data["revisionSummary"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CurrentRevision) -> dict:
+    out: dict = {}
+    out["revision"] = value["revision"]
+    out["changeIdentifier"] = value["change_identifier"]
+    if "created" in value:
+        import capo_codepipeline.types.time
+
+        out["created"] = capo_codepipeline.types.time.serialize_cbor(value["created"])
+    if "revision_summary" in value:
+        out["revisionSummary"] = value["revision_summary"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CurrentRevision:
+    out: CurrentRevision = {}  # type: ignore[typeddict-item]
+    if data.get("revision") is not None:
+        out["revision"] = data["revision"]
+    else:
+        out["revision"] = ""
+    if data.get("changeIdentifier") is not None:
+        out["change_identifier"] = data["changeIdentifier"]
+    else:
+        out["change_identifier"] = ""
+    if data.get("created") is not None:
+        import capo_codepipeline.types.time
+
+        out["created"] = capo_codepipeline.types.time.deserialize_cbor(data["created"])
+    if data.get("revisionSummary") is not None:
+        out["revision_summary"] = data["revisionSummary"]
+    return out

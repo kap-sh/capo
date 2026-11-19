@@ -33,3 +33,24 @@ def deserialize_aws_json_1_1(data: list) -> EnvironmentVariables:
             capo_codebuild.types.environment_variable.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EnvironmentVariables) -> list:
+    import capo_codebuild.types.environment_variable
+
+    out: list = []
+    for item in value:
+        out.append(capo_codebuild.types.environment_variable.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> EnvironmentVariables:
+    import capo_codebuild.types.environment_variable
+
+    out: EnvironmentVariables = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_codebuild.types.environment_variable.deserialize_cbor(item))
+    return out

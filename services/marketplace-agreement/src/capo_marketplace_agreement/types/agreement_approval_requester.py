@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> AgreementApprovalRequester:
     else:
         out["account_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AgreementApprovalRequester) -> dict:
+    out: dict = {}
+    out["accountId"] = value["account_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AgreementApprovalRequester:
+    out: AgreementApprovalRequester = {}  # type: ignore[typeddict-item]
+    if data.get("accountId") is not None:
+        out["account_id"] = data["accountId"]
+    else:
+        out["account_id"] = ""
+    return out

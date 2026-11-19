@@ -59,3 +59,46 @@ def deserialize_aws_json_1_0(data: dict) -> BatchCreateBillingAdjustmentError:
     else:
         out["client_token"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchCreateBillingAdjustmentError) -> dict:
+    out: dict = {}
+    import capo_marketplace_agreement.types.billing_adjustment_error_code
+
+    out["code"] = (
+        capo_marketplace_agreement.types.billing_adjustment_error_code.serialize_cbor(
+            value["code"]
+        )
+    )
+    out["message"] = value["message"]
+    out["clientToken"] = value["client_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> BatchCreateBillingAdjustmentError:
+    out: BatchCreateBillingAdjustmentError = {}  # type: ignore[typeddict-item]
+    if data.get("code") is not None:
+        import capo_marketplace_agreement.types.billing_adjustment_error_code
+
+        out["code"] = (
+            capo_marketplace_agreement.types.billing_adjustment_error_code.deserialize_cbor(
+                data["code"]
+            )
+        )
+    else:
+        import typing
+
+        out["code"] = typing.cast(
+            "capo_marketplace_agreement.types.billing_adjustment_error_code.BillingAdjustmentErrorCode",
+            "",
+        )
+    if data.get("message") is not None:
+        out["message"] = data["message"]
+    else:
+        out["message"] = ""
+    if data.get("clientToken") is not None:
+        out["client_token"] = data["clientToken"]
+    else:
+        out["client_token"] = ""
+    return out

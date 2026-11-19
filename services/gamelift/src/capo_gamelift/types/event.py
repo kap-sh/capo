@@ -88,3 +88,58 @@ def deserialize_aws_json_1_1(data: dict) -> Event:
     if data.get("Count") is not None:
         out["count"] = data["Count"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Event) -> dict:
+    out: dict = {}
+    if "event_id" in value:
+        out["EventId"] = value["event_id"]
+    if "resource_id" in value:
+        out["ResourceId"] = value["resource_id"]
+    if "event_code" in value:
+        import capo_gamelift.types.event_code
+
+        out["EventCode"] = capo_gamelift.types.event_code.serialize_cbor(
+            value["event_code"]
+        )
+    if "message" in value:
+        out["Message"] = value["message"]
+    if "event_time" in value:
+        import capo_gamelift.types.timestamp
+
+        out["EventTime"] = capo_gamelift.types.timestamp.serialize_cbor(
+            value["event_time"]
+        )
+    if "pre_signed_log_url" in value:
+        out["PreSignedLogUrl"] = value["pre_signed_log_url"]
+    if "count" in value:
+        out["Count"] = value["count"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Event:
+    out: Event = {}  # type: ignore[typeddict-item]
+    if data.get("EventId") is not None:
+        out["event_id"] = data["EventId"]
+    if data.get("ResourceId") is not None:
+        out["resource_id"] = data["ResourceId"]
+    if data.get("EventCode") is not None:
+        import capo_gamelift.types.event_code
+
+        out["event_code"] = capo_gamelift.types.event_code.deserialize_cbor(
+            data["EventCode"]
+        )
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    if data.get("EventTime") is not None:
+        import capo_gamelift.types.timestamp
+
+        out["event_time"] = capo_gamelift.types.timestamp.deserialize_cbor(
+            data["EventTime"]
+        )
+    if data.get("PreSignedLogUrl") is not None:
+        out["pre_signed_log_url"] = data["PreSignedLogUrl"]
+    if data.get("Count") is not None:
+        out["count"] = data["Count"]
+    return out

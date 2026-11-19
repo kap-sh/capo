@@ -41,3 +41,26 @@ def deserialize_aws_json_1_0(data: dict) -> CapacityReservationTarget:
             "CapacityReservationResourceGroupArn"
         ]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CapacityReservationTarget) -> dict:
+    out: dict = {}
+    if "capacity_reservation_id" in value:
+        out["CapacityReservationId"] = value["capacity_reservation_id"]
+    if "capacity_reservation_resource_group_arn" in value:
+        out["CapacityReservationResourceGroupArn"] = value[
+            "capacity_reservation_resource_group_arn"
+        ]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CapacityReservationTarget:
+    out: CapacityReservationTarget = {}  # type: ignore[typeddict-item]
+    if data.get("CapacityReservationId") is not None:
+        out["capacity_reservation_id"] = data["CapacityReservationId"]
+    if data.get("CapacityReservationResourceGroupArn") is not None:
+        out["capacity_reservation_resource_group_arn"] = data[
+            "CapacityReservationResourceGroupArn"
+        ]
+    return out

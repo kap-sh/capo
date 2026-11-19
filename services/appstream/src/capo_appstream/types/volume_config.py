@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> VolumeConfig:
     if data.get("VolumeSizeInGb") is not None:
         out["volume_size_in_gb"] = data["VolumeSizeInGb"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: VolumeConfig) -> dict:
+    out: dict = {}
+    if "volume_size_in_gb" in value:
+        out["VolumeSizeInGb"] = value["volume_size_in_gb"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> VolumeConfig:
+    out: VolumeConfig = {}  # type: ignore[typeddict-item]
+    if data.get("VolumeSizeInGb") is not None:
+        out["volume_size_in_gb"] = data["VolumeSizeInGb"]
+    return out

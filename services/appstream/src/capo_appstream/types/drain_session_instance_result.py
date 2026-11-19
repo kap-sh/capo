@@ -16,3 +16,14 @@ def serialize_aws_json_1_1(value: DrainSessionInstanceResult) -> dict:
 def deserialize_aws_json_1_1(data: dict) -> DrainSessionInstanceResult:
     out: DrainSessionInstanceResult = {}  # type: ignore[typeddict-item]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DrainSessionInstanceResult) -> dict:
+    out: dict = {}
+    return out
+
+
+def deserialize_cbor(data: dict) -> DrainSessionInstanceResult:
+    out: DrainSessionInstanceResult = {}  # type: ignore[typeddict-item]
+    return out

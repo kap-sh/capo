@@ -86,3 +86,66 @@ def deserialize_aws_json_1_1(data: dict) -> FleetProxyRule:
     else:
         out["entities"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FleetProxyRule) -> dict:
+    out: dict = {}
+    import capo_codebuild.types.fleet_proxy_rule_type
+
+    out["type"] = capo_codebuild.types.fleet_proxy_rule_type.serialize_cbor(
+        value["type"]
+    )
+    import capo_codebuild.types.fleet_proxy_rule_effect_type
+
+    out["effect"] = capo_codebuild.types.fleet_proxy_rule_effect_type.serialize_cbor(
+        value["effect"]
+    )
+    import capo_codebuild.types.fleet_proxy_rule_entities
+
+    out["entities"] = capo_codebuild.types.fleet_proxy_rule_entities.serialize_cbor(
+        value["entities"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> FleetProxyRule:
+    out: FleetProxyRule = {}  # type: ignore[typeddict-item]
+    if data.get("type") is not None:
+        import capo_codebuild.types.fleet_proxy_rule_type
+
+        out["type"] = capo_codebuild.types.fleet_proxy_rule_type.deserialize_cbor(
+            data["type"]
+        )
+    else:
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_codebuild.types.fleet_proxy_rule_type.FleetProxyRuleType", ""
+        )
+    if data.get("effect") is not None:
+        import capo_codebuild.types.fleet_proxy_rule_effect_type
+
+        out["effect"] = (
+            capo_codebuild.types.fleet_proxy_rule_effect_type.deserialize_cbor(
+                data["effect"]
+            )
+        )
+    else:
+        import typing
+
+        out["effect"] = typing.cast(
+            "capo_codebuild.types.fleet_proxy_rule_effect_type.FleetProxyRuleEffectType",
+            "",
+        )
+    if data.get("entities") is not None:
+        import capo_codebuild.types.fleet_proxy_rule_entities
+
+        out["entities"] = (
+            capo_codebuild.types.fleet_proxy_rule_entities.deserialize_cbor(
+                data["entities"]
+            )
+        )
+    else:
+        out["entities"] = []
+    return out

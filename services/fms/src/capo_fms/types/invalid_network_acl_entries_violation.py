@@ -64,3 +64,42 @@ def deserialize_aws_json_1_1(data: dict) -> InvalidNetworkAclEntriesViolation:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InvalidNetworkAclEntriesViolation) -> dict:
+    out: dict = {}
+    if "vpc" in value:
+        out["Vpc"] = value["vpc"]
+    if "subnet" in value:
+        out["Subnet"] = value["subnet"]
+    if "subnet_availability_zone" in value:
+        out["SubnetAvailabilityZone"] = value["subnet_availability_zone"]
+    if "current_associated_network_acl" in value:
+        out["CurrentAssociatedNetworkAcl"] = value["current_associated_network_acl"]
+    if "entry_violations" in value:
+        import capo_fms.types.entry_violations
+
+        out["EntryViolations"] = capo_fms.types.entry_violations.serialize_cbor(
+            value["entry_violations"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> InvalidNetworkAclEntriesViolation:
+    out: InvalidNetworkAclEntriesViolation = {}  # type: ignore[typeddict-item]
+    if data.get("Vpc") is not None:
+        out["vpc"] = data["Vpc"]
+    if data.get("Subnet") is not None:
+        out["subnet"] = data["Subnet"]
+    if data.get("SubnetAvailabilityZone") is not None:
+        out["subnet_availability_zone"] = data["SubnetAvailabilityZone"]
+    if data.get("CurrentAssociatedNetworkAcl") is not None:
+        out["current_associated_network_acl"] = data["CurrentAssociatedNetworkAcl"]
+    if data.get("EntryViolations") is not None:
+        import capo_fms.types.entry_violations
+
+        out["entry_violations"] = capo_fms.types.entry_violations.deserialize_cbor(
+            data["EntryViolations"]
+        )
+    return out

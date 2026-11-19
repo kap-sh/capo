@@ -175,6 +175,122 @@ def deserialize_aws_json_1_0(data: dict) -> RuleCondition:
         raise DeserializationError("RuleCondition: no recognized variant key")
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RuleCondition) -> dict:
+    if "$unknown" in value:
+        raise SerializationError(
+            f"RuleCondition: cannot serialize unknown variant {value['$unknown']['name']!r}"
+        )
+    elif "BooleanExpression" in value:
+        import capo_mailmanager.types.rule_boolean_expression
+
+        return {
+            "BooleanExpression": capo_mailmanager.types.rule_boolean_expression.serialize_cbor(
+                value["BooleanExpression"]
+            )
+        }
+    elif "StringExpression" in value:
+        import capo_mailmanager.types.rule_string_expression
+
+        return {
+            "StringExpression": capo_mailmanager.types.rule_string_expression.serialize_cbor(
+                value["StringExpression"]
+            )
+        }
+    elif "NumberExpression" in value:
+        import capo_mailmanager.types.rule_number_expression
+
+        return {
+            "NumberExpression": capo_mailmanager.types.rule_number_expression.serialize_cbor(
+                value["NumberExpression"]
+            )
+        }
+    elif "IpExpression" in value:
+        import capo_mailmanager.types.rule_ip_expression
+
+        return {
+            "IpExpression": capo_mailmanager.types.rule_ip_expression.serialize_cbor(
+                value["IpExpression"]
+            )
+        }
+    elif "VerdictExpression" in value:
+        import capo_mailmanager.types.rule_verdict_expression
+
+        return {
+            "VerdictExpression": capo_mailmanager.types.rule_verdict_expression.serialize_cbor(
+                value["VerdictExpression"]
+            )
+        }
+    elif "DmarcExpression" in value:
+        import capo_mailmanager.types.rule_dmarc_expression
+
+        return {
+            "DmarcExpression": capo_mailmanager.types.rule_dmarc_expression.serialize_cbor(
+                value["DmarcExpression"]
+            )
+        }
+    else:
+        raise SerializationError("RuleCondition: no variant present")
+
+
+def deserialize_cbor(data: dict) -> RuleCondition:
+    if data.get("BooleanExpression") is not None:
+        import capo_mailmanager.types.rule_boolean_expression
+
+        return {
+            "BooleanExpression": capo_mailmanager.types.rule_boolean_expression.deserialize_cbor(
+                data["BooleanExpression"]
+            )
+        }
+    elif data.get("StringExpression") is not None:
+        import capo_mailmanager.types.rule_string_expression
+
+        return {
+            "StringExpression": capo_mailmanager.types.rule_string_expression.deserialize_cbor(
+                data["StringExpression"]
+            )
+        }
+    elif data.get("NumberExpression") is not None:
+        import capo_mailmanager.types.rule_number_expression
+
+        return {
+            "NumberExpression": capo_mailmanager.types.rule_number_expression.deserialize_cbor(
+                data["NumberExpression"]
+            )
+        }
+    elif data.get("IpExpression") is not None:
+        import capo_mailmanager.types.rule_ip_expression
+
+        return {
+            "IpExpression": capo_mailmanager.types.rule_ip_expression.deserialize_cbor(
+                data["IpExpression"]
+            )
+        }
+    elif data.get("VerdictExpression") is not None:
+        import capo_mailmanager.types.rule_verdict_expression
+
+        return {
+            "VerdictExpression": capo_mailmanager.types.rule_verdict_expression.deserialize_cbor(
+                data["VerdictExpression"]
+            )
+        }
+    elif data.get("DmarcExpression") is not None:
+        import capo_mailmanager.types.rule_dmarc_expression
+
+        return {
+            "DmarcExpression": capo_mailmanager.types.rule_dmarc_expression.deserialize_cbor(
+                data["DmarcExpression"]
+            )
+        }
+    else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return {"$unknown": {"name": name}}
+        raise DeserializationError("RuleCondition: no recognized variant key")
+
+
 def redact_sensitive(value: RuleCondition) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "StringExpression" in value:

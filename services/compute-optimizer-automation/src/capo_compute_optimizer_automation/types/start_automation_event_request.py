@@ -36,3 +36,23 @@ def deserialize_aws_json_1_0(data: dict) -> StartAutomationEventRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartAutomationEventRequest) -> dict:
+    out: dict = {}
+    out["recommendedActionId"] = value["recommended_action_id"]
+    if "client_token" in value:
+        out["clientToken"] = value["client_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartAutomationEventRequest:
+    out: StartAutomationEventRequest = {}  # type: ignore[typeddict-item]
+    if data.get("recommendedActionId") is not None:
+        out["recommended_action_id"] = data["recommendedActionId"]
+    else:
+        out["recommended_action_id"] = ""
+    if data.get("clientToken") is not None:
+        out["client_token"] = data["clientToken"]
+    return out

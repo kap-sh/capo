@@ -36,6 +36,25 @@ def deserialize_aws_json_1_0(data: dict) -> GetArchiveSearchResultsResponse:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetArchiveSearchResultsResponse) -> dict:
+    out: dict = {}
+    if "rows" in value:
+        import capo_mailmanager.types.rows_list
+
+        out["Rows"] = capo_mailmanager.types.rows_list.serialize_cbor(value["rows"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetArchiveSearchResultsResponse:
+    out: GetArchiveSearchResultsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Rows") is not None:
+        import capo_mailmanager.types.rows_list
+
+        out["rows"] = capo_mailmanager.types.rows_list.deserialize_cbor(data["Rows"])
+    return out
+
+
 def redact_sensitive(value: GetArchiveSearchResultsResponse) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "rows" in value:

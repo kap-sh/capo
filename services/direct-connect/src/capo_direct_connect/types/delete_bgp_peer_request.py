@@ -58,3 +58,34 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteBGPPeerRequest:
     if data.get("bgpPeerId") is not None:
         out["bgp_peer_id"] = data["bgpPeerId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteBGPPeerRequest) -> dict:
+    out: dict = {}
+    if "virtual_interface_id" in value:
+        out["virtualInterfaceId"] = value["virtual_interface_id"]
+    if "asn" in value:
+        out["asn"] = value["asn"]
+    if "asn_long" in value:
+        out["asnLong"] = value["asn_long"]
+    if "customer_address" in value:
+        out["customerAddress"] = value["customer_address"]
+    if "bgp_peer_id" in value:
+        out["bgpPeerId"] = value["bgp_peer_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteBGPPeerRequest:
+    out: DeleteBGPPeerRequest = {}  # type: ignore[typeddict-item]
+    if data.get("virtualInterfaceId") is not None:
+        out["virtual_interface_id"] = data["virtualInterfaceId"]
+    if data.get("asn") is not None:
+        out["asn"] = data["asn"]
+    if data.get("asnLong") is not None:
+        out["asn_long"] = data["asnLong"]
+    if data.get("customerAddress") is not None:
+        out["customer_address"] = data["customerAddress"]
+    if data.get("bgpPeerId") is not None:
+        out["bgp_peer_id"] = data["bgpPeerId"]
+    return out

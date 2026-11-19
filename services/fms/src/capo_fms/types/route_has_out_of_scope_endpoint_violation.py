@@ -134,3 +134,94 @@ def deserialize_aws_json_1_1(data: dict) -> RouteHasOutOfScopeEndpointViolation:
             data["InternetGatewayRoutes"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RouteHasOutOfScopeEndpointViolation) -> dict:
+    out: dict = {}
+    if "subnet_id" in value:
+        out["SubnetId"] = value["subnet_id"]
+    if "vpc_id" in value:
+        out["VpcId"] = value["vpc_id"]
+    if "route_table_id" in value:
+        out["RouteTableId"] = value["route_table_id"]
+    if "violating_routes" in value:
+        import capo_fms.types.routes
+
+        out["ViolatingRoutes"] = capo_fms.types.routes.serialize_cbor(
+            value["violating_routes"]
+        )
+    if "subnet_availability_zone" in value:
+        out["SubnetAvailabilityZone"] = value["subnet_availability_zone"]
+    if "subnet_availability_zone_id" in value:
+        out["SubnetAvailabilityZoneId"] = value["subnet_availability_zone_id"]
+    if "current_firewall_subnet_route_table" in value:
+        out["CurrentFirewallSubnetRouteTable"] = value[
+            "current_firewall_subnet_route_table"
+        ]
+    if "firewall_subnet_id" in value:
+        out["FirewallSubnetId"] = value["firewall_subnet_id"]
+    if "firewall_subnet_routes" in value:
+        import capo_fms.types.routes
+
+        out["FirewallSubnetRoutes"] = capo_fms.types.routes.serialize_cbor(
+            value["firewall_subnet_routes"]
+        )
+    if "internet_gateway_id" in value:
+        out["InternetGatewayId"] = value["internet_gateway_id"]
+    if "current_internet_gateway_route_table" in value:
+        out["CurrentInternetGatewayRouteTable"] = value[
+            "current_internet_gateway_route_table"
+        ]
+    if "internet_gateway_routes" in value:
+        import capo_fms.types.routes
+
+        out["InternetGatewayRoutes"] = capo_fms.types.routes.serialize_cbor(
+            value["internet_gateway_routes"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RouteHasOutOfScopeEndpointViolation:
+    out: RouteHasOutOfScopeEndpointViolation = {}  # type: ignore[typeddict-item]
+    if data.get("SubnetId") is not None:
+        out["subnet_id"] = data["SubnetId"]
+    if data.get("VpcId") is not None:
+        out["vpc_id"] = data["VpcId"]
+    if data.get("RouteTableId") is not None:
+        out["route_table_id"] = data["RouteTableId"]
+    if data.get("ViolatingRoutes") is not None:
+        import capo_fms.types.routes
+
+        out["violating_routes"] = capo_fms.types.routes.deserialize_cbor(
+            data["ViolatingRoutes"]
+        )
+    if data.get("SubnetAvailabilityZone") is not None:
+        out["subnet_availability_zone"] = data["SubnetAvailabilityZone"]
+    if data.get("SubnetAvailabilityZoneId") is not None:
+        out["subnet_availability_zone_id"] = data["SubnetAvailabilityZoneId"]
+    if data.get("CurrentFirewallSubnetRouteTable") is not None:
+        out["current_firewall_subnet_route_table"] = data[
+            "CurrentFirewallSubnetRouteTable"
+        ]
+    if data.get("FirewallSubnetId") is not None:
+        out["firewall_subnet_id"] = data["FirewallSubnetId"]
+    if data.get("FirewallSubnetRoutes") is not None:
+        import capo_fms.types.routes
+
+        out["firewall_subnet_routes"] = capo_fms.types.routes.deserialize_cbor(
+            data["FirewallSubnetRoutes"]
+        )
+    if data.get("InternetGatewayId") is not None:
+        out["internet_gateway_id"] = data["InternetGatewayId"]
+    if data.get("CurrentInternetGatewayRouteTable") is not None:
+        out["current_internet_gateway_route_table"] = data[
+            "CurrentInternetGatewayRouteTable"
+        ]
+    if data.get("InternetGatewayRoutes") is not None:
+        import capo_fms.types.routes
+
+        out["internet_gateway_routes"] = capo_fms.types.routes.deserialize_cbor(
+            data["InternetGatewayRoutes"]
+        )
+    return out

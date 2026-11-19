@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> ListApplicationsInput:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListApplicationsInput) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListApplicationsInput:
+    out: ListApplicationsInput = {}  # type: ignore[typeddict-item]
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

@@ -61,3 +61,46 @@ def deserialize_aws_json_1_1(data: dict) -> StageConditionState:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StageConditionState) -> dict:
+    out: dict = {}
+    if "latest_execution" in value:
+        import capo_codepipeline.types.stage_conditions_execution
+
+        out["latestExecution"] = (
+            capo_codepipeline.types.stage_conditions_execution.serialize_cbor(
+                value["latest_execution"]
+            )
+        )
+    if "condition_states" in value:
+        import capo_codepipeline.types.condition_state_list
+
+        out["conditionStates"] = (
+            capo_codepipeline.types.condition_state_list.serialize_cbor(
+                value["condition_states"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StageConditionState:
+    out: StageConditionState = {}  # type: ignore[typeddict-item]
+    if data.get("latestExecution") is not None:
+        import capo_codepipeline.types.stage_conditions_execution
+
+        out["latest_execution"] = (
+            capo_codepipeline.types.stage_conditions_execution.deserialize_cbor(
+                data["latestExecution"]
+            )
+        )
+    if data.get("conditionStates") is not None:
+        import capo_codepipeline.types.condition_state_list
+
+        out["condition_states"] = (
+            capo_codepipeline.types.condition_state_list.deserialize_cbor(
+                data["conditionStates"]
+            )
+        )
+    return out

@@ -33,3 +33,24 @@ def deserialize_aws_json_1_1(data: list) -> AgreementList:
             capo_direct_connect.types.customer_agreement.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AgreementList) -> list:
+    import capo_direct_connect.types.customer_agreement
+
+    out: list = []
+    for item in value:
+        out.append(capo_direct_connect.types.customer_agreement.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> AgreementList:
+    import capo_direct_connect.types.customer_agreement
+
+    out: AgreementList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_direct_connect.types.customer_agreement.deserialize_cbor(item))
+    return out

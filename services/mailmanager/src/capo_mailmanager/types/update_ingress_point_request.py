@@ -111,6 +111,78 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateIngressPointRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateIngressPointRequest) -> dict:
+    out: dict = {}
+    out["IngressPointId"] = value["ingress_point_id"]
+    if "ingress_point_name" in value:
+        out["IngressPointName"] = value["ingress_point_name"]
+    if "status_to_update" in value:
+        import capo_mailmanager.types.ingress_point_status_to_update
+
+        out["StatusToUpdate"] = (
+            capo_mailmanager.types.ingress_point_status_to_update.serialize_cbor(
+                value["status_to_update"]
+            )
+        )
+    if "rule_set_id" in value:
+        out["RuleSetId"] = value["rule_set_id"]
+    if "traffic_policy_id" in value:
+        out["TrafficPolicyId"] = value["traffic_policy_id"]
+    if "ingress_point_configuration" in value:
+        import capo_mailmanager.types.ingress_point_configuration
+
+        out["IngressPointConfiguration"] = (
+            capo_mailmanager.types.ingress_point_configuration.serialize_cbor(
+                value["ingress_point_configuration"]
+            )
+        )
+    if "tls_policy" in value:
+        import capo_mailmanager.types.tls_policy
+
+        out["TlsPolicy"] = capo_mailmanager.types.tls_policy.serialize_cbor(
+            value["tls_policy"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateIngressPointRequest:
+    out: UpdateIngressPointRequest = {}  # type: ignore[typeddict-item]
+    if data.get("IngressPointId") is not None:
+        out["ingress_point_id"] = data["IngressPointId"]
+    else:
+        out["ingress_point_id"] = ""
+    if data.get("IngressPointName") is not None:
+        out["ingress_point_name"] = data["IngressPointName"]
+    if data.get("StatusToUpdate") is not None:
+        import capo_mailmanager.types.ingress_point_status_to_update
+
+        out["status_to_update"] = (
+            capo_mailmanager.types.ingress_point_status_to_update.deserialize_cbor(
+                data["StatusToUpdate"]
+            )
+        )
+    if data.get("RuleSetId") is not None:
+        out["rule_set_id"] = data["RuleSetId"]
+    if data.get("TrafficPolicyId") is not None:
+        out["traffic_policy_id"] = data["TrafficPolicyId"]
+    if data.get("IngressPointConfiguration") is not None:
+        import capo_mailmanager.types.ingress_point_configuration
+
+        out["ingress_point_configuration"] = (
+            capo_mailmanager.types.ingress_point_configuration.deserialize_cbor(
+                data["IngressPointConfiguration"]
+            )
+        )
+    if data.get("TlsPolicy") is not None:
+        import capo_mailmanager.types.tls_policy
+
+        out["tls_policy"] = capo_mailmanager.types.tls_policy.deserialize_cbor(
+            data["TlsPolicy"]
+        )
+    return out
+
+
 def redact_sensitive(value: UpdateIngressPointRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "ingress_point_configuration" in value:

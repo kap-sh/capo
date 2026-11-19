@@ -256,3 +256,179 @@ def deserialize_aws_json_1_0(data: dict) -> ECSServiceRecommendation:
             data["tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ECSServiceRecommendation) -> dict:
+    out: dict = {}
+    if "service_arn" in value:
+        out["serviceArn"] = value["service_arn"]
+    if "account_id" in value:
+        out["accountId"] = value["account_id"]
+    if "current_service_configuration" in value:
+        import capo_compute_optimizer.types.service_configuration
+
+        out["currentServiceConfiguration"] = (
+            capo_compute_optimizer.types.service_configuration.serialize_cbor(
+                value["current_service_configuration"]
+            )
+        )
+    if "utilization_metrics" in value:
+        import capo_compute_optimizer.types.ecs_service_utilization_metrics
+
+        out["utilizationMetrics"] = (
+            capo_compute_optimizer.types.ecs_service_utilization_metrics.serialize_cbor(
+                value["utilization_metrics"]
+            )
+        )
+    out["lookbackPeriodInDays"] = value.get("lookback_period_in_days", 0)
+    if "launch_type" in value:
+        import capo_compute_optimizer.types.ecs_service_launch_type
+
+        out["launchType"] = (
+            capo_compute_optimizer.types.ecs_service_launch_type.serialize_cbor(
+                value["launch_type"]
+            )
+        )
+    if "last_refresh_timestamp" in value:
+        import capo_compute_optimizer.types.last_refresh_timestamp
+
+        out["lastRefreshTimestamp"] = (
+            capo_compute_optimizer.types.last_refresh_timestamp.serialize_cbor(
+                value["last_refresh_timestamp"]
+            )
+        )
+    if "finding" in value:
+        import capo_compute_optimizer.types.ecs_service_recommendation_finding
+
+        out["finding"] = (
+            capo_compute_optimizer.types.ecs_service_recommendation_finding.serialize_cbor(
+                value["finding"]
+            )
+        )
+    if "finding_reason_codes" in value:
+        import capo_compute_optimizer.types.ecs_service_recommendation_finding_reason_codes
+
+        out["findingReasonCodes"] = (
+            capo_compute_optimizer.types.ecs_service_recommendation_finding_reason_codes.serialize_cbor(
+                value["finding_reason_codes"]
+            )
+        )
+    if "service_recommendation_options" in value:
+        import capo_compute_optimizer.types.ecs_service_recommendation_options
+
+        out["serviceRecommendationOptions"] = (
+            capo_compute_optimizer.types.ecs_service_recommendation_options.serialize_cbor(
+                value["service_recommendation_options"]
+            )
+        )
+    if "current_performance_risk" in value:
+        import capo_compute_optimizer.types.current_performance_risk
+
+        out["currentPerformanceRisk"] = (
+            capo_compute_optimizer.types.current_performance_risk.serialize_cbor(
+                value["current_performance_risk"]
+            )
+        )
+    if "effective_recommendation_preferences" in value:
+        import capo_compute_optimizer.types.ecs_effective_recommendation_preferences
+
+        out["effectiveRecommendationPreferences"] = (
+            capo_compute_optimizer.types.ecs_effective_recommendation_preferences.serialize_cbor(
+                value["effective_recommendation_preferences"]
+            )
+        )
+    if "tags" in value:
+        import capo_compute_optimizer.types.tags
+
+        out["tags"] = capo_compute_optimizer.types.tags.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> ECSServiceRecommendation:
+    out: ECSServiceRecommendation = {}  # type: ignore[typeddict-item]
+    if data.get("serviceArn") is not None:
+        out["service_arn"] = data["serviceArn"]
+    if data.get("accountId") is not None:
+        out["account_id"] = data["accountId"]
+    if data.get("currentServiceConfiguration") is not None:
+        import capo_compute_optimizer.types.service_configuration
+
+        out["current_service_configuration"] = (
+            capo_compute_optimizer.types.service_configuration.deserialize_cbor(
+                data["currentServiceConfiguration"]
+            )
+        )
+    if data.get("utilizationMetrics") is not None:
+        import capo_compute_optimizer.types.ecs_service_utilization_metrics
+
+        out["utilization_metrics"] = (
+            capo_compute_optimizer.types.ecs_service_utilization_metrics.deserialize_cbor(
+                data["utilizationMetrics"]
+            )
+        )
+    if data.get("lookbackPeriodInDays") is not None:
+        out["lookback_period_in_days"] = float(data["lookbackPeriodInDays"])
+    else:
+        out["lookback_period_in_days"] = 0
+    if data.get("launchType") is not None:
+        import capo_compute_optimizer.types.ecs_service_launch_type
+
+        out["launch_type"] = (
+            capo_compute_optimizer.types.ecs_service_launch_type.deserialize_cbor(
+                data["launchType"]
+            )
+        )
+    if data.get("lastRefreshTimestamp") is not None:
+        import capo_compute_optimizer.types.last_refresh_timestamp
+
+        out["last_refresh_timestamp"] = (
+            capo_compute_optimizer.types.last_refresh_timestamp.deserialize_cbor(
+                data["lastRefreshTimestamp"]
+            )
+        )
+    if data.get("finding") is not None:
+        import capo_compute_optimizer.types.ecs_service_recommendation_finding
+
+        out["finding"] = (
+            capo_compute_optimizer.types.ecs_service_recommendation_finding.deserialize_cbor(
+                data["finding"]
+            )
+        )
+    if data.get("findingReasonCodes") is not None:
+        import capo_compute_optimizer.types.ecs_service_recommendation_finding_reason_codes
+
+        out["finding_reason_codes"] = (
+            capo_compute_optimizer.types.ecs_service_recommendation_finding_reason_codes.deserialize_cbor(
+                data["findingReasonCodes"]
+            )
+        )
+    if data.get("serviceRecommendationOptions") is not None:
+        import capo_compute_optimizer.types.ecs_service_recommendation_options
+
+        out["service_recommendation_options"] = (
+            capo_compute_optimizer.types.ecs_service_recommendation_options.deserialize_cbor(
+                data["serviceRecommendationOptions"]
+            )
+        )
+    if data.get("currentPerformanceRisk") is not None:
+        import capo_compute_optimizer.types.current_performance_risk
+
+        out["current_performance_risk"] = (
+            capo_compute_optimizer.types.current_performance_risk.deserialize_cbor(
+                data["currentPerformanceRisk"]
+            )
+        )
+    if data.get("effectiveRecommendationPreferences") is not None:
+        import capo_compute_optimizer.types.ecs_effective_recommendation_preferences
+
+        out["effective_recommendation_preferences"] = (
+            capo_compute_optimizer.types.ecs_effective_recommendation_preferences.deserialize_cbor(
+                data["effectiveRecommendationPreferences"]
+            )
+        )
+    if data.get("tags") is not None:
+        import capo_compute_optimizer.types.tags
+
+        out["tags"] = capo_compute_optimizer.types.tags.deserialize_cbor(data["tags"])
+    return out

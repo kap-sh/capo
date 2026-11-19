@@ -122,3 +122,79 @@ def deserialize_aws_json_1_1(data: dict) -> Address:
             data["Type"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Address) -> dict:
+    out: dict = {}
+    if "address_id" in value:
+        out["AddressId"] = value["address_id"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "company" in value:
+        out["Company"] = value["company"]
+    if "street1" in value:
+        out["Street1"] = value["street1"]
+    if "street2" in value:
+        out["Street2"] = value["street2"]
+    if "street3" in value:
+        out["Street3"] = value["street3"]
+    if "city" in value:
+        out["City"] = value["city"]
+    if "state_or_province" in value:
+        out["StateOrProvince"] = value["state_or_province"]
+    if "prefecture_or_district" in value:
+        out["PrefectureOrDistrict"] = value["prefecture_or_district"]
+    if "landmark" in value:
+        out["Landmark"] = value["landmark"]
+    if "country" in value:
+        out["Country"] = value["country"]
+    if "postal_code" in value:
+        out["PostalCode"] = value["postal_code"]
+    if "phone_number" in value:
+        out["PhoneNumber"] = value["phone_number"]
+    out["IsRestricted"] = value.get("is_restricted", False)
+    if "type" in value:
+        import capo_snowball.types.address_type
+
+        out["Type"] = capo_snowball.types.address_type.serialize_cbor(value["type"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> Address:
+    out: Address = {}  # type: ignore[typeddict-item]
+    if data.get("AddressId") is not None:
+        out["address_id"] = data["AddressId"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Company") is not None:
+        out["company"] = data["Company"]
+    if data.get("Street1") is not None:
+        out["street1"] = data["Street1"]
+    if data.get("Street2") is not None:
+        out["street2"] = data["Street2"]
+    if data.get("Street3") is not None:
+        out["street3"] = data["Street3"]
+    if data.get("City") is not None:
+        out["city"] = data["City"]
+    if data.get("StateOrProvince") is not None:
+        out["state_or_province"] = data["StateOrProvince"]
+    if data.get("PrefectureOrDistrict") is not None:
+        out["prefecture_or_district"] = data["PrefectureOrDistrict"]
+    if data.get("Landmark") is not None:
+        out["landmark"] = data["Landmark"]
+    if data.get("Country") is not None:
+        out["country"] = data["Country"]
+    if data.get("PostalCode") is not None:
+        out["postal_code"] = data["PostalCode"]
+    if data.get("PhoneNumber") is not None:
+        out["phone_number"] = data["PhoneNumber"]
+    if data.get("IsRestricted") is not None:
+        out["is_restricted"] = data["IsRestricted"]
+    else:
+        out["is_restricted"] = False
+    if data.get("Type") is not None:
+        import capo_snowball.types.address_type
+
+        out["type"] = capo_snowball.types.address_type.deserialize_cbor(data["Type"])
+    return out

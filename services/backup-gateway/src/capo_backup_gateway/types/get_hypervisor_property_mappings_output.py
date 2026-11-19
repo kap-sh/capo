@@ -54,3 +54,38 @@ def deserialize_aws_json_1_0(data: dict) -> GetHypervisorPropertyMappingsOutput:
     if data.get("IamRoleArn") is not None:
         out["iam_role_arn"] = data["IamRoleArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetHypervisorPropertyMappingsOutput) -> dict:
+    out: dict = {}
+    if "hypervisor_arn" in value:
+        out["HypervisorArn"] = value["hypervisor_arn"]
+    if "vmware_to_aws_tag_mappings" in value:
+        import capo_backup_gateway.types.vmware_to_aws_tag_mappings
+
+        out["VmwareToAwsTagMappings"] = (
+            capo_backup_gateway.types.vmware_to_aws_tag_mappings.serialize_cbor(
+                value["vmware_to_aws_tag_mappings"]
+            )
+        )
+    if "iam_role_arn" in value:
+        out["IamRoleArn"] = value["iam_role_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetHypervisorPropertyMappingsOutput:
+    out: GetHypervisorPropertyMappingsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("HypervisorArn") is not None:
+        out["hypervisor_arn"] = data["HypervisorArn"]
+    if data.get("VmwareToAwsTagMappings") is not None:
+        import capo_backup_gateway.types.vmware_to_aws_tag_mappings
+
+        out["vmware_to_aws_tag_mappings"] = (
+            capo_backup_gateway.types.vmware_to_aws_tag_mappings.deserialize_cbor(
+                data["VmwareToAwsTagMappings"]
+            )
+        )
+    if data.get("IamRoleArn") is not None:
+        out["iam_role_arn"] = data["IamRoleArn"]
+    return out

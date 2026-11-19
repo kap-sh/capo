@@ -37,3 +37,22 @@ def deserialize_aws_json_1_1(data: dict) -> CreateFlywheelResponse:
     if data.get("ActiveModelArn") is not None:
         out["active_model_arn"] = data["ActiveModelArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateFlywheelResponse) -> dict:
+    out: dict = {}
+    if "flywheel_arn" in value:
+        out["FlywheelArn"] = value["flywheel_arn"]
+    if "active_model_arn" in value:
+        out["ActiveModelArn"] = value["active_model_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateFlywheelResponse:
+    out: CreateFlywheelResponse = {}  # type: ignore[typeddict-item]
+    if data.get("FlywheelArn") is not None:
+        out["flywheel_arn"] = data["FlywheelArn"]
+    if data.get("ActiveModelArn") is not None:
+        out["active_model_arn"] = data["ActiveModelArn"]
+    return out

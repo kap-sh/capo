@@ -88,3 +88,58 @@ def deserialize_aws_json_1_1(
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeAffectedEntitiesForOrganizationRequest) -> dict:
+    out: dict = {}
+    if "organization_entity_filters" in value:
+        import capo_health.types.organization_entity_filters_list
+
+        out["organizationEntityFilters"] = (
+            capo_health.types.organization_entity_filters_list.serialize_cbor(
+                value["organization_entity_filters"]
+            )
+        )
+    if "locale" in value:
+        out["locale"] = value["locale"]
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    if "organization_entity_account_filters" in value:
+        import capo_health.types.organization_entity_account_filters_list
+
+        out["organizationEntityAccountFilters"] = (
+            capo_health.types.organization_entity_account_filters_list.serialize_cbor(
+                value["organization_entity_account_filters"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeAffectedEntitiesForOrganizationRequest:
+    out: DescribeAffectedEntitiesForOrganizationRequest = {}  # type: ignore[typeddict-item]
+    if data.get("organizationEntityFilters") is not None:
+        import capo_health.types.organization_entity_filters_list
+
+        out["organization_entity_filters"] = (
+            capo_health.types.organization_entity_filters_list.deserialize_cbor(
+                data["organizationEntityFilters"]
+            )
+        )
+    if data.get("locale") is not None:
+        out["locale"] = data["locale"]
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    if data.get("organizationEntityAccountFilters") is not None:
+        import capo_health.types.organization_entity_account_filters_list
+
+        out["organization_entity_account_filters"] = (
+            capo_health.types.organization_entity_account_filters_list.deserialize_cbor(
+                data["organizationEntityAccountFilters"]
+            )
+        )
+    return out

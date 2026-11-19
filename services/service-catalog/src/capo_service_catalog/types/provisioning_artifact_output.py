@@ -37,3 +37,22 @@ def deserialize_aws_json_1_1(data: dict) -> ProvisioningArtifactOutput:
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ProvisioningArtifactOutput) -> dict:
+    out: dict = {}
+    if "key" in value:
+        out["Key"] = value["key"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ProvisioningArtifactOutput:
+    out: ProvisioningArtifactOutput = {}  # type: ignore[typeddict-item]
+    if data.get("Key") is not None:
+        out["key"] = data["Key"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    return out

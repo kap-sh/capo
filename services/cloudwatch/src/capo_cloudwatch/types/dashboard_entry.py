@@ -101,3 +101,38 @@ def deserialize_query(el: Element) -> DashboardEntry:
     if child_size is not None:
         out["size"] = int(child_size.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DashboardEntry) -> dict:
+    out: dict = {}
+    if "dashboard_name" in value:
+        out["DashboardName"] = value["dashboard_name"]
+    if "dashboard_arn" in value:
+        out["DashboardArn"] = value["dashboard_arn"]
+    if "last_modified" in value:
+        import capo_cloudwatch.types.last_modified
+
+        out["LastModified"] = capo_cloudwatch.types.last_modified.serialize_cbor(
+            value["last_modified"]
+        )
+    if "size" in value:
+        out["Size"] = value["size"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DashboardEntry:
+    out: DashboardEntry = {}  # type: ignore[typeddict-item]
+    if data.get("DashboardName") is not None:
+        out["dashboard_name"] = data["DashboardName"]
+    if data.get("DashboardArn") is not None:
+        out["dashboard_arn"] = data["DashboardArn"]
+    if data.get("LastModified") is not None:
+        import capo_cloudwatch.types.last_modified
+
+        out["last_modified"] = capo_cloudwatch.types.last_modified.deserialize_cbor(
+            data["LastModified"]
+        )
+    if data.get("Size") is not None:
+        out["size"] = data["Size"]
+    return out

@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteRescoreExecutionPlanRequest:
     else:
         out["id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteRescoreExecutionPlanRequest) -> dict:
+    out: dict = {}
+    out["Id"] = value["id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteRescoreExecutionPlanRequest:
+    out: DeleteRescoreExecutionPlanRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    else:
+        out["id"] = ""
+    return out

@@ -158,3 +158,100 @@ def deserialize_aws_json_1_1(data: dict) -> ICD10CMAttribute:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ICD10CMAttribute) -> dict:
+    out: dict = {}
+    if "type" in value:
+        import capo_comprehendmedical.types.icd10_cm_attribute_type
+
+        out["Type"] = (
+            capo_comprehendmedical.types.icd10_cm_attribute_type.serialize_cbor(
+                value["type"]
+            )
+        )
+    if "score" in value:
+        out["Score"] = value["score"]
+    if "relationship_score" in value:
+        out["RelationshipScore"] = value["relationship_score"]
+    if "id" in value:
+        out["Id"] = value["id"]
+    if "begin_offset" in value:
+        out["BeginOffset"] = value["begin_offset"]
+    if "end_offset" in value:
+        out["EndOffset"] = value["end_offset"]
+    if "text" in value:
+        out["Text"] = value["text"]
+    if "traits" in value:
+        import capo_comprehendmedical.types.icd10_cm_trait_list
+
+        out["Traits"] = capo_comprehendmedical.types.icd10_cm_trait_list.serialize_cbor(
+            value["traits"]
+        )
+    if "category" in value:
+        import capo_comprehendmedical.types.icd10_cm_entity_type
+
+        out["Category"] = (
+            capo_comprehendmedical.types.icd10_cm_entity_type.serialize_cbor(
+                value["category"]
+            )
+        )
+    if "relationship_type" in value:
+        import capo_comprehendmedical.types.icd10_cm_relationship_type
+
+        out["RelationshipType"] = (
+            capo_comprehendmedical.types.icd10_cm_relationship_type.serialize_cbor(
+                value["relationship_type"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ICD10CMAttribute:
+    out: ICD10CMAttribute = {}  # type: ignore[typeddict-item]
+    if data.get("Type") is not None:
+        import capo_comprehendmedical.types.icd10_cm_attribute_type
+
+        out["type"] = (
+            capo_comprehendmedical.types.icd10_cm_attribute_type.deserialize_cbor(
+                data["Type"]
+            )
+        )
+    if data.get("Score") is not None:
+        out["score"] = float(data["Score"])
+    if data.get("RelationshipScore") is not None:
+        out["relationship_score"] = float(data["RelationshipScore"])
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    if data.get("BeginOffset") is not None:
+        out["begin_offset"] = data["BeginOffset"]
+    if data.get("EndOffset") is not None:
+        out["end_offset"] = data["EndOffset"]
+    if data.get("Text") is not None:
+        out["text"] = data["Text"]
+    if data.get("Traits") is not None:
+        import capo_comprehendmedical.types.icd10_cm_trait_list
+
+        out["traits"] = (
+            capo_comprehendmedical.types.icd10_cm_trait_list.deserialize_cbor(
+                data["Traits"]
+            )
+        )
+    if data.get("Category") is not None:
+        import capo_comprehendmedical.types.icd10_cm_entity_type
+
+        out["category"] = (
+            capo_comprehendmedical.types.icd10_cm_entity_type.deserialize_cbor(
+                data["Category"]
+            )
+        )
+    if data.get("RelationshipType") is not None:
+        import capo_comprehendmedical.types.icd10_cm_relationship_type
+
+        out["relationship_type"] = (
+            capo_comprehendmedical.types.icd10_cm_relationship_type.deserialize_cbor(
+                data["RelationshipType"]
+            )
+        )
+    return out

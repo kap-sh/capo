@@ -155,3 +155,98 @@ def deserialize_aws_json_1_1(data: dict) -> ContactDetail:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ContactDetail) -> dict:
+    out: dict = {}
+    if "first_name" in value:
+        out["FirstName"] = value["first_name"]
+    if "last_name" in value:
+        out["LastName"] = value["last_name"]
+    if "contact_type" in value:
+        import capo_route_53_domains.types.contact_type
+
+        out["ContactType"] = capo_route_53_domains.types.contact_type.serialize_cbor(
+            value["contact_type"]
+        )
+    if "organization_name" in value:
+        out["OrganizationName"] = value["organization_name"]
+    if "address_line1" in value:
+        out["AddressLine1"] = value["address_line1"]
+    if "address_line2" in value:
+        out["AddressLine2"] = value["address_line2"]
+    if "city" in value:
+        out["City"] = value["city"]
+    if "state" in value:
+        out["State"] = value["state"]
+    if "country_code" in value:
+        import capo_route_53_domains.types.country_code
+
+        out["CountryCode"] = capo_route_53_domains.types.country_code.serialize_cbor(
+            value["country_code"]
+        )
+    if "zip_code" in value:
+        out["ZipCode"] = value["zip_code"]
+    if "phone_number" in value:
+        out["PhoneNumber"] = value["phone_number"]
+    if "email" in value:
+        out["Email"] = value["email"]
+    if "fax" in value:
+        out["Fax"] = value["fax"]
+    if "extra_params" in value:
+        import capo_route_53_domains.types.extra_param_list
+
+        out["ExtraParams"] = (
+            capo_route_53_domains.types.extra_param_list.serialize_cbor(
+                value["extra_params"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ContactDetail:
+    out: ContactDetail = {}  # type: ignore[typeddict-item]
+    if data.get("FirstName") is not None:
+        out["first_name"] = data["FirstName"]
+    if data.get("LastName") is not None:
+        out["last_name"] = data["LastName"]
+    if data.get("ContactType") is not None:
+        import capo_route_53_domains.types.contact_type
+
+        out["contact_type"] = capo_route_53_domains.types.contact_type.deserialize_cbor(
+            data["ContactType"]
+        )
+    if data.get("OrganizationName") is not None:
+        out["organization_name"] = data["OrganizationName"]
+    if data.get("AddressLine1") is not None:
+        out["address_line1"] = data["AddressLine1"]
+    if data.get("AddressLine2") is not None:
+        out["address_line2"] = data["AddressLine2"]
+    if data.get("City") is not None:
+        out["city"] = data["City"]
+    if data.get("State") is not None:
+        out["state"] = data["State"]
+    if data.get("CountryCode") is not None:
+        import capo_route_53_domains.types.country_code
+
+        out["country_code"] = capo_route_53_domains.types.country_code.deserialize_cbor(
+            data["CountryCode"]
+        )
+    if data.get("ZipCode") is not None:
+        out["zip_code"] = data["ZipCode"]
+    if data.get("PhoneNumber") is not None:
+        out["phone_number"] = data["PhoneNumber"]
+    if data.get("Email") is not None:
+        out["email"] = data["Email"]
+    if data.get("Fax") is not None:
+        out["fax"] = data["Fax"]
+    if data.get("ExtraParams") is not None:
+        import capo_route_53_domains.types.extra_param_list
+
+        out["extra_params"] = (
+            capo_route_53_domains.types.extra_param_list.deserialize_cbor(
+                data["ExtraParams"]
+            )
+        )
+    return out

@@ -20,3 +20,12 @@ def serialize_aws_json_1_1(value: LagState) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> LagState:
     return cast(LagState, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LagState) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> LagState:
+    return cast(LagState, data)

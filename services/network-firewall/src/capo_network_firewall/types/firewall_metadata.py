@@ -42,3 +42,26 @@ def deserialize_aws_json_1_0(data: dict) -> FirewallMetadata:
     if data.get("TransitGatewayAttachmentId") is not None:
         out["transit_gateway_attachment_id"] = data["TransitGatewayAttachmentId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FirewallMetadata) -> dict:
+    out: dict = {}
+    if "firewall_name" in value:
+        out["FirewallName"] = value["firewall_name"]
+    if "firewall_arn" in value:
+        out["FirewallArn"] = value["firewall_arn"]
+    if "transit_gateway_attachment_id" in value:
+        out["TransitGatewayAttachmentId"] = value["transit_gateway_attachment_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> FirewallMetadata:
+    out: FirewallMetadata = {}  # type: ignore[typeddict-item]
+    if data.get("FirewallName") is not None:
+        out["firewall_name"] = data["FirewallName"]
+    if data.get("FirewallArn") is not None:
+        out["firewall_arn"] = data["FirewallArn"]
+    if data.get("TransitGatewayAttachmentId") is not None:
+        out["transit_gateway_attachment_id"] = data["TransitGatewayAttachmentId"]
+    return out

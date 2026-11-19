@@ -78,3 +78,62 @@ def deserialize_aws_json_1_1(data: dict) -> ReportOverrides:
             data["Skipped"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ReportOverrides) -> dict:
+    out: dict = {}
+    if "transferred" in value:
+        import capo_datasync.types.report_override
+
+        out["Transferred"] = capo_datasync.types.report_override.serialize_cbor(
+            value["transferred"]
+        )
+    if "verified" in value:
+        import capo_datasync.types.report_override
+
+        out["Verified"] = capo_datasync.types.report_override.serialize_cbor(
+            value["verified"]
+        )
+    if "deleted" in value:
+        import capo_datasync.types.report_override
+
+        out["Deleted"] = capo_datasync.types.report_override.serialize_cbor(
+            value["deleted"]
+        )
+    if "skipped" in value:
+        import capo_datasync.types.report_override
+
+        out["Skipped"] = capo_datasync.types.report_override.serialize_cbor(
+            value["skipped"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ReportOverrides:
+    out: ReportOverrides = {}  # type: ignore[typeddict-item]
+    if data.get("Transferred") is not None:
+        import capo_datasync.types.report_override
+
+        out["transferred"] = capo_datasync.types.report_override.deserialize_cbor(
+            data["Transferred"]
+        )
+    if data.get("Verified") is not None:
+        import capo_datasync.types.report_override
+
+        out["verified"] = capo_datasync.types.report_override.deserialize_cbor(
+            data["Verified"]
+        )
+    if data.get("Deleted") is not None:
+        import capo_datasync.types.report_override
+
+        out["deleted"] = capo_datasync.types.report_override.deserialize_cbor(
+            data["Deleted"]
+        )
+    if data.get("Skipped") is not None:
+        import capo_datasync.types.report_override
+
+        out["skipped"] = capo_datasync.types.report_override.deserialize_cbor(
+            data["Skipped"]
+        )
+    return out

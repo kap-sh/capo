@@ -30,6 +30,21 @@ def deserialize_aws_json_1_1(data: dict) -> OutputVariablesSizeExceededException
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: OutputVariablesSizeExceededException_) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> OutputVariablesSizeExceededException_:
+    out: OutputVariablesSizeExceededException_ = {}  # type: ignore[typeddict-item]
+    if data.get("message") is not None:
+        out["message"] = data["message"]
+    return out
+
+
 class OutputVariablesSizeExceededException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.codepipeline#OutputVariablesSizeExceededException``."""
 
@@ -57,3 +72,9 @@ class OutputVariablesSizeExceededException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "OutputVariablesSizeExceededException":
         return cls(deserialize_aws_json_1_1(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "OutputVariablesSizeExceededException":
+        return cls(deserialize_cbor(data), message, response=response)

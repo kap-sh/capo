@@ -48,3 +48,35 @@ def deserialize_aws_json_1_0(data: dict) -> ArchiveAction:
     else:
         out["target_archive"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ArchiveAction) -> dict:
+    out: dict = {}
+    if "action_failure_policy" in value:
+        import capo_mailmanager.types.action_failure_policy
+
+        out["ActionFailurePolicy"] = (
+            capo_mailmanager.types.action_failure_policy.serialize_cbor(
+                value["action_failure_policy"]
+            )
+        )
+    out["TargetArchive"] = value["target_archive"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ArchiveAction:
+    out: ArchiveAction = {}  # type: ignore[typeddict-item]
+    if data.get("ActionFailurePolicy") is not None:
+        import capo_mailmanager.types.action_failure_policy
+
+        out["action_failure_policy"] = (
+            capo_mailmanager.types.action_failure_policy.deserialize_cbor(
+                data["ActionFailurePolicy"]
+            )
+        )
+    if data.get("TargetArchive") is not None:
+        out["target_archive"] = data["TargetArchive"]
+    else:
+        out["target_archive"] = ""
+    return out

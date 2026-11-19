@@ -123,3 +123,81 @@ def deserialize_aws_json_1_1(data: dict) -> ReservedNode:
     if data.get("ARN") is not None:
         out["arn"] = data["ARN"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ReservedNode) -> dict:
+    out: dict = {}
+    if "reservation_id" in value:
+        out["ReservationId"] = value["reservation_id"]
+    if "reserved_nodes_offering_id" in value:
+        out["ReservedNodesOfferingId"] = value["reserved_nodes_offering_id"]
+    if "node_type" in value:
+        out["NodeType"] = value["node_type"]
+    if "start_time" in value:
+        import capo_memorydb.types.t_stamp
+
+        out["StartTime"] = capo_memorydb.types.t_stamp.serialize_cbor(
+            value["start_time"]
+        )
+    out["Duration"] = value.get("duration", 0)
+    out["FixedPrice"] = value.get("fixed_price", 0)
+    out["NodeCount"] = value.get("node_count", 0)
+    if "offering_type" in value:
+        out["OfferingType"] = value["offering_type"]
+    if "state" in value:
+        out["State"] = value["state"]
+    if "recurring_charges" in value:
+        import capo_memorydb.types.recurring_charge_list
+
+        out["RecurringCharges"] = (
+            capo_memorydb.types.recurring_charge_list.serialize_cbor(
+                value["recurring_charges"]
+            )
+        )
+    if "arn" in value:
+        out["ARN"] = value["arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ReservedNode:
+    out: ReservedNode = {}  # type: ignore[typeddict-item]
+    if data.get("ReservationId") is not None:
+        out["reservation_id"] = data["ReservationId"]
+    if data.get("ReservedNodesOfferingId") is not None:
+        out["reserved_nodes_offering_id"] = data["ReservedNodesOfferingId"]
+    if data.get("NodeType") is not None:
+        out["node_type"] = data["NodeType"]
+    if data.get("StartTime") is not None:
+        import capo_memorydb.types.t_stamp
+
+        out["start_time"] = capo_memorydb.types.t_stamp.deserialize_cbor(
+            data["StartTime"]
+        )
+    if data.get("Duration") is not None:
+        out["duration"] = data["Duration"]
+    else:
+        out["duration"] = 0
+    if data.get("FixedPrice") is not None:
+        out["fixed_price"] = float(data["FixedPrice"])
+    else:
+        out["fixed_price"] = 0
+    if data.get("NodeCount") is not None:
+        out["node_count"] = data["NodeCount"]
+    else:
+        out["node_count"] = 0
+    if data.get("OfferingType") is not None:
+        out["offering_type"] = data["OfferingType"]
+    if data.get("State") is not None:
+        out["state"] = data["State"]
+    if data.get("RecurringCharges") is not None:
+        import capo_memorydb.types.recurring_charge_list
+
+        out["recurring_charges"] = (
+            capo_memorydb.types.recurring_charge_list.deserialize_cbor(
+                data["RecurringCharges"]
+            )
+        )
+    if data.get("ARN") is not None:
+        out["arn"] = data["ARN"]
+    return out

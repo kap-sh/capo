@@ -20,3 +20,12 @@ def serialize_aws_json_1_1(value: ToxicContentType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> ToxicContentType:
     return cast(ToxicContentType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ToxicContentType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ToxicContentType:
+    return cast(ToxicContentType, data)

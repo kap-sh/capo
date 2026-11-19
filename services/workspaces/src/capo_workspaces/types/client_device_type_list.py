@@ -33,3 +33,24 @@ def deserialize_aws_json_1_1(data: list) -> ClientDeviceTypeList:
             capo_workspaces.types.client_device_type.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ClientDeviceTypeList) -> list:
+    import capo_workspaces.types.client_device_type
+
+    out: list = []
+    for item in value:
+        out.append(capo_workspaces.types.client_device_type.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> ClientDeviceTypeList:
+    import capo_workspaces.types.client_device_type
+
+    out: ClientDeviceTypeList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_workspaces.types.client_device_type.deserialize_cbor(item))
+    return out

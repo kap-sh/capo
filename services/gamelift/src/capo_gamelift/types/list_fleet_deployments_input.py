@@ -42,3 +42,26 @@ def deserialize_aws_json_1_1(data: dict) -> ListFleetDeploymentsInput:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListFleetDeploymentsInput) -> dict:
+    out: dict = {}
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "limit" in value:
+        out["Limit"] = value["limit"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListFleetDeploymentsInput:
+    out: ListFleetDeploymentsInput = {}  # type: ignore[typeddict-item]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("Limit") is not None:
+        out["limit"] = data["Limit"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

@@ -43,3 +43,27 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateRepositoryLinkInput:
     else:
         out["repository_link_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateRepositoryLinkInput) -> dict:
+    out: dict = {}
+    if "connection_arn" in value:
+        out["ConnectionArn"] = value["connection_arn"]
+    if "encryption_key_arn" in value:
+        out["EncryptionKeyArn"] = value["encryption_key_arn"]
+    out["RepositoryLinkId"] = value["repository_link_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateRepositoryLinkInput:
+    out: UpdateRepositoryLinkInput = {}  # type: ignore[typeddict-item]
+    if data.get("ConnectionArn") is not None:
+        out["connection_arn"] = data["ConnectionArn"]
+    if data.get("EncryptionKeyArn") is not None:
+        out["encryption_key_arn"] = data["EncryptionKeyArn"]
+    if data.get("RepositoryLinkId") is not None:
+        out["repository_link_id"] = data["RepositoryLinkId"]
+    else:
+        out["repository_link_id"] = ""
+    return out

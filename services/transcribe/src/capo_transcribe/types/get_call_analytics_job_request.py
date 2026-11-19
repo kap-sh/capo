@@ -29,3 +29,19 @@ def deserialize_aws_json_1_1(data: dict) -> GetCallAnalyticsJobRequest:
     else:
         out["call_analytics_job_name"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetCallAnalyticsJobRequest) -> dict:
+    out: dict = {}
+    out["CallAnalyticsJobName"] = value["call_analytics_job_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetCallAnalyticsJobRequest:
+    out: GetCallAnalyticsJobRequest = {}  # type: ignore[typeddict-item]
+    if data.get("CallAnalyticsJobName") is not None:
+        out["call_analytics_job_name"] = data["CallAnalyticsJobName"]
+    else:
+        out["call_analytics_job_name"] = ""
+    return out

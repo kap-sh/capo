@@ -47,3 +47,32 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateMacSecKeyResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AssociateMacSecKeyResponse) -> dict:
+    out: dict = {}
+    if "connection_id" in value:
+        out["connectionId"] = value["connection_id"]
+    if "mac_sec_keys" in value:
+        import capo_direct_connect.types.mac_sec_key_list
+
+        out["macSecKeys"] = capo_direct_connect.types.mac_sec_key_list.serialize_cbor(
+            value["mac_sec_keys"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AssociateMacSecKeyResponse:
+    out: AssociateMacSecKeyResponse = {}  # type: ignore[typeddict-item]
+    if data.get("connectionId") is not None:
+        out["connection_id"] = data["connectionId"]
+    if data.get("macSecKeys") is not None:
+        import capo_direct_connect.types.mac_sec_key_list
+
+        out["mac_sec_keys"] = (
+            capo_direct_connect.types.mac_sec_key_list.deserialize_cbor(
+                data["macSecKeys"]
+            )
+        )
+    return out

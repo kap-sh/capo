@@ -148,6 +148,97 @@ def deserialize_aws_json_1_1(data: dict) -> StartGameSessionPlacementInput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartGameSessionPlacementInput) -> dict:
+    out: dict = {}
+    if "placement_id" in value:
+        out["PlacementId"] = value["placement_id"]
+    if "game_session_queue_name" in value:
+        out["GameSessionQueueName"] = value["game_session_queue_name"]
+    if "game_properties" in value:
+        import capo_gamelift.types.game_property_list
+
+        out["GameProperties"] = capo_gamelift.types.game_property_list.serialize_cbor(
+            value["game_properties"]
+        )
+    if "maximum_player_session_count" in value:
+        out["MaximumPlayerSessionCount"] = value["maximum_player_session_count"]
+    if "game_session_name" in value:
+        out["GameSessionName"] = value["game_session_name"]
+    if "player_latencies" in value:
+        import capo_gamelift.types.player_latency_list
+
+        out["PlayerLatencies"] = capo_gamelift.types.player_latency_list.serialize_cbor(
+            value["player_latencies"]
+        )
+    if "desired_player_sessions" in value:
+        import capo_gamelift.types.desired_player_session_list
+
+        out["DesiredPlayerSessions"] = (
+            capo_gamelift.types.desired_player_session_list.serialize_cbor(
+                value["desired_player_sessions"]
+            )
+        )
+    if "game_session_data" in value:
+        out["GameSessionData"] = value["game_session_data"]
+    if "priority_configuration_override" in value:
+        import capo_gamelift.types.priority_configuration_override
+
+        out["PriorityConfigurationOverride"] = (
+            capo_gamelift.types.priority_configuration_override.serialize_cbor(
+                value["priority_configuration_override"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartGameSessionPlacementInput:
+    out: StartGameSessionPlacementInput = {}  # type: ignore[typeddict-item]
+    if data.get("PlacementId") is not None:
+        out["placement_id"] = data["PlacementId"]
+    if data.get("GameSessionQueueName") is not None:
+        out["game_session_queue_name"] = data["GameSessionQueueName"]
+    if data.get("GameProperties") is not None:
+        import capo_gamelift.types.game_property_list
+
+        out["game_properties"] = (
+            capo_gamelift.types.game_property_list.deserialize_cbor(
+                data["GameProperties"]
+            )
+        )
+    if data.get("MaximumPlayerSessionCount") is not None:
+        out["maximum_player_session_count"] = data["MaximumPlayerSessionCount"]
+    if data.get("GameSessionName") is not None:
+        out["game_session_name"] = data["GameSessionName"]
+    if data.get("PlayerLatencies") is not None:
+        import capo_gamelift.types.player_latency_list
+
+        out["player_latencies"] = (
+            capo_gamelift.types.player_latency_list.deserialize_cbor(
+                data["PlayerLatencies"]
+            )
+        )
+    if data.get("DesiredPlayerSessions") is not None:
+        import capo_gamelift.types.desired_player_session_list
+
+        out["desired_player_sessions"] = (
+            capo_gamelift.types.desired_player_session_list.deserialize_cbor(
+                data["DesiredPlayerSessions"]
+            )
+        )
+    if data.get("GameSessionData") is not None:
+        out["game_session_data"] = data["GameSessionData"]
+    if data.get("PriorityConfigurationOverride") is not None:
+        import capo_gamelift.types.priority_configuration_override
+
+        out["priority_configuration_override"] = (
+            capo_gamelift.types.priority_configuration_override.deserialize_cbor(
+                data["PriorityConfigurationOverride"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: StartGameSessionPlacementInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "game_properties" in value:

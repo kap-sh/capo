@@ -29,3 +29,24 @@ def deserialize_aws_json_1_1(data: list) -> FleetDeployments:
             continue
         out.append(capo_gamelift.types.fleet_deployment.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FleetDeployments) -> list:
+    import capo_gamelift.types.fleet_deployment
+
+    out: list = []
+    for item in value:
+        out.append(capo_gamelift.types.fleet_deployment.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> FleetDeployments:
+    import capo_gamelift.types.fleet_deployment
+
+    out: FleetDeployments = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_gamelift.types.fleet_deployment.deserialize_cbor(item))
+    return out

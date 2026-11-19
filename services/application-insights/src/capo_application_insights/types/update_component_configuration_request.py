@@ -77,3 +77,46 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateComponentConfigurationRequest:
     if data.get("AutoConfigEnabled") is not None:
         out["auto_config_enabled"] = data["AutoConfigEnabled"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateComponentConfigurationRequest) -> dict:
+    out: dict = {}
+    out["ResourceGroupName"] = value["resource_group_name"]
+    out["ComponentName"] = value["component_name"]
+    if "monitor" in value:
+        out["Monitor"] = value["monitor"]
+    if "tier" in value:
+        import capo_application_insights.types.tier
+
+        out["Tier"] = capo_application_insights.types.tier.serialize_cbor(value["tier"])
+    if "component_configuration" in value:
+        out["ComponentConfiguration"] = value["component_configuration"]
+    if "auto_config_enabled" in value:
+        out["AutoConfigEnabled"] = value["auto_config_enabled"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateComponentConfigurationRequest:
+    out: UpdateComponentConfigurationRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceGroupName") is not None:
+        out["resource_group_name"] = data["ResourceGroupName"]
+    else:
+        out["resource_group_name"] = ""
+    if data.get("ComponentName") is not None:
+        out["component_name"] = data["ComponentName"]
+    else:
+        out["component_name"] = ""
+    if data.get("Monitor") is not None:
+        out["monitor"] = data["Monitor"]
+    if data.get("Tier") is not None:
+        import capo_application_insights.types.tier
+
+        out["tier"] = capo_application_insights.types.tier.deserialize_cbor(
+            data["Tier"]
+        )
+    if data.get("ComponentConfiguration") is not None:
+        out["component_configuration"] = data["ComponentConfiguration"]
+    if data.get("AutoConfigEnabled") is not None:
+        out["auto_config_enabled"] = data["AutoConfigEnabled"]
+    return out

@@ -73,3 +73,50 @@ def deserialize_aws_json_1_1(data: dict) -> VpcPeeringAuthorization:
             data["ExpirationTime"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: VpcPeeringAuthorization) -> dict:
+    out: dict = {}
+    if "game_lift_aws_account_id" in value:
+        out["GameLiftAwsAccountId"] = value["game_lift_aws_account_id"]
+    if "peer_vpc_aws_account_id" in value:
+        out["PeerVpcAwsAccountId"] = value["peer_vpc_aws_account_id"]
+    if "peer_vpc_id" in value:
+        out["PeerVpcId"] = value["peer_vpc_id"]
+    if "creation_time" in value:
+        import capo_gamelift.types.timestamp
+
+        out["CreationTime"] = capo_gamelift.types.timestamp.serialize_cbor(
+            value["creation_time"]
+        )
+    if "expiration_time" in value:
+        import capo_gamelift.types.timestamp
+
+        out["ExpirationTime"] = capo_gamelift.types.timestamp.serialize_cbor(
+            value["expiration_time"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> VpcPeeringAuthorization:
+    out: VpcPeeringAuthorization = {}  # type: ignore[typeddict-item]
+    if data.get("GameLiftAwsAccountId") is not None:
+        out["game_lift_aws_account_id"] = data["GameLiftAwsAccountId"]
+    if data.get("PeerVpcAwsAccountId") is not None:
+        out["peer_vpc_aws_account_id"] = data["PeerVpcAwsAccountId"]
+    if data.get("PeerVpcId") is not None:
+        out["peer_vpc_id"] = data["PeerVpcId"]
+    if data.get("CreationTime") is not None:
+        import capo_gamelift.types.timestamp
+
+        out["creation_time"] = capo_gamelift.types.timestamp.deserialize_cbor(
+            data["CreationTime"]
+        )
+    if data.get("ExpirationTime") is not None:
+        import capo_gamelift.types.timestamp
+
+        out["expiration_time"] = capo_gamelift.types.timestamp.deserialize_cbor(
+            data["ExpirationTime"]
+        )
+    return out

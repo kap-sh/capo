@@ -32,3 +32,22 @@ def deserialize_aws_json_1_1(data: dict) -> ListAssociatedStacksRequest:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListAssociatedStacksRequest) -> dict:
+    out: dict = {}
+    if "fleet_name" in value:
+        out["FleetName"] = value["fleet_name"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListAssociatedStacksRequest:
+    out: ListAssociatedStacksRequest = {}  # type: ignore[typeddict-item]
+    if data.get("FleetName") is not None:
+        out["fleet_name"] = data["FleetName"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

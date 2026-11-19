@@ -39,3 +39,28 @@ def deserialize_aws_json_1_0(data: dict) -> RegionSsmDocumentMap:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(input_to_serialize: RegionSsmDocumentMap) -> dict:
+    out: dict = {}
+    for key, value in input_to_serialize.items():
+        import capo_arc_region_switch.types.ssm_document_config
+
+        out[key] = capo_arc_region_switch.types.ssm_document_config.serialize_cbor(
+            value
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RegionSsmDocumentMap:
+    out: RegionSsmDocumentMap = {}
+    for key, value in data.items():
+        if value is None:
+            continue
+        import capo_arc_region_switch.types.ssm_document_config
+
+        out[key] = capo_arc_region_switch.types.ssm_document_config.deserialize_cbor(
+            value
+        )
+    return out

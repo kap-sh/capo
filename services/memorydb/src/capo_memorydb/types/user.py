@@ -84,3 +84,58 @@ def deserialize_aws_json_1_1(data: dict) -> User:
     if data.get("ARN") is not None:
         out["arn"] = data["ARN"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: User) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "status" in value:
+        out["Status"] = value["status"]
+    if "access_string" in value:
+        out["AccessString"] = value["access_string"]
+    if "acl_names" in value:
+        import capo_memorydb.types.acl_name_list
+
+        out["ACLNames"] = capo_memorydb.types.acl_name_list.serialize_cbor(
+            value["acl_names"]
+        )
+    if "minimum_engine_version" in value:
+        out["MinimumEngineVersion"] = value["minimum_engine_version"]
+    if "authentication" in value:
+        import capo_memorydb.types.authentication
+
+        out["Authentication"] = capo_memorydb.types.authentication.serialize_cbor(
+            value["authentication"]
+        )
+    if "arn" in value:
+        out["ARN"] = value["arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> User:
+    out: User = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Status") is not None:
+        out["status"] = data["Status"]
+    if data.get("AccessString") is not None:
+        out["access_string"] = data["AccessString"]
+    if data.get("ACLNames") is not None:
+        import capo_memorydb.types.acl_name_list
+
+        out["acl_names"] = capo_memorydb.types.acl_name_list.deserialize_cbor(
+            data["ACLNames"]
+        )
+    if data.get("MinimumEngineVersion") is not None:
+        out["minimum_engine_version"] = data["MinimumEngineVersion"]
+    if data.get("Authentication") is not None:
+        import capo_memorydb.types.authentication
+
+        out["authentication"] = capo_memorydb.types.authentication.deserialize_cbor(
+            data["Authentication"]
+        )
+    if data.get("ARN") is not None:
+        out["arn"] = data["ARN"]
+    return out

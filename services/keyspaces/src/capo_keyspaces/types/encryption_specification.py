@@ -34,3 +34,23 @@ def deserialize_aws_json_1_0(data: dict) -> EncryptionSpecification:
     if data.get("kmsKeyIdentifier") is not None:
         out["kms_key_identifier"] = data["kmsKeyIdentifier"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EncryptionSpecification) -> dict:
+    out: dict = {}
+    out["type"] = value["type"]
+    if "kms_key_identifier" in value:
+        out["kmsKeyIdentifier"] = value["kms_key_identifier"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> EncryptionSpecification:
+    out: EncryptionSpecification = {}  # type: ignore[typeddict-item]
+    if data.get("type") is not None:
+        out["type"] = data["type"]
+    else:
+        out["type"] = ""
+    if data.get("kmsKeyIdentifier") is not None:
+        out["kms_key_identifier"] = data["kmsKeyIdentifier"]
+    return out

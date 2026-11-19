@@ -122,3 +122,78 @@ def deserialize_aws_json_1_1(data: dict) -> ProvisioningArtifactDetail:
     if data.get("SourceRevision") is not None:
         out["source_revision"] = data["SourceRevision"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ProvisioningArtifactDetail) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["Id"] = value["id"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "type" in value:
+        import capo_service_catalog.types.provisioning_artifact_type
+
+        out["Type"] = (
+            capo_service_catalog.types.provisioning_artifact_type.serialize_cbor(
+                value["type"]
+            )
+        )
+    if "created_time" in value:
+        import capo_service_catalog.types.creation_time
+
+        out["CreatedTime"] = capo_service_catalog.types.creation_time.serialize_cbor(
+            value["created_time"]
+        )
+    if "active" in value:
+        out["Active"] = value["active"]
+    if "guidance" in value:
+        import capo_service_catalog.types.provisioning_artifact_guidance
+
+        out["Guidance"] = (
+            capo_service_catalog.types.provisioning_artifact_guidance.serialize_cbor(
+                value["guidance"]
+            )
+        )
+    if "source_revision" in value:
+        out["SourceRevision"] = value["source_revision"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ProvisioningArtifactDetail:
+    out: ProvisioningArtifactDetail = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("Type") is not None:
+        import capo_service_catalog.types.provisioning_artifact_type
+
+        out["type"] = (
+            capo_service_catalog.types.provisioning_artifact_type.deserialize_cbor(
+                data["Type"]
+            )
+        )
+    if data.get("CreatedTime") is not None:
+        import capo_service_catalog.types.creation_time
+
+        out["created_time"] = capo_service_catalog.types.creation_time.deserialize_cbor(
+            data["CreatedTime"]
+        )
+    if data.get("Active") is not None:
+        out["active"] = data["Active"]
+    if data.get("Guidance") is not None:
+        import capo_service_catalog.types.provisioning_artifact_guidance
+
+        out["guidance"] = (
+            capo_service_catalog.types.provisioning_artifact_guidance.deserialize_cbor(
+                data["Guidance"]
+            )
+        )
+    if data.get("SourceRevision") is not None:
+        out["source_revision"] = data["SourceRevision"]
+    return out

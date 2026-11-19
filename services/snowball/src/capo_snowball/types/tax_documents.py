@@ -33,3 +33,22 @@ def deserialize_aws_json_1_1(data: dict) -> TaxDocuments:
             data["IND"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TaxDocuments) -> dict:
+    out: dict = {}
+    if "ind" in value:
+        import capo_snowball.types.ind_tax_documents
+
+        out["IND"] = capo_snowball.types.ind_tax_documents.serialize_cbor(value["ind"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> TaxDocuments:
+    out: TaxDocuments = {}  # type: ignore[typeddict-item]
+    if data.get("IND") is not None:
+        import capo_snowball.types.ind_tax_documents
+
+        out["ind"] = capo_snowball.types.ind_tax_documents.deserialize_cbor(data["IND"])
+    return out

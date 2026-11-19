@@ -54,3 +54,38 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeWorkspaceImagePermissionsRes
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeWorkspaceImagePermissionsResult) -> dict:
+    out: dict = {}
+    if "image_id" in value:
+        out["ImageId"] = value["image_id"]
+    if "image_permissions" in value:
+        import capo_workspaces.types.image_permissions
+
+        out["ImagePermissions"] = (
+            capo_workspaces.types.image_permissions.serialize_cbor(
+                value["image_permissions"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeWorkspaceImagePermissionsResult:
+    out: DescribeWorkspaceImagePermissionsResult = {}  # type: ignore[typeddict-item]
+    if data.get("ImageId") is not None:
+        out["image_id"] = data["ImageId"]
+    if data.get("ImagePermissions") is not None:
+        import capo_workspaces.types.image_permissions
+
+        out["image_permissions"] = (
+            capo_workspaces.types.image_permissions.deserialize_cbor(
+                data["ImagePermissions"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

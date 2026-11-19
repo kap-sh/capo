@@ -271,3 +271,192 @@ def deserialize_aws_json_1_1(data: dict) -> Options:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Options) -> dict:
+    out: dict = {}
+    if "verify_mode" in value:
+        import capo_datasync.types.verify_mode
+
+        out["VerifyMode"] = capo_datasync.types.verify_mode.serialize_cbor(
+            value["verify_mode"]
+        )
+    if "overwrite_mode" in value:
+        import capo_datasync.types.overwrite_mode
+
+        out["OverwriteMode"] = capo_datasync.types.overwrite_mode.serialize_cbor(
+            value["overwrite_mode"]
+        )
+    if "atime" in value:
+        import capo_datasync.types.atime
+
+        out["Atime"] = capo_datasync.types.atime.serialize_cbor(value["atime"])
+    if "mtime" in value:
+        import capo_datasync.types.mtime
+
+        out["Mtime"] = capo_datasync.types.mtime.serialize_cbor(value["mtime"])
+    if "uid" in value:
+        import capo_datasync.types.uid
+
+        out["Uid"] = capo_datasync.types.uid.serialize_cbor(value["uid"])
+    if "gid" in value:
+        import capo_datasync.types.gid
+
+        out["Gid"] = capo_datasync.types.gid.serialize_cbor(value["gid"])
+    if "preserve_deleted_files" in value:
+        import capo_datasync.types.preserve_deleted_files
+
+        out["PreserveDeletedFiles"] = (
+            capo_datasync.types.preserve_deleted_files.serialize_cbor(
+                value["preserve_deleted_files"]
+            )
+        )
+    if "preserve_devices" in value:
+        import capo_datasync.types.preserve_devices
+
+        out["PreserveDevices"] = capo_datasync.types.preserve_devices.serialize_cbor(
+            value["preserve_devices"]
+        )
+    if "posix_permissions" in value:
+        import capo_datasync.types.posix_permissions
+
+        out["PosixPermissions"] = capo_datasync.types.posix_permissions.serialize_cbor(
+            value["posix_permissions"]
+        )
+    if "bytes_per_second" in value:
+        out["BytesPerSecond"] = value["bytes_per_second"]
+    if "task_queueing" in value:
+        import capo_datasync.types.task_queueing
+
+        out["TaskQueueing"] = capo_datasync.types.task_queueing.serialize_cbor(
+            value["task_queueing"]
+        )
+    if "log_level" in value:
+        import capo_datasync.types.log_level
+
+        out["LogLevel"] = capo_datasync.types.log_level.serialize_cbor(
+            value["log_level"]
+        )
+    if "transfer_mode" in value:
+        import capo_datasync.types.transfer_mode
+
+        out["TransferMode"] = capo_datasync.types.transfer_mode.serialize_cbor(
+            value["transfer_mode"]
+        )
+    if "security_descriptor_copy_flags" in value:
+        import capo_datasync.types.smb_security_descriptor_copy_flags
+
+        out["SecurityDescriptorCopyFlags"] = (
+            capo_datasync.types.smb_security_descriptor_copy_flags.serialize_cbor(
+                value["security_descriptor_copy_flags"]
+            )
+        )
+    if "object_tags" in value:
+        import capo_datasync.types.object_tags
+
+        out["ObjectTags"] = capo_datasync.types.object_tags.serialize_cbor(
+            value["object_tags"]
+        )
+    if "object_metadata" in value:
+        import capo_datasync.types.object_metadata
+
+        out["ObjectMetadata"] = capo_datasync.types.object_metadata.serialize_cbor(
+            value["object_metadata"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Options:
+    out: Options = {}  # type: ignore[typeddict-item]
+    if data.get("VerifyMode") is not None:
+        import capo_datasync.types.verify_mode
+
+        out["verify_mode"] = capo_datasync.types.verify_mode.deserialize_cbor(
+            data["VerifyMode"]
+        )
+    if data.get("OverwriteMode") is not None:
+        import capo_datasync.types.overwrite_mode
+
+        out["overwrite_mode"] = capo_datasync.types.overwrite_mode.deserialize_cbor(
+            data["OverwriteMode"]
+        )
+    if data.get("Atime") is not None:
+        import capo_datasync.types.atime
+
+        out["atime"] = capo_datasync.types.atime.deserialize_cbor(data["Atime"])
+    if data.get("Mtime") is not None:
+        import capo_datasync.types.mtime
+
+        out["mtime"] = capo_datasync.types.mtime.deserialize_cbor(data["Mtime"])
+    if data.get("Uid") is not None:
+        import capo_datasync.types.uid
+
+        out["uid"] = capo_datasync.types.uid.deserialize_cbor(data["Uid"])
+    if data.get("Gid") is not None:
+        import capo_datasync.types.gid
+
+        out["gid"] = capo_datasync.types.gid.deserialize_cbor(data["Gid"])
+    if data.get("PreserveDeletedFiles") is not None:
+        import capo_datasync.types.preserve_deleted_files
+
+        out["preserve_deleted_files"] = (
+            capo_datasync.types.preserve_deleted_files.deserialize_cbor(
+                data["PreserveDeletedFiles"]
+            )
+        )
+    if data.get("PreserveDevices") is not None:
+        import capo_datasync.types.preserve_devices
+
+        out["preserve_devices"] = capo_datasync.types.preserve_devices.deserialize_cbor(
+            data["PreserveDevices"]
+        )
+    if data.get("PosixPermissions") is not None:
+        import capo_datasync.types.posix_permissions
+
+        out["posix_permissions"] = (
+            capo_datasync.types.posix_permissions.deserialize_cbor(
+                data["PosixPermissions"]
+            )
+        )
+    if data.get("BytesPerSecond") is not None:
+        out["bytes_per_second"] = data["BytesPerSecond"]
+    if data.get("TaskQueueing") is not None:
+        import capo_datasync.types.task_queueing
+
+        out["task_queueing"] = capo_datasync.types.task_queueing.deserialize_cbor(
+            data["TaskQueueing"]
+        )
+    if data.get("LogLevel") is not None:
+        import capo_datasync.types.log_level
+
+        out["log_level"] = capo_datasync.types.log_level.deserialize_cbor(
+            data["LogLevel"]
+        )
+    if data.get("TransferMode") is not None:
+        import capo_datasync.types.transfer_mode
+
+        out["transfer_mode"] = capo_datasync.types.transfer_mode.deserialize_cbor(
+            data["TransferMode"]
+        )
+    if data.get("SecurityDescriptorCopyFlags") is not None:
+        import capo_datasync.types.smb_security_descriptor_copy_flags
+
+        out["security_descriptor_copy_flags"] = (
+            capo_datasync.types.smb_security_descriptor_copy_flags.deserialize_cbor(
+                data["SecurityDescriptorCopyFlags"]
+            )
+        )
+    if data.get("ObjectTags") is not None:
+        import capo_datasync.types.object_tags
+
+        out["object_tags"] = capo_datasync.types.object_tags.deserialize_cbor(
+            data["ObjectTags"]
+        )
+    if data.get("ObjectMetadata") is not None:
+        import capo_datasync.types.object_metadata
+
+        out["object_metadata"] = capo_datasync.types.object_metadata.deserialize_cbor(
+            data["ObjectMetadata"]
+        )
+    return out

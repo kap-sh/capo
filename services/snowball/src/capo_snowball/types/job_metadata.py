@@ -365,6 +365,257 @@ def deserialize_aws_json_1_1(data: dict) -> JobMetadata:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: JobMetadata) -> dict:
+    out: dict = {}
+    if "job_id" in value:
+        out["JobId"] = value["job_id"]
+    if "job_state" in value:
+        import capo_snowball.types.job_state
+
+        out["JobState"] = capo_snowball.types.job_state.serialize_cbor(
+            value["job_state"]
+        )
+    if "job_type" in value:
+        import capo_snowball.types.job_type
+
+        out["JobType"] = capo_snowball.types.job_type.serialize_cbor(value["job_type"])
+    if "snowball_type" in value:
+        import capo_snowball.types.snowball_type
+
+        out["SnowballType"] = capo_snowball.types.snowball_type.serialize_cbor(
+            value["snowball_type"]
+        )
+    if "creation_date" in value:
+        import capo_snowball.types.timestamp
+
+        out["CreationDate"] = capo_snowball.types.timestamp.serialize_cbor(
+            value["creation_date"]
+        )
+    if "resources" in value:
+        import capo_snowball.types.job_resource
+
+        out["Resources"] = capo_snowball.types.job_resource.serialize_cbor(
+            value["resources"]
+        )
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "kms_key_arn" in value:
+        out["KmsKeyARN"] = value["kms_key_arn"]
+    if "role_arn" in value:
+        out["RoleARN"] = value["role_arn"]
+    if "address_id" in value:
+        out["AddressId"] = value["address_id"]
+    if "shipping_details" in value:
+        import capo_snowball.types.shipping_details
+
+        out["ShippingDetails"] = capo_snowball.types.shipping_details.serialize_cbor(
+            value["shipping_details"]
+        )
+    if "snowball_capacity_preference" in value:
+        import capo_snowball.types.snowball_capacity
+
+        out["SnowballCapacityPreference"] = (
+            capo_snowball.types.snowball_capacity.serialize_cbor(
+                value["snowball_capacity_preference"]
+            )
+        )
+    if "notification" in value:
+        import capo_snowball.types.notification
+
+        out["Notification"] = capo_snowball.types.notification.serialize_cbor(
+            value["notification"]
+        )
+    if "data_transfer_progress" in value:
+        import capo_snowball.types.data_transfer
+
+        out["DataTransferProgress"] = capo_snowball.types.data_transfer.serialize_cbor(
+            value["data_transfer_progress"]
+        )
+    if "job_log_info" in value:
+        import capo_snowball.types.job_logs
+
+        out["JobLogInfo"] = capo_snowball.types.job_logs.serialize_cbor(
+            value["job_log_info"]
+        )
+    if "cluster_id" in value:
+        out["ClusterId"] = value["cluster_id"]
+    if "forwarding_address_id" in value:
+        out["ForwardingAddressId"] = value["forwarding_address_id"]
+    if "tax_documents" in value:
+        import capo_snowball.types.tax_documents
+
+        out["TaxDocuments"] = capo_snowball.types.tax_documents.serialize_cbor(
+            value["tax_documents"]
+        )
+    if "device_configuration" in value:
+        import capo_snowball.types.device_configuration
+
+        out["DeviceConfiguration"] = (
+            capo_snowball.types.device_configuration.serialize_cbor(
+                value["device_configuration"]
+            )
+        )
+    if "remote_management" in value:
+        import capo_snowball.types.remote_management
+
+        out["RemoteManagement"] = capo_snowball.types.remote_management.serialize_cbor(
+            value["remote_management"]
+        )
+    if "long_term_pricing_id" in value:
+        out["LongTermPricingId"] = value["long_term_pricing_id"]
+    if "on_device_service_configuration" in value:
+        import capo_snowball.types.on_device_service_configuration
+
+        out["OnDeviceServiceConfiguration"] = (
+            capo_snowball.types.on_device_service_configuration.serialize_cbor(
+                value["on_device_service_configuration"]
+            )
+        )
+    if "impact_level" in value:
+        import capo_snowball.types.impact_level
+
+        out["ImpactLevel"] = capo_snowball.types.impact_level.serialize_cbor(
+            value["impact_level"]
+        )
+    if "pickup_details" in value:
+        import capo_snowball.types.pickup_details
+
+        out["PickupDetails"] = capo_snowball.types.pickup_details.serialize_cbor(
+            value["pickup_details"]
+        )
+    if "snowball_id" in value:
+        out["SnowballId"] = value["snowball_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> JobMetadata:
+    out: JobMetadata = {}  # type: ignore[typeddict-item]
+    if data.get("JobId") is not None:
+        out["job_id"] = data["JobId"]
+    if data.get("JobState") is not None:
+        import capo_snowball.types.job_state
+
+        out["job_state"] = capo_snowball.types.job_state.deserialize_cbor(
+            data["JobState"]
+        )
+    if data.get("JobType") is not None:
+        import capo_snowball.types.job_type
+
+        out["job_type"] = capo_snowball.types.job_type.deserialize_cbor(data["JobType"])
+    if data.get("SnowballType") is not None:
+        import capo_snowball.types.snowball_type
+
+        out["snowball_type"] = capo_snowball.types.snowball_type.deserialize_cbor(
+            data["SnowballType"]
+        )
+    if data.get("CreationDate") is not None:
+        import capo_snowball.types.timestamp
+
+        out["creation_date"] = capo_snowball.types.timestamp.deserialize_cbor(
+            data["CreationDate"]
+        )
+    if data.get("Resources") is not None:
+        import capo_snowball.types.job_resource
+
+        out["resources"] = capo_snowball.types.job_resource.deserialize_cbor(
+            data["Resources"]
+        )
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("KmsKeyARN") is not None:
+        out["kms_key_arn"] = data["KmsKeyARN"]
+    if data.get("RoleARN") is not None:
+        out["role_arn"] = data["RoleARN"]
+    if data.get("AddressId") is not None:
+        out["address_id"] = data["AddressId"]
+    if data.get("ShippingDetails") is not None:
+        import capo_snowball.types.shipping_details
+
+        out["shipping_details"] = capo_snowball.types.shipping_details.deserialize_cbor(
+            data["ShippingDetails"]
+        )
+    if data.get("SnowballCapacityPreference") is not None:
+        import capo_snowball.types.snowball_capacity
+
+        out["snowball_capacity_preference"] = (
+            capo_snowball.types.snowball_capacity.deserialize_cbor(
+                data["SnowballCapacityPreference"]
+            )
+        )
+    if data.get("Notification") is not None:
+        import capo_snowball.types.notification
+
+        out["notification"] = capo_snowball.types.notification.deserialize_cbor(
+            data["Notification"]
+        )
+    if data.get("DataTransferProgress") is not None:
+        import capo_snowball.types.data_transfer
+
+        out["data_transfer_progress"] = (
+            capo_snowball.types.data_transfer.deserialize_cbor(
+                data["DataTransferProgress"]
+            )
+        )
+    if data.get("JobLogInfo") is not None:
+        import capo_snowball.types.job_logs
+
+        out["job_log_info"] = capo_snowball.types.job_logs.deserialize_cbor(
+            data["JobLogInfo"]
+        )
+    if data.get("ClusterId") is not None:
+        out["cluster_id"] = data["ClusterId"]
+    if data.get("ForwardingAddressId") is not None:
+        out["forwarding_address_id"] = data["ForwardingAddressId"]
+    if data.get("TaxDocuments") is not None:
+        import capo_snowball.types.tax_documents
+
+        out["tax_documents"] = capo_snowball.types.tax_documents.deserialize_cbor(
+            data["TaxDocuments"]
+        )
+    if data.get("DeviceConfiguration") is not None:
+        import capo_snowball.types.device_configuration
+
+        out["device_configuration"] = (
+            capo_snowball.types.device_configuration.deserialize_cbor(
+                data["DeviceConfiguration"]
+            )
+        )
+    if data.get("RemoteManagement") is not None:
+        import capo_snowball.types.remote_management
+
+        out["remote_management"] = (
+            capo_snowball.types.remote_management.deserialize_cbor(
+                data["RemoteManagement"]
+            )
+        )
+    if data.get("LongTermPricingId") is not None:
+        out["long_term_pricing_id"] = data["LongTermPricingId"]
+    if data.get("OnDeviceServiceConfiguration") is not None:
+        import capo_snowball.types.on_device_service_configuration
+
+        out["on_device_service_configuration"] = (
+            capo_snowball.types.on_device_service_configuration.deserialize_cbor(
+                data["OnDeviceServiceConfiguration"]
+            )
+        )
+    if data.get("ImpactLevel") is not None:
+        import capo_snowball.types.impact_level
+
+        out["impact_level"] = capo_snowball.types.impact_level.deserialize_cbor(
+            data["ImpactLevel"]
+        )
+    if data.get("PickupDetails") is not None:
+        import capo_snowball.types.pickup_details
+
+        out["pickup_details"] = capo_snowball.types.pickup_details.deserialize_cbor(
+            data["PickupDetails"]
+        )
+    if data.get("SnowballId") is not None:
+        out["snowball_id"] = data["SnowballId"]
+    return out
+
+
 def redact_sensitive(value: JobMetadata) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "pickup_details" in value:

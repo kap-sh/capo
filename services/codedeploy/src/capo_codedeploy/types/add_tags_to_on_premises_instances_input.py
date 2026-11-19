@@ -53,3 +53,38 @@ def deserialize_aws_json_1_1(data: dict) -> AddTagsToOnPremisesInstancesInput:
     else:
         out["instance_names"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AddTagsToOnPremisesInstancesInput) -> dict:
+    out: dict = {}
+    import capo_codedeploy.types.tag_list
+
+    out["tags"] = capo_codedeploy.types.tag_list.serialize_cbor(value["tags"])
+    import capo_codedeploy.types.instance_name_list
+
+    out["instanceNames"] = capo_codedeploy.types.instance_name_list.serialize_cbor(
+        value["instance_names"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AddTagsToOnPremisesInstancesInput:
+    out: AddTagsToOnPremisesInstancesInput = {}  # type: ignore[typeddict-item]
+    if data.get("tags") is not None:
+        import capo_codedeploy.types.tag_list
+
+        out["tags"] = capo_codedeploy.types.tag_list.deserialize_cbor(data["tags"])
+    else:
+        out["tags"] = []
+    if data.get("instanceNames") is not None:
+        import capo_codedeploy.types.instance_name_list
+
+        out["instance_names"] = (
+            capo_codedeploy.types.instance_name_list.deserialize_cbor(
+                data["instanceNames"]
+            )
+        )
+    else:
+        out["instance_names"] = []
+    return out

@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: ApplicationAttribute) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> ApplicationAttribute:
     return cast(ApplicationAttribute, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ApplicationAttribute) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ApplicationAttribute:
+    return cast(ApplicationAttribute, data)

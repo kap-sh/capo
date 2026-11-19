@@ -136,3 +136,95 @@ def deserialize_aws_json_1_1(data: dict) -> GetResourceMetricsRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetResourceMetricsRequest) -> dict:
+    out: dict = {}
+    import capo_pi.types.service_type
+
+    out["ServiceType"] = capo_pi.types.service_type.serialize_cbor(
+        value["service_type"]
+    )
+    out["Identifier"] = value["identifier"]
+    import capo_pi.types.metric_query_list
+
+    out["MetricQueries"] = capo_pi.types.metric_query_list.serialize_cbor(
+        value["metric_queries"]
+    )
+    import capo_pi.types.iso_timestamp
+
+    out["StartTime"] = capo_pi.types.iso_timestamp.serialize_cbor(value["start_time"])
+    import capo_pi.types.iso_timestamp
+
+    out["EndTime"] = capo_pi.types.iso_timestamp.serialize_cbor(value["end_time"])
+    if "period_in_seconds" in value:
+        out["PeriodInSeconds"] = value["period_in_seconds"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "period_alignment" in value:
+        import capo_pi.types.period_alignment
+
+        out["PeriodAlignment"] = capo_pi.types.period_alignment.serialize_cbor(
+            value["period_alignment"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetResourceMetricsRequest:
+    out: GetResourceMetricsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ServiceType") is not None:
+        import capo_pi.types.service_type
+
+        out["service_type"] = capo_pi.types.service_type.deserialize_cbor(
+            data["ServiceType"]
+        )
+    else:
+        import typing
+
+        out["service_type"] = typing.cast("capo_pi.types.service_type.ServiceType", "")
+    if data.get("Identifier") is not None:
+        out["identifier"] = data["Identifier"]
+    else:
+        out["identifier"] = ""
+    if data.get("MetricQueries") is not None:
+        import capo_pi.types.metric_query_list
+
+        out["metric_queries"] = capo_pi.types.metric_query_list.deserialize_cbor(
+            data["MetricQueries"]
+        )
+    else:
+        out["metric_queries"] = []
+    if data.get("StartTime") is not None:
+        import capo_pi.types.iso_timestamp
+
+        out["start_time"] = capo_pi.types.iso_timestamp.deserialize_cbor(
+            data["StartTime"]
+        )
+    else:
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
+    if data.get("EndTime") is not None:
+        import capo_pi.types.iso_timestamp
+
+        out["end_time"] = capo_pi.types.iso_timestamp.deserialize_cbor(data["EndTime"])
+    else:
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
+    if data.get("PeriodInSeconds") is not None:
+        out["period_in_seconds"] = data["PeriodInSeconds"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("PeriodAlignment") is not None:
+        import capo_pi.types.period_alignment
+
+        out["period_alignment"] = capo_pi.types.period_alignment.deserialize_cbor(
+            data["PeriodAlignment"]
+        )
+    return out

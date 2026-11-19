@@ -68,3 +68,48 @@ def deserialize_aws_json_1_1(data: dict) -> ArtifactStore:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ArtifactStore) -> dict:
+    out: dict = {}
+    import capo_codepipeline.types.artifact_store_type
+
+    out["type"] = capo_codepipeline.types.artifact_store_type.serialize_cbor(
+        value["type"]
+    )
+    out["location"] = value["location"]
+    if "encryption_key" in value:
+        import capo_codepipeline.types.encryption_key
+
+        out["encryptionKey"] = capo_codepipeline.types.encryption_key.serialize_cbor(
+            value["encryption_key"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ArtifactStore:
+    out: ArtifactStore = {}  # type: ignore[typeddict-item]
+    if data.get("type") is not None:
+        import capo_codepipeline.types.artifact_store_type
+
+        out["type"] = capo_codepipeline.types.artifact_store_type.deserialize_cbor(
+            data["type"]
+        )
+    else:
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_codepipeline.types.artifact_store_type.ArtifactStoreType", ""
+        )
+    if data.get("location") is not None:
+        out["location"] = data["location"]
+    else:
+        out["location"] = ""
+    if data.get("encryptionKey") is not None:
+        import capo_codepipeline.types.encryption_key
+
+        out["encryption_key"] = capo_codepipeline.types.encryption_key.deserialize_cbor(
+            data["encryptionKey"]
+        )
+    return out

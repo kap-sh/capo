@@ -83,3 +83,61 @@ def deserialize_aws_json_1_0(data: dict) -> RulesSourceList:
             "capo_network_firewall.types.generated_rules_type.GeneratedRulesType", ""
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RulesSourceList) -> dict:
+    out: dict = {}
+    import capo_network_firewall.types.rule_targets
+
+    out["Targets"] = capo_network_firewall.types.rule_targets.serialize_cbor(
+        value["targets"]
+    )
+    import capo_network_firewall.types.target_types
+
+    out["TargetTypes"] = capo_network_firewall.types.target_types.serialize_cbor(
+        value["target_types"]
+    )
+    import capo_network_firewall.types.generated_rules_type
+
+    out["GeneratedRulesType"] = (
+        capo_network_firewall.types.generated_rules_type.serialize_cbor(
+            value["generated_rules_type"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RulesSourceList:
+    out: RulesSourceList = {}  # type: ignore[typeddict-item]
+    if data.get("Targets") is not None:
+        import capo_network_firewall.types.rule_targets
+
+        out["targets"] = capo_network_firewall.types.rule_targets.deserialize_cbor(
+            data["Targets"]
+        )
+    else:
+        out["targets"] = []
+    if data.get("TargetTypes") is not None:
+        import capo_network_firewall.types.target_types
+
+        out["target_types"] = capo_network_firewall.types.target_types.deserialize_cbor(
+            data["TargetTypes"]
+        )
+    else:
+        out["target_types"] = []
+    if data.get("GeneratedRulesType") is not None:
+        import capo_network_firewall.types.generated_rules_type
+
+        out["generated_rules_type"] = (
+            capo_network_firewall.types.generated_rules_type.deserialize_cbor(
+                data["GeneratedRulesType"]
+            )
+        )
+    else:
+        import typing
+
+        out["generated_rules_type"] = typing.cast(
+            "capo_network_firewall.types.generated_rules_type.GeneratedRulesType", ""
+        )
+    return out

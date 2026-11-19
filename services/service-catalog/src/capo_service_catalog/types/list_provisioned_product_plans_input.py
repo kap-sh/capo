@@ -70,3 +70,46 @@ def deserialize_aws_json_1_1(data: dict) -> ListProvisionedProductPlansInput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListProvisionedProductPlansInput) -> dict:
+    out: dict = {}
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    if "provision_product_id" in value:
+        out["ProvisionProductId"] = value["provision_product_id"]
+    if "page_size" in value:
+        out["PageSize"] = value["page_size"]
+    if "page_token" in value:
+        out["PageToken"] = value["page_token"]
+    if "access_level_filter" in value:
+        import capo_service_catalog.types.access_level_filter
+
+        out["AccessLevelFilter"] = (
+            capo_service_catalog.types.access_level_filter.serialize_cbor(
+                value["access_level_filter"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListProvisionedProductPlansInput:
+    out: ListProvisionedProductPlansInput = {}  # type: ignore[typeddict-item]
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    if data.get("ProvisionProductId") is not None:
+        out["provision_product_id"] = data["ProvisionProductId"]
+    if data.get("PageSize") is not None:
+        out["page_size"] = data["PageSize"]
+    if data.get("PageToken") is not None:
+        out["page_token"] = data["PageToken"]
+    if data.get("AccessLevelFilter") is not None:
+        import capo_service_catalog.types.access_level_filter
+
+        out["access_level_filter"] = (
+            capo_service_catalog.types.access_level_filter.deserialize_cbor(
+                data["AccessLevelFilter"]
+            )
+        )
+    return out

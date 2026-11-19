@@ -75,3 +75,47 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateServiceActionInput:
     if data.get("AcceptLanguage") is not None:
         out["accept_language"] = data["AcceptLanguage"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateServiceActionInput) -> dict:
+    out: dict = {}
+    out["Id"] = value["id"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "definition" in value:
+        import capo_service_catalog.types.service_action_definition_map
+
+        out["Definition"] = (
+            capo_service_catalog.types.service_action_definition_map.serialize_cbor(
+                value["definition"]
+            )
+        )
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateServiceActionInput:
+    out: UpdateServiceActionInput = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    else:
+        out["id"] = ""
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Definition") is not None:
+        import capo_service_catalog.types.service_action_definition_map
+
+        out["definition"] = (
+            capo_service_catalog.types.service_action_definition_map.deserialize_cbor(
+                data["Definition"]
+            )
+        )
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    return out

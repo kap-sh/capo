@@ -78,3 +78,43 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateVirtualInterfaceAttributesRequ
     if data.get("rateLimit") is not None:
         out["rate_limit"] = data["rateLimit"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateVirtualInterfaceAttributesRequest) -> dict:
+    out: dict = {}
+    out["virtualInterfaceId"] = value["virtual_interface_id"]
+    if "mtu" in value:
+        out["mtu"] = value["mtu"]
+    if "enable_site_link" in value:
+        out["enableSiteLink"] = value["enable_site_link"]
+    if "virtual_interface_name" in value:
+        out["virtualInterfaceName"] = value["virtual_interface_name"]
+    if "prefix_pool_allocated_count_ipv4" in value:
+        out["prefixPoolAllocatedCountIpv4"] = value["prefix_pool_allocated_count_ipv4"]
+    if "prefix_pool_allocated_count_ipv6" in value:
+        out["prefixPoolAllocatedCountIpv6"] = value["prefix_pool_allocated_count_ipv6"]
+    if "rate_limit" in value:
+        out["rateLimit"] = value["rate_limit"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateVirtualInterfaceAttributesRequest:
+    out: UpdateVirtualInterfaceAttributesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("virtualInterfaceId") is not None:
+        out["virtual_interface_id"] = data["virtualInterfaceId"]
+    else:
+        out["virtual_interface_id"] = ""
+    if data.get("mtu") is not None:
+        out["mtu"] = data["mtu"]
+    if data.get("enableSiteLink") is not None:
+        out["enable_site_link"] = data["enableSiteLink"]
+    if data.get("virtualInterfaceName") is not None:
+        out["virtual_interface_name"] = data["virtualInterfaceName"]
+    if data.get("prefixPoolAllocatedCountIpv4") is not None:
+        out["prefix_pool_allocated_count_ipv4"] = data["prefixPoolAllocatedCountIpv4"]
+    if data.get("prefixPoolAllocatedCountIpv6") is not None:
+        out["prefix_pool_allocated_count_ipv6"] = data["prefixPoolAllocatedCountIpv6"]
+    if data.get("rateLimit") is not None:
+        out["rate_limit"] = data["rateLimit"]
+    return out

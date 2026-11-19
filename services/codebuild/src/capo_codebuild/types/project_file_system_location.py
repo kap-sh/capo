@@ -59,3 +59,42 @@ def deserialize_aws_json_1_1(data: dict) -> ProjectFileSystemLocation:
     if data.get("mountOptions") is not None:
         out["mount_options"] = data["mountOptions"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ProjectFileSystemLocation) -> dict:
+    out: dict = {}
+    if "type" in value:
+        import capo_codebuild.types.file_system_type
+
+        out["type"] = capo_codebuild.types.file_system_type.serialize_cbor(
+            value["type"]
+        )
+    if "location" in value:
+        out["location"] = value["location"]
+    if "mount_point" in value:
+        out["mountPoint"] = value["mount_point"]
+    if "identifier" in value:
+        out["identifier"] = value["identifier"]
+    if "mount_options" in value:
+        out["mountOptions"] = value["mount_options"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ProjectFileSystemLocation:
+    out: ProjectFileSystemLocation = {}  # type: ignore[typeddict-item]
+    if data.get("type") is not None:
+        import capo_codebuild.types.file_system_type
+
+        out["type"] = capo_codebuild.types.file_system_type.deserialize_cbor(
+            data["type"]
+        )
+    if data.get("location") is not None:
+        out["location"] = data["location"]
+    if data.get("mountPoint") is not None:
+        out["mount_point"] = data["mountPoint"]
+    if data.get("identifier") is not None:
+        out["identifier"] = data["identifier"]
+    if data.get("mountOptions") is not None:
+        out["mount_options"] = data["mountOptions"]
+    return out

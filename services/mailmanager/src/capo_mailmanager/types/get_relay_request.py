@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> GetRelayRequest:
     else:
         out["relay_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetRelayRequest) -> dict:
+    out: dict = {}
+    out["RelayId"] = value["relay_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetRelayRequest:
+    out: GetRelayRequest = {}  # type: ignore[typeddict-item]
+    if data.get("RelayId") is not None:
+        out["relay_id"] = data["RelayId"]
+    else:
+        out["relay_id"] = ""
+    return out

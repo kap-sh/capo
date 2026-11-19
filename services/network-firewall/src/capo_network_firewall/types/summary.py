@@ -40,3 +40,30 @@ def deserialize_aws_json_1_0(data: dict) -> Summary:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Summary) -> dict:
+    out: dict = {}
+    if "rule_summaries" in value:
+        import capo_network_firewall.types.rule_summaries
+
+        out["RuleSummaries"] = (
+            capo_network_firewall.types.rule_summaries.serialize_cbor(
+                value["rule_summaries"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Summary:
+    out: Summary = {}  # type: ignore[typeddict-item]
+    if data.get("RuleSummaries") is not None:
+        import capo_network_firewall.types.rule_summaries
+
+        out["rule_summaries"] = (
+            capo_network_firewall.types.rule_summaries.deserialize_cbor(
+                data["RuleSummaries"]
+            )
+        )
+    return out

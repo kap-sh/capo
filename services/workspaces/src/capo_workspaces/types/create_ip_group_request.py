@@ -64,3 +64,43 @@ def deserialize_aws_json_1_1(data: dict) -> CreateIpGroupRequest:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateIpGroupRequest) -> dict:
+    out: dict = {}
+    out["GroupName"] = value["group_name"]
+    if "group_desc" in value:
+        out["GroupDesc"] = value["group_desc"]
+    if "user_rules" in value:
+        import capo_workspaces.types.ip_rule_list
+
+        out["UserRules"] = capo_workspaces.types.ip_rule_list.serialize_cbor(
+            value["user_rules"]
+        )
+    if "tags" in value:
+        import capo_workspaces.types.tag_list
+
+        out["Tags"] = capo_workspaces.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateIpGroupRequest:
+    out: CreateIpGroupRequest = {}  # type: ignore[typeddict-item]
+    if data.get("GroupName") is not None:
+        out["group_name"] = data["GroupName"]
+    else:
+        out["group_name"] = ""
+    if data.get("GroupDesc") is not None:
+        out["group_desc"] = data["GroupDesc"]
+    if data.get("UserRules") is not None:
+        import capo_workspaces.types.ip_rule_list
+
+        out["user_rules"] = capo_workspaces.types.ip_rule_list.deserialize_cbor(
+            data["UserRules"]
+        )
+    if data.get("Tags") is not None:
+        import capo_workspaces.types.tag_list
+
+        out["tags"] = capo_workspaces.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

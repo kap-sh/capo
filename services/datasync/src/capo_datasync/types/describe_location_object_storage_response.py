@@ -207,3 +207,148 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeLocationObjectStorageRespons
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeLocationObjectStorageResponse) -> dict:
+    out: dict = {}
+    if "location_arn" in value:
+        out["LocationArn"] = value["location_arn"]
+    if "location_uri" in value:
+        out["LocationUri"] = value["location_uri"]
+    if "access_key" in value:
+        out["AccessKey"] = value["access_key"]
+    if "federated_identity" in value:
+        import capo_datasync.types.object_storage_federated_identity_config
+
+        out["FederatedIdentity"] = (
+            capo_datasync.types.object_storage_federated_identity_config.serialize_cbor(
+                value["federated_identity"]
+            )
+        )
+    if "server_port" in value:
+        out["ServerPort"] = value["server_port"]
+    if "server_protocol" in value:
+        import capo_datasync.types.object_storage_server_protocol
+
+        out["ServerProtocol"] = (
+            capo_datasync.types.object_storage_server_protocol.serialize_cbor(
+                value["server_protocol"]
+            )
+        )
+    if "agent_arns" in value:
+        import capo_datasync.types.agent_arn_list
+
+        out["AgentArns"] = capo_datasync.types.agent_arn_list.serialize_cbor(
+            value["agent_arns"]
+        )
+    if "creation_time" in value:
+        import capo_datasync.types.time
+
+        out["CreationTime"] = capo_datasync.types.time.serialize_cbor(
+            value["creation_time"]
+        )
+    if "server_certificate" in value:
+        import capo_datasync.types.object_storage_certificate
+
+        out["ServerCertificate"] = (
+            capo_datasync.types.object_storage_certificate.serialize_cbor(
+                value["server_certificate"]
+            )
+        )
+    if "managed_secret_config" in value:
+        import capo_datasync.types.managed_secret_config
+
+        out["ManagedSecretConfig"] = (
+            capo_datasync.types.managed_secret_config.serialize_cbor(
+                value["managed_secret_config"]
+            )
+        )
+    if "cmk_secret_config" in value:
+        import capo_datasync.types.cmk_secret_config
+
+        out["CmkSecretConfig"] = capo_datasync.types.cmk_secret_config.serialize_cbor(
+            value["cmk_secret_config"]
+        )
+    if "custom_secret_config" in value:
+        import capo_datasync.types.custom_secret_config
+
+        out["CustomSecretConfig"] = (
+            capo_datasync.types.custom_secret_config.serialize_cbor(
+                value["custom_secret_config"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeLocationObjectStorageResponse:
+    out: DescribeLocationObjectStorageResponse = {}  # type: ignore[typeddict-item]
+    if data.get("LocationArn") is not None:
+        out["location_arn"] = data["LocationArn"]
+    if data.get("LocationUri") is not None:
+        out["location_uri"] = data["LocationUri"]
+    if data.get("AccessKey") is not None:
+        out["access_key"] = data["AccessKey"]
+    if data.get("FederatedIdentity") is not None:
+        import capo_datasync.types.object_storage_federated_identity_config
+
+        out["federated_identity"] = (
+            capo_datasync.types.object_storage_federated_identity_config.deserialize_cbor(
+                data["FederatedIdentity"]
+            )
+        )
+    if data.get("ServerPort") is not None:
+        out["server_port"] = data["ServerPort"]
+    if data.get("ServerProtocol") is not None:
+        import capo_datasync.types.object_storage_server_protocol
+
+        out["server_protocol"] = (
+            capo_datasync.types.object_storage_server_protocol.deserialize_cbor(
+                data["ServerProtocol"]
+            )
+        )
+    if data.get("AgentArns") is not None:
+        import capo_datasync.types.agent_arn_list
+
+        out["agent_arns"] = capo_datasync.types.agent_arn_list.deserialize_cbor(
+            data["AgentArns"]
+        )
+    if data.get("CreationTime") is not None:
+        import capo_datasync.types.time
+
+        out["creation_time"] = capo_datasync.types.time.deserialize_cbor(
+            data["CreationTime"]
+        )
+    if data.get("ServerCertificate") is not None:
+        import capo_datasync.types.object_storage_certificate
+
+        out["server_certificate"] = (
+            capo_datasync.types.object_storage_certificate.deserialize_cbor(
+                data["ServerCertificate"]
+            )
+        )
+    if data.get("ManagedSecretConfig") is not None:
+        import capo_datasync.types.managed_secret_config
+
+        out["managed_secret_config"] = (
+            capo_datasync.types.managed_secret_config.deserialize_cbor(
+                data["ManagedSecretConfig"]
+            )
+        )
+    if data.get("CmkSecretConfig") is not None:
+        import capo_datasync.types.cmk_secret_config
+
+        out["cmk_secret_config"] = (
+            capo_datasync.types.cmk_secret_config.deserialize_cbor(
+                data["CmkSecretConfig"]
+            )
+        )
+    if data.get("CustomSecretConfig") is not None:
+        import capo_datasync.types.custom_secret_config
+
+        out["custom_secret_config"] = (
+            capo_datasync.types.custom_secret_config.deserialize_cbor(
+                data["CustomSecretConfig"]
+            )
+        )
+    return out

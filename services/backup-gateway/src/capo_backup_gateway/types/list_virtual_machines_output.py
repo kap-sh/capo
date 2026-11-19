@@ -47,3 +47,34 @@ def deserialize_aws_json_1_0(data: dict) -> ListVirtualMachinesOutput:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListVirtualMachinesOutput) -> dict:
+    out: dict = {}
+    if "virtual_machines" in value:
+        import capo_backup_gateway.types.virtual_machines
+
+        out["VirtualMachines"] = (
+            capo_backup_gateway.types.virtual_machines.serialize_cbor(
+                value["virtual_machines"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListVirtualMachinesOutput:
+    out: ListVirtualMachinesOutput = {}  # type: ignore[typeddict-item]
+    if data.get("VirtualMachines") is not None:
+        import capo_backup_gateway.types.virtual_machines
+
+        out["virtual_machines"] = (
+            capo_backup_gateway.types.virtual_machines.deserialize_cbor(
+                data["VirtualMachines"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

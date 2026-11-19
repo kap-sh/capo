@@ -53,6 +53,37 @@ def deserialize_aws_json_1_1(data: dict) -> HumanLoopQuotaExceededException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: HumanLoopQuotaExceededException_) -> dict:
+    out: dict = {}
+    if "resource_type" in value:
+        out["ResourceType"] = value["resource_type"]
+    if "quota_code" in value:
+        out["QuotaCode"] = value["quota_code"]
+    if "service_code" in value:
+        out["ServiceCode"] = value["service_code"]
+    if "message" in value:
+        out["Message"] = value["message"]
+    if "code" in value:
+        out["Code"] = value["code"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> HumanLoopQuotaExceededException_:
+    out: HumanLoopQuotaExceededException_ = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceType") is not None:
+        out["resource_type"] = data["ResourceType"]
+    if data.get("QuotaCode") is not None:
+        out["quota_code"] = data["QuotaCode"]
+    if data.get("ServiceCode") is not None:
+        out["service_code"] = data["ServiceCode"]
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    if data.get("Code") is not None:
+        out["code"] = data["Code"]
+    return out
+
+
 class HumanLoopQuotaExceededException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.textract#HumanLoopQuotaExceededException``."""
 
@@ -80,3 +111,9 @@ class HumanLoopQuotaExceededException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "HumanLoopQuotaExceededException":
         return cls(deserialize_aws_json_1_1(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "HumanLoopQuotaExceededException":
+        return cls(deserialize_cbor(data), message, response=response)

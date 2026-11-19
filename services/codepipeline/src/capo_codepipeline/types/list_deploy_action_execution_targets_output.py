@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> ListDeployActionExecutionTargetsOutp
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListDeployActionExecutionTargetsOutput) -> dict:
+    out: dict = {}
+    if "targets" in value:
+        import capo_codepipeline.types.deploy_action_execution_target_list
+
+        out["targets"] = (
+            capo_codepipeline.types.deploy_action_execution_target_list.serialize_cbor(
+                value["targets"]
+            )
+        )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListDeployActionExecutionTargetsOutput:
+    out: ListDeployActionExecutionTargetsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("targets") is not None:
+        import capo_codepipeline.types.deploy_action_execution_target_list
+
+        out["targets"] = (
+            capo_codepipeline.types.deploy_action_execution_target_list.deserialize_cbor(
+                data["targets"]
+            )
+        )
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

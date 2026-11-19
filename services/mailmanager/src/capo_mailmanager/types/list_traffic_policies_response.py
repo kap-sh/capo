@@ -47,3 +47,34 @@ def deserialize_aws_json_1_0(data: dict) -> ListTrafficPoliciesResponse:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListTrafficPoliciesResponse) -> dict:
+    out: dict = {}
+    if "traffic_policies" in value:
+        import capo_mailmanager.types.traffic_policy_list
+
+        out["TrafficPolicies"] = (
+            capo_mailmanager.types.traffic_policy_list.serialize_cbor(
+                value["traffic_policies"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListTrafficPoliciesResponse:
+    out: ListTrafficPoliciesResponse = {}  # type: ignore[typeddict-item]
+    if data.get("TrafficPolicies") is not None:
+        import capo_mailmanager.types.traffic_policy_list
+
+        out["traffic_policies"] = (
+            capo_mailmanager.types.traffic_policy_list.deserialize_cbor(
+                data["TrafficPolicies"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

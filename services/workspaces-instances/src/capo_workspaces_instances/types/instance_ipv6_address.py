@@ -36,6 +36,25 @@ def deserialize_aws_json_1_0(data: dict) -> InstanceIpv6Address:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InstanceIpv6Address) -> dict:
+    out: dict = {}
+    if "ipv6_address" in value:
+        out["Ipv6Address"] = value["ipv6_address"]
+    if "is_primary_ipv6" in value:
+        out["IsPrimaryIpv6"] = value["is_primary_ipv6"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> InstanceIpv6Address:
+    out: InstanceIpv6Address = {}  # type: ignore[typeddict-item]
+    if data.get("Ipv6Address") is not None:
+        out["ipv6_address"] = data["Ipv6Address"]
+    if data.get("IsPrimaryIpv6") is not None:
+        out["is_primary_ipv6"] = data["IsPrimaryIpv6"]
+    return out
+
+
 def redact_sensitive(value: InstanceIpv6Address) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "ipv6_address" in value:

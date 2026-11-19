@@ -63,3 +63,46 @@ def deserialize_aws_json_1_1(data: dict) -> SourceCredentialsInfo:
     if data.get("resource") is not None:
         out["resource"] = data["resource"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SourceCredentialsInfo) -> dict:
+    out: dict = {}
+    if "arn" in value:
+        out["arn"] = value["arn"]
+    if "server_type" in value:
+        import capo_codebuild.types.server_type
+
+        out["serverType"] = capo_codebuild.types.server_type.serialize_cbor(
+            value["server_type"]
+        )
+    if "auth_type" in value:
+        import capo_codebuild.types.auth_type
+
+        out["authType"] = capo_codebuild.types.auth_type.serialize_cbor(
+            value["auth_type"]
+        )
+    if "resource" in value:
+        out["resource"] = value["resource"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> SourceCredentialsInfo:
+    out: SourceCredentialsInfo = {}  # type: ignore[typeddict-item]
+    if data.get("arn") is not None:
+        out["arn"] = data["arn"]
+    if data.get("serverType") is not None:
+        import capo_codebuild.types.server_type
+
+        out["server_type"] = capo_codebuild.types.server_type.deserialize_cbor(
+            data["serverType"]
+        )
+    if data.get("authType") is not None:
+        import capo_codebuild.types.auth_type
+
+        out["auth_type"] = capo_codebuild.types.auth_type.deserialize_cbor(
+            data["authType"]
+        )
+    if data.get("resource") is not None:
+        out["resource"] = data["resource"]
+    return out

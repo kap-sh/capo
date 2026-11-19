@@ -40,3 +40,30 @@ def deserialize_aws_json_1_0(data: dict) -> AvailabilityZoneMetadata:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AvailabilityZoneMetadata) -> dict:
+    out: dict = {}
+    if "ip_address_type" in value:
+        import capo_network_firewall.types.ip_address_type
+
+        out["IPAddressType"] = (
+            capo_network_firewall.types.ip_address_type.serialize_cbor(
+                value["ip_address_type"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AvailabilityZoneMetadata:
+    out: AvailabilityZoneMetadata = {}  # type: ignore[typeddict-item]
+    if data.get("IPAddressType") is not None:
+        import capo_network_firewall.types.ip_address_type
+
+        out["ip_address_type"] = (
+            capo_network_firewall.types.ip_address_type.deserialize_cbor(
+                data["IPAddressType"]
+            )
+        )
+    return out

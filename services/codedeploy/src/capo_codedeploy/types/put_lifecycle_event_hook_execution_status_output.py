@@ -30,3 +30,20 @@ def deserialize_aws_json_1_1(data: dict) -> PutLifecycleEventHookExecutionStatus
     if data.get("lifecycleEventHookExecutionId") is not None:
         out["lifecycle_event_hook_execution_id"] = data["lifecycleEventHookExecutionId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PutLifecycleEventHookExecutionStatusOutput) -> dict:
+    out: dict = {}
+    if "lifecycle_event_hook_execution_id" in value:
+        out["lifecycleEventHookExecutionId"] = value[
+            "lifecycle_event_hook_execution_id"
+        ]
+    return out
+
+
+def deserialize_cbor(data: dict) -> PutLifecycleEventHookExecutionStatusOutput:
+    out: PutLifecycleEventHookExecutionStatusOutput = {}  # type: ignore[typeddict-item]
+    if data.get("lifecycleEventHookExecutionId") is not None:
+        out["lifecycle_event_hook_execution_id"] = data["lifecycleEventHookExecutionId"]
+    return out

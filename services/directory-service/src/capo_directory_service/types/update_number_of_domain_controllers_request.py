@@ -35,3 +35,24 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateNumberOfDomainControllersReque
     else:
         out["desired_number"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateNumberOfDomainControllersRequest) -> dict:
+    out: dict = {}
+    out["DirectoryId"] = value["directory_id"]
+    out["DesiredNumber"] = value["desired_number"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateNumberOfDomainControllersRequest:
+    out: UpdateNumberOfDomainControllersRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    if data.get("DesiredNumber") is not None:
+        out["desired_number"] = data["DesiredNumber"]
+    else:
+        out["desired_number"] = 0
+    return out

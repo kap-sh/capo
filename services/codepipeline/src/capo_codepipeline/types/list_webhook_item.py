@@ -110,3 +110,68 @@ def deserialize_aws_json_1_1(data: dict) -> ListWebhookItem:
             data["tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListWebhookItem) -> dict:
+    out: dict = {}
+    import capo_codepipeline.types.webhook_definition
+
+    out["definition"] = capo_codepipeline.types.webhook_definition.serialize_cbor(
+        value["definition"]
+    )
+    out["url"] = value["url"]
+    if "error_message" in value:
+        out["errorMessage"] = value["error_message"]
+    if "error_code" in value:
+        out["errorCode"] = value["error_code"]
+    if "last_triggered" in value:
+        import capo_codepipeline.types.webhook_last_triggered
+
+        out["lastTriggered"] = (
+            capo_codepipeline.types.webhook_last_triggered.serialize_cbor(
+                value["last_triggered"]
+            )
+        )
+    if "arn" in value:
+        out["arn"] = value["arn"]
+    if "tags" in value:
+        import capo_codepipeline.types.tag_list
+
+        out["tags"] = capo_codepipeline.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListWebhookItem:
+    out: ListWebhookItem = {}  # type: ignore[typeddict-item]
+    if data.get("definition") is not None:
+        import capo_codepipeline.types.webhook_definition
+
+        out["definition"] = capo_codepipeline.types.webhook_definition.deserialize_cbor(
+            data["definition"]
+        )
+    else:
+        raise DeserializationError("ListWebhookItem.definition required")
+    if data.get("url") is not None:
+        out["url"] = data["url"]
+    else:
+        out["url"] = ""
+    if data.get("errorMessage") is not None:
+        out["error_message"] = data["errorMessage"]
+    if data.get("errorCode") is not None:
+        out["error_code"] = data["errorCode"]
+    if data.get("lastTriggered") is not None:
+        import capo_codepipeline.types.webhook_last_triggered
+
+        out["last_triggered"] = (
+            capo_codepipeline.types.webhook_last_triggered.deserialize_cbor(
+                data["lastTriggered"]
+            )
+        )
+    if data.get("arn") is not None:
+        out["arn"] = data["arn"]
+    if data.get("tags") is not None:
+        import capo_codepipeline.types.tag_list
+
+        out["tags"] = capo_codepipeline.types.tag_list.deserialize_cbor(data["tags"])
+    return out

@@ -183,3 +183,132 @@ def deserialize_aws_json_1_1(data: dict) -> Session:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Session) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["Id"] = value["id"]
+    if "user_id" in value:
+        out["UserId"] = value["user_id"]
+    if "stack_name" in value:
+        out["StackName"] = value["stack_name"]
+    if "fleet_name" in value:
+        out["FleetName"] = value["fleet_name"]
+    if "state" in value:
+        import capo_appstream.types.session_state
+
+        out["State"] = capo_appstream.types.session_state.serialize_cbor(value["state"])
+    if "connection_state" in value:
+        import capo_appstream.types.session_connection_state
+
+        out["ConnectionState"] = (
+            capo_appstream.types.session_connection_state.serialize_cbor(
+                value["connection_state"]
+            )
+        )
+    if "start_time" in value:
+        import capo_appstream.types.timestamp
+
+        out["StartTime"] = capo_appstream.types.timestamp.serialize_cbor(
+            value["start_time"]
+        )
+    if "max_expiration_time" in value:
+        import capo_appstream.types.timestamp
+
+        out["MaxExpirationTime"] = capo_appstream.types.timestamp.serialize_cbor(
+            value["max_expiration_time"]
+        )
+    if "authentication_type" in value:
+        import capo_appstream.types.authentication_type
+
+        out["AuthenticationType"] = (
+            capo_appstream.types.authentication_type.serialize_cbor(
+                value["authentication_type"]
+            )
+        )
+    if "network_access_configuration" in value:
+        import capo_appstream.types.network_access_configuration
+
+        out["NetworkAccessConfiguration"] = (
+            capo_appstream.types.network_access_configuration.serialize_cbor(
+                value["network_access_configuration"]
+            )
+        )
+    if "instance_id" in value:
+        out["InstanceId"] = value["instance_id"]
+    if "instance_drain_status" in value:
+        import capo_appstream.types.instance_drain_status
+
+        out["InstanceDrainStatus"] = (
+            capo_appstream.types.instance_drain_status.serialize_cbor(
+                value["instance_drain_status"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Session:
+    out: Session = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    if data.get("UserId") is not None:
+        out["user_id"] = data["UserId"]
+    if data.get("StackName") is not None:
+        out["stack_name"] = data["StackName"]
+    if data.get("FleetName") is not None:
+        out["fleet_name"] = data["FleetName"]
+    if data.get("State") is not None:
+        import capo_appstream.types.session_state
+
+        out["state"] = capo_appstream.types.session_state.deserialize_cbor(
+            data["State"]
+        )
+    if data.get("ConnectionState") is not None:
+        import capo_appstream.types.session_connection_state
+
+        out["connection_state"] = (
+            capo_appstream.types.session_connection_state.deserialize_cbor(
+                data["ConnectionState"]
+            )
+        )
+    if data.get("StartTime") is not None:
+        import capo_appstream.types.timestamp
+
+        out["start_time"] = capo_appstream.types.timestamp.deserialize_cbor(
+            data["StartTime"]
+        )
+    if data.get("MaxExpirationTime") is not None:
+        import capo_appstream.types.timestamp
+
+        out["max_expiration_time"] = capo_appstream.types.timestamp.deserialize_cbor(
+            data["MaxExpirationTime"]
+        )
+    if data.get("AuthenticationType") is not None:
+        import capo_appstream.types.authentication_type
+
+        out["authentication_type"] = (
+            capo_appstream.types.authentication_type.deserialize_cbor(
+                data["AuthenticationType"]
+            )
+        )
+    if data.get("NetworkAccessConfiguration") is not None:
+        import capo_appstream.types.network_access_configuration
+
+        out["network_access_configuration"] = (
+            capo_appstream.types.network_access_configuration.deserialize_cbor(
+                data["NetworkAccessConfiguration"]
+            )
+        )
+    if data.get("InstanceId") is not None:
+        out["instance_id"] = data["InstanceId"]
+    if data.get("InstanceDrainStatus") is not None:
+        import capo_appstream.types.instance_drain_status
+
+        out["instance_drain_status"] = (
+            capo_appstream.types.instance_drain_status.deserialize_cbor(
+                data["InstanceDrainStatus"]
+            )
+        )
+    return out

@@ -33,3 +33,22 @@ def deserialize_aws_json_1_1(data: dict) -> UniqueTagResourceIdentifier:
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UniqueTagResourceIdentifier) -> dict:
+    out: dict = {}
+    if "key" in value:
+        out["Key"] = value["key"]
+    if "value" in value:
+        out["Value"] = value["value"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UniqueTagResourceIdentifier:
+    out: UniqueTagResourceIdentifier = {}  # type: ignore[typeddict-item]
+    if data.get("Key") is not None:
+        out["key"] = data["Key"]
+    if data.get("Value") is not None:
+        out["value"] = data["Value"]
+    return out

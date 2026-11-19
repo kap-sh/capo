@@ -46,3 +46,33 @@ def deserialize_aws_json_1_1(data: dict) -> ProductViewFilters:
             value
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(input_to_serialize: ProductViewFilters) -> dict:
+    out: dict = {}
+    for key, value in input_to_serialize.items():
+        import capo_service_catalog.types.product_view_filter_by
+        import capo_service_catalog.types.product_view_filter_values
+
+        out[capo_service_catalog.types.product_view_filter_by.serialize_cbor(key)] = (
+            capo_service_catalog.types.product_view_filter_values.serialize_cbor(value)
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ProductViewFilters:
+    out: ProductViewFilters = {}
+    for key, value in data.items():
+        import capo_service_catalog.types.product_view_filter_by
+
+        if value is None:
+            continue
+        import capo_service_catalog.types.product_view_filter_values
+
+        out[capo_service_catalog.types.product_view_filter_by.deserialize_cbor(key)] = (
+            capo_service_catalog.types.product_view_filter_values.deserialize_cbor(
+                value
+            )
+        )
+    return out

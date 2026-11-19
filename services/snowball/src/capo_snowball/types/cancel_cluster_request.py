@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> CancelClusterRequest:
     else:
         out["cluster_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CancelClusterRequest) -> dict:
+    out: dict = {}
+    out["ClusterId"] = value["cluster_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CancelClusterRequest:
+    out: CancelClusterRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ClusterId") is not None:
+        out["cluster_id"] = data["ClusterId"]
+    else:
+        out["cluster_id"] = ""
+    return out

@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeCertificateAuthorityResponse
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeCertificateAuthorityResponse) -> dict:
+    out: dict = {}
+    if "certificate_authority" in value:
+        import capo_acm_pca.types.certificate_authority
+
+        out["CertificateAuthority"] = (
+            capo_acm_pca.types.certificate_authority.serialize_cbor(
+                value["certificate_authority"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeCertificateAuthorityResponse:
+    out: DescribeCertificateAuthorityResponse = {}  # type: ignore[typeddict-item]
+    if data.get("CertificateAuthority") is not None:
+        import capo_acm_pca.types.certificate_authority
+
+        out["certificate_authority"] = (
+            capo_acm_pca.types.certificate_authority.deserialize_cbor(
+                data["CertificateAuthority"]
+            )
+        )
+    return out

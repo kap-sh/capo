@@ -33,3 +33,24 @@ def deserialize_aws_json_1_1(data: list) -> DatasetPropertiesList:
             capo_comprehend.types.dataset_properties.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DatasetPropertiesList) -> list:
+    import capo_comprehend.types.dataset_properties
+
+    out: list = []
+    for item in value:
+        out.append(capo_comprehend.types.dataset_properties.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> DatasetPropertiesList:
+    import capo_comprehend.types.dataset_properties
+
+    out: DatasetPropertiesList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_comprehend.types.dataset_properties.deserialize_cbor(item))
+    return out

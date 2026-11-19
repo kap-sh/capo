@@ -41,3 +41,12 @@ def serialize_aws_json_1_0(value: IdleMetricName) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> IdleMetricName:
     return cast(IdleMetricName, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IdleMetricName) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> IdleMetricName:
+    return cast(IdleMetricName, data)

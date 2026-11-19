@@ -127,3 +127,98 @@ def deserialize_aws_json_1_1(data: dict) -> DomainPrice:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DomainPrice) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "registration_price" in value:
+        import capo_route_53_domains.types.price_with_currency
+
+        out["RegistrationPrice"] = (
+            capo_route_53_domains.types.price_with_currency.serialize_cbor(
+                value["registration_price"]
+            )
+        )
+    if "transfer_price" in value:
+        import capo_route_53_domains.types.price_with_currency
+
+        out["TransferPrice"] = (
+            capo_route_53_domains.types.price_with_currency.serialize_cbor(
+                value["transfer_price"]
+            )
+        )
+    if "renewal_price" in value:
+        import capo_route_53_domains.types.price_with_currency
+
+        out["RenewalPrice"] = (
+            capo_route_53_domains.types.price_with_currency.serialize_cbor(
+                value["renewal_price"]
+            )
+        )
+    if "change_ownership_price" in value:
+        import capo_route_53_domains.types.price_with_currency
+
+        out["ChangeOwnershipPrice"] = (
+            capo_route_53_domains.types.price_with_currency.serialize_cbor(
+                value["change_ownership_price"]
+            )
+        )
+    if "restoration_price" in value:
+        import capo_route_53_domains.types.price_with_currency
+
+        out["RestorationPrice"] = (
+            capo_route_53_domains.types.price_with_currency.serialize_cbor(
+                value["restoration_price"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DomainPrice:
+    out: DomainPrice = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("RegistrationPrice") is not None:
+        import capo_route_53_domains.types.price_with_currency
+
+        out["registration_price"] = (
+            capo_route_53_domains.types.price_with_currency.deserialize_cbor(
+                data["RegistrationPrice"]
+            )
+        )
+    if data.get("TransferPrice") is not None:
+        import capo_route_53_domains.types.price_with_currency
+
+        out["transfer_price"] = (
+            capo_route_53_domains.types.price_with_currency.deserialize_cbor(
+                data["TransferPrice"]
+            )
+        )
+    if data.get("RenewalPrice") is not None:
+        import capo_route_53_domains.types.price_with_currency
+
+        out["renewal_price"] = (
+            capo_route_53_domains.types.price_with_currency.deserialize_cbor(
+                data["RenewalPrice"]
+            )
+        )
+    if data.get("ChangeOwnershipPrice") is not None:
+        import capo_route_53_domains.types.price_with_currency
+
+        out["change_ownership_price"] = (
+            capo_route_53_domains.types.price_with_currency.deserialize_cbor(
+                data["ChangeOwnershipPrice"]
+            )
+        )
+    if data.get("RestorationPrice") is not None:
+        import capo_route_53_domains.types.price_with_currency
+
+        out["restoration_price"] = (
+            capo_route_53_domains.types.price_with_currency.deserialize_cbor(
+                data["RestorationPrice"]
+            )
+        )
+    return out

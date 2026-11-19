@@ -67,3 +67,50 @@ def deserialize_aws_json_1_1(data: dict) -> NetworkFirewallPolicyModifiedViolati
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: NetworkFirewallPolicyModifiedViolation) -> dict:
+    out: dict = {}
+    if "violation_target" in value:
+        out["ViolationTarget"] = value["violation_target"]
+    if "current_policy_description" in value:
+        import capo_fms.types.network_firewall_policy_description
+
+        out["CurrentPolicyDescription"] = (
+            capo_fms.types.network_firewall_policy_description.serialize_cbor(
+                value["current_policy_description"]
+            )
+        )
+    if "expected_policy_description" in value:
+        import capo_fms.types.network_firewall_policy_description
+
+        out["ExpectedPolicyDescription"] = (
+            capo_fms.types.network_firewall_policy_description.serialize_cbor(
+                value["expected_policy_description"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> NetworkFirewallPolicyModifiedViolation:
+    out: NetworkFirewallPolicyModifiedViolation = {}  # type: ignore[typeddict-item]
+    if data.get("ViolationTarget") is not None:
+        out["violation_target"] = data["ViolationTarget"]
+    if data.get("CurrentPolicyDescription") is not None:
+        import capo_fms.types.network_firewall_policy_description
+
+        out["current_policy_description"] = (
+            capo_fms.types.network_firewall_policy_description.deserialize_cbor(
+                data["CurrentPolicyDescription"]
+            )
+        )
+    if data.get("ExpectedPolicyDescription") is not None:
+        import capo_fms.types.network_firewall_policy_description
+
+        out["expected_policy_description"] = (
+            capo_fms.types.network_firewall_policy_description.deserialize_cbor(
+                data["ExpectedPolicyDescription"]
+            )
+        )
+    return out

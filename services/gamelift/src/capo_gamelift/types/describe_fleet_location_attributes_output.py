@@ -63,3 +63,42 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeFleetLocationAttributesOutpu
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeFleetLocationAttributesOutput) -> dict:
+    out: dict = {}
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "fleet_arn" in value:
+        out["FleetArn"] = value["fleet_arn"]
+    if "location_attributes" in value:
+        import capo_gamelift.types.location_attributes_list
+
+        out["LocationAttributes"] = (
+            capo_gamelift.types.location_attributes_list.serialize_cbor(
+                value["location_attributes"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeFleetLocationAttributesOutput:
+    out: DescribeFleetLocationAttributesOutput = {}  # type: ignore[typeddict-item]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("FleetArn") is not None:
+        out["fleet_arn"] = data["FleetArn"]
+    if data.get("LocationAttributes") is not None:
+        import capo_gamelift.types.location_attributes_list
+
+        out["location_attributes"] = (
+            capo_gamelift.types.location_attributes_list.deserialize_cbor(
+                data["LocationAttributes"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

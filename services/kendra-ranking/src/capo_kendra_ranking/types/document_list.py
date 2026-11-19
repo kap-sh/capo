@@ -27,3 +27,24 @@ def deserialize_aws_json_1_0(data: list) -> DocumentList:
             continue
         out.append(capo_kendra_ranking.types.document.deserialize_aws_json_1_0(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DocumentList) -> list:
+    import capo_kendra_ranking.types.document
+
+    out: list = []
+    for item in value:
+        out.append(capo_kendra_ranking.types.document.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> DocumentList:
+    import capo_kendra_ranking.types.document
+
+    out: DocumentList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_kendra_ranking.types.document.deserialize_cbor(item))
+    return out

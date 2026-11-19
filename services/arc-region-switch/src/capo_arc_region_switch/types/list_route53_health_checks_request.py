@@ -59,3 +59,35 @@ def deserialize_aws_json_1_0(data: dict) -> ListRoute53HealthChecksRequest:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListRoute53HealthChecksRequest) -> dict:
+    out: dict = {}
+    out["arn"] = value["arn"]
+    if "hosted_zone_id" in value:
+        out["hostedZoneId"] = value["hosted_zone_id"]
+    if "record_name" in value:
+        out["recordName"] = value["record_name"]
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListRoute53HealthChecksRequest:
+    out: ListRoute53HealthChecksRequest = {}  # type: ignore[typeddict-item]
+    if data.get("arn") is not None:
+        out["arn"] = data["arn"]
+    else:
+        out["arn"] = ""
+    if data.get("hostedZoneId") is not None:
+        out["hosted_zone_id"] = data["hostedZoneId"]
+    if data.get("recordName") is not None:
+        out["record_name"] = data["recordName"]
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

@@ -255,6 +255,7 @@ class AsyncNetworkFirewallClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[AsyncInterceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_0", "rpcv2Cbor"]
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -271,6 +272,7 @@ class AsyncNetworkFirewallClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -286,6 +288,7 @@ class AsyncNetworkFirewallClient:
         operation_interceptors: Iterable[AsyncInterceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_0", "rpcv2Cbor"] = "awsJson1_0",
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -322,6 +325,7 @@ class AsyncNetworkFirewallClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -355,6 +359,9 @@ class AsyncNetworkFirewallClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_0")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -392,14 +399,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.accept_network_firewall_transit_gateway_attachment_response.AcceptNetworkFirewallTransitGatewayAttachmentResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.accept_network_firewall_transit_gateway_attachment
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.accept_network_firewall_transit_gateway_attachment
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.accept_network_firewall_transit_gateway_attachment.async_accept_network_firewall_transit_gateway_attachment(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.accept_network_firewall_transit_gateway_attachment.async_accept_network_firewall_transit_gateway_attachment(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.accept_network_firewall_transit_gateway_attachment
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.accept_network_firewall_transit_gateway_attachment.async_accept_network_firewall_transit_gateway_attachment(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -457,14 +476,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.associate_availability_zones_response.AssociateAvailabilityZonesResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.associate_availability_zones
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.associate_availability_zones
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.associate_availability_zones.async_associate_availability_zones(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.associate_availability_zones.async_associate_availability_zones(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.associate_availability_zones
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.associate_availability_zones.async_associate_availability_zones(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -526,14 +557,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.associate_firewall_policy_response.AssociateFirewallPolicyResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.associate_firewall_policy
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.associate_firewall_policy
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.associate_firewall_policy.async_associate_firewall_policy(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.associate_firewall_policy.async_associate_firewall_policy(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.associate_firewall_policy
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.associate_firewall_policy.async_associate_firewall_policy(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -600,14 +643,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.associate_subnets_response.AssociateSubnetsResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.associate_subnets
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.associate_subnets
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.associate_subnets.async_associate_subnets(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.associate_subnets.async_associate_subnets(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.associate_subnets
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.associate_subnets.async_associate_subnets(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -668,14 +723,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.create_container_association_response.CreateContainerAssociationResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.create_container_association
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.create_container_association
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.create_container_association.async_create_container_association(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.create_container_association.async_create_container_association(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.create_container_association
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.create_container_association.async_create_container_association(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -787,14 +854,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.create_firewall_response.CreateFirewallResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.create_firewall
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.create_firewall
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.create_firewall.async_create_firewall(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.create_firewall.async_create_firewall(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.create_firewall
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.create_firewall.async_create_firewall(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -889,14 +968,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.create_firewall_policy_response.CreateFirewallPolicyResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.create_firewall_policy
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.create_firewall_policy
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.create_firewall_policy.async_create_firewall_policy(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.create_firewall_policy.async_create_firewall_policy(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.create_firewall_policy
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.create_firewall_policy.async_create_firewall_policy(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -963,14 +1054,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.create_firewall_policy_v2_response.CreateFirewallPolicyV2Response"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.create_firewall_policy_v2
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.create_firewall_policy_v2
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.create_firewall_policy_v2.async_create_firewall_policy_v2(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.create_firewall_policy_v2.async_create_firewall_policy_v2(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.create_firewall_policy_v2
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.create_firewall_policy_v2.async_create_firewall_policy_v2(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1064,14 +1167,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.create_rule_group_response.CreateRuleGroupResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.create_rule_group
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.create_rule_group
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.create_rule_group.async_create_rule_group(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.create_rule_group.async_create_rule_group(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.create_rule_group
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.create_rule_group.async_create_rule_group(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1149,14 +1264,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.create_tls_inspection_configuration_response.CreateTLSInspectionConfigurationResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.create_tls_inspection_configuration
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.create_tls_inspection_configuration
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.create_tls_inspection_configuration.async_create_tls_inspection_configuration(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.create_tls_inspection_configuration.async_create_tls_inspection_configuration(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.create_tls_inspection_configuration
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.create_tls_inspection_configuration.async_create_tls_inspection_configuration(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1217,14 +1344,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.create_vpc_endpoint_association_response.CreateVpcEndpointAssociationResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.create_vpc_endpoint_association
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.create_vpc_endpoint_association
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.create_vpc_endpoint_association.async_create_vpc_endpoint_association(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.create_vpc_endpoint_association.async_create_vpc_endpoint_association(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.create_vpc_endpoint_association
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.create_vpc_endpoint_association.async_create_vpc_endpoint_association(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1279,14 +1418,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.delete_container_association_response.DeleteContainerAssociationResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.delete_container_association
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.delete_container_association
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.delete_container_association.async_delete_container_association(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.delete_container_association.async_delete_container_association(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.delete_container_association
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.delete_container_association.async_delete_container_association(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1342,14 +1493,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.delete_firewall_response.DeleteFirewallResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.delete_firewall
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.delete_firewall
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.delete_firewall.async_delete_firewall(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.delete_firewall.async_delete_firewall(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.delete_firewall
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.delete_firewall.async_delete_firewall(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1403,14 +1566,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.delete_firewall_policy_response.DeleteFirewallPolicyResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.delete_firewall_policy
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.delete_firewall_policy
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.delete_firewall_policy.async_delete_firewall_policy(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.delete_firewall_policy.async_delete_firewall_policy(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.delete_firewall_policy
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.delete_firewall_policy.async_delete_firewall_policy(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1462,14 +1637,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.delete_firewall_policy_v2_response.DeleteFirewallPolicyV2Response"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.delete_firewall_policy_v2
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.delete_firewall_policy_v2
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.delete_firewall_policy_v2.async_delete_firewall_policy_v2(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.delete_firewall_policy_v2.async_delete_firewall_policy_v2(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.delete_firewall_policy_v2
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.delete_firewall_policy_v2.async_delete_firewall_policy_v2(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1513,14 +1700,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.delete_network_firewall_transit_gateway_attachment_response.DeleteNetworkFirewallTransitGatewayAttachmentResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.delete_network_firewall_transit_gateway_attachment
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.delete_network_firewall_transit_gateway_attachment
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.delete_network_firewall_transit_gateway_attachment.async_delete_network_firewall_transit_gateway_attachment(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.delete_network_firewall_transit_gateway_attachment.async_delete_network_firewall_transit_gateway_attachment(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.delete_network_firewall_transit_gateway_attachment
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.delete_network_firewall_transit_gateway_attachment.async_delete_network_firewall_transit_gateway_attachment(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1572,14 +1771,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.delete_proxy_response.DeleteProxyResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.delete_proxy
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.delete_proxy
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.delete_proxy.async_delete_proxy(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.delete_proxy.async_delete_proxy(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.delete_proxy
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.delete_proxy.async_delete_proxy(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1626,14 +1837,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.delete_resource_policy_response.DeleteResourcePolicyResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.delete_resource_policy
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.delete_resource_policy
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.delete_resource_policy.async_delete_resource_policy(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.delete_resource_policy.async_delete_resource_policy(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.delete_resource_policy
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.delete_resource_policy.async_delete_resource_policy(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1689,14 +1912,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.delete_rule_group_response.DeleteRuleGroupResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.delete_rule_group
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.delete_rule_group
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.delete_rule_group.async_delete_rule_group(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.delete_rule_group.async_delete_rule_group(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.delete_rule_group
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.delete_rule_group.async_delete_rule_group(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1749,14 +1984,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.delete_tls_inspection_configuration_response.DeleteTLSInspectionConfigurationResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.delete_tls_inspection_configuration
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.delete_tls_inspection_configuration
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.delete_tls_inspection_configuration.async_delete_tls_inspection_configuration(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.delete_tls_inspection_configuration.async_delete_tls_inspection_configuration(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.delete_tls_inspection_configuration
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.delete_tls_inspection_configuration.async_delete_tls_inspection_configuration(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1805,14 +2052,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.delete_vpc_endpoint_association_response.DeleteVpcEndpointAssociationResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.delete_vpc_endpoint_association
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.delete_vpc_endpoint_association
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.delete_vpc_endpoint_association.async_delete_vpc_endpoint_association(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.delete_vpc_endpoint_association.async_delete_vpc_endpoint_association(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.delete_vpc_endpoint_association
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.delete_vpc_endpoint_association.async_delete_vpc_endpoint_association(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1860,14 +2119,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.describe_container_association_response.DescribeContainerAssociationResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.describe_container_association
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.describe_container_association
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.describe_container_association.async_describe_container_association(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.describe_container_association.async_describe_container_association(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.describe_container_association
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.describe_container_association.async_describe_container_association(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1917,14 +2188,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.describe_firewall_response.DescribeFirewallResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.describe_firewall
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.describe_firewall
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.describe_firewall.async_describe_firewall(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.describe_firewall.async_describe_firewall(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.describe_firewall
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.describe_firewall.async_describe_firewall(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1970,14 +2253,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.describe_firewall_metadata_response.DescribeFirewallMetadataResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.describe_firewall_metadata
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.describe_firewall_metadata
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.describe_firewall_metadata.async_describe_firewall_metadata(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.describe_firewall_metadata.async_describe_firewall_metadata(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.describe_firewall_metadata
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.describe_firewall_metadata.async_describe_firewall_metadata(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2025,14 +2320,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.describe_firewall_policy_response.DescribeFirewallPolicyResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.describe_firewall_policy
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.describe_firewall_policy
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.describe_firewall_policy.async_describe_firewall_policy(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.describe_firewall_policy.async_describe_firewall_policy(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.describe_firewall_policy
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.describe_firewall_policy.async_describe_firewall_policy(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2086,14 +2393,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.describe_firewall_policy_v2_response.DescribeFirewallPolicyV2Response"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.describe_firewall_policy_v2
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.describe_firewall_policy_v2
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.describe_firewall_policy_v2.async_describe_firewall_policy_v2(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.describe_firewall_policy_v2.async_describe_firewall_policy_v2(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.describe_firewall_policy_v2
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.describe_firewall_policy_v2.async_describe_firewall_policy_v2(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2157,14 +2476,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.describe_flow_operation_response.DescribeFlowOperationResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.describe_flow_operation
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.describe_flow_operation
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.describe_flow_operation.async_describe_flow_operation(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.describe_flow_operation.async_describe_flow_operation(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.describe_flow_operation
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.describe_flow_operation.async_describe_flow_operation(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2221,14 +2552,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.describe_logging_configuration_response.DescribeLoggingConfigurationResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.describe_logging_configuration
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.describe_logging_configuration
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.describe_logging_configuration.async_describe_logging_configuration(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.describe_logging_configuration.async_describe_logging_configuration(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.describe_logging_configuration
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.describe_logging_configuration.async_describe_logging_configuration(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2278,14 +2621,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.describe_proxy_response.DescribeProxyResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.describe_proxy
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.describe_proxy
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.describe_proxy.async_describe_proxy(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.describe_proxy.async_describe_proxy(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.describe_proxy
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.describe_proxy.async_describe_proxy(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2329,14 +2684,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.describe_resource_policy_response.DescribeResourcePolicyResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.describe_resource_policy
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.describe_resource_policy
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.describe_resource_policy.async_describe_resource_policy(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.describe_resource_policy.async_describe_resource_policy(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.describe_resource_policy
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.describe_resource_policy.async_describe_resource_policy(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2396,14 +2763,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.describe_rule_group_response.DescribeRuleGroupResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.describe_rule_group
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.describe_rule_group
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.describe_rule_group.async_describe_rule_group(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.describe_rule_group.async_describe_rule_group(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.describe_rule_group
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.describe_rule_group.async_describe_rule_group(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2463,14 +2842,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.describe_rule_group_metadata_response.DescribeRuleGroupMetadataResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.describe_rule_group_metadata
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.describe_rule_group_metadata
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.describe_rule_group_metadata.async_describe_rule_group_metadata(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.describe_rule_group_metadata.async_describe_rule_group_metadata(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.describe_rule_group_metadata
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.describe_rule_group_metadata.async_describe_rule_group_metadata(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2526,14 +2917,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.describe_rule_group_summary_response.DescribeRuleGroupSummaryResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.describe_rule_group_summary
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.describe_rule_group_summary
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.describe_rule_group_summary.async_describe_rule_group_summary(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.describe_rule_group_summary.async_describe_rule_group_summary(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.describe_rule_group_summary
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.describe_rule_group_summary.async_describe_rule_group_summary(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2585,14 +2988,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.describe_tls_inspection_configuration_response.DescribeTLSInspectionConfigurationResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.describe_tls_inspection_configuration
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.describe_tls_inspection_configuration
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.describe_tls_inspection_configuration.async_describe_tls_inspection_configuration(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.describe_tls_inspection_configuration.async_describe_tls_inspection_configuration(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.describe_tls_inspection_configuration
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.describe_tls_inspection_configuration.async_describe_tls_inspection_configuration(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2640,14 +3055,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.describe_vpc_endpoint_association_response.DescribeVpcEndpointAssociationResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.describe_vpc_endpoint_association
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.describe_vpc_endpoint_association
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.describe_vpc_endpoint_association.async_describe_vpc_endpoint_association(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.describe_vpc_endpoint_association.async_describe_vpc_endpoint_association(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.describe_vpc_endpoint_association
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.describe_vpc_endpoint_association.async_describe_vpc_endpoint_association(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2703,14 +3130,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.disassociate_availability_zones_response.DisassociateAvailabilityZonesResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.disassociate_availability_zones
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.disassociate_availability_zones
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.disassociate_availability_zones.async_disassociate_availability_zones(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.disassociate_availability_zones.async_disassociate_availability_zones(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.disassociate_availability_zones
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.disassociate_availability_zones.async_disassociate_availability_zones(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2772,14 +3211,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.disassociate_subnets_response.DisassociateSubnetsResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.disassociate_subnets
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.disassociate_subnets
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.disassociate_subnets.async_disassociate_subnets(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.disassociate_subnets.async_disassociate_subnets(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.disassociate_subnets
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.disassociate_subnets.async_disassociate_subnets(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2843,14 +3294,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.get_analysis_report_results_response.GetAnalysisReportResultsResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.get_analysis_report_results
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.get_analysis_report_results
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.get_analysis_report_results.async_get_analysis_report_results(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.get_analysis_report_results.async_get_analysis_report_results(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.get_analysis_report_results
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.get_analysis_report_results.async_get_analysis_report_results(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2949,14 +3412,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.list_analysis_reports_response.ListAnalysisReportsResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.list_analysis_reports
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.list_analysis_reports
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.list_analysis_reports.async_list_analysis_reports(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.list_analysis_reports.async_list_analysis_reports(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.list_analysis_reports
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.list_analysis_reports.async_list_analysis_reports(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3042,14 +3517,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.list_container_associations_response.ListContainerAssociationsResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.list_container_associations
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.list_container_associations
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.list_container_associations.async_list_container_associations(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.list_container_associations.async_list_container_associations(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.list_container_associations
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.list_container_associations.async_list_container_associations(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3123,14 +3610,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.list_context_stores_response.ListContextStoresResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.list_context_stores
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.list_context_stores
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.list_context_stores.async_list_context_stores(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.list_context_stores.async_list_context_stores(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.list_context_stores
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.list_context_stores.async_list_context_stores(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3204,14 +3703,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.list_firewall_policies_response.ListFirewallPoliciesResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.list_firewall_policies
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.list_firewall_policies
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.list_firewall_policies.async_list_firewall_policies(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.list_firewall_policies.async_list_firewall_policies(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.list_firewall_policies
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.list_firewall_policies.async_list_firewall_policies(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3285,14 +3796,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.list_firewall_policies_v2_response.ListFirewallPoliciesV2Response"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.list_firewall_policies_v2
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.list_firewall_policies_v2
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.list_firewall_policies_v2.async_list_firewall_policies_v2(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.list_firewall_policies_v2.async_list_firewall_policies_v2(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.list_firewall_policies_v2
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.list_firewall_policies_v2.async_list_firewall_policies_v2(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3368,14 +3891,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.list_firewalls_response.ListFirewallsResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.list_firewalls
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.list_firewalls
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.list_firewalls.async_list_firewalls(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.list_firewalls.async_list_firewalls(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.list_firewalls
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.list_firewalls.async_list_firewalls(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3476,14 +4011,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.list_flow_operation_results_response.ListFlowOperationResultsResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.list_flow_operation_results
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.list_flow_operation_results
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.list_flow_operation_results.async_list_flow_operation_results(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.list_flow_operation_results.async_list_flow_operation_results(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.list_flow_operation_results
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.list_flow_operation_results.async_list_flow_operation_results(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3611,14 +4158,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.list_flow_operations_response.ListFlowOperationsResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.list_flow_operations
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.list_flow_operations
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.list_flow_operations.async_list_flow_operations(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.list_flow_operations.async_list_flow_operations(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.list_flow_operations
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.list_flow_operations.async_list_flow_operations(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3733,14 +4292,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.list_resources_in_context_store_response.ListResourcesInContextStoreResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.list_resources_in_context_store
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.list_resources_in_context_store
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.list_resources_in_context_store.async_list_resources_in_context_store(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.list_resources_in_context_store.async_list_resources_in_context_store(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.list_resources_in_context_store
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.list_resources_in_context_store.async_list_resources_in_context_store(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3840,14 +4411,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.list_rule_groups_response.ListRuleGroupsResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.list_rule_groups
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.list_rule_groups
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.list_rule_groups.async_list_rule_groups(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.list_rule_groups.async_list_rule_groups(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.list_rule_groups
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.list_rule_groups.async_list_rule_groups(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3948,14 +4531,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.list_tags_for_resource_response.ListTagsForResourceResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.list_tags_for_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.list_tags_for_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.list_tags_for_resource.async_list_tags_for_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.list_tags_for_resource.async_list_tags_for_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.list_tags_for_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.list_tags_for_resource.async_list_tags_for_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4033,14 +4628,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.list_tls_inspection_configurations_response.ListTLSInspectionConfigurationsResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.list_tls_inspection_configurations
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.list_tls_inspection_configurations
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.list_tls_inspection_configurations.async_list_tls_inspection_configurations(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.list_tls_inspection_configurations.async_list_tls_inspection_configurations(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.list_tls_inspection_configurations
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.list_tls_inspection_configurations.async_list_tls_inspection_configurations(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4118,14 +4725,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.list_vpc_endpoint_associations_response.ListVpcEndpointAssociationsResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.list_vpc_endpoint_associations
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.list_vpc_endpoint_associations
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.list_vpc_endpoint_associations.async_list_vpc_endpoint_associations(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.list_vpc_endpoint_associations.async_list_vpc_endpoint_associations(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.list_vpc_endpoint_associations
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.list_vpc_endpoint_associations.async_list_vpc_endpoint_associations(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4203,14 +4822,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.put_resource_policy_response.PutResourcePolicyResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.put_resource_policy
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.put_resource_policy
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.put_resource_policy.async_put_resource_policy(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.put_resource_policy.async_put_resource_policy(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.put_resource_policy
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.put_resource_policy.async_put_resource_policy(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4253,14 +4884,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.reject_network_firewall_transit_gateway_attachment_response.RejectNetworkFirewallTransitGatewayAttachmentResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.reject_network_firewall_transit_gateway_attachment
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.reject_network_firewall_transit_gateway_attachment
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.reject_network_firewall_transit_gateway_attachment.async_reject_network_firewall_transit_gateway_attachment(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.reject_network_firewall_transit_gateway_attachment.async_reject_network_firewall_transit_gateway_attachment(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.reject_network_firewall_transit_gateway_attachment
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.reject_network_firewall_transit_gateway_attachment.async_reject_network_firewall_transit_gateway_attachment(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4311,14 +4954,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.start_analysis_report_response.StartAnalysisReportResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.start_analysis_report
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.start_analysis_report
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.start_analysis_report.async_start_analysis_report(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.start_analysis_report.async_start_analysis_report(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.start_analysis_report
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.start_analysis_report.async_start_analysis_report(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4386,14 +5041,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.start_flow_capture_response.StartFlowCaptureResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.start_flow_capture
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.start_flow_capture
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.start_flow_capture.async_start_flow_capture(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.start_flow_capture.async_start_flow_capture(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.start_flow_capture
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.start_flow_capture.async_start_flow_capture(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4468,14 +5135,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.start_flow_flush_response.StartFlowFlushResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.start_flow_flush
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.start_flow_flush
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.start_flow_flush.async_start_flow_flush(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.start_flow_flush.async_start_flow_flush(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.start_flow_flush
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.start_flow_flush.async_start_flow_flush(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4530,14 +5209,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.tag_resource_response.TagResourceResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.tag_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.tag_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.tag_resource.async_tag_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.tag_resource.async_tag_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.tag_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.tag_resource.async_tag_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4582,14 +5273,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.untag_resource_response.UntagResourceResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.untag_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.untag_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.untag_resource.async_untag_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.untag_resource.async_untag_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.untag_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.untag_resource.async_untag_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4646,14 +5349,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.update_availability_zone_change_protection_response.UpdateAvailabilityZoneChangeProtectionResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.update_availability_zone_change_protection
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.update_availability_zone_change_protection
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.update_availability_zone_change_protection.async_update_availability_zone_change_protection(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.update_availability_zone_change_protection.async_update_availability_zone_change_protection(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.update_availability_zone_change_protection
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.update_availability_zone_change_protection.async_update_availability_zone_change_protection(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4721,14 +5436,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.update_container_association_response.UpdateContainerAssociationResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.update_container_association
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.update_container_association
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.update_container_association.async_update_container_association(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.update_container_association.async_update_container_association(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.update_container_association
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.update_container_association.async_update_container_association(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4795,14 +5522,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.update_firewall_analysis_settings_response.UpdateFirewallAnalysisSettingsResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.update_firewall_analysis_settings
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.update_firewall_analysis_settings
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.update_firewall_analysis_settings.async_update_firewall_analysis_settings(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.update_firewall_analysis_settings.async_update_firewall_analysis_settings(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.update_firewall_analysis_settings
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.update_firewall_analysis_settings.async_update_firewall_analysis_settings(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4864,14 +5603,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.update_firewall_delete_protection_response.UpdateFirewallDeleteProtectionResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.update_firewall_delete_protection
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.update_firewall_delete_protection
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.update_firewall_delete_protection.async_update_firewall_delete_protection(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.update_firewall_delete_protection.async_update_firewall_delete_protection(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.update_firewall_delete_protection
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.update_firewall_delete_protection.async_update_firewall_delete_protection(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4934,14 +5685,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.update_firewall_description_response.UpdateFirewallDescriptionResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.update_firewall_description
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.update_firewall_description
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.update_firewall_description.async_update_firewall_description(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.update_firewall_description.async_update_firewall_description(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.update_firewall_description
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.update_firewall_description.async_update_firewall_description(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5004,14 +5767,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.update_firewall_encryption_configuration_response.UpdateFirewallEncryptionConfigurationResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.update_firewall_encryption_configuration
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.update_firewall_encryption_configuration
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.update_firewall_encryption_configuration.async_update_firewall_encryption_configuration(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.update_firewall_encryption_configuration.async_update_firewall_encryption_configuration(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.update_firewall_encryption_configuration
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.update_firewall_encryption_configuration.async_update_firewall_encryption_configuration(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5081,14 +5856,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.update_firewall_policy_response.UpdateFirewallPolicyResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.update_firewall_policy
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.update_firewall_policy
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.update_firewall_policy.async_update_firewall_policy(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.update_firewall_policy.async_update_firewall_policy(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.update_firewall_policy
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.update_firewall_policy.async_update_firewall_policy(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5155,14 +5942,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.update_firewall_policy_change_protection_response.UpdateFirewallPolicyChangeProtectionResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.update_firewall_policy_change_protection
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.update_firewall_policy_change_protection
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.update_firewall_policy_change_protection.async_update_firewall_policy_change_protection(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.update_firewall_policy_change_protection.async_update_firewall_policy_change_protection(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.update_firewall_policy_change_protection
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.update_firewall_policy_change_protection.async_update_firewall_policy_change_protection(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5232,14 +6031,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.update_firewall_policy_v2_response.UpdateFirewallPolicyV2Response"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.update_firewall_policy_v2
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.update_firewall_policy_v2
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.update_firewall_policy_v2.async_update_firewall_policy_v2(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.update_firewall_policy_v2.async_update_firewall_policy_v2(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.update_firewall_policy_v2
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.update_firewall_policy_v2.async_update_firewall_policy_v2(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5308,14 +6119,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.update_logging_configuration_response.UpdateLoggingConfigurationResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.update_logging_configuration
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.update_logging_configuration
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.update_logging_configuration.async_update_logging_configuration(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.update_logging_configuration.async_update_logging_configuration(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.update_logging_configuration
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.update_logging_configuration.async_update_logging_configuration(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5380,14 +6203,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.update_proxy_settings_response.UpdateProxySettingsResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.update_proxy_settings
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.update_proxy_settings
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.update_proxy_settings.async_update_proxy_settings(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.update_proxy_settings.async_update_proxy_settings(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.update_proxy_settings
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.update_proxy_settings.async_update_proxy_settings(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5484,14 +6319,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.update_rule_group_response.UpdateRuleGroupResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.update_rule_group
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.update_rule_group
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.update_rule_group.async_update_rule_group(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.update_rule_group.async_update_rule_group(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.update_rule_group
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.update_rule_group.async_update_rule_group(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5573,14 +6420,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.update_subnet_change_protection_response.UpdateSubnetChangeProtectionResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.update_subnet_change_protection
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.update_subnet_change_protection
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.update_subnet_change_protection.async_update_subnet_change_protection(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.update_subnet_change_protection.async_update_subnet_change_protection(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.update_subnet_change_protection
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.update_subnet_change_protection.async_update_subnet_change_protection(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5647,14 +6506,26 @@ class AsyncNetworkFirewallClient:
         ) -> AsyncOperationResponse[
             "capo_network_firewall.types.update_tls_inspection_configuration_response.UpdateTLSInspectionConfigurationResponse"
         ]:
-            import capo_network_firewall._operations.network_firewall_20201112.update_tls_inspection_configuration
+            if req.options.protocol == "awsJson1_0":
+                import capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.update_tls_inspection_configuration
 
-            (
-                output,
-                http_response,
-            ) = await capo_network_firewall._operations.network_firewall_20201112.update_tls_inspection_configuration.async_update_tls_inspection_configuration(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.aws_json1_0.update_tls_inspection_configuration.async_update_tls_inspection_configuration(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.update_tls_inspection_configuration
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_network_firewall._operations.network_firewall_20201112.rpcv2_cbor.update_tls_inspection_configuration.async_update_tls_inspection_configuration(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

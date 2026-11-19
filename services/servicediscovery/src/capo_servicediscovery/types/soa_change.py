@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> SOAChange:
     else:
         out["ttl"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SOAChange) -> dict:
+    out: dict = {}
+    out["TTL"] = value["ttl"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> SOAChange:
+    out: SOAChange = {}  # type: ignore[typeddict-item]
+    if data.get("TTL") is not None:
+        out["ttl"] = data["TTL"]
+    else:
+        out["ttl"] = 0
+    return out

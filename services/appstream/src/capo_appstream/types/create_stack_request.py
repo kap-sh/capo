@@ -251,3 +251,182 @@ def deserialize_aws_json_1_1(data: dict) -> CreateStackRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateStackRequest) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "display_name" in value:
+        out["DisplayName"] = value["display_name"]
+    if "storage_connectors" in value:
+        import capo_appstream.types.storage_connector_list
+
+        out["StorageConnectors"] = (
+            capo_appstream.types.storage_connector_list.serialize_cbor(
+                value["storage_connectors"]
+            )
+        )
+    if "redirect_url" in value:
+        out["RedirectURL"] = value["redirect_url"]
+    if "feedback_url" in value:
+        out["FeedbackURL"] = value["feedback_url"]
+    if "user_settings" in value:
+        import capo_appstream.types.user_setting_list
+
+        out["UserSettings"] = capo_appstream.types.user_setting_list.serialize_cbor(
+            value["user_settings"]
+        )
+    if "application_settings" in value:
+        import capo_appstream.types.application_settings
+
+        out["ApplicationSettings"] = (
+            capo_appstream.types.application_settings.serialize_cbor(
+                value["application_settings"]
+            )
+        )
+    if "tags" in value:
+        import capo_appstream.types.tags
+
+        out["Tags"] = capo_appstream.types.tags.serialize_cbor(value["tags"])
+    if "access_endpoints" in value:
+        import capo_appstream.types.access_endpoint_list
+
+        out["AccessEndpoints"] = (
+            capo_appstream.types.access_endpoint_list.serialize_cbor(
+                value["access_endpoints"]
+            )
+        )
+    if "embed_host_domains" in value:
+        import capo_appstream.types.embed_host_domains
+
+        out["EmbedHostDomains"] = (
+            capo_appstream.types.embed_host_domains.serialize_cbor(
+                value["embed_host_domains"]
+            )
+        )
+    if "streaming_experience_settings" in value:
+        import capo_appstream.types.streaming_experience_settings
+
+        out["StreamingExperienceSettings"] = (
+            capo_appstream.types.streaming_experience_settings.serialize_cbor(
+                value["streaming_experience_settings"]
+            )
+        )
+    if "content_redirection" in value:
+        import capo_appstream.types.content_redirection
+
+        out["ContentRedirection"] = (
+            capo_appstream.types.content_redirection.serialize_cbor(
+                value["content_redirection"]
+            )
+        )
+    if "agent_access_config" in value:
+        import capo_appstream.types.agent_access_config
+
+        out["AgentAccessConfig"] = (
+            capo_appstream.types.agent_access_config.serialize_cbor(
+                value["agent_access_config"]
+            )
+        )
+    if "storage_connector_authentication" in value:
+        import capo_appstream.types.storage_connector_authentication
+
+        out["StorageConnectorAuthentication"] = (
+            capo_appstream.types.storage_connector_authentication.serialize_cbor(
+                value["storage_connector_authentication"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateStackRequest:
+    out: CreateStackRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("DisplayName") is not None:
+        out["display_name"] = data["DisplayName"]
+    if data.get("StorageConnectors") is not None:
+        import capo_appstream.types.storage_connector_list
+
+        out["storage_connectors"] = (
+            capo_appstream.types.storage_connector_list.deserialize_cbor(
+                data["StorageConnectors"]
+            )
+        )
+    if data.get("RedirectURL") is not None:
+        out["redirect_url"] = data["RedirectURL"]
+    if data.get("FeedbackURL") is not None:
+        out["feedback_url"] = data["FeedbackURL"]
+    if data.get("UserSettings") is not None:
+        import capo_appstream.types.user_setting_list
+
+        out["user_settings"] = capo_appstream.types.user_setting_list.deserialize_cbor(
+            data["UserSettings"]
+        )
+    if data.get("ApplicationSettings") is not None:
+        import capo_appstream.types.application_settings
+
+        out["application_settings"] = (
+            capo_appstream.types.application_settings.deserialize_cbor(
+                data["ApplicationSettings"]
+            )
+        )
+    if data.get("Tags") is not None:
+        import capo_appstream.types.tags
+
+        out["tags"] = capo_appstream.types.tags.deserialize_cbor(data["Tags"])
+    if data.get("AccessEndpoints") is not None:
+        import capo_appstream.types.access_endpoint_list
+
+        out["access_endpoints"] = (
+            capo_appstream.types.access_endpoint_list.deserialize_cbor(
+                data["AccessEndpoints"]
+            )
+        )
+    if data.get("EmbedHostDomains") is not None:
+        import capo_appstream.types.embed_host_domains
+
+        out["embed_host_domains"] = (
+            capo_appstream.types.embed_host_domains.deserialize_cbor(
+                data["EmbedHostDomains"]
+            )
+        )
+    if data.get("StreamingExperienceSettings") is not None:
+        import capo_appstream.types.streaming_experience_settings
+
+        out["streaming_experience_settings"] = (
+            capo_appstream.types.streaming_experience_settings.deserialize_cbor(
+                data["StreamingExperienceSettings"]
+            )
+        )
+    if data.get("ContentRedirection") is not None:
+        import capo_appstream.types.content_redirection
+
+        out["content_redirection"] = (
+            capo_appstream.types.content_redirection.deserialize_cbor(
+                data["ContentRedirection"]
+            )
+        )
+    if data.get("AgentAccessConfig") is not None:
+        import capo_appstream.types.agent_access_config
+
+        out["agent_access_config"] = (
+            capo_appstream.types.agent_access_config.deserialize_cbor(
+                data["AgentAccessConfig"]
+            )
+        )
+    if data.get("StorageConnectorAuthentication") is not None:
+        import capo_appstream.types.storage_connector_authentication
+
+        out["storage_connector_authentication"] = (
+            capo_appstream.types.storage_connector_authentication.deserialize_cbor(
+                data["StorageConnectorAuthentication"]
+            )
+        )
+    return out

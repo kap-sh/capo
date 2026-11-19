@@ -49,3 +49,36 @@ def deserialize_aws_json_1_0(data: dict) -> CustomAction:
     else:
         raise DeserializationError("CustomAction.action_definition required")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CustomAction) -> dict:
+    out: dict = {}
+    out["ActionName"] = value["action_name"]
+    import capo_network_firewall.types.action_definition
+
+    out["ActionDefinition"] = (
+        capo_network_firewall.types.action_definition.serialize_cbor(
+            value["action_definition"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CustomAction:
+    out: CustomAction = {}  # type: ignore[typeddict-item]
+    if data.get("ActionName") is not None:
+        out["action_name"] = data["ActionName"]
+    else:
+        out["action_name"] = ""
+    if data.get("ActionDefinition") is not None:
+        import capo_network_firewall.types.action_definition
+
+        out["action_definition"] = (
+            capo_network_firewall.types.action_definition.deserialize_cbor(
+                data["ActionDefinition"]
+            )
+        )
+    else:
+        raise DeserializationError("CustomAction.action_definition required")
+    return out

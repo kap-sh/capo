@@ -61,3 +61,40 @@ def deserialize_aws_json_1_1(data: dict) -> ArtifactLocation:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ArtifactLocation) -> dict:
+    out: dict = {}
+    if "type" in value:
+        import capo_codepipeline.types.artifact_location_type
+
+        out["type"] = capo_codepipeline.types.artifact_location_type.serialize_cbor(
+            value["type"]
+        )
+    if "s3_location" in value:
+        import capo_codepipeline.types.s3_artifact_location
+
+        out["s3Location"] = capo_codepipeline.types.s3_artifact_location.serialize_cbor(
+            value["s3_location"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ArtifactLocation:
+    out: ArtifactLocation = {}  # type: ignore[typeddict-item]
+    if data.get("type") is not None:
+        import capo_codepipeline.types.artifact_location_type
+
+        out["type"] = capo_codepipeline.types.artifact_location_type.deserialize_cbor(
+            data["type"]
+        )
+    if data.get("s3Location") is not None:
+        import capo_codepipeline.types.s3_artifact_location
+
+        out["s3_location"] = (
+            capo_codepipeline.types.s3_artifact_location.deserialize_cbor(
+                data["s3Location"]
+            )
+        )
+    return out

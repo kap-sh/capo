@@ -32,3 +32,22 @@ def deserialize_aws_json_1_1(data: dict) -> StopBuildOutput:
             data["build"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StopBuildOutput) -> dict:
+    out: dict = {}
+    if "build" in value:
+        import capo_codebuild.types.build
+
+        out["build"] = capo_codebuild.types.build.serialize_cbor(value["build"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> StopBuildOutput:
+    out: StopBuildOutput = {}  # type: ignore[typeddict-item]
+    if data.get("build") is not None:
+        import capo_codebuild.types.build
+
+        out["build"] = capo_codebuild.types.build.deserialize_cbor(data["build"])
+    return out

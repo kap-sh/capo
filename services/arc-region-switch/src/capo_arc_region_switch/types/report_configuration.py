@@ -40,3 +40,30 @@ def deserialize_aws_json_1_0(data: dict) -> ReportConfiguration:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ReportConfiguration) -> dict:
+    out: dict = {}
+    if "report_output" in value:
+        import capo_arc_region_switch.types.report_output_list
+
+        out["reportOutput"] = (
+            capo_arc_region_switch.types.report_output_list.serialize_cbor(
+                value["report_output"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ReportConfiguration:
+    out: ReportConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("reportOutput") is not None:
+        import capo_arc_region_switch.types.report_output_list
+
+        out["report_output"] = (
+            capo_arc_region_switch.types.report_output_list.deserialize_cbor(
+                data["reportOutput"]
+            )
+        )
+    return out

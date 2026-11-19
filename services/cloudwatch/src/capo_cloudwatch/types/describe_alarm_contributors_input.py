@@ -57,3 +57,22 @@ def deserialize_query(el: Element) -> DescribeAlarmContributorsInput:
     if child_next_token is not None:
         out["next_token"] = str(child_next_token.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeAlarmContributorsInput) -> dict:
+    out: dict = {}
+    if "alarm_name" in value:
+        out["AlarmName"] = value["alarm_name"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeAlarmContributorsInput:
+    out: DescribeAlarmContributorsInput = {}  # type: ignore[typeddict-item]
+    if data.get("AlarmName") is not None:
+        out["alarm_name"] = data["AlarmName"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

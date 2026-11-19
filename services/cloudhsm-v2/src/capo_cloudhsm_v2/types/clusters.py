@@ -27,3 +27,24 @@ def deserialize_aws_json_1_1(data: list) -> Clusters:
             continue
         out.append(capo_cloudhsm_v2.types.cluster.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Clusters) -> list:
+    import capo_cloudhsm_v2.types.cluster
+
+    out: list = []
+    for item in value:
+        out.append(capo_cloudhsm_v2.types.cluster.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> Clusters:
+    import capo_cloudhsm_v2.types.cluster
+
+    out: Clusters = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_cloudhsm_v2.types.cluster.deserialize_cbor(item))
+    return out

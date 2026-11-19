@@ -114,3 +114,83 @@ def deserialize_aws_json_1_1(data: dict) -> WebhookDefinition:
             "WebhookDefinition.authentication_configuration required"
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: WebhookDefinition) -> dict:
+    out: dict = {}
+    out["name"] = value["name"]
+    out["targetPipeline"] = value["target_pipeline"]
+    out["targetAction"] = value["target_action"]
+    import capo_codepipeline.types.webhook_filters
+
+    out["filters"] = capo_codepipeline.types.webhook_filters.serialize_cbor(
+        value["filters"]
+    )
+    import capo_codepipeline.types.webhook_authentication_type
+
+    out["authentication"] = (
+        capo_codepipeline.types.webhook_authentication_type.serialize_cbor(
+            value["authentication"]
+        )
+    )
+    import capo_codepipeline.types.webhook_auth_configuration
+
+    out["authenticationConfiguration"] = (
+        capo_codepipeline.types.webhook_auth_configuration.serialize_cbor(
+            value["authentication_configuration"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> WebhookDefinition:
+    out: WebhookDefinition = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    else:
+        out["name"] = ""
+    if data.get("targetPipeline") is not None:
+        out["target_pipeline"] = data["targetPipeline"]
+    else:
+        out["target_pipeline"] = ""
+    if data.get("targetAction") is not None:
+        out["target_action"] = data["targetAction"]
+    else:
+        out["target_action"] = ""
+    if data.get("filters") is not None:
+        import capo_codepipeline.types.webhook_filters
+
+        out["filters"] = capo_codepipeline.types.webhook_filters.deserialize_cbor(
+            data["filters"]
+        )
+    else:
+        out["filters"] = []
+    if data.get("authentication") is not None:
+        import capo_codepipeline.types.webhook_authentication_type
+
+        out["authentication"] = (
+            capo_codepipeline.types.webhook_authentication_type.deserialize_cbor(
+                data["authentication"]
+            )
+        )
+    else:
+        import typing
+
+        out["authentication"] = typing.cast(
+            "capo_codepipeline.types.webhook_authentication_type.WebhookAuthenticationType",
+            "",
+        )
+    if data.get("authenticationConfiguration") is not None:
+        import capo_codepipeline.types.webhook_auth_configuration
+
+        out["authentication_configuration"] = (
+            capo_codepipeline.types.webhook_auth_configuration.deserialize_cbor(
+                data["authenticationConfiguration"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "WebhookDefinition.authentication_configuration required"
+        )
+    return out

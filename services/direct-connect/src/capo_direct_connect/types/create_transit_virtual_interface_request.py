@@ -51,3 +51,38 @@ def deserialize_aws_json_1_1(data: dict) -> CreateTransitVirtualInterfaceRequest
             "CreateTransitVirtualInterfaceRequest.new_transit_virtual_interface required"
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateTransitVirtualInterfaceRequest) -> dict:
+    out: dict = {}
+    out["connectionId"] = value["connection_id"]
+    import capo_direct_connect.types.new_transit_virtual_interface
+
+    out["newTransitVirtualInterface"] = (
+        capo_direct_connect.types.new_transit_virtual_interface.serialize_cbor(
+            value["new_transit_virtual_interface"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateTransitVirtualInterfaceRequest:
+    out: CreateTransitVirtualInterfaceRequest = {}  # type: ignore[typeddict-item]
+    if data.get("connectionId") is not None:
+        out["connection_id"] = data["connectionId"]
+    else:
+        out["connection_id"] = ""
+    if data.get("newTransitVirtualInterface") is not None:
+        import capo_direct_connect.types.new_transit_virtual_interface
+
+        out["new_transit_virtual_interface"] = (
+            capo_direct_connect.types.new_transit_virtual_interface.deserialize_cbor(
+                data["newTransitVirtualInterface"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "CreateTransitVirtualInterfaceRequest.new_transit_virtual_interface required"
+        )
+    return out

@@ -17,3 +17,12 @@ def serialize_aws_json_1_1(value: UserControlMode) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> UserControlMode:
     return cast(UserControlMode, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UserControlMode) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> UserControlMode:
+    return cast(UserControlMode, data)

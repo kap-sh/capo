@@ -44,3 +44,29 @@ def deserialize_aws_json_1_1(data: dict) -> SnapshotLimits:
     else:
         out["manual_snapshots_limit_reached"] = False
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SnapshotLimits) -> dict:
+    out: dict = {}
+    if "manual_snapshots_limit" in value:
+        out["ManualSnapshotsLimit"] = value["manual_snapshots_limit"]
+    if "manual_snapshots_current_count" in value:
+        out["ManualSnapshotsCurrentCount"] = value["manual_snapshots_current_count"]
+    out["ManualSnapshotsLimitReached"] = value.get(
+        "manual_snapshots_limit_reached", False
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> SnapshotLimits:
+    out: SnapshotLimits = {}  # type: ignore[typeddict-item]
+    if data.get("ManualSnapshotsLimit") is not None:
+        out["manual_snapshots_limit"] = data["ManualSnapshotsLimit"]
+    if data.get("ManualSnapshotsCurrentCount") is not None:
+        out["manual_snapshots_current_count"] = data["ManualSnapshotsCurrentCount"]
+    if data.get("ManualSnapshotsLimitReached") is not None:
+        out["manual_snapshots_limit_reached"] = data["ManualSnapshotsLimitReached"]
+    else:
+        out["manual_snapshots_limit_reached"] = False
+    return out

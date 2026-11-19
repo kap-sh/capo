@@ -42,6 +42,33 @@ def deserialize_aws_json_1_0(data: dict) -> RejectAgreementApprovalInput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RejectAgreementApprovalInput) -> dict:
+    out: dict = {}
+    if "buyer_agreement_approval_rejection_input" in value:
+        import capo_marketplace_agreement.types.buyer_agreement_approval_rejection_input
+
+        out["buyerAgreementApprovalRejectionInput"] = (
+            capo_marketplace_agreement.types.buyer_agreement_approval_rejection_input.serialize_cbor(
+                value["buyer_agreement_approval_rejection_input"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RejectAgreementApprovalInput:
+    out: RejectAgreementApprovalInput = {}  # type: ignore[typeddict-item]
+    if data.get("buyerAgreementApprovalRejectionInput") is not None:
+        import capo_marketplace_agreement.types.buyer_agreement_approval_rejection_input
+
+        out["buyer_agreement_approval_rejection_input"] = (
+            capo_marketplace_agreement.types.buyer_agreement_approval_rejection_input.deserialize_cbor(
+                data["buyerAgreementApprovalRejectionInput"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: RejectAgreementApprovalInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "buyer_agreement_approval_rejection_input" in value:

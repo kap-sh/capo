@@ -148,6 +148,105 @@ def deserialize_aws_json_1_0(data: dict) -> CreateIngressPointRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateIngressPointRequest) -> dict:
+    out: dict = {}
+    if "client_token" in value:
+        out["ClientToken"] = value["client_token"]
+    out["IngressPointName"] = value["ingress_point_name"]
+    import capo_mailmanager.types.ingress_point_type
+
+    out["Type"] = capo_mailmanager.types.ingress_point_type.serialize_cbor(
+        value["type"]
+    )
+    out["RuleSetId"] = value["rule_set_id"]
+    out["TrafficPolicyId"] = value["traffic_policy_id"]
+    if "ingress_point_configuration" in value:
+        import capo_mailmanager.types.ingress_point_configuration
+
+        out["IngressPointConfiguration"] = (
+            capo_mailmanager.types.ingress_point_configuration.serialize_cbor(
+                value["ingress_point_configuration"]
+            )
+        )
+    if "network_configuration" in value:
+        import capo_mailmanager.types.network_configuration
+
+        out["NetworkConfiguration"] = (
+            capo_mailmanager.types.network_configuration.serialize_cbor(
+                value["network_configuration"]
+            )
+        )
+    if "tls_policy" in value:
+        import capo_mailmanager.types.tls_policy
+
+        out["TlsPolicy"] = capo_mailmanager.types.tls_policy.serialize_cbor(
+            value["tls_policy"]
+        )
+    if "tags" in value:
+        import capo_mailmanager.types.tag_list
+
+        out["Tags"] = capo_mailmanager.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateIngressPointRequest:
+    out: CreateIngressPointRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ClientToken") is not None:
+        out["client_token"] = data["ClientToken"]
+    if data.get("IngressPointName") is not None:
+        out["ingress_point_name"] = data["IngressPointName"]
+    else:
+        out["ingress_point_name"] = ""
+    if data.get("Type") is not None:
+        import capo_mailmanager.types.ingress_point_type
+
+        out["type"] = capo_mailmanager.types.ingress_point_type.deserialize_cbor(
+            data["Type"]
+        )
+    else:
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_mailmanager.types.ingress_point_type.IngressPointType", ""
+        )
+    if data.get("RuleSetId") is not None:
+        out["rule_set_id"] = data["RuleSetId"]
+    else:
+        out["rule_set_id"] = ""
+    if data.get("TrafficPolicyId") is not None:
+        out["traffic_policy_id"] = data["TrafficPolicyId"]
+    else:
+        out["traffic_policy_id"] = ""
+    if data.get("IngressPointConfiguration") is not None:
+        import capo_mailmanager.types.ingress_point_configuration
+
+        out["ingress_point_configuration"] = (
+            capo_mailmanager.types.ingress_point_configuration.deserialize_cbor(
+                data["IngressPointConfiguration"]
+            )
+        )
+    if data.get("NetworkConfiguration") is not None:
+        import capo_mailmanager.types.network_configuration
+
+        out["network_configuration"] = (
+            capo_mailmanager.types.network_configuration.deserialize_cbor(
+                data["NetworkConfiguration"]
+            )
+        )
+    if data.get("TlsPolicy") is not None:
+        import capo_mailmanager.types.tls_policy
+
+        out["tls_policy"] = capo_mailmanager.types.tls_policy.deserialize_cbor(
+            data["TlsPolicy"]
+        )
+    if data.get("Tags") is not None:
+        import capo_mailmanager.types.tag_list
+
+        out["tags"] = capo_mailmanager.types.tag_list.deserialize_cbor(data["Tags"])
+    return out
+
+
 def redact_sensitive(value: CreateIngressPointRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "ingress_point_configuration" in value:

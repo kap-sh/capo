@@ -35,6 +35,27 @@ def deserialize_aws_json_1_1(data: list) -> MatchmakingConfigurationList:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MatchmakingConfigurationList) -> list:
+    import capo_gamelift.types.matchmaking_configuration
+
+    out: list = []
+    for item in value:
+        out.append(capo_gamelift.types.matchmaking_configuration.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> MatchmakingConfigurationList:
+    import capo_gamelift.types.matchmaking_configuration
+
+    out: MatchmakingConfigurationList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_gamelift.types.matchmaking_configuration.deserialize_cbor(item))
+    return out
+
+
 def redact_sensitive(value: MatchmakingConfigurationList) -> list[Any]:
     import capo_gamelift.types.matchmaking_configuration
 

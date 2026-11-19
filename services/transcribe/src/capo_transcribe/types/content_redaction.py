@@ -86,3 +86,64 @@ def deserialize_aws_json_1_1(data: dict) -> ContentRedaction:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ContentRedaction) -> dict:
+    out: dict = {}
+    import capo_transcribe.types.redaction_type
+
+    out["RedactionType"] = capo_transcribe.types.redaction_type.serialize_cbor(
+        value["redaction_type"]
+    )
+    import capo_transcribe.types.redaction_output
+
+    out["RedactionOutput"] = capo_transcribe.types.redaction_output.serialize_cbor(
+        value["redaction_output"]
+    )
+    if "pii_entity_types" in value:
+        import capo_transcribe.types.pii_entity_types
+
+        out["PiiEntityTypes"] = capo_transcribe.types.pii_entity_types.serialize_cbor(
+            value["pii_entity_types"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ContentRedaction:
+    out: ContentRedaction = {}  # type: ignore[typeddict-item]
+    if data.get("RedactionType") is not None:
+        import capo_transcribe.types.redaction_type
+
+        out["redaction_type"] = capo_transcribe.types.redaction_type.deserialize_cbor(
+            data["RedactionType"]
+        )
+    else:
+        import typing
+
+        out["redaction_type"] = typing.cast(
+            "capo_transcribe.types.redaction_type.RedactionType", ""
+        )
+    if data.get("RedactionOutput") is not None:
+        import capo_transcribe.types.redaction_output
+
+        out["redaction_output"] = (
+            capo_transcribe.types.redaction_output.deserialize_cbor(
+                data["RedactionOutput"]
+            )
+        )
+    else:
+        import typing
+
+        out["redaction_output"] = typing.cast(
+            "capo_transcribe.types.redaction_output.RedactionOutput", ""
+        )
+    if data.get("PiiEntityTypes") is not None:
+        import capo_transcribe.types.pii_entity_types
+
+        out["pii_entity_types"] = (
+            capo_transcribe.types.pii_entity_types.deserialize_cbor(
+                data["PiiEntityTypes"]
+            )
+        )
+    return out

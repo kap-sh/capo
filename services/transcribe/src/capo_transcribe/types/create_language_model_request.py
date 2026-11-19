@@ -133,3 +133,94 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLanguageModelRequest:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateLanguageModelRequest) -> dict:
+    out: dict = {}
+    import capo_transcribe.types.clm_language_code
+
+    out["LanguageCode"] = capo_transcribe.types.clm_language_code.serialize_cbor(
+        value["language_code"]
+    )
+    import capo_transcribe.types.base_model_name
+
+    out["BaseModelName"] = capo_transcribe.types.base_model_name.serialize_cbor(
+        value["base_model_name"]
+    )
+    out["ModelName"] = value["model_name"]
+    import capo_transcribe.types.input_data_config
+
+    out["InputDataConfig"] = capo_transcribe.types.input_data_config.serialize_cbor(
+        value["input_data_config"]
+    )
+    if "encryption_configuration" in value:
+        import capo_transcribe.types.encryption_configuration
+
+        out["EncryptionConfiguration"] = (
+            capo_transcribe.types.encryption_configuration.serialize_cbor(
+                value["encryption_configuration"]
+            )
+        )
+    if "tags" in value:
+        import capo_transcribe.types.tag_list
+
+        out["Tags"] = capo_transcribe.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateLanguageModelRequest:
+    out: CreateLanguageModelRequest = {}  # type: ignore[typeddict-item]
+    if data.get("LanguageCode") is not None:
+        import capo_transcribe.types.clm_language_code
+
+        out["language_code"] = capo_transcribe.types.clm_language_code.deserialize_cbor(
+            data["LanguageCode"]
+        )
+    else:
+        import typing
+
+        out["language_code"] = typing.cast(
+            "capo_transcribe.types.clm_language_code.CLMLanguageCode", ""
+        )
+    if data.get("BaseModelName") is not None:
+        import capo_transcribe.types.base_model_name
+
+        out["base_model_name"] = capo_transcribe.types.base_model_name.deserialize_cbor(
+            data["BaseModelName"]
+        )
+    else:
+        import typing
+
+        out["base_model_name"] = typing.cast(
+            "capo_transcribe.types.base_model_name.BaseModelName", ""
+        )
+    if data.get("ModelName") is not None:
+        out["model_name"] = data["ModelName"]
+    else:
+        out["model_name"] = ""
+    if data.get("InputDataConfig") is not None:
+        import capo_transcribe.types.input_data_config
+
+        out["input_data_config"] = (
+            capo_transcribe.types.input_data_config.deserialize_cbor(
+                data["InputDataConfig"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "CreateLanguageModelRequest.input_data_config required"
+        )
+    if data.get("EncryptionConfiguration") is not None:
+        import capo_transcribe.types.encryption_configuration
+
+        out["encryption_configuration"] = (
+            capo_transcribe.types.encryption_configuration.deserialize_cbor(
+                data["EncryptionConfiguration"]
+            )
+        )
+    if data.get("Tags") is not None:
+        import capo_transcribe.types.tag_list
+
+        out["tags"] = capo_transcribe.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

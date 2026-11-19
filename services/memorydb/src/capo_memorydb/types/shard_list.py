@@ -27,3 +27,24 @@ def deserialize_aws_json_1_1(data: list) -> ShardList:
             continue
         out.append(capo_memorydb.types.shard.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ShardList) -> list:
+    import capo_memorydb.types.shard
+
+    out: list = []
+    for item in value:
+        out.append(capo_memorydb.types.shard.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> ShardList:
+    import capo_memorydb.types.shard
+
+    out: ShardList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_memorydb.types.shard.deserialize_cbor(item))
+    return out

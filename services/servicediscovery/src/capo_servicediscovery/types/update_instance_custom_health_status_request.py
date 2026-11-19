@@ -59,3 +59,43 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateInstanceCustomHealthStatusRequ
             "capo_servicediscovery.types.custom_health_status.CustomHealthStatus", ""
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateInstanceCustomHealthStatusRequest) -> dict:
+    out: dict = {}
+    out["ServiceId"] = value["service_id"]
+    out["InstanceId"] = value["instance_id"]
+    import capo_servicediscovery.types.custom_health_status
+
+    out["Status"] = capo_servicediscovery.types.custom_health_status.serialize_cbor(
+        value["status"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateInstanceCustomHealthStatusRequest:
+    out: UpdateInstanceCustomHealthStatusRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ServiceId") is not None:
+        out["service_id"] = data["ServiceId"]
+    else:
+        out["service_id"] = ""
+    if data.get("InstanceId") is not None:
+        out["instance_id"] = data["InstanceId"]
+    else:
+        out["instance_id"] = ""
+    if data.get("Status") is not None:
+        import capo_servicediscovery.types.custom_health_status
+
+        out["status"] = (
+            capo_servicediscovery.types.custom_health_status.deserialize_cbor(
+                data["Status"]
+            )
+        )
+    else:
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_servicediscovery.types.custom_health_status.CustomHealthStatus", ""
+        )
+    return out

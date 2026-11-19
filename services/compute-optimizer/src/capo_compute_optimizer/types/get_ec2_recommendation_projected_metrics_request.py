@@ -117,3 +117,87 @@ def deserialize_aws_json_1_0(data: dict) -> GetEC2RecommendationProjectedMetrics
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetEC2RecommendationProjectedMetricsRequest) -> dict:
+    out: dict = {}
+    out["instanceArn"] = value["instance_arn"]
+    import capo_compute_optimizer.types.metric_statistic
+
+    out["stat"] = capo_compute_optimizer.types.metric_statistic.serialize_cbor(
+        value["stat"]
+    )
+    out["period"] = value["period"]
+    import capo_compute_optimizer.types.timestamp
+
+    out["startTime"] = capo_compute_optimizer.types.timestamp.serialize_cbor(
+        value["start_time"]
+    )
+    import capo_compute_optimizer.types.timestamp
+
+    out["endTime"] = capo_compute_optimizer.types.timestamp.serialize_cbor(
+        value["end_time"]
+    )
+    if "recommendation_preferences" in value:
+        import capo_compute_optimizer.types.recommendation_preferences
+
+        out["recommendationPreferences"] = (
+            capo_compute_optimizer.types.recommendation_preferences.serialize_cbor(
+                value["recommendation_preferences"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetEC2RecommendationProjectedMetricsRequest:
+    out: GetEC2RecommendationProjectedMetricsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("instanceArn") is not None:
+        out["instance_arn"] = data["instanceArn"]
+    else:
+        out["instance_arn"] = ""
+    if data.get("stat") is not None:
+        import capo_compute_optimizer.types.metric_statistic
+
+        out["stat"] = capo_compute_optimizer.types.metric_statistic.deserialize_cbor(
+            data["stat"]
+        )
+    else:
+        import typing
+
+        out["stat"] = typing.cast(
+            "capo_compute_optimizer.types.metric_statistic.MetricStatistic", ""
+        )
+    if data.get("period") is not None:
+        out["period"] = data["period"]
+    else:
+        out["period"] = 0
+    if data.get("startTime") is not None:
+        import capo_compute_optimizer.types.timestamp
+
+        out["start_time"] = capo_compute_optimizer.types.timestamp.deserialize_cbor(
+            data["startTime"]
+        )
+    else:
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
+    if data.get("endTime") is not None:
+        import capo_compute_optimizer.types.timestamp
+
+        out["end_time"] = capo_compute_optimizer.types.timestamp.deserialize_cbor(
+            data["endTime"]
+        )
+    else:
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
+    if data.get("recommendationPreferences") is not None:
+        import capo_compute_optimizer.types.recommendation_preferences
+
+        out["recommendation_preferences"] = (
+            capo_compute_optimizer.types.recommendation_preferences.deserialize_cbor(
+                data["recommendationPreferences"]
+            )
+        )
+    return out

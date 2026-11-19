@@ -167,3 +167,110 @@ def deserialize_aws_json_1_1(data: dict) -> SNOMEDCTEntity:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SNOMEDCTEntity) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["Id"] = value["id"]
+    if "text" in value:
+        out["Text"] = value["text"]
+    if "category" in value:
+        import capo_comprehendmedical.types.snomedct_entity_category
+
+        out["Category"] = (
+            capo_comprehendmedical.types.snomedct_entity_category.serialize_cbor(
+                value["category"]
+            )
+        )
+    if "type" in value:
+        import capo_comprehendmedical.types.snomedct_entity_type
+
+        out["Type"] = capo_comprehendmedical.types.snomedct_entity_type.serialize_cbor(
+            value["type"]
+        )
+    if "score" in value:
+        out["Score"] = value["score"]
+    if "begin_offset" in value:
+        out["BeginOffset"] = value["begin_offset"]
+    if "end_offset" in value:
+        out["EndOffset"] = value["end_offset"]
+    if "attributes" in value:
+        import capo_comprehendmedical.types.snomedct_attribute_list
+
+        out["Attributes"] = (
+            capo_comprehendmedical.types.snomedct_attribute_list.serialize_cbor(
+                value["attributes"]
+            )
+        )
+    if "traits" in value:
+        import capo_comprehendmedical.types.snomedct_trait_list
+
+        out["Traits"] = capo_comprehendmedical.types.snomedct_trait_list.serialize_cbor(
+            value["traits"]
+        )
+    if "snomedct_concepts" in value:
+        import capo_comprehendmedical.types.snomedct_concept_list
+
+        out["SNOMEDCTConcepts"] = (
+            capo_comprehendmedical.types.snomedct_concept_list.serialize_cbor(
+                value["snomedct_concepts"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> SNOMEDCTEntity:
+    out: SNOMEDCTEntity = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    if data.get("Text") is not None:
+        out["text"] = data["Text"]
+    if data.get("Category") is not None:
+        import capo_comprehendmedical.types.snomedct_entity_category
+
+        out["category"] = (
+            capo_comprehendmedical.types.snomedct_entity_category.deserialize_cbor(
+                data["Category"]
+            )
+        )
+    if data.get("Type") is not None:
+        import capo_comprehendmedical.types.snomedct_entity_type
+
+        out["type"] = (
+            capo_comprehendmedical.types.snomedct_entity_type.deserialize_cbor(
+                data["Type"]
+            )
+        )
+    if data.get("Score") is not None:
+        out["score"] = float(data["Score"])
+    if data.get("BeginOffset") is not None:
+        out["begin_offset"] = data["BeginOffset"]
+    if data.get("EndOffset") is not None:
+        out["end_offset"] = data["EndOffset"]
+    if data.get("Attributes") is not None:
+        import capo_comprehendmedical.types.snomedct_attribute_list
+
+        out["attributes"] = (
+            capo_comprehendmedical.types.snomedct_attribute_list.deserialize_cbor(
+                data["Attributes"]
+            )
+        )
+    if data.get("Traits") is not None:
+        import capo_comprehendmedical.types.snomedct_trait_list
+
+        out["traits"] = (
+            capo_comprehendmedical.types.snomedct_trait_list.deserialize_cbor(
+                data["Traits"]
+            )
+        )
+    if data.get("SNOMEDCTConcepts") is not None:
+        import capo_comprehendmedical.types.snomedct_concept_list
+
+        out["snomedct_concepts"] = (
+            capo_comprehendmedical.types.snomedct_concept_list.deserialize_cbor(
+                data["SNOMEDCTConcepts"]
+            )
+        )
+    return out

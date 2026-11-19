@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeEndpointResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeEndpointResponse) -> dict:
+    out: dict = {}
+    if "endpoint_properties" in value:
+        import capo_comprehend.types.endpoint_properties
+
+        out["EndpointProperties"] = (
+            capo_comprehend.types.endpoint_properties.serialize_cbor(
+                value["endpoint_properties"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeEndpointResponse:
+    out: DescribeEndpointResponse = {}  # type: ignore[typeddict-item]
+    if data.get("EndpointProperties") is not None:
+        import capo_comprehend.types.endpoint_properties
+
+        out["endpoint_properties"] = (
+            capo_comprehend.types.endpoint_properties.deserialize_cbor(
+                data["EndpointProperties"]
+            )
+        )
+    return out

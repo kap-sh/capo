@@ -38,3 +38,26 @@ def deserialize_aws_json_1_1(data: dict) -> PlayerLatencyPolicy:
     if data.get("PolicyDurationSeconds") is not None:
         out["policy_duration_seconds"] = data["PolicyDurationSeconds"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PlayerLatencyPolicy) -> dict:
+    out: dict = {}
+    if "maximum_individual_player_latency_milliseconds" in value:
+        out["MaximumIndividualPlayerLatencyMilliseconds"] = value[
+            "maximum_individual_player_latency_milliseconds"
+        ]
+    if "policy_duration_seconds" in value:
+        out["PolicyDurationSeconds"] = value["policy_duration_seconds"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> PlayerLatencyPolicy:
+    out: PlayerLatencyPolicy = {}  # type: ignore[typeddict-item]
+    if data.get("MaximumIndividualPlayerLatencyMilliseconds") is not None:
+        out["maximum_individual_player_latency_milliseconds"] = data[
+            "MaximumIndividualPlayerLatencyMilliseconds"
+        ]
+    if data.get("PolicyDurationSeconds") is not None:
+        out["policy_duration_seconds"] = data["PolicyDurationSeconds"]
+    return out

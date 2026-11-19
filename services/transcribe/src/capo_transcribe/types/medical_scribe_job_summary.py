@@ -122,3 +122,90 @@ def deserialize_aws_json_1_1(data: dict) -> MedicalScribeJobSummary:
     if data.get("FailureReason") is not None:
         out["failure_reason"] = data["FailureReason"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MedicalScribeJobSummary) -> dict:
+    out: dict = {}
+    if "medical_scribe_job_name" in value:
+        out["MedicalScribeJobName"] = value["medical_scribe_job_name"]
+    if "creation_time" in value:
+        import capo_transcribe.types.date_time
+
+        out["CreationTime"] = capo_transcribe.types.date_time.serialize_cbor(
+            value["creation_time"]
+        )
+    if "start_time" in value:
+        import capo_transcribe.types.date_time
+
+        out["StartTime"] = capo_transcribe.types.date_time.serialize_cbor(
+            value["start_time"]
+        )
+    if "completion_time" in value:
+        import capo_transcribe.types.date_time
+
+        out["CompletionTime"] = capo_transcribe.types.date_time.serialize_cbor(
+            value["completion_time"]
+        )
+    if "language_code" in value:
+        import capo_transcribe.types.medical_scribe_language_code
+
+        out["LanguageCode"] = (
+            capo_transcribe.types.medical_scribe_language_code.serialize_cbor(
+                value["language_code"]
+            )
+        )
+    if "medical_scribe_job_status" in value:
+        import capo_transcribe.types.medical_scribe_job_status
+
+        out["MedicalScribeJobStatus"] = (
+            capo_transcribe.types.medical_scribe_job_status.serialize_cbor(
+                value["medical_scribe_job_status"]
+            )
+        )
+    if "failure_reason" in value:
+        out["FailureReason"] = value["failure_reason"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> MedicalScribeJobSummary:
+    out: MedicalScribeJobSummary = {}  # type: ignore[typeddict-item]
+    if data.get("MedicalScribeJobName") is not None:
+        out["medical_scribe_job_name"] = data["MedicalScribeJobName"]
+    if data.get("CreationTime") is not None:
+        import capo_transcribe.types.date_time
+
+        out["creation_time"] = capo_transcribe.types.date_time.deserialize_cbor(
+            data["CreationTime"]
+        )
+    if data.get("StartTime") is not None:
+        import capo_transcribe.types.date_time
+
+        out["start_time"] = capo_transcribe.types.date_time.deserialize_cbor(
+            data["StartTime"]
+        )
+    if data.get("CompletionTime") is not None:
+        import capo_transcribe.types.date_time
+
+        out["completion_time"] = capo_transcribe.types.date_time.deserialize_cbor(
+            data["CompletionTime"]
+        )
+    if data.get("LanguageCode") is not None:
+        import capo_transcribe.types.medical_scribe_language_code
+
+        out["language_code"] = (
+            capo_transcribe.types.medical_scribe_language_code.deserialize_cbor(
+                data["LanguageCode"]
+            )
+        )
+    if data.get("MedicalScribeJobStatus") is not None:
+        import capo_transcribe.types.medical_scribe_job_status
+
+        out["medical_scribe_job_status"] = (
+            capo_transcribe.types.medical_scribe_job_status.deserialize_cbor(
+                data["MedicalScribeJobStatus"]
+            )
+        )
+    if data.get("FailureReason") is not None:
+        out["failure_reason"] = data["FailureReason"]
+    return out

@@ -49,3 +49,34 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeFleetAttributesOutput:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeFleetAttributesOutput) -> dict:
+    out: dict = {}
+    if "fleet_attributes" in value:
+        import capo_gamelift.types.fleet_attributes_list
+
+        out["FleetAttributes"] = (
+            capo_gamelift.types.fleet_attributes_list.serialize_cbor(
+                value["fleet_attributes"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeFleetAttributesOutput:
+    out: DescribeFleetAttributesOutput = {}  # type: ignore[typeddict-item]
+    if data.get("FleetAttributes") is not None:
+        import capo_gamelift.types.fleet_attributes_list
+
+        out["fleet_attributes"] = (
+            capo_gamelift.types.fleet_attributes_list.deserialize_cbor(
+                data["FleetAttributes"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

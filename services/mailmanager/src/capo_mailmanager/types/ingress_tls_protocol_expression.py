@@ -89,3 +89,73 @@ def deserialize_aws_json_1_0(data: dict) -> IngressTlsProtocolExpression:
             "",
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IngressTlsProtocolExpression) -> dict:
+    out: dict = {}
+    import capo_mailmanager.types.ingress_tls_protocol_to_evaluate
+
+    out["Evaluate"] = (
+        capo_mailmanager.types.ingress_tls_protocol_to_evaluate.serialize_cbor(
+            value["evaluate"]
+        )
+    )
+    import capo_mailmanager.types.ingress_tls_protocol_operator
+
+    out["Operator"] = (
+        capo_mailmanager.types.ingress_tls_protocol_operator.serialize_cbor(
+            value["operator"]
+        )
+    )
+    import capo_mailmanager.types.ingress_tls_protocol_attribute
+
+    out["Value"] = capo_mailmanager.types.ingress_tls_protocol_attribute.serialize_cbor(
+        value["value"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> IngressTlsProtocolExpression:
+    out: IngressTlsProtocolExpression = {}  # type: ignore[typeddict-item]
+    if data.get("Evaluate") is not None:
+        import capo_mailmanager.types.ingress_tls_protocol_to_evaluate
+
+        out["evaluate"] = (
+            capo_mailmanager.types.ingress_tls_protocol_to_evaluate.deserialize_cbor(
+                data["Evaluate"]
+            )
+        )
+    else:
+        out["evaluate"] = {"$unknown": {"name": ""}}
+    if data.get("Operator") is not None:
+        import capo_mailmanager.types.ingress_tls_protocol_operator
+
+        out["operator"] = (
+            capo_mailmanager.types.ingress_tls_protocol_operator.deserialize_cbor(
+                data["Operator"]
+            )
+        )
+    else:
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_mailmanager.types.ingress_tls_protocol_operator.IngressTlsProtocolOperator",
+            "",
+        )
+    if data.get("Value") is not None:
+        import capo_mailmanager.types.ingress_tls_protocol_attribute
+
+        out["value"] = (
+            capo_mailmanager.types.ingress_tls_protocol_attribute.deserialize_cbor(
+                data["Value"]
+            )
+        )
+    else:
+        import typing
+
+        out["value"] = typing.cast(
+            "capo_mailmanager.types.ingress_tls_protocol_attribute.IngressTlsProtocolAttribute",
+            "",
+        )
+    return out

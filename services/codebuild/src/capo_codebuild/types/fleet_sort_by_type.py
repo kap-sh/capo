@@ -16,3 +16,12 @@ def serialize_aws_json_1_1(value: FleetSortByType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> FleetSortByType:
     return cast(FleetSortByType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FleetSortByType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> FleetSortByType:
+    return cast(FleetSortByType, data)

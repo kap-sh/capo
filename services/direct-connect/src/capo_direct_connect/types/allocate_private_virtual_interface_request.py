@@ -59,3 +59,43 @@ def deserialize_aws_json_1_1(data: dict) -> AllocatePrivateVirtualInterfaceReque
             "AllocatePrivateVirtualInterfaceRequest.new_private_virtual_interface_allocation required"
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AllocatePrivateVirtualInterfaceRequest) -> dict:
+    out: dict = {}
+    out["connectionId"] = value["connection_id"]
+    out["ownerAccount"] = value["owner_account"]
+    import capo_direct_connect.types.new_private_virtual_interface_allocation
+
+    out["newPrivateVirtualInterfaceAllocation"] = (
+        capo_direct_connect.types.new_private_virtual_interface_allocation.serialize_cbor(
+            value["new_private_virtual_interface_allocation"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AllocatePrivateVirtualInterfaceRequest:
+    out: AllocatePrivateVirtualInterfaceRequest = {}  # type: ignore[typeddict-item]
+    if data.get("connectionId") is not None:
+        out["connection_id"] = data["connectionId"]
+    else:
+        out["connection_id"] = ""
+    if data.get("ownerAccount") is not None:
+        out["owner_account"] = data["ownerAccount"]
+    else:
+        out["owner_account"] = ""
+    if data.get("newPrivateVirtualInterfaceAllocation") is not None:
+        import capo_direct_connect.types.new_private_virtual_interface_allocation
+
+        out["new_private_virtual_interface_allocation"] = (
+            capo_direct_connect.types.new_private_virtual_interface_allocation.deserialize_cbor(
+                data["newPrivateVirtualInterfaceAllocation"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "AllocatePrivateVirtualInterfaceRequest.new_private_virtual_interface_allocation required"
+        )
+    return out

@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> StopGameSessionPlacementInput:
     if data.get("PlacementId") is not None:
         out["placement_id"] = data["PlacementId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StopGameSessionPlacementInput) -> dict:
+    out: dict = {}
+    if "placement_id" in value:
+        out["PlacementId"] = value["placement_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StopGameSessionPlacementInput:
+    out: StopGameSessionPlacementInput = {}  # type: ignore[typeddict-item]
+    if data.get("PlacementId") is not None:
+        out["placement_id"] = data["PlacementId"]
+    return out

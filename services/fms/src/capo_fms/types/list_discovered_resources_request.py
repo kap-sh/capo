@@ -61,3 +61,40 @@ def deserialize_aws_json_1_1(data: dict) -> ListDiscoveredResourcesRequest:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListDiscoveredResourcesRequest) -> dict:
+    out: dict = {}
+    import capo_fms.types.aws_account_id_list
+
+    out["MemberAccountIds"] = capo_fms.types.aws_account_id_list.serialize_cbor(
+        value["member_account_ids"]
+    )
+    out["ResourceType"] = value["resource_type"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListDiscoveredResourcesRequest:
+    out: ListDiscoveredResourcesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("MemberAccountIds") is not None:
+        import capo_fms.types.aws_account_id_list
+
+        out["member_account_ids"] = capo_fms.types.aws_account_id_list.deserialize_cbor(
+            data["MemberAccountIds"]
+        )
+    else:
+        out["member_account_ids"] = []
+    if data.get("ResourceType") is not None:
+        out["resource_type"] = data["ResourceType"]
+    else:
+        out["resource_type"] = ""
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

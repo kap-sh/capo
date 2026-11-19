@@ -66,3 +66,46 @@ def deserialize_aws_json_1_1(
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeAffectedEntitiesForOrganizationResponse) -> dict:
+    out: dict = {}
+    if "entities" in value:
+        import capo_health.types.entity_list
+
+        out["entities"] = capo_health.types.entity_list.serialize_cbor(
+            value["entities"]
+        )
+    if "failed_set" in value:
+        import capo_health.types.describe_affected_entities_for_organization_failed_set
+
+        out["failedSet"] = (
+            capo_health.types.describe_affected_entities_for_organization_failed_set.serialize_cbor(
+                value["failed_set"]
+            )
+        )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeAffectedEntitiesForOrganizationResponse:
+    out: DescribeAffectedEntitiesForOrganizationResponse = {}  # type: ignore[typeddict-item]
+    if data.get("entities") is not None:
+        import capo_health.types.entity_list
+
+        out["entities"] = capo_health.types.entity_list.deserialize_cbor(
+            data["entities"]
+        )
+    if data.get("failedSet") is not None:
+        import capo_health.types.describe_affected_entities_for_organization_failed_set
+
+        out["failed_set"] = (
+            capo_health.types.describe_affected_entities_for_organization_failed_set.deserialize_cbor(
+                data["failedSet"]
+            )
+        )
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

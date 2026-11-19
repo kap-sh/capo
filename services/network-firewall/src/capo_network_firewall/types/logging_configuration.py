@@ -41,3 +41,31 @@ def deserialize_aws_json_1_0(data: dict) -> LoggingConfiguration:
     else:
         out["log_destination_configs"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LoggingConfiguration) -> dict:
+    out: dict = {}
+    import capo_network_firewall.types.log_destination_configs
+
+    out["LogDestinationConfigs"] = (
+        capo_network_firewall.types.log_destination_configs.serialize_cbor(
+            value["log_destination_configs"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> LoggingConfiguration:
+    out: LoggingConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("LogDestinationConfigs") is not None:
+        import capo_network_firewall.types.log_destination_configs
+
+        out["log_destination_configs"] = (
+            capo_network_firewall.types.log_destination_configs.deserialize_cbor(
+                data["LogDestinationConfigs"]
+            )
+        )
+    else:
+        out["log_destination_configs"] = []
+    return out

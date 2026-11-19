@@ -60,3 +60,36 @@ def deserialize_aws_json_1_1(data: dict) -> ListWorkloadsRequest:
     if data.get("AccountId") is not None:
         out["account_id"] = data["AccountId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListWorkloadsRequest) -> dict:
+    out: dict = {}
+    out["ResourceGroupName"] = value["resource_group_name"]
+    out["ComponentName"] = value["component_name"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "account_id" in value:
+        out["AccountId"] = value["account_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListWorkloadsRequest:
+    out: ListWorkloadsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceGroupName") is not None:
+        out["resource_group_name"] = data["ResourceGroupName"]
+    else:
+        out["resource_group_name"] = ""
+    if data.get("ComponentName") is not None:
+        out["component_name"] = data["ComponentName"]
+    else:
+        out["component_name"] = ""
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("AccountId") is not None:
+        out["account_id"] = data["AccountId"]
+    return out

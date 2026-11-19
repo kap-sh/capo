@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> GetSoftwareUpdatesResult:
     if data.get("UpdatesURI") is not None:
         out["updates_uri"] = data["UpdatesURI"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetSoftwareUpdatesResult) -> dict:
+    out: dict = {}
+    if "updates_uri" in value:
+        out["UpdatesURI"] = value["updates_uri"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetSoftwareUpdatesResult:
+    out: GetSoftwareUpdatesResult = {}  # type: ignore[typeddict-item]
+    if data.get("UpdatesURI") is not None:
+        out["updates_uri"] = data["UpdatesURI"]
+    return out

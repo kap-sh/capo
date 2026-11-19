@@ -140,3 +140,106 @@ def deserialize_aws_json_1_0(data: dict) -> AutomationEventStep:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AutomationEventStep) -> dict:
+    out: dict = {}
+    if "event_id" in value:
+        out["eventId"] = value["event_id"]
+    if "step_id" in value:
+        out["stepId"] = value["step_id"]
+    if "step_type" in value:
+        import capo_compute_optimizer_automation.types.step_type
+
+        out["stepType"] = (
+            capo_compute_optimizer_automation.types.step_type.serialize_cbor(
+                value["step_type"]
+            )
+        )
+    if "step_status" in value:
+        import capo_compute_optimizer_automation.types.step_status
+
+        out["stepStatus"] = (
+            capo_compute_optimizer_automation.types.step_status.serialize_cbor(
+                value["step_status"]
+            )
+        )
+    if "resource_id" in value:
+        out["resourceId"] = value["resource_id"]
+    if "start_timestamp" in value:
+        import capo_compute_optimizer_automation.types._prelude.timestamp
+
+        out["startTimestamp"] = (
+            capo_compute_optimizer_automation.types._prelude.timestamp.serialize_cbor(
+                value["start_timestamp"]
+            )
+        )
+    if "completed_timestamp" in value:
+        import capo_compute_optimizer_automation.types._prelude.timestamp
+
+        out["completedTimestamp"] = (
+            capo_compute_optimizer_automation.types._prelude.timestamp.serialize_cbor(
+                value["completed_timestamp"]
+            )
+        )
+    if "estimated_monthly_savings" in value:
+        import capo_compute_optimizer_automation.types.estimated_monthly_savings
+
+        out["estimatedMonthlySavings"] = (
+            capo_compute_optimizer_automation.types.estimated_monthly_savings.serialize_cbor(
+                value["estimated_monthly_savings"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AutomationEventStep:
+    out: AutomationEventStep = {}  # type: ignore[typeddict-item]
+    if data.get("eventId") is not None:
+        out["event_id"] = data["eventId"]
+    if data.get("stepId") is not None:
+        out["step_id"] = data["stepId"]
+    if data.get("stepType") is not None:
+        import capo_compute_optimizer_automation.types.step_type
+
+        out["step_type"] = (
+            capo_compute_optimizer_automation.types.step_type.deserialize_cbor(
+                data["stepType"]
+            )
+        )
+    if data.get("stepStatus") is not None:
+        import capo_compute_optimizer_automation.types.step_status
+
+        out["step_status"] = (
+            capo_compute_optimizer_automation.types.step_status.deserialize_cbor(
+                data["stepStatus"]
+            )
+        )
+    if data.get("resourceId") is not None:
+        out["resource_id"] = data["resourceId"]
+    if data.get("startTimestamp") is not None:
+        import capo_compute_optimizer_automation.types._prelude.timestamp
+
+        out["start_timestamp"] = (
+            capo_compute_optimizer_automation.types._prelude.timestamp.deserialize_cbor(
+                data["startTimestamp"]
+            )
+        )
+    if data.get("completedTimestamp") is not None:
+        import capo_compute_optimizer_automation.types._prelude.timestamp
+
+        out["completed_timestamp"] = (
+            capo_compute_optimizer_automation.types._prelude.timestamp.deserialize_cbor(
+                data["completedTimestamp"]
+            )
+        )
+    if data.get("estimatedMonthlySavings") is not None:
+        import capo_compute_optimizer_automation.types.estimated_monthly_savings
+
+        out["estimated_monthly_savings"] = (
+            capo_compute_optimizer_automation.types.estimated_monthly_savings.deserialize_cbor(
+                data["estimatedMonthlySavings"]
+            )
+        )
+    return out

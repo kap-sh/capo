@@ -45,3 +45,30 @@ def deserialize_aws_json_1_1(data: dict) -> ListAttacksResponse:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListAttacksResponse) -> dict:
+    out: dict = {}
+    if "attack_summaries" in value:
+        import capo_shield.types.attack_summaries
+
+        out["AttackSummaries"] = capo_shield.types.attack_summaries.serialize_cbor(
+            value["attack_summaries"]
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListAttacksResponse:
+    out: ListAttacksResponse = {}  # type: ignore[typeddict-item]
+    if data.get("AttackSummaries") is not None:
+        import capo_shield.types.attack_summaries
+
+        out["attack_summaries"] = capo_shield.types.attack_summaries.deserialize_cbor(
+            data["AttackSummaries"]
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

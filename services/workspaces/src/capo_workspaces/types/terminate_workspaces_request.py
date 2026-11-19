@@ -41,3 +41,31 @@ def deserialize_aws_json_1_1(data: dict) -> TerminateWorkspacesRequest:
     else:
         out["terminate_workspace_requests"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TerminateWorkspacesRequest) -> dict:
+    out: dict = {}
+    import capo_workspaces.types.terminate_workspace_requests
+
+    out["TerminateWorkspaceRequests"] = (
+        capo_workspaces.types.terminate_workspace_requests.serialize_cbor(
+            value["terminate_workspace_requests"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TerminateWorkspacesRequest:
+    out: TerminateWorkspacesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("TerminateWorkspaceRequests") is not None:
+        import capo_workspaces.types.terminate_workspace_requests
+
+        out["terminate_workspace_requests"] = (
+            capo_workspaces.types.terminate_workspace_requests.deserialize_cbor(
+                data["TerminateWorkspaceRequests"]
+            )
+        )
+    else:
+        out["terminate_workspace_requests"] = []
+    return out

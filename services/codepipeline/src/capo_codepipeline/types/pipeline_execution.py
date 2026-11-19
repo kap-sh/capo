@@ -193,3 +193,130 @@ def deserialize_aws_json_1_1(data: dict) -> PipelineExecution:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PipelineExecution) -> dict:
+    out: dict = {}
+    if "pipeline_name" in value:
+        out["pipelineName"] = value["pipeline_name"]
+    if "pipeline_version" in value:
+        out["pipelineVersion"] = value["pipeline_version"]
+    if "pipeline_execution_id" in value:
+        out["pipelineExecutionId"] = value["pipeline_execution_id"]
+    if "status" in value:
+        import capo_codepipeline.types.pipeline_execution_status
+
+        out["status"] = (
+            capo_codepipeline.types.pipeline_execution_status.serialize_cbor(
+                value["status"]
+            )
+        )
+    if "status_summary" in value:
+        out["statusSummary"] = value["status_summary"]
+    if "artifact_revisions" in value:
+        import capo_codepipeline.types.artifact_revision_list
+
+        out["artifactRevisions"] = (
+            capo_codepipeline.types.artifact_revision_list.serialize_cbor(
+                value["artifact_revisions"]
+            )
+        )
+    if "variables" in value:
+        import capo_codepipeline.types.resolved_pipeline_variable_list
+
+        out["variables"] = (
+            capo_codepipeline.types.resolved_pipeline_variable_list.serialize_cbor(
+                value["variables"]
+            )
+        )
+    if "trigger" in value:
+        import capo_codepipeline.types.execution_trigger
+
+        out["trigger"] = capo_codepipeline.types.execution_trigger.serialize_cbor(
+            value["trigger"]
+        )
+    if "execution_mode" in value:
+        import capo_codepipeline.types.execution_mode
+
+        out["executionMode"] = capo_codepipeline.types.execution_mode.serialize_cbor(
+            value["execution_mode"]
+        )
+    if "execution_type" in value:
+        import capo_codepipeline.types.execution_type
+
+        out["executionType"] = capo_codepipeline.types.execution_type.serialize_cbor(
+            value["execution_type"]
+        )
+    if "rollback_metadata" in value:
+        import capo_codepipeline.types.pipeline_rollback_metadata
+
+        out["rollbackMetadata"] = (
+            capo_codepipeline.types.pipeline_rollback_metadata.serialize_cbor(
+                value["rollback_metadata"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PipelineExecution:
+    out: PipelineExecution = {}  # type: ignore[typeddict-item]
+    if data.get("pipelineName") is not None:
+        out["pipeline_name"] = data["pipelineName"]
+    if data.get("pipelineVersion") is not None:
+        out["pipeline_version"] = data["pipelineVersion"]
+    if data.get("pipelineExecutionId") is not None:
+        out["pipeline_execution_id"] = data["pipelineExecutionId"]
+    if data.get("status") is not None:
+        import capo_codepipeline.types.pipeline_execution_status
+
+        out["status"] = (
+            capo_codepipeline.types.pipeline_execution_status.deserialize_cbor(
+                data["status"]
+            )
+        )
+    if data.get("statusSummary") is not None:
+        out["status_summary"] = data["statusSummary"]
+    if data.get("artifactRevisions") is not None:
+        import capo_codepipeline.types.artifact_revision_list
+
+        out["artifact_revisions"] = (
+            capo_codepipeline.types.artifact_revision_list.deserialize_cbor(
+                data["artifactRevisions"]
+            )
+        )
+    if data.get("variables") is not None:
+        import capo_codepipeline.types.resolved_pipeline_variable_list
+
+        out["variables"] = (
+            capo_codepipeline.types.resolved_pipeline_variable_list.deserialize_cbor(
+                data["variables"]
+            )
+        )
+    if data.get("trigger") is not None:
+        import capo_codepipeline.types.execution_trigger
+
+        out["trigger"] = capo_codepipeline.types.execution_trigger.deserialize_cbor(
+            data["trigger"]
+        )
+    if data.get("executionMode") is not None:
+        import capo_codepipeline.types.execution_mode
+
+        out["execution_mode"] = capo_codepipeline.types.execution_mode.deserialize_cbor(
+            data["executionMode"]
+        )
+    if data.get("executionType") is not None:
+        import capo_codepipeline.types.execution_type
+
+        out["execution_type"] = capo_codepipeline.types.execution_type.deserialize_cbor(
+            data["executionType"]
+        )
+    if data.get("rollbackMetadata") is not None:
+        import capo_codepipeline.types.pipeline_rollback_metadata
+
+        out["rollback_metadata"] = (
+            capo_codepipeline.types.pipeline_rollback_metadata.deserialize_cbor(
+                data["rollbackMetadata"]
+            )
+        )
+    return out

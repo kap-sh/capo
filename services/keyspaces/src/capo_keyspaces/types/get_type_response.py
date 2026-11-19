@@ -136,3 +136,94 @@ def deserialize_aws_json_1_0(data: dict) -> GetTypeResponse:
     else:
         out["keyspace_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetTypeResponse) -> dict:
+    out: dict = {}
+    out["keyspaceName"] = value["keyspace_name"]
+    out["typeName"] = value["type_name"]
+    if "field_definitions" in value:
+        import capo_keyspaces.types.field_list
+
+        out["fieldDefinitions"] = capo_keyspaces.types.field_list.serialize_cbor(
+            value["field_definitions"]
+        )
+    if "last_modified_timestamp" in value:
+        import capo_keyspaces.types.timestamp
+
+        out["lastModifiedTimestamp"] = capo_keyspaces.types.timestamp.serialize_cbor(
+            value["last_modified_timestamp"]
+        )
+    if "status" in value:
+        out["status"] = value["status"]
+    if "direct_referring_tables" in value:
+        import capo_keyspaces.types.table_name_list
+
+        out["directReferringTables"] = (
+            capo_keyspaces.types.table_name_list.serialize_cbor(
+                value["direct_referring_tables"]
+            )
+        )
+    if "direct_parent_types" in value:
+        import capo_keyspaces.types.type_name_list
+
+        out["directParentTypes"] = capo_keyspaces.types.type_name_list.serialize_cbor(
+            value["direct_parent_types"]
+        )
+    out["maxNestingDepth"] = value.get("max_nesting_depth", 0)
+    out["keyspaceArn"] = value["keyspace_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetTypeResponse:
+    out: GetTypeResponse = {}  # type: ignore[typeddict-item]
+    if data.get("keyspaceName") is not None:
+        out["keyspace_name"] = data["keyspaceName"]
+    else:
+        out["keyspace_name"] = ""
+    if data.get("typeName") is not None:
+        out["type_name"] = data["typeName"]
+    else:
+        out["type_name"] = ""
+    if data.get("fieldDefinitions") is not None:
+        import capo_keyspaces.types.field_list
+
+        out["field_definitions"] = capo_keyspaces.types.field_list.deserialize_cbor(
+            data["fieldDefinitions"]
+        )
+    if data.get("lastModifiedTimestamp") is not None:
+        import capo_keyspaces.types.timestamp
+
+        out["last_modified_timestamp"] = (
+            capo_keyspaces.types.timestamp.deserialize_cbor(
+                data["lastModifiedTimestamp"]
+            )
+        )
+    if data.get("status") is not None:
+        out["status"] = data["status"]
+    if data.get("directReferringTables") is not None:
+        import capo_keyspaces.types.table_name_list
+
+        out["direct_referring_tables"] = (
+            capo_keyspaces.types.table_name_list.deserialize_cbor(
+                data["directReferringTables"]
+            )
+        )
+    if data.get("directParentTypes") is not None:
+        import capo_keyspaces.types.type_name_list
+
+        out["direct_parent_types"] = (
+            capo_keyspaces.types.type_name_list.deserialize_cbor(
+                data["directParentTypes"]
+            )
+        )
+    if data.get("maxNestingDepth") is not None:
+        out["max_nesting_depth"] = data["maxNestingDepth"]
+    else:
+        out["max_nesting_depth"] = 0
+    if data.get("keyspaceArn") is not None:
+        out["keyspace_arn"] = data["keyspaceArn"]
+    else:
+        out["keyspace_arn"] = ""
+    return out

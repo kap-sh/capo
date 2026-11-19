@@ -51,3 +51,34 @@ def deserialize_aws_json_1_1(
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListThirdPartyFirewallFirewallPoliciesResponse) -> dict:
+    out: dict = {}
+    if "third_party_firewall_firewall_policies" in value:
+        import capo_fms.types.third_party_firewall_firewall_policies
+
+        out["ThirdPartyFirewallFirewallPolicies"] = (
+            capo_fms.types.third_party_firewall_firewall_policies.serialize_cbor(
+                value["third_party_firewall_firewall_policies"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListThirdPartyFirewallFirewallPoliciesResponse:
+    out: ListThirdPartyFirewallFirewallPoliciesResponse = {}  # type: ignore[typeddict-item]
+    if data.get("ThirdPartyFirewallFirewallPolicies") is not None:
+        import capo_fms.types.third_party_firewall_firewall_policies
+
+        out["third_party_firewall_firewall_policies"] = (
+            capo_fms.types.third_party_firewall_firewall_policies.deserialize_cbor(
+                data["ThirdPartyFirewallFirewallPolicies"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

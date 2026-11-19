@@ -36,3 +36,12 @@ def serialize_aws_json_1_1(value: Tier) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> Tier:
     return cast(Tier, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Tier) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> Tier:
+    return cast(Tier, data)

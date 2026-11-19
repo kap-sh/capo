@@ -29,3 +29,24 @@ def deserialize_aws_json_1_1(data: list) -> BundleList:
             capo_workspaces.types.workspace_bundle.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BundleList) -> list:
+    import capo_workspaces.types.workspace_bundle
+
+    out: list = []
+    for item in value:
+        out.append(capo_workspaces.types.workspace_bundle.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> BundleList:
+    import capo_workspaces.types.workspace_bundle
+
+    out: BundleList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_workspaces.types.workspace_bundle.deserialize_cbor(item))
+    return out

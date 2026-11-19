@@ -37,3 +37,28 @@ def deserialize_aws_json_1_1(data: list) -> InternetFallbackProtocolList:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InternetFallbackProtocolList) -> list:
+    import capo_workspaces.types.internet_fallback_protocol
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_workspaces.types.internet_fallback_protocol.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> InternetFallbackProtocolList:
+    import capo_workspaces.types.internet_fallback_protocol
+
+    out: InternetFallbackProtocolList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_workspaces.types.internet_fallback_protocol.deserialize_cbor(item)
+        )
+    return out

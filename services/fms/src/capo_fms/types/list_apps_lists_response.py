@@ -41,3 +41,30 @@ def deserialize_aws_json_1_1(data: dict) -> ListAppsListsResponse:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListAppsListsResponse) -> dict:
+    out: dict = {}
+    if "apps_lists" in value:
+        import capo_fms.types.apps_lists_data
+
+        out["AppsLists"] = capo_fms.types.apps_lists_data.serialize_cbor(
+            value["apps_lists"]
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListAppsListsResponse:
+    out: ListAppsListsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("AppsLists") is not None:
+        import capo_fms.types.apps_lists_data
+
+        out["apps_lists"] = capo_fms.types.apps_lists_data.deserialize_cbor(
+            data["AppsLists"]
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

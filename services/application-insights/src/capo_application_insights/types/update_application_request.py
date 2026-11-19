@@ -92,3 +92,47 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateApplicationRequest:
     if data.get("AttachMissingPermission") is not None:
         out["attach_missing_permission"] = data["AttachMissingPermission"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateApplicationRequest) -> dict:
+    out: dict = {}
+    out["ResourceGroupName"] = value["resource_group_name"]
+    if "ops_center_enabled" in value:
+        out["OpsCenterEnabled"] = value["ops_center_enabled"]
+    if "cwe_monitor_enabled" in value:
+        out["CWEMonitorEnabled"] = value["cwe_monitor_enabled"]
+    if "ops_item_sns_topic_arn" in value:
+        out["OpsItemSNSTopicArn"] = value["ops_item_sns_topic_arn"]
+    if "sns_notification_arn" in value:
+        out["SNSNotificationArn"] = value["sns_notification_arn"]
+    if "remove_sns_topic" in value:
+        out["RemoveSNSTopic"] = value["remove_sns_topic"]
+    if "auto_config_enabled" in value:
+        out["AutoConfigEnabled"] = value["auto_config_enabled"]
+    if "attach_missing_permission" in value:
+        out["AttachMissingPermission"] = value["attach_missing_permission"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateApplicationRequest:
+    out: UpdateApplicationRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceGroupName") is not None:
+        out["resource_group_name"] = data["ResourceGroupName"]
+    else:
+        out["resource_group_name"] = ""
+    if data.get("OpsCenterEnabled") is not None:
+        out["ops_center_enabled"] = data["OpsCenterEnabled"]
+    if data.get("CWEMonitorEnabled") is not None:
+        out["cwe_monitor_enabled"] = data["CWEMonitorEnabled"]
+    if data.get("OpsItemSNSTopicArn") is not None:
+        out["ops_item_sns_topic_arn"] = data["OpsItemSNSTopicArn"]
+    if data.get("SNSNotificationArn") is not None:
+        out["sns_notification_arn"] = data["SNSNotificationArn"]
+    if data.get("RemoveSNSTopic") is not None:
+        out["remove_sns_topic"] = data["RemoveSNSTopic"]
+    if data.get("AutoConfigEnabled") is not None:
+        out["auto_config_enabled"] = data["AutoConfigEnabled"]
+    if data.get("AttachMissingPermission") is not None:
+        out["attach_missing_permission"] = data["AttachMissingPermission"]
+    return out

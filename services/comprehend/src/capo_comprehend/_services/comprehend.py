@@ -279,6 +279,7 @@ class ComprehendClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[Interceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_1", "rpcv2Cbor"]
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -295,6 +296,7 @@ class ComprehendClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -310,6 +312,7 @@ class ComprehendClient:
         operation_interceptors: Iterable[Interceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_1", "rpcv2Cbor"] = "awsJson1_1",
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -346,6 +349,7 @@ class ComprehendClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -379,6 +383,9 @@ class ComprehendClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_1")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -416,13 +423,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.batch_detect_dominant_language_response.BatchDetectDominantLanguageResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.batch_detect_dominant_language
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.batch_detect_dominant_language
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.batch_detect_dominant_language.batch_detect_dominant_language(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.batch_detect_dominant_language.batch_detect_dominant_language(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.batch_detect_dominant_language
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.batch_detect_dominant_language.batch_detect_dominant_language(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -477,13 +495,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.batch_detect_entities_response.BatchDetectEntitiesResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.batch_detect_entities
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.batch_detect_entities
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.batch_detect_entities.batch_detect_entities(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.batch_detect_entities.batch_detect_entities(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.batch_detect_entities
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.batch_detect_entities.batch_detect_entities(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -539,13 +568,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.batch_detect_key_phrases_response.BatchDetectKeyPhrasesResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.batch_detect_key_phrases
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.batch_detect_key_phrases
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.batch_detect_key_phrases.batch_detect_key_phrases(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.batch_detect_key_phrases.batch_detect_key_phrases(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.batch_detect_key_phrases
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.batch_detect_key_phrases.batch_detect_key_phrases(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -603,13 +643,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.batch_detect_sentiment_response.BatchDetectSentimentResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.batch_detect_sentiment
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.batch_detect_sentiment
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.batch_detect_sentiment.batch_detect_sentiment(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.batch_detect_sentiment.batch_detect_sentiment(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.batch_detect_sentiment
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.batch_detect_sentiment.batch_detect_sentiment(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -667,13 +718,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.batch_detect_syntax_response.BatchDetectSyntaxResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.batch_detect_syntax
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.batch_detect_syntax
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.batch_detect_syntax.batch_detect_syntax(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.batch_detect_syntax.batch_detect_syntax(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.batch_detect_syntax
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.batch_detect_syntax.batch_detect_syntax(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -729,13 +791,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.batch_detect_targeted_sentiment_response.BatchDetectTargetedSentimentResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.batch_detect_targeted_sentiment
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.batch_detect_targeted_sentiment
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.batch_detect_targeted_sentiment.batch_detect_targeted_sentiment(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.batch_detect_targeted_sentiment.batch_detect_targeted_sentiment(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.batch_detect_targeted_sentiment
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.batch_detect_targeted_sentiment.batch_detect_targeted_sentiment(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -802,13 +875,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.classify_document_response.ClassifyDocumentResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.classify_document
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.classify_document
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.classify_document.classify_document(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.classify_document.classify_document(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.classify_document
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.classify_document.classify_document(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -868,13 +952,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.contains_pii_entities_response.ContainsPiiEntitiesResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.contains_pii_entities
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.contains_pii_entities
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.contains_pii_entities.contains_pii_entities(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.contains_pii_entities.contains_pii_entities(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.contains_pii_entities
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.contains_pii_entities.contains_pii_entities(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -934,13 +1029,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.create_dataset_response.CreateDatasetResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.create_dataset
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.create_dataset
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.create_dataset.create_dataset(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.create_dataset.create_dataset(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.create_dataset
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.create_dataset.create_dataset(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1027,13 +1133,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.create_document_classifier_response.CreateDocumentClassifierResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.create_document_classifier
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.create_document_classifier
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.create_document_classifier.create_document_classifier(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.create_document_classifier.create_document_classifier(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.create_document_classifier
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.create_document_classifier.create_document_classifier(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1121,13 +1238,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.create_endpoint_response.CreateEndpointResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.create_endpoint
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.create_endpoint
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.create_endpoint.create_endpoint(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.create_endpoint.create_endpoint(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.create_endpoint
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.create_endpoint.create_endpoint(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1207,13 +1335,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.create_entity_recognizer_response.CreateEntityRecognizerResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.create_entity_recognizer
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.create_entity_recognizer
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.create_entity_recognizer.create_entity_recognizer(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.create_entity_recognizer.create_entity_recognizer(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.create_entity_recognizer
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.create_entity_recognizer.create_entity_recognizer(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1301,13 +1440,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.create_flywheel_response.CreateFlywheelResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.create_flywheel
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.create_flywheel
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.create_flywheel.create_flywheel(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.create_flywheel.create_flywheel(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.create_flywheel
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.create_flywheel.create_flywheel(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1366,13 +1516,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.delete_document_classifier_response.DeleteDocumentClassifierResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.delete_document_classifier
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.delete_document_classifier
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.delete_document_classifier.delete_document_classifier(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.delete_document_classifier.delete_document_classifier(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.delete_document_classifier
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.delete_document_classifier.delete_document_classifier(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1415,13 +1576,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.delete_endpoint_response.DeleteEndpointResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.delete_endpoint
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.delete_endpoint
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.delete_endpoint.delete_endpoint(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.delete_endpoint.delete_endpoint(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.delete_endpoint
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.delete_endpoint.delete_endpoint(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1465,13 +1637,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.delete_entity_recognizer_response.DeleteEntityRecognizerResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.delete_entity_recognizer
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.delete_entity_recognizer
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.delete_entity_recognizer.delete_entity_recognizer(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.delete_entity_recognizer.delete_entity_recognizer(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.delete_entity_recognizer
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.delete_entity_recognizer.delete_entity_recognizer(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1515,13 +1698,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.delete_flywheel_response.DeleteFlywheelResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.delete_flywheel
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.delete_flywheel
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.delete_flywheel.delete_flywheel(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.delete_flywheel.delete_flywheel(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.delete_flywheel
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.delete_flywheel.delete_flywheel(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1566,13 +1760,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.delete_resource_policy_response.DeleteResourcePolicyResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.delete_resource_policy
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.delete_resource_policy
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.delete_resource_policy.delete_resource_policy(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.delete_resource_policy.delete_resource_policy(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.delete_resource_policy
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.delete_resource_policy.delete_resource_policy(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1616,13 +1821,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.describe_dataset_response.DescribeDatasetResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.describe_dataset
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.describe_dataset
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.describe_dataset.describe_dataset(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.describe_dataset.describe_dataset(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.describe_dataset
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.describe_dataset.describe_dataset(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1664,13 +1880,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.describe_document_classification_job_response.DescribeDocumentClassificationJobResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.describe_document_classification_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.describe_document_classification_job
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.describe_document_classification_job.describe_document_classification_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.describe_document_classification_job.describe_document_classification_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.describe_document_classification_job
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.describe_document_classification_job.describe_document_classification_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1712,13 +1939,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.describe_document_classifier_response.DescribeDocumentClassifierResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.describe_document_classifier
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.describe_document_classifier
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.describe_document_classifier.describe_document_classifier(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.describe_document_classifier.describe_document_classifier(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.describe_document_classifier
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.describe_document_classifier.describe_document_classifier(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -1772,13 +2010,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.describe_dominant_language_detection_job_response.DescribeDominantLanguageDetectionJobResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.describe_dominant_language_detection_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.describe_dominant_language_detection_job
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.describe_dominant_language_detection_job.describe_dominant_language_detection_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.describe_dominant_language_detection_job.describe_dominant_language_detection_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.describe_dominant_language_detection_job
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.describe_dominant_language_detection_job.describe_dominant_language_detection_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1820,13 +2069,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.describe_endpoint_response.DescribeEndpointResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.describe_endpoint
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.describe_endpoint
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.describe_endpoint.describe_endpoint(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.describe_endpoint.describe_endpoint(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.describe_endpoint
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.describe_endpoint.describe_endpoint(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1868,13 +2128,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.describe_entities_detection_job_response.DescribeEntitiesDetectionJobResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.describe_entities_detection_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.describe_entities_detection_job
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.describe_entities_detection_job.describe_entities_detection_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.describe_entities_detection_job.describe_entities_detection_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.describe_entities_detection_job
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.describe_entities_detection_job.describe_entities_detection_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1916,13 +2187,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.describe_entity_recognizer_response.DescribeEntityRecognizerResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.describe_entity_recognizer
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.describe_entity_recognizer
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.describe_entity_recognizer.describe_entity_recognizer(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.describe_entity_recognizer.describe_entity_recognizer(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.describe_entity_recognizer
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.describe_entity_recognizer.describe_entity_recognizer(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -1974,13 +2256,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.describe_events_detection_job_response.DescribeEventsDetectionJobResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.describe_events_detection_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.describe_events_detection_job
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.describe_events_detection_job.describe_events_detection_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.describe_events_detection_job.describe_events_detection_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.describe_events_detection_job
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.describe_events_detection_job.describe_events_detection_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2022,13 +2315,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.describe_flywheel_response.DescribeFlywheelResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.describe_flywheel
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.describe_flywheel
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.describe_flywheel.describe_flywheel(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.describe_flywheel.describe_flywheel(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.describe_flywheel
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.describe_flywheel.describe_flywheel(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2072,13 +2376,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.describe_flywheel_iteration_response.DescribeFlywheelIterationResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.describe_flywheel_iteration
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.describe_flywheel_iteration
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.describe_flywheel_iteration.describe_flywheel_iteration(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.describe_flywheel_iteration.describe_flywheel_iteration(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.describe_flywheel_iteration
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.describe_flywheel_iteration.describe_flywheel_iteration(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2121,13 +2436,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.describe_key_phrases_detection_job_response.DescribeKeyPhrasesDetectionJobResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.describe_key_phrases_detection_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.describe_key_phrases_detection_job
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.describe_key_phrases_detection_job.describe_key_phrases_detection_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.describe_key_phrases_detection_job.describe_key_phrases_detection_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.describe_key_phrases_detection_job
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.describe_key_phrases_detection_job.describe_key_phrases_detection_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2169,13 +2495,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.describe_pii_entities_detection_job_response.DescribePiiEntitiesDetectionJobResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.describe_pii_entities_detection_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.describe_pii_entities_detection_job
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.describe_pii_entities_detection_job.describe_pii_entities_detection_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.describe_pii_entities_detection_job.describe_pii_entities_detection_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.describe_pii_entities_detection_job
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.describe_pii_entities_detection_job.describe_pii_entities_detection_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2216,13 +2553,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.describe_resource_policy_response.DescribeResourcePolicyResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.describe_resource_policy
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.describe_resource_policy
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.describe_resource_policy.describe_resource_policy(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.describe_resource_policy.describe_resource_policy(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.describe_resource_policy
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.describe_resource_policy.describe_resource_policy(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2264,13 +2612,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.describe_sentiment_detection_job_response.DescribeSentimentDetectionJobResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.describe_sentiment_detection_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.describe_sentiment_detection_job
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.describe_sentiment_detection_job.describe_sentiment_detection_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.describe_sentiment_detection_job.describe_sentiment_detection_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.describe_sentiment_detection_job
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.describe_sentiment_detection_job.describe_sentiment_detection_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2312,13 +2671,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.describe_targeted_sentiment_detection_job_response.DescribeTargetedSentimentDetectionJobResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.describe_targeted_sentiment_detection_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.describe_targeted_sentiment_detection_job
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.describe_targeted_sentiment_detection_job.describe_targeted_sentiment_detection_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.describe_targeted_sentiment_detection_job.describe_targeted_sentiment_detection_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.describe_targeted_sentiment_detection_job
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.describe_targeted_sentiment_detection_job.describe_targeted_sentiment_detection_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2360,13 +2730,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.describe_topics_detection_job_response.DescribeTopicsDetectionJobResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.describe_topics_detection_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.describe_topics_detection_job
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.describe_topics_detection_job.describe_topics_detection_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.describe_topics_detection_job.describe_topics_detection_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.describe_topics_detection_job
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.describe_topics_detection_job.describe_topics_detection_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2407,13 +2788,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.detect_dominant_language_response.DetectDominantLanguageResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.detect_dominant_language
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.detect_dominant_language
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.detect_dominant_language.detect_dominant_language(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.detect_dominant_language.detect_dominant_language(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.detect_dominant_language
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.detect_dominant_language.detect_dominant_language(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -2486,13 +2878,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.detect_entities_response.DetectEntitiesResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.detect_entities
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.detect_entities
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.detect_entities.detect_entities(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.detect_entities.detect_entities(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.detect_entities
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.detect_entities.detect_entities(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -2554,13 +2957,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.detect_key_phrases_response.DetectKeyPhrasesResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.detect_key_phrases
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.detect_key_phrases
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.detect_key_phrases.detect_key_phrases(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.detect_key_phrases.detect_key_phrases(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.detect_key_phrases
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.detect_key_phrases.detect_key_phrases(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -2615,13 +3029,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.detect_pii_entities_response.DetectPiiEntitiesResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.detect_pii_entities
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.detect_pii_entities
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.detect_pii_entities.detect_pii_entities(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.detect_pii_entities.detect_pii_entities(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.detect_pii_entities
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.detect_pii_entities.detect_pii_entities(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2666,13 +3091,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.detect_sentiment_response.DetectSentimentResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.detect_sentiment
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.detect_sentiment
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.detect_sentiment.detect_sentiment(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.detect_sentiment.detect_sentiment(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.detect_sentiment
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.detect_sentiment.detect_sentiment(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -2727,13 +3163,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.detect_syntax_response.DetectSyntaxResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.detect_syntax
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.detect_syntax
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.detect_syntax.detect_syntax(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.detect_syntax.detect_syntax(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.detect_syntax
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.detect_syntax.detect_syntax(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -2786,13 +3233,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.detect_targeted_sentiment_response.DetectTargetedSentimentResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.detect_targeted_sentiment
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.detect_targeted_sentiment
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.detect_targeted_sentiment.detect_targeted_sentiment(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.detect_targeted_sentiment.detect_targeted_sentiment(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.detect_targeted_sentiment
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.detect_targeted_sentiment.detect_targeted_sentiment(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -2849,13 +3307,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.detect_toxic_content_response.DetectToxicContentResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.detect_toxic_content
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.detect_toxic_content
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.detect_toxic_content.detect_toxic_content(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.detect_toxic_content.detect_toxic_content(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.detect_toxic_content
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.detect_toxic_content.detect_toxic_content(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -2927,13 +3396,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.import_model_response.ImportModelResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.import_model
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.import_model
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.import_model.import_model(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.import_model.import_model(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.import_model
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.import_model.import_model(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2996,13 +3476,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.list_datasets_response.ListDatasetsResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.list_datasets
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_datasets
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.list_datasets.list_datasets(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_datasets.list_datasets(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_datasets
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_datasets.list_datasets(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3085,13 +3576,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.list_document_classification_jobs_response.ListDocumentClassificationJobsResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.list_document_classification_jobs
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_document_classification_jobs
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.list_document_classification_jobs.list_document_classification_jobs(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_document_classification_jobs.list_document_classification_jobs(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_document_classification_jobs
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_document_classification_jobs.list_document_classification_jobs(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3170,13 +3672,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.list_document_classifiers_response.ListDocumentClassifiersResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.list_document_classifiers
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_document_classifiers
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.list_document_classifiers.list_document_classifiers(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_document_classifiers.list_document_classifiers(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_document_classifiers
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_document_classifiers.list_document_classifiers(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -3260,13 +3773,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.list_document_classifier_summaries_response.ListDocumentClassifierSummariesResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.list_document_classifier_summaries
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_document_classifier_summaries
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.list_document_classifier_summaries.list_document_classifier_summaries(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_document_classifier_summaries.list_document_classifier_summaries(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_document_classifier_summaries
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_document_classifier_summaries.list_document_classifier_summaries(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3339,13 +3863,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.list_dominant_language_detection_jobs_response.ListDominantLanguageDetectionJobsResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.list_dominant_language_detection_jobs
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_dominant_language_detection_jobs
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.list_dominant_language_detection_jobs.list_dominant_language_detection_jobs(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_dominant_language_detection_jobs.list_dominant_language_detection_jobs(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_dominant_language_detection_jobs
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_dominant_language_detection_jobs.list_dominant_language_detection_jobs(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3421,13 +3956,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.list_endpoints_response.ListEndpointsResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.list_endpoints
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_endpoints
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.list_endpoints.list_endpoints(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_endpoints.list_endpoints(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_endpoints
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_endpoints.list_endpoints(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3506,13 +4052,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.list_entities_detection_jobs_response.ListEntitiesDetectionJobsResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.list_entities_detection_jobs
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_entities_detection_jobs
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.list_entities_detection_jobs.list_entities_detection_jobs(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_entities_detection_jobs.list_entities_detection_jobs(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_entities_detection_jobs
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_entities_detection_jobs.list_entities_detection_jobs(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3591,13 +4148,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.list_entity_recognizers_response.ListEntityRecognizersResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.list_entity_recognizers
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_entity_recognizers
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.list_entity_recognizers.list_entity_recognizers(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_entity_recognizers.list_entity_recognizers(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_entity_recognizers
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_entity_recognizers.list_entity_recognizers(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -3683,13 +4251,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.list_entity_recognizer_summaries_response.ListEntityRecognizerSummariesResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.list_entity_recognizer_summaries
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_entity_recognizer_summaries
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.list_entity_recognizer_summaries.list_entity_recognizer_summaries(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_entity_recognizer_summaries.list_entity_recognizer_summaries(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_entity_recognizer_summaries
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_entity_recognizer_summaries.list_entity_recognizer_summaries(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3762,13 +4341,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.list_events_detection_jobs_response.ListEventsDetectionJobsResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.list_events_detection_jobs
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_events_detection_jobs
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.list_events_detection_jobs.list_events_detection_jobs(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_events_detection_jobs.list_events_detection_jobs(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_events_detection_jobs
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_events_detection_jobs.list_events_detection_jobs(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3850,13 +4440,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.list_flywheel_iteration_history_response.ListFlywheelIterationHistoryResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.list_flywheel_iteration_history
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_flywheel_iteration_history
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.list_flywheel_iteration_history.list_flywheel_iteration_history(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_flywheel_iteration_history.list_flywheel_iteration_history(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_flywheel_iteration_history
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_flywheel_iteration_history.list_flywheel_iteration_history(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3937,13 +4538,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.list_flywheels_response.ListFlywheelsResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.list_flywheels
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_flywheels
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.list_flywheels.list_flywheels(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_flywheels.list_flywheels(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_flywheels
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_flywheels.list_flywheels(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4022,13 +4634,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.list_key_phrases_detection_jobs_response.ListKeyPhrasesDetectionJobsResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.list_key_phrases_detection_jobs
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_key_phrases_detection_jobs
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.list_key_phrases_detection_jobs.list_key_phrases_detection_jobs(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_key_phrases_detection_jobs.list_key_phrases_detection_jobs(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_key_phrases_detection_jobs
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_key_phrases_detection_jobs.list_key_phrases_detection_jobs(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4107,13 +4730,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.list_pii_entities_detection_jobs_response.ListPiiEntitiesDetectionJobsResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.list_pii_entities_detection_jobs
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_pii_entities_detection_jobs
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.list_pii_entities_detection_jobs.list_pii_entities_detection_jobs(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_pii_entities_detection_jobs.list_pii_entities_detection_jobs(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_pii_entities_detection_jobs
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_pii_entities_detection_jobs.list_pii_entities_detection_jobs(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4196,13 +4830,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.list_sentiment_detection_jobs_response.ListSentimentDetectionJobsResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.list_sentiment_detection_jobs
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_sentiment_detection_jobs
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.list_sentiment_detection_jobs.list_sentiment_detection_jobs(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_sentiment_detection_jobs.list_sentiment_detection_jobs(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_sentiment_detection_jobs
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_sentiment_detection_jobs.list_sentiment_detection_jobs(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4272,13 +4917,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.list_tags_for_resource_response.ListTagsForResourceResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.list_tags_for_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_tags_for_resource
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.list_tags_for_resource.list_tags_for_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_tags_for_resource
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4328,13 +4984,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.list_targeted_sentiment_detection_jobs_response.ListTargetedSentimentDetectionJobsResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.list_targeted_sentiment_detection_jobs
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_targeted_sentiment_detection_jobs
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.list_targeted_sentiment_detection_jobs.list_targeted_sentiment_detection_jobs(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_targeted_sentiment_detection_jobs.list_targeted_sentiment_detection_jobs(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_targeted_sentiment_detection_jobs
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_targeted_sentiment_detection_jobs.list_targeted_sentiment_detection_jobs(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4413,13 +5080,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.list_topics_detection_jobs_response.ListTopicsDetectionJobsResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.list_topics_detection_jobs
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_topics_detection_jobs
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.list_topics_detection_jobs.list_topics_detection_jobs(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.list_topics_detection_jobs.list_topics_detection_jobs(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_topics_detection_jobs
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.list_topics_detection_jobs.list_topics_detection_jobs(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4495,13 +5173,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.put_resource_policy_response.PutResourcePolicyResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.put_resource_policy
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.put_resource_policy
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.put_resource_policy.put_resource_policy(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.put_resource_policy.put_resource_policy(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.put_resource_policy
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.put_resource_policy.put_resource_policy(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4574,13 +5263,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.start_document_classification_job_response.StartDocumentClassificationJobResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.start_document_classification_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.start_document_classification_job
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.start_document_classification_job.start_document_classification_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.start_document_classification_job.start_document_classification_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.start_document_classification_job
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.start_document_classification_job.start_document_classification_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4657,13 +5357,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.start_dominant_language_detection_job_response.StartDominantLanguageDetectionJobResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.start_dominant_language_detection_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.start_dominant_language_detection_job
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.start_dominant_language_detection_job.start_dominant_language_detection_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.start_dominant_language_detection_job.start_dominant_language_detection_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.start_dominant_language_detection_job
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.start_dominant_language_detection_job.start_dominant_language_detection_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4748,13 +5459,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.start_entities_detection_job_response.StartEntitiesDetectionJobResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.start_entities_detection_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.start_entities_detection_job
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.start_entities_detection_job.start_entities_detection_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.start_entities_detection_job.start_entities_detection_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.start_entities_detection_job
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.start_entities_detection_job.start_entities_detection_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4832,13 +5554,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.start_events_detection_job_response.StartEventsDetectionJobResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.start_events_detection_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.start_events_detection_job
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.start_events_detection_job.start_events_detection_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.start_events_detection_job.start_events_detection_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.start_events_detection_job
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.start_events_detection_job.start_events_detection_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4896,13 +5629,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.start_flywheel_iteration_response.StartFlywheelIterationResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.start_flywheel_iteration
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.start_flywheel_iteration
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.start_flywheel_iteration.start_flywheel_iteration(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.start_flywheel_iteration.start_flywheel_iteration(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.start_flywheel_iteration
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.start_flywheel_iteration.start_flywheel_iteration(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4966,13 +5710,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.start_key_phrases_detection_job_response.StartKeyPhrasesDetectionJobResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.start_key_phrases_detection_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.start_key_phrases_detection_job
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.start_key_phrases_detection_job.start_key_phrases_detection_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.start_key_phrases_detection_job.start_key_phrases_detection_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.start_key_phrases_detection_job
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.start_key_phrases_detection_job.start_key_phrases_detection_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5050,13 +5805,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.start_pii_entities_detection_job_response.StartPiiEntitiesDetectionJobResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.start_pii_entities_detection_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.start_pii_entities_detection_job
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.start_pii_entities_detection_job.start_pii_entities_detection_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.start_pii_entities_detection_job.start_pii_entities_detection_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.start_pii_entities_detection_job
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.start_pii_entities_detection_job.start_pii_entities_detection_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5131,13 +5897,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.start_sentiment_detection_job_response.StartSentimentDetectionJobResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.start_sentiment_detection_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.start_sentiment_detection_job
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.start_sentiment_detection_job.start_sentiment_detection_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.start_sentiment_detection_job.start_sentiment_detection_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.start_sentiment_detection_job
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.start_sentiment_detection_job.start_sentiment_detection_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5211,13 +5988,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.start_targeted_sentiment_detection_job_response.StartTargetedSentimentDetectionJobResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.start_targeted_sentiment_detection_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.start_targeted_sentiment_detection_job
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.start_targeted_sentiment_detection_job.start_targeted_sentiment_detection_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.start_targeted_sentiment_detection_job.start_targeted_sentiment_detection_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.start_targeted_sentiment_detection_job
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.start_targeted_sentiment_detection_job.start_targeted_sentiment_detection_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5295,13 +6083,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.start_topics_detection_job_response.StartTopicsDetectionJobResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.start_topics_detection_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.start_topics_detection_job
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.start_topics_detection_job.start_topics_detection_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.start_topics_detection_job.start_topics_detection_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.start_topics_detection_job
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.start_topics_detection_job.start_topics_detection_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5357,13 +6156,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.stop_dominant_language_detection_job_response.StopDominantLanguageDetectionJobResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.stop_dominant_language_detection_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.stop_dominant_language_detection_job
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.stop_dominant_language_detection_job.stop_dominant_language_detection_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.stop_dominant_language_detection_job.stop_dominant_language_detection_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.stop_dominant_language_detection_job
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.stop_dominant_language_detection_job.stop_dominant_language_detection_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5404,13 +6214,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.stop_entities_detection_job_response.StopEntitiesDetectionJobResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.stop_entities_detection_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.stop_entities_detection_job
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.stop_entities_detection_job.stop_entities_detection_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.stop_entities_detection_job.stop_entities_detection_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.stop_entities_detection_job
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.stop_entities_detection_job.stop_entities_detection_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5451,13 +6272,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.stop_events_detection_job_response.StopEventsDetectionJobResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.stop_events_detection_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.stop_events_detection_job
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.stop_events_detection_job.stop_events_detection_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.stop_events_detection_job.stop_events_detection_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.stop_events_detection_job
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.stop_events_detection_job.stop_events_detection_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5498,13 +6330,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.stop_key_phrases_detection_job_response.StopKeyPhrasesDetectionJobResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.stop_key_phrases_detection_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.stop_key_phrases_detection_job
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.stop_key_phrases_detection_job.stop_key_phrases_detection_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.stop_key_phrases_detection_job.stop_key_phrases_detection_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.stop_key_phrases_detection_job
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.stop_key_phrases_detection_job.stop_key_phrases_detection_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5545,13 +6388,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.stop_pii_entities_detection_job_response.StopPiiEntitiesDetectionJobResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.stop_pii_entities_detection_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.stop_pii_entities_detection_job
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.stop_pii_entities_detection_job.stop_pii_entities_detection_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.stop_pii_entities_detection_job.stop_pii_entities_detection_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.stop_pii_entities_detection_job
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.stop_pii_entities_detection_job.stop_pii_entities_detection_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5592,13 +6446,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.stop_sentiment_detection_job_response.StopSentimentDetectionJobResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.stop_sentiment_detection_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.stop_sentiment_detection_job
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.stop_sentiment_detection_job.stop_sentiment_detection_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.stop_sentiment_detection_job.stop_sentiment_detection_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.stop_sentiment_detection_job
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.stop_sentiment_detection_job.stop_sentiment_detection_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5639,13 +6504,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.stop_targeted_sentiment_detection_job_response.StopTargetedSentimentDetectionJobResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.stop_targeted_sentiment_detection_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.stop_targeted_sentiment_detection_job
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.stop_targeted_sentiment_detection_job.stop_targeted_sentiment_detection_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.stop_targeted_sentiment_detection_job.stop_targeted_sentiment_detection_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.stop_targeted_sentiment_detection_job
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.stop_targeted_sentiment_detection_job.stop_targeted_sentiment_detection_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5687,13 +6563,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.stop_training_document_classifier_response.StopTrainingDocumentClassifierResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.stop_training_document_classifier
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.stop_training_document_classifier
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.stop_training_document_classifier.stop_training_document_classifier(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.stop_training_document_classifier.stop_training_document_classifier(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.stop_training_document_classifier
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.stop_training_document_classifier.stop_training_document_classifier(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5735,13 +6622,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.stop_training_entity_recognizer_response.StopTrainingEntityRecognizerResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.stop_training_entity_recognizer
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.stop_training_entity_recognizer
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.stop_training_entity_recognizer.stop_training_entity_recognizer(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.stop_training_entity_recognizer.stop_training_entity_recognizer(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.stop_training_entity_recognizer
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.stop_training_entity_recognizer.stop_training_entity_recognizer(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5786,13 +6684,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.tag_resource_response.TagResourceResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.tag_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.tag_resource
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.tag_resource.tag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.tag_resource
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5838,13 +6747,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.untag_resource_response.UntagResourceResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.untag_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.untag_resource
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.untag_resource.untag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.untag_resource
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5906,13 +6826,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.update_endpoint_response.UpdateEndpointResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.update_endpoint
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.update_endpoint
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.update_endpoint.update_endpoint(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.update_endpoint.update_endpoint(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.update_endpoint
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.update_endpoint.update_endpoint(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5975,13 +6906,24 @@ class ComprehendClient:
         ) -> OperationResponse[
             "capo_comprehend.types.update_flywheel_response.UpdateFlywheelResponse"
         ]:
-            import capo_comprehend._operations.comprehend_20171127.update_flywheel
+            if req.options.protocol == "awsJson1_1":
+                import capo_comprehend._operations.comprehend_20171127.aws_json1_1.update_flywheel
 
-            output, http_response = (
-                capo_comprehend._operations.comprehend_20171127.update_flywheel.update_flywheel(
-                    req.options, req.input
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.aws_json1_1.update_flywheel.update_flywheel(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.update_flywheel
+
+                output, http_response = (
+                    capo_comprehend._operations.comprehend_20171127.rpcv2_cbor.update_flywheel.update_flywheel(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

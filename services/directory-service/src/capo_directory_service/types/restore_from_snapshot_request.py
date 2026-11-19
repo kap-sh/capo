@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> RestoreFromSnapshotRequest:
     else:
         out["snapshot_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RestoreFromSnapshotRequest) -> dict:
+    out: dict = {}
+    out["SnapshotId"] = value["snapshot_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RestoreFromSnapshotRequest:
+    out: RestoreFromSnapshotRequest = {}  # type: ignore[typeddict-item]
+    if data.get("SnapshotId") is not None:
+        out["snapshot_id"] = data["SnapshotId"]
+    else:
+        out["snapshot_id"] = ""
+    return out

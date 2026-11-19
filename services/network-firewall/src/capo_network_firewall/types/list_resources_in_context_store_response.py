@@ -48,3 +48,35 @@ def deserialize_aws_json_1_0(data: dict) -> ListResourcesInContextStoreResponse:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListResourcesInContextStoreResponse) -> dict:
+    out: dict = {}
+    import capo_network_firewall.types.resource_contexts
+
+    out["ResourceContexts"] = (
+        capo_network_firewall.types.resource_contexts.serialize_cbor(
+            value["resource_contexts"]
+        )
+    )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListResourcesInContextStoreResponse:
+    out: ListResourcesInContextStoreResponse = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceContexts") is not None:
+        import capo_network_firewall.types.resource_contexts
+
+        out["resource_contexts"] = (
+            capo_network_firewall.types.resource_contexts.deserialize_cbor(
+                data["ResourceContexts"]
+            )
+        )
+    else:
+        out["resource_contexts"] = []
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

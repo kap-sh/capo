@@ -44,3 +44,26 @@ def deserialize_aws_json_1_0(data: dict) -> VmwareTag:
     if data.get("VmwareTagDescription") is not None:
         out["vmware_tag_description"] = data["VmwareTagDescription"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: VmwareTag) -> dict:
+    out: dict = {}
+    if "vmware_category" in value:
+        out["VmwareCategory"] = value["vmware_category"]
+    if "vmware_tag_name" in value:
+        out["VmwareTagName"] = value["vmware_tag_name"]
+    if "vmware_tag_description" in value:
+        out["VmwareTagDescription"] = value["vmware_tag_description"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> VmwareTag:
+    out: VmwareTag = {}  # type: ignore[typeddict-item]
+    if data.get("VmwareCategory") is not None:
+        out["vmware_category"] = data["VmwareCategory"]
+    if data.get("VmwareTagName") is not None:
+        out["vmware_tag_name"] = data["VmwareTagName"]
+    if data.get("VmwareTagDescription") is not None:
+        out["vmware_tag_description"] = data["VmwareTagDescription"]
+    return out

@@ -29,3 +29,19 @@ def deserialize_aws_json_1_1(data: dict) -> Capacity:
     else:
         out["desired_user_sessions"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Capacity) -> dict:
+    out: dict = {}
+    out["DesiredUserSessions"] = value["desired_user_sessions"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Capacity:
+    out: Capacity = {}  # type: ignore[typeddict-item]
+    if data.get("DesiredUserSessions") is not None:
+        out["desired_user_sessions"] = data["DesiredUserSessions"]
+    else:
+        out["desired_user_sessions"] = 0
+    return out

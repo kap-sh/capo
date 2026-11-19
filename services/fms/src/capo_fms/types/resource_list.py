@@ -27,3 +27,24 @@ def deserialize_aws_json_1_1(data: list) -> ResourceList:
             continue
         out.append(capo_fms.types.resource.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResourceList) -> list:
+    import capo_fms.types.resource
+
+    out: list = []
+    for item in value:
+        out.append(capo_fms.types.resource.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> ResourceList:
+    import capo_fms.types.resource
+
+    out: ResourceList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_fms.types.resource.deserialize_cbor(item))
+    return out

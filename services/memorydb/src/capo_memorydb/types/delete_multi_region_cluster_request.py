@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteMultiRegionClusterRequest:
     else:
         out["multi_region_cluster_name"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteMultiRegionClusterRequest) -> dict:
+    out: dict = {}
+    out["MultiRegionClusterName"] = value["multi_region_cluster_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteMultiRegionClusterRequest:
+    out: DeleteMultiRegionClusterRequest = {}  # type: ignore[typeddict-item]
+    if data.get("MultiRegionClusterName") is not None:
+        out["multi_region_cluster_name"] = data["MultiRegionClusterName"]
+    else:
+        out["multi_region_cluster_name"] = ""
+    return out

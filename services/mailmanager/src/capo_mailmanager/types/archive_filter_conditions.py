@@ -35,3 +35,26 @@ def deserialize_aws_json_1_0(data: list) -> ArchiveFilterConditions:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ArchiveFilterConditions) -> list:
+    import capo_mailmanager.types.archive_filter_condition
+
+    out: list = []
+    for item in value:
+        out.append(capo_mailmanager.types.archive_filter_condition.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> ArchiveFilterConditions:
+    import capo_mailmanager.types.archive_filter_condition
+
+    out: ArchiveFilterConditions = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_mailmanager.types.archive_filter_condition.deserialize_cbor(item)
+        )
+    return out

@@ -115,3 +115,82 @@ def deserialize_aws_json_1_1(data: dict) -> ServiceUpdate:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ServiceUpdate) -> dict:
+    out: dict = {}
+    if "cluster_name" in value:
+        out["ClusterName"] = value["cluster_name"]
+    if "service_update_name" in value:
+        out["ServiceUpdateName"] = value["service_update_name"]
+    if "release_date" in value:
+        import capo_memorydb.types.t_stamp
+
+        out["ReleaseDate"] = capo_memorydb.types.t_stamp.serialize_cbor(
+            value["release_date"]
+        )
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "status" in value:
+        import capo_memorydb.types.service_update_status
+
+        out["Status"] = capo_memorydb.types.service_update_status.serialize_cbor(
+            value["status"]
+        )
+    if "type" in value:
+        import capo_memorydb.types.service_update_type
+
+        out["Type"] = capo_memorydb.types.service_update_type.serialize_cbor(
+            value["type"]
+        )
+    if "engine" in value:
+        out["Engine"] = value["engine"]
+    if "nodes_updated" in value:
+        out["NodesUpdated"] = value["nodes_updated"]
+    if "auto_update_start_date" in value:
+        import capo_memorydb.types.t_stamp
+
+        out["AutoUpdateStartDate"] = capo_memorydb.types.t_stamp.serialize_cbor(
+            value["auto_update_start_date"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ServiceUpdate:
+    out: ServiceUpdate = {}  # type: ignore[typeddict-item]
+    if data.get("ClusterName") is not None:
+        out["cluster_name"] = data["ClusterName"]
+    if data.get("ServiceUpdateName") is not None:
+        out["service_update_name"] = data["ServiceUpdateName"]
+    if data.get("ReleaseDate") is not None:
+        import capo_memorydb.types.t_stamp
+
+        out["release_date"] = capo_memorydb.types.t_stamp.deserialize_cbor(
+            data["ReleaseDate"]
+        )
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("Status") is not None:
+        import capo_memorydb.types.service_update_status
+
+        out["status"] = capo_memorydb.types.service_update_status.deserialize_cbor(
+            data["Status"]
+        )
+    if data.get("Type") is not None:
+        import capo_memorydb.types.service_update_type
+
+        out["type"] = capo_memorydb.types.service_update_type.deserialize_cbor(
+            data["Type"]
+        )
+    if data.get("Engine") is not None:
+        out["engine"] = data["Engine"]
+    if data.get("NodesUpdated") is not None:
+        out["nodes_updated"] = data["NodesUpdated"]
+    if data.get("AutoUpdateStartDate") is not None:
+        import capo_memorydb.types.t_stamp
+
+        out["auto_update_start_date"] = capo_memorydb.types.t_stamp.deserialize_cbor(
+            data["AutoUpdateStartDate"]
+        )
+    return out

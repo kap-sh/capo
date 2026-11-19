@@ -56,3 +56,41 @@ def deserialize_aws_json_1_0(data: dict) -> IngressTlsProtocolToEvaluate:
         raise DeserializationError(
             "IngressTlsProtocolToEvaluate: no recognized variant key"
         )
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IngressTlsProtocolToEvaluate) -> dict:
+    if "$unknown" in value:
+        raise SerializationError(
+            f"IngressTlsProtocolToEvaluate: cannot serialize unknown variant {value['$unknown']['name']!r}"
+        )
+    elif "Attribute" in value:
+        import capo_mailmanager.types.ingress_tls_attribute
+
+        return {
+            "Attribute": capo_mailmanager.types.ingress_tls_attribute.serialize_cbor(
+                value["Attribute"]
+            )
+        }
+    else:
+        raise SerializationError("IngressTlsProtocolToEvaluate: no variant present")
+
+
+def deserialize_cbor(data: dict) -> IngressTlsProtocolToEvaluate:
+    if data.get("Attribute") is not None:
+        import capo_mailmanager.types.ingress_tls_attribute
+
+        return {
+            "Attribute": capo_mailmanager.types.ingress_tls_attribute.deserialize_cbor(
+                data["Attribute"]
+            )
+        }
+    else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return {"$unknown": {"name": name}}
+        raise DeserializationError(
+            "IngressTlsProtocolToEvaluate: no recognized variant key"
+        )

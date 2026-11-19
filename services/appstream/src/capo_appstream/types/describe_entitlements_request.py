@@ -46,3 +46,30 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeEntitlementsRequest:
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeEntitlementsRequest) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "stack_name" in value:
+        out["StackName"] = value["stack_name"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeEntitlementsRequest:
+    out: DescribeEntitlementsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("StackName") is not None:
+        out["stack_name"] = data["StackName"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    return out

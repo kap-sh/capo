@@ -56,3 +56,38 @@ def deserialize_aws_json_1_1(data: dict) -> TriggerConfig:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TriggerConfig) -> dict:
+    out: dict = {}
+    if "trigger_name" in value:
+        out["triggerName"] = value["trigger_name"]
+    if "trigger_target_arn" in value:
+        out["triggerTargetArn"] = value["trigger_target_arn"]
+    if "trigger_events" in value:
+        import capo_codedeploy.types.trigger_event_type_list
+
+        out["triggerEvents"] = (
+            capo_codedeploy.types.trigger_event_type_list.serialize_cbor(
+                value["trigger_events"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TriggerConfig:
+    out: TriggerConfig = {}  # type: ignore[typeddict-item]
+    if data.get("triggerName") is not None:
+        out["trigger_name"] = data["triggerName"]
+    if data.get("triggerTargetArn") is not None:
+        out["trigger_target_arn"] = data["triggerTargetArn"]
+    if data.get("triggerEvents") is not None:
+        import capo_codedeploy.types.trigger_event_type_list
+
+        out["trigger_events"] = (
+            capo_codedeploy.types.trigger_event_type_list.deserialize_cbor(
+                data["triggerEvents"]
+            )
+        )
+    return out

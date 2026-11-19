@@ -54,6 +54,37 @@ def deserialize_aws_json_1_1(data: dict) -> ThirdPartyJobDetails:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ThirdPartyJobDetails) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["id"] = value["id"]
+    if "data" in value:
+        import capo_codepipeline.types.third_party_job_data
+
+        out["data"] = capo_codepipeline.types.third_party_job_data.serialize_cbor(
+            value["data"]
+        )
+    if "nonce" in value:
+        out["nonce"] = value["nonce"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ThirdPartyJobDetails:
+    out: ThirdPartyJobDetails = {}  # type: ignore[typeddict-item]
+    if data.get("id") is not None:
+        out["id"] = data["id"]
+    if data.get("data") is not None:
+        import capo_codepipeline.types.third_party_job_data
+
+        out["data"] = capo_codepipeline.types.third_party_job_data.deserialize_cbor(
+            data["data"]
+        )
+    if data.get("nonce") is not None:
+        out["nonce"] = data["nonce"]
+    return out
+
+
 def redact_sensitive(value: ThirdPartyJobDetails) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "data" in value:

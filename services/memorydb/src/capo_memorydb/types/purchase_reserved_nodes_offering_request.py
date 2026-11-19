@@ -53,3 +53,35 @@ def deserialize_aws_json_1_1(data: dict) -> PurchaseReservedNodesOfferingRequest
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PurchaseReservedNodesOfferingRequest) -> dict:
+    out: dict = {}
+    out["ReservedNodesOfferingId"] = value["reserved_nodes_offering_id"]
+    if "reservation_id" in value:
+        out["ReservationId"] = value["reservation_id"]
+    if "node_count" in value:
+        out["NodeCount"] = value["node_count"]
+    if "tags" in value:
+        import capo_memorydb.types.tag_list
+
+        out["Tags"] = capo_memorydb.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> PurchaseReservedNodesOfferingRequest:
+    out: PurchaseReservedNodesOfferingRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ReservedNodesOfferingId") is not None:
+        out["reserved_nodes_offering_id"] = data["ReservedNodesOfferingId"]
+    else:
+        out["reserved_nodes_offering_id"] = ""
+    if data.get("ReservationId") is not None:
+        out["reservation_id"] = data["ReservationId"]
+    if data.get("NodeCount") is not None:
+        out["node_count"] = data["NodeCount"]
+    if data.get("Tags") is not None:
+        import capo_memorydb.types.tag_list
+
+        out["tags"] = capo_memorydb.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

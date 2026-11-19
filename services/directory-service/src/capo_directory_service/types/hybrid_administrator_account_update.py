@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> HybridAdministratorAccountUpdate:
     else:
         out["secret_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: HybridAdministratorAccountUpdate) -> dict:
+    out: dict = {}
+    out["SecretArn"] = value["secret_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> HybridAdministratorAccountUpdate:
+    out: HybridAdministratorAccountUpdate = {}  # type: ignore[typeddict-item]
+    if data.get("SecretArn") is not None:
+        out["secret_arn"] = data["SecretArn"]
+    else:
+        out["secret_arn"] = ""
+    return out

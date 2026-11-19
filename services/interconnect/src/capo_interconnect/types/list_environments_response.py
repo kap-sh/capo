@@ -45,3 +45,31 @@ def deserialize_aws_json_1_0(data: dict) -> ListEnvironmentsResponse:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListEnvironmentsResponse) -> dict:
+    out: dict = {}
+    import capo_interconnect.types.environment_list
+
+    out["environments"] = capo_interconnect.types.environment_list.serialize_cbor(
+        value["environments"]
+    )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListEnvironmentsResponse:
+    out: ListEnvironmentsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("environments") is not None:
+        import capo_interconnect.types.environment_list
+
+        out["environments"] = capo_interconnect.types.environment_list.deserialize_cbor(
+            data["environments"]
+        )
+    else:
+        out["environments"] = []
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

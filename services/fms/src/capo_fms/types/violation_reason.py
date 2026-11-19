@@ -43,3 +43,12 @@ def serialize_aws_json_1_1(value: ViolationReason) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> ViolationReason:
     return cast(ViolationReason, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ViolationReason) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ViolationReason:
+    return cast(ViolationReason, data)

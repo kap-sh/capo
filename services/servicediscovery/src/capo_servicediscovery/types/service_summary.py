@@ -170,3 +170,110 @@ def deserialize_aws_json_1_1(data: dict) -> ServiceSummary:
     if data.get("CreatedByAccount") is not None:
         out["created_by_account"] = data["CreatedByAccount"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ServiceSummary) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["Id"] = value["id"]
+    if "arn" in value:
+        out["Arn"] = value["arn"]
+    if "resource_owner" in value:
+        out["ResourceOwner"] = value["resource_owner"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "type" in value:
+        import capo_servicediscovery.types.service_type
+
+        out["Type"] = capo_servicediscovery.types.service_type.serialize_cbor(
+            value["type"]
+        )
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "instance_count" in value:
+        out["InstanceCount"] = value["instance_count"]
+    if "dns_config" in value:
+        import capo_servicediscovery.types.dns_config
+
+        out["DnsConfig"] = capo_servicediscovery.types.dns_config.serialize_cbor(
+            value["dns_config"]
+        )
+    if "health_check_config" in value:
+        import capo_servicediscovery.types.health_check_config
+
+        out["HealthCheckConfig"] = (
+            capo_servicediscovery.types.health_check_config.serialize_cbor(
+                value["health_check_config"]
+            )
+        )
+    if "health_check_custom_config" in value:
+        import capo_servicediscovery.types.health_check_custom_config
+
+        out["HealthCheckCustomConfig"] = (
+            capo_servicediscovery.types.health_check_custom_config.serialize_cbor(
+                value["health_check_custom_config"]
+            )
+        )
+    if "create_date" in value:
+        import capo_servicediscovery.types.timestamp
+
+        out["CreateDate"] = capo_servicediscovery.types.timestamp.serialize_cbor(
+            value["create_date"]
+        )
+    if "created_by_account" in value:
+        out["CreatedByAccount"] = value["created_by_account"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ServiceSummary:
+    out: ServiceSummary = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    if data.get("Arn") is not None:
+        out["arn"] = data["Arn"]
+    if data.get("ResourceOwner") is not None:
+        out["resource_owner"] = data["ResourceOwner"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Type") is not None:
+        import capo_servicediscovery.types.service_type
+
+        out["type"] = capo_servicediscovery.types.service_type.deserialize_cbor(
+            data["Type"]
+        )
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("InstanceCount") is not None:
+        out["instance_count"] = data["InstanceCount"]
+    if data.get("DnsConfig") is not None:
+        import capo_servicediscovery.types.dns_config
+
+        out["dns_config"] = capo_servicediscovery.types.dns_config.deserialize_cbor(
+            data["DnsConfig"]
+        )
+    if data.get("HealthCheckConfig") is not None:
+        import capo_servicediscovery.types.health_check_config
+
+        out["health_check_config"] = (
+            capo_servicediscovery.types.health_check_config.deserialize_cbor(
+                data["HealthCheckConfig"]
+            )
+        )
+    if data.get("HealthCheckCustomConfig") is not None:
+        import capo_servicediscovery.types.health_check_custom_config
+
+        out["health_check_custom_config"] = (
+            capo_servicediscovery.types.health_check_custom_config.deserialize_cbor(
+                data["HealthCheckCustomConfig"]
+            )
+        )
+    if data.get("CreateDate") is not None:
+        import capo_servicediscovery.types.timestamp
+
+        out["create_date"] = capo_servicediscovery.types.timestamp.deserialize_cbor(
+            data["CreateDate"]
+        )
+    if data.get("CreatedByAccount") is not None:
+        out["created_by_account"] = data["CreatedByAccount"]
+    return out

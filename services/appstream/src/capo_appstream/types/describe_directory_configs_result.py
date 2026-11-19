@@ -49,6 +49,37 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeDirectoryConfigsResult:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeDirectoryConfigsResult) -> dict:
+    out: dict = {}
+    if "directory_configs" in value:
+        import capo_appstream.types.directory_config_list
+
+        out["DirectoryConfigs"] = (
+            capo_appstream.types.directory_config_list.serialize_cbor(
+                value["directory_configs"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeDirectoryConfigsResult:
+    out: DescribeDirectoryConfigsResult = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryConfigs") is not None:
+        import capo_appstream.types.directory_config_list
+
+        out["directory_configs"] = (
+            capo_appstream.types.directory_config_list.deserialize_cbor(
+                data["DirectoryConfigs"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out
+
+
 def redact_sensitive(value: DescribeDirectoryConfigsResult) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "directory_configs" in value:

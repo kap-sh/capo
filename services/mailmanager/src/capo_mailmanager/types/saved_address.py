@@ -54,6 +54,41 @@ def deserialize_aws_json_1_0(data: dict) -> SavedAddress:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SavedAddress) -> dict:
+    out: dict = {}
+    out["Address"] = value["address"]
+    import capo_mailmanager.types._prelude.timestamp
+
+    out["CreatedTimestamp"] = capo_mailmanager.types._prelude.timestamp.serialize_cbor(
+        value["created_timestamp"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> SavedAddress:
+    out: SavedAddress = {}  # type: ignore[typeddict-item]
+    if data.get("Address") is not None:
+        out["address"] = data["Address"]
+    else:
+        out["address"] = ""
+    if data.get("CreatedTimestamp") is not None:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["created_timestamp"] = (
+            capo_mailmanager.types._prelude.timestamp.deserialize_cbor(
+                data["CreatedTimestamp"]
+            )
+        )
+    else:
+        import datetime
+
+        out["created_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
+    return out
+
+
 def redact_sensitive(value: SavedAddress) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "address" in value:

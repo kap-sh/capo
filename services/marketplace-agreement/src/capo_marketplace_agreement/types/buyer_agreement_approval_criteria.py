@@ -22,3 +22,19 @@ def deserialize_aws_json_1_0(data: dict) -> BuyerAgreementApprovalCriteria:
     else:
         out["required_approval_count"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BuyerAgreementApprovalCriteria) -> dict:
+    out: dict = {}
+    out["requiredApprovalCount"] = value["required_approval_count"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> BuyerAgreementApprovalCriteria:
+    out: BuyerAgreementApprovalCriteria = {}  # type: ignore[typeddict-item]
+    if data.get("requiredApprovalCount") is not None:
+        out["required_approval_count"] = data["requiredApprovalCount"]
+    else:
+        out["required_approval_count"] = 0
+    return out

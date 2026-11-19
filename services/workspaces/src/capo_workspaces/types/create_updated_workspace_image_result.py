@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> CreateUpdatedWorkspaceImageResult:
     if data.get("ImageId") is not None:
         out["image_id"] = data["ImageId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateUpdatedWorkspaceImageResult) -> dict:
+    out: dict = {}
+    if "image_id" in value:
+        out["ImageId"] = value["image_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateUpdatedWorkspaceImageResult:
+    out: CreateUpdatedWorkspaceImageResult = {}  # type: ignore[typeddict-item]
+    if data.get("ImageId") is not None:
+        out["image_id"] = data["ImageId"]
+    return out

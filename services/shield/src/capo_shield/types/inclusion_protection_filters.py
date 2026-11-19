@@ -82,3 +82,58 @@ def deserialize_aws_json_1_1(data: dict) -> InclusionProtectionFilters:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InclusionProtectionFilters) -> dict:
+    out: dict = {}
+    if "resource_arns" in value:
+        import capo_shield.types.resource_arn_filters
+
+        out["ResourceArns"] = capo_shield.types.resource_arn_filters.serialize_cbor(
+            value["resource_arns"]
+        )
+    if "protection_names" in value:
+        import capo_shield.types.protection_name_filters
+
+        out["ProtectionNames"] = (
+            capo_shield.types.protection_name_filters.serialize_cbor(
+                value["protection_names"]
+            )
+        )
+    if "resource_types" in value:
+        import capo_shield.types.protected_resource_type_filters
+
+        out["ResourceTypes"] = (
+            capo_shield.types.protected_resource_type_filters.serialize_cbor(
+                value["resource_types"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> InclusionProtectionFilters:
+    out: InclusionProtectionFilters = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceArns") is not None:
+        import capo_shield.types.resource_arn_filters
+
+        out["resource_arns"] = capo_shield.types.resource_arn_filters.deserialize_cbor(
+            data["ResourceArns"]
+        )
+    if data.get("ProtectionNames") is not None:
+        import capo_shield.types.protection_name_filters
+
+        out["protection_names"] = (
+            capo_shield.types.protection_name_filters.deserialize_cbor(
+                data["ProtectionNames"]
+            )
+        )
+    if data.get("ResourceTypes") is not None:
+        import capo_shield.types.protected_resource_type_filters
+
+        out["resource_types"] = (
+            capo_shield.types.protected_resource_type_filters.deserialize_cbor(
+                data["ResourceTypes"]
+            )
+        )
+    return out

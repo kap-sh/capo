@@ -59,3 +59,42 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeCustomerMetadataResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeCustomerMetadataResponse) -> dict:
+    out: dict = {}
+    if "agreements" in value:
+        import capo_direct_connect.types.agreement_list
+
+        out["agreements"] = capo_direct_connect.types.agreement_list.serialize_cbor(
+            value["agreements"]
+        )
+    if "nni_partner_type" in value:
+        import capo_direct_connect.types.nni_partner_type
+
+        out["nniPartnerType"] = (
+            capo_direct_connect.types.nni_partner_type.serialize_cbor(
+                value["nni_partner_type"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeCustomerMetadataResponse:
+    out: DescribeCustomerMetadataResponse = {}  # type: ignore[typeddict-item]
+    if data.get("agreements") is not None:
+        import capo_direct_connect.types.agreement_list
+
+        out["agreements"] = capo_direct_connect.types.agreement_list.deserialize_cbor(
+            data["agreements"]
+        )
+    if data.get("nniPartnerType") is not None:
+        import capo_direct_connect.types.nni_partner_type
+
+        out["nni_partner_type"] = (
+            capo_direct_connect.types.nni_partner_type.deserialize_cbor(
+                data["nniPartnerType"]
+            )
+        )
+    return out

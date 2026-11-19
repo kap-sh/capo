@@ -93,6 +93,7 @@ class PIClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[Interceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_1", "rpcv2Cbor"]
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -109,6 +110,7 @@ class PIClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -124,6 +126,7 @@ class PIClient:
         operation_interceptors: Iterable[Interceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_1", "rpcv2Cbor"] = "awsJson1_1",
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -160,6 +163,7 @@ class PIClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -193,6 +197,9 @@ class PIClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_1")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -237,13 +244,24 @@ class PIClient:
         ) -> OperationResponse[
             "capo_pi.types.create_performance_analysis_report_response.CreatePerformanceAnalysisReportResponse"
         ]:
-            import capo_pi._operations.performance_insightsv20180227.create_performance_analysis_report
+            if req.options.protocol == "awsJson1_1":
+                import capo_pi._operations.performance_insightsv20180227.aws_json1_1.create_performance_analysis_report
 
-            output, http_response = (
-                capo_pi._operations.performance_insightsv20180227.create_performance_analysis_report.create_performance_analysis_report(
-                    req.options, req.input
+                output, http_response = (
+                    capo_pi._operations.performance_insightsv20180227.aws_json1_1.create_performance_analysis_report.create_performance_analysis_report(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_pi._operations.performance_insightsv20180227.rpcv2_cbor.create_performance_analysis_report
+
+                output, http_response = (
+                    capo_pi._operations.performance_insightsv20180227.rpcv2_cbor.create_performance_analysis_report.create_performance_analysis_report(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -294,13 +312,24 @@ class PIClient:
         ) -> OperationResponse[
             "capo_pi.types.delete_performance_analysis_report_response.DeletePerformanceAnalysisReportResponse"
         ]:
-            import capo_pi._operations.performance_insightsv20180227.delete_performance_analysis_report
+            if req.options.protocol == "awsJson1_1":
+                import capo_pi._operations.performance_insightsv20180227.aws_json1_1.delete_performance_analysis_report
 
-            output, http_response = (
-                capo_pi._operations.performance_insightsv20180227.delete_performance_analysis_report.delete_performance_analysis_report(
-                    req.options, req.input
+                output, http_response = (
+                    capo_pi._operations.performance_insightsv20180227.aws_json1_1.delete_performance_analysis_report.delete_performance_analysis_report(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_pi._operations.performance_insightsv20180227.rpcv2_cbor.delete_performance_analysis_report
+
+                output, http_response = (
+                    capo_pi._operations.performance_insightsv20180227.rpcv2_cbor.delete_performance_analysis_report.delete_performance_analysis_report(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -369,13 +398,24 @@ class PIClient:
         ) -> OperationResponse[
             "capo_pi.types.describe_dimension_keys_response.DescribeDimensionKeysResponse"
         ]:
-            import capo_pi._operations.performance_insightsv20180227.describe_dimension_keys
+            if req.options.protocol == "awsJson1_1":
+                import capo_pi._operations.performance_insightsv20180227.aws_json1_1.describe_dimension_keys
 
-            output, http_response = (
-                capo_pi._operations.performance_insightsv20180227.describe_dimension_keys.describe_dimension_keys(
-                    req.options, req.input
+                output, http_response = (
+                    capo_pi._operations.performance_insightsv20180227.aws_json1_1.describe_dimension_keys.describe_dimension_keys(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_pi._operations.performance_insightsv20180227.rpcv2_cbor.describe_dimension_keys
+
+                output, http_response = (
+                    capo_pi._operations.performance_insightsv20180227.rpcv2_cbor.describe_dimension_keys.describe_dimension_keys(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -486,13 +526,24 @@ class PIClient:
         ) -> OperationResponse[
             "capo_pi.types.get_dimension_key_details_response.GetDimensionKeyDetailsResponse"
         ]:
-            import capo_pi._operations.performance_insightsv20180227.get_dimension_key_details
+            if req.options.protocol == "awsJson1_1":
+                import capo_pi._operations.performance_insightsv20180227.aws_json1_1.get_dimension_key_details
 
-            output, http_response = (
-                capo_pi._operations.performance_insightsv20180227.get_dimension_key_details.get_dimension_key_details(
-                    req.options, req.input
+                output, http_response = (
+                    capo_pi._operations.performance_insightsv20180227.aws_json1_1.get_dimension_key_details.get_dimension_key_details(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_pi._operations.performance_insightsv20180227.rpcv2_cbor.get_dimension_key_details
+
+                output, http_response = (
+                    capo_pi._operations.performance_insightsv20180227.rpcv2_cbor.get_dimension_key_details.get_dimension_key_details(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -548,13 +599,24 @@ class PIClient:
         ) -> OperationResponse[
             "capo_pi.types.get_performance_analysis_report_response.GetPerformanceAnalysisReportResponse"
         ]:
-            import capo_pi._operations.performance_insightsv20180227.get_performance_analysis_report
+            if req.options.protocol == "awsJson1_1":
+                import capo_pi._operations.performance_insightsv20180227.aws_json1_1.get_performance_analysis_report
 
-            output, http_response = (
-                capo_pi._operations.performance_insightsv20180227.get_performance_analysis_report.get_performance_analysis_report(
-                    req.options, req.input
+                output, http_response = (
+                    capo_pi._operations.performance_insightsv20180227.aws_json1_1.get_performance_analysis_report.get_performance_analysis_report(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_pi._operations.performance_insightsv20180227.rpcv2_cbor.get_performance_analysis_report
+
+                output, http_response = (
+                    capo_pi._operations.performance_insightsv20180227.rpcv2_cbor.get_performance_analysis_report.get_performance_analysis_report(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -617,13 +679,24 @@ class PIClient:
         ) -> OperationResponse[
             "capo_pi.types.get_resource_metadata_response.GetResourceMetadataResponse"
         ]:
-            import capo_pi._operations.performance_insightsv20180227.get_resource_metadata
+            if req.options.protocol == "awsJson1_1":
+                import capo_pi._operations.performance_insightsv20180227.aws_json1_1.get_resource_metadata
 
-            output, http_response = (
-                capo_pi._operations.performance_insightsv20180227.get_resource_metadata.get_resource_metadata(
-                    req.options, req.input
+                output, http_response = (
+                    capo_pi._operations.performance_insightsv20180227.aws_json1_1.get_resource_metadata.get_resource_metadata(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_pi._operations.performance_insightsv20180227.rpcv2_cbor.get_resource_metadata
+
+                output, http_response = (
+                    capo_pi._operations.performance_insightsv20180227.rpcv2_cbor.get_resource_metadata.get_resource_metadata(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -683,13 +756,24 @@ class PIClient:
         ) -> OperationResponse[
             "capo_pi.types.get_resource_metrics_response.GetResourceMetricsResponse"
         ]:
-            import capo_pi._operations.performance_insightsv20180227.get_resource_metrics
+            if req.options.protocol == "awsJson1_1":
+                import capo_pi._operations.performance_insightsv20180227.aws_json1_1.get_resource_metrics
 
-            output, http_response = (
-                capo_pi._operations.performance_insightsv20180227.get_resource_metrics.get_resource_metrics(
-                    req.options, req.input
+                output, http_response = (
+                    capo_pi._operations.performance_insightsv20180227.aws_json1_1.get_resource_metrics.get_resource_metrics(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_pi._operations.performance_insightsv20180227.rpcv2_cbor.get_resource_metrics
+
+                output, http_response = (
+                    capo_pi._operations.performance_insightsv20180227.rpcv2_cbor.get_resource_metrics.get_resource_metrics(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -789,13 +873,24 @@ class PIClient:
         ) -> OperationResponse[
             "capo_pi.types.list_available_resource_dimensions_response.ListAvailableResourceDimensionsResponse"
         ]:
-            import capo_pi._operations.performance_insightsv20180227.list_available_resource_dimensions
+            if req.options.protocol == "awsJson1_1":
+                import capo_pi._operations.performance_insightsv20180227.aws_json1_1.list_available_resource_dimensions
 
-            output, http_response = (
-                capo_pi._operations.performance_insightsv20180227.list_available_resource_dimensions.list_available_resource_dimensions(
-                    req.options, req.input
+                output, http_response = (
+                    capo_pi._operations.performance_insightsv20180227.aws_json1_1.list_available_resource_dimensions.list_available_resource_dimensions(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_pi._operations.performance_insightsv20180227.rpcv2_cbor.list_available_resource_dimensions
+
+                output, http_response = (
+                    capo_pi._operations.performance_insightsv20180227.rpcv2_cbor.list_available_resource_dimensions.list_available_resource_dimensions(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -881,13 +976,24 @@ class PIClient:
         ) -> OperationResponse[
             "capo_pi.types.list_available_resource_metrics_response.ListAvailableResourceMetricsResponse"
         ]:
-            import capo_pi._operations.performance_insightsv20180227.list_available_resource_metrics
+            if req.options.protocol == "awsJson1_1":
+                import capo_pi._operations.performance_insightsv20180227.aws_json1_1.list_available_resource_metrics
 
-            output, http_response = (
-                capo_pi._operations.performance_insightsv20180227.list_available_resource_metrics.list_available_resource_metrics(
-                    req.options, req.input
+                output, http_response = (
+                    capo_pi._operations.performance_insightsv20180227.aws_json1_1.list_available_resource_metrics.list_available_resource_metrics(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_pi._operations.performance_insightsv20180227.rpcv2_cbor.list_available_resource_metrics
+
+                output, http_response = (
+                    capo_pi._operations.performance_insightsv20180227.rpcv2_cbor.list_available_resource_metrics.list_available_resource_metrics(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -971,13 +1077,24 @@ class PIClient:
         ) -> OperationResponse[
             "capo_pi.types.list_performance_analysis_report_recommendations_response.ListPerformanceAnalysisReportRecommendationsResponse"
         ]:
-            import capo_pi._operations.performance_insightsv20180227.list_performance_analysis_report_recommendations
+            if req.options.protocol == "awsJson1_1":
+                import capo_pi._operations.performance_insightsv20180227.aws_json1_1.list_performance_analysis_report_recommendations
 
-            output, http_response = (
-                capo_pi._operations.performance_insightsv20180227.list_performance_analysis_report_recommendations.list_performance_analysis_report_recommendations(
-                    req.options, req.input
+                output, http_response = (
+                    capo_pi._operations.performance_insightsv20180227.aws_json1_1.list_performance_analysis_report_recommendations.list_performance_analysis_report_recommendations(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_pi._operations.performance_insightsv20180227.rpcv2_cbor.list_performance_analysis_report_recommendations
+
+                output, http_response = (
+                    capo_pi._operations.performance_insightsv20180227.rpcv2_cbor.list_performance_analysis_report_recommendations.list_performance_analysis_report_recommendations(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -1078,13 +1195,24 @@ class PIClient:
         ) -> OperationResponse[
             "capo_pi.types.list_performance_analysis_reports_response.ListPerformanceAnalysisReportsResponse"
         ]:
-            import capo_pi._operations.performance_insightsv20180227.list_performance_analysis_reports
+            if req.options.protocol == "awsJson1_1":
+                import capo_pi._operations.performance_insightsv20180227.aws_json1_1.list_performance_analysis_reports
 
-            output, http_response = (
-                capo_pi._operations.performance_insightsv20180227.list_performance_analysis_reports.list_performance_analysis_reports(
-                    req.options, req.input
+                output, http_response = (
+                    capo_pi._operations.performance_insightsv20180227.aws_json1_1.list_performance_analysis_reports.list_performance_analysis_reports(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_pi._operations.performance_insightsv20180227.rpcv2_cbor.list_performance_analysis_reports
+
+                output, http_response = (
+                    capo_pi._operations.performance_insightsv20180227.rpcv2_cbor.list_performance_analysis_reports.list_performance_analysis_reports(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1159,13 +1287,24 @@ class PIClient:
         ) -> OperationResponse[
             "capo_pi.types.list_tags_for_resource_response.ListTagsForResourceResponse"
         ]:
-            import capo_pi._operations.performance_insightsv20180227.list_tags_for_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_pi._operations.performance_insightsv20180227.aws_json1_1.list_tags_for_resource
 
-            output, http_response = (
-                capo_pi._operations.performance_insightsv20180227.list_tags_for_resource.list_tags_for_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_pi._operations.performance_insightsv20180227.aws_json1_1.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_pi._operations.performance_insightsv20180227.rpcv2_cbor.list_tags_for_resource
+
+                output, http_response = (
+                    capo_pi._operations.performance_insightsv20180227.rpcv2_cbor.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1211,13 +1350,24 @@ class PIClient:
         ) -> OperationResponse[
             "capo_pi.types.tag_resource_response.TagResourceResponse"
         ]:
-            import capo_pi._operations.performance_insightsv20180227.tag_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_pi._operations.performance_insightsv20180227.aws_json1_1.tag_resource
 
-            output, http_response = (
-                capo_pi._operations.performance_insightsv20180227.tag_resource.tag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_pi._operations.performance_insightsv20180227.aws_json1_1.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_pi._operations.performance_insightsv20180227.rpcv2_cbor.tag_resource
+
+                output, http_response = (
+                    capo_pi._operations.performance_insightsv20180227.rpcv2_cbor.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1264,13 +1414,24 @@ class PIClient:
         ) -> OperationResponse[
             "capo_pi.types.untag_resource_response.UntagResourceResponse"
         ]:
-            import capo_pi._operations.performance_insightsv20180227.untag_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_pi._operations.performance_insightsv20180227.aws_json1_1.untag_resource
 
-            output, http_response = (
-                capo_pi._operations.performance_insightsv20180227.untag_resource.untag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_pi._operations.performance_insightsv20180227.aws_json1_1.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_pi._operations.performance_insightsv20180227.rpcv2_cbor.untag_resource
+
+                output, http_response = (
+                    capo_pi._operations.performance_insightsv20180227.rpcv2_cbor.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

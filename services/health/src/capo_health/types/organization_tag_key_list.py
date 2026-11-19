@@ -31,3 +31,24 @@ def deserialize_aws_json_1_1(data: list) -> OrganizationTagKeyList:
             capo_health.types.organization_tag_key.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: OrganizationTagKeyList) -> list:
+    import capo_health.types.organization_tag_key
+
+    out: list = []
+    for item in value:
+        out.append(capo_health.types.organization_tag_key.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> OrganizationTagKeyList:
+    import capo_health.types.organization_tag_key
+
+    out: OrganizationTagKeyList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_health.types.organization_tag_key.deserialize_cbor(item))
+    return out

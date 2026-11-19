@@ -48,3 +48,31 @@ def deserialize_aws_json_1_1(data: dict) -> PutPolicyRequest:
             data["TagList"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PutPolicyRequest) -> dict:
+    out: dict = {}
+    import capo_fms.types.policy
+
+    out["Policy"] = capo_fms.types.policy.serialize_cbor(value["policy"])
+    if "tag_list" in value:
+        import capo_fms.types.tag_list
+
+        out["TagList"] = capo_fms.types.tag_list.serialize_cbor(value["tag_list"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> PutPolicyRequest:
+    out: PutPolicyRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Policy") is not None:
+        import capo_fms.types.policy
+
+        out["policy"] = capo_fms.types.policy.deserialize_cbor(data["Policy"])
+    else:
+        raise DeserializationError("PutPolicyRequest.policy required")
+    if data.get("TagList") is not None:
+        import capo_fms.types.tag_list
+
+        out["tag_list"] = capo_fms.types.tag_list.deserialize_cbor(data["TagList"])
+    return out

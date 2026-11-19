@@ -56,3 +56,38 @@ def deserialize_aws_json_1_1(data: dict) -> Parameter:
     if data.get("MinimumEngineVersion") is not None:
         out["minimum_engine_version"] = data["MinimumEngineVersion"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Parameter) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "value" in value:
+        out["Value"] = value["value"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "data_type" in value:
+        out["DataType"] = value["data_type"]
+    if "allowed_values" in value:
+        out["AllowedValues"] = value["allowed_values"]
+    if "minimum_engine_version" in value:
+        out["MinimumEngineVersion"] = value["minimum_engine_version"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Parameter:
+    out: Parameter = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Value") is not None:
+        out["value"] = data["Value"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("DataType") is not None:
+        out["data_type"] = data["DataType"]
+    if data.get("AllowedValues") is not None:
+        out["allowed_values"] = data["AllowedValues"]
+    if data.get("MinimumEngineVersion") is not None:
+        out["minimum_engine_version"] = data["MinimumEngineVersion"]
+    return out

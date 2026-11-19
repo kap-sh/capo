@@ -65,3 +65,26 @@ def deserialize_query(el: Element) -> PutManagedInsightRulesInput:
             child_managed_rules
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PutManagedInsightRulesInput) -> dict:
+    out: dict = {}
+    if "managed_rules" in value:
+        import capo_cloudwatch.types.managed_rules
+
+        out["ManagedRules"] = capo_cloudwatch.types.managed_rules.serialize_cbor(
+            value["managed_rules"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PutManagedInsightRulesInput:
+    out: PutManagedInsightRulesInput = {}  # type: ignore[typeddict-item]
+    if data.get("ManagedRules") is not None:
+        import capo_cloudwatch.types.managed_rules
+
+        out["managed_rules"] = capo_cloudwatch.types.managed_rules.deserialize_cbor(
+            data["ManagedRules"]
+        )
+    return out

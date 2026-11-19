@@ -16,3 +16,14 @@ def serialize_aws_json_1_1(value: UpdateRadiusResult) -> dict:
 def deserialize_aws_json_1_1(data: dict) -> UpdateRadiusResult:
     out: UpdateRadiusResult = {}  # type: ignore[typeddict-item]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateRadiusResult) -> dict:
+    out: dict = {}
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateRadiusResult:
+    out: UpdateRadiusResult = {}  # type: ignore[typeddict-item]
+    return out

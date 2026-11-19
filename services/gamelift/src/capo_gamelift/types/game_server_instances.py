@@ -33,3 +33,24 @@ def deserialize_aws_json_1_1(data: list) -> GameServerInstances:
             capo_gamelift.types.game_server_instance.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GameServerInstances) -> list:
+    import capo_gamelift.types.game_server_instance
+
+    out: list = []
+    for item in value:
+        out.append(capo_gamelift.types.game_server_instance.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> GameServerInstances:
+    import capo_gamelift.types.game_server_instance
+
+    out: GameServerInstances = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_gamelift.types.game_server_instance.deserialize_cbor(item))
+    return out

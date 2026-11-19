@@ -35,3 +35,22 @@ def deserialize_aws_json_1_0(data: dict) -> MemorySizeConfiguration:
     if data.get("memoryReservation") is not None:
         out["memory_reservation"] = data["memoryReservation"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MemorySizeConfiguration) -> dict:
+    out: dict = {}
+    if "memory" in value:
+        out["memory"] = value["memory"]
+    if "memory_reservation" in value:
+        out["memoryReservation"] = value["memory_reservation"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> MemorySizeConfiguration:
+    out: MemorySizeConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("memory") is not None:
+        out["memory"] = data["memory"]
+    if data.get("memoryReservation") is not None:
+        out["memory_reservation"] = data["memoryReservation"]
+    return out

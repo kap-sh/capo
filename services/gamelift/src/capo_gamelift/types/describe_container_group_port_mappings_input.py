@@ -72,3 +72,46 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeContainerGroupPortMappingsIn
     if data.get("ContainerName") is not None:
         out["container_name"] = data["ContainerName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeContainerGroupPortMappingsInput) -> dict:
+    out: dict = {}
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "container_group_type" in value:
+        import capo_gamelift.types.container_group_type
+
+        out["ContainerGroupType"] = (
+            capo_gamelift.types.container_group_type.serialize_cbor(
+                value["container_group_type"]
+            )
+        )
+    if "compute_name" in value:
+        out["ComputeName"] = value["compute_name"]
+    if "instance_id" in value:
+        out["InstanceId"] = value["instance_id"]
+    if "container_name" in value:
+        out["ContainerName"] = value["container_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeContainerGroupPortMappingsInput:
+    out: DescribeContainerGroupPortMappingsInput = {}  # type: ignore[typeddict-item]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("ContainerGroupType") is not None:
+        import capo_gamelift.types.container_group_type
+
+        out["container_group_type"] = (
+            capo_gamelift.types.container_group_type.deserialize_cbor(
+                data["ContainerGroupType"]
+            )
+        )
+    if data.get("ComputeName") is not None:
+        out["compute_name"] = data["ComputeName"]
+    if data.get("InstanceId") is not None:
+        out["instance_id"] = data["InstanceId"]
+    if data.get("ContainerName") is not None:
+        out["container_name"] = data["ContainerName"]
+    return out

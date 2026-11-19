@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> ResendOperationAuthorizationRequest:
     else:
         out["operation_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResendOperationAuthorizationRequest) -> dict:
+    out: dict = {}
+    out["OperationId"] = value["operation_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ResendOperationAuthorizationRequest:
+    out: ResendOperationAuthorizationRequest = {}  # type: ignore[typeddict-item]
+    if data.get("OperationId") is not None:
+        out["operation_id"] = data["OperationId"]
+    else:
+        out["operation_id"] = ""
+    return out

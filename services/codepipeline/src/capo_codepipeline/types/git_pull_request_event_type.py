@@ -16,3 +16,12 @@ def serialize_aws_json_1_1(value: GitPullRequestEventType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> GitPullRequestEventType:
     return cast(GitPullRequestEventType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GitPullRequestEventType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> GitPullRequestEventType:
+    return cast(GitPullRequestEventType, data)

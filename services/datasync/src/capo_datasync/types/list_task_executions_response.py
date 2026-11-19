@@ -47,3 +47,32 @@ def deserialize_aws_json_1_1(data: dict) -> ListTaskExecutionsResponse:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListTaskExecutionsResponse) -> dict:
+    out: dict = {}
+    if "task_executions" in value:
+        import capo_datasync.types.task_execution_list
+
+        out["TaskExecutions"] = capo_datasync.types.task_execution_list.serialize_cbor(
+            value["task_executions"]
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListTaskExecutionsResponse:
+    out: ListTaskExecutionsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("TaskExecutions") is not None:
+        import capo_datasync.types.task_execution_list
+
+        out["task_executions"] = (
+            capo_datasync.types.task_execution_list.deserialize_cbor(
+                data["TaskExecutions"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

@@ -20,3 +20,12 @@ def serialize_aws_json_1_1(value: ScalingStatusType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> ScalingStatusType:
     return cast(ScalingStatusType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ScalingStatusType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ScalingStatusType:
+    return cast(ScalingStatusType, data)

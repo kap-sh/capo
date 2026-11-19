@@ -141,3 +141,102 @@ def deserialize_aws_json_1_1(data: dict) -> CallAnalyticsJobSummary:
     if data.get("FailureReason") is not None:
         out["failure_reason"] = data["FailureReason"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CallAnalyticsJobSummary) -> dict:
+    out: dict = {}
+    if "call_analytics_job_name" in value:
+        out["CallAnalyticsJobName"] = value["call_analytics_job_name"]
+    if "creation_time" in value:
+        import capo_transcribe.types.date_time
+
+        out["CreationTime"] = capo_transcribe.types.date_time.serialize_cbor(
+            value["creation_time"]
+        )
+    if "start_time" in value:
+        import capo_transcribe.types.date_time
+
+        out["StartTime"] = capo_transcribe.types.date_time.serialize_cbor(
+            value["start_time"]
+        )
+    if "completion_time" in value:
+        import capo_transcribe.types.date_time
+
+        out["CompletionTime"] = capo_transcribe.types.date_time.serialize_cbor(
+            value["completion_time"]
+        )
+    if "language_code" in value:
+        import capo_transcribe.types.language_code
+
+        out["LanguageCode"] = capo_transcribe.types.language_code.serialize_cbor(
+            value["language_code"]
+        )
+    if "call_analytics_job_status" in value:
+        import capo_transcribe.types.call_analytics_job_status
+
+        out["CallAnalyticsJobStatus"] = (
+            capo_transcribe.types.call_analytics_job_status.serialize_cbor(
+                value["call_analytics_job_status"]
+            )
+        )
+    if "call_analytics_job_details" in value:
+        import capo_transcribe.types.call_analytics_job_details
+
+        out["CallAnalyticsJobDetails"] = (
+            capo_transcribe.types.call_analytics_job_details.serialize_cbor(
+                value["call_analytics_job_details"]
+            )
+        )
+    if "failure_reason" in value:
+        out["FailureReason"] = value["failure_reason"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CallAnalyticsJobSummary:
+    out: CallAnalyticsJobSummary = {}  # type: ignore[typeddict-item]
+    if data.get("CallAnalyticsJobName") is not None:
+        out["call_analytics_job_name"] = data["CallAnalyticsJobName"]
+    if data.get("CreationTime") is not None:
+        import capo_transcribe.types.date_time
+
+        out["creation_time"] = capo_transcribe.types.date_time.deserialize_cbor(
+            data["CreationTime"]
+        )
+    if data.get("StartTime") is not None:
+        import capo_transcribe.types.date_time
+
+        out["start_time"] = capo_transcribe.types.date_time.deserialize_cbor(
+            data["StartTime"]
+        )
+    if data.get("CompletionTime") is not None:
+        import capo_transcribe.types.date_time
+
+        out["completion_time"] = capo_transcribe.types.date_time.deserialize_cbor(
+            data["CompletionTime"]
+        )
+    if data.get("LanguageCode") is not None:
+        import capo_transcribe.types.language_code
+
+        out["language_code"] = capo_transcribe.types.language_code.deserialize_cbor(
+            data["LanguageCode"]
+        )
+    if data.get("CallAnalyticsJobStatus") is not None:
+        import capo_transcribe.types.call_analytics_job_status
+
+        out["call_analytics_job_status"] = (
+            capo_transcribe.types.call_analytics_job_status.deserialize_cbor(
+                data["CallAnalyticsJobStatus"]
+            )
+        )
+    if data.get("CallAnalyticsJobDetails") is not None:
+        import capo_transcribe.types.call_analytics_job_details
+
+        out["call_analytics_job_details"] = (
+            capo_transcribe.types.call_analytics_job_details.deserialize_cbor(
+                data["CallAnalyticsJobDetails"]
+            )
+        )
+    if data.get("FailureReason") is not None:
+        out["failure_reason"] = data["FailureReason"]
+    return out

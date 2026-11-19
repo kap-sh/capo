@@ -104,3 +104,68 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLanguageModelResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateLanguageModelResponse) -> dict:
+    out: dict = {}
+    if "language_code" in value:
+        import capo_transcribe.types.clm_language_code
+
+        out["LanguageCode"] = capo_transcribe.types.clm_language_code.serialize_cbor(
+            value["language_code"]
+        )
+    if "base_model_name" in value:
+        import capo_transcribe.types.base_model_name
+
+        out["BaseModelName"] = capo_transcribe.types.base_model_name.serialize_cbor(
+            value["base_model_name"]
+        )
+    if "model_name" in value:
+        out["ModelName"] = value["model_name"]
+    if "input_data_config" in value:
+        import capo_transcribe.types.input_data_config
+
+        out["InputDataConfig"] = capo_transcribe.types.input_data_config.serialize_cbor(
+            value["input_data_config"]
+        )
+    if "model_status" in value:
+        import capo_transcribe.types.model_status
+
+        out["ModelStatus"] = capo_transcribe.types.model_status.serialize_cbor(
+            value["model_status"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateLanguageModelResponse:
+    out: CreateLanguageModelResponse = {}  # type: ignore[typeddict-item]
+    if data.get("LanguageCode") is not None:
+        import capo_transcribe.types.clm_language_code
+
+        out["language_code"] = capo_transcribe.types.clm_language_code.deserialize_cbor(
+            data["LanguageCode"]
+        )
+    if data.get("BaseModelName") is not None:
+        import capo_transcribe.types.base_model_name
+
+        out["base_model_name"] = capo_transcribe.types.base_model_name.deserialize_cbor(
+            data["BaseModelName"]
+        )
+    if data.get("ModelName") is not None:
+        out["model_name"] = data["ModelName"]
+    if data.get("InputDataConfig") is not None:
+        import capo_transcribe.types.input_data_config
+
+        out["input_data_config"] = (
+            capo_transcribe.types.input_data_config.deserialize_cbor(
+                data["InputDataConfig"]
+            )
+        )
+    if data.get("ModelStatus") is not None:
+        import capo_transcribe.types.model_status
+
+        out["model_status"] = capo_transcribe.types.model_status.deserialize_cbor(
+            data["ModelStatus"]
+        )
+    return out

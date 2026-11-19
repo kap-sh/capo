@@ -26,3 +26,18 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeFirewallMetadataRequest:
     if data.get("FirewallArn") is not None:
         out["firewall_arn"] = data["FirewallArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeFirewallMetadataRequest) -> dict:
+    out: dict = {}
+    if "firewall_arn" in value:
+        out["FirewallArn"] = value["firewall_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeFirewallMetadataRequest:
+    out: DescribeFirewallMetadataRequest = {}  # type: ignore[typeddict-item]
+    if data.get("FirewallArn") is not None:
+        out["firewall_arn"] = data["FirewallArn"]
+    return out

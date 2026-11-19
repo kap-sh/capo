@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> RequestUploadCredentialsInput:
     if data.get("BuildId") is not None:
         out["build_id"] = data["BuildId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RequestUploadCredentialsInput) -> dict:
+    out: dict = {}
+    if "build_id" in value:
+        out["BuildId"] = value["build_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RequestUploadCredentialsInput:
+    out: RequestUploadCredentialsInput = {}  # type: ignore[typeddict-item]
+    if data.get("BuildId") is not None:
+        out["build_id"] = data["BuildId"]
+    return out

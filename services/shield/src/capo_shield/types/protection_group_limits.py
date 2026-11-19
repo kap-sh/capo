@@ -49,3 +49,36 @@ def deserialize_aws_json_1_1(data: dict) -> ProtectionGroupLimits:
     else:
         raise DeserializationError("ProtectionGroupLimits.pattern_type_limits required")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ProtectionGroupLimits) -> dict:
+    out: dict = {}
+    out["MaxProtectionGroups"] = value.get("max_protection_groups", 0)
+    import capo_shield.types.protection_group_pattern_type_limits
+
+    out["PatternTypeLimits"] = (
+        capo_shield.types.protection_group_pattern_type_limits.serialize_cbor(
+            value["pattern_type_limits"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ProtectionGroupLimits:
+    out: ProtectionGroupLimits = {}  # type: ignore[typeddict-item]
+    if data.get("MaxProtectionGroups") is not None:
+        out["max_protection_groups"] = data["MaxProtectionGroups"]
+    else:
+        out["max_protection_groups"] = 0
+    if data.get("PatternTypeLimits") is not None:
+        import capo_shield.types.protection_group_pattern_type_limits
+
+        out["pattern_type_limits"] = (
+            capo_shield.types.protection_group_pattern_type_limits.deserialize_cbor(
+                data["PatternTypeLimits"]
+            )
+        )
+    else:
+        raise DeserializationError("ProtectionGroupLimits.pattern_type_limits required")
+    return out

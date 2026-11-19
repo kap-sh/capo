@@ -37,3 +37,24 @@ def deserialize_aws_json_1_0(data: dict) -> Dimension:
     else:
         out["dimension_value"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Dimension) -> dict:
+    out: dict = {}
+    out["dimensionKey"] = value["dimension_key"]
+    out["dimensionValue"] = value.get("dimension_value", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> Dimension:
+    out: Dimension = {}  # type: ignore[typeddict-item]
+    if data.get("dimensionKey") is not None:
+        out["dimension_key"] = data["dimensionKey"]
+    else:
+        out["dimension_key"] = ""
+    if data.get("dimensionValue") is not None:
+        out["dimension_value"] = data["dimensionValue"]
+    else:
+        out["dimension_value"] = 0
+    return out

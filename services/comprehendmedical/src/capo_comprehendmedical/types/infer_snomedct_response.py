@@ -92,3 +92,65 @@ def deserialize_aws_json_1_1(data: dict) -> InferSNOMEDCTResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InferSNOMEDCTResponse) -> dict:
+    out: dict = {}
+    import capo_comprehendmedical.types.snomedct_entity_list
+
+    out["Entities"] = capo_comprehendmedical.types.snomedct_entity_list.serialize_cbor(
+        value["entities"]
+    )
+    if "pagination_token" in value:
+        out["PaginationToken"] = value["pagination_token"]
+    if "model_version" in value:
+        out["ModelVersion"] = value["model_version"]
+    if "snomedct_details" in value:
+        import capo_comprehendmedical.types.snomedct_details
+
+        out["SNOMEDCTDetails"] = (
+            capo_comprehendmedical.types.snomedct_details.serialize_cbor(
+                value["snomedct_details"]
+            )
+        )
+    if "characters" in value:
+        import capo_comprehendmedical.types.characters
+
+        out["Characters"] = capo_comprehendmedical.types.characters.serialize_cbor(
+            value["characters"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> InferSNOMEDCTResponse:
+    out: InferSNOMEDCTResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Entities") is not None:
+        import capo_comprehendmedical.types.snomedct_entity_list
+
+        out["entities"] = (
+            capo_comprehendmedical.types.snomedct_entity_list.deserialize_cbor(
+                data["Entities"]
+            )
+        )
+    else:
+        out["entities"] = []
+    if data.get("PaginationToken") is not None:
+        out["pagination_token"] = data["PaginationToken"]
+    if data.get("ModelVersion") is not None:
+        out["model_version"] = data["ModelVersion"]
+    if data.get("SNOMEDCTDetails") is not None:
+        import capo_comprehendmedical.types.snomedct_details
+
+        out["snomedct_details"] = (
+            capo_comprehendmedical.types.snomedct_details.deserialize_cbor(
+                data["SNOMEDCTDetails"]
+            )
+        )
+    if data.get("Characters") is not None:
+        import capo_comprehendmedical.types.characters
+
+        out["characters"] = capo_comprehendmedical.types.characters.deserialize_cbor(
+            data["Characters"]
+        )
+    return out

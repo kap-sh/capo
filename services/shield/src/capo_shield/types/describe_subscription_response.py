@@ -34,3 +34,26 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeSubscriptionResponse:
             data["Subscription"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeSubscriptionResponse) -> dict:
+    out: dict = {}
+    if "subscription" in value:
+        import capo_shield.types.subscription
+
+        out["Subscription"] = capo_shield.types.subscription.serialize_cbor(
+            value["subscription"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeSubscriptionResponse:
+    out: DescribeSubscriptionResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Subscription") is not None:
+        import capo_shield.types.subscription
+
+        out["subscription"] = capo_shield.types.subscription.deserialize_cbor(
+            data["Subscription"]
+        )
+    return out

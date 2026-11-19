@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteRuleSetRequest:
     else:
         out["rule_set_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteRuleSetRequest) -> dict:
+    out: dict = {}
+    out["RuleSetId"] = value["rule_set_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteRuleSetRequest:
+    out: DeleteRuleSetRequest = {}  # type: ignore[typeddict-item]
+    if data.get("RuleSetId") is not None:
+        out["rule_set_id"] = data["RuleSetId"]
+    else:
+        out["rule_set_id"] = ""
+    return out

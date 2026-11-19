@@ -51,3 +51,38 @@ def deserialize_aws_json_1_1(data: dict) -> CreatePrivateVirtualInterfaceRequest
             "CreatePrivateVirtualInterfaceRequest.new_private_virtual_interface required"
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreatePrivateVirtualInterfaceRequest) -> dict:
+    out: dict = {}
+    out["connectionId"] = value["connection_id"]
+    import capo_direct_connect.types.new_private_virtual_interface
+
+    out["newPrivateVirtualInterface"] = (
+        capo_direct_connect.types.new_private_virtual_interface.serialize_cbor(
+            value["new_private_virtual_interface"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreatePrivateVirtualInterfaceRequest:
+    out: CreatePrivateVirtualInterfaceRequest = {}  # type: ignore[typeddict-item]
+    if data.get("connectionId") is not None:
+        out["connection_id"] = data["connectionId"]
+    else:
+        out["connection_id"] = ""
+    if data.get("newPrivateVirtualInterface") is not None:
+        import capo_direct_connect.types.new_private_virtual_interface
+
+        out["new_private_virtual_interface"] = (
+            capo_direct_connect.types.new_private_virtual_interface.deserialize_cbor(
+                data["newPrivateVirtualInterface"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "CreatePrivateVirtualInterfaceRequest.new_private_virtual_interface required"
+        )
+    return out

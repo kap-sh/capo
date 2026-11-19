@@ -37,3 +37,28 @@ def deserialize_aws_json_1_1(data: list) -> FlywheelIterationPropertiesList:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FlywheelIterationPropertiesList) -> list:
+    import capo_comprehend.types.flywheel_iteration_properties
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_comprehend.types.flywheel_iteration_properties.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> FlywheelIterationPropertiesList:
+    import capo_comprehend.types.flywheel_iteration_properties
+
+    out: FlywheelIterationPropertiesList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_comprehend.types.flywheel_iteration_properties.deserialize_cbor(item)
+        )
+    return out

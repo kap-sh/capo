@@ -234,6 +234,7 @@ class AsyncCodeBuildClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[AsyncInterceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_1", "rpcv2Cbor"]
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -250,6 +251,7 @@ class AsyncCodeBuildClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -265,6 +267,7 @@ class AsyncCodeBuildClient:
         operation_interceptors: Iterable[AsyncInterceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_1", "rpcv2Cbor"] = "awsJson1_1",
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -301,6 +304,7 @@ class AsyncCodeBuildClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -334,6 +338,9 @@ class AsyncCodeBuildClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_1")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -368,14 +375,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.batch_delete_builds_output.BatchDeleteBuildsOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.batch_delete_builds
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.batch_delete_builds
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.batch_delete_builds.async_batch_delete_builds(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.batch_delete_builds.async_batch_delete_builds(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.batch_delete_builds
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.batch_delete_builds.async_batch_delete_builds(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -416,14 +435,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.batch_get_build_batches_output.BatchGetBuildBatchesOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.batch_get_build_batches
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.batch_get_build_batches
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.batch_get_build_batches.async_batch_get_build_batches(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.batch_get_build_batches.async_batch_get_build_batches(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.batch_get_build_batches
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.batch_get_build_batches.async_batch_get_build_batches(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -462,14 +493,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.batch_get_builds_output.BatchGetBuildsOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.batch_get_builds
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.batch_get_builds
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.batch_get_builds.async_batch_get_builds(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.batch_get_builds.async_batch_get_builds(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.batch_get_builds
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.batch_get_builds.async_batch_get_builds(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -510,14 +553,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.batch_get_command_executions_output.BatchGetCommandExecutionsOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.batch_get_command_executions
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.batch_get_command_executions
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.batch_get_command_executions.async_batch_get_command_executions(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.batch_get_command_executions.async_batch_get_command_executions(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.batch_get_command_executions
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.batch_get_command_executions.async_batch_get_command_executions(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -567,14 +622,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.batch_get_fleets_output.BatchGetFleetsOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.batch_get_fleets
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.batch_get_fleets
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.batch_get_fleets.async_batch_get_fleets(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.batch_get_fleets.async_batch_get_fleets(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.batch_get_fleets
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.batch_get_fleets.async_batch_get_fleets(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -613,14 +680,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.batch_get_projects_output.BatchGetProjectsOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.batch_get_projects
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.batch_get_projects
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.batch_get_projects.async_batch_get_projects(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.batch_get_projects.async_batch_get_projects(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.batch_get_projects
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.batch_get_projects.async_batch_get_projects(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -661,14 +740,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.batch_get_report_groups_output.BatchGetReportGroupsOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.batch_get_report_groups
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.batch_get_report_groups
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.batch_get_report_groups.async_batch_get_report_groups(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.batch_get_report_groups.async_batch_get_report_groups(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.batch_get_report_groups
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.batch_get_report_groups.async_batch_get_report_groups(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -707,14 +798,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.batch_get_reports_output.BatchGetReportsOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.batch_get_reports
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.batch_get_reports
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.batch_get_reports.async_batch_get_reports(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.batch_get_reports.async_batch_get_reports(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.batch_get_reports
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.batch_get_reports.async_batch_get_reports(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -753,14 +856,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.batch_get_sandboxes_output.BatchGetSandboxesOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.batch_get_sandboxes
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.batch_get_sandboxes
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.batch_get_sandboxes.async_batch_get_sandboxes(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.batch_get_sandboxes.async_batch_get_sandboxes(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.batch_get_sandboxes
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.batch_get_sandboxes.async_batch_get_sandboxes(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -834,14 +949,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.create_fleet_output.CreateFleetOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.create_fleet
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.create_fleet
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.create_fleet.async_create_fleet(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.create_fleet.async_create_fleet(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.create_fleet
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.create_fleet.async_create_fleet(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -967,14 +1094,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.create_project_output.CreateProjectOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.create_project
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.create_project
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.create_project.async_create_project(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.create_project.async_create_project(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.create_project
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.create_project.async_create_project(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1059,14 +1198,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.create_report_group_output.CreateReportGroupOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.create_report_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.create_report_group
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.create_report_group.async_create_report_group(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.create_report_group.async_create_report_group(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.create_report_group
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.create_report_group.async_create_report_group(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1134,14 +1285,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.create_webhook_output.CreateWebhookOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.create_webhook
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.create_webhook
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.create_webhook.async_create_webhook(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.create_webhook.async_create_webhook(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.create_webhook
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.create_webhook.async_create_webhook(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1192,14 +1355,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.delete_build_batch_output.DeleteBuildBatchOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.delete_build_batch
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.delete_build_batch
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.delete_build_batch.async_delete_build_batch(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.delete_build_batch.async_delete_build_batch(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.delete_build_batch
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.delete_build_batch.async_delete_build_batch(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1238,14 +1413,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.delete_fleet_output.DeleteFleetOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.delete_fleet
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.delete_fleet
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.delete_fleet.async_delete_fleet(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.delete_fleet.async_delete_fleet(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.delete_fleet
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.delete_fleet.async_delete_fleet(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1282,14 +1469,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.delete_project_output.DeleteProjectOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.delete_project
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.delete_project
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.delete_project.async_delete_project(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.delete_project.async_delete_project(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.delete_project
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.delete_project.async_delete_project(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1328,14 +1527,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.delete_report_output.DeleteReportOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.delete_report
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.delete_report
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.delete_report.async_delete_report(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.delete_report.async_delete_report(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.delete_report
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.delete_report.async_delete_report(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1376,14 +1587,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.delete_report_group_output.DeleteReportGroupOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.delete_report_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.delete_report_group
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.delete_report_group.async_delete_report_group(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.delete_report_group.async_delete_report_group(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.delete_report_group
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.delete_report_group.async_delete_report_group(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1426,14 +1649,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.delete_resource_policy_output.DeleteResourcePolicyOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.delete_resource_policy
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.delete_resource_policy
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.delete_resource_policy.async_delete_resource_policy(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.delete_resource_policy.async_delete_resource_policy(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.delete_resource_policy
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.delete_resource_policy.async_delete_resource_policy(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1473,14 +1708,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.delete_source_credentials_output.DeleteSourceCredentialsOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.delete_source_credentials
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.delete_source_credentials
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.delete_source_credentials.async_delete_source_credentials(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.delete_source_credentials.async_delete_source_credentials(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.delete_source_credentials
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.delete_source_credentials.async_delete_source_credentials(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1521,14 +1768,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.delete_webhook_output.DeleteWebhookOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.delete_webhook
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.delete_webhook
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.delete_webhook.async_delete_webhook(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.delete_webhook.async_delete_webhook(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.delete_webhook
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.delete_webhook.async_delete_webhook(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1587,14 +1846,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.describe_code_coverages_output.DescribeCodeCoveragesOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.describe_code_coverages
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.describe_code_coverages
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.describe_code_coverages.async_describe_code_coverages(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.describe_code_coverages.async_describe_code_coverages(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.describe_code_coverages
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.describe_code_coverages.async_describe_code_coverages(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1691,14 +1962,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.describe_test_cases_output.DescribeTestCasesOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.describe_test_cases
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.describe_test_cases
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.describe_test_cases.async_describe_test_cases(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.describe_test_cases.async_describe_test_cases(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.describe_test_cases
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.describe_test_cases.async_describe_test_cases(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1773,14 +2056,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.get_report_group_trend_output.GetReportGroupTrendOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.get_report_group_trend
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.get_report_group_trend
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.get_report_group_trend.async_get_report_group_trend(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.get_report_group_trend.async_get_report_group_trend(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.get_report_group_trend
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.get_report_group_trend.async_get_report_group_trend(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1823,14 +2118,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.get_resource_policy_output.GetResourcePolicyOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.get_resource_policy
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.get_resource_policy
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.get_resource_policy.async_get_resource_policy(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.get_resource_policy.async_get_resource_policy(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.get_resource_policy
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.get_resource_policy.async_get_resource_policy(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1883,14 +2190,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.import_source_credentials_output.ImportSourceCredentialsOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.import_source_credentials
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.import_source_credentials
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.import_source_credentials.async_import_source_credentials(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.import_source_credentials.async_import_source_credentials(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.import_source_credentials
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.import_source_credentials.async_import_source_credentials(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -1948,14 +2267,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.invalidate_project_cache_output.InvalidateProjectCacheOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.invalidate_project_cache
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.invalidate_project_cache
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.invalidate_project_cache.async_invalidate_project_cache(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.invalidate_project_cache.async_invalidate_project_cache(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.invalidate_project_cache
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.invalidate_project_cache.async_invalidate_project_cache(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2004,14 +2335,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.list_build_batches_output.ListBuildBatchesOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.list_build_batches
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.list_build_batches
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.list_build_batches.async_list_build_batches(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.list_build_batches.async_list_build_batches(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.list_build_batches
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.list_build_batches.async_list_build_batches(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2100,14 +2443,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.list_build_batches_for_project_output.ListBuildBatchesForProjectOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.list_build_batches_for_project
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.list_build_batches_for_project
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.list_build_batches_for_project.async_list_build_batches_for_project(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.list_build_batches_for_project.async_list_build_batches_for_project(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.list_build_batches_for_project
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.list_build_batches_for_project.async_list_build_batches_for_project(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2191,14 +2546,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.list_builds_output.ListBuildsOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.list_builds
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.list_builds
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.list_builds.async_list_builds(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.list_builds.async_list_builds(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.list_builds
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.list_builds.async_list_builds(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2271,14 +2638,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.list_builds_for_project_output.ListBuildsForProjectOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.list_builds_for_project
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.list_builds_for_project
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.list_builds_for_project.async_list_builds_for_project(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.list_builds_for_project.async_list_builds_for_project(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.list_builds_for_project
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.list_builds_for_project.async_list_builds_for_project(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2357,14 +2736,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.list_command_executions_for_sandbox_output.ListCommandExecutionsForSandboxOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.list_command_executions_for_sandbox
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.list_command_executions_for_sandbox
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.list_command_executions_for_sandbox.async_list_command_executions_for_sandbox(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.list_command_executions_for_sandbox.async_list_command_executions_for_sandbox(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.list_command_executions_for_sandbox
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.list_command_executions_for_sandbox.async_list_command_executions_for_sandbox(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -2454,14 +2845,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.list_curated_environment_images_output.ListCuratedEnvironmentImagesOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.list_curated_environment_images
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.list_curated_environment_images
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.list_curated_environment_images.async_list_curated_environment_images(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.list_curated_environment_images.async_list_curated_environment_images(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.list_curated_environment_images
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.list_curated_environment_images.async_list_curated_environment_images(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2510,14 +2913,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.list_fleets_output.ListFleetsOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.list_fleets
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.list_fleets
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.list_fleets.async_list_fleets(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.list_fleets.async_list_fleets(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.list_fleets
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.list_fleets.async_list_fleets(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -2608,14 +3023,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.list_projects_output.ListProjectsOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.list_projects
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.list_projects
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.list_projects.async_list_projects(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.list_projects.async_list_projects(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.list_projects
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.list_projects.async_list_projects(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2697,14 +3124,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.list_report_groups_output.ListReportGroupsOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.list_report_groups
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.list_report_groups
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.list_report_groups.async_list_report_groups(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.list_report_groups.async_list_report_groups(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.list_report_groups
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.list_report_groups.async_list_report_groups(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2786,14 +3225,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.list_reports_output.ListReportsOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.list_reports
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.list_reports
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.list_reports.async_list_reports(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.list_reports.async_list_reports(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.list_reports
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.list_reports.async_list_reports(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2876,14 +3327,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.list_reports_for_report_group_output.ListReportsForReportGroupOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.list_reports_for_report_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.list_reports_for_report_group
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.list_reports_for_report_group.async_list_reports_for_report_group(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.list_reports_for_report_group.async_list_reports_for_report_group(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.list_reports_for_report_group
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.list_reports_for_report_group.async_list_reports_for_report_group(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2965,14 +3428,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.list_sandboxes_output.ListSandboxesOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.list_sandboxes
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.list_sandboxes
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.list_sandboxes.async_list_sandboxes(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.list_sandboxes.async_list_sandboxes(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.list_sandboxes
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.list_sandboxes.async_list_sandboxes(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3051,14 +3526,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.list_sandboxes_for_project_output.ListSandboxesForProjectOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.list_sandboxes_for_project
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.list_sandboxes_for_project
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.list_sandboxes_for_project.async_list_sandboxes_for_project(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.list_sandboxes_for_project.async_list_sandboxes_for_project(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.list_sandboxes_for_project
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.list_sandboxes_for_project.async_list_sandboxes_for_project(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -3156,14 +3643,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.list_shared_projects_output.ListSharedProjectsOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.list_shared_projects
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.list_shared_projects
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.list_shared_projects.async_list_shared_projects(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.list_shared_projects.async_list_shared_projects(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.list_shared_projects
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.list_shared_projects.async_list_shared_projects(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3249,14 +3748,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.list_shared_report_groups_output.ListSharedReportGroupsOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.list_shared_report_groups
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.list_shared_report_groups
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.list_shared_report_groups.async_list_shared_report_groups(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.list_shared_report_groups.async_list_shared_report_groups(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.list_shared_report_groups
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.list_shared_report_groups.async_list_shared_report_groups(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3324,14 +3835,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.list_source_credentials_output.ListSourceCredentialsOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.list_source_credentials
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.list_source_credentials
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.list_source_credentials.async_list_source_credentials(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.list_source_credentials.async_list_source_credentials(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.list_source_credentials
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.list_source_credentials.async_list_source_credentials(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3371,14 +3894,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.put_resource_policy_output.PutResourcePolicyOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.put_resource_policy
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.put_resource_policy
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.put_resource_policy.async_put_resource_policy(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.put_resource_policy.async_put_resource_policy(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.put_resource_policy
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.put_resource_policy.async_put_resource_policy(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3422,14 +3957,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.retry_build_output.RetryBuildOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.retry_build
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.retry_build
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.retry_build.async_retry_build(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.retry_build.async_retry_build(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.retry_build
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.retry_build.async_retry_build(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3477,14 +4024,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.retry_build_batch_output.RetryBuildBatchOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.retry_build_batch
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.retry_build_batch
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.retry_build_batch.async_retry_build_batch(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.retry_build_batch.async_retry_build_batch(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.retry_build_batch
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.retry_build_batch.async_retry_build_batch(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3651,14 +4210,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.start_build_output.StartBuildOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.start_build
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.start_build
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.start_build.async_start_build(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.start_build.async_start_build(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.start_build
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.start_build.async_start_build(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3880,14 +4451,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.start_build_batch_output.StartBuildBatchOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.start_build_batch
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.start_build_batch
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.start_build_batch.async_start_build_batch(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.start_build_batch.async_start_build_batch(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.start_build_batch
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.start_build_batch.async_start_build_batch(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4001,14 +4584,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.start_command_execution_output.StartCommandExecutionOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.start_command_execution
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.start_command_execution
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.start_command_execution.async_start_command_execution(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.start_command_execution.async_start_command_execution(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.start_command_execution
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.start_command_execution.async_start_command_execution(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -4081,14 +4676,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.start_sandbox_output.StartSandboxOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.start_sandbox
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.start_sandbox
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.start_sandbox.async_start_sandbox(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.start_sandbox.async_start_sandbox(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.start_sandbox
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.start_sandbox.async_start_sandbox(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -4138,14 +4745,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.start_sandbox_connection_output.StartSandboxConnectionOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.start_sandbox_connection
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.start_sandbox_connection
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.start_sandbox_connection.async_start_sandbox_connection(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.start_sandbox_connection.async_start_sandbox_connection(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.start_sandbox_connection
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.start_sandbox_connection.async_start_sandbox_connection(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4185,14 +4804,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.stop_build_output.StopBuildOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.stop_build
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.stop_build
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.stop_build.async_stop_build(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.stop_build.async_stop_build(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.stop_build
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.stop_build.async_stop_build(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4230,14 +4861,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.stop_build_batch_output.StopBuildBatchOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.stop_build_batch
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.stop_build_batch
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.stop_build_batch.async_stop_build_batch(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.stop_build_batch.async_stop_build_batch(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.stop_build_batch
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.stop_build_batch.async_stop_build_batch(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4277,14 +4920,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.stop_sandbox_output.StopSandboxOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.stop_sandbox
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.stop_sandbox
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.stop_sandbox.async_stop_sandbox(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.stop_sandbox.async_stop_sandbox(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.stop_sandbox
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.stop_sandbox.async_stop_sandbox(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4360,14 +5015,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.update_fleet_output.UpdateFleetOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.update_fleet
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.update_fleet
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.update_fleet.async_update_fleet(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.update_fleet.async_update_fleet(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.update_fleet
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.update_fleet.async_update_fleet(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4498,14 +5165,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.update_project_output.UpdateProjectOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.update_project
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.update_project
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.update_project.async_update_project(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.update_project.async_update_project(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.update_project
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.update_project.async_update_project(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4592,14 +5271,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.update_project_visibility_output.UpdateProjectVisibilityOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.update_project_visibility
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.update_project_visibility
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.update_project_visibility.async_update_project_visibility(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.update_project_visibility.async_update_project_visibility(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.update_project_visibility
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.update_project_visibility.async_update_project_visibility(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4648,14 +5339,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.update_report_group_output.UpdateReportGroupOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.update_report_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.update_report_group
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.update_report_group.async_update_report_group(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.update_report_group.async_update_report_group(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.update_report_group
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.update_report_group.async_update_report_group(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4716,14 +5419,26 @@ class AsyncCodeBuildClient:
         ) -> AsyncOperationResponse[
             "capo_codebuild.types.update_webhook_output.UpdateWebhookOutput"
         ]:
-            import capo_codebuild._operations.code_build_20161006.update_webhook
+            if req.options.protocol == "awsJson1_1":
+                import capo_codebuild._operations.code_build_20161006.aws_json1_1.update_webhook
 
-            (
-                output,
-                http_response,
-            ) = await capo_codebuild._operations.code_build_20161006.update_webhook.async_update_webhook(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.aws_json1_1.update_webhook.async_update_webhook(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codebuild._operations.code_build_20161006.rpcv2_cbor.update_webhook
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_codebuild._operations.code_build_20161006.rpcv2_cbor.update_webhook.async_update_webhook(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

@@ -29,3 +29,19 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteDeploymentConfigInput:
     else:
         out["deployment_config_name"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteDeploymentConfigInput) -> dict:
+    out: dict = {}
+    out["deploymentConfigName"] = value["deployment_config_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteDeploymentConfigInput:
+    out: DeleteDeploymentConfigInput = {}  # type: ignore[typeddict-item]
+    if data.get("deploymentConfigName") is not None:
+        out["deployment_config_name"] = data["deploymentConfigName"]
+    else:
+        out["deployment_config_name"] = ""
+    return out

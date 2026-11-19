@@ -75,3 +75,49 @@ def deserialize_aws_json_1_0(data: dict) -> Route53HealthCheck:
     else:
         out["region"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Route53HealthCheck) -> dict:
+    out: dict = {}
+    out["hostedZoneId"] = value["hosted_zone_id"]
+    out["recordName"] = value["record_name"]
+    if "health_check_id" in value:
+        out["healthCheckId"] = value["health_check_id"]
+    if "status" in value:
+        import capo_arc_region_switch.types.route53_health_check_status
+
+        out["status"] = (
+            capo_arc_region_switch.types.route53_health_check_status.serialize_cbor(
+                value["status"]
+            )
+        )
+    out["region"] = value["region"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Route53HealthCheck:
+    out: Route53HealthCheck = {}  # type: ignore[typeddict-item]
+    if data.get("hostedZoneId") is not None:
+        out["hosted_zone_id"] = data["hostedZoneId"]
+    else:
+        out["hosted_zone_id"] = ""
+    if data.get("recordName") is not None:
+        out["record_name"] = data["recordName"]
+    else:
+        out["record_name"] = ""
+    if data.get("healthCheckId") is not None:
+        out["health_check_id"] = data["healthCheckId"]
+    if data.get("status") is not None:
+        import capo_arc_region_switch.types.route53_health_check_status
+
+        out["status"] = (
+            capo_arc_region_switch.types.route53_health_check_status.deserialize_cbor(
+                data["status"]
+            )
+        )
+    if data.get("region") is not None:
+        out["region"] = data["region"]
+    else:
+        out["region"] = ""
+    return out

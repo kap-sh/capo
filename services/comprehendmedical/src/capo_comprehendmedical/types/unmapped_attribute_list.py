@@ -35,3 +35,26 @@ def deserialize_aws_json_1_1(data: list) -> UnmappedAttributeList:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UnmappedAttributeList) -> list:
+    import capo_comprehendmedical.types.unmapped_attribute
+
+    out: list = []
+    for item in value:
+        out.append(capo_comprehendmedical.types.unmapped_attribute.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> UnmappedAttributeList:
+    import capo_comprehendmedical.types.unmapped_attribute
+
+    out: UnmappedAttributeList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_comprehendmedical.types.unmapped_attribute.deserialize_cbor(item)
+        )
+    return out

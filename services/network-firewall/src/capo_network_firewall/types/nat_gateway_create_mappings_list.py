@@ -37,3 +37,30 @@ def deserialize_aws_json_1_0(data: list) -> NatGatewayCreateMappingsList:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: NatGatewayCreateMappingsList) -> list:
+    import capo_network_firewall.types.nat_gateway_create_mapping
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_network_firewall.types.nat_gateway_create_mapping.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> NatGatewayCreateMappingsList:
+    import capo_network_firewall.types.nat_gateway_create_mapping
+
+    out: NatGatewayCreateMappingsList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_network_firewall.types.nat_gateway_create_mapping.deserialize_cbor(
+                item
+            )
+        )
+    return out

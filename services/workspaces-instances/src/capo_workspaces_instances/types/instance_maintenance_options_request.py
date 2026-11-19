@@ -40,3 +40,30 @@ def deserialize_aws_json_1_0(data: dict) -> InstanceMaintenanceOptionsRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InstanceMaintenanceOptionsRequest) -> dict:
+    out: dict = {}
+    if "auto_recovery" in value:
+        import capo_workspaces_instances.types.auto_recovery_enum
+
+        out["AutoRecovery"] = (
+            capo_workspaces_instances.types.auto_recovery_enum.serialize_cbor(
+                value["auto_recovery"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> InstanceMaintenanceOptionsRequest:
+    out: InstanceMaintenanceOptionsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("AutoRecovery") is not None:
+        import capo_workspaces_instances.types.auto_recovery_enum
+
+        out["auto_recovery"] = (
+            capo_workspaces_instances.types.auto_recovery_enum.deserialize_cbor(
+                data["AutoRecovery"]
+            )
+        )
+    return out

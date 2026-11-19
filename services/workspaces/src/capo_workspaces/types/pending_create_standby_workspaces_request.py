@@ -55,3 +55,38 @@ def deserialize_aws_json_1_1(data: dict) -> PendingCreateStandbyWorkspacesReques
     if data.get("WorkspaceId") is not None:
         out["workspace_id"] = data["WorkspaceId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PendingCreateStandbyWorkspacesRequest) -> dict:
+    out: dict = {}
+    if "user_name" in value:
+        out["UserName"] = value["user_name"]
+    if "directory_id" in value:
+        out["DirectoryId"] = value["directory_id"]
+    if "state" in value:
+        import capo_workspaces.types.workspace_state
+
+        out["State"] = capo_workspaces.types.workspace_state.serialize_cbor(
+            value["state"]
+        )
+    if "workspace_id" in value:
+        out["WorkspaceId"] = value["workspace_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> PendingCreateStandbyWorkspacesRequest:
+    out: PendingCreateStandbyWorkspacesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("UserName") is not None:
+        out["user_name"] = data["UserName"]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    if data.get("State") is not None:
+        import capo_workspaces.types.workspace_state
+
+        out["state"] = capo_workspaces.types.workspace_state.deserialize_cbor(
+            data["State"]
+        )
+    if data.get("WorkspaceId") is not None:
+        out["workspace_id"] = data["WorkspaceId"]
+    return out

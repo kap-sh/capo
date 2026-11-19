@@ -67,3 +67,26 @@ def deserialize_query(el: Element) -> Schedule:
     if child_timezone is not None:
         out["timezone"] = str(child_timezone.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Schedule) -> dict:
+    out: dict = {}
+    if "expression" in value:
+        out["Expression"] = value["expression"]
+    if "duration" in value:
+        out["Duration"] = value["duration"]
+    if "timezone" in value:
+        out["Timezone"] = value["timezone"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Schedule:
+    out: Schedule = {}  # type: ignore[typeddict-item]
+    if data.get("Expression") is not None:
+        out["expression"] = data["Expression"]
+    if data.get("Duration") is not None:
+        out["duration"] = data["Duration"]
+    if data.get("Timezone") is not None:
+        out["timezone"] = data["Timezone"]
+    return out

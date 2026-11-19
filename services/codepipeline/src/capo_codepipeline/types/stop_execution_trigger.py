@@ -28,3 +28,18 @@ def deserialize_aws_json_1_1(data: dict) -> StopExecutionTrigger:
     if data.get("reason") is not None:
         out["reason"] = data["reason"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StopExecutionTrigger) -> dict:
+    out: dict = {}
+    if "reason" in value:
+        out["reason"] = value["reason"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StopExecutionTrigger:
+    out: StopExecutionTrigger = {}  # type: ignore[typeddict-item]
+    if data.get("reason") is not None:
+        out["reason"] = data["reason"]
+    return out

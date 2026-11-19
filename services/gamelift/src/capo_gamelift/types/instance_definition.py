@@ -49,3 +49,34 @@ def deserialize_aws_json_1_1(data: dict) -> InstanceDefinition:
     if data.get("WeightedCapacity") is not None:
         out["weighted_capacity"] = data["WeightedCapacity"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InstanceDefinition) -> dict:
+    out: dict = {}
+    if "instance_type" in value:
+        import capo_gamelift.types.game_server_group_instance_type
+
+        out["InstanceType"] = (
+            capo_gamelift.types.game_server_group_instance_type.serialize_cbor(
+                value["instance_type"]
+            )
+        )
+    if "weighted_capacity" in value:
+        out["WeightedCapacity"] = value["weighted_capacity"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> InstanceDefinition:
+    out: InstanceDefinition = {}  # type: ignore[typeddict-item]
+    if data.get("InstanceType") is not None:
+        import capo_gamelift.types.game_server_group_instance_type
+
+        out["instance_type"] = (
+            capo_gamelift.types.game_server_group_instance_type.deserialize_cbor(
+                data["InstanceType"]
+            )
+        )
+    if data.get("WeightedCapacity") is not None:
+        out["weighted_capacity"] = data["WeightedCapacity"]
+    return out

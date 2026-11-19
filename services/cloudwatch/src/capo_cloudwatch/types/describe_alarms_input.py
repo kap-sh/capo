@@ -194,3 +194,74 @@ def deserialize_query(el: Element) -> DescribeAlarmsInput:
     if child_next_token is not None:
         out["next_token"] = str(child_next_token.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeAlarmsInput) -> dict:
+    out: dict = {}
+    if "alarm_names" in value:
+        import capo_cloudwatch.types.alarm_names
+
+        out["AlarmNames"] = capo_cloudwatch.types.alarm_names.serialize_cbor(
+            value["alarm_names"]
+        )
+    if "alarm_name_prefix" in value:
+        out["AlarmNamePrefix"] = value["alarm_name_prefix"]
+    if "alarm_types" in value:
+        import capo_cloudwatch.types.alarm_types
+
+        out["AlarmTypes"] = capo_cloudwatch.types.alarm_types.serialize_cbor(
+            value["alarm_types"]
+        )
+    if "children_of_alarm_name" in value:
+        out["ChildrenOfAlarmName"] = value["children_of_alarm_name"]
+    if "parents_of_alarm_name" in value:
+        out["ParentsOfAlarmName"] = value["parents_of_alarm_name"]
+    if "state_value" in value:
+        import capo_cloudwatch.types.state_value
+
+        out["StateValue"] = capo_cloudwatch.types.state_value.serialize_cbor(
+            value["state_value"]
+        )
+    if "action_prefix" in value:
+        out["ActionPrefix"] = value["action_prefix"]
+    if "max_records" in value:
+        out["MaxRecords"] = value["max_records"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeAlarmsInput:
+    out: DescribeAlarmsInput = {}  # type: ignore[typeddict-item]
+    if data.get("AlarmNames") is not None:
+        import capo_cloudwatch.types.alarm_names
+
+        out["alarm_names"] = capo_cloudwatch.types.alarm_names.deserialize_cbor(
+            data["AlarmNames"]
+        )
+    if data.get("AlarmNamePrefix") is not None:
+        out["alarm_name_prefix"] = data["AlarmNamePrefix"]
+    if data.get("AlarmTypes") is not None:
+        import capo_cloudwatch.types.alarm_types
+
+        out["alarm_types"] = capo_cloudwatch.types.alarm_types.deserialize_cbor(
+            data["AlarmTypes"]
+        )
+    if data.get("ChildrenOfAlarmName") is not None:
+        out["children_of_alarm_name"] = data["ChildrenOfAlarmName"]
+    if data.get("ParentsOfAlarmName") is not None:
+        out["parents_of_alarm_name"] = data["ParentsOfAlarmName"]
+    if data.get("StateValue") is not None:
+        import capo_cloudwatch.types.state_value
+
+        out["state_value"] = capo_cloudwatch.types.state_value.deserialize_cbor(
+            data["StateValue"]
+        )
+    if data.get("ActionPrefix") is not None:
+        out["action_prefix"] = data["ActionPrefix"]
+    if data.get("MaxRecords") is not None:
+        out["max_records"] = data["MaxRecords"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

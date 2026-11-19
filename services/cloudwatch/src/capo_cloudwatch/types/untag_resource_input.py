@@ -75,3 +75,30 @@ def deserialize_query(el: Element) -> UntagResourceInput:
             child_tag_keys
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UntagResourceInput) -> dict:
+    out: dict = {}
+    if "resource_arn" in value:
+        out["ResourceARN"] = value["resource_arn"]
+    if "tag_keys" in value:
+        import capo_cloudwatch.types.tag_key_list
+
+        out["TagKeys"] = capo_cloudwatch.types.tag_key_list.serialize_cbor(
+            value["tag_keys"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UntagResourceInput:
+    out: UntagResourceInput = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceARN") is not None:
+        out["resource_arn"] = data["ResourceARN"]
+    if data.get("TagKeys") is not None:
+        import capo_cloudwatch.types.tag_key_list
+
+        out["tag_keys"] = capo_cloudwatch.types.tag_key_list.deserialize_cbor(
+            data["TagKeys"]
+        )
+    return out

@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> ListCallAnalyticsCategoriesResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListCallAnalyticsCategoriesResponse) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "categories" in value:
+        import capo_transcribe.types.category_properties_list
+
+        out["Categories"] = (
+            capo_transcribe.types.category_properties_list.serialize_cbor(
+                value["categories"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListCallAnalyticsCategoriesResponse:
+    out: ListCallAnalyticsCategoriesResponse = {}  # type: ignore[typeddict-item]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("Categories") is not None:
+        import capo_transcribe.types.category_properties_list
+
+        out["categories"] = (
+            capo_transcribe.types.category_properties_list.deserialize_cbor(
+                data["Categories"]
+            )
+        )
+    return out

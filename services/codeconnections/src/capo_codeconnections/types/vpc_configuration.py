@@ -74,3 +74,53 @@ def deserialize_aws_json_1_0(data: dict) -> VpcConfiguration:
     if data.get("TlsCertificate") is not None:
         out["tls_certificate"] = data["TlsCertificate"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: VpcConfiguration) -> dict:
+    out: dict = {}
+    out["VpcId"] = value["vpc_id"]
+    import capo_codeconnections.types.subnet_ids
+
+    out["SubnetIds"] = capo_codeconnections.types.subnet_ids.serialize_cbor(
+        value["subnet_ids"]
+    )
+    import capo_codeconnections.types.security_group_ids
+
+    out["SecurityGroupIds"] = (
+        capo_codeconnections.types.security_group_ids.serialize_cbor(
+            value["security_group_ids"]
+        )
+    )
+    if "tls_certificate" in value:
+        out["TlsCertificate"] = value["tls_certificate"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> VpcConfiguration:
+    out: VpcConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("VpcId") is not None:
+        out["vpc_id"] = data["VpcId"]
+    else:
+        out["vpc_id"] = ""
+    if data.get("SubnetIds") is not None:
+        import capo_codeconnections.types.subnet_ids
+
+        out["subnet_ids"] = capo_codeconnections.types.subnet_ids.deserialize_cbor(
+            data["SubnetIds"]
+        )
+    else:
+        out["subnet_ids"] = []
+    if data.get("SecurityGroupIds") is not None:
+        import capo_codeconnections.types.security_group_ids
+
+        out["security_group_ids"] = (
+            capo_codeconnections.types.security_group_ids.deserialize_cbor(
+                data["SecurityGroupIds"]
+            )
+        )
+    else:
+        out["security_group_ids"] = []
+    if data.get("TlsCertificate") is not None:
+        out["tls_certificate"] = data["TlsCertificate"]
+    return out

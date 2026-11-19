@@ -56,3 +56,38 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeWorkspaceSnapshotsResult:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeWorkspaceSnapshotsResult) -> dict:
+    out: dict = {}
+    if "rebuild_snapshots" in value:
+        import capo_workspaces.types.snapshot_list
+
+        out["RebuildSnapshots"] = capo_workspaces.types.snapshot_list.serialize_cbor(
+            value["rebuild_snapshots"]
+        )
+    if "restore_snapshots" in value:
+        import capo_workspaces.types.snapshot_list
+
+        out["RestoreSnapshots"] = capo_workspaces.types.snapshot_list.serialize_cbor(
+            value["restore_snapshots"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeWorkspaceSnapshotsResult:
+    out: DescribeWorkspaceSnapshotsResult = {}  # type: ignore[typeddict-item]
+    if data.get("RebuildSnapshots") is not None:
+        import capo_workspaces.types.snapshot_list
+
+        out["rebuild_snapshots"] = capo_workspaces.types.snapshot_list.deserialize_cbor(
+            data["RebuildSnapshots"]
+        )
+    if data.get("RestoreSnapshots") is not None:
+        import capo_workspaces.types.snapshot_list
+
+        out["restore_snapshots"] = capo_workspaces.types.snapshot_list.deserialize_cbor(
+            data["RestoreSnapshots"]
+        )
+    return out

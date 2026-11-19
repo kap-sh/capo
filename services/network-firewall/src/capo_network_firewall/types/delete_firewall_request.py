@@ -42,3 +42,26 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteFirewallRequest:
     if data.get("DeleteAssociatedNatGateways") is not None:
         out["delete_associated_nat_gateways"] = data["DeleteAssociatedNatGateways"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteFirewallRequest) -> dict:
+    out: dict = {}
+    if "firewall_name" in value:
+        out["FirewallName"] = value["firewall_name"]
+    if "firewall_arn" in value:
+        out["FirewallArn"] = value["firewall_arn"]
+    if "delete_associated_nat_gateways" in value:
+        out["DeleteAssociatedNatGateways"] = value["delete_associated_nat_gateways"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteFirewallRequest:
+    out: DeleteFirewallRequest = {}  # type: ignore[typeddict-item]
+    if data.get("FirewallName") is not None:
+        out["firewall_name"] = data["FirewallName"]
+    if data.get("FirewallArn") is not None:
+        out["firewall_arn"] = data["FirewallArn"]
+    if data.get("DeleteAssociatedNatGateways") is not None:
+        out["delete_associated_nat_gateways"] = data["DeleteAssociatedNatGateways"]
+    return out

@@ -103,6 +103,73 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeLocationFsxOntapResponse:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeLocationFsxOntapResponse) -> dict:
+    out: dict = {}
+    if "creation_time" in value:
+        import capo_datasync.types.time
+
+        out["CreationTime"] = capo_datasync.types.time.serialize_cbor(
+            value["creation_time"]
+        )
+    if "location_arn" in value:
+        out["LocationArn"] = value["location_arn"]
+    if "location_uri" in value:
+        out["LocationUri"] = value["location_uri"]
+    if "protocol" in value:
+        import capo_datasync.types.fsx_protocol
+
+        out["Protocol"] = capo_datasync.types.fsx_protocol.serialize_cbor(
+            value["protocol"]
+        )
+    if "security_group_arns" in value:
+        import capo_datasync.types.ec2_security_group_arn_list
+
+        out["SecurityGroupArns"] = (
+            capo_datasync.types.ec2_security_group_arn_list.serialize_cbor(
+                value["security_group_arns"]
+            )
+        )
+    if "storage_virtual_machine_arn" in value:
+        out["StorageVirtualMachineArn"] = value["storage_virtual_machine_arn"]
+    if "fsx_filesystem_arn" in value:
+        out["FsxFilesystemArn"] = value["fsx_filesystem_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeLocationFsxOntapResponse:
+    out: DescribeLocationFsxOntapResponse = {}  # type: ignore[typeddict-item]
+    if data.get("CreationTime") is not None:
+        import capo_datasync.types.time
+
+        out["creation_time"] = capo_datasync.types.time.deserialize_cbor(
+            data["CreationTime"]
+        )
+    if data.get("LocationArn") is not None:
+        out["location_arn"] = data["LocationArn"]
+    if data.get("LocationUri") is not None:
+        out["location_uri"] = data["LocationUri"]
+    if data.get("Protocol") is not None:
+        import capo_datasync.types.fsx_protocol
+
+        out["protocol"] = capo_datasync.types.fsx_protocol.deserialize_cbor(
+            data["Protocol"]
+        )
+    if data.get("SecurityGroupArns") is not None:
+        import capo_datasync.types.ec2_security_group_arn_list
+
+        out["security_group_arns"] = (
+            capo_datasync.types.ec2_security_group_arn_list.deserialize_cbor(
+                data["SecurityGroupArns"]
+            )
+        )
+    if data.get("StorageVirtualMachineArn") is not None:
+        out["storage_virtual_machine_arn"] = data["StorageVirtualMachineArn"]
+    if data.get("FsxFilesystemArn") is not None:
+        out["fsx_filesystem_arn"] = data["FsxFilesystemArn"]
+    return out
+
+
 def redact_sensitive(value: DescribeLocationFsxOntapResponse) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "protocol" in value:

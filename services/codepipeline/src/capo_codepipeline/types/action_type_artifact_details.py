@@ -35,3 +35,24 @@ def deserialize_aws_json_1_1(data: dict) -> ActionTypeArtifactDetails:
     else:
         out["maximum_count"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ActionTypeArtifactDetails) -> dict:
+    out: dict = {}
+    out["minimumCount"] = value.get("minimum_count", 0)
+    out["maximumCount"] = value.get("maximum_count", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> ActionTypeArtifactDetails:
+    out: ActionTypeArtifactDetails = {}  # type: ignore[typeddict-item]
+    if data.get("minimumCount") is not None:
+        out["minimum_count"] = data["minimumCount"]
+    else:
+        out["minimum_count"] = 0
+    if data.get("maximumCount") is not None:
+        out["maximum_count"] = data["maximumCount"]
+    else:
+        out["maximum_count"] = 0
+    return out

@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: PlayerGatewayStatus) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> PlayerGatewayStatus:
     return cast(PlayerGatewayStatus, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PlayerGatewayStatus) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> PlayerGatewayStatus:
+    return cast(PlayerGatewayStatus, data)

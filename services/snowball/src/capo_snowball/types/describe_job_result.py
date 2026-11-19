@@ -57,6 +57,43 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeJobResult:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeJobResult) -> dict:
+    out: dict = {}
+    if "job_metadata" in value:
+        import capo_snowball.types.job_metadata
+
+        out["JobMetadata"] = capo_snowball.types.job_metadata.serialize_cbor(
+            value["job_metadata"]
+        )
+    if "sub_job_metadata" in value:
+        import capo_snowball.types.job_metadata_list
+
+        out["SubJobMetadata"] = capo_snowball.types.job_metadata_list.serialize_cbor(
+            value["sub_job_metadata"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeJobResult:
+    out: DescribeJobResult = {}  # type: ignore[typeddict-item]
+    if data.get("JobMetadata") is not None:
+        import capo_snowball.types.job_metadata
+
+        out["job_metadata"] = capo_snowball.types.job_metadata.deserialize_cbor(
+            data["JobMetadata"]
+        )
+    if data.get("SubJobMetadata") is not None:
+        import capo_snowball.types.job_metadata_list
+
+        out["sub_job_metadata"] = (
+            capo_snowball.types.job_metadata_list.deserialize_cbor(
+                data["SubJobMetadata"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: DescribeJobResult) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "job_metadata" in value:

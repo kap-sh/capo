@@ -27,3 +27,24 @@ def deserialize_aws_json_1_0(data: list) -> FieldList:
             continue
         out.append(capo_keyspaces.types.field_definition.deserialize_aws_json_1_0(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FieldList) -> list:
+    import capo_keyspaces.types.field_definition
+
+    out: list = []
+    for item in value:
+        out.append(capo_keyspaces.types.field_definition.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> FieldList:
+    import capo_keyspaces.types.field_definition
+
+    out: FieldList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_keyspaces.types.field_definition.deserialize_cbor(item))
+    return out

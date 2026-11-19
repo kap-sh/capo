@@ -43,3 +43,29 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateWorkspaceImagePermissionReques
     else:
         out["shared_account_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateWorkspaceImagePermissionRequest) -> dict:
+    out: dict = {}
+    out["ImageId"] = value["image_id"]
+    out["AllowCopyImage"] = value["allow_copy_image"]
+    out["SharedAccountId"] = value["shared_account_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateWorkspaceImagePermissionRequest:
+    out: UpdateWorkspaceImagePermissionRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ImageId") is not None:
+        out["image_id"] = data["ImageId"]
+    else:
+        out["image_id"] = ""
+    if data.get("AllowCopyImage") is not None:
+        out["allow_copy_image"] = data["AllowCopyImage"]
+    else:
+        out["allow_copy_image"] = False
+    if data.get("SharedAccountId") is not None:
+        out["shared_account_id"] = data["SharedAccountId"]
+    else:
+        out["shared_account_id"] = ""
+    return out

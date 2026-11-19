@@ -78,6 +78,58 @@ def deserialize_aws_json_1_1(data: dict) -> ClassifyDocumentRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ClassifyDocumentRequest) -> dict:
+    out: dict = {}
+    if "text" in value:
+        out["Text"] = value["text"]
+    out["EndpointArn"] = value["endpoint_arn"]
+    if "bytes" in value:
+        import capo_comprehend.types.semi_structured_document_blob
+
+        out["Bytes"] = (
+            capo_comprehend.types.semi_structured_document_blob.serialize_cbor(
+                value["bytes"]
+            )
+        )
+    if "document_reader_config" in value:
+        import capo_comprehend.types.document_reader_config
+
+        out["DocumentReaderConfig"] = (
+            capo_comprehend.types.document_reader_config.serialize_cbor(
+                value["document_reader_config"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ClassifyDocumentRequest:
+    out: ClassifyDocumentRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Text") is not None:
+        out["text"] = data["Text"]
+    if data.get("EndpointArn") is not None:
+        out["endpoint_arn"] = data["EndpointArn"]
+    else:
+        out["endpoint_arn"] = ""
+    if data.get("Bytes") is not None:
+        import capo_comprehend.types.semi_structured_document_blob
+
+        out["bytes"] = (
+            capo_comprehend.types.semi_structured_document_blob.deserialize_cbor(
+                data["Bytes"]
+            )
+        )
+    if data.get("DocumentReaderConfig") is not None:
+        import capo_comprehend.types.document_reader_config
+
+        out["document_reader_config"] = (
+            capo_comprehend.types.document_reader_config.deserialize_cbor(
+                data["DocumentReaderConfig"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: ClassifyDocumentRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "text" in value:

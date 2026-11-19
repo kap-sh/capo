@@ -16,3 +16,12 @@ def serialize_aws_json_1_1(value: LocationFilterName) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> LocationFilterName:
     return cast(LocationFilterName, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LocationFilterName) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> LocationFilterName:
+    return cast(LocationFilterName, data)

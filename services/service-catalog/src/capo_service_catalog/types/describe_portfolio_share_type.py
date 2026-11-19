@@ -17,3 +17,12 @@ def serialize_aws_json_1_1(value: DescribePortfolioShareType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> DescribePortfolioShareType:
     return cast(DescribePortfolioShareType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribePortfolioShareType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> DescribePortfolioShareType:
+    return cast(DescribePortfolioShareType, data)

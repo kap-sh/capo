@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: ResourceTagLogicalOperator) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> ResourceTagLogicalOperator:
     return cast(ResourceTagLogicalOperator, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResourceTagLogicalOperator) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ResourceTagLogicalOperator:
+    return cast(ResourceTagLogicalOperator, data)

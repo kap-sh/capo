@@ -16,3 +16,12 @@ def serialize_aws_json_1_0(value: ECSSavingsEstimationModeSource) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> ECSSavingsEstimationModeSource:
     return cast(ECSSavingsEstimationModeSource, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ECSSavingsEstimationModeSource) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ECSSavingsEstimationModeSource:
+    return cast(ECSSavingsEstimationModeSource, data)

@@ -75,3 +75,44 @@ def deserialize_aws_json_1_1(data: dict) -> Workload:
     if data.get("MissingWorkloadConfig") is not None:
         out["missing_workload_config"] = data["MissingWorkloadConfig"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Workload) -> dict:
+    out: dict = {}
+    if "workload_id" in value:
+        out["WorkloadId"] = value["workload_id"]
+    if "component_name" in value:
+        out["ComponentName"] = value["component_name"]
+    if "workload_name" in value:
+        out["WorkloadName"] = value["workload_name"]
+    if "tier" in value:
+        import capo_application_insights.types.tier
+
+        out["Tier"] = capo_application_insights.types.tier.serialize_cbor(value["tier"])
+    if "workload_remarks" in value:
+        out["WorkloadRemarks"] = value["workload_remarks"]
+    if "missing_workload_config" in value:
+        out["MissingWorkloadConfig"] = value["missing_workload_config"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Workload:
+    out: Workload = {}  # type: ignore[typeddict-item]
+    if data.get("WorkloadId") is not None:
+        out["workload_id"] = data["WorkloadId"]
+    if data.get("ComponentName") is not None:
+        out["component_name"] = data["ComponentName"]
+    if data.get("WorkloadName") is not None:
+        out["workload_name"] = data["WorkloadName"]
+    if data.get("Tier") is not None:
+        import capo_application_insights.types.tier
+
+        out["tier"] = capo_application_insights.types.tier.deserialize_cbor(
+            data["Tier"]
+        )
+    if data.get("WorkloadRemarks") is not None:
+        out["workload_remarks"] = data["WorkloadRemarks"]
+    if data.get("MissingWorkloadConfig") is not None:
+        out["missing_workload_config"] = data["MissingWorkloadConfig"]
+    return out

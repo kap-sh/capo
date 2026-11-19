@@ -41,3 +41,29 @@ def deserialize_aws_json_1_0(data: dict) -> WarmThroughputSpecificationSummary:
     else:
         out["status"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: WarmThroughputSpecificationSummary) -> dict:
+    out: dict = {}
+    out["readUnitsPerSecond"] = value["read_units_per_second"]
+    out["writeUnitsPerSecond"] = value["write_units_per_second"]
+    out["status"] = value["status"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> WarmThroughputSpecificationSummary:
+    out: WarmThroughputSpecificationSummary = {}  # type: ignore[typeddict-item]
+    if data.get("readUnitsPerSecond") is not None:
+        out["read_units_per_second"] = data["readUnitsPerSecond"]
+    else:
+        out["read_units_per_second"] = 0
+    if data.get("writeUnitsPerSecond") is not None:
+        out["write_units_per_second"] = data["writeUnitsPerSecond"]
+    else:
+        out["write_units_per_second"] = 0
+    if data.get("status") is not None:
+        out["status"] = data["status"]
+    else:
+        out["status"] = ""
+    return out

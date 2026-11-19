@@ -33,3 +33,23 @@ def deserialize_aws_json_1_0(data: dict) -> ListTagsForResourceResponse:
     else:
         out["tags"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListTagsForResourceResponse) -> dict:
+    out: dict = {}
+    import capo_mailmanager.types.tag_list
+
+    out["Tags"] = capo_mailmanager.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListTagsForResourceResponse:
+    out: ListTagsForResourceResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Tags") is not None:
+        import capo_mailmanager.types.tag_list
+
+        out["tags"] = capo_mailmanager.types.tag_list.deserialize_cbor(data["Tags"])
+    else:
+        out["tags"] = []
+    return out

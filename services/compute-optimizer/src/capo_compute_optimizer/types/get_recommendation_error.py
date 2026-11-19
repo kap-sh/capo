@@ -40,3 +40,26 @@ def deserialize_aws_json_1_0(data: dict) -> GetRecommendationError:
     if data.get("message") is not None:
         out["message"] = data["message"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetRecommendationError) -> dict:
+    out: dict = {}
+    if "identifier" in value:
+        out["identifier"] = value["identifier"]
+    if "code" in value:
+        out["code"] = value["code"]
+    if "message" in value:
+        out["message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetRecommendationError:
+    out: GetRecommendationError = {}  # type: ignore[typeddict-item]
+    if data.get("identifier") is not None:
+        out["identifier"] = data["identifier"]
+    if data.get("code") is not None:
+        out["code"] = data["code"]
+    if data.get("message") is not None:
+        out["message"] = data["message"]
+    return out

@@ -122,3 +122,88 @@ def deserialize_aws_json_1_1(data: dict) -> StartPHIDetectionJobRequest:
             "capo_comprehendmedical.types.language_code.LanguageCode", ""
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartPHIDetectionJobRequest) -> dict:
+    out: dict = {}
+    import capo_comprehendmedical.types.input_data_config
+
+    out["InputDataConfig"] = (
+        capo_comprehendmedical.types.input_data_config.serialize_cbor(
+            value["input_data_config"]
+        )
+    )
+    import capo_comprehendmedical.types.output_data_config
+
+    out["OutputDataConfig"] = (
+        capo_comprehendmedical.types.output_data_config.serialize_cbor(
+            value["output_data_config"]
+        )
+    )
+    out["DataAccessRoleArn"] = value["data_access_role_arn"]
+    if "job_name" in value:
+        out["JobName"] = value["job_name"]
+    if "client_request_token" in value:
+        out["ClientRequestToken"] = value["client_request_token"]
+    if "kms_key" in value:
+        out["KMSKey"] = value["kms_key"]
+    import capo_comprehendmedical.types.language_code
+
+    out["LanguageCode"] = capo_comprehendmedical.types.language_code.serialize_cbor(
+        value["language_code"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartPHIDetectionJobRequest:
+    out: StartPHIDetectionJobRequest = {}  # type: ignore[typeddict-item]
+    if data.get("InputDataConfig") is not None:
+        import capo_comprehendmedical.types.input_data_config
+
+        out["input_data_config"] = (
+            capo_comprehendmedical.types.input_data_config.deserialize_cbor(
+                data["InputDataConfig"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "StartPHIDetectionJobRequest.input_data_config required"
+        )
+    if data.get("OutputDataConfig") is not None:
+        import capo_comprehendmedical.types.output_data_config
+
+        out["output_data_config"] = (
+            capo_comprehendmedical.types.output_data_config.deserialize_cbor(
+                data["OutputDataConfig"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "StartPHIDetectionJobRequest.output_data_config required"
+        )
+    if data.get("DataAccessRoleArn") is not None:
+        out["data_access_role_arn"] = data["DataAccessRoleArn"]
+    else:
+        out["data_access_role_arn"] = ""
+    if data.get("JobName") is not None:
+        out["job_name"] = data["JobName"]
+    if data.get("ClientRequestToken") is not None:
+        out["client_request_token"] = data["ClientRequestToken"]
+    if data.get("KMSKey") is not None:
+        out["kms_key"] = data["KMSKey"]
+    if data.get("LanguageCode") is not None:
+        import capo_comprehendmedical.types.language_code
+
+        out["language_code"] = (
+            capo_comprehendmedical.types.language_code.deserialize_cbor(
+                data["LanguageCode"]
+            )
+        )
+    else:
+        import typing
+
+        out["language_code"] = typing.cast(
+            "capo_comprehendmedical.types.language_code.LanguageCode", ""
+        )
+    return out

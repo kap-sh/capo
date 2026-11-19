@@ -47,3 +47,34 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeProxyResponse:
     if data.get("UpdateToken") is not None:
         out["update_token"] = data["UpdateToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeProxyResponse) -> dict:
+    out: dict = {}
+    if "proxy" in value:
+        import capo_network_firewall.types.describe_proxy_resource
+
+        out["Proxy"] = (
+            capo_network_firewall.types.describe_proxy_resource.serialize_cbor(
+                value["proxy"]
+            )
+        )
+    if "update_token" in value:
+        out["UpdateToken"] = value["update_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeProxyResponse:
+    out: DescribeProxyResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Proxy") is not None:
+        import capo_network_firewall.types.describe_proxy_resource
+
+        out["proxy"] = (
+            capo_network_firewall.types.describe_proxy_resource.deserialize_cbor(
+                data["Proxy"]
+            )
+        )
+    if data.get("UpdateToken") is not None:
+        out["update_token"] = data["UpdateToken"]
+    return out

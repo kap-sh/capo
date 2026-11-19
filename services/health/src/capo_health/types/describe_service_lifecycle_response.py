@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeServiceLifecycleResponse:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeServiceLifecycleResponse) -> dict:
+    out: dict = {}
+    if "service_lifecycles" in value:
+        import capo_health.types.service_lifecycle_list
+
+        out["serviceLifecycles"] = (
+            capo_health.types.service_lifecycle_list.serialize_cbor(
+                value["service_lifecycles"]
+            )
+        )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeServiceLifecycleResponse:
+    out: DescribeServiceLifecycleResponse = {}  # type: ignore[typeddict-item]
+    if data.get("serviceLifecycles") is not None:
+        import capo_health.types.service_lifecycle_list
+
+        out["service_lifecycles"] = (
+            capo_health.types.service_lifecycle_list.deserialize_cbor(
+                data["serviceLifecycles"]
+            )
+        )
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteTaskRequest:
     else:
         out["task_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteTaskRequest) -> dict:
+    out: dict = {}
+    out["TaskArn"] = value["task_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteTaskRequest:
+    out: DeleteTaskRequest = {}  # type: ignore[typeddict-item]
+    if data.get("TaskArn") is not None:
+        out["task_arn"] = data["TaskArn"]
+    else:
+        out["task_arn"] = ""
+    return out

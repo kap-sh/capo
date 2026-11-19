@@ -67,3 +67,46 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeRecommendationExportJobsRequ
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeRecommendationExportJobsRequest) -> dict:
+    out: dict = {}
+    if "job_ids" in value:
+        import capo_compute_optimizer.types.job_ids
+
+        out["jobIds"] = capo_compute_optimizer.types.job_ids.serialize_cbor(
+            value["job_ids"]
+        )
+    if "filters" in value:
+        import capo_compute_optimizer.types.job_filters
+
+        out["filters"] = capo_compute_optimizer.types.job_filters.serialize_cbor(
+            value["filters"]
+        )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeRecommendationExportJobsRequest:
+    out: DescribeRecommendationExportJobsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("jobIds") is not None:
+        import capo_compute_optimizer.types.job_ids
+
+        out["job_ids"] = capo_compute_optimizer.types.job_ids.deserialize_cbor(
+            data["jobIds"]
+        )
+    if data.get("filters") is not None:
+        import capo_compute_optimizer.types.job_filters
+
+        out["filters"] = capo_compute_optimizer.types.job_filters.deserialize_cbor(
+            data["filters"]
+        )
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    return out

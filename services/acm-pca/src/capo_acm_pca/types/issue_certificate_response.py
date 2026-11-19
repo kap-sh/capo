@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> IssueCertificateResponse:
     if data.get("CertificateArn") is not None:
         out["certificate_arn"] = data["CertificateArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IssueCertificateResponse) -> dict:
+    out: dict = {}
+    if "certificate_arn" in value:
+        out["CertificateArn"] = value["certificate_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> IssueCertificateResponse:
+    out: IssueCertificateResponse = {}  # type: ignore[typeddict-item]
+    if data.get("CertificateArn") is not None:
+        out["certificate_arn"] = data["CertificateArn"]
+    return out

@@ -68,3 +68,38 @@ def deserialize_aws_json_1_1(
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(
+    value: DescribeDirectConnectGatewayAssociationProposalsRequest,
+) -> dict:
+    out: dict = {}
+    if "direct_connect_gateway_id" in value:
+        out["directConnectGatewayId"] = value["direct_connect_gateway_id"]
+    if "proposal_id" in value:
+        out["proposalId"] = value["proposal_id"]
+    if "associated_gateway_id" in value:
+        out["associatedGatewayId"] = value["associated_gateway_id"]
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(
+    data: dict,
+) -> DescribeDirectConnectGatewayAssociationProposalsRequest:
+    out: DescribeDirectConnectGatewayAssociationProposalsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("directConnectGatewayId") is not None:
+        out["direct_connect_gateway_id"] = data["directConnectGatewayId"]
+    if data.get("proposalId") is not None:
+        out["proposal_id"] = data["proposalId"]
+    if data.get("associatedGatewayId") is not None:
+        out["associated_gateway_id"] = data["associatedGatewayId"]
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

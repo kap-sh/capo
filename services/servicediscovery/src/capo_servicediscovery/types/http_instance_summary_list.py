@@ -37,3 +37,28 @@ def deserialize_aws_json_1_1(data: list) -> HttpInstanceSummaryList:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: HttpInstanceSummaryList) -> list:
+    import capo_servicediscovery.types.http_instance_summary
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_servicediscovery.types.http_instance_summary.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> HttpInstanceSummaryList:
+    import capo_servicediscovery.types.http_instance_summary
+
+    out: HttpInstanceSummaryList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_servicediscovery.types.http_instance_summary.deserialize_cbor(item)
+        )
+    return out

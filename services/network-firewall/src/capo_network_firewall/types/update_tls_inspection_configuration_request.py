@@ -101,3 +101,70 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateTLSInspectionConfigurationRequ
     else:
         out["update_token"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateTLSInspectionConfigurationRequest) -> dict:
+    out: dict = {}
+    if "tls_inspection_configuration_arn" in value:
+        out["TLSInspectionConfigurationArn"] = value["tls_inspection_configuration_arn"]
+    if "tls_inspection_configuration_name" in value:
+        out["TLSInspectionConfigurationName"] = value[
+            "tls_inspection_configuration_name"
+        ]
+    import capo_network_firewall.types.tls_inspection_configuration
+
+    out["TLSInspectionConfiguration"] = (
+        capo_network_firewall.types.tls_inspection_configuration.serialize_cbor(
+            value["tls_inspection_configuration"]
+        )
+    )
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "encryption_configuration" in value:
+        import capo_network_firewall.types.encryption_configuration
+
+        out["EncryptionConfiguration"] = (
+            capo_network_firewall.types.encryption_configuration.serialize_cbor(
+                value["encryption_configuration"]
+            )
+        )
+    out["UpdateToken"] = value["update_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateTLSInspectionConfigurationRequest:
+    out: UpdateTLSInspectionConfigurationRequest = {}  # type: ignore[typeddict-item]
+    if data.get("TLSInspectionConfigurationArn") is not None:
+        out["tls_inspection_configuration_arn"] = data["TLSInspectionConfigurationArn"]
+    if data.get("TLSInspectionConfigurationName") is not None:
+        out["tls_inspection_configuration_name"] = data[
+            "TLSInspectionConfigurationName"
+        ]
+    if data.get("TLSInspectionConfiguration") is not None:
+        import capo_network_firewall.types.tls_inspection_configuration
+
+        out["tls_inspection_configuration"] = (
+            capo_network_firewall.types.tls_inspection_configuration.deserialize_cbor(
+                data["TLSInspectionConfiguration"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "UpdateTLSInspectionConfigurationRequest.tls_inspection_configuration required"
+        )
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("EncryptionConfiguration") is not None:
+        import capo_network_firewall.types.encryption_configuration
+
+        out["encryption_configuration"] = (
+            capo_network_firewall.types.encryption_configuration.deserialize_cbor(
+                data["EncryptionConfiguration"]
+            )
+        )
+    if data.get("UpdateToken") is not None:
+        out["update_token"] = data["UpdateToken"]
+    else:
+        out["update_token"] = ""
+    return out

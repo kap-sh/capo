@@ -29,3 +29,24 @@ def deserialize_aws_json_1_1(data: list) -> Attributes:
             capo_directory_service.types.attribute.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Attributes) -> list:
+    import capo_directory_service.types.attribute
+
+    out: list = []
+    for item in value:
+        out.append(capo_directory_service.types.attribute.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> Attributes:
+    import capo_directory_service.types.attribute
+
+    out: Attributes = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_directory_service.types.attribute.deserialize_cbor(item))
+    return out

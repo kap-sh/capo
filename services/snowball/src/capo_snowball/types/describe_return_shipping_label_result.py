@@ -60,3 +60,42 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeReturnShippingLabelResult:
     if data.get("ReturnShippingLabelURI") is not None:
         out["return_shipping_label_uri"] = data["ReturnShippingLabelURI"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeReturnShippingLabelResult) -> dict:
+    out: dict = {}
+    if "status" in value:
+        import capo_snowball.types.shipping_label_status
+
+        out["Status"] = capo_snowball.types.shipping_label_status.serialize_cbor(
+            value["status"]
+        )
+    if "expiration_date" in value:
+        import capo_snowball.types.timestamp
+
+        out["ExpirationDate"] = capo_snowball.types.timestamp.serialize_cbor(
+            value["expiration_date"]
+        )
+    if "return_shipping_label_uri" in value:
+        out["ReturnShippingLabelURI"] = value["return_shipping_label_uri"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeReturnShippingLabelResult:
+    out: DescribeReturnShippingLabelResult = {}  # type: ignore[typeddict-item]
+    if data.get("Status") is not None:
+        import capo_snowball.types.shipping_label_status
+
+        out["status"] = capo_snowball.types.shipping_label_status.deserialize_cbor(
+            data["Status"]
+        )
+    if data.get("ExpirationDate") is not None:
+        import capo_snowball.types.timestamp
+
+        out["expiration_date"] = capo_snowball.types.timestamp.deserialize_cbor(
+            data["ExpirationDate"]
+        )
+    if data.get("ReturnShippingLabelURI") is not None:
+        out["return_shipping_label_uri"] = data["ReturnShippingLabelURI"]
+    return out

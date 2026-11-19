@@ -58,3 +58,12 @@ def serialize_aws_json_1_1(value: EntitySubType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> EntitySubType:
     return cast(EntitySubType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EntitySubType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> EntitySubType:
+    return cast(EntitySubType, data)

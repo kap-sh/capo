@@ -21,6 +21,17 @@ def deserialize_aws_json_1_1(data: dict) -> WebhookNotFoundException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: WebhookNotFoundException_) -> dict:
+    out: dict = {}
+    return out
+
+
+def deserialize_cbor(data: dict) -> WebhookNotFoundException_:
+    out: WebhookNotFoundException_ = {}  # type: ignore[typeddict-item]
+    return out
+
+
 class WebhookNotFoundException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.codepipeline#WebhookNotFoundException``."""
 
@@ -48,3 +59,9 @@ class WebhookNotFoundException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "WebhookNotFoundException":
         return cls(deserialize_aws_json_1_1(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "WebhookNotFoundException":
+        return cls(deserialize_cbor(data), message, response=response)

@@ -37,3 +37,32 @@ def deserialize_aws_json_1_0(data: list) -> ConfigurableUpfrontRateCardList:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ConfigurableUpfrontRateCardList) -> list:
+    import capo_marketplace_agreement.types.configurable_upfront_rate_card_item
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_marketplace_agreement.types.configurable_upfront_rate_card_item.serialize_cbor(
+                item
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> ConfigurableUpfrontRateCardList:
+    import capo_marketplace_agreement.types.configurable_upfront_rate_card_item
+
+    out: ConfigurableUpfrontRateCardList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_marketplace_agreement.types.configurable_upfront_rate_card_item.deserialize_cbor(
+                item
+            )
+        )
+    return out

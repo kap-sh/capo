@@ -312,3 +312,213 @@ def deserialize_aws_json_1_1(data: dict) -> CreateProjectInput:
     if data.get("autoRetryLimit") is not None:
         out["auto_retry_limit"] = data["autoRetryLimit"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateProjectInput) -> dict:
+    out: dict = {}
+    out["name"] = value["name"]
+    if "description" in value:
+        out["description"] = value["description"]
+    import capo_codebuild.types.project_source
+
+    out["source"] = capo_codebuild.types.project_source.serialize_cbor(value["source"])
+    if "secondary_sources" in value:
+        import capo_codebuild.types.project_sources
+
+        out["secondarySources"] = capo_codebuild.types.project_sources.serialize_cbor(
+            value["secondary_sources"]
+        )
+    if "source_version" in value:
+        out["sourceVersion"] = value["source_version"]
+    if "secondary_source_versions" in value:
+        import capo_codebuild.types.project_secondary_source_versions
+
+        out["secondarySourceVersions"] = (
+            capo_codebuild.types.project_secondary_source_versions.serialize_cbor(
+                value["secondary_source_versions"]
+            )
+        )
+    import capo_codebuild.types.project_artifacts
+
+    out["artifacts"] = capo_codebuild.types.project_artifacts.serialize_cbor(
+        value["artifacts"]
+    )
+    if "secondary_artifacts" in value:
+        import capo_codebuild.types.project_artifacts_list
+
+        out["secondaryArtifacts"] = (
+            capo_codebuild.types.project_artifacts_list.serialize_cbor(
+                value["secondary_artifacts"]
+            )
+        )
+    if "cache" in value:
+        import capo_codebuild.types.project_cache
+
+        out["cache"] = capo_codebuild.types.project_cache.serialize_cbor(value["cache"])
+    import capo_codebuild.types.project_environment
+
+    out["environment"] = capo_codebuild.types.project_environment.serialize_cbor(
+        value["environment"]
+    )
+    out["serviceRole"] = value["service_role"]
+    if "timeout_in_minutes" in value:
+        out["timeoutInMinutes"] = value["timeout_in_minutes"]
+    if "queued_timeout_in_minutes" in value:
+        out["queuedTimeoutInMinutes"] = value["queued_timeout_in_minutes"]
+    if "encryption_key" in value:
+        out["encryptionKey"] = value["encryption_key"]
+    if "tags" in value:
+        import capo_codebuild.types.tag_list
+
+        out["tags"] = capo_codebuild.types.tag_list.serialize_cbor(value["tags"])
+    if "vpc_config" in value:
+        import capo_codebuild.types.vpc_config
+
+        out["vpcConfig"] = capo_codebuild.types.vpc_config.serialize_cbor(
+            value["vpc_config"]
+        )
+    if "badge_enabled" in value:
+        out["badgeEnabled"] = value["badge_enabled"]
+    if "logs_config" in value:
+        import capo_codebuild.types.logs_config
+
+        out["logsConfig"] = capo_codebuild.types.logs_config.serialize_cbor(
+            value["logs_config"]
+        )
+    if "file_system_locations" in value:
+        import capo_codebuild.types.project_file_system_locations
+
+        out["fileSystemLocations"] = (
+            capo_codebuild.types.project_file_system_locations.serialize_cbor(
+                value["file_system_locations"]
+            )
+        )
+    if "build_batch_config" in value:
+        import capo_codebuild.types.project_build_batch_config
+
+        out["buildBatchConfig"] = (
+            capo_codebuild.types.project_build_batch_config.serialize_cbor(
+                value["build_batch_config"]
+            )
+        )
+    if "concurrent_build_limit" in value:
+        out["concurrentBuildLimit"] = value["concurrent_build_limit"]
+    if "auto_retry_limit" in value:
+        out["autoRetryLimit"] = value["auto_retry_limit"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateProjectInput:
+    out: CreateProjectInput = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    else:
+        out["name"] = ""
+    if data.get("description") is not None:
+        out["description"] = data["description"]
+    if data.get("source") is not None:
+        import capo_codebuild.types.project_source
+
+        out["source"] = capo_codebuild.types.project_source.deserialize_cbor(
+            data["source"]
+        )
+    else:
+        raise DeserializationError("CreateProjectInput.source required")
+    if data.get("secondarySources") is not None:
+        import capo_codebuild.types.project_sources
+
+        out["secondary_sources"] = (
+            capo_codebuild.types.project_sources.deserialize_cbor(
+                data["secondarySources"]
+            )
+        )
+    if data.get("sourceVersion") is not None:
+        out["source_version"] = data["sourceVersion"]
+    if data.get("secondarySourceVersions") is not None:
+        import capo_codebuild.types.project_secondary_source_versions
+
+        out["secondary_source_versions"] = (
+            capo_codebuild.types.project_secondary_source_versions.deserialize_cbor(
+                data["secondarySourceVersions"]
+            )
+        )
+    if data.get("artifacts") is not None:
+        import capo_codebuild.types.project_artifacts
+
+        out["artifacts"] = capo_codebuild.types.project_artifacts.deserialize_cbor(
+            data["artifacts"]
+        )
+    else:
+        raise DeserializationError("CreateProjectInput.artifacts required")
+    if data.get("secondaryArtifacts") is not None:
+        import capo_codebuild.types.project_artifacts_list
+
+        out["secondary_artifacts"] = (
+            capo_codebuild.types.project_artifacts_list.deserialize_cbor(
+                data["secondaryArtifacts"]
+            )
+        )
+    if data.get("cache") is not None:
+        import capo_codebuild.types.project_cache
+
+        out["cache"] = capo_codebuild.types.project_cache.deserialize_cbor(
+            data["cache"]
+        )
+    if data.get("environment") is not None:
+        import capo_codebuild.types.project_environment
+
+        out["environment"] = capo_codebuild.types.project_environment.deserialize_cbor(
+            data["environment"]
+        )
+    else:
+        raise DeserializationError("CreateProjectInput.environment required")
+    if data.get("serviceRole") is not None:
+        out["service_role"] = data["serviceRole"]
+    else:
+        out["service_role"] = ""
+    if data.get("timeoutInMinutes") is not None:
+        out["timeout_in_minutes"] = data["timeoutInMinutes"]
+    if data.get("queuedTimeoutInMinutes") is not None:
+        out["queued_timeout_in_minutes"] = data["queuedTimeoutInMinutes"]
+    if data.get("encryptionKey") is not None:
+        out["encryption_key"] = data["encryptionKey"]
+    if data.get("tags") is not None:
+        import capo_codebuild.types.tag_list
+
+        out["tags"] = capo_codebuild.types.tag_list.deserialize_cbor(data["tags"])
+    if data.get("vpcConfig") is not None:
+        import capo_codebuild.types.vpc_config
+
+        out["vpc_config"] = capo_codebuild.types.vpc_config.deserialize_cbor(
+            data["vpcConfig"]
+        )
+    if data.get("badgeEnabled") is not None:
+        out["badge_enabled"] = data["badgeEnabled"]
+    if data.get("logsConfig") is not None:
+        import capo_codebuild.types.logs_config
+
+        out["logs_config"] = capo_codebuild.types.logs_config.deserialize_cbor(
+            data["logsConfig"]
+        )
+    if data.get("fileSystemLocations") is not None:
+        import capo_codebuild.types.project_file_system_locations
+
+        out["file_system_locations"] = (
+            capo_codebuild.types.project_file_system_locations.deserialize_cbor(
+                data["fileSystemLocations"]
+            )
+        )
+    if data.get("buildBatchConfig") is not None:
+        import capo_codebuild.types.project_build_batch_config
+
+        out["build_batch_config"] = (
+            capo_codebuild.types.project_build_batch_config.deserialize_cbor(
+                data["buildBatchConfig"]
+            )
+        )
+    if data.get("concurrentBuildLimit") is not None:
+        out["concurrent_build_limit"] = data["concurrentBuildLimit"]
+    if data.get("autoRetryLimit") is not None:
+        out["auto_retry_limit"] = data["autoRetryLimit"]
+    return out

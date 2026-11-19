@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> DiscoverInstancesResponse:
     if data.get("InstancesRevision") is not None:
         out["instances_revision"] = data["InstancesRevision"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DiscoverInstancesResponse) -> dict:
+    out: dict = {}
+    if "instances" in value:
+        import capo_servicediscovery.types.http_instance_summary_list
+
+        out["Instances"] = (
+            capo_servicediscovery.types.http_instance_summary_list.serialize_cbor(
+                value["instances"]
+            )
+        )
+    if "instances_revision" in value:
+        out["InstancesRevision"] = value["instances_revision"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DiscoverInstancesResponse:
+    out: DiscoverInstancesResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Instances") is not None:
+        import capo_servicediscovery.types.http_instance_summary_list
+
+        out["instances"] = (
+            capo_servicediscovery.types.http_instance_summary_list.deserialize_cbor(
+                data["Instances"]
+            )
+        )
+    if data.get("InstancesRevision") is not None:
+        out["instances_revision"] = data["InstancesRevision"]
+    return out

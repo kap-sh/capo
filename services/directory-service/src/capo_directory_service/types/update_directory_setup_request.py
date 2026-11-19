@@ -121,3 +121,88 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDirectorySetupRequest:
     if data.get("CreateSnapshotBeforeUpdate") is not None:
         out["create_snapshot_before_update"] = data["CreateSnapshotBeforeUpdate"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateDirectorySetupRequest) -> dict:
+    out: dict = {}
+    out["DirectoryId"] = value["directory_id"]
+    import capo_directory_service.types.update_type
+
+    out["UpdateType"] = capo_directory_service.types.update_type.serialize_cbor(
+        value["update_type"]
+    )
+    if "os_update_settings" in value:
+        import capo_directory_service.types.os_update_settings
+
+        out["OSUpdateSettings"] = (
+            capo_directory_service.types.os_update_settings.serialize_cbor(
+                value["os_update_settings"]
+            )
+        )
+    if "directory_size_update_settings" in value:
+        import capo_directory_service.types.directory_size_update_settings
+
+        out["DirectorySizeUpdateSettings"] = (
+            capo_directory_service.types.directory_size_update_settings.serialize_cbor(
+                value["directory_size_update_settings"]
+            )
+        )
+    if "network_update_settings" in value:
+        import capo_directory_service.types.network_update_settings
+
+        out["NetworkUpdateSettings"] = (
+            capo_directory_service.types.network_update_settings.serialize_cbor(
+                value["network_update_settings"]
+            )
+        )
+    if "create_snapshot_before_update" in value:
+        out["CreateSnapshotBeforeUpdate"] = value["create_snapshot_before_update"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateDirectorySetupRequest:
+    out: UpdateDirectorySetupRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    if data.get("UpdateType") is not None:
+        import capo_directory_service.types.update_type
+
+        out["update_type"] = capo_directory_service.types.update_type.deserialize_cbor(
+            data["UpdateType"]
+        )
+    else:
+        import typing
+
+        out["update_type"] = typing.cast(
+            "capo_directory_service.types.update_type.UpdateType", ""
+        )
+    if data.get("OSUpdateSettings") is not None:
+        import capo_directory_service.types.os_update_settings
+
+        out["os_update_settings"] = (
+            capo_directory_service.types.os_update_settings.deserialize_cbor(
+                data["OSUpdateSettings"]
+            )
+        )
+    if data.get("DirectorySizeUpdateSettings") is not None:
+        import capo_directory_service.types.directory_size_update_settings
+
+        out["directory_size_update_settings"] = (
+            capo_directory_service.types.directory_size_update_settings.deserialize_cbor(
+                data["DirectorySizeUpdateSettings"]
+            )
+        )
+    if data.get("NetworkUpdateSettings") is not None:
+        import capo_directory_service.types.network_update_settings
+
+        out["network_update_settings"] = (
+            capo_directory_service.types.network_update_settings.deserialize_cbor(
+                data["NetworkUpdateSettings"]
+            )
+        )
+    if data.get("CreateSnapshotBeforeUpdate") is not None:
+        out["create_snapshot_before_update"] = data["CreateSnapshotBeforeUpdate"]
+    return out

@@ -28,3 +28,18 @@ def deserialize_aws_json_1_1(data: dict) -> RuntimeValidationConfig:
     if data.get("IntendedInstanceType") is not None:
         out["intended_instance_type"] = data["IntendedInstanceType"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RuntimeValidationConfig) -> dict:
+    out: dict = {}
+    if "intended_instance_type" in value:
+        out["IntendedInstanceType"] = value["intended_instance_type"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RuntimeValidationConfig:
+    out: RuntimeValidationConfig = {}  # type: ignore[typeddict-item]
+    if data.get("IntendedInstanceType") is not None:
+        out["intended_instance_type"] = data["IntendedInstanceType"]
+    return out

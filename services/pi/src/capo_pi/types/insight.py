@@ -166,6 +166,114 @@ def deserialize_aws_json_1_1(data: dict) -> Insight:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Insight) -> dict:
+    out: dict = {}
+    out["InsightId"] = value["insight_id"]
+    if "insight_type" in value:
+        out["InsightType"] = value["insight_type"]
+    if "context" in value:
+        import capo_pi.types.context_type
+
+        out["Context"] = capo_pi.types.context_type.serialize_cbor(value["context"])
+    if "start_time" in value:
+        import capo_pi.types.iso_timestamp
+
+        out["StartTime"] = capo_pi.types.iso_timestamp.serialize_cbor(
+            value["start_time"]
+        )
+    if "end_time" in value:
+        import capo_pi.types.iso_timestamp
+
+        out["EndTime"] = capo_pi.types.iso_timestamp.serialize_cbor(value["end_time"])
+    if "severity" in value:
+        import capo_pi.types.severity
+
+        out["Severity"] = capo_pi.types.severity.serialize_cbor(value["severity"])
+    if "supporting_insights" in value:
+        import capo_pi.types.insight_list
+
+        out["SupportingInsights"] = capo_pi.types.insight_list.serialize_cbor(
+            value["supporting_insights"]
+        )
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "recommendations" in value:
+        import capo_pi.types.recommendation_list
+
+        out["Recommendations"] = capo_pi.types.recommendation_list.serialize_cbor(
+            value["recommendations"]
+        )
+    if "insight_data" in value:
+        import capo_pi.types.data_list
+
+        out["InsightData"] = capo_pi.types.data_list.serialize_cbor(
+            value["insight_data"]
+        )
+    if "baseline_data" in value:
+        import capo_pi.types.data_list
+
+        out["BaselineData"] = capo_pi.types.data_list.serialize_cbor(
+            value["baseline_data"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Insight:
+    out: Insight = {}  # type: ignore[typeddict-item]
+    if data.get("InsightId") is not None:
+        out["insight_id"] = data["InsightId"]
+    else:
+        out["insight_id"] = ""
+    if data.get("InsightType") is not None:
+        out["insight_type"] = data["InsightType"]
+    if data.get("Context") is not None:
+        import capo_pi.types.context_type
+
+        out["context"] = capo_pi.types.context_type.deserialize_cbor(data["Context"])
+    if data.get("StartTime") is not None:
+        import capo_pi.types.iso_timestamp
+
+        out["start_time"] = capo_pi.types.iso_timestamp.deserialize_cbor(
+            data["StartTime"]
+        )
+    if data.get("EndTime") is not None:
+        import capo_pi.types.iso_timestamp
+
+        out["end_time"] = capo_pi.types.iso_timestamp.deserialize_cbor(data["EndTime"])
+    if data.get("Severity") is not None:
+        import capo_pi.types.severity
+
+        out["severity"] = capo_pi.types.severity.deserialize_cbor(data["Severity"])
+    if data.get("SupportingInsights") is not None:
+        import capo_pi.types.insight_list
+
+        out["supporting_insights"] = capo_pi.types.insight_list.deserialize_cbor(
+            data["SupportingInsights"]
+        )
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("Recommendations") is not None:
+        import capo_pi.types.recommendation_list
+
+        out["recommendations"] = capo_pi.types.recommendation_list.deserialize_cbor(
+            data["Recommendations"]
+        )
+    if data.get("InsightData") is not None:
+        import capo_pi.types.data_list
+
+        out["insight_data"] = capo_pi.types.data_list.deserialize_cbor(
+            data["InsightData"]
+        )
+    if data.get("BaselineData") is not None:
+        import capo_pi.types.data_list
+
+        out["baseline_data"] = capo_pi.types.data_list.deserialize_cbor(
+            data["BaselineData"]
+        )
+    return out
+
+
 def redact_sensitive(value: Insight) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "supporting_insights" in value:

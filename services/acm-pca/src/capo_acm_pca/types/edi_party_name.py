@@ -33,3 +33,23 @@ def deserialize_aws_json_1_1(data: dict) -> EdiPartyName:
     if data.get("NameAssigner") is not None:
         out["name_assigner"] = data["NameAssigner"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EdiPartyName) -> dict:
+    out: dict = {}
+    out["PartyName"] = value["party_name"]
+    if "name_assigner" in value:
+        out["NameAssigner"] = value["name_assigner"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> EdiPartyName:
+    out: EdiPartyName = {}  # type: ignore[typeddict-item]
+    if data.get("PartyName") is not None:
+        out["party_name"] = data["PartyName"]
+    else:
+        out["party_name"] = ""
+    if data.get("NameAssigner") is not None:
+        out["name_assigner"] = data["NameAssigner"]
+    return out

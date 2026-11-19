@@ -34,3 +34,24 @@ def deserialize_aws_json_1_1(data: dict) -> TerminologyDataLocation:
     else:
         out["location"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TerminologyDataLocation) -> dict:
+    out: dict = {}
+    out["RepositoryType"] = value["repository_type"]
+    out["Location"] = value["location"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> TerminologyDataLocation:
+    out: TerminologyDataLocation = {}  # type: ignore[typeddict-item]
+    if data.get("RepositoryType") is not None:
+        out["repository_type"] = data["RepositoryType"]
+    else:
+        out["repository_type"] = ""
+    if data.get("Location") is not None:
+        out["location"] = data["Location"]
+    else:
+        out["location"] = ""
+    return out

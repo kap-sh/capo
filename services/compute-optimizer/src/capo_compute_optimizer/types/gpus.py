@@ -27,3 +27,24 @@ def deserialize_aws_json_1_0(data: list) -> Gpus:
             continue
         out.append(capo_compute_optimizer.types.gpu.deserialize_aws_json_1_0(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Gpus) -> list:
+    import capo_compute_optimizer.types.gpu
+
+    out: list = []
+    for item in value:
+        out.append(capo_compute_optimizer.types.gpu.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> Gpus:
+    import capo_compute_optimizer.types.gpu
+
+    out: Gpus = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_compute_optimizer.types.gpu.deserialize_cbor(item))
+    return out

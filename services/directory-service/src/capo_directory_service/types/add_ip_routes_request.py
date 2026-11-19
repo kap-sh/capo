@@ -58,3 +58,40 @@ def deserialize_aws_json_1_1(data: dict) -> AddIpRoutesRequest:
             "UpdateSecurityGroupForDirectoryControllers"
         ]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AddIpRoutesRequest) -> dict:
+    out: dict = {}
+    out["DirectoryId"] = value["directory_id"]
+    import capo_directory_service.types.ip_routes
+
+    out["IpRoutes"] = capo_directory_service.types.ip_routes.serialize_cbor(
+        value["ip_routes"]
+    )
+    if "update_security_group_for_directory_controllers" in value:
+        out["UpdateSecurityGroupForDirectoryControllers"] = value[
+            "update_security_group_for_directory_controllers"
+        ]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AddIpRoutesRequest:
+    out: AddIpRoutesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    if data.get("IpRoutes") is not None:
+        import capo_directory_service.types.ip_routes
+
+        out["ip_routes"] = capo_directory_service.types.ip_routes.deserialize_cbor(
+            data["IpRoutes"]
+        )
+    else:
+        out["ip_routes"] = []
+    if data.get("UpdateSecurityGroupForDirectoryControllers") is not None:
+        out["update_security_group_for_directory_controllers"] = data[
+            "UpdateSecurityGroupForDirectoryControllers"
+        ]
+    return out

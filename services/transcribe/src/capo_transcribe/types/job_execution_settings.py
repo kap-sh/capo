@@ -35,3 +35,22 @@ def deserialize_aws_json_1_1(data: dict) -> JobExecutionSettings:
     if data.get("DataAccessRoleArn") is not None:
         out["data_access_role_arn"] = data["DataAccessRoleArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: JobExecutionSettings) -> dict:
+    out: dict = {}
+    if "allow_deferred_execution" in value:
+        out["AllowDeferredExecution"] = value["allow_deferred_execution"]
+    if "data_access_role_arn" in value:
+        out["DataAccessRoleArn"] = value["data_access_role_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> JobExecutionSettings:
+    out: JobExecutionSettings = {}  # type: ignore[typeddict-item]
+    if data.get("AllowDeferredExecution") is not None:
+        out["allow_deferred_execution"] = data["AllowDeferredExecution"]
+    if data.get("DataAccessRoleArn") is not None:
+        out["data_access_role_arn"] = data["DataAccessRoleArn"]
+    return out

@@ -33,3 +33,22 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAliasResult:
     if data.get("Alias") is not None:
         out["alias"] = data["Alias"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateAliasResult) -> dict:
+    out: dict = {}
+    if "directory_id" in value:
+        out["DirectoryId"] = value["directory_id"]
+    if "alias" in value:
+        out["Alias"] = value["alias"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateAliasResult:
+    out: CreateAliasResult = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    if data.get("Alias") is not None:
+        out["alias"] = data["Alias"]
+    return out

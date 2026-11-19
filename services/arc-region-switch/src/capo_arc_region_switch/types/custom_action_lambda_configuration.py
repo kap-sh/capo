@@ -106,6 +106,75 @@ def deserialize_aws_json_1_0(data: dict) -> CustomActionLambdaConfiguration:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CustomActionLambdaConfiguration) -> dict:
+    out: dict = {}
+    out["timeoutMinutes"] = value.get("timeout_minutes", 60)
+    import capo_arc_region_switch.types.lambda_list
+
+    out["lambdas"] = capo_arc_region_switch.types.lambda_list.serialize_cbor(
+        value["lambdas"]
+    )
+    out["retryIntervalMinutes"] = value["retry_interval_minutes"]
+    import capo_arc_region_switch.types.region_to_run_in
+
+    out["regionToRun"] = capo_arc_region_switch.types.region_to_run_in.serialize_cbor(
+        value["region_to_run"]
+    )
+    if "ungraceful" in value:
+        import capo_arc_region_switch.types.lambda_ungraceful
+
+        out["ungraceful"] = (
+            capo_arc_region_switch.types.lambda_ungraceful.serialize_cbor(
+                value["ungraceful"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CustomActionLambdaConfiguration:
+    out: CustomActionLambdaConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("timeoutMinutes") is not None:
+        out["timeout_minutes"] = data["timeoutMinutes"]
+    else:
+        out["timeout_minutes"] = 60
+    if data.get("lambdas") is not None:
+        import capo_arc_region_switch.types.lambda_list
+
+        out["lambdas"] = capo_arc_region_switch.types.lambda_list.deserialize_cbor(
+            data["lambdas"]
+        )
+    else:
+        out["lambdas"] = []
+    if data.get("retryIntervalMinutes") is not None:
+        out["retry_interval_minutes"] = float(data["retryIntervalMinutes"])
+    else:
+        out["retry_interval_minutes"] = 0.0
+    if data.get("regionToRun") is not None:
+        import capo_arc_region_switch.types.region_to_run_in
+
+        out["region_to_run"] = (
+            capo_arc_region_switch.types.region_to_run_in.deserialize_cbor(
+                data["regionToRun"]
+            )
+        )
+    else:
+        import typing
+
+        out["region_to_run"] = typing.cast(
+            "capo_arc_region_switch.types.region_to_run_in.RegionToRunIn", ""
+        )
+    if data.get("ungraceful") is not None:
+        import capo_arc_region_switch.types.lambda_ungraceful
+
+        out["ungraceful"] = (
+            capo_arc_region_switch.types.lambda_ungraceful.deserialize_cbor(
+                data["ungraceful"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: CustomActionLambdaConfiguration) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "lambdas" in value:

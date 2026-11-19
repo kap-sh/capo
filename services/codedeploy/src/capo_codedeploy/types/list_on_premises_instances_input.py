@@ -66,3 +66,46 @@ def deserialize_aws_json_1_1(data: dict) -> ListOnPremisesInstancesInput:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListOnPremisesInstancesInput) -> dict:
+    out: dict = {}
+    if "registration_status" in value:
+        import capo_codedeploy.types.registration_status
+
+        out["registrationStatus"] = (
+            capo_codedeploy.types.registration_status.serialize_cbor(
+                value["registration_status"]
+            )
+        )
+    if "tag_filters" in value:
+        import capo_codedeploy.types.tag_filter_list
+
+        out["tagFilters"] = capo_codedeploy.types.tag_filter_list.serialize_cbor(
+            value["tag_filters"]
+        )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListOnPremisesInstancesInput:
+    out: ListOnPremisesInstancesInput = {}  # type: ignore[typeddict-item]
+    if data.get("registrationStatus") is not None:
+        import capo_codedeploy.types.registration_status
+
+        out["registration_status"] = (
+            capo_codedeploy.types.registration_status.deserialize_cbor(
+                data["registrationStatus"]
+            )
+        )
+    if data.get("tagFilters") is not None:
+        import capo_codedeploy.types.tag_filter_list
+
+        out["tag_filters"] = capo_codedeploy.types.tag_filter_list.deserialize_cbor(
+            data["tagFilters"]
+        )
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

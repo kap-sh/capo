@@ -34,3 +34,22 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeAttackResponse:
             data["Attack"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeAttackResponse) -> dict:
+    out: dict = {}
+    if "attack" in value:
+        import capo_shield.types.attack_detail
+
+        out["Attack"] = capo_shield.types.attack_detail.serialize_cbor(value["attack"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeAttackResponse:
+    out: DescribeAttackResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Attack") is not None:
+        import capo_shield.types.attack_detail
+
+        out["attack"] = capo_shield.types.attack_detail.deserialize_cbor(data["Attack"])
+    return out

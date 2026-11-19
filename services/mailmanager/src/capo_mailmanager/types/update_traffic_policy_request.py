@@ -85,3 +85,55 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateTrafficPolicyRequest:
     if data.get("MaxMessageSizeBytes") is not None:
         out["max_message_size_bytes"] = data["MaxMessageSizeBytes"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateTrafficPolicyRequest) -> dict:
+    out: dict = {}
+    out["TrafficPolicyId"] = value["traffic_policy_id"]
+    if "traffic_policy_name" in value:
+        out["TrafficPolicyName"] = value["traffic_policy_name"]
+    if "policy_statements" in value:
+        import capo_mailmanager.types.policy_statement_list
+
+        out["PolicyStatements"] = (
+            capo_mailmanager.types.policy_statement_list.serialize_cbor(
+                value["policy_statements"]
+            )
+        )
+    if "default_action" in value:
+        import capo_mailmanager.types.accept_action
+
+        out["DefaultAction"] = capo_mailmanager.types.accept_action.serialize_cbor(
+            value["default_action"]
+        )
+    if "max_message_size_bytes" in value:
+        out["MaxMessageSizeBytes"] = value["max_message_size_bytes"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateTrafficPolicyRequest:
+    out: UpdateTrafficPolicyRequest = {}  # type: ignore[typeddict-item]
+    if data.get("TrafficPolicyId") is not None:
+        out["traffic_policy_id"] = data["TrafficPolicyId"]
+    else:
+        out["traffic_policy_id"] = ""
+    if data.get("TrafficPolicyName") is not None:
+        out["traffic_policy_name"] = data["TrafficPolicyName"]
+    if data.get("PolicyStatements") is not None:
+        import capo_mailmanager.types.policy_statement_list
+
+        out["policy_statements"] = (
+            capo_mailmanager.types.policy_statement_list.deserialize_cbor(
+                data["PolicyStatements"]
+            )
+        )
+    if data.get("DefaultAction") is not None:
+        import capo_mailmanager.types.accept_action
+
+        out["default_action"] = capo_mailmanager.types.accept_action.deserialize_cbor(
+            data["DefaultAction"]
+        )
+    if data.get("MaxMessageSizeBytes") is not None:
+        out["max_message_size_bytes"] = data["MaxMessageSizeBytes"]
+    return out

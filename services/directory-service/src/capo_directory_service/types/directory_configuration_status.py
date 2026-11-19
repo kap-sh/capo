@@ -18,3 +18,12 @@ def serialize_aws_json_1_1(value: DirectoryConfigurationStatus) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> DirectoryConfigurationStatus:
     return cast(DirectoryConfigurationStatus, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DirectoryConfigurationStatus) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> DirectoryConfigurationStatus:
+    return cast(DirectoryConfigurationStatus, data)

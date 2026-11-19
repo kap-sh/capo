@@ -87,3 +87,59 @@ def deserialize_aws_json_1_0(data: dict) -> GetEnrollmentStatusResponse:
             "numberOfMemberAccountsOptedIn"
         ]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetEnrollmentStatusResponse) -> dict:
+    out: dict = {}
+    if "status" in value:
+        import capo_compute_optimizer.types.status
+
+        out["status"] = capo_compute_optimizer.types.status.serialize_cbor(
+            value["status"]
+        )
+    if "status_reason" in value:
+        out["statusReason"] = value["status_reason"]
+    out["memberAccountsEnrolled"] = value.get("member_accounts_enrolled", False)
+    if "last_updated_timestamp" in value:
+        import capo_compute_optimizer.types.last_updated_timestamp
+
+        out["lastUpdatedTimestamp"] = (
+            capo_compute_optimizer.types.last_updated_timestamp.serialize_cbor(
+                value["last_updated_timestamp"]
+            )
+        )
+    if "number_of_member_accounts_opted_in" in value:
+        out["numberOfMemberAccountsOptedIn"] = value[
+            "number_of_member_accounts_opted_in"
+        ]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetEnrollmentStatusResponse:
+    out: GetEnrollmentStatusResponse = {}  # type: ignore[typeddict-item]
+    if data.get("status") is not None:
+        import capo_compute_optimizer.types.status
+
+        out["status"] = capo_compute_optimizer.types.status.deserialize_cbor(
+            data["status"]
+        )
+    if data.get("statusReason") is not None:
+        out["status_reason"] = data["statusReason"]
+    if data.get("memberAccountsEnrolled") is not None:
+        out["member_accounts_enrolled"] = data["memberAccountsEnrolled"]
+    else:
+        out["member_accounts_enrolled"] = False
+    if data.get("lastUpdatedTimestamp") is not None:
+        import capo_compute_optimizer.types.last_updated_timestamp
+
+        out["last_updated_timestamp"] = (
+            capo_compute_optimizer.types.last_updated_timestamp.deserialize_cbor(
+                data["lastUpdatedTimestamp"]
+            )
+        )
+    if data.get("numberOfMemberAccountsOptedIn") is not None:
+        out["number_of_member_accounts_opted_in"] = data[
+            "numberOfMemberAccountsOptedIn"
+        ]
+    return out

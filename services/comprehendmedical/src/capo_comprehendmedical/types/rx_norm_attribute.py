@@ -116,3 +116,68 @@ def deserialize_aws_json_1_1(data: dict) -> RxNormAttribute:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RxNormAttribute) -> dict:
+    out: dict = {}
+    if "type" in value:
+        import capo_comprehendmedical.types.rx_norm_attribute_type
+
+        out["Type"] = (
+            capo_comprehendmedical.types.rx_norm_attribute_type.serialize_cbor(
+                value["type"]
+            )
+        )
+    if "score" in value:
+        out["Score"] = value["score"]
+    if "relationship_score" in value:
+        out["RelationshipScore"] = value["relationship_score"]
+    if "id" in value:
+        out["Id"] = value["id"]
+    if "begin_offset" in value:
+        out["BeginOffset"] = value["begin_offset"]
+    if "end_offset" in value:
+        out["EndOffset"] = value["end_offset"]
+    if "text" in value:
+        out["Text"] = value["text"]
+    if "traits" in value:
+        import capo_comprehendmedical.types.rx_norm_trait_list
+
+        out["Traits"] = capo_comprehendmedical.types.rx_norm_trait_list.serialize_cbor(
+            value["traits"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RxNormAttribute:
+    out: RxNormAttribute = {}  # type: ignore[typeddict-item]
+    if data.get("Type") is not None:
+        import capo_comprehendmedical.types.rx_norm_attribute_type
+
+        out["type"] = (
+            capo_comprehendmedical.types.rx_norm_attribute_type.deserialize_cbor(
+                data["Type"]
+            )
+        )
+    if data.get("Score") is not None:
+        out["score"] = float(data["Score"])
+    if data.get("RelationshipScore") is not None:
+        out["relationship_score"] = float(data["RelationshipScore"])
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    if data.get("BeginOffset") is not None:
+        out["begin_offset"] = data["BeginOffset"]
+    if data.get("EndOffset") is not None:
+        out["end_offset"] = data["EndOffset"]
+    if data.get("Text") is not None:
+        out["text"] = data["Text"]
+    if data.get("Traits") is not None:
+        import capo_comprehendmedical.types.rx_norm_trait_list
+
+        out["traits"] = (
+            capo_comprehendmedical.types.rx_norm_trait_list.deserialize_cbor(
+                data["Traits"]
+            )
+        )
+    return out

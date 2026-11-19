@@ -76,3 +76,50 @@ def deserialize_aws_json_1_0(data: dict) -> RDSDatabaseProjectedMetric:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RDSDatabaseProjectedMetric) -> dict:
+    out: dict = {}
+    if "name" in value:
+        import capo_compute_optimizer.types.rdsdb_metric_name
+
+        out["name"] = capo_compute_optimizer.types.rdsdb_metric_name.serialize_cbor(
+            value["name"]
+        )
+    if "timestamps" in value:
+        import capo_compute_optimizer.types.timestamps
+
+        out["timestamps"] = capo_compute_optimizer.types.timestamps.serialize_cbor(
+            value["timestamps"]
+        )
+    if "values" in value:
+        import capo_compute_optimizer.types.metric_values
+
+        out["values"] = capo_compute_optimizer.types.metric_values.serialize_cbor(
+            value["values"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RDSDatabaseProjectedMetric:
+    out: RDSDatabaseProjectedMetric = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        import capo_compute_optimizer.types.rdsdb_metric_name
+
+        out["name"] = capo_compute_optimizer.types.rdsdb_metric_name.deserialize_cbor(
+            data["name"]
+        )
+    if data.get("timestamps") is not None:
+        import capo_compute_optimizer.types.timestamps
+
+        out["timestamps"] = capo_compute_optimizer.types.timestamps.deserialize_cbor(
+            data["timestamps"]
+        )
+    if data.get("values") is not None:
+        import capo_compute_optimizer.types.metric_values
+
+        out["values"] = capo_compute_optimizer.types.metric_values.deserialize_cbor(
+            data["values"]
+        )
+    return out

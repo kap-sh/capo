@@ -61,3 +61,40 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeConnectionAliasesRequest:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeConnectionAliasesRequest) -> dict:
+    out: dict = {}
+    if "alias_ids" in value:
+        import capo_workspaces.types.connection_alias_id_list
+
+        out["AliasIds"] = capo_workspaces.types.connection_alias_id_list.serialize_cbor(
+            value["alias_ids"]
+        )
+    if "resource_id" in value:
+        out["ResourceId"] = value["resource_id"]
+    if "limit" in value:
+        out["Limit"] = value["limit"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeConnectionAliasesRequest:
+    out: DescribeConnectionAliasesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("AliasIds") is not None:
+        import capo_workspaces.types.connection_alias_id_list
+
+        out["alias_ids"] = (
+            capo_workspaces.types.connection_alias_id_list.deserialize_cbor(
+                data["AliasIds"]
+            )
+        )
+    if data.get("ResourceId") is not None:
+        out["resource_id"] = data["ResourceId"]
+    if data.get("Limit") is not None:
+        out["limit"] = data["Limit"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

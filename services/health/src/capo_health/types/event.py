@@ -192,3 +192,128 @@ def deserialize_aws_json_1_1(data: dict) -> Event:
             data["personas"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Event) -> dict:
+    out: dict = {}
+    if "arn" in value:
+        out["arn"] = value["arn"]
+    if "service" in value:
+        out["service"] = value["service"]
+    if "event_type_code" in value:
+        out["eventTypeCode"] = value["event_type_code"]
+    if "event_type_category" in value:
+        import capo_health.types.event_type_category
+
+        out["eventTypeCategory"] = capo_health.types.event_type_category.serialize_cbor(
+            value["event_type_category"]
+        )
+    if "region" in value:
+        out["region"] = value["region"]
+    if "availability_zone" in value:
+        out["availabilityZone"] = value["availability_zone"]
+    if "start_time" in value:
+        import capo_health.types.timestamp
+
+        out["startTime"] = capo_health.types.timestamp.serialize_cbor(
+            value["start_time"]
+        )
+    if "end_time" in value:
+        import capo_health.types.timestamp
+
+        out["endTime"] = capo_health.types.timestamp.serialize_cbor(value["end_time"])
+    if "last_updated_time" in value:
+        import capo_health.types.timestamp
+
+        out["lastUpdatedTime"] = capo_health.types.timestamp.serialize_cbor(
+            value["last_updated_time"]
+        )
+    if "status_code" in value:
+        import capo_health.types.event_status_code
+
+        out["statusCode"] = capo_health.types.event_status_code.serialize_cbor(
+            value["status_code"]
+        )
+    if "event_scope_code" in value:
+        import capo_health.types.event_scope_code
+
+        out["eventScopeCode"] = capo_health.types.event_scope_code.serialize_cbor(
+            value["event_scope_code"]
+        )
+    if "actionability" in value:
+        import capo_health.types.event_actionability
+
+        out["actionability"] = capo_health.types.event_actionability.serialize_cbor(
+            value["actionability"]
+        )
+    if "personas" in value:
+        import capo_health.types.event_persona_list
+
+        out["personas"] = capo_health.types.event_persona_list.serialize_cbor(
+            value["personas"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Event:
+    out: Event = {}  # type: ignore[typeddict-item]
+    if data.get("arn") is not None:
+        out["arn"] = data["arn"]
+    if data.get("service") is not None:
+        out["service"] = data["service"]
+    if data.get("eventTypeCode") is not None:
+        out["event_type_code"] = data["eventTypeCode"]
+    if data.get("eventTypeCategory") is not None:
+        import capo_health.types.event_type_category
+
+        out["event_type_category"] = (
+            capo_health.types.event_type_category.deserialize_cbor(
+                data["eventTypeCategory"]
+            )
+        )
+    if data.get("region") is not None:
+        out["region"] = data["region"]
+    if data.get("availabilityZone") is not None:
+        out["availability_zone"] = data["availabilityZone"]
+    if data.get("startTime") is not None:
+        import capo_health.types.timestamp
+
+        out["start_time"] = capo_health.types.timestamp.deserialize_cbor(
+            data["startTime"]
+        )
+    if data.get("endTime") is not None:
+        import capo_health.types.timestamp
+
+        out["end_time"] = capo_health.types.timestamp.deserialize_cbor(data["endTime"])
+    if data.get("lastUpdatedTime") is not None:
+        import capo_health.types.timestamp
+
+        out["last_updated_time"] = capo_health.types.timestamp.deserialize_cbor(
+            data["lastUpdatedTime"]
+        )
+    if data.get("statusCode") is not None:
+        import capo_health.types.event_status_code
+
+        out["status_code"] = capo_health.types.event_status_code.deserialize_cbor(
+            data["statusCode"]
+        )
+    if data.get("eventScopeCode") is not None:
+        import capo_health.types.event_scope_code
+
+        out["event_scope_code"] = capo_health.types.event_scope_code.deserialize_cbor(
+            data["eventScopeCode"]
+        )
+    if data.get("actionability") is not None:
+        import capo_health.types.event_actionability
+
+        out["actionability"] = capo_health.types.event_actionability.deserialize_cbor(
+            data["actionability"]
+        )
+    if data.get("personas") is not None:
+        import capo_health.types.event_persona_list
+
+        out["personas"] = capo_health.types.event_persona_list.deserialize_cbor(
+            data["personas"]
+        )
+    return out

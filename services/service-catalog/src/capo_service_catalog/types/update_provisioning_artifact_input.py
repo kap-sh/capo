@@ -91,3 +91,56 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateProvisioningArtifactInput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateProvisioningArtifactInput) -> dict:
+    out: dict = {}
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    out["ProductId"] = value["product_id"]
+    out["ProvisioningArtifactId"] = value["provisioning_artifact_id"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "active" in value:
+        out["Active"] = value["active"]
+    if "guidance" in value:
+        import capo_service_catalog.types.provisioning_artifact_guidance
+
+        out["Guidance"] = (
+            capo_service_catalog.types.provisioning_artifact_guidance.serialize_cbor(
+                value["guidance"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateProvisioningArtifactInput:
+    out: UpdateProvisioningArtifactInput = {}  # type: ignore[typeddict-item]
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    if data.get("ProductId") is not None:
+        out["product_id"] = data["ProductId"]
+    else:
+        out["product_id"] = ""
+    if data.get("ProvisioningArtifactId") is not None:
+        out["provisioning_artifact_id"] = data["ProvisioningArtifactId"]
+    else:
+        out["provisioning_artifact_id"] = ""
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("Active") is not None:
+        out["active"] = data["Active"]
+    if data.get("Guidance") is not None:
+        import capo_service_catalog.types.provisioning_artifact_guidance
+
+        out["guidance"] = (
+            capo_service_catalog.types.provisioning_artifact_guidance.deserialize_cbor(
+                data["Guidance"]
+            )
+        )
+    return out

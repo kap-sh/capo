@@ -42,3 +42,30 @@ def deserialize_aws_json_1_1(data: dict) -> DateTimeRange:
 
         out["to"] = capo_health.types.timestamp.deserialize_aws_json_1_1(data["to"])
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DateTimeRange) -> dict:
+    out: dict = {}
+    if "from" in value:
+        import capo_health.types.timestamp
+
+        out["from"] = capo_health.types.timestamp.serialize_cbor(value["from"])
+    if "to" in value:
+        import capo_health.types.timestamp
+
+        out["to"] = capo_health.types.timestamp.serialize_cbor(value["to"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> DateTimeRange:
+    out: DateTimeRange = {}  # type: ignore[typeddict-item]
+    if data.get("from") is not None:
+        import capo_health.types.timestamp
+
+        out["from"] = capo_health.types.timestamp.deserialize_cbor(data["from"])
+    if data.get("to") is not None:
+        import capo_health.types.timestamp
+
+        out["to"] = capo_health.types.timestamp.deserialize_cbor(data["to"])
+    return out

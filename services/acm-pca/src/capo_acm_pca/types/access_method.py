@@ -49,3 +49,32 @@ def deserialize_aws_json_1_1(data: dict) -> AccessMethod:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AccessMethod) -> dict:
+    out: dict = {}
+    if "custom_object_identifier" in value:
+        out["CustomObjectIdentifier"] = value["custom_object_identifier"]
+    if "access_method_type" in value:
+        import capo_acm_pca.types.access_method_type
+
+        out["AccessMethodType"] = capo_acm_pca.types.access_method_type.serialize_cbor(
+            value["access_method_type"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AccessMethod:
+    out: AccessMethod = {}  # type: ignore[typeddict-item]
+    if data.get("CustomObjectIdentifier") is not None:
+        out["custom_object_identifier"] = data["CustomObjectIdentifier"]
+    if data.get("AccessMethodType") is not None:
+        import capo_acm_pca.types.access_method_type
+
+        out["access_method_type"] = (
+            capo_acm_pca.types.access_method_type.deserialize_cbor(
+                data["AccessMethodType"]
+            )
+        )
+    return out

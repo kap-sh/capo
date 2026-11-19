@@ -53,3 +53,40 @@ def deserialize_aws_json_1_1(data: dict) -> RegistryCredential:
             "capo_codebuild.types.credential_provider_type.CredentialProviderType", ""
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RegistryCredential) -> dict:
+    out: dict = {}
+    out["credential"] = value["credential"]
+    import capo_codebuild.types.credential_provider_type
+
+    out["credentialProvider"] = (
+        capo_codebuild.types.credential_provider_type.serialize_cbor(
+            value["credential_provider"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RegistryCredential:
+    out: RegistryCredential = {}  # type: ignore[typeddict-item]
+    if data.get("credential") is not None:
+        out["credential"] = data["credential"]
+    else:
+        out["credential"] = ""
+    if data.get("credentialProvider") is not None:
+        import capo_codebuild.types.credential_provider_type
+
+        out["credential_provider"] = (
+            capo_codebuild.types.credential_provider_type.deserialize_cbor(
+                data["credentialProvider"]
+            )
+        )
+    else:
+        import typing
+
+        out["credential_provider"] = typing.cast(
+            "capo_codebuild.types.credential_provider_type.CredentialProviderType", ""
+        )
+    return out

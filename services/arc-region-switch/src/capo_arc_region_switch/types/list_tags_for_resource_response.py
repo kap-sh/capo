@@ -36,3 +36,26 @@ def deserialize_aws_json_1_0(data: dict) -> ListTagsForResourceResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListTagsForResourceResponse) -> dict:
+    out: dict = {}
+    if "resource_tags" in value:
+        import capo_arc_region_switch.types.tags
+
+        out["resourceTags"] = capo_arc_region_switch.types.tags.serialize_cbor(
+            value["resource_tags"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListTagsForResourceResponse:
+    out: ListTagsForResourceResponse = {}  # type: ignore[typeddict-item]
+    if data.get("resourceTags") is not None:
+        import capo_arc_region_switch.types.tags
+
+        out["resource_tags"] = capo_arc_region_switch.types.tags.deserialize_cbor(
+            data["resourceTags"]
+        )
+    return out

@@ -18,3 +18,12 @@ def serialize_aws_json_1_1(value: ResourceDetailCreatedTime) -> float:
 
 def deserialize_aws_json_1_1(data: float) -> ResourceDetailCreatedTime:
     return datetime.datetime.fromtimestamp(float(data), tz=datetime.timezone.utc)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResourceDetailCreatedTime) -> ResourceDetailCreatedTime:
+    return value
+
+
+def deserialize_cbor(data: ResourceDetailCreatedTime) -> ResourceDetailCreatedTime:
+    return data

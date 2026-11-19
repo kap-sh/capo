@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> ConfirmPrivateVirtualInterfaceRespon
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ConfirmPrivateVirtualInterfaceResponse) -> dict:
+    out: dict = {}
+    if "virtual_interface_state" in value:
+        import capo_direct_connect.types.virtual_interface_state
+
+        out["virtualInterfaceState"] = (
+            capo_direct_connect.types.virtual_interface_state.serialize_cbor(
+                value["virtual_interface_state"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ConfirmPrivateVirtualInterfaceResponse:
+    out: ConfirmPrivateVirtualInterfaceResponse = {}  # type: ignore[typeddict-item]
+    if data.get("virtualInterfaceState") is not None:
+        import capo_direct_connect.types.virtual_interface_state
+
+        out["virtual_interface_state"] = (
+            capo_direct_connect.types.virtual_interface_state.deserialize_cbor(
+                data["virtualInterfaceState"]
+            )
+        )
+    return out

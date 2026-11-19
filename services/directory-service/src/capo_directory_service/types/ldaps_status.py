@@ -17,3 +17,12 @@ def serialize_aws_json_1_1(value: LDAPSStatus) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> LDAPSStatus:
     return cast(LDAPSStatus, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LDAPSStatus) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> LDAPSStatus:
+    return cast(LDAPSStatus, data)

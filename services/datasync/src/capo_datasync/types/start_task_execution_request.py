@@ -125,3 +125,89 @@ def deserialize_aws_json_1_1(data: dict) -> StartTaskExecutionRequest:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartTaskExecutionRequest) -> dict:
+    out: dict = {}
+    out["TaskArn"] = value["task_arn"]
+    if "override_options" in value:
+        import capo_datasync.types.options
+
+        out["OverrideOptions"] = capo_datasync.types.options.serialize_cbor(
+            value["override_options"]
+        )
+    if "includes" in value:
+        import capo_datasync.types.filter_list
+
+        out["Includes"] = capo_datasync.types.filter_list.serialize_cbor(
+            value["includes"]
+        )
+    if "excludes" in value:
+        import capo_datasync.types.filter_list
+
+        out["Excludes"] = capo_datasync.types.filter_list.serialize_cbor(
+            value["excludes"]
+        )
+    if "manifest_config" in value:
+        import capo_datasync.types.manifest_config
+
+        out["ManifestConfig"] = capo_datasync.types.manifest_config.serialize_cbor(
+            value["manifest_config"]
+        )
+    if "task_report_config" in value:
+        import capo_datasync.types.task_report_config
+
+        out["TaskReportConfig"] = capo_datasync.types.task_report_config.serialize_cbor(
+            value["task_report_config"]
+        )
+    if "tags" in value:
+        import capo_datasync.types.input_tag_list
+
+        out["Tags"] = capo_datasync.types.input_tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartTaskExecutionRequest:
+    out: StartTaskExecutionRequest = {}  # type: ignore[typeddict-item]
+    if data.get("TaskArn") is not None:
+        out["task_arn"] = data["TaskArn"]
+    else:
+        out["task_arn"] = ""
+    if data.get("OverrideOptions") is not None:
+        import capo_datasync.types.options
+
+        out["override_options"] = capo_datasync.types.options.deserialize_cbor(
+            data["OverrideOptions"]
+        )
+    if data.get("Includes") is not None:
+        import capo_datasync.types.filter_list
+
+        out["includes"] = capo_datasync.types.filter_list.deserialize_cbor(
+            data["Includes"]
+        )
+    if data.get("Excludes") is not None:
+        import capo_datasync.types.filter_list
+
+        out["excludes"] = capo_datasync.types.filter_list.deserialize_cbor(
+            data["Excludes"]
+        )
+    if data.get("ManifestConfig") is not None:
+        import capo_datasync.types.manifest_config
+
+        out["manifest_config"] = capo_datasync.types.manifest_config.deserialize_cbor(
+            data["ManifestConfig"]
+        )
+    if data.get("TaskReportConfig") is not None:
+        import capo_datasync.types.task_report_config
+
+        out["task_report_config"] = (
+            capo_datasync.types.task_report_config.deserialize_cbor(
+                data["TaskReportConfig"]
+            )
+        )
+    if data.get("Tags") is not None:
+        import capo_datasync.types.input_tag_list
+
+        out["tags"] = capo_datasync.types.input_tag_list.deserialize_cbor(data["Tags"])
+    return out

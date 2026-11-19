@@ -35,3 +35,22 @@ def deserialize_aws_json_1_1(data: dict) -> DeregisterGameServerInput:
     if data.get("GameServerId") is not None:
         out["game_server_id"] = data["GameServerId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeregisterGameServerInput) -> dict:
+    out: dict = {}
+    if "game_server_group_name" in value:
+        out["GameServerGroupName"] = value["game_server_group_name"]
+    if "game_server_id" in value:
+        out["GameServerId"] = value["game_server_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeregisterGameServerInput:
+    out: DeregisterGameServerInput = {}  # type: ignore[typeddict-item]
+    if data.get("GameServerGroupName") is not None:
+        out["game_server_group_name"] = data["GameServerGroupName"]
+    if data.get("GameServerId") is not None:
+        out["game_server_id"] = data["GameServerId"]
+    return out

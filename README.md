@@ -18,6 +18,7 @@ Documentation: [capo-sdk.dev](https://capo-sdk.dev/). Every service has its own 
 - **built on [zapros](https://zapros.dev)** — A modern HTTP client for Python that abstracts HTTP semantics from the transport implementation.
 - **fast to import** — import time stays flat even for huge services like EC2.
 - **interceptors** — Hook into the operation request/response lifecycle to inspect, log, or modify calls.
+- **multiple wire protocols** — When a service speaks more than one protocol (for example AWS JSON and Smithy RPC v2 CBOR), [pick the one to use](https://capo-sdk.dev/configuration/#wire-protocols) for the whole client or for a single call.
 
 > **Warning**
 > The API should be mostly stable, but some breaking changes may occur as the SDK is still in early development. We strongly recommend pinning the version before the first major release.
@@ -215,6 +216,37 @@ s3 =
 ```
 
 First match wins: `config_overrides`, then the client argument, then the environment variable, then the profile. For the endpoint the order within the environment and the profile is `AWS_ENDPOINT_URL_S3`, `AWS_ENDPOINT_URL`, the `[services]` entry, then the profile's `endpoint_url`.
+
+### Wire protocols
+
+Some services accept more than one wire protocol. Amazon CloudWatch, for example, speaks AWS JSON 1.0, AWS Query and Smithy RPC v2 CBOR. For those services the client takes a `protocol` argument, typed with exactly the protocols the service supports. The default is the same protocol the client has always used, so nothing changes unless you set it:
+
+```python
+from capo_cloudwatch import AsyncCloudWatchClient
+
+# every call from this client goes out as RPC v2 CBOR
+async with AsyncCloudWatchClient(region="eu-central-1", protocol="rpcv2Cbor") as cloudwatch:
+    metrics = await cloudwatch.list_metrics(namespace="AWS/EC2")
+```
+
+Or pick it for a single call:
+
+```python
+async with AsyncCloudWatchClient(region="eu-central-1") as cloudwatch:
+    # AWS JSON 1.0, the default
+    await cloudwatch.list_metrics(namespace="AWS/EC2")
+
+    # this call only
+    await cloudwatch.list_metrics(namespace="AWS/EC2", config_overrides={"protocol": "awsQuery"})
+```
+
+Inputs, outputs and errors are the same whichever protocol carries them. RPC v2 CBOR needs the `cbor2` package, which is an optional extra where CBOR is not the default:
+
+```bash
+uv add 'capo-cloudwatch[cbor]'
+```
+
+A client of a service with a single protocol has no `protocol` argument. There is no environment variable or profile setting for it.
 <!-- --8<-- [end:configuration] -->
 
 <!-- --8<-- [start:authentication] -->

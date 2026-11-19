@@ -56,3 +56,40 @@ def deserialize_aws_json_1_1(data: dict) -> EvaluationResult:
     else:
         out["evaluation_limit_exceeded"] = False
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EvaluationResult) -> dict:
+    out: dict = {}
+    if "compliance_status" in value:
+        import capo_fms.types.policy_compliance_status_type
+
+        out["ComplianceStatus"] = (
+            capo_fms.types.policy_compliance_status_type.serialize_cbor(
+                value["compliance_status"]
+            )
+        )
+    out["ViolatorCount"] = value.get("violator_count", 0)
+    out["EvaluationLimitExceeded"] = value.get("evaluation_limit_exceeded", False)
+    return out
+
+
+def deserialize_cbor(data: dict) -> EvaluationResult:
+    out: EvaluationResult = {}  # type: ignore[typeddict-item]
+    if data.get("ComplianceStatus") is not None:
+        import capo_fms.types.policy_compliance_status_type
+
+        out["compliance_status"] = (
+            capo_fms.types.policy_compliance_status_type.deserialize_cbor(
+                data["ComplianceStatus"]
+            )
+        )
+    if data.get("ViolatorCount") is not None:
+        out["violator_count"] = data["ViolatorCount"]
+    else:
+        out["violator_count"] = 0
+    if data.get("EvaluationLimitExceeded") is not None:
+        out["evaluation_limit_exceeded"] = data["EvaluationLimitExceeded"]
+    else:
+        out["evaluation_limit_exceeded"] = False
+    return out

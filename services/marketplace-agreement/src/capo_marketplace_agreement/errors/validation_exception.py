@@ -82,6 +82,57 @@ def deserialize_aws_json_1_0(data: dict) -> ValidationException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ValidationException_) -> dict:
+    out: dict = {}
+    if "request_id" in value:
+        out["requestId"] = value["request_id"]
+    if "message" in value:
+        out["message"] = value["message"]
+    if "reason" in value:
+        import capo_marketplace_agreement.types.validation_exception_reason
+
+        out["reason"] = (
+            capo_marketplace_agreement.types.validation_exception_reason.serialize_cbor(
+                value["reason"]
+            )
+        )
+    if "fields" in value:
+        import capo_marketplace_agreement.types.validation_exception_field_list
+
+        out["fields"] = (
+            capo_marketplace_agreement.types.validation_exception_field_list.serialize_cbor(
+                value["fields"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ValidationException_:
+    out: ValidationException_ = {}  # type: ignore[typeddict-item]
+    if data.get("requestId") is not None:
+        out["request_id"] = data["requestId"]
+    if data.get("message") is not None:
+        out["message"] = data["message"]
+    if data.get("reason") is not None:
+        import capo_marketplace_agreement.types.validation_exception_reason
+
+        out["reason"] = (
+            capo_marketplace_agreement.types.validation_exception_reason.deserialize_cbor(
+                data["reason"]
+            )
+        )
+    if data.get("fields") is not None:
+        import capo_marketplace_agreement.types.validation_exception_field_list
+
+        out["fields"] = (
+            capo_marketplace_agreement.types.validation_exception_field_list.deserialize_cbor(
+                data["fields"]
+            )
+        )
+    return out
+
+
 class ValidationException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.marketplaceagreement#ValidationException``."""
 
@@ -109,3 +160,9 @@ class ValidationException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ValidationException":
         return cls(deserialize_aws_json_1_0(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "ValidationException":
+        return cls(deserialize_cbor(data), message, response=response)

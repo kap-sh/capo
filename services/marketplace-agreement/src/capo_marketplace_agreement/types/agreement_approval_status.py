@@ -18,3 +18,12 @@ def serialize_aws_json_1_0(value: AgreementApprovalStatus) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> AgreementApprovalStatus:
     return cast(AgreementApprovalStatus, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AgreementApprovalStatus) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> AgreementApprovalStatus:
+    return cast(AgreementApprovalStatus, data)

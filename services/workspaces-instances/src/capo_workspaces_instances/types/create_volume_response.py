@@ -26,3 +26,18 @@ def deserialize_aws_json_1_0(data: dict) -> CreateVolumeResponse:
     if data.get("VolumeId") is not None:
         out["volume_id"] = data["VolumeId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateVolumeResponse) -> dict:
+    out: dict = {}
+    if "volume_id" in value:
+        out["VolumeId"] = value["volume_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateVolumeResponse:
+    out: CreateVolumeResponse = {}  # type: ignore[typeddict-item]
+    if data.get("VolumeId") is not None:
+        out["volume_id"] = data["VolumeId"]
+    return out

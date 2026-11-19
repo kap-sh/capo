@@ -169,3 +169,110 @@ def deserialize_aws_json_1_1(data: dict) -> DirectConnectGatewayAssociation:
     if data.get("virtualGatewayOwnerAccount") is not None:
         out["virtual_gateway_owner_account"] = data["virtualGatewayOwnerAccount"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DirectConnectGatewayAssociation) -> dict:
+    out: dict = {}
+    if "direct_connect_gateway_id" in value:
+        out["directConnectGatewayId"] = value["direct_connect_gateway_id"]
+    if "direct_connect_gateway_owner_account" in value:
+        out["directConnectGatewayOwnerAccount"] = value[
+            "direct_connect_gateway_owner_account"
+        ]
+    if "association_state" in value:
+        import capo_direct_connect.types.direct_connect_gateway_association_state
+
+        out["associationState"] = (
+            capo_direct_connect.types.direct_connect_gateway_association_state.serialize_cbor(
+                value["association_state"]
+            )
+        )
+    if "state_change_error" in value:
+        out["stateChangeError"] = value["state_change_error"]
+    if "associated_gateway" in value:
+        import capo_direct_connect.types.associated_gateway
+
+        out["associatedGateway"] = (
+            capo_direct_connect.types.associated_gateway.serialize_cbor(
+                value["associated_gateway"]
+            )
+        )
+    if "association_id" in value:
+        out["associationId"] = value["association_id"]
+    if "allowed_prefixes_to_direct_connect_gateway" in value:
+        import capo_direct_connect.types.route_filter_prefix_list
+
+        out["allowedPrefixesToDirectConnectGateway"] = (
+            capo_direct_connect.types.route_filter_prefix_list.serialize_cbor(
+                value["allowed_prefixes_to_direct_connect_gateway"]
+            )
+        )
+    if "associated_core_network" in value:
+        import capo_direct_connect.types.associated_core_network
+
+        out["associatedCoreNetwork"] = (
+            capo_direct_connect.types.associated_core_network.serialize_cbor(
+                value["associated_core_network"]
+            )
+        )
+    if "virtual_gateway_id" in value:
+        out["virtualGatewayId"] = value["virtual_gateway_id"]
+    if "virtual_gateway_region" in value:
+        out["virtualGatewayRegion"] = value["virtual_gateway_region"]
+    if "virtual_gateway_owner_account" in value:
+        out["virtualGatewayOwnerAccount"] = value["virtual_gateway_owner_account"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DirectConnectGatewayAssociation:
+    out: DirectConnectGatewayAssociation = {}  # type: ignore[typeddict-item]
+    if data.get("directConnectGatewayId") is not None:
+        out["direct_connect_gateway_id"] = data["directConnectGatewayId"]
+    if data.get("directConnectGatewayOwnerAccount") is not None:
+        out["direct_connect_gateway_owner_account"] = data[
+            "directConnectGatewayOwnerAccount"
+        ]
+    if data.get("associationState") is not None:
+        import capo_direct_connect.types.direct_connect_gateway_association_state
+
+        out["association_state"] = (
+            capo_direct_connect.types.direct_connect_gateway_association_state.deserialize_cbor(
+                data["associationState"]
+            )
+        )
+    if data.get("stateChangeError") is not None:
+        out["state_change_error"] = data["stateChangeError"]
+    if data.get("associatedGateway") is not None:
+        import capo_direct_connect.types.associated_gateway
+
+        out["associated_gateway"] = (
+            capo_direct_connect.types.associated_gateway.deserialize_cbor(
+                data["associatedGateway"]
+            )
+        )
+    if data.get("associationId") is not None:
+        out["association_id"] = data["associationId"]
+    if data.get("allowedPrefixesToDirectConnectGateway") is not None:
+        import capo_direct_connect.types.route_filter_prefix_list
+
+        out["allowed_prefixes_to_direct_connect_gateway"] = (
+            capo_direct_connect.types.route_filter_prefix_list.deserialize_cbor(
+                data["allowedPrefixesToDirectConnectGateway"]
+            )
+        )
+    if data.get("associatedCoreNetwork") is not None:
+        import capo_direct_connect.types.associated_core_network
+
+        out["associated_core_network"] = (
+            capo_direct_connect.types.associated_core_network.deserialize_cbor(
+                data["associatedCoreNetwork"]
+            )
+        )
+    if data.get("virtualGatewayId") is not None:
+        out["virtual_gateway_id"] = data["virtualGatewayId"]
+    if data.get("virtualGatewayRegion") is not None:
+        out["virtual_gateway_region"] = data["virtualGatewayRegion"]
+    if data.get("virtualGatewayOwnerAccount") is not None:
+        out["virtual_gateway_owner_account"] = data["virtualGatewayOwnerAccount"]
+    return out

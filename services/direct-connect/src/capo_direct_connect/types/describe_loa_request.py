@@ -55,3 +55,39 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeLoaRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeLoaRequest) -> dict:
+    out: dict = {}
+    out["connectionId"] = value["connection_id"]
+    if "provider_name" in value:
+        out["providerName"] = value["provider_name"]
+    if "loa_content_type" in value:
+        import capo_direct_connect.types.loa_content_type
+
+        out["loaContentType"] = (
+            capo_direct_connect.types.loa_content_type.serialize_cbor(
+                value["loa_content_type"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeLoaRequest:
+    out: DescribeLoaRequest = {}  # type: ignore[typeddict-item]
+    if data.get("connectionId") is not None:
+        out["connection_id"] = data["connectionId"]
+    else:
+        out["connection_id"] = ""
+    if data.get("providerName") is not None:
+        out["provider_name"] = data["providerName"]
+    if data.get("loaContentType") is not None:
+        import capo_direct_connect.types.loa_content_type
+
+        out["loa_content_type"] = (
+            capo_direct_connect.types.loa_content_type.deserialize_cbor(
+                data["loaContentType"]
+            )
+        )
+    return out

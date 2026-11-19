@@ -80,3 +80,34 @@ def deserialize_aws_json_1_1(data: dict) -> BoundingBox:
     else:
         out["top"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BoundingBox) -> dict:
+    out: dict = {}
+    out["Width"] = value.get("width", 0)
+    out["Height"] = value.get("height", 0)
+    out["Left"] = value.get("left", 0)
+    out["Top"] = value.get("top", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> BoundingBox:
+    out: BoundingBox = {}  # type: ignore[typeddict-item]
+    if data.get("Width") is not None:
+        out["width"] = float(data["Width"])
+    else:
+        out["width"] = 0
+    if data.get("Height") is not None:
+        out["height"] = float(data["Height"])
+    else:
+        out["height"] = 0
+    if data.get("Left") is not None:
+        out["left"] = float(data["Left"])
+    else:
+        out["left"] = 0
+    if data.get("Top") is not None:
+        out["top"] = float(data["Top"])
+    else:
+        out["top"] = 0
+    return out

@@ -15,3 +15,12 @@ def serialize_aws_json_1_0(value: CpuCreditsEnum) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> CpuCreditsEnum:
     return cast(CpuCreditsEnum, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CpuCreditsEnum) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> CpuCreditsEnum:
+    return cast(CpuCreditsEnum, data)

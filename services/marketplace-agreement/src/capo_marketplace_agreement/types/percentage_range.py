@@ -44,3 +44,26 @@ def deserialize_aws_json_1_0(data: dict) -> PercentageRange:
     if data.get("defaultValue") is not None:
         out["default_value"] = data["defaultValue"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PercentageRange) -> dict:
+    out: dict = {}
+    if "min_value" in value:
+        out["minValue"] = value["min_value"]
+    if "max_value" in value:
+        out["maxValue"] = value["max_value"]
+    if "default_value" in value:
+        out["defaultValue"] = value["default_value"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> PercentageRange:
+    out: PercentageRange = {}  # type: ignore[typeddict-item]
+    if data.get("minValue") is not None:
+        out["min_value"] = data["minValue"]
+    if data.get("maxValue") is not None:
+        out["max_value"] = data["maxValue"]
+    if data.get("defaultValue") is not None:
+        out["default_value"] = data["defaultValue"]
+    return out

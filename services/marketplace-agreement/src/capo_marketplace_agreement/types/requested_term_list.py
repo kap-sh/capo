@@ -35,3 +35,26 @@ def deserialize_aws_json_1_0(data: list) -> RequestedTermList:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RequestedTermList) -> list:
+    import capo_marketplace_agreement.types.requested_term
+
+    out: list = []
+    for item in value:
+        out.append(capo_marketplace_agreement.types.requested_term.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> RequestedTermList:
+    import capo_marketplace_agreement.types.requested_term
+
+    out: RequestedTermList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_marketplace_agreement.types.requested_term.deserialize_cbor(item)
+        )
+    return out

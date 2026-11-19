@@ -166,6 +166,65 @@ def deserialize_query(el: Element) -> PutMetricDataQueryDefinitionOutput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PutMetricDataQueryDefinitionOutput) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["Id"] = value["id"]
+    if "arn" in value:
+        out["Arn"] = value["arn"]
+    if "path" in value:
+        out["Path"] = value["path"]
+    if "expression" in value:
+        out["Expression"] = value["expression"]
+    if "type" in value:
+        import capo_cloudwatch.types.query_type
+
+        out["Type"] = capo_cloudwatch.types.query_type.serialize_cbor(value["type"])
+    if "created_at" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["CreatedAt"] = capo_cloudwatch.types.timestamp.serialize_cbor(
+            value["created_at"]
+        )
+    if "updated_at" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["UpdatedAt"] = capo_cloudwatch.types.timestamp.serialize_cbor(
+            value["updated_at"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PutMetricDataQueryDefinitionOutput:
+    out: PutMetricDataQueryDefinitionOutput = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    if data.get("Arn") is not None:
+        out["arn"] = data["Arn"]
+    if data.get("Path") is not None:
+        out["path"] = data["Path"]
+    if data.get("Expression") is not None:
+        out["expression"] = data["Expression"]
+    if data.get("Type") is not None:
+        import capo_cloudwatch.types.query_type
+
+        out["type"] = capo_cloudwatch.types.query_type.deserialize_cbor(data["Type"])
+    if data.get("CreatedAt") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["created_at"] = capo_cloudwatch.types.timestamp.deserialize_cbor(
+            data["CreatedAt"]
+        )
+    if data.get("UpdatedAt") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["updated_at"] = capo_cloudwatch.types.timestamp.deserialize_cbor(
+            data["UpdatedAt"]
+        )
+    return out
+
+
 def redact_sensitive(value: PutMetricDataQueryDefinitionOutput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "expression" in value:

@@ -41,3 +41,30 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeWorkspaceBundlesResult:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeWorkspaceBundlesResult) -> dict:
+    out: dict = {}
+    if "bundles" in value:
+        import capo_workspaces.types.bundle_list
+
+        out["Bundles"] = capo_workspaces.types.bundle_list.serialize_cbor(
+            value["bundles"]
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeWorkspaceBundlesResult:
+    out: DescribeWorkspaceBundlesResult = {}  # type: ignore[typeddict-item]
+    if data.get("Bundles") is not None:
+        import capo_workspaces.types.bundle_list
+
+        out["bundles"] = capo_workspaces.types.bundle_list.deserialize_cbor(
+            data["Bundles"]
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

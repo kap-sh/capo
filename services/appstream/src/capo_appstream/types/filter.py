@@ -41,3 +41,30 @@ def deserialize_aws_json_1_1(data: dict) -> Filter:
             data["Values"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Filter) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "values" in value:
+        import capo_appstream.types.filter_values
+
+        out["Values"] = capo_appstream.types.filter_values.serialize_cbor(
+            value["values"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Filter:
+    out: Filter = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Values") is not None:
+        import capo_appstream.types.filter_values
+
+        out["values"] = capo_appstream.types.filter_values.deserialize_cbor(
+            data["Values"]
+        )
+    return out

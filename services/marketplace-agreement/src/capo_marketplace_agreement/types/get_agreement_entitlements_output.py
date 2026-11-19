@@ -49,6 +49,37 @@ def deserialize_aws_json_1_0(data: dict) -> GetAgreementEntitlementsOutput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetAgreementEntitlementsOutput) -> dict:
+    out: dict = {}
+    if "agreement_entitlements" in value:
+        import capo_marketplace_agreement.types.agreement_entitlement_list
+
+        out["agreementEntitlements"] = (
+            capo_marketplace_agreement.types.agreement_entitlement_list.serialize_cbor(
+                value["agreement_entitlements"]
+            )
+        )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetAgreementEntitlementsOutput:
+    out: GetAgreementEntitlementsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("agreementEntitlements") is not None:
+        import capo_marketplace_agreement.types.agreement_entitlement_list
+
+        out["agreement_entitlements"] = (
+            capo_marketplace_agreement.types.agreement_entitlement_list.deserialize_cbor(
+                data["agreementEntitlements"]
+            )
+        )
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out
+
+
 def redact_sensitive(value: GetAgreementEntitlementsOutput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "agreement_entitlements" in value:

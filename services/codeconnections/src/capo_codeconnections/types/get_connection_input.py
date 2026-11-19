@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> GetConnectionInput:
     else:
         out["connection_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetConnectionInput) -> dict:
+    out: dict = {}
+    out["ConnectionArn"] = value["connection_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetConnectionInput:
+    out: GetConnectionInput = {}  # type: ignore[typeddict-item]
+    if data.get("ConnectionArn") is not None:
+        out["connection_arn"] = data["ConnectionArn"]
+    else:
+        out["connection_arn"] = ""
+    return out

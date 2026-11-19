@@ -51,3 +51,34 @@ def deserialize_aws_json_1_0(data: dict) -> CurrentPerformanceRiskRatings:
     else:
         out["very_low"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CurrentPerformanceRiskRatings) -> dict:
+    out: dict = {}
+    out["high"] = value.get("high", 0)
+    out["medium"] = value.get("medium", 0)
+    out["low"] = value.get("low", 0)
+    out["veryLow"] = value.get("very_low", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> CurrentPerformanceRiskRatings:
+    out: CurrentPerformanceRiskRatings = {}  # type: ignore[typeddict-item]
+    if data.get("high") is not None:
+        out["high"] = data["high"]
+    else:
+        out["high"] = 0
+    if data.get("medium") is not None:
+        out["medium"] = data["medium"]
+    else:
+        out["medium"] = 0
+    if data.get("low") is not None:
+        out["low"] = data["low"]
+    else:
+        out["low"] = 0
+    if data.get("veryLow") is not None:
+        out["very_low"] = data["veryLow"]
+    else:
+        out["very_low"] = 0
+    return out

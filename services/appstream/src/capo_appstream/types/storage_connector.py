@@ -84,3 +84,62 @@ def deserialize_aws_json_1_1(data: dict) -> StorageConnector:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StorageConnector) -> dict:
+    out: dict = {}
+    if "connector_type" in value:
+        import capo_appstream.types.storage_connector_type
+
+        out["ConnectorType"] = (
+            capo_appstream.types.storage_connector_type.serialize_cbor(
+                value["connector_type"]
+            )
+        )
+    if "resource_identifier" in value:
+        out["ResourceIdentifier"] = value["resource_identifier"]
+    if "domains" in value:
+        import capo_appstream.types.domain_list
+
+        out["Domains"] = capo_appstream.types.domain_list.serialize_cbor(
+            value["domains"]
+        )
+    if "domains_require_admin_consent" in value:
+        import capo_appstream.types.domain_list
+
+        out["DomainsRequireAdminConsent"] = (
+            capo_appstream.types.domain_list.serialize_cbor(
+                value["domains_require_admin_consent"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StorageConnector:
+    out: StorageConnector = {}  # type: ignore[typeddict-item]
+    if data.get("ConnectorType") is not None:
+        import capo_appstream.types.storage_connector_type
+
+        out["connector_type"] = (
+            capo_appstream.types.storage_connector_type.deserialize_cbor(
+                data["ConnectorType"]
+            )
+        )
+    if data.get("ResourceIdentifier") is not None:
+        out["resource_identifier"] = data["ResourceIdentifier"]
+    if data.get("Domains") is not None:
+        import capo_appstream.types.domain_list
+
+        out["domains"] = capo_appstream.types.domain_list.deserialize_cbor(
+            data["Domains"]
+        )
+    if data.get("DomainsRequireAdminConsent") is not None:
+        import capo_appstream.types.domain_list
+
+        out["domains_require_admin_consent"] = (
+            capo_appstream.types.domain_list.deserialize_cbor(
+                data["DomainsRequireAdminConsent"]
+            )
+        )
+    return out

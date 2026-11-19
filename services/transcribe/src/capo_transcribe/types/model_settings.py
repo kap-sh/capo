@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> ModelSettings:
     if data.get("LanguageModelName") is not None:
         out["language_model_name"] = data["LanguageModelName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ModelSettings) -> dict:
+    out: dict = {}
+    if "language_model_name" in value:
+        out["LanguageModelName"] = value["language_model_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ModelSettings:
+    out: ModelSettings = {}  # type: ignore[typeddict-item]
+    if data.get("LanguageModelName") is not None:
+        out["language_model_name"] = data["LanguageModelName"]
+    return out

@@ -71,3 +71,50 @@ def deserialize_aws_json_1_1(data: dict) -> AdapterVersionEvaluationMetric:
             data["FeatureType"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AdapterVersionEvaluationMetric) -> dict:
+    out: dict = {}
+    if "baseline" in value:
+        import capo_textract.types.evaluation_metric
+
+        out["Baseline"] = capo_textract.types.evaluation_metric.serialize_cbor(
+            value["baseline"]
+        )
+    if "adapter_version" in value:
+        import capo_textract.types.evaluation_metric
+
+        out["AdapterVersion"] = capo_textract.types.evaluation_metric.serialize_cbor(
+            value["adapter_version"]
+        )
+    if "feature_type" in value:
+        import capo_textract.types.feature_type
+
+        out["FeatureType"] = capo_textract.types.feature_type.serialize_cbor(
+            value["feature_type"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AdapterVersionEvaluationMetric:
+    out: AdapterVersionEvaluationMetric = {}  # type: ignore[typeddict-item]
+    if data.get("Baseline") is not None:
+        import capo_textract.types.evaluation_metric
+
+        out["baseline"] = capo_textract.types.evaluation_metric.deserialize_cbor(
+            data["Baseline"]
+        )
+    if data.get("AdapterVersion") is not None:
+        import capo_textract.types.evaluation_metric
+
+        out["adapter_version"] = capo_textract.types.evaluation_metric.deserialize_cbor(
+            data["AdapterVersion"]
+        )
+    if data.get("FeatureType") is not None:
+        import capo_textract.types.feature_type
+
+        out["feature_type"] = capo_textract.types.feature_type.deserialize_cbor(
+            data["FeatureType"]
+        )
+    return out

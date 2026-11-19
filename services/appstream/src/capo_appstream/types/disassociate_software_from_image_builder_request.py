@@ -43,3 +43,30 @@ def deserialize_aws_json_1_1(data: dict) -> DisassociateSoftwareFromImageBuilder
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DisassociateSoftwareFromImageBuilderRequest) -> dict:
+    out: dict = {}
+    if "image_builder_name" in value:
+        out["ImageBuilderName"] = value["image_builder_name"]
+    if "software_names" in value:
+        import capo_appstream.types.string_list
+
+        out["SoftwareNames"] = capo_appstream.types.string_list.serialize_cbor(
+            value["software_names"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DisassociateSoftwareFromImageBuilderRequest:
+    out: DisassociateSoftwareFromImageBuilderRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ImageBuilderName") is not None:
+        out["image_builder_name"] = data["ImageBuilderName"]
+    if data.get("SoftwareNames") is not None:
+        import capo_appstream.types.string_list
+
+        out["software_names"] = capo_appstream.types.string_list.deserialize_cbor(
+            data["SoftwareNames"]
+        )
+    return out

@@ -73,3 +73,42 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeGameSessionDetailsInput:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeGameSessionDetailsInput) -> dict:
+    out: dict = {}
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "game_session_id" in value:
+        out["GameSessionId"] = value["game_session_id"]
+    if "alias_id" in value:
+        out["AliasId"] = value["alias_id"]
+    if "location" in value:
+        out["Location"] = value["location"]
+    if "status_filter" in value:
+        out["StatusFilter"] = value["status_filter"]
+    if "limit" in value:
+        out["Limit"] = value["limit"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeGameSessionDetailsInput:
+    out: DescribeGameSessionDetailsInput = {}  # type: ignore[typeddict-item]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("GameSessionId") is not None:
+        out["game_session_id"] = data["GameSessionId"]
+    if data.get("AliasId") is not None:
+        out["alias_id"] = data["AliasId"]
+    if data.get("Location") is not None:
+        out["location"] = data["Location"]
+    if data.get("StatusFilter") is not None:
+        out["status_filter"] = data["StatusFilter"]
+    if data.get("Limit") is not None:
+        out["limit"] = data["Limit"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

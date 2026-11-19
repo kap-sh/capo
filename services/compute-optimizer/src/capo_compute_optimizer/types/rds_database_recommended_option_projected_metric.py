@@ -57,3 +57,39 @@ def deserialize_aws_json_1_0(data: dict) -> RDSDatabaseRecommendedOptionProjecte
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RDSDatabaseRecommendedOptionProjectedMetric) -> dict:
+    out: dict = {}
+    if "recommended_db_instance_class" in value:
+        out["recommendedDBInstanceClass"] = value["recommended_db_instance_class"]
+    out["rank"] = value.get("rank", 0)
+    if "projected_metrics" in value:
+        import capo_compute_optimizer.types.rds_database_projected_metrics
+
+        out["projectedMetrics"] = (
+            capo_compute_optimizer.types.rds_database_projected_metrics.serialize_cbor(
+                value["projected_metrics"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RDSDatabaseRecommendedOptionProjectedMetric:
+    out: RDSDatabaseRecommendedOptionProjectedMetric = {}  # type: ignore[typeddict-item]
+    if data.get("recommendedDBInstanceClass") is not None:
+        out["recommended_db_instance_class"] = data["recommendedDBInstanceClass"]
+    if data.get("rank") is not None:
+        out["rank"] = data["rank"]
+    else:
+        out["rank"] = 0
+    if data.get("projectedMetrics") is not None:
+        import capo_compute_optimizer.types.rds_database_projected_metrics
+
+        out["projected_metrics"] = (
+            capo_compute_optimizer.types.rds_database_projected_metrics.deserialize_cbor(
+                data["projectedMetrics"]
+            )
+        )
+    return out

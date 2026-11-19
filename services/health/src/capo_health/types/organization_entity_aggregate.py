@@ -70,3 +70,51 @@ def deserialize_aws_json_1_1(data: dict) -> OrganizationEntityAggregate:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: OrganizationEntityAggregate) -> dict:
+    out: dict = {}
+    if "event_arn" in value:
+        out["eventArn"] = value["event_arn"]
+    out["count"] = value.get("count", 0)
+    if "statuses" in value:
+        import capo_health.types.entity_statuses
+
+        out["statuses"] = capo_health.types.entity_statuses.serialize_cbor(
+            value["statuses"]
+        )
+    if "accounts" in value:
+        import capo_health.types.account_entity_aggregates_list
+
+        out["accounts"] = (
+            capo_health.types.account_entity_aggregates_list.serialize_cbor(
+                value["accounts"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> OrganizationEntityAggregate:
+    out: OrganizationEntityAggregate = {}  # type: ignore[typeddict-item]
+    if data.get("eventArn") is not None:
+        out["event_arn"] = data["eventArn"]
+    if data.get("count") is not None:
+        out["count"] = data["count"]
+    else:
+        out["count"] = 0
+    if data.get("statuses") is not None:
+        import capo_health.types.entity_statuses
+
+        out["statuses"] = capo_health.types.entity_statuses.deserialize_cbor(
+            data["statuses"]
+        )
+    if data.get("accounts") is not None:
+        import capo_health.types.account_entity_aggregates_list
+
+        out["accounts"] = (
+            capo_health.types.account_entity_aggregates_list.deserialize_cbor(
+                data["accounts"]
+            )
+        )
+    return out

@@ -12,3 +12,12 @@ def serialize_aws_json_1_1(value: RedactionType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> RedactionType:
     return cast(RedactionType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RedactionType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> RedactionType:
+    return cast(RedactionType, data)

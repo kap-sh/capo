@@ -252,3 +252,172 @@ def deserialize_aws_json_1_1(data: dict) -> TranscriptionJobSummary:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TranscriptionJobSummary) -> dict:
+    out: dict = {}
+    if "transcription_job_name" in value:
+        out["TranscriptionJobName"] = value["transcription_job_name"]
+    if "creation_time" in value:
+        import capo_transcribe.types.date_time
+
+        out["CreationTime"] = capo_transcribe.types.date_time.serialize_cbor(
+            value["creation_time"]
+        )
+    if "start_time" in value:
+        import capo_transcribe.types.date_time
+
+        out["StartTime"] = capo_transcribe.types.date_time.serialize_cbor(
+            value["start_time"]
+        )
+    if "completion_time" in value:
+        import capo_transcribe.types.date_time
+
+        out["CompletionTime"] = capo_transcribe.types.date_time.serialize_cbor(
+            value["completion_time"]
+        )
+    if "language_code" in value:
+        import capo_transcribe.types.language_code
+
+        out["LanguageCode"] = capo_transcribe.types.language_code.serialize_cbor(
+            value["language_code"]
+        )
+    if "transcription_job_status" in value:
+        import capo_transcribe.types.transcription_job_status
+
+        out["TranscriptionJobStatus"] = (
+            capo_transcribe.types.transcription_job_status.serialize_cbor(
+                value["transcription_job_status"]
+            )
+        )
+    if "failure_reason" in value:
+        out["FailureReason"] = value["failure_reason"]
+    if "output_location_type" in value:
+        import capo_transcribe.types.output_location_type
+
+        out["OutputLocationType"] = (
+            capo_transcribe.types.output_location_type.serialize_cbor(
+                value["output_location_type"]
+            )
+        )
+    if "content_redaction" in value:
+        import capo_transcribe.types.content_redaction
+
+        out["ContentRedaction"] = (
+            capo_transcribe.types.content_redaction.serialize_cbor(
+                value["content_redaction"]
+            )
+        )
+    if "model_settings" in value:
+        import capo_transcribe.types.model_settings
+
+        out["ModelSettings"] = capo_transcribe.types.model_settings.serialize_cbor(
+            value["model_settings"]
+        )
+    if "identify_language" in value:
+        out["IdentifyLanguage"] = value["identify_language"]
+    if "identify_multiple_languages" in value:
+        out["IdentifyMultipleLanguages"] = value["identify_multiple_languages"]
+    if "identified_language_score" in value:
+        out["IdentifiedLanguageScore"] = value["identified_language_score"]
+    if "language_codes" in value:
+        import capo_transcribe.types.language_code_list
+
+        out["LanguageCodes"] = capo_transcribe.types.language_code_list.serialize_cbor(
+            value["language_codes"]
+        )
+    if "toxicity_detection" in value:
+        import capo_transcribe.types.toxicity_detection
+
+        out["ToxicityDetection"] = (
+            capo_transcribe.types.toxicity_detection.serialize_cbor(
+                value["toxicity_detection"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TranscriptionJobSummary:
+    out: TranscriptionJobSummary = {}  # type: ignore[typeddict-item]
+    if data.get("TranscriptionJobName") is not None:
+        out["transcription_job_name"] = data["TranscriptionJobName"]
+    if data.get("CreationTime") is not None:
+        import capo_transcribe.types.date_time
+
+        out["creation_time"] = capo_transcribe.types.date_time.deserialize_cbor(
+            data["CreationTime"]
+        )
+    if data.get("StartTime") is not None:
+        import capo_transcribe.types.date_time
+
+        out["start_time"] = capo_transcribe.types.date_time.deserialize_cbor(
+            data["StartTime"]
+        )
+    if data.get("CompletionTime") is not None:
+        import capo_transcribe.types.date_time
+
+        out["completion_time"] = capo_transcribe.types.date_time.deserialize_cbor(
+            data["CompletionTime"]
+        )
+    if data.get("LanguageCode") is not None:
+        import capo_transcribe.types.language_code
+
+        out["language_code"] = capo_transcribe.types.language_code.deserialize_cbor(
+            data["LanguageCode"]
+        )
+    if data.get("TranscriptionJobStatus") is not None:
+        import capo_transcribe.types.transcription_job_status
+
+        out["transcription_job_status"] = (
+            capo_transcribe.types.transcription_job_status.deserialize_cbor(
+                data["TranscriptionJobStatus"]
+            )
+        )
+    if data.get("FailureReason") is not None:
+        out["failure_reason"] = data["FailureReason"]
+    if data.get("OutputLocationType") is not None:
+        import capo_transcribe.types.output_location_type
+
+        out["output_location_type"] = (
+            capo_transcribe.types.output_location_type.deserialize_cbor(
+                data["OutputLocationType"]
+            )
+        )
+    if data.get("ContentRedaction") is not None:
+        import capo_transcribe.types.content_redaction
+
+        out["content_redaction"] = (
+            capo_transcribe.types.content_redaction.deserialize_cbor(
+                data["ContentRedaction"]
+            )
+        )
+    if data.get("ModelSettings") is not None:
+        import capo_transcribe.types.model_settings
+
+        out["model_settings"] = capo_transcribe.types.model_settings.deserialize_cbor(
+            data["ModelSettings"]
+        )
+    if data.get("IdentifyLanguage") is not None:
+        out["identify_language"] = data["IdentifyLanguage"]
+    if data.get("IdentifyMultipleLanguages") is not None:
+        out["identify_multiple_languages"] = data["IdentifyMultipleLanguages"]
+    if data.get("IdentifiedLanguageScore") is not None:
+        out["identified_language_score"] = float(data["IdentifiedLanguageScore"])
+    if data.get("LanguageCodes") is not None:
+        import capo_transcribe.types.language_code_list
+
+        out["language_codes"] = (
+            capo_transcribe.types.language_code_list.deserialize_cbor(
+                data["LanguageCodes"]
+            )
+        )
+    if data.get("ToxicityDetection") is not None:
+        import capo_transcribe.types.toxicity_detection
+
+        out["toxicity_detection"] = (
+            capo_transcribe.types.toxicity_detection.deserialize_cbor(
+                data["ToxicityDetection"]
+            )
+        )
+    return out

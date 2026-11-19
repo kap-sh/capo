@@ -35,3 +35,24 @@ def deserialize_aws_json_1_0(data: dict) -> CreateTypeResponse:
     else:
         out["type_name"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateTypeResponse) -> dict:
+    out: dict = {}
+    out["keyspaceArn"] = value["keyspace_arn"]
+    out["typeName"] = value["type_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateTypeResponse:
+    out: CreateTypeResponse = {}  # type: ignore[typeddict-item]
+    if data.get("keyspaceArn") is not None:
+        out["keyspace_arn"] = data["keyspaceArn"]
+    else:
+        out["keyspace_arn"] = ""
+    if data.get("typeName") is not None:
+        out["type_name"] = data["typeName"]
+    else:
+        out["type_name"] = ""
+    return out

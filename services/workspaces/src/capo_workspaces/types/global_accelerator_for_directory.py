@@ -65,3 +65,50 @@ def deserialize_aws_json_1_1(data: dict) -> GlobalAcceleratorForDirectory:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GlobalAcceleratorForDirectory) -> dict:
+    out: dict = {}
+    import capo_workspaces.types.aga_mode_for_directory_enum
+
+    out["Mode"] = capo_workspaces.types.aga_mode_for_directory_enum.serialize_cbor(
+        value["mode"]
+    )
+    if "preferred_protocol" in value:
+        import capo_workspaces.types.aga_preferred_protocol_for_directory
+
+        out["PreferredProtocol"] = (
+            capo_workspaces.types.aga_preferred_protocol_for_directory.serialize_cbor(
+                value["preferred_protocol"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GlobalAcceleratorForDirectory:
+    out: GlobalAcceleratorForDirectory = {}  # type: ignore[typeddict-item]
+    if data.get("Mode") is not None:
+        import capo_workspaces.types.aga_mode_for_directory_enum
+
+        out["mode"] = (
+            capo_workspaces.types.aga_mode_for_directory_enum.deserialize_cbor(
+                data["Mode"]
+            )
+        )
+    else:
+        import typing
+
+        out["mode"] = typing.cast(
+            "capo_workspaces.types.aga_mode_for_directory_enum.AGAModeForDirectoryEnum",
+            "",
+        )
+    if data.get("PreferredProtocol") is not None:
+        import capo_workspaces.types.aga_preferred_protocol_for_directory
+
+        out["preferred_protocol"] = (
+            capo_workspaces.types.aga_preferred_protocol_for_directory.deserialize_cbor(
+                data["PreferredProtocol"]
+            )
+        )
+    return out

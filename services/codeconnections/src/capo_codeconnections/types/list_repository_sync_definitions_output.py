@@ -48,3 +48,35 @@ def deserialize_aws_json_1_0(data: dict) -> ListRepositorySyncDefinitionsOutput:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListRepositorySyncDefinitionsOutput) -> dict:
+    out: dict = {}
+    import capo_codeconnections.types.repository_sync_definition_list
+
+    out["RepositorySyncDefinitions"] = (
+        capo_codeconnections.types.repository_sync_definition_list.serialize_cbor(
+            value["repository_sync_definitions"]
+        )
+    )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListRepositorySyncDefinitionsOutput:
+    out: ListRepositorySyncDefinitionsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("RepositorySyncDefinitions") is not None:
+        import capo_codeconnections.types.repository_sync_definition_list
+
+        out["repository_sync_definitions"] = (
+            capo_codeconnections.types.repository_sync_definition_list.deserialize_cbor(
+                data["RepositorySyncDefinitions"]
+            )
+        )
+    else:
+        out["repository_sync_definitions"] = []
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

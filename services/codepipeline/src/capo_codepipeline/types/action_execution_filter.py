@@ -49,3 +49,34 @@ def deserialize_aws_json_1_1(data: dict) -> ActionExecutionFilter:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ActionExecutionFilter) -> dict:
+    out: dict = {}
+    if "pipeline_execution_id" in value:
+        out["pipelineExecutionId"] = value["pipeline_execution_id"]
+    if "latest_in_pipeline_execution" in value:
+        import capo_codepipeline.types.latest_in_pipeline_execution_filter
+
+        out["latestInPipelineExecution"] = (
+            capo_codepipeline.types.latest_in_pipeline_execution_filter.serialize_cbor(
+                value["latest_in_pipeline_execution"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ActionExecutionFilter:
+    out: ActionExecutionFilter = {}  # type: ignore[typeddict-item]
+    if data.get("pipelineExecutionId") is not None:
+        out["pipeline_execution_id"] = data["pipelineExecutionId"]
+    if data.get("latestInPipelineExecution") is not None:
+        import capo_codepipeline.types.latest_in_pipeline_execution_filter
+
+        out["latest_in_pipeline_execution"] = (
+            capo_codepipeline.types.latest_in_pipeline_execution_filter.deserialize_cbor(
+                data["latestInPipelineExecution"]
+            )
+        )
+    return out

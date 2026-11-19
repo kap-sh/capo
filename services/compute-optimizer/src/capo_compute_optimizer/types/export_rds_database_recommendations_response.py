@@ -46,3 +46,34 @@ def deserialize_aws_json_1_0(data: dict) -> ExportRDSDatabaseRecommendationsResp
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExportRDSDatabaseRecommendationsResponse) -> dict:
+    out: dict = {}
+    if "job_id" in value:
+        out["jobId"] = value["job_id"]
+    if "s3_destination" in value:
+        import capo_compute_optimizer.types.s3_destination
+
+        out["s3Destination"] = (
+            capo_compute_optimizer.types.s3_destination.serialize_cbor(
+                value["s3_destination"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ExportRDSDatabaseRecommendationsResponse:
+    out: ExportRDSDatabaseRecommendationsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("jobId") is not None:
+        out["job_id"] = data["jobId"]
+    if data.get("s3Destination") is not None:
+        import capo_compute_optimizer.types.s3_destination
+
+        out["s3_destination"] = (
+            capo_compute_optimizer.types.s3_destination.deserialize_cbor(
+                data["s3Destination"]
+            )
+        )
+    return out

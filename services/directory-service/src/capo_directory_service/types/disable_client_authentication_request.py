@@ -52,3 +52,41 @@ def deserialize_aws_json_1_1(data: dict) -> DisableClientAuthenticationRequest:
             "",
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DisableClientAuthenticationRequest) -> dict:
+    out: dict = {}
+    out["DirectoryId"] = value["directory_id"]
+    import capo_directory_service.types.client_authentication_type
+
+    out["Type"] = (
+        capo_directory_service.types.client_authentication_type.serialize_cbor(
+            value["type"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DisableClientAuthenticationRequest:
+    out: DisableClientAuthenticationRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    if data.get("Type") is not None:
+        import capo_directory_service.types.client_authentication_type
+
+        out["type"] = (
+            capo_directory_service.types.client_authentication_type.deserialize_cbor(
+                data["Type"]
+            )
+        )
+    else:
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_directory_service.types.client_authentication_type.ClientAuthenticationType",
+            "",
+        )
+    return out

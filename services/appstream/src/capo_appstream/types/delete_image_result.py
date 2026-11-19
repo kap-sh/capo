@@ -32,3 +32,22 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteImageResult:
             data["Image"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteImageResult) -> dict:
+    out: dict = {}
+    if "image" in value:
+        import capo_appstream.types.image
+
+        out["Image"] = capo_appstream.types.image.serialize_cbor(value["image"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteImageResult:
+    out: DeleteImageResult = {}  # type: ignore[typeddict-item]
+    if data.get("Image") is not None:
+        import capo_appstream.types.image
+
+        out["image"] = capo_appstream.types.image.deserialize_cbor(data["Image"])
+    return out

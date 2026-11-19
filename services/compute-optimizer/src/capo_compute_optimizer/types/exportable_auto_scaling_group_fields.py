@@ -37,3 +37,32 @@ def deserialize_aws_json_1_0(data: list) -> ExportableAutoScalingGroupFields:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExportableAutoScalingGroupFields) -> list:
+    import capo_compute_optimizer.types.exportable_auto_scaling_group_field
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_compute_optimizer.types.exportable_auto_scaling_group_field.serialize_cbor(
+                item
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> ExportableAutoScalingGroupFields:
+    import capo_compute_optimizer.types.exportable_auto_scaling_group_field
+
+    out: ExportableAutoScalingGroupFields = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_compute_optimizer.types.exportable_auto_scaling_group_field.deserialize_cbor(
+                item
+            )
+        )
+    return out

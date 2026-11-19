@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> TerminateWorkspacesPoolSessionReques
     else:
         out["session_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TerminateWorkspacesPoolSessionRequest) -> dict:
+    out: dict = {}
+    out["SessionId"] = value["session_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> TerminateWorkspacesPoolSessionRequest:
+    out: TerminateWorkspacesPoolSessionRequest = {}  # type: ignore[typeddict-item]
+    if data.get("SessionId") is not None:
+        out["session_id"] = data["SessionId"]
+    else:
+        out["session_id"] = ""
+    return out

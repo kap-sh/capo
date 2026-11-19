@@ -39,3 +39,29 @@ def deserialize_aws_json_1_0(data: dict) -> DomainMatch:
     else:
         out["domains"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DomainMatch) -> dict:
+    out: dict = {}
+    import capo_network_firewall.types.tls_inspection_domains
+
+    out["Domains"] = capo_network_firewall.types.tls_inspection_domains.serialize_cbor(
+        value["domains"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DomainMatch:
+    out: DomainMatch = {}  # type: ignore[typeddict-item]
+    if data.get("Domains") is not None:
+        import capo_network_firewall.types.tls_inspection_domains
+
+        out["domains"] = (
+            capo_network_firewall.types.tls_inspection_domains.deserialize_cbor(
+                data["Domains"]
+            )
+        )
+    else:
+        out["domains"] = []
+    return out

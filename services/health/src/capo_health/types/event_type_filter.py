@@ -118,3 +118,84 @@ def deserialize_aws_json_1_1(data: dict) -> EventTypeFilter:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EventTypeFilter) -> dict:
+    out: dict = {}
+    if "event_type_codes" in value:
+        import capo_health.types.event_type_code_list
+
+        out["eventTypeCodes"] = capo_health.types.event_type_code_list.serialize_cbor(
+            value["event_type_codes"]
+        )
+    if "services" in value:
+        import capo_health.types.service_list
+
+        out["services"] = capo_health.types.service_list.serialize_cbor(
+            value["services"]
+        )
+    if "event_type_categories" in value:
+        import capo_health.types.event_type_category_list
+
+        out["eventTypeCategories"] = (
+            capo_health.types.event_type_category_list.serialize_cbor(
+                value["event_type_categories"]
+            )
+        )
+    if "actionabilities" in value:
+        import capo_health.types.event_type_actionability_list
+
+        out["actionabilities"] = (
+            capo_health.types.event_type_actionability_list.serialize_cbor(
+                value["actionabilities"]
+            )
+        )
+    if "personas" in value:
+        import capo_health.types.event_type_persona_list
+
+        out["personas"] = capo_health.types.event_type_persona_list.serialize_cbor(
+            value["personas"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> EventTypeFilter:
+    out: EventTypeFilter = {}  # type: ignore[typeddict-item]
+    if data.get("eventTypeCodes") is not None:
+        import capo_health.types.event_type_code_list
+
+        out["event_type_codes"] = (
+            capo_health.types.event_type_code_list.deserialize_cbor(
+                data["eventTypeCodes"]
+            )
+        )
+    if data.get("services") is not None:
+        import capo_health.types.service_list
+
+        out["services"] = capo_health.types.service_list.deserialize_cbor(
+            data["services"]
+        )
+    if data.get("eventTypeCategories") is not None:
+        import capo_health.types.event_type_category_list
+
+        out["event_type_categories"] = (
+            capo_health.types.event_type_category_list.deserialize_cbor(
+                data["eventTypeCategories"]
+            )
+        )
+    if data.get("actionabilities") is not None:
+        import capo_health.types.event_type_actionability_list
+
+        out["actionabilities"] = (
+            capo_health.types.event_type_actionability_list.deserialize_cbor(
+                data["actionabilities"]
+            )
+        )
+    if data.get("personas") is not None:
+        import capo_health.types.event_type_persona_list
+
+        out["personas"] = capo_health.types.event_type_persona_list.deserialize_cbor(
+            data["personas"]
+        )
+    return out

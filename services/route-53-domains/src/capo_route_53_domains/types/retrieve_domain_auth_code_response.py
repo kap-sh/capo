@@ -30,6 +30,21 @@ def deserialize_aws_json_1_1(data: dict) -> RetrieveDomainAuthCodeResponse:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RetrieveDomainAuthCodeResponse) -> dict:
+    out: dict = {}
+    if "auth_code" in value:
+        out["AuthCode"] = value["auth_code"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RetrieveDomainAuthCodeResponse:
+    out: RetrieveDomainAuthCodeResponse = {}  # type: ignore[typeddict-item]
+    if data.get("AuthCode") is not None:
+        out["auth_code"] = data["AuthCode"]
+    return out
+
+
 def redact_sensitive(value: RetrieveDomainAuthCodeResponse) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "auth_code" in value:

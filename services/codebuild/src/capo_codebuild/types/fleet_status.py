@@ -62,3 +62,42 @@ def deserialize_aws_json_1_1(data: dict) -> FleetStatus:
     if data.get("message") is not None:
         out["message"] = data["message"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FleetStatus) -> dict:
+    out: dict = {}
+    if "status_code" in value:
+        import capo_codebuild.types.fleet_status_code
+
+        out["statusCode"] = capo_codebuild.types.fleet_status_code.serialize_cbor(
+            value["status_code"]
+        )
+    if "context" in value:
+        import capo_codebuild.types.fleet_context_code
+
+        out["context"] = capo_codebuild.types.fleet_context_code.serialize_cbor(
+            value["context"]
+        )
+    if "message" in value:
+        out["message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> FleetStatus:
+    out: FleetStatus = {}  # type: ignore[typeddict-item]
+    if data.get("statusCode") is not None:
+        import capo_codebuild.types.fleet_status_code
+
+        out["status_code"] = capo_codebuild.types.fleet_status_code.deserialize_cbor(
+            data["statusCode"]
+        )
+    if data.get("context") is not None:
+        import capo_codebuild.types.fleet_context_code
+
+        out["context"] = capo_codebuild.types.fleet_context_code.deserialize_cbor(
+            data["context"]
+        )
+    if data.get("message") is not None:
+        out["message"] = data["message"]
+    return out

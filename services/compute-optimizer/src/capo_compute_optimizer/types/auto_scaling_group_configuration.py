@@ -129,3 +129,85 @@ def deserialize_aws_json_1_0(data: dict) -> AutoScalingGroupConfiguration:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AutoScalingGroupConfiguration) -> dict:
+    out: dict = {}
+    out["desiredCapacity"] = value.get("desired_capacity", 0)
+    out["minSize"] = value.get("min_size", 0)
+    out["maxSize"] = value.get("max_size", 0)
+    if "instance_type" in value:
+        out["instanceType"] = value["instance_type"]
+    if "allocation_strategy" in value:
+        import capo_compute_optimizer.types.allocation_strategy
+
+        out["allocationStrategy"] = (
+            capo_compute_optimizer.types.allocation_strategy.serialize_cbor(
+                value["allocation_strategy"]
+            )
+        )
+    if "estimated_instance_hour_reduction_percentage" in value:
+        out["estimatedInstanceHourReductionPercentage"] = value[
+            "estimated_instance_hour_reduction_percentage"
+        ]
+    if "type" in value:
+        import capo_compute_optimizer.types.asg_type
+
+        out["type"] = capo_compute_optimizer.types.asg_type.serialize_cbor(
+            value["type"]
+        )
+    if "mixed_instance_types" in value:
+        import capo_compute_optimizer.types.mixed_instance_types
+
+        out["mixedInstanceTypes"] = (
+            capo_compute_optimizer.types.mixed_instance_types.serialize_cbor(
+                value["mixed_instance_types"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AutoScalingGroupConfiguration:
+    out: AutoScalingGroupConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("desiredCapacity") is not None:
+        out["desired_capacity"] = data["desiredCapacity"]
+    else:
+        out["desired_capacity"] = 0
+    if data.get("minSize") is not None:
+        out["min_size"] = data["minSize"]
+    else:
+        out["min_size"] = 0
+    if data.get("maxSize") is not None:
+        out["max_size"] = data["maxSize"]
+    else:
+        out["max_size"] = 0
+    if data.get("instanceType") is not None:
+        out["instance_type"] = data["instanceType"]
+    if data.get("allocationStrategy") is not None:
+        import capo_compute_optimizer.types.allocation_strategy
+
+        out["allocation_strategy"] = (
+            capo_compute_optimizer.types.allocation_strategy.deserialize_cbor(
+                data["allocationStrategy"]
+            )
+        )
+    if data.get("estimatedInstanceHourReductionPercentage") is not None:
+        out["estimated_instance_hour_reduction_percentage"] = float(
+            data["estimatedInstanceHourReductionPercentage"]
+        )
+    if data.get("type") is not None:
+        import capo_compute_optimizer.types.asg_type
+
+        out["type"] = capo_compute_optimizer.types.asg_type.deserialize_cbor(
+            data["type"]
+        )
+    if data.get("mixedInstanceTypes") is not None:
+        import capo_compute_optimizer.types.mixed_instance_types
+
+        out["mixed_instance_types"] = (
+            capo_compute_optimizer.types.mixed_instance_types.deserialize_cbor(
+                data["mixedInstanceTypes"]
+            )
+        )
+    return out

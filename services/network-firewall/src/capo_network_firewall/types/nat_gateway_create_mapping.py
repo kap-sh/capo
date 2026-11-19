@@ -71,3 +71,51 @@ def deserialize_aws_json_1_0(data: dict) -> NatGatewayCreateMapping:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: NatGatewayCreateMapping) -> dict:
+    out: dict = {}
+    out["SubnetId"] = value["subnet_id"]
+    if "allocation_ids" in value:
+        import capo_network_firewall.types.nat_gateway_allocation_id_list
+
+        out["AllocationIds"] = (
+            capo_network_firewall.types.nat_gateway_allocation_id_list.serialize_cbor(
+                value["allocation_ids"]
+            )
+        )
+    if "private_ips" in value:
+        import capo_network_firewall.types.nat_gateway_private_ip_list
+
+        out["PrivateIps"] = (
+            capo_network_firewall.types.nat_gateway_private_ip_list.serialize_cbor(
+                value["private_ips"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> NatGatewayCreateMapping:
+    out: NatGatewayCreateMapping = {}  # type: ignore[typeddict-item]
+    if data.get("SubnetId") is not None:
+        out["subnet_id"] = data["SubnetId"]
+    else:
+        out["subnet_id"] = ""
+    if data.get("AllocationIds") is not None:
+        import capo_network_firewall.types.nat_gateway_allocation_id_list
+
+        out["allocation_ids"] = (
+            capo_network_firewall.types.nat_gateway_allocation_id_list.deserialize_cbor(
+                data["AllocationIds"]
+            )
+        )
+    if data.get("PrivateIps") is not None:
+        import capo_network_firewall.types.nat_gateway_private_ip_list
+
+        out["private_ips"] = (
+            capo_network_firewall.types.nat_gateway_private_ip_list.deserialize_cbor(
+                data["PrivateIps"]
+            )
+        )
+    return out

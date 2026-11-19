@@ -47,3 +47,32 @@ def deserialize_aws_json_1_1(data: dict) -> WebACLHasOutOfScopeResourcesViolatio
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: WebACLHasOutOfScopeResourcesViolation) -> dict:
+    out: dict = {}
+    if "web_acl_arn" in value:
+        out["WebACLArn"] = value["web_acl_arn"]
+    if "out_of_scope_resource_list" in value:
+        import capo_fms.types.resource_arn_list
+
+        out["OutOfScopeResourceList"] = capo_fms.types.resource_arn_list.serialize_cbor(
+            value["out_of_scope_resource_list"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> WebACLHasOutOfScopeResourcesViolation:
+    out: WebACLHasOutOfScopeResourcesViolation = {}  # type: ignore[typeddict-item]
+    if data.get("WebACLArn") is not None:
+        out["web_acl_arn"] = data["WebACLArn"]
+    if data.get("OutOfScopeResourceList") is not None:
+        import capo_fms.types.resource_arn_list
+
+        out["out_of_scope_resource_list"] = (
+            capo_fms.types.resource_arn_list.deserialize_cbor(
+                data["OutOfScopeResourceList"]
+            )
+        )
+    return out

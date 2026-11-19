@@ -37,3 +37,28 @@ def deserialize_aws_json_1_1(data: list) -> ApplicationFleetAssociationList:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ApplicationFleetAssociationList) -> list:
+    import capo_appstream.types.application_fleet_association
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_appstream.types.application_fleet_association.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> ApplicationFleetAssociationList:
+    import capo_appstream.types.application_fleet_association
+
+    out: ApplicationFleetAssociationList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_appstream.types.application_fleet_association.deserialize_cbor(item)
+        )
+    return out

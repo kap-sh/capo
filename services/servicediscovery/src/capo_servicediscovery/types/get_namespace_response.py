@@ -36,3 +36,26 @@ def deserialize_aws_json_1_1(data: dict) -> GetNamespaceResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetNamespaceResponse) -> dict:
+    out: dict = {}
+    if "namespace" in value:
+        import capo_servicediscovery.types.namespace
+
+        out["Namespace"] = capo_servicediscovery.types.namespace.serialize_cbor(
+            value["namespace"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetNamespaceResponse:
+    out: GetNamespaceResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Namespace") is not None:
+        import capo_servicediscovery.types.namespace
+
+        out["namespace"] = capo_servicediscovery.types.namespace.deserialize_cbor(
+            data["Namespace"]
+        )
+    return out

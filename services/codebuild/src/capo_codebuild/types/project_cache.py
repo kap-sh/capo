@@ -65,3 +65,45 @@ def deserialize_aws_json_1_1(data: dict) -> ProjectCache:
     if data.get("cacheNamespace") is not None:
         out["cache_namespace"] = data["cacheNamespace"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ProjectCache) -> dict:
+    out: dict = {}
+    import capo_codebuild.types.cache_type
+
+    out["type"] = capo_codebuild.types.cache_type.serialize_cbor(value["type"])
+    if "location" in value:
+        out["location"] = value["location"]
+    if "modes" in value:
+        import capo_codebuild.types.project_cache_modes
+
+        out["modes"] = capo_codebuild.types.project_cache_modes.serialize_cbor(
+            value["modes"]
+        )
+    if "cache_namespace" in value:
+        out["cacheNamespace"] = value["cache_namespace"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ProjectCache:
+    out: ProjectCache = {}  # type: ignore[typeddict-item]
+    if data.get("type") is not None:
+        import capo_codebuild.types.cache_type
+
+        out["type"] = capo_codebuild.types.cache_type.deserialize_cbor(data["type"])
+    else:
+        import typing
+
+        out["type"] = typing.cast("capo_codebuild.types.cache_type.CacheType", "")
+    if data.get("location") is not None:
+        out["location"] = data["location"]
+    if data.get("modes") is not None:
+        import capo_codebuild.types.project_cache_modes
+
+        out["modes"] = capo_codebuild.types.project_cache_modes.deserialize_cbor(
+            data["modes"]
+        )
+    if data.get("cacheNamespace") is not None:
+        out["cache_namespace"] = data["cacheNamespace"]
+    return out

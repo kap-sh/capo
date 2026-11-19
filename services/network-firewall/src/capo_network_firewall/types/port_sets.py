@@ -31,3 +31,24 @@ def deserialize_aws_json_1_0(data: dict) -> PortSets:
 
         out[key] = capo_network_firewall.types.port_set.deserialize_aws_json_1_0(value)
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(input_to_serialize: PortSets) -> dict:
+    out: dict = {}
+    for key, value in input_to_serialize.items():
+        import capo_network_firewall.types.port_set
+
+        out[key] = capo_network_firewall.types.port_set.serialize_cbor(value)
+    return out
+
+
+def deserialize_cbor(data: dict) -> PortSets:
+    out: PortSets = {}
+    for key, value in data.items():
+        if value is None:
+            continue
+        import capo_network_firewall.types.port_set
+
+        out[key] = capo_network_firewall.types.port_set.deserialize_cbor(value)
+    return out

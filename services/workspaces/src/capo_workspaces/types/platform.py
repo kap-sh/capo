@@ -12,3 +12,12 @@ def serialize_aws_json_1_1(value: Platform) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> Platform:
     return cast(Platform, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Platform) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> Platform:
+    return cast(Platform, data)

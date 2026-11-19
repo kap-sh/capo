@@ -66,3 +66,53 @@ def deserialize_aws_json_1_1(data: dict) -> SortCondition:
             "capo_route_53_domains.types.sort_order.SortOrder", ""
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SortCondition) -> dict:
+    out: dict = {}
+    import capo_route_53_domains.types.list_domains_attribute_name
+
+    out["Name"] = (
+        capo_route_53_domains.types.list_domains_attribute_name.serialize_cbor(
+            value["name"]
+        )
+    )
+    import capo_route_53_domains.types.sort_order
+
+    out["SortOrder"] = capo_route_53_domains.types.sort_order.serialize_cbor(
+        value["sort_order"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> SortCondition:
+    out: SortCondition = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        import capo_route_53_domains.types.list_domains_attribute_name
+
+        out["name"] = (
+            capo_route_53_domains.types.list_domains_attribute_name.deserialize_cbor(
+                data["Name"]
+            )
+        )
+    else:
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_route_53_domains.types.list_domains_attribute_name.ListDomainsAttributeName",
+            "",
+        )
+    if data.get("SortOrder") is not None:
+        import capo_route_53_domains.types.sort_order
+
+        out["sort_order"] = capo_route_53_domains.types.sort_order.deserialize_cbor(
+            data["SortOrder"]
+        )
+    else:
+        import typing
+
+        out["sort_order"] = typing.cast(
+            "capo_route_53_domains.types.sort_order.SortOrder", ""
+        )
+    return out

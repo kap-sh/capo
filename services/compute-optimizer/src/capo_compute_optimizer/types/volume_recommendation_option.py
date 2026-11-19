@@ -106,3 +106,72 @@ def deserialize_aws_json_1_0(data: dict) -> VolumeRecommendationOption:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: VolumeRecommendationOption) -> dict:
+    out: dict = {}
+    if "configuration" in value:
+        import capo_compute_optimizer.types.volume_configuration
+
+        out["configuration"] = (
+            capo_compute_optimizer.types.volume_configuration.serialize_cbor(
+                value["configuration"]
+            )
+        )
+    out["performanceRisk"] = value.get("performance_risk", 0)
+    out["rank"] = value.get("rank", 0)
+    if "savings_opportunity" in value:
+        import capo_compute_optimizer.types.savings_opportunity
+
+        out["savingsOpportunity"] = (
+            capo_compute_optimizer.types.savings_opportunity.serialize_cbor(
+                value["savings_opportunity"]
+            )
+        )
+    if "savings_opportunity_after_discounts" in value:
+        import capo_compute_optimizer.types.ebs_savings_opportunity_after_discounts
+
+        out["savingsOpportunityAfterDiscounts"] = (
+            capo_compute_optimizer.types.ebs_savings_opportunity_after_discounts.serialize_cbor(
+                value["savings_opportunity_after_discounts"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> VolumeRecommendationOption:
+    out: VolumeRecommendationOption = {}  # type: ignore[typeddict-item]
+    if data.get("configuration") is not None:
+        import capo_compute_optimizer.types.volume_configuration
+
+        out["configuration"] = (
+            capo_compute_optimizer.types.volume_configuration.deserialize_cbor(
+                data["configuration"]
+            )
+        )
+    if data.get("performanceRisk") is not None:
+        out["performance_risk"] = float(data["performanceRisk"])
+    else:
+        out["performance_risk"] = 0
+    if data.get("rank") is not None:
+        out["rank"] = data["rank"]
+    else:
+        out["rank"] = 0
+    if data.get("savingsOpportunity") is not None:
+        import capo_compute_optimizer.types.savings_opportunity
+
+        out["savings_opportunity"] = (
+            capo_compute_optimizer.types.savings_opportunity.deserialize_cbor(
+                data["savingsOpportunity"]
+            )
+        )
+    if data.get("savingsOpportunityAfterDiscounts") is not None:
+        import capo_compute_optimizer.types.ebs_savings_opportunity_after_discounts
+
+        out["savings_opportunity_after_discounts"] = (
+            capo_compute_optimizer.types.ebs_savings_opportunity_after_discounts.deserialize_cbor(
+                data["savingsOpportunityAfterDiscounts"]
+            )
+        )
+    return out

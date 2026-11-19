@@ -75,3 +75,42 @@ def deserialize_aws_json_1_1(data: dict) -> FleetUtilization:
     if data.get("Location") is not None:
         out["location"] = data["Location"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FleetUtilization) -> dict:
+    out: dict = {}
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "fleet_arn" in value:
+        out["FleetArn"] = value["fleet_arn"]
+    if "active_server_process_count" in value:
+        out["ActiveServerProcessCount"] = value["active_server_process_count"]
+    if "active_game_session_count" in value:
+        out["ActiveGameSessionCount"] = value["active_game_session_count"]
+    if "current_player_session_count" in value:
+        out["CurrentPlayerSessionCount"] = value["current_player_session_count"]
+    if "maximum_player_session_count" in value:
+        out["MaximumPlayerSessionCount"] = value["maximum_player_session_count"]
+    if "location" in value:
+        out["Location"] = value["location"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> FleetUtilization:
+    out: FleetUtilization = {}  # type: ignore[typeddict-item]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("FleetArn") is not None:
+        out["fleet_arn"] = data["FleetArn"]
+    if data.get("ActiveServerProcessCount") is not None:
+        out["active_server_process_count"] = data["ActiveServerProcessCount"]
+    if data.get("ActiveGameSessionCount") is not None:
+        out["active_game_session_count"] = data["ActiveGameSessionCount"]
+    if data.get("CurrentPlayerSessionCount") is not None:
+        out["current_player_session_count"] = data["CurrentPlayerSessionCount"]
+    if data.get("MaximumPlayerSessionCount") is not None:
+        out["maximum_player_session_count"] = data["MaximumPlayerSessionCount"]
+    if data.get("Location") is not None:
+        out["location"] = data["Location"]
+    return out

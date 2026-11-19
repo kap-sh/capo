@@ -17,3 +17,12 @@ def serialize_aws_json_1_1(value: GetEntitlementFilterName) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> GetEntitlementFilterName:
     return cast(GetEntitlementFilterName, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetEntitlementFilterName) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> GetEntitlementFilterName:
+    return cast(GetEntitlementFilterName, data)

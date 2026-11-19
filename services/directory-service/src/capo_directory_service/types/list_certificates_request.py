@@ -41,3 +41,27 @@ def deserialize_aws_json_1_1(data: dict) -> ListCertificatesRequest:
     if data.get("Limit") is not None:
         out["limit"] = data["Limit"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListCertificatesRequest) -> dict:
+    out: dict = {}
+    out["DirectoryId"] = value["directory_id"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "limit" in value:
+        out["Limit"] = value["limit"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListCertificatesRequest:
+    out: ListCertificatesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("Limit") is not None:
+        out["limit"] = data["Limit"]
+    return out

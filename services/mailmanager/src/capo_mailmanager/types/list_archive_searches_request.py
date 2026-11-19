@@ -41,3 +41,27 @@ def deserialize_aws_json_1_0(data: dict) -> ListArchiveSearchesRequest:
     if data.get("PageSize") is not None:
         out["page_size"] = data["PageSize"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListArchiveSearchesRequest) -> dict:
+    out: dict = {}
+    out["ArchiveId"] = value["archive_id"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "page_size" in value:
+        out["PageSize"] = value["page_size"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListArchiveSearchesRequest:
+    out: ListArchiveSearchesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ArchiveId") is not None:
+        out["archive_id"] = data["ArchiveId"]
+    else:
+        out["archive_id"] = ""
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("PageSize") is not None:
+        out["page_size"] = data["PageSize"]
+    return out

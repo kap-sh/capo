@@ -40,3 +40,30 @@ def deserialize_aws_json_1_0(data: dict) -> RecommendationPreferences:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RecommendationPreferences) -> dict:
+    out: dict = {}
+    if "cpu_vendor_architectures" in value:
+        import capo_compute_optimizer.types.cpu_vendor_architectures
+
+        out["cpuVendorArchitectures"] = (
+            capo_compute_optimizer.types.cpu_vendor_architectures.serialize_cbor(
+                value["cpu_vendor_architectures"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RecommendationPreferences:
+    out: RecommendationPreferences = {}  # type: ignore[typeddict-item]
+    if data.get("cpuVendorArchitectures") is not None:
+        import capo_compute_optimizer.types.cpu_vendor_architectures
+
+        out["cpu_vendor_architectures"] = (
+            capo_compute_optimizer.types.cpu_vendor_architectures.deserialize_cbor(
+                data["cpuVendorArchitectures"]
+            )
+        )
+    return out

@@ -38,3 +38,28 @@ def deserialize_aws_json_1_0(data: dict) -> FreeTrialSummary:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FreeTrialSummary) -> dict:
+    out: dict = {}
+    if "trial_end_time" in value:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["trialEndTime"] = capo_marketplace_agreement.types.timestamp.serialize_cbor(
+            value["trial_end_time"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> FreeTrialSummary:
+    out: FreeTrialSummary = {}  # type: ignore[typeddict-item]
+    if data.get("trialEndTime") is not None:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["trial_end_time"] = (
+            capo_marketplace_agreement.types.timestamp.deserialize_cbor(
+                data["trialEndTime"]
+            )
+        )
+    return out

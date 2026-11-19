@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> INDTaxDocuments:
     if data.get("GSTIN") is not None:
         out["gstin"] = data["GSTIN"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: INDTaxDocuments) -> dict:
+    out: dict = {}
+    if "gstin" in value:
+        out["GSTIN"] = value["gstin"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> INDTaxDocuments:
+    out: INDTaxDocuments = {}  # type: ignore[typeddict-item]
+    if data.get("GSTIN") is not None:
+        out["gstin"] = data["GSTIN"]
+    return out

@@ -87,3 +87,54 @@ def deserialize_aws_json_1_1(data: dict) -> VpcPeeringConnection:
     if data.get("GameLiftVpcId") is not None:
         out["game_lift_vpc_id"] = data["GameLiftVpcId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: VpcPeeringConnection) -> dict:
+    out: dict = {}
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "fleet_arn" in value:
+        out["FleetArn"] = value["fleet_arn"]
+    if "ip_v4_cidr_block" in value:
+        out["IpV4CidrBlock"] = value["ip_v4_cidr_block"]
+    if "vpc_peering_connection_id" in value:
+        out["VpcPeeringConnectionId"] = value["vpc_peering_connection_id"]
+    if "status" in value:
+        import capo_gamelift.types.vpc_peering_connection_status
+
+        out["Status"] = (
+            capo_gamelift.types.vpc_peering_connection_status.serialize_cbor(
+                value["status"]
+            )
+        )
+    if "peer_vpc_id" in value:
+        out["PeerVpcId"] = value["peer_vpc_id"]
+    if "game_lift_vpc_id" in value:
+        out["GameLiftVpcId"] = value["game_lift_vpc_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> VpcPeeringConnection:
+    out: VpcPeeringConnection = {}  # type: ignore[typeddict-item]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("FleetArn") is not None:
+        out["fleet_arn"] = data["FleetArn"]
+    if data.get("IpV4CidrBlock") is not None:
+        out["ip_v4_cidr_block"] = data["IpV4CidrBlock"]
+    if data.get("VpcPeeringConnectionId") is not None:
+        out["vpc_peering_connection_id"] = data["VpcPeeringConnectionId"]
+    if data.get("Status") is not None:
+        import capo_gamelift.types.vpc_peering_connection_status
+
+        out["status"] = (
+            capo_gamelift.types.vpc_peering_connection_status.deserialize_cbor(
+                data["Status"]
+            )
+        )
+    if data.get("PeerVpcId") is not None:
+        out["peer_vpc_id"] = data["PeerVpcId"]
+    if data.get("GameLiftVpcId") is not None:
+        out["game_lift_vpc_id"] = data["GameLiftVpcId"]
+    return out

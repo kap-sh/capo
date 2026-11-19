@@ -36,3 +36,26 @@ def deserialize_aws_json_1_1(data: dict) -> PurchaseReservedNodesOfferingRespons
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PurchaseReservedNodesOfferingResponse) -> dict:
+    out: dict = {}
+    if "reserved_node" in value:
+        import capo_memorydb.types.reserved_node
+
+        out["ReservedNode"] = capo_memorydb.types.reserved_node.serialize_cbor(
+            value["reserved_node"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PurchaseReservedNodesOfferingResponse:
+    out: PurchaseReservedNodesOfferingResponse = {}  # type: ignore[typeddict-item]
+    if data.get("ReservedNode") is not None:
+        import capo_memorydb.types.reserved_node
+
+        out["reserved_node"] = capo_memorydb.types.reserved_node.deserialize_cbor(
+            data["ReservedNode"]
+        )
+    return out

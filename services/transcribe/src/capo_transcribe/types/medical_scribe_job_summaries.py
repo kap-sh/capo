@@ -37,3 +37,28 @@ def deserialize_aws_json_1_1(data: list) -> MedicalScribeJobSummaries:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MedicalScribeJobSummaries) -> list:
+    import capo_transcribe.types.medical_scribe_job_summary
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_transcribe.types.medical_scribe_job_summary.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> MedicalScribeJobSummaries:
+    import capo_transcribe.types.medical_scribe_job_summary
+
+    out: MedicalScribeJobSummaries = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_transcribe.types.medical_scribe_job_summary.deserialize_cbor(item)
+        )
+    return out

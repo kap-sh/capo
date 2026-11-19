@@ -100,3 +100,64 @@ def deserialize_aws_json_1_1(data: dict) -> CopyProductInput:
     else:
         out["idempotency_token"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CopyProductInput) -> dict:
+    out: dict = {}
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    out["SourceProductArn"] = value["source_product_arn"]
+    if "target_product_id" in value:
+        out["TargetProductId"] = value["target_product_id"]
+    if "target_product_name" in value:
+        out["TargetProductName"] = value["target_product_name"]
+    if "source_provisioning_artifact_identifiers" in value:
+        import capo_service_catalog.types.source_provisioning_artifact_properties
+
+        out["SourceProvisioningArtifactIdentifiers"] = (
+            capo_service_catalog.types.source_provisioning_artifact_properties.serialize_cbor(
+                value["source_provisioning_artifact_identifiers"]
+            )
+        )
+    if "copy_options" in value:
+        import capo_service_catalog.types.copy_options
+
+        out["CopyOptions"] = capo_service_catalog.types.copy_options.serialize_cbor(
+            value["copy_options"]
+        )
+    out["IdempotencyToken"] = value["idempotency_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CopyProductInput:
+    out: CopyProductInput = {}  # type: ignore[typeddict-item]
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    if data.get("SourceProductArn") is not None:
+        out["source_product_arn"] = data["SourceProductArn"]
+    else:
+        out["source_product_arn"] = ""
+    if data.get("TargetProductId") is not None:
+        out["target_product_id"] = data["TargetProductId"]
+    if data.get("TargetProductName") is not None:
+        out["target_product_name"] = data["TargetProductName"]
+    if data.get("SourceProvisioningArtifactIdentifiers") is not None:
+        import capo_service_catalog.types.source_provisioning_artifact_properties
+
+        out["source_provisioning_artifact_identifiers"] = (
+            capo_service_catalog.types.source_provisioning_artifact_properties.deserialize_cbor(
+                data["SourceProvisioningArtifactIdentifiers"]
+            )
+        )
+    if data.get("CopyOptions") is not None:
+        import capo_service_catalog.types.copy_options
+
+        out["copy_options"] = capo_service_catalog.types.copy_options.deserialize_cbor(
+            data["CopyOptions"]
+        )
+    if data.get("IdempotencyToken") is not None:
+        out["idempotency_token"] = data["IdempotencyToken"]
+    else:
+        out["idempotency_token"] = ""
+    return out

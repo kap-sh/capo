@@ -48,3 +48,32 @@ def deserialize_aws_json_1_1(data: dict) -> ListBuildsInput:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListBuildsInput) -> dict:
+    out: dict = {}
+    if "status" in value:
+        import capo_gamelift.types.build_status
+
+        out["Status"] = capo_gamelift.types.build_status.serialize_cbor(value["status"])
+    if "limit" in value:
+        out["Limit"] = value["limit"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListBuildsInput:
+    out: ListBuildsInput = {}  # type: ignore[typeddict-item]
+    if data.get("Status") is not None:
+        import capo_gamelift.types.build_status
+
+        out["status"] = capo_gamelift.types.build_status.deserialize_cbor(
+            data["Status"]
+        )
+    if data.get("Limit") is not None:
+        out["limit"] = data["Limit"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

@@ -324,3 +324,222 @@ def deserialize_aws_json_1_0(data: dict) -> Firewall:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Firewall) -> dict:
+    out: dict = {}
+    if "firewall_name" in value:
+        out["FirewallName"] = value["firewall_name"]
+    if "firewall_arn" in value:
+        out["FirewallArn"] = value["firewall_arn"]
+    out["FirewallPolicyArn"] = value["firewall_policy_arn"]
+    out["VpcId"] = value["vpc_id"]
+    import capo_network_firewall.types.subnet_mappings
+
+    out["SubnetMappings"] = capo_network_firewall.types.subnet_mappings.serialize_cbor(
+        value["subnet_mappings"]
+    )
+    out["DeleteProtection"] = value.get("delete_protection", False)
+    out["SubnetChangeProtection"] = value.get("subnet_change_protection", False)
+    out["FirewallPolicyChangeProtection"] = value.get(
+        "firewall_policy_change_protection", False
+    )
+    if "description" in value:
+        out["Description"] = value["description"]
+    out["FirewallId"] = value["firewall_id"]
+    if "tags" in value:
+        import capo_network_firewall.types.tag_list
+
+        out["Tags"] = capo_network_firewall.types.tag_list.serialize_cbor(value["tags"])
+    if "encryption_configuration" in value:
+        import capo_network_firewall.types.encryption_configuration
+
+        out["EncryptionConfiguration"] = (
+            capo_network_firewall.types.encryption_configuration.serialize_cbor(
+                value["encryption_configuration"]
+            )
+        )
+    if "number_of_associations" in value:
+        out["NumberOfAssociations"] = value["number_of_associations"]
+    if "enabled_analysis_types" in value:
+        import capo_network_firewall.types.enabled_analysis_types
+
+        out["EnabledAnalysisTypes"] = (
+            capo_network_firewall.types.enabled_analysis_types.serialize_cbor(
+                value["enabled_analysis_types"]
+            )
+        )
+    if "transit_gateway_id" in value:
+        out["TransitGatewayId"] = value["transit_gateway_id"]
+    if "transit_gateway_owner_account_id" in value:
+        out["TransitGatewayOwnerAccountId"] = value["transit_gateway_owner_account_id"]
+    if "availability_zone_mappings" in value:
+        import capo_network_firewall.types.availability_zone_mappings
+
+        out["AvailabilityZoneMappings"] = (
+            capo_network_firewall.types.availability_zone_mappings.serialize_cbor(
+                value["availability_zone_mappings"]
+            )
+        )
+    out["AvailabilityZoneChangeProtection"] = value.get(
+        "availability_zone_change_protection", False
+    )
+    if "nat_gateway_create_mappings" in value:
+        import capo_network_firewall.types.nat_gateway_create_mappings_list
+
+        out["NatGatewayCreateMappings"] = (
+            capo_network_firewall.types.nat_gateway_create_mappings_list.serialize_cbor(
+                value["nat_gateway_create_mappings"]
+            )
+        )
+    if "proxy_settings" in value:
+        import capo_network_firewall.types.proxy_settings
+
+        out["ProxySettings"] = (
+            capo_network_firewall.types.proxy_settings.serialize_cbor(
+                value["proxy_settings"]
+            )
+        )
+    if "vpc_endpoint" in value:
+        import capo_network_firewall.types.vpc_endpoint
+
+        out["VpcEndpoint"] = capo_network_firewall.types.vpc_endpoint.serialize_cbor(
+            value["vpc_endpoint"]
+        )
+    if "context_store_id" in value:
+        out["ContextStoreId"] = value["context_store_id"]
+    if "context_store_owner_account_id" in value:
+        out["ContextStoreOwnerAccountId"] = value["context_store_owner_account_id"]
+    if "transparent_filtering_nat_scope" in value:
+        import capo_network_firewall.types.transparent_filtering_nat_scope
+
+        out["TransparentFilteringNatScope"] = (
+            capo_network_firewall.types.transparent_filtering_nat_scope.serialize_cbor(
+                value["transparent_filtering_nat_scope"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Firewall:
+    out: Firewall = {}  # type: ignore[typeddict-item]
+    if data.get("FirewallName") is not None:
+        out["firewall_name"] = data["FirewallName"]
+    if data.get("FirewallArn") is not None:
+        out["firewall_arn"] = data["FirewallArn"]
+    if data.get("FirewallPolicyArn") is not None:
+        out["firewall_policy_arn"] = data["FirewallPolicyArn"]
+    else:
+        out["firewall_policy_arn"] = ""
+    if data.get("VpcId") is not None:
+        out["vpc_id"] = data["VpcId"]
+    else:
+        out["vpc_id"] = ""
+    if data.get("SubnetMappings") is not None:
+        import capo_network_firewall.types.subnet_mappings
+
+        out["subnet_mappings"] = (
+            capo_network_firewall.types.subnet_mappings.deserialize_cbor(
+                data["SubnetMappings"]
+            )
+        )
+    else:
+        out["subnet_mappings"] = []
+    if data.get("DeleteProtection") is not None:
+        out["delete_protection"] = data["DeleteProtection"]
+    else:
+        out["delete_protection"] = False
+    if data.get("SubnetChangeProtection") is not None:
+        out["subnet_change_protection"] = data["SubnetChangeProtection"]
+    else:
+        out["subnet_change_protection"] = False
+    if data.get("FirewallPolicyChangeProtection") is not None:
+        out["firewall_policy_change_protection"] = data[
+            "FirewallPolicyChangeProtection"
+        ]
+    else:
+        out["firewall_policy_change_protection"] = False
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("FirewallId") is not None:
+        out["firewall_id"] = data["FirewallId"]
+    else:
+        out["firewall_id"] = ""
+    if data.get("Tags") is not None:
+        import capo_network_firewall.types.tag_list
+
+        out["tags"] = capo_network_firewall.types.tag_list.deserialize_cbor(
+            data["Tags"]
+        )
+    if data.get("EncryptionConfiguration") is not None:
+        import capo_network_firewall.types.encryption_configuration
+
+        out["encryption_configuration"] = (
+            capo_network_firewall.types.encryption_configuration.deserialize_cbor(
+                data["EncryptionConfiguration"]
+            )
+        )
+    if data.get("NumberOfAssociations") is not None:
+        out["number_of_associations"] = data["NumberOfAssociations"]
+    if data.get("EnabledAnalysisTypes") is not None:
+        import capo_network_firewall.types.enabled_analysis_types
+
+        out["enabled_analysis_types"] = (
+            capo_network_firewall.types.enabled_analysis_types.deserialize_cbor(
+                data["EnabledAnalysisTypes"]
+            )
+        )
+    if data.get("TransitGatewayId") is not None:
+        out["transit_gateway_id"] = data["TransitGatewayId"]
+    if data.get("TransitGatewayOwnerAccountId") is not None:
+        out["transit_gateway_owner_account_id"] = data["TransitGatewayOwnerAccountId"]
+    if data.get("AvailabilityZoneMappings") is not None:
+        import capo_network_firewall.types.availability_zone_mappings
+
+        out["availability_zone_mappings"] = (
+            capo_network_firewall.types.availability_zone_mappings.deserialize_cbor(
+                data["AvailabilityZoneMappings"]
+            )
+        )
+    if data.get("AvailabilityZoneChangeProtection") is not None:
+        out["availability_zone_change_protection"] = data[
+            "AvailabilityZoneChangeProtection"
+        ]
+    else:
+        out["availability_zone_change_protection"] = False
+    if data.get("NatGatewayCreateMappings") is not None:
+        import capo_network_firewall.types.nat_gateway_create_mappings_list
+
+        out["nat_gateway_create_mappings"] = (
+            capo_network_firewall.types.nat_gateway_create_mappings_list.deserialize_cbor(
+                data["NatGatewayCreateMappings"]
+            )
+        )
+    if data.get("ProxySettings") is not None:
+        import capo_network_firewall.types.proxy_settings
+
+        out["proxy_settings"] = (
+            capo_network_firewall.types.proxy_settings.deserialize_cbor(
+                data["ProxySettings"]
+            )
+        )
+    if data.get("VpcEndpoint") is not None:
+        import capo_network_firewall.types.vpc_endpoint
+
+        out["vpc_endpoint"] = capo_network_firewall.types.vpc_endpoint.deserialize_cbor(
+            data["VpcEndpoint"]
+        )
+    if data.get("ContextStoreId") is not None:
+        out["context_store_id"] = data["ContextStoreId"]
+    if data.get("ContextStoreOwnerAccountId") is not None:
+        out["context_store_owner_account_id"] = data["ContextStoreOwnerAccountId"]
+    if data.get("TransparentFilteringNatScope") is not None:
+        import capo_network_firewall.types.transparent_filtering_nat_scope
+
+        out["transparent_filtering_nat_scope"] = (
+            capo_network_firewall.types.transparent_filtering_nat_scope.deserialize_cbor(
+                data["TransparentFilteringNatScope"]
+            )
+        )
+    return out

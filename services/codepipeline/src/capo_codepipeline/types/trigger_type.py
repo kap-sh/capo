@@ -22,3 +22,12 @@ def serialize_aws_json_1_1(value: TriggerType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> TriggerType:
     return cast(TriggerType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TriggerType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> TriggerType:
+    return cast(TriggerType, data)

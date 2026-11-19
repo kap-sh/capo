@@ -73,3 +73,56 @@ def deserialize_aws_json_1_1(data: dict) -> StorageConnector:
             "",
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StorageConnector) -> dict:
+    out: dict = {}
+    import capo_workspaces.types.storage_connector_type_enum
+
+    out["ConnectorType"] = (
+        capo_workspaces.types.storage_connector_type_enum.serialize_cbor(
+            value["connector_type"]
+        )
+    )
+    import capo_workspaces.types.storage_connector_status_enum
+
+    out["Status"] = capo_workspaces.types.storage_connector_status_enum.serialize_cbor(
+        value["status"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StorageConnector:
+    out: StorageConnector = {}  # type: ignore[typeddict-item]
+    if data.get("ConnectorType") is not None:
+        import capo_workspaces.types.storage_connector_type_enum
+
+        out["connector_type"] = (
+            capo_workspaces.types.storage_connector_type_enum.deserialize_cbor(
+                data["ConnectorType"]
+            )
+        )
+    else:
+        import typing
+
+        out["connector_type"] = typing.cast(
+            "capo_workspaces.types.storage_connector_type_enum.StorageConnectorTypeEnum",
+            "",
+        )
+    if data.get("Status") is not None:
+        import capo_workspaces.types.storage_connector_status_enum
+
+        out["status"] = (
+            capo_workspaces.types.storage_connector_status_enum.deserialize_cbor(
+                data["Status"]
+            )
+        )
+    else:
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_workspaces.types.storage_connector_status_enum.StorageConnectorStatusEnum",
+            "",
+        )
+    return out

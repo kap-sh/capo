@@ -47,3 +47,30 @@ def deserialize_aws_json_1_1(data: dict) -> MetricDimensionGroups:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MetricDimensionGroups) -> dict:
+    out: dict = {}
+    if "metric" in value:
+        out["Metric"] = value["metric"]
+    if "groups" in value:
+        import capo_pi.types.dimension_group_detail_list
+
+        out["Groups"] = capo_pi.types.dimension_group_detail_list.serialize_cbor(
+            value["groups"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> MetricDimensionGroups:
+    out: MetricDimensionGroups = {}  # type: ignore[typeddict-item]
+    if data.get("Metric") is not None:
+        out["metric"] = data["Metric"]
+    if data.get("Groups") is not None:
+        import capo_pi.types.dimension_group_detail_list
+
+        out["groups"] = capo_pi.types.dimension_group_detail_list.deserialize_cbor(
+            data["Groups"]
+        )
+    return out

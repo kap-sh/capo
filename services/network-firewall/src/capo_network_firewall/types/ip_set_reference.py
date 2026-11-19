@@ -26,3 +26,18 @@ def deserialize_aws_json_1_0(data: dict) -> IPSetReference:
     if data.get("ReferenceArn") is not None:
         out["reference_arn"] = data["ReferenceArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IPSetReference) -> dict:
+    out: dict = {}
+    if "reference_arn" in value:
+        out["ReferenceArn"] = value["reference_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> IPSetReference:
+    out: IPSetReference = {}  # type: ignore[typeddict-item]
+    if data.get("ReferenceArn") is not None:
+        out["reference_arn"] = data["ReferenceArn"]
+    return out

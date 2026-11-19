@@ -21,6 +21,17 @@ def deserialize_aws_json_1_1(data: dict) -> ApplicationNotSupportedException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ApplicationNotSupportedException_) -> dict:
+    out: dict = {}
+    return out
+
+
+def deserialize_cbor(data: dict) -> ApplicationNotSupportedException_:
+    out: ApplicationNotSupportedException_ = {}  # type: ignore[typeddict-item]
+    return out
+
+
 class ApplicationNotSupportedException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.workspaces#ApplicationNotSupportedException``."""
 
@@ -48,3 +59,9 @@ class ApplicationNotSupportedException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ApplicationNotSupportedException":
         return cls(deserialize_aws_json_1_1(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "ApplicationNotSupportedException":
+        return cls(deserialize_cbor(data), message, response=response)

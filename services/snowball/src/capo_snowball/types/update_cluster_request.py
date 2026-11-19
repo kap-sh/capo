@@ -124,3 +124,87 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateClusterRequest:
     if data.get("ForwardingAddressId") is not None:
         out["forwarding_address_id"] = data["ForwardingAddressId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateClusterRequest) -> dict:
+    out: dict = {}
+    out["ClusterId"] = value["cluster_id"]
+    if "role_arn" in value:
+        out["RoleARN"] = value["role_arn"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "resources" in value:
+        import capo_snowball.types.job_resource
+
+        out["Resources"] = capo_snowball.types.job_resource.serialize_cbor(
+            value["resources"]
+        )
+    if "on_device_service_configuration" in value:
+        import capo_snowball.types.on_device_service_configuration
+
+        out["OnDeviceServiceConfiguration"] = (
+            capo_snowball.types.on_device_service_configuration.serialize_cbor(
+                value["on_device_service_configuration"]
+            )
+        )
+    if "address_id" in value:
+        out["AddressId"] = value["address_id"]
+    if "shipping_option" in value:
+        import capo_snowball.types.shipping_option
+
+        out["ShippingOption"] = capo_snowball.types.shipping_option.serialize_cbor(
+            value["shipping_option"]
+        )
+    if "notification" in value:
+        import capo_snowball.types.notification
+
+        out["Notification"] = capo_snowball.types.notification.serialize_cbor(
+            value["notification"]
+        )
+    if "forwarding_address_id" in value:
+        out["ForwardingAddressId"] = value["forwarding_address_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateClusterRequest:
+    out: UpdateClusterRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ClusterId") is not None:
+        out["cluster_id"] = data["ClusterId"]
+    else:
+        out["cluster_id"] = ""
+    if data.get("RoleARN") is not None:
+        out["role_arn"] = data["RoleARN"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("Resources") is not None:
+        import capo_snowball.types.job_resource
+
+        out["resources"] = capo_snowball.types.job_resource.deserialize_cbor(
+            data["Resources"]
+        )
+    if data.get("OnDeviceServiceConfiguration") is not None:
+        import capo_snowball.types.on_device_service_configuration
+
+        out["on_device_service_configuration"] = (
+            capo_snowball.types.on_device_service_configuration.deserialize_cbor(
+                data["OnDeviceServiceConfiguration"]
+            )
+        )
+    if data.get("AddressId") is not None:
+        out["address_id"] = data["AddressId"]
+    if data.get("ShippingOption") is not None:
+        import capo_snowball.types.shipping_option
+
+        out["shipping_option"] = capo_snowball.types.shipping_option.deserialize_cbor(
+            data["ShippingOption"]
+        )
+    if data.get("Notification") is not None:
+        import capo_snowball.types.notification
+
+        out["notification"] = capo_snowball.types.notification.deserialize_cbor(
+            data["Notification"]
+        )
+    if data.get("ForwardingAddressId") is not None:
+        out["forwarding_address_id"] = data["ForwardingAddressId"]
+    return out

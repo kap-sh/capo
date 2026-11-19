@@ -28,3 +28,18 @@ def deserialize_aws_json_1_1(data: dict) -> StartPipelineExecutionOutput:
     if data.get("pipelineExecutionId") is not None:
         out["pipeline_execution_id"] = data["pipelineExecutionId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartPipelineExecutionOutput) -> dict:
+    out: dict = {}
+    if "pipeline_execution_id" in value:
+        out["pipelineExecutionId"] = value["pipeline_execution_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartPipelineExecutionOutput:
+    out: StartPipelineExecutionOutput = {}  # type: ignore[typeddict-item]
+    if data.get("pipelineExecutionId") is not None:
+        out["pipeline_execution_id"] = data["pipelineExecutionId"]
+    return out

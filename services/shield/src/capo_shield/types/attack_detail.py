@@ -140,3 +140,102 @@ def deserialize_aws_json_1_1(data: dict) -> AttackDetail:
             data["Mitigations"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AttackDetail) -> dict:
+    out: dict = {}
+    if "attack_id" in value:
+        out["AttackId"] = value["attack_id"]
+    if "resource_arn" in value:
+        out["ResourceArn"] = value["resource_arn"]
+    if "sub_resources" in value:
+        import capo_shield.types.sub_resource_summary_list
+
+        out["SubResources"] = (
+            capo_shield.types.sub_resource_summary_list.serialize_cbor(
+                value["sub_resources"]
+            )
+        )
+    if "start_time" in value:
+        import capo_shield.types.attack_timestamp
+
+        out["StartTime"] = capo_shield.types.attack_timestamp.serialize_cbor(
+            value["start_time"]
+        )
+    if "end_time" in value:
+        import capo_shield.types.attack_timestamp
+
+        out["EndTime"] = capo_shield.types.attack_timestamp.serialize_cbor(
+            value["end_time"]
+        )
+    if "attack_counters" in value:
+        import capo_shield.types.summarized_counter_list
+
+        out["AttackCounters"] = (
+            capo_shield.types.summarized_counter_list.serialize_cbor(
+                value["attack_counters"]
+            )
+        )
+    if "attack_properties" in value:
+        import capo_shield.types.attack_properties
+
+        out["AttackProperties"] = capo_shield.types.attack_properties.serialize_cbor(
+            value["attack_properties"]
+        )
+    if "mitigations" in value:
+        import capo_shield.types.mitigation_list
+
+        out["Mitigations"] = capo_shield.types.mitigation_list.serialize_cbor(
+            value["mitigations"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AttackDetail:
+    out: AttackDetail = {}  # type: ignore[typeddict-item]
+    if data.get("AttackId") is not None:
+        out["attack_id"] = data["AttackId"]
+    if data.get("ResourceArn") is not None:
+        out["resource_arn"] = data["ResourceArn"]
+    if data.get("SubResources") is not None:
+        import capo_shield.types.sub_resource_summary_list
+
+        out["sub_resources"] = (
+            capo_shield.types.sub_resource_summary_list.deserialize_cbor(
+                data["SubResources"]
+            )
+        )
+    if data.get("StartTime") is not None:
+        import capo_shield.types.attack_timestamp
+
+        out["start_time"] = capo_shield.types.attack_timestamp.deserialize_cbor(
+            data["StartTime"]
+        )
+    if data.get("EndTime") is not None:
+        import capo_shield.types.attack_timestamp
+
+        out["end_time"] = capo_shield.types.attack_timestamp.deserialize_cbor(
+            data["EndTime"]
+        )
+    if data.get("AttackCounters") is not None:
+        import capo_shield.types.summarized_counter_list
+
+        out["attack_counters"] = (
+            capo_shield.types.summarized_counter_list.deserialize_cbor(
+                data["AttackCounters"]
+            )
+        )
+    if data.get("AttackProperties") is not None:
+        import capo_shield.types.attack_properties
+
+        out["attack_properties"] = capo_shield.types.attack_properties.deserialize_cbor(
+            data["AttackProperties"]
+        )
+    if data.get("Mitigations") is not None:
+        import capo_shield.types.mitigation_list
+
+        out["mitigations"] = capo_shield.types.mitigation_list.deserialize_cbor(
+            data["Mitigations"]
+        )
+    return out

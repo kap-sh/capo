@@ -45,3 +45,30 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeSnapshotsResult:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeSnapshotsResult) -> dict:
+    out: dict = {}
+    if "snapshots" in value:
+        import capo_directory_service.types.snapshots
+
+        out["Snapshots"] = capo_directory_service.types.snapshots.serialize_cbor(
+            value["snapshots"]
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeSnapshotsResult:
+    out: DescribeSnapshotsResult = {}  # type: ignore[typeddict-item]
+    if data.get("Snapshots") is not None:
+        import capo_directory_service.types.snapshots
+
+        out["snapshots"] = capo_directory_service.types.snapshots.deserialize_cbor(
+            data["Snapshots"]
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

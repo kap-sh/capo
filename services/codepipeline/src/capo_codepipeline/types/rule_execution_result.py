@@ -62,3 +62,38 @@ def deserialize_aws_json_1_1(data: dict) -> RuleExecutionResult:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RuleExecutionResult) -> dict:
+    out: dict = {}
+    if "external_execution_id" in value:
+        out["externalExecutionId"] = value["external_execution_id"]
+    if "external_execution_summary" in value:
+        out["externalExecutionSummary"] = value["external_execution_summary"]
+    if "external_execution_url" in value:
+        out["externalExecutionUrl"] = value["external_execution_url"]
+    if "error_details" in value:
+        import capo_codepipeline.types.error_details
+
+        out["errorDetails"] = capo_codepipeline.types.error_details.serialize_cbor(
+            value["error_details"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RuleExecutionResult:
+    out: RuleExecutionResult = {}  # type: ignore[typeddict-item]
+    if data.get("externalExecutionId") is not None:
+        out["external_execution_id"] = data["externalExecutionId"]
+    if data.get("externalExecutionSummary") is not None:
+        out["external_execution_summary"] = data["externalExecutionSummary"]
+    if data.get("externalExecutionUrl") is not None:
+        out["external_execution_url"] = data["externalExecutionUrl"]
+    if data.get("errorDetails") is not None:
+        import capo_codepipeline.types.error_details
+
+        out["error_details"] = capo_codepipeline.types.error_details.deserialize_cbor(
+            data["errorDetails"]
+        )
+    return out

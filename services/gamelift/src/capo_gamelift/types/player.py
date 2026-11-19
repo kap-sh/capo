@@ -71,6 +71,53 @@ def deserialize_aws_json_1_1(data: dict) -> Player:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Player) -> dict:
+    out: dict = {}
+    if "player_id" in value:
+        out["PlayerId"] = value["player_id"]
+    if "player_attributes" in value:
+        import capo_gamelift.types.player_attribute_map
+
+        out["PlayerAttributes"] = (
+            capo_gamelift.types.player_attribute_map.serialize_cbor(
+                value["player_attributes"]
+            )
+        )
+    if "team" in value:
+        out["Team"] = value["team"]
+    if "latency_in_ms" in value:
+        import capo_gamelift.types.latency_map
+
+        out["LatencyInMs"] = capo_gamelift.types.latency_map.serialize_cbor(
+            value["latency_in_ms"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Player:
+    out: Player = {}  # type: ignore[typeddict-item]
+    if data.get("PlayerId") is not None:
+        out["player_id"] = data["PlayerId"]
+    if data.get("PlayerAttributes") is not None:
+        import capo_gamelift.types.player_attribute_map
+
+        out["player_attributes"] = (
+            capo_gamelift.types.player_attribute_map.deserialize_cbor(
+                data["PlayerAttributes"]
+            )
+        )
+    if data.get("Team") is not None:
+        out["team"] = data["Team"]
+    if data.get("LatencyInMs") is not None:
+        import capo_gamelift.types.latency_map
+
+        out["latency_in_ms"] = capo_gamelift.types.latency_map.deserialize_cbor(
+            data["LatencyInMs"]
+        )
+    return out
+
+
 def redact_sensitive(value: Player) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "player_id" in value:

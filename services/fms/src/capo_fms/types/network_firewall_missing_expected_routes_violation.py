@@ -54,3 +54,34 @@ def deserialize_aws_json_1_1(
     if data.get("VpcId") is not None:
         out["vpc_id"] = data["VpcId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: NetworkFirewallMissingExpectedRoutesViolation) -> dict:
+    out: dict = {}
+    if "violation_target" in value:
+        out["ViolationTarget"] = value["violation_target"]
+    if "expected_routes" in value:
+        import capo_fms.types.expected_routes
+
+        out["ExpectedRoutes"] = capo_fms.types.expected_routes.serialize_cbor(
+            value["expected_routes"]
+        )
+    if "vpc_id" in value:
+        out["VpcId"] = value["vpc_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> NetworkFirewallMissingExpectedRoutesViolation:
+    out: NetworkFirewallMissingExpectedRoutesViolation = {}  # type: ignore[typeddict-item]
+    if data.get("ViolationTarget") is not None:
+        out["violation_target"] = data["ViolationTarget"]
+    if data.get("ExpectedRoutes") is not None:
+        import capo_fms.types.expected_routes
+
+        out["expected_routes"] = capo_fms.types.expected_routes.deserialize_cbor(
+            data["ExpectedRoutes"]
+        )
+    if data.get("VpcId") is not None:
+        out["vpc_id"] = data["VpcId"]
+    return out

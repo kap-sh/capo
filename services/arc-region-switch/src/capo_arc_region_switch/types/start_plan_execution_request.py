@@ -107,3 +107,69 @@ def deserialize_aws_json_1_0(data: dict) -> StartPlanExecutionRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartPlanExecutionRequest) -> dict:
+    out: dict = {}
+    out["planArn"] = value["plan_arn"]
+    out["targetRegion"] = value["target_region"]
+    import capo_arc_region_switch.types.execution_action
+
+    out["action"] = capo_arc_region_switch.types.execution_action.serialize_cbor(
+        value["action"]
+    )
+    if "mode" in value:
+        import capo_arc_region_switch.types.execution_mode
+
+        out["mode"] = capo_arc_region_switch.types.execution_mode.serialize_cbor(
+            value["mode"]
+        )
+    if "comment" in value:
+        out["comment"] = value["comment"]
+    if "latest_version" in value:
+        out["latestVersion"] = value["latest_version"]
+    if "recovery_execution_id" in value:
+        out["recoveryExecutionId"] = value["recovery_execution_id"]
+    if "client_token" in value:
+        out["clientToken"] = value["client_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartPlanExecutionRequest:
+    out: StartPlanExecutionRequest = {}  # type: ignore[typeddict-item]
+    if data.get("planArn") is not None:
+        out["plan_arn"] = data["planArn"]
+    else:
+        out["plan_arn"] = ""
+    if data.get("targetRegion") is not None:
+        out["target_region"] = data["targetRegion"]
+    else:
+        out["target_region"] = ""
+    if data.get("action") is not None:
+        import capo_arc_region_switch.types.execution_action
+
+        out["action"] = capo_arc_region_switch.types.execution_action.deserialize_cbor(
+            data["action"]
+        )
+    else:
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_arc_region_switch.types.execution_action.ExecutionAction", ""
+        )
+    if data.get("mode") is not None:
+        import capo_arc_region_switch.types.execution_mode
+
+        out["mode"] = capo_arc_region_switch.types.execution_mode.deserialize_cbor(
+            data["mode"]
+        )
+    if data.get("comment") is not None:
+        out["comment"] = data["comment"]
+    if data.get("latestVersion") is not None:
+        out["latest_version"] = data["latestVersion"]
+    if data.get("recoveryExecutionId") is not None:
+        out["recovery_execution_id"] = data["recoveryExecutionId"]
+    if data.get("clientToken") is not None:
+        out["client_token"] = data["clientToken"]
+    return out

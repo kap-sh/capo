@@ -33,3 +33,22 @@ def deserialize_aws_json_1_1(data: dict) -> LaunchPath:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LaunchPath) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["Id"] = value["id"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> LaunchPath:
+    out: LaunchPath = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    return out

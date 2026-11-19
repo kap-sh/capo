@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: MessageAction) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> MessageAction:
     return cast(MessageAction, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MessageAction) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> MessageAction:
+    return cast(MessageAction, data)

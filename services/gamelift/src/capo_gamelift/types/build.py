@@ -113,3 +113,72 @@ def deserialize_aws_json_1_1(data: dict) -> Build:
     if data.get("ServerSdkVersion") is not None:
         out["server_sdk_version"] = data["ServerSdkVersion"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Build) -> dict:
+    out: dict = {}
+    if "build_id" in value:
+        out["BuildId"] = value["build_id"]
+    if "build_arn" in value:
+        out["BuildArn"] = value["build_arn"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "version" in value:
+        out["Version"] = value["version"]
+    if "status" in value:
+        import capo_gamelift.types.build_status
+
+        out["Status"] = capo_gamelift.types.build_status.serialize_cbor(value["status"])
+    if "size_on_disk" in value:
+        out["SizeOnDisk"] = value["size_on_disk"]
+    if "operating_system" in value:
+        import capo_gamelift.types.operating_system
+
+        out["OperatingSystem"] = capo_gamelift.types.operating_system.serialize_cbor(
+            value["operating_system"]
+        )
+    if "creation_time" in value:
+        import capo_gamelift.types.timestamp
+
+        out["CreationTime"] = capo_gamelift.types.timestamp.serialize_cbor(
+            value["creation_time"]
+        )
+    if "server_sdk_version" in value:
+        out["ServerSdkVersion"] = value["server_sdk_version"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Build:
+    out: Build = {}  # type: ignore[typeddict-item]
+    if data.get("BuildId") is not None:
+        out["build_id"] = data["BuildId"]
+    if data.get("BuildArn") is not None:
+        out["build_arn"] = data["BuildArn"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Version") is not None:
+        out["version"] = data["Version"]
+    if data.get("Status") is not None:
+        import capo_gamelift.types.build_status
+
+        out["status"] = capo_gamelift.types.build_status.deserialize_cbor(
+            data["Status"]
+        )
+    if data.get("SizeOnDisk") is not None:
+        out["size_on_disk"] = data["SizeOnDisk"]
+    if data.get("OperatingSystem") is not None:
+        import capo_gamelift.types.operating_system
+
+        out["operating_system"] = capo_gamelift.types.operating_system.deserialize_cbor(
+            data["OperatingSystem"]
+        )
+    if data.get("CreationTime") is not None:
+        import capo_gamelift.types.timestamp
+
+        out["creation_time"] = capo_gamelift.types.timestamp.deserialize_cbor(
+            data["CreationTime"]
+        )
+    if data.get("ServerSdkVersion") is not None:
+        out["server_sdk_version"] = data["ServerSdkVersion"]
+    return out

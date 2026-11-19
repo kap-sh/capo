@@ -124,3 +124,86 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeApplicationsRequest:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeApplicationsRequest) -> dict:
+    out: dict = {}
+    if "application_ids" in value:
+        import capo_workspaces.types.work_space_application_id_list
+
+        out["ApplicationIds"] = (
+            capo_workspaces.types.work_space_application_id_list.serialize_cbor(
+                value["application_ids"]
+            )
+        )
+    if "compute_type_names" in value:
+        import capo_workspaces.types.compute_list
+
+        out["ComputeTypeNames"] = capo_workspaces.types.compute_list.serialize_cbor(
+            value["compute_type_names"]
+        )
+    if "license_type" in value:
+        import capo_workspaces.types.work_space_application_license_type
+
+        out["LicenseType"] = (
+            capo_workspaces.types.work_space_application_license_type.serialize_cbor(
+                value["license_type"]
+            )
+        )
+    if "operating_system_names" in value:
+        import capo_workspaces.types.operating_system_name_list
+
+        out["OperatingSystemNames"] = (
+            capo_workspaces.types.operating_system_name_list.serialize_cbor(
+                value["operating_system_names"]
+            )
+        )
+    if "owner" in value:
+        out["Owner"] = value["owner"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeApplicationsRequest:
+    out: DescribeApplicationsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ApplicationIds") is not None:
+        import capo_workspaces.types.work_space_application_id_list
+
+        out["application_ids"] = (
+            capo_workspaces.types.work_space_application_id_list.deserialize_cbor(
+                data["ApplicationIds"]
+            )
+        )
+    if data.get("ComputeTypeNames") is not None:
+        import capo_workspaces.types.compute_list
+
+        out["compute_type_names"] = capo_workspaces.types.compute_list.deserialize_cbor(
+            data["ComputeTypeNames"]
+        )
+    if data.get("LicenseType") is not None:
+        import capo_workspaces.types.work_space_application_license_type
+
+        out["license_type"] = (
+            capo_workspaces.types.work_space_application_license_type.deserialize_cbor(
+                data["LicenseType"]
+            )
+        )
+    if data.get("OperatingSystemNames") is not None:
+        import capo_workspaces.types.operating_system_name_list
+
+        out["operating_system_names"] = (
+            capo_workspaces.types.operating_system_name_list.deserialize_cbor(
+                data["OperatingSystemNames"]
+            )
+        )
+    if data.get("Owner") is not None:
+        out["owner"] = data["Owner"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

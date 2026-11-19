@@ -34,6 +34,25 @@ def deserialize_aws_json_1_1(data: dict) -> ConnectionPortRange:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ConnectionPortRange) -> dict:
+    out: dict = {}
+    if "from_port" in value:
+        out["FromPort"] = value["from_port"]
+    if "to_port" in value:
+        out["ToPort"] = value["to_port"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ConnectionPortRange:
+    out: ConnectionPortRange = {}  # type: ignore[typeddict-item]
+    if data.get("FromPort") is not None:
+        out["from_port"] = data["FromPort"]
+    if data.get("ToPort") is not None:
+        out["to_port"] = data["ToPort"]
+    return out
+
+
 def redact_sensitive(value: ConnectionPortRange) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "from_port" in value:

@@ -33,3 +33,22 @@ def deserialize_aws_json_1_1(data: dict) -> DebugSession:
     if data.get("sessionTarget") is not None:
         out["session_target"] = data["sessionTarget"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DebugSession) -> dict:
+    out: dict = {}
+    if "session_enabled" in value:
+        out["sessionEnabled"] = value["session_enabled"]
+    if "session_target" in value:
+        out["sessionTarget"] = value["session_target"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DebugSession:
+    out: DebugSession = {}  # type: ignore[typeddict-item]
+    if data.get("sessionEnabled") is not None:
+        out["session_enabled"] = data["sessionEnabled"]
+    if data.get("sessionTarget") is not None:
+        out["session_target"] = data["sessionTarget"]
+    return out

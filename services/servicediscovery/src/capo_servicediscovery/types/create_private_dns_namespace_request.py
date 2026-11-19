@@ -88,3 +88,58 @@ def deserialize_aws_json_1_1(data: dict) -> CreatePrivateDnsNamespaceRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreatePrivateDnsNamespaceRequest) -> dict:
+    out: dict = {}
+    out["Name"] = value["name"]
+    if "creator_request_id" in value:
+        out["CreatorRequestId"] = value["creator_request_id"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    out["Vpc"] = value["vpc"]
+    if "tags" in value:
+        import capo_servicediscovery.types.tag_list
+
+        out["Tags"] = capo_servicediscovery.types.tag_list.serialize_cbor(value["tags"])
+    if "properties" in value:
+        import capo_servicediscovery.types.private_dns_namespace_properties
+
+        out["Properties"] = (
+            capo_servicediscovery.types.private_dns_namespace_properties.serialize_cbor(
+                value["properties"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreatePrivateDnsNamespaceRequest:
+    out: CreatePrivateDnsNamespaceRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    else:
+        out["name"] = ""
+    if data.get("CreatorRequestId") is not None:
+        out["creator_request_id"] = data["CreatorRequestId"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("Vpc") is not None:
+        out["vpc"] = data["Vpc"]
+    else:
+        out["vpc"] = ""
+    if data.get("Tags") is not None:
+        import capo_servicediscovery.types.tag_list
+
+        out["tags"] = capo_servicediscovery.types.tag_list.deserialize_cbor(
+            data["Tags"]
+        )
+    if data.get("Properties") is not None:
+        import capo_servicediscovery.types.private_dns_namespace_properties
+
+        out["properties"] = (
+            capo_servicediscovery.types.private_dns_namespace_properties.deserialize_cbor(
+                data["Properties"]
+            )
+        )
+    return out

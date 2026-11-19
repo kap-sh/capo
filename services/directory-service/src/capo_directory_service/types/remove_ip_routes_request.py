@@ -63,3 +63,43 @@ def deserialize_aws_json_1_1(data: dict) -> RemoveIpRoutesRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RemoveIpRoutesRequest) -> dict:
+    out: dict = {}
+    out["DirectoryId"] = value["directory_id"]
+    if "cidr_ips" in value:
+        import capo_directory_service.types.cidr_ips
+
+        out["CidrIps"] = capo_directory_service.types.cidr_ips.serialize_cbor(
+            value["cidr_ips"]
+        )
+    if "cidr_ipv6s" in value:
+        import capo_directory_service.types.cidr_ipv6s
+
+        out["CidrIpv6s"] = capo_directory_service.types.cidr_ipv6s.serialize_cbor(
+            value["cidr_ipv6s"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RemoveIpRoutesRequest:
+    out: RemoveIpRoutesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    if data.get("CidrIps") is not None:
+        import capo_directory_service.types.cidr_ips
+
+        out["cidr_ips"] = capo_directory_service.types.cidr_ips.deserialize_cbor(
+            data["CidrIps"]
+        )
+    if data.get("CidrIpv6s") is not None:
+        import capo_directory_service.types.cidr_ipv6s
+
+        out["cidr_ipv6s"] = capo_directory_service.types.cidr_ipv6s.deserialize_cbor(
+            data["CidrIpv6s"]
+        )
+    return out

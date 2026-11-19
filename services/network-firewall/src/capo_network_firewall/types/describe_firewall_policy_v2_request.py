@@ -58,3 +58,38 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeFirewallPolicyV2Request:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeFirewallPolicyV2Request) -> dict:
+    out: dict = {}
+    if "firewall_policy_v2_arn" in value:
+        out["FirewallPolicyV2Arn"] = value["firewall_policy_v2_arn"]
+    if "firewall_policy_v2_name" in value:
+        out["FirewallPolicyV2Name"] = value["firewall_policy_v2_name"]
+    if "rule_output_format" in value:
+        import capo_network_firewall.types.rule_output_format
+
+        out["RuleOutputFormat"] = (
+            capo_network_firewall.types.rule_output_format.serialize_cbor(
+                value["rule_output_format"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeFirewallPolicyV2Request:
+    out: DescribeFirewallPolicyV2Request = {}  # type: ignore[typeddict-item]
+    if data.get("FirewallPolicyV2Arn") is not None:
+        out["firewall_policy_v2_arn"] = data["FirewallPolicyV2Arn"]
+    if data.get("FirewallPolicyV2Name") is not None:
+        out["firewall_policy_v2_name"] = data["FirewallPolicyV2Name"]
+    if data.get("RuleOutputFormat") is not None:
+        import capo_network_firewall.types.rule_output_format
+
+        out["rule_output_format"] = (
+            capo_network_firewall.types.rule_output_format.deserialize_cbor(
+                data["RuleOutputFormat"]
+            )
+        )
+    return out

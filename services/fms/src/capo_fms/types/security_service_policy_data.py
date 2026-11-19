@@ -63,3 +63,45 @@ def deserialize_aws_json_1_1(data: dict) -> SecurityServicePolicyData:
             data["PolicyOption"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SecurityServicePolicyData) -> dict:
+    out: dict = {}
+    import capo_fms.types.security_service_type
+
+    out["Type"] = capo_fms.types.security_service_type.serialize_cbor(value["type"])
+    if "managed_service_data" in value:
+        out["ManagedServiceData"] = value["managed_service_data"]
+    if "policy_option" in value:
+        import capo_fms.types.policy_option
+
+        out["PolicyOption"] = capo_fms.types.policy_option.serialize_cbor(
+            value["policy_option"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> SecurityServicePolicyData:
+    out: SecurityServicePolicyData = {}  # type: ignore[typeddict-item]
+    if data.get("Type") is not None:
+        import capo_fms.types.security_service_type
+
+        out["type"] = capo_fms.types.security_service_type.deserialize_cbor(
+            data["Type"]
+        )
+    else:
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_fms.types.security_service_type.SecurityServiceType", ""
+        )
+    if data.get("ManagedServiceData") is not None:
+        out["managed_service_data"] = data["ManagedServiceData"]
+    if data.get("PolicyOption") is not None:
+        import capo_fms.types.policy_option
+
+        out["policy_option"] = capo_fms.types.policy_option.deserialize_cbor(
+            data["PolicyOption"]
+        )
+    return out

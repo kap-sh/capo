@@ -36,6 +36,29 @@ def deserialize_aws_json_1_1(data: dict) -> CreateGameSessionOutput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateGameSessionOutput) -> dict:
+    out: dict = {}
+    if "game_session" in value:
+        import capo_gamelift.types.game_session
+
+        out["GameSession"] = capo_gamelift.types.game_session.serialize_cbor(
+            value["game_session"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateGameSessionOutput:
+    out: CreateGameSessionOutput = {}  # type: ignore[typeddict-item]
+    if data.get("GameSession") is not None:
+        import capo_gamelift.types.game_session
+
+        out["game_session"] = capo_gamelift.types.game_session.deserialize_cbor(
+            data["GameSession"]
+        )
+    return out
+
+
 def redact_sensitive(value: CreateGameSessionOutput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "game_session" in value:

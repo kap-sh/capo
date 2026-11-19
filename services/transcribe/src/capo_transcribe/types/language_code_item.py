@@ -55,3 +55,30 @@ def deserialize_aws_json_1_1(data: dict) -> LanguageCodeItem:
     if data.get("DurationInSeconds") is not None:
         out["duration_in_seconds"] = float(data["DurationInSeconds"])
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LanguageCodeItem) -> dict:
+    out: dict = {}
+    if "language_code" in value:
+        import capo_transcribe.types.language_code
+
+        out["LanguageCode"] = capo_transcribe.types.language_code.serialize_cbor(
+            value["language_code"]
+        )
+    if "duration_in_seconds" in value:
+        out["DurationInSeconds"] = value["duration_in_seconds"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> LanguageCodeItem:
+    out: LanguageCodeItem = {}  # type: ignore[typeddict-item]
+    if data.get("LanguageCode") is not None:
+        import capo_transcribe.types.language_code
+
+        out["language_code"] = capo_transcribe.types.language_code.deserialize_cbor(
+            data["LanguageCode"]
+        )
+    if data.get("DurationInSeconds") is not None:
+        out["duration_in_seconds"] = float(data["DurationInSeconds"])
+    return out

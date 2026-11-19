@@ -37,3 +37,28 @@ def deserialize_aws_json_1_0(data: list) -> InferredWorkloadSavings:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InferredWorkloadSavings) -> list:
+    import capo_compute_optimizer.types.inferred_workload_saving
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_compute_optimizer.types.inferred_workload_saving.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> InferredWorkloadSavings:
+    import capo_compute_optimizer.types.inferred_workload_saving
+
+    out: InferredWorkloadSavings = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_compute_optimizer.types.inferred_workload_saving.deserialize_cbor(item)
+        )
+    return out

@@ -134,6 +134,89 @@ def deserialize_aws_json_1_0(data: dict) -> AcceptAgreementPaymentRequestOutput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AcceptAgreementPaymentRequestOutput) -> dict:
+    out: dict = {}
+    if "payment_request_id" in value:
+        out["paymentRequestId"] = value["payment_request_id"]
+    if "agreement_id" in value:
+        out["agreementId"] = value["agreement_id"]
+    if "status" in value:
+        import capo_marketplace_agreement.types.payment_request_status
+
+        out["status"] = (
+            capo_marketplace_agreement.types.payment_request_status.serialize_cbor(
+                value["status"]
+            )
+        )
+    if "name" in value:
+        out["name"] = value["name"]
+    if "description" in value:
+        out["description"] = value["description"]
+    if "charge_amount" in value:
+        out["chargeAmount"] = value["charge_amount"]
+    if "currency_code" in value:
+        out["currencyCode"] = value["currency_code"]
+    if "created_at" in value:
+        import capo_marketplace_agreement.types._prelude.timestamp
+
+        out["createdAt"] = (
+            capo_marketplace_agreement.types._prelude.timestamp.serialize_cbor(
+                value["created_at"]
+            )
+        )
+    if "updated_at" in value:
+        import capo_marketplace_agreement.types._prelude.timestamp
+
+        out["updatedAt"] = (
+            capo_marketplace_agreement.types._prelude.timestamp.serialize_cbor(
+                value["updated_at"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AcceptAgreementPaymentRequestOutput:
+    out: AcceptAgreementPaymentRequestOutput = {}  # type: ignore[typeddict-item]
+    if data.get("paymentRequestId") is not None:
+        out["payment_request_id"] = data["paymentRequestId"]
+    if data.get("agreementId") is not None:
+        out["agreement_id"] = data["agreementId"]
+    if data.get("status") is not None:
+        import capo_marketplace_agreement.types.payment_request_status
+
+        out["status"] = (
+            capo_marketplace_agreement.types.payment_request_status.deserialize_cbor(
+                data["status"]
+            )
+        )
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    if data.get("description") is not None:
+        out["description"] = data["description"]
+    if data.get("chargeAmount") is not None:
+        out["charge_amount"] = data["chargeAmount"]
+    if data.get("currencyCode") is not None:
+        out["currency_code"] = data["currencyCode"]
+    if data.get("createdAt") is not None:
+        import capo_marketplace_agreement.types._prelude.timestamp
+
+        out["created_at"] = (
+            capo_marketplace_agreement.types._prelude.timestamp.deserialize_cbor(
+                data["createdAt"]
+            )
+        )
+    if data.get("updatedAt") is not None:
+        import capo_marketplace_agreement.types._prelude.timestamp
+
+        out["updated_at"] = (
+            capo_marketplace_agreement.types._prelude.timestamp.deserialize_cbor(
+                data["updatedAt"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: AcceptAgreementPaymentRequestOutput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "description" in value:

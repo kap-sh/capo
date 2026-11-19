@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: AddressFamily) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> AddressFamily:
     return cast(AddressFamily, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AddressFamily) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> AddressFamily:
+    return cast(AddressFamily, data)

@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> StopSandboxInput:
     else:
         out["id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StopSandboxInput) -> dict:
+    out: dict = {}
+    out["id"] = value["id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StopSandboxInput:
+    out: StopSandboxInput = {}  # type: ignore[typeddict-item]
+    if data.get("id") is not None:
+        out["id"] = data["id"]
+    else:
+        out["id"] = ""
+    return out

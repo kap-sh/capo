@@ -43,3 +43,30 @@ def deserialize_aws_json_1_1(data: dict) -> UpdatePortfolioShareOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdatePortfolioShareOutput) -> dict:
+    out: dict = {}
+    if "portfolio_share_token" in value:
+        out["PortfolioShareToken"] = value["portfolio_share_token"]
+    if "status" in value:
+        import capo_service_catalog.types.share_status
+
+        out["Status"] = capo_service_catalog.types.share_status.serialize_cbor(
+            value["status"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdatePortfolioShareOutput:
+    out: UpdatePortfolioShareOutput = {}  # type: ignore[typeddict-item]
+    if data.get("PortfolioShareToken") is not None:
+        out["portfolio_share_token"] = data["PortfolioShareToken"]
+    if data.get("Status") is not None:
+        import capo_service_catalog.types.share_status
+
+        out["status"] = capo_service_catalog.types.share_status.deserialize_cbor(
+            data["Status"]
+        )
+    return out

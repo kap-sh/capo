@@ -114,3 +114,63 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeCodeCoveragesInput:
     if data.get("maxLineCoveragePercentage") is not None:
         out["max_line_coverage_percentage"] = float(data["maxLineCoveragePercentage"])
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeCodeCoveragesInput) -> dict:
+    out: dict = {}
+    out["reportArn"] = value["report_arn"]
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    if "sort_order" in value:
+        import capo_codebuild.types.sort_order_type
+
+        out["sortOrder"] = capo_codebuild.types.sort_order_type.serialize_cbor(
+            value["sort_order"]
+        )
+    if "sort_by" in value:
+        import capo_codebuild.types.report_code_coverage_sort_by_type
+
+        out["sortBy"] = (
+            capo_codebuild.types.report_code_coverage_sort_by_type.serialize_cbor(
+                value["sort_by"]
+            )
+        )
+    if "min_line_coverage_percentage" in value:
+        out["minLineCoveragePercentage"] = value["min_line_coverage_percentage"]
+    if "max_line_coverage_percentage" in value:
+        out["maxLineCoveragePercentage"] = value["max_line_coverage_percentage"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeCodeCoveragesInput:
+    out: DescribeCodeCoveragesInput = {}  # type: ignore[typeddict-item]
+    if data.get("reportArn") is not None:
+        out["report_arn"] = data["reportArn"]
+    else:
+        out["report_arn"] = ""
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    if data.get("sortOrder") is not None:
+        import capo_codebuild.types.sort_order_type
+
+        out["sort_order"] = capo_codebuild.types.sort_order_type.deserialize_cbor(
+            data["sortOrder"]
+        )
+    if data.get("sortBy") is not None:
+        import capo_codebuild.types.report_code_coverage_sort_by_type
+
+        out["sort_by"] = (
+            capo_codebuild.types.report_code_coverage_sort_by_type.deserialize_cbor(
+                data["sortBy"]
+            )
+        )
+    if data.get("minLineCoveragePercentage") is not None:
+        out["min_line_coverage_percentage"] = float(data["minLineCoveragePercentage"])
+    if data.get("maxLineCoveragePercentage") is not None:
+        out["max_line_coverage_percentage"] = float(data["maxLineCoveragePercentage"])
+    return out

@@ -18,3 +18,12 @@ def serialize_aws_json_1_0(value: AgreementEntitlementStatus) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> AgreementEntitlementStatus:
     return cast(AgreementEntitlementStatus, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AgreementEntitlementStatus) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> AgreementEntitlementStatus:
+    return cast(AgreementEntitlementStatus, data)

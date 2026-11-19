@@ -16,3 +16,14 @@ def serialize_aws_json_1_1(value: CreateVpcPeeringConnectionOutput) -> dict:
 def deserialize_aws_json_1_1(data: dict) -> CreateVpcPeeringConnectionOutput:
     out: CreateVpcPeeringConnectionOutput = {}  # type: ignore[typeddict-item]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateVpcPeeringConnectionOutput) -> dict:
+    out: dict = {}
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateVpcPeeringConnectionOutput:
+    out: CreateVpcPeeringConnectionOutput = {}  # type: ignore[typeddict-item]
+    return out

@@ -178,3 +178,116 @@ def deserialize_aws_json_1_1(data: dict) -> Report:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Report) -> dict:
+    out: dict = {}
+    if "arn" in value:
+        out["arn"] = value["arn"]
+    if "type" in value:
+        import capo_codebuild.types.report_type
+
+        out["type"] = capo_codebuild.types.report_type.serialize_cbor(value["type"])
+    if "name" in value:
+        out["name"] = value["name"]
+    if "report_group_arn" in value:
+        out["reportGroupArn"] = value["report_group_arn"]
+    if "execution_id" in value:
+        out["executionId"] = value["execution_id"]
+    if "status" in value:
+        import capo_codebuild.types.report_status_type
+
+        out["status"] = capo_codebuild.types.report_status_type.serialize_cbor(
+            value["status"]
+        )
+    if "created" in value:
+        import capo_codebuild.types.timestamp
+
+        out["created"] = capo_codebuild.types.timestamp.serialize_cbor(value["created"])
+    if "expired" in value:
+        import capo_codebuild.types.timestamp
+
+        out["expired"] = capo_codebuild.types.timestamp.serialize_cbor(value["expired"])
+    if "export_config" in value:
+        import capo_codebuild.types.report_export_config
+
+        out["exportConfig"] = capo_codebuild.types.report_export_config.serialize_cbor(
+            value["export_config"]
+        )
+    if "truncated" in value:
+        out["truncated"] = value["truncated"]
+    if "test_summary" in value:
+        import capo_codebuild.types.test_report_summary
+
+        out["testSummary"] = capo_codebuild.types.test_report_summary.serialize_cbor(
+            value["test_summary"]
+        )
+    if "code_coverage_summary" in value:
+        import capo_codebuild.types.code_coverage_report_summary
+
+        out["codeCoverageSummary"] = (
+            capo_codebuild.types.code_coverage_report_summary.serialize_cbor(
+                value["code_coverage_summary"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Report:
+    out: Report = {}  # type: ignore[typeddict-item]
+    if data.get("arn") is not None:
+        out["arn"] = data["arn"]
+    if data.get("type") is not None:
+        import capo_codebuild.types.report_type
+
+        out["type"] = capo_codebuild.types.report_type.deserialize_cbor(data["type"])
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    if data.get("reportGroupArn") is not None:
+        out["report_group_arn"] = data["reportGroupArn"]
+    if data.get("executionId") is not None:
+        out["execution_id"] = data["executionId"]
+    if data.get("status") is not None:
+        import capo_codebuild.types.report_status_type
+
+        out["status"] = capo_codebuild.types.report_status_type.deserialize_cbor(
+            data["status"]
+        )
+    if data.get("created") is not None:
+        import capo_codebuild.types.timestamp
+
+        out["created"] = capo_codebuild.types.timestamp.deserialize_cbor(
+            data["created"]
+        )
+    if data.get("expired") is not None:
+        import capo_codebuild.types.timestamp
+
+        out["expired"] = capo_codebuild.types.timestamp.deserialize_cbor(
+            data["expired"]
+        )
+    if data.get("exportConfig") is not None:
+        import capo_codebuild.types.report_export_config
+
+        out["export_config"] = (
+            capo_codebuild.types.report_export_config.deserialize_cbor(
+                data["exportConfig"]
+            )
+        )
+    if data.get("truncated") is not None:
+        out["truncated"] = data["truncated"]
+    if data.get("testSummary") is not None:
+        import capo_codebuild.types.test_report_summary
+
+        out["test_summary"] = capo_codebuild.types.test_report_summary.deserialize_cbor(
+            data["testSummary"]
+        )
+    if data.get("codeCoverageSummary") is not None:
+        import capo_codebuild.types.code_coverage_report_summary
+
+        out["code_coverage_summary"] = (
+            capo_codebuild.types.code_coverage_report_summary.deserialize_cbor(
+                data["codeCoverageSummary"]
+            )
+        )
+    return out

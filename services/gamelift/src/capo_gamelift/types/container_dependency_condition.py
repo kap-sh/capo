@@ -17,3 +17,12 @@ def serialize_aws_json_1_1(value: ContainerDependencyCondition) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> ContainerDependencyCondition:
     return cast(ContainerDependencyCondition, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ContainerDependencyCondition) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ContainerDependencyCondition:
+    return cast(ContainerDependencyCondition, data)

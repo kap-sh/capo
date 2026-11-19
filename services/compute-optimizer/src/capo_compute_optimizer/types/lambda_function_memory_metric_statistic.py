@@ -16,3 +16,12 @@ def serialize_aws_json_1_0(value: LambdaFunctionMemoryMetricStatistic) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> LambdaFunctionMemoryMetricStatistic:
     return cast(LambdaFunctionMemoryMetricStatistic, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LambdaFunctionMemoryMetricStatistic) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> LambdaFunctionMemoryMetricStatistic:
+    return cast(LambdaFunctionMemoryMetricStatistic, data)

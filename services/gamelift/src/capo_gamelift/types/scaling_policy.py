@@ -211,3 +211,140 @@ def deserialize_aws_json_1_1(data: dict) -> ScalingPolicy:
     if data.get("Location") is not None:
         out["location"] = data["Location"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ScalingPolicy) -> dict:
+    out: dict = {}
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "fleet_arn" in value:
+        out["FleetArn"] = value["fleet_arn"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "status" in value:
+        import capo_gamelift.types.scaling_status_type
+
+        out["Status"] = capo_gamelift.types.scaling_status_type.serialize_cbor(
+            value["status"]
+        )
+    if "scaling_adjustment" in value:
+        out["ScalingAdjustment"] = value["scaling_adjustment"]
+    if "scaling_adjustment_type" in value:
+        import capo_gamelift.types.scaling_adjustment_type
+
+        out["ScalingAdjustmentType"] = (
+            capo_gamelift.types.scaling_adjustment_type.serialize_cbor(
+                value["scaling_adjustment_type"]
+            )
+        )
+    if "comparison_operator" in value:
+        import capo_gamelift.types.comparison_operator_type
+
+        out["ComparisonOperator"] = (
+            capo_gamelift.types.comparison_operator_type.serialize_cbor(
+                value["comparison_operator"]
+            )
+        )
+    if "threshold" in value:
+        out["Threshold"] = value["threshold"]
+    if "evaluation_periods" in value:
+        out["EvaluationPeriods"] = value["evaluation_periods"]
+    if "metric_name" in value:
+        import capo_gamelift.types.metric_name
+
+        out["MetricName"] = capo_gamelift.types.metric_name.serialize_cbor(
+            value["metric_name"]
+        )
+    if "policy_type" in value:
+        import capo_gamelift.types.policy_type
+
+        out["PolicyType"] = capo_gamelift.types.policy_type.serialize_cbor(
+            value["policy_type"]
+        )
+    if "target_configuration" in value:
+        import capo_gamelift.types.target_configuration
+
+        out["TargetConfiguration"] = (
+            capo_gamelift.types.target_configuration.serialize_cbor(
+                value["target_configuration"]
+            )
+        )
+    if "update_status" in value:
+        import capo_gamelift.types.location_update_status
+
+        out["UpdateStatus"] = capo_gamelift.types.location_update_status.serialize_cbor(
+            value["update_status"]
+        )
+    if "location" in value:
+        out["Location"] = value["location"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ScalingPolicy:
+    out: ScalingPolicy = {}  # type: ignore[typeddict-item]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("FleetArn") is not None:
+        out["fleet_arn"] = data["FleetArn"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Status") is not None:
+        import capo_gamelift.types.scaling_status_type
+
+        out["status"] = capo_gamelift.types.scaling_status_type.deserialize_cbor(
+            data["Status"]
+        )
+    if data.get("ScalingAdjustment") is not None:
+        out["scaling_adjustment"] = data["ScalingAdjustment"]
+    if data.get("ScalingAdjustmentType") is not None:
+        import capo_gamelift.types.scaling_adjustment_type
+
+        out["scaling_adjustment_type"] = (
+            capo_gamelift.types.scaling_adjustment_type.deserialize_cbor(
+                data["ScalingAdjustmentType"]
+            )
+        )
+    if data.get("ComparisonOperator") is not None:
+        import capo_gamelift.types.comparison_operator_type
+
+        out["comparison_operator"] = (
+            capo_gamelift.types.comparison_operator_type.deserialize_cbor(
+                data["ComparisonOperator"]
+            )
+        )
+    if data.get("Threshold") is not None:
+        out["threshold"] = float(data["Threshold"])
+    if data.get("EvaluationPeriods") is not None:
+        out["evaluation_periods"] = data["EvaluationPeriods"]
+    if data.get("MetricName") is not None:
+        import capo_gamelift.types.metric_name
+
+        out["metric_name"] = capo_gamelift.types.metric_name.deserialize_cbor(
+            data["MetricName"]
+        )
+    if data.get("PolicyType") is not None:
+        import capo_gamelift.types.policy_type
+
+        out["policy_type"] = capo_gamelift.types.policy_type.deserialize_cbor(
+            data["PolicyType"]
+        )
+    if data.get("TargetConfiguration") is not None:
+        import capo_gamelift.types.target_configuration
+
+        out["target_configuration"] = (
+            capo_gamelift.types.target_configuration.deserialize_cbor(
+                data["TargetConfiguration"]
+            )
+        )
+    if data.get("UpdateStatus") is not None:
+        import capo_gamelift.types.location_update_status
+
+        out["update_status"] = (
+            capo_gamelift.types.location_update_status.deserialize_cbor(
+                data["UpdateStatus"]
+            )
+        )
+    if data.get("Location") is not None:
+        out["location"] = data["Location"]
+    return out

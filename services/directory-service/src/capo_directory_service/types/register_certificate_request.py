@@ -75,3 +75,52 @@ def deserialize_aws_json_1_1(data: dict) -> RegisterCertificateRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RegisterCertificateRequest) -> dict:
+    out: dict = {}
+    out["DirectoryId"] = value["directory_id"]
+    out["CertificateData"] = value["certificate_data"]
+    if "type" in value:
+        import capo_directory_service.types.certificate_type
+
+        out["Type"] = capo_directory_service.types.certificate_type.serialize_cbor(
+            value["type"]
+        )
+    if "client_cert_auth_settings" in value:
+        import capo_directory_service.types.client_cert_auth_settings
+
+        out["ClientCertAuthSettings"] = (
+            capo_directory_service.types.client_cert_auth_settings.serialize_cbor(
+                value["client_cert_auth_settings"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RegisterCertificateRequest:
+    out: RegisterCertificateRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    if data.get("CertificateData") is not None:
+        out["certificate_data"] = data["CertificateData"]
+    else:
+        out["certificate_data"] = ""
+    if data.get("Type") is not None:
+        import capo_directory_service.types.certificate_type
+
+        out["type"] = capo_directory_service.types.certificate_type.deserialize_cbor(
+            data["Type"]
+        )
+    if data.get("ClientCertAuthSettings") is not None:
+        import capo_directory_service.types.client_cert_auth_settings
+
+        out["client_cert_auth_settings"] = (
+            capo_directory_service.types.client_cert_auth_settings.deserialize_cbor(
+                data["ClientCertAuthSettings"]
+            )
+        )
+    return out

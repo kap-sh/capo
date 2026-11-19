@@ -30,6 +30,21 @@ def deserialize_aws_json_1_1(data: dict) -> ACLAlreadyExistsFault_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ACLAlreadyExistsFault_) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ACLAlreadyExistsFault_:
+    out: ACLAlreadyExistsFault_ = {}  # type: ignore[typeddict-item]
+    if data.get("message") is not None:
+        out["message"] = data["message"]
+    return out
+
+
 class ACLAlreadyExistsFault(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.memorydb#ACLAlreadyExistsFault``."""
 
@@ -57,3 +72,9 @@ class ACLAlreadyExistsFault(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ACLAlreadyExistsFault":
         return cls(deserialize_aws_json_1_1(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "ACLAlreadyExistsFault":
+        return cls(deserialize_cbor(data), message, response=response)

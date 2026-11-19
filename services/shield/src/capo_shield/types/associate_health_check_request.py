@@ -35,3 +35,24 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateHealthCheckRequest:
     else:
         out["health_check_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AssociateHealthCheckRequest) -> dict:
+    out: dict = {}
+    out["ProtectionId"] = value["protection_id"]
+    out["HealthCheckArn"] = value["health_check_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AssociateHealthCheckRequest:
+    out: AssociateHealthCheckRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ProtectionId") is not None:
+        out["protection_id"] = data["ProtectionId"]
+    else:
+        out["protection_id"] = ""
+    if data.get("HealthCheckArn") is not None:
+        out["health_check_arn"] = data["HealthCheckArn"]
+    else:
+        out["health_check_arn"] = ""
+    return out

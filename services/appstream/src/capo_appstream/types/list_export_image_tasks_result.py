@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> ListExportImageTasksResult:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListExportImageTasksResult) -> dict:
+    out: dict = {}
+    if "export_image_tasks" in value:
+        import capo_appstream.types.export_image_tasks
+
+        out["ExportImageTasks"] = (
+            capo_appstream.types.export_image_tasks.serialize_cbor(
+                value["export_image_tasks"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListExportImageTasksResult:
+    out: ListExportImageTasksResult = {}  # type: ignore[typeddict-item]
+    if data.get("ExportImageTasks") is not None:
+        import capo_appstream.types.export_image_tasks
+
+        out["export_image_tasks"] = (
+            capo_appstream.types.export_image_tasks.deserialize_cbor(
+                data["ExportImageTasks"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

@@ -26,6 +26,22 @@ def deserialize_aws_json_1_0(data: dict) -> InterconnectServerException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InterconnectServerException_) -> dict:
+    out: dict = {}
+    out["message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> InterconnectServerException_:
+    out: InterconnectServerException_ = {}  # type: ignore[typeddict-item]
+    if data.get("message") is not None:
+        out["message"] = data["message"]
+    else:
+        out["message"] = ""
+    return out
+
+
 class InterconnectServerException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.interconnect#InterconnectServerException``."""
 
@@ -53,3 +69,9 @@ class InterconnectServerException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InterconnectServerException":
         return cls(deserialize_aws_json_1_0(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "InterconnectServerException":
+        return cls(deserialize_cbor(data), message, response=response)

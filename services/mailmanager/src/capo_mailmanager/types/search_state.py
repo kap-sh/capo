@@ -18,3 +18,12 @@ def serialize_aws_json_1_0(value: SearchState) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> SearchState:
     return cast(SearchState, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SearchState) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> SearchState:
+    return cast(SearchState, data)

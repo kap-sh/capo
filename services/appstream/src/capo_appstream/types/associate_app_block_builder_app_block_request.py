@@ -33,3 +33,22 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateAppBlockBuilderAppBlockRequ
     if data.get("AppBlockBuilderName") is not None:
         out["app_block_builder_name"] = data["AppBlockBuilderName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AssociateAppBlockBuilderAppBlockRequest) -> dict:
+    out: dict = {}
+    if "app_block_arn" in value:
+        out["AppBlockArn"] = value["app_block_arn"]
+    if "app_block_builder_name" in value:
+        out["AppBlockBuilderName"] = value["app_block_builder_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AssociateAppBlockBuilderAppBlockRequest:
+    out: AssociateAppBlockBuilderAppBlockRequest = {}  # type: ignore[typeddict-item]
+    if data.get("AppBlockArn") is not None:
+        out["app_block_arn"] = data["AppBlockArn"]
+    if data.get("AppBlockBuilderName") is not None:
+        out["app_block_builder_name"] = data["AppBlockBuilderName"]
+    return out

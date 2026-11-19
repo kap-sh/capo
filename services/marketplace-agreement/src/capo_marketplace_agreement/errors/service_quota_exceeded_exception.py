@@ -72,6 +72,41 @@ def deserialize_aws_json_1_0(data: dict) -> ServiceQuotaExceededException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ServiceQuotaExceededException_) -> dict:
+    out: dict = {}
+    if "request_id" in value:
+        out["requestId"] = value["request_id"]
+    if "message" in value:
+        out["message"] = value["message"]
+    if "quota_code" in value:
+        out["quotaCode"] = value["quota_code"]
+    if "service_code" in value:
+        out["serviceCode"] = value["service_code"]
+    if "resource_type" in value:
+        out["resourceType"] = value["resource_type"]
+    if "resource_id" in value:
+        out["resourceId"] = value["resource_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ServiceQuotaExceededException_:
+    out: ServiceQuotaExceededException_ = {}  # type: ignore[typeddict-item]
+    if data.get("requestId") is not None:
+        out["request_id"] = data["requestId"]
+    if data.get("message") is not None:
+        out["message"] = data["message"]
+    if data.get("quotaCode") is not None:
+        out["quota_code"] = data["quotaCode"]
+    if data.get("serviceCode") is not None:
+        out["service_code"] = data["serviceCode"]
+    if data.get("resourceType") is not None:
+        out["resource_type"] = data["resourceType"]
+    if data.get("resourceId") is not None:
+        out["resource_id"] = data["resourceId"]
+    return out
+
+
 class ServiceQuotaExceededException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.marketplaceagreement#ServiceQuotaExceededException``."""
 
@@ -99,3 +134,9 @@ class ServiceQuotaExceededException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ServiceQuotaExceededException":
         return cls(deserialize_aws_json_1_0(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "ServiceQuotaExceededException":
+        return cls(deserialize_cbor(data), message, response=response)

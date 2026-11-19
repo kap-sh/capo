@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> GameSessionQueueDestination:
     if data.get("DestinationArn") is not None:
         out["destination_arn"] = data["DestinationArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GameSessionQueueDestination) -> dict:
+    out: dict = {}
+    if "destination_arn" in value:
+        out["DestinationArn"] = value["destination_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GameSessionQueueDestination:
+    out: GameSessionQueueDestination = {}  # type: ignore[typeddict-item]
+    if data.get("DestinationArn") is not None:
+        out["destination_arn"] = data["DestinationArn"]
+    return out

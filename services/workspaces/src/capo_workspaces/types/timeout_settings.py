@@ -50,3 +50,30 @@ def deserialize_aws_json_1_1(data: dict) -> TimeoutSettings:
     if data.get("MaxUserDurationInSeconds") is not None:
         out["max_user_duration_in_seconds"] = data["MaxUserDurationInSeconds"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TimeoutSettings) -> dict:
+    out: dict = {}
+    if "disconnect_timeout_in_seconds" in value:
+        out["DisconnectTimeoutInSeconds"] = value["disconnect_timeout_in_seconds"]
+    if "idle_disconnect_timeout_in_seconds" in value:
+        out["IdleDisconnectTimeoutInSeconds"] = value[
+            "idle_disconnect_timeout_in_seconds"
+        ]
+    if "max_user_duration_in_seconds" in value:
+        out["MaxUserDurationInSeconds"] = value["max_user_duration_in_seconds"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> TimeoutSettings:
+    out: TimeoutSettings = {}  # type: ignore[typeddict-item]
+    if data.get("DisconnectTimeoutInSeconds") is not None:
+        out["disconnect_timeout_in_seconds"] = data["DisconnectTimeoutInSeconds"]
+    if data.get("IdleDisconnectTimeoutInSeconds") is not None:
+        out["idle_disconnect_timeout_in_seconds"] = data[
+            "IdleDisconnectTimeoutInSeconds"
+        ]
+    if data.get("MaxUserDurationInSeconds") is not None:
+        out["max_user_duration_in_seconds"] = data["MaxUserDurationInSeconds"]
+    return out

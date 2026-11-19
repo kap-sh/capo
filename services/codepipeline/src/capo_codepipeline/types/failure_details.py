@@ -56,3 +56,38 @@ def deserialize_aws_json_1_1(data: dict) -> FailureDetails:
     if data.get("externalExecutionId") is not None:
         out["external_execution_id"] = data["externalExecutionId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FailureDetails) -> dict:
+    out: dict = {}
+    import capo_codepipeline.types.failure_type
+
+    out["type"] = capo_codepipeline.types.failure_type.serialize_cbor(value["type"])
+    out["message"] = value["message"]
+    if "external_execution_id" in value:
+        out["externalExecutionId"] = value["external_execution_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> FailureDetails:
+    out: FailureDetails = {}  # type: ignore[typeddict-item]
+    if data.get("type") is not None:
+        import capo_codepipeline.types.failure_type
+
+        out["type"] = capo_codepipeline.types.failure_type.deserialize_cbor(
+            data["type"]
+        )
+    else:
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_codepipeline.types.failure_type.FailureType", ""
+        )
+    if data.get("message") is not None:
+        out["message"] = data["message"]
+    else:
+        out["message"] = ""
+    if data.get("externalExecutionId") is not None:
+        out["external_execution_id"] = data["externalExecutionId"]
+    return out

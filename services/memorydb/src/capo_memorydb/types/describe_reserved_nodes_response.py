@@ -47,3 +47,30 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeReservedNodesResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeReservedNodesResponse) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "reserved_nodes" in value:
+        import capo_memorydb.types.reserved_node_list
+
+        out["ReservedNodes"] = capo_memorydb.types.reserved_node_list.serialize_cbor(
+            value["reserved_nodes"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeReservedNodesResponse:
+    out: DescribeReservedNodesResponse = {}  # type: ignore[typeddict-item]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("ReservedNodes") is not None:
+        import capo_memorydb.types.reserved_node_list
+
+        out["reserved_nodes"] = capo_memorydb.types.reserved_node_list.deserialize_cbor(
+            data["ReservedNodes"]
+        )
+    return out

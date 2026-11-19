@@ -99,3 +99,64 @@ def deserialize_aws_json_1_1(data: dict) -> GetMedicalVocabularyResponse:
     if data.get("DownloadUri") is not None:
         out["download_uri"] = data["DownloadUri"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetMedicalVocabularyResponse) -> dict:
+    out: dict = {}
+    if "vocabulary_name" in value:
+        out["VocabularyName"] = value["vocabulary_name"]
+    if "language_code" in value:
+        import capo_transcribe.types.language_code
+
+        out["LanguageCode"] = capo_transcribe.types.language_code.serialize_cbor(
+            value["language_code"]
+        )
+    if "vocabulary_state" in value:
+        import capo_transcribe.types.vocabulary_state
+
+        out["VocabularyState"] = capo_transcribe.types.vocabulary_state.serialize_cbor(
+            value["vocabulary_state"]
+        )
+    if "last_modified_time" in value:
+        import capo_transcribe.types.date_time
+
+        out["LastModifiedTime"] = capo_transcribe.types.date_time.serialize_cbor(
+            value["last_modified_time"]
+        )
+    if "failure_reason" in value:
+        out["FailureReason"] = value["failure_reason"]
+    if "download_uri" in value:
+        out["DownloadUri"] = value["download_uri"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetMedicalVocabularyResponse:
+    out: GetMedicalVocabularyResponse = {}  # type: ignore[typeddict-item]
+    if data.get("VocabularyName") is not None:
+        out["vocabulary_name"] = data["VocabularyName"]
+    if data.get("LanguageCode") is not None:
+        import capo_transcribe.types.language_code
+
+        out["language_code"] = capo_transcribe.types.language_code.deserialize_cbor(
+            data["LanguageCode"]
+        )
+    if data.get("VocabularyState") is not None:
+        import capo_transcribe.types.vocabulary_state
+
+        out["vocabulary_state"] = (
+            capo_transcribe.types.vocabulary_state.deserialize_cbor(
+                data["VocabularyState"]
+            )
+        )
+    if data.get("LastModifiedTime") is not None:
+        import capo_transcribe.types.date_time
+
+        out["last_modified_time"] = capo_transcribe.types.date_time.deserialize_cbor(
+            data["LastModifiedTime"]
+        )
+    if data.get("FailureReason") is not None:
+        out["failure_reason"] = data["FailureReason"]
+    if data.get("DownloadUri") is not None:
+        out["download_uri"] = data["DownloadUri"]
+    return out

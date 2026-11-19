@@ -68,3 +68,46 @@ def deserialize_aws_json_1_1(data: dict) -> ListTranscriptionJobsResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListTranscriptionJobsResponse) -> dict:
+    out: dict = {}
+    if "status" in value:
+        import capo_transcribe.types.transcription_job_status
+
+        out["Status"] = capo_transcribe.types.transcription_job_status.serialize_cbor(
+            value["status"]
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "transcription_job_summaries" in value:
+        import capo_transcribe.types.transcription_job_summaries
+
+        out["TranscriptionJobSummaries"] = (
+            capo_transcribe.types.transcription_job_summaries.serialize_cbor(
+                value["transcription_job_summaries"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListTranscriptionJobsResponse:
+    out: ListTranscriptionJobsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Status") is not None:
+        import capo_transcribe.types.transcription_job_status
+
+        out["status"] = capo_transcribe.types.transcription_job_status.deserialize_cbor(
+            data["Status"]
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("TranscriptionJobSummaries") is not None:
+        import capo_transcribe.types.transcription_job_summaries
+
+        out["transcription_job_summaries"] = (
+            capo_transcribe.types.transcription_job_summaries.deserialize_cbor(
+                data["TranscriptionJobSummaries"]
+            )
+        )
+    return out

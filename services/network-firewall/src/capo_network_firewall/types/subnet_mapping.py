@@ -50,3 +50,35 @@ def deserialize_aws_json_1_0(data: dict) -> SubnetMapping:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SubnetMapping) -> dict:
+    out: dict = {}
+    out["SubnetId"] = value["subnet_id"]
+    if "ip_address_type" in value:
+        import capo_network_firewall.types.ip_address_type
+
+        out["IPAddressType"] = (
+            capo_network_firewall.types.ip_address_type.serialize_cbor(
+                value["ip_address_type"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> SubnetMapping:
+    out: SubnetMapping = {}  # type: ignore[typeddict-item]
+    if data.get("SubnetId") is not None:
+        out["subnet_id"] = data["SubnetId"]
+    else:
+        out["subnet_id"] = ""
+    if data.get("IPAddressType") is not None:
+        import capo_network_firewall.types.ip_address_type
+
+        out["ip_address_type"] = (
+            capo_network_firewall.types.ip_address_type.deserialize_cbor(
+                data["IPAddressType"]
+            )
+        )
+    return out

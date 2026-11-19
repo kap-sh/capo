@@ -145,3 +145,103 @@ def deserialize_aws_json_1_0(data: dict) -> AbbreviatedPlan:
     if data.get("recoveryTimeObjectiveMinutes") is not None:
         out["recovery_time_objective_minutes"] = data["recoveryTimeObjectiveMinutes"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AbbreviatedPlan) -> dict:
+    out: dict = {}
+    out["arn"] = value["arn"]
+    out["owner"] = value["owner"]
+    out["name"] = value["name"]
+    import capo_arc_region_switch.types.region_list
+
+    out["regions"] = capo_arc_region_switch.types.region_list.serialize_cbor(
+        value["regions"]
+    )
+    import capo_arc_region_switch.types.recovery_approach
+
+    out["recoveryApproach"] = (
+        capo_arc_region_switch.types.recovery_approach.serialize_cbor(
+            value["recovery_approach"]
+        )
+    )
+    if "primary_region" in value:
+        out["primaryRegion"] = value["primary_region"]
+    if "version" in value:
+        out["version"] = value["version"]
+    if "updated_at" in value:
+        import capo_arc_region_switch.types._prelude.timestamp
+
+        out["updatedAt"] = (
+            capo_arc_region_switch.types._prelude.timestamp.serialize_cbor(
+                value["updated_at"]
+            )
+        )
+    if "description" in value:
+        out["description"] = value["description"]
+    if "execution_role" in value:
+        out["executionRole"] = value["execution_role"]
+    if "active_plan_execution" in value:
+        out["activePlanExecution"] = value["active_plan_execution"]
+    if "recovery_time_objective_minutes" in value:
+        out["recoveryTimeObjectiveMinutes"] = value["recovery_time_objective_minutes"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AbbreviatedPlan:
+    out: AbbreviatedPlan = {}  # type: ignore[typeddict-item]
+    if data.get("arn") is not None:
+        out["arn"] = data["arn"]
+    else:
+        out["arn"] = ""
+    if data.get("owner") is not None:
+        out["owner"] = data["owner"]
+    else:
+        out["owner"] = ""
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    else:
+        out["name"] = ""
+    if data.get("regions") is not None:
+        import capo_arc_region_switch.types.region_list
+
+        out["regions"] = capo_arc_region_switch.types.region_list.deserialize_cbor(
+            data["regions"]
+        )
+    else:
+        out["regions"] = []
+    if data.get("recoveryApproach") is not None:
+        import capo_arc_region_switch.types.recovery_approach
+
+        out["recovery_approach"] = (
+            capo_arc_region_switch.types.recovery_approach.deserialize_cbor(
+                data["recoveryApproach"]
+            )
+        )
+    else:
+        import typing
+
+        out["recovery_approach"] = typing.cast(
+            "capo_arc_region_switch.types.recovery_approach.RecoveryApproach", ""
+        )
+    if data.get("primaryRegion") is not None:
+        out["primary_region"] = data["primaryRegion"]
+    if data.get("version") is not None:
+        out["version"] = data["version"]
+    if data.get("updatedAt") is not None:
+        import capo_arc_region_switch.types._prelude.timestamp
+
+        out["updated_at"] = (
+            capo_arc_region_switch.types._prelude.timestamp.deserialize_cbor(
+                data["updatedAt"]
+            )
+        )
+    if data.get("description") is not None:
+        out["description"] = data["description"]
+    if data.get("executionRole") is not None:
+        out["execution_role"] = data["executionRole"]
+    if data.get("activePlanExecution") is not None:
+        out["active_plan_execution"] = data["activePlanExecution"]
+    if data.get("recoveryTimeObjectiveMinutes") is not None:
+        out["recovery_time_objective_minutes"] = data["recoveryTimeObjectiveMinutes"]
+    return out

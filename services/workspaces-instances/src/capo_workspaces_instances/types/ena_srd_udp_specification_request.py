@@ -21,3 +21,18 @@ def deserialize_aws_json_1_0(data: dict) -> EnaSrdUdpSpecificationRequest:
     if data.get("EnaSrdUdpEnabled") is not None:
         out["ena_srd_udp_enabled"] = data["EnaSrdUdpEnabled"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EnaSrdUdpSpecificationRequest) -> dict:
+    out: dict = {}
+    if "ena_srd_udp_enabled" in value:
+        out["EnaSrdUdpEnabled"] = value["ena_srd_udp_enabled"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> EnaSrdUdpSpecificationRequest:
+    out: EnaSrdUdpSpecificationRequest = {}  # type: ignore[typeddict-item]
+    if data.get("EnaSrdUdpEnabled") is not None:
+        out["ena_srd_udp_enabled"] = data["EnaSrdUdpEnabled"]
+    return out

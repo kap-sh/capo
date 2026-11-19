@@ -41,3 +41,30 @@ def deserialize_aws_json_1_1(data: dict) -> Authentication:
     if data.get("PasswordCount") is not None:
         out["password_count"] = data["PasswordCount"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Authentication) -> dict:
+    out: dict = {}
+    if "type" in value:
+        import capo_memorydb.types.authentication_type
+
+        out["Type"] = capo_memorydb.types.authentication_type.serialize_cbor(
+            value["type"]
+        )
+    if "password_count" in value:
+        out["PasswordCount"] = value["password_count"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Authentication:
+    out: Authentication = {}  # type: ignore[typeddict-item]
+    if data.get("Type") is not None:
+        import capo_memorydb.types.authentication_type
+
+        out["type"] = capo_memorydb.types.authentication_type.deserialize_cbor(
+            data["Type"]
+        )
+    if data.get("PasswordCount") is not None:
+        out["password_count"] = data["PasswordCount"]
+    return out

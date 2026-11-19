@@ -41,3 +41,32 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeEntityAggregatesTagFilter:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(input_to_serialize: DescribeEntityAggregatesTagFilter) -> dict:
+    out: dict = {}
+    for key, value in input_to_serialize.items():
+        import capo_health.types.describe_entity_aggregates_tag_value_list
+
+        out[key] = (
+            capo_health.types.describe_entity_aggregates_tag_value_list.serialize_cbor(
+                value
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeEntityAggregatesTagFilter:
+    out: DescribeEntityAggregatesTagFilter = {}
+    for key, value in data.items():
+        if value is None:
+            continue
+        import capo_health.types.describe_entity_aggregates_tag_value_list
+
+        out[key] = (
+            capo_health.types.describe_entity_aggregates_tag_value_list.deserialize_cbor(
+                value
+            )
+        )
+    return out

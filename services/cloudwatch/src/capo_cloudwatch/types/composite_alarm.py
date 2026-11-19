@@ -517,3 +517,192 @@ def deserialize_query(el: Element) -> CompositeAlarm:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CompositeAlarm) -> dict:
+    out: dict = {}
+    if "actions_enabled" in value:
+        out["ActionsEnabled"] = value["actions_enabled"]
+    if "alarm_actions" in value:
+        import capo_cloudwatch.types.resource_list
+
+        out["AlarmActions"] = capo_cloudwatch.types.resource_list.serialize_cbor(
+            value["alarm_actions"]
+        )
+    if "alarm_arn" in value:
+        out["AlarmArn"] = value["alarm_arn"]
+    if "alarm_configuration_updated_timestamp" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["AlarmConfigurationUpdatedTimestamp"] = (
+            capo_cloudwatch.types.timestamp.serialize_cbor(
+                value["alarm_configuration_updated_timestamp"]
+            )
+        )
+    if "alarm_description" in value:
+        out["AlarmDescription"] = value["alarm_description"]
+    if "alarm_name" in value:
+        out["AlarmName"] = value["alarm_name"]
+    if "alarm_rule" in value:
+        out["AlarmRule"] = value["alarm_rule"]
+    if "insufficient_data_actions" in value:
+        import capo_cloudwatch.types.resource_list
+
+        out["InsufficientDataActions"] = (
+            capo_cloudwatch.types.resource_list.serialize_cbor(
+                value["insufficient_data_actions"]
+            )
+        )
+    if "ok_actions" in value:
+        import capo_cloudwatch.types.resource_list
+
+        out["OKActions"] = capo_cloudwatch.types.resource_list.serialize_cbor(
+            value["ok_actions"]
+        )
+    if "state_reason" in value:
+        out["StateReason"] = value["state_reason"]
+    if "state_reason_data" in value:
+        out["StateReasonData"] = value["state_reason_data"]
+    if "state_updated_timestamp" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["StateUpdatedTimestamp"] = capo_cloudwatch.types.timestamp.serialize_cbor(
+            value["state_updated_timestamp"]
+        )
+    if "state_value" in value:
+        import capo_cloudwatch.types.state_value
+
+        out["StateValue"] = capo_cloudwatch.types.state_value.serialize_cbor(
+            value["state_value"]
+        )
+    if "state_transitioned_timestamp" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["StateTransitionedTimestamp"] = (
+            capo_cloudwatch.types.timestamp.serialize_cbor(
+                value["state_transitioned_timestamp"]
+            )
+        )
+    if "actions_suppressed_by" in value:
+        import capo_cloudwatch.types.actions_suppressed_by
+
+        out["ActionsSuppressedBy"] = (
+            capo_cloudwatch.types.actions_suppressed_by.serialize_cbor(
+                value["actions_suppressed_by"]
+            )
+        )
+    if "actions_suppressed_reason" in value:
+        out["ActionsSuppressedReason"] = value["actions_suppressed_reason"]
+    if "actions_suppressor" in value:
+        out["ActionsSuppressor"] = value["actions_suppressor"]
+    if "actions_suppressor_wait_period" in value:
+        out["ActionsSuppressorWaitPeriod"] = value["actions_suppressor_wait_period"]
+    if "actions_suppressor_extension_period" in value:
+        out["ActionsSuppressorExtensionPeriod"] = value[
+            "actions_suppressor_extension_period"
+        ]
+    if "action_configuration" in value:
+        import capo_cloudwatch.types.action_configuration
+
+        out["ActionConfiguration"] = (
+            capo_cloudwatch.types.action_configuration.serialize_cbor(
+                value["action_configuration"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CompositeAlarm:
+    out: CompositeAlarm = {}  # type: ignore[typeddict-item]
+    if data.get("ActionsEnabled") is not None:
+        out["actions_enabled"] = data["ActionsEnabled"]
+    if data.get("AlarmActions") is not None:
+        import capo_cloudwatch.types.resource_list
+
+        out["alarm_actions"] = capo_cloudwatch.types.resource_list.deserialize_cbor(
+            data["AlarmActions"]
+        )
+    if data.get("AlarmArn") is not None:
+        out["alarm_arn"] = data["AlarmArn"]
+    if data.get("AlarmConfigurationUpdatedTimestamp") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["alarm_configuration_updated_timestamp"] = (
+            capo_cloudwatch.types.timestamp.deserialize_cbor(
+                data["AlarmConfigurationUpdatedTimestamp"]
+            )
+        )
+    if data.get("AlarmDescription") is not None:
+        out["alarm_description"] = data["AlarmDescription"]
+    if data.get("AlarmName") is not None:
+        out["alarm_name"] = data["AlarmName"]
+    if data.get("AlarmRule") is not None:
+        out["alarm_rule"] = data["AlarmRule"]
+    if data.get("InsufficientDataActions") is not None:
+        import capo_cloudwatch.types.resource_list
+
+        out["insufficient_data_actions"] = (
+            capo_cloudwatch.types.resource_list.deserialize_cbor(
+                data["InsufficientDataActions"]
+            )
+        )
+    if data.get("OKActions") is not None:
+        import capo_cloudwatch.types.resource_list
+
+        out["ok_actions"] = capo_cloudwatch.types.resource_list.deserialize_cbor(
+            data["OKActions"]
+        )
+    if data.get("StateReason") is not None:
+        out["state_reason"] = data["StateReason"]
+    if data.get("StateReasonData") is not None:
+        out["state_reason_data"] = data["StateReasonData"]
+    if data.get("StateUpdatedTimestamp") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["state_updated_timestamp"] = (
+            capo_cloudwatch.types.timestamp.deserialize_cbor(
+                data["StateUpdatedTimestamp"]
+            )
+        )
+    if data.get("StateValue") is not None:
+        import capo_cloudwatch.types.state_value
+
+        out["state_value"] = capo_cloudwatch.types.state_value.deserialize_cbor(
+            data["StateValue"]
+        )
+    if data.get("StateTransitionedTimestamp") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["state_transitioned_timestamp"] = (
+            capo_cloudwatch.types.timestamp.deserialize_cbor(
+                data["StateTransitionedTimestamp"]
+            )
+        )
+    if data.get("ActionsSuppressedBy") is not None:
+        import capo_cloudwatch.types.actions_suppressed_by
+
+        out["actions_suppressed_by"] = (
+            capo_cloudwatch.types.actions_suppressed_by.deserialize_cbor(
+                data["ActionsSuppressedBy"]
+            )
+        )
+    if data.get("ActionsSuppressedReason") is not None:
+        out["actions_suppressed_reason"] = data["ActionsSuppressedReason"]
+    if data.get("ActionsSuppressor") is not None:
+        out["actions_suppressor"] = data["ActionsSuppressor"]
+    if data.get("ActionsSuppressorWaitPeriod") is not None:
+        out["actions_suppressor_wait_period"] = data["ActionsSuppressorWaitPeriod"]
+    if data.get("ActionsSuppressorExtensionPeriod") is not None:
+        out["actions_suppressor_extension_period"] = data[
+            "ActionsSuppressorExtensionPeriod"
+        ]
+    if data.get("ActionConfiguration") is not None:
+        import capo_cloudwatch.types.action_configuration
+
+        out["action_configuration"] = (
+            capo_cloudwatch.types.action_configuration.deserialize_cbor(
+                data["ActionConfiguration"]
+            )
+        )
+    return out

@@ -44,3 +44,28 @@ def deserialize_aws_json_1_1(data: dict) -> ExecuteProvisionedProductPlanInput:
     else:
         out["idempotency_token"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExecuteProvisionedProductPlanInput) -> dict:
+    out: dict = {}
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    out["PlanId"] = value["plan_id"]
+    out["IdempotencyToken"] = value["idempotency_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ExecuteProvisionedProductPlanInput:
+    out: ExecuteProvisionedProductPlanInput = {}  # type: ignore[typeddict-item]
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    if data.get("PlanId") is not None:
+        out["plan_id"] = data["PlanId"]
+    else:
+        out["plan_id"] = ""
+    if data.get("IdempotencyToken") is not None:
+        out["idempotency_token"] = data["IdempotencyToken"]
+    else:
+        out["idempotency_token"] = ""
+    return out

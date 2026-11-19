@@ -61,3 +61,40 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeBackupsRequest:
     if data.get("SortAscending") is not None:
         out["sort_ascending"] = data["SortAscending"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeBackupsRequest) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "filters" in value:
+        import capo_cloudhsm_v2.types.filters
+
+        out["Filters"] = capo_cloudhsm_v2.types.filters.serialize_cbor(value["filters"])
+    if "shared" in value:
+        out["Shared"] = value["shared"]
+    if "sort_ascending" in value:
+        out["SortAscending"] = value["sort_ascending"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeBackupsRequest:
+    out: DescribeBackupsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("Filters") is not None:
+        import capo_cloudhsm_v2.types.filters
+
+        out["filters"] = capo_cloudhsm_v2.types.filters.deserialize_cbor(
+            data["Filters"]
+        )
+    if data.get("Shared") is not None:
+        out["shared"] = data["Shared"]
+    if data.get("SortAscending") is not None:
+        out["sort_ascending"] = data["SortAscending"]
+    return out

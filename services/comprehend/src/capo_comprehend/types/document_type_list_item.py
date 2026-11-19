@@ -41,3 +41,26 @@ def deserialize_aws_json_1_1(data: dict) -> DocumentTypeListItem:
             data["Type"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DocumentTypeListItem) -> dict:
+    out: dict = {}
+    if "page" in value:
+        out["Page"] = value["page"]
+    if "type" in value:
+        import capo_comprehend.types.document_type
+
+        out["Type"] = capo_comprehend.types.document_type.serialize_cbor(value["type"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> DocumentTypeListItem:
+    out: DocumentTypeListItem = {}  # type: ignore[typeddict-item]
+    if data.get("Page") is not None:
+        out["page"] = data["Page"]
+    if data.get("Type") is not None:
+        import capo_comprehend.types.document_type
+
+        out["type"] = capo_comprehend.types.document_type.deserialize_cbor(data["Type"])
+    return out

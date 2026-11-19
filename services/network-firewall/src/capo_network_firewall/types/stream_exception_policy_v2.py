@@ -15,3 +15,12 @@ def serialize_aws_json_1_0(value: StreamExceptionPolicyV2) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> StreamExceptionPolicyV2:
     return cast(StreamExceptionPolicyV2, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StreamExceptionPolicyV2) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> StreamExceptionPolicyV2:
+    return cast(StreamExceptionPolicyV2, data)

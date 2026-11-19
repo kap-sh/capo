@@ -47,3 +47,34 @@ def deserialize_aws_json_1_0(data: dict) -> VpcEndpoint:
     else:
         out["subnet_mappings"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: VpcEndpoint) -> dict:
+    out: dict = {}
+    out["VpcId"] = value["vpc_id"]
+    import capo_network_firewall.types.subnet_mappings
+
+    out["SubnetMappings"] = capo_network_firewall.types.subnet_mappings.serialize_cbor(
+        value["subnet_mappings"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> VpcEndpoint:
+    out: VpcEndpoint = {}  # type: ignore[typeddict-item]
+    if data.get("VpcId") is not None:
+        out["vpc_id"] = data["VpcId"]
+    else:
+        out["vpc_id"] = ""
+    if data.get("SubnetMappings") is not None:
+        import capo_network_firewall.types.subnet_mappings
+
+        out["subnet_mappings"] = (
+            capo_network_firewall.types.subnet_mappings.deserialize_cbor(
+                data["SubnetMappings"]
+            )
+        )
+    else:
+        out["subnet_mappings"] = []
+    return out

@@ -136,3 +136,86 @@ def deserialize_aws_json_1_1(data: dict) -> ASN1Subject:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ASN1Subject) -> dict:
+    out: dict = {}
+    if "country" in value:
+        out["Country"] = value["country"]
+    if "organization" in value:
+        out["Organization"] = value["organization"]
+    if "organizational_unit" in value:
+        out["OrganizationalUnit"] = value["organizational_unit"]
+    if "distinguished_name_qualifier" in value:
+        out["DistinguishedNameQualifier"] = value["distinguished_name_qualifier"]
+    if "state" in value:
+        out["State"] = value["state"]
+    if "common_name" in value:
+        out["CommonName"] = value["common_name"]
+    if "serial_number" in value:
+        out["SerialNumber"] = value["serial_number"]
+    if "locality" in value:
+        out["Locality"] = value["locality"]
+    if "title" in value:
+        out["Title"] = value["title"]
+    if "surname" in value:
+        out["Surname"] = value["surname"]
+    if "given_name" in value:
+        out["GivenName"] = value["given_name"]
+    if "initials" in value:
+        out["Initials"] = value["initials"]
+    if "pseudonym" in value:
+        out["Pseudonym"] = value["pseudonym"]
+    if "generation_qualifier" in value:
+        out["GenerationQualifier"] = value["generation_qualifier"]
+    if "custom_attributes" in value:
+        import capo_acm_pca.types.custom_attribute_list
+
+        out["CustomAttributes"] = (
+            capo_acm_pca.types.custom_attribute_list.serialize_cbor(
+                value["custom_attributes"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ASN1Subject:
+    out: ASN1Subject = {}  # type: ignore[typeddict-item]
+    if data.get("Country") is not None:
+        out["country"] = data["Country"]
+    if data.get("Organization") is not None:
+        out["organization"] = data["Organization"]
+    if data.get("OrganizationalUnit") is not None:
+        out["organizational_unit"] = data["OrganizationalUnit"]
+    if data.get("DistinguishedNameQualifier") is not None:
+        out["distinguished_name_qualifier"] = data["DistinguishedNameQualifier"]
+    if data.get("State") is not None:
+        out["state"] = data["State"]
+    if data.get("CommonName") is not None:
+        out["common_name"] = data["CommonName"]
+    if data.get("SerialNumber") is not None:
+        out["serial_number"] = data["SerialNumber"]
+    if data.get("Locality") is not None:
+        out["locality"] = data["Locality"]
+    if data.get("Title") is not None:
+        out["title"] = data["Title"]
+    if data.get("Surname") is not None:
+        out["surname"] = data["Surname"]
+    if data.get("GivenName") is not None:
+        out["given_name"] = data["GivenName"]
+    if data.get("Initials") is not None:
+        out["initials"] = data["Initials"]
+    if data.get("Pseudonym") is not None:
+        out["pseudonym"] = data["Pseudonym"]
+    if data.get("GenerationQualifier") is not None:
+        out["generation_qualifier"] = data["GenerationQualifier"]
+    if data.get("CustomAttributes") is not None:
+        import capo_acm_pca.types.custom_attribute_list
+
+        out["custom_attributes"] = (
+            capo_acm_pca.types.custom_attribute_list.deserialize_cbor(
+                data["CustomAttributes"]
+            )
+        )
+    return out

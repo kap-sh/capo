@@ -69,3 +69,50 @@ def deserialize_aws_json_1_1(data: dict) -> ShippingDetails:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ShippingDetails) -> dict:
+    out: dict = {}
+    if "shipping_option" in value:
+        import capo_snowball.types.shipping_option
+
+        out["ShippingOption"] = capo_snowball.types.shipping_option.serialize_cbor(
+            value["shipping_option"]
+        )
+    if "inbound_shipment" in value:
+        import capo_snowball.types.shipment
+
+        out["InboundShipment"] = capo_snowball.types.shipment.serialize_cbor(
+            value["inbound_shipment"]
+        )
+    if "outbound_shipment" in value:
+        import capo_snowball.types.shipment
+
+        out["OutboundShipment"] = capo_snowball.types.shipment.serialize_cbor(
+            value["outbound_shipment"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ShippingDetails:
+    out: ShippingDetails = {}  # type: ignore[typeddict-item]
+    if data.get("ShippingOption") is not None:
+        import capo_snowball.types.shipping_option
+
+        out["shipping_option"] = capo_snowball.types.shipping_option.deserialize_cbor(
+            data["ShippingOption"]
+        )
+    if data.get("InboundShipment") is not None:
+        import capo_snowball.types.shipment
+
+        out["inbound_shipment"] = capo_snowball.types.shipment.deserialize_cbor(
+            data["InboundShipment"]
+        )
+    if data.get("OutboundShipment") is not None:
+        import capo_snowball.types.shipment
+
+        out["outbound_shipment"] = capo_snowball.types.shipment.deserialize_cbor(
+            data["OutboundShipment"]
+        )
+    return out

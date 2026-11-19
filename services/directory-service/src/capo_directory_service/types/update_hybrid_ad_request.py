@@ -69,3 +69,51 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateHybridADRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateHybridADRequest) -> dict:
+    out: dict = {}
+    out["DirectoryId"] = value["directory_id"]
+    if "hybrid_administrator_account_update" in value:
+        import capo_directory_service.types.hybrid_administrator_account_update
+
+        out["HybridAdministratorAccountUpdate"] = (
+            capo_directory_service.types.hybrid_administrator_account_update.serialize_cbor(
+                value["hybrid_administrator_account_update"]
+            )
+        )
+    if "self_managed_instances_settings" in value:
+        import capo_directory_service.types.hybrid_customer_instances_settings
+
+        out["SelfManagedInstancesSettings"] = (
+            capo_directory_service.types.hybrid_customer_instances_settings.serialize_cbor(
+                value["self_managed_instances_settings"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateHybridADRequest:
+    out: UpdateHybridADRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    if data.get("HybridAdministratorAccountUpdate") is not None:
+        import capo_directory_service.types.hybrid_administrator_account_update
+
+        out["hybrid_administrator_account_update"] = (
+            capo_directory_service.types.hybrid_administrator_account_update.deserialize_cbor(
+                data["HybridAdministratorAccountUpdate"]
+            )
+        )
+    if data.get("SelfManagedInstancesSettings") is not None:
+        import capo_directory_service.types.hybrid_customer_instances_settings
+
+        out["self_managed_instances_settings"] = (
+            capo_directory_service.types.hybrid_customer_instances_settings.deserialize_cbor(
+                data["SelfManagedInstancesSettings"]
+            )
+        )
+    return out

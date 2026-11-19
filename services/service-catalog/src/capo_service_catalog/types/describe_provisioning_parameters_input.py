@@ -74,3 +74,42 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeProvisioningParametersInput:
     if data.get("PathName") is not None:
         out["path_name"] = data["PathName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeProvisioningParametersInput) -> dict:
+    out: dict = {}
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    if "product_id" in value:
+        out["ProductId"] = value["product_id"]
+    if "product_name" in value:
+        out["ProductName"] = value["product_name"]
+    if "provisioning_artifact_id" in value:
+        out["ProvisioningArtifactId"] = value["provisioning_artifact_id"]
+    if "provisioning_artifact_name" in value:
+        out["ProvisioningArtifactName"] = value["provisioning_artifact_name"]
+    if "path_id" in value:
+        out["PathId"] = value["path_id"]
+    if "path_name" in value:
+        out["PathName"] = value["path_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeProvisioningParametersInput:
+    out: DescribeProvisioningParametersInput = {}  # type: ignore[typeddict-item]
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    if data.get("ProductId") is not None:
+        out["product_id"] = data["ProductId"]
+    if data.get("ProductName") is not None:
+        out["product_name"] = data["ProductName"]
+    if data.get("ProvisioningArtifactId") is not None:
+        out["provisioning_artifact_id"] = data["ProvisioningArtifactId"]
+    if data.get("ProvisioningArtifactName") is not None:
+        out["provisioning_artifact_name"] = data["ProvisioningArtifactName"]
+    if data.get("PathId") is not None:
+        out["path_id"] = data["PathId"]
+    if data.get("PathName") is not None:
+        out["path_name"] = data["PathName"]
+    return out

@@ -158,6 +158,101 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateContainerGroupDefinitionInput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateContainerGroupDefinitionInput) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "game_server_container_definition" in value:
+        import capo_gamelift.types.game_server_container_definition_input
+
+        out["GameServerContainerDefinition"] = (
+            capo_gamelift.types.game_server_container_definition_input.serialize_cbor(
+                value["game_server_container_definition"]
+            )
+        )
+    if "support_container_definitions" in value:
+        import capo_gamelift.types.support_container_definition_input_list
+
+        out["SupportContainerDefinitions"] = (
+            capo_gamelift.types.support_container_definition_input_list.serialize_cbor(
+                value["support_container_definitions"]
+            )
+        )
+    if "total_memory_limit_mebibytes" in value:
+        out["TotalMemoryLimitMebibytes"] = value["total_memory_limit_mebibytes"]
+    if "total_vcpu_limit" in value:
+        out["TotalVcpuLimit"] = value["total_vcpu_limit"]
+    if "version_description" in value:
+        out["VersionDescription"] = value["version_description"]
+    if "source_version_number" in value:
+        out["SourceVersionNumber"] = value["source_version_number"]
+    if "operating_system" in value:
+        import capo_gamelift.types.container_operating_system
+
+        out["OperatingSystem"] = (
+            capo_gamelift.types.container_operating_system.serialize_cbor(
+                value["operating_system"]
+            )
+        )
+    if "remove_attributes" in value:
+        import capo_gamelift.types.container_group_definition_remove_attribute_list
+
+        out["RemoveAttributes"] = (
+            capo_gamelift.types.container_group_definition_remove_attribute_list.serialize_cbor(
+                value["remove_attributes"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateContainerGroupDefinitionInput:
+    out: UpdateContainerGroupDefinitionInput = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("GameServerContainerDefinition") is not None:
+        import capo_gamelift.types.game_server_container_definition_input
+
+        out["game_server_container_definition"] = (
+            capo_gamelift.types.game_server_container_definition_input.deserialize_cbor(
+                data["GameServerContainerDefinition"]
+            )
+        )
+    if data.get("SupportContainerDefinitions") is not None:
+        import capo_gamelift.types.support_container_definition_input_list
+
+        out["support_container_definitions"] = (
+            capo_gamelift.types.support_container_definition_input_list.deserialize_cbor(
+                data["SupportContainerDefinitions"]
+            )
+        )
+    if data.get("TotalMemoryLimitMebibytes") is not None:
+        out["total_memory_limit_mebibytes"] = data["TotalMemoryLimitMebibytes"]
+    if data.get("TotalVcpuLimit") is not None:
+        out["total_vcpu_limit"] = float(data["TotalVcpuLimit"])
+    if data.get("VersionDescription") is not None:
+        out["version_description"] = data["VersionDescription"]
+    if data.get("SourceVersionNumber") is not None:
+        out["source_version_number"] = data["SourceVersionNumber"]
+    if data.get("OperatingSystem") is not None:
+        import capo_gamelift.types.container_operating_system
+
+        out["operating_system"] = (
+            capo_gamelift.types.container_operating_system.deserialize_cbor(
+                data["OperatingSystem"]
+            )
+        )
+    if data.get("RemoveAttributes") is not None:
+        import capo_gamelift.types.container_group_definition_remove_attribute_list
+
+        out["remove_attributes"] = (
+            capo_gamelift.types.container_group_definition_remove_attribute_list.deserialize_cbor(
+                data["RemoveAttributes"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: UpdateContainerGroupDefinitionInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "game_server_container_definition" in value:

@@ -103,3 +103,44 @@ def deserialize_query(el: Element) -> Entity:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Entity) -> dict:
+    out: dict = {}
+    if "key_attributes" in value:
+        import capo_cloudwatch.types.entity_key_attributes_map
+
+        out["KeyAttributes"] = (
+            capo_cloudwatch.types.entity_key_attributes_map.serialize_cbor(
+                value["key_attributes"]
+            )
+        )
+    if "attributes" in value:
+        import capo_cloudwatch.types.entity_attributes_map
+
+        out["Attributes"] = capo_cloudwatch.types.entity_attributes_map.serialize_cbor(
+            value["attributes"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Entity:
+    out: Entity = {}  # type: ignore[typeddict-item]
+    if data.get("KeyAttributes") is not None:
+        import capo_cloudwatch.types.entity_key_attributes_map
+
+        out["key_attributes"] = (
+            capo_cloudwatch.types.entity_key_attributes_map.deserialize_cbor(
+                data["KeyAttributes"]
+            )
+        )
+    if data.get("Attributes") is not None:
+        import capo_cloudwatch.types.entity_attributes_map
+
+        out["attributes"] = (
+            capo_cloudwatch.types.entity_attributes_map.deserialize_cbor(
+                data["Attributes"]
+            )
+        )
+    return out

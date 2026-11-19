@@ -42,3 +42,27 @@ def deserialize_aws_json_1_0(data: dict) -> ListRelaysResponse:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListRelaysResponse) -> dict:
+    out: dict = {}
+    import capo_mailmanager.types.relays
+
+    out["Relays"] = capo_mailmanager.types.relays.serialize_cbor(value["relays"])
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListRelaysResponse:
+    out: ListRelaysResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Relays") is not None:
+        import capo_mailmanager.types.relays
+
+        out["relays"] = capo_mailmanager.types.relays.deserialize_cbor(data["Relays"])
+    else:
+        out["relays"] = []
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

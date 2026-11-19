@@ -44,3 +44,26 @@ def deserialize_aws_json_1_1(data: dict) -> AssociatedCoreNetwork:
     if data.get("attachmentId") is not None:
         out["attachment_id"] = data["attachmentId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AssociatedCoreNetwork) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["id"] = value["id"]
+    if "owner_account" in value:
+        out["ownerAccount"] = value["owner_account"]
+    if "attachment_id" in value:
+        out["attachmentId"] = value["attachment_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AssociatedCoreNetwork:
+    out: AssociatedCoreNetwork = {}  # type: ignore[typeddict-item]
+    if data.get("id") is not None:
+        out["id"] = data["id"]
+    if data.get("ownerAccount") is not None:
+        out["owner_account"] = data["ownerAccount"]
+    if data.get("attachmentId") is not None:
+        out["attachment_id"] = data["attachmentId"]
+    return out

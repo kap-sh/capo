@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: ExecutionType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> ExecutionType:
     return cast(ExecutionType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExecutionType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ExecutionType:
+    return cast(ExecutionType, data)

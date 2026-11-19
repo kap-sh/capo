@@ -104,3 +104,66 @@ def deserialize_aws_json_1_0(data: dict) -> HypervisorDetails:
     if data.get("LatestMetadataSyncStatus") is not None:
         out["latest_metadata_sync_status"] = data["LatestMetadataSyncStatus"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: HypervisorDetails) -> dict:
+    out: dict = {}
+    if "host" in value:
+        out["Host"] = value["host"]
+    if "hypervisor_arn" in value:
+        out["HypervisorArn"] = value["hypervisor_arn"]
+    if "kms_key_arn" in value:
+        out["KmsKeyArn"] = value["kms_key_arn"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "log_group_arn" in value:
+        out["LogGroupArn"] = value["log_group_arn"]
+    if "state" in value:
+        out["State"] = value["state"]
+    if "last_successful_metadata_sync_time" in value:
+        import capo_backup_gateway.types.time
+
+        out["LastSuccessfulMetadataSyncTime"] = (
+            capo_backup_gateway.types.time.serialize_cbor(
+                value["last_successful_metadata_sync_time"]
+            )
+        )
+    if "latest_metadata_sync_status_message" in value:
+        out["LatestMetadataSyncStatusMessage"] = value[
+            "latest_metadata_sync_status_message"
+        ]
+    if "latest_metadata_sync_status" in value:
+        out["LatestMetadataSyncStatus"] = value["latest_metadata_sync_status"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> HypervisorDetails:
+    out: HypervisorDetails = {}  # type: ignore[typeddict-item]
+    if data.get("Host") is not None:
+        out["host"] = data["Host"]
+    if data.get("HypervisorArn") is not None:
+        out["hypervisor_arn"] = data["HypervisorArn"]
+    if data.get("KmsKeyArn") is not None:
+        out["kms_key_arn"] = data["KmsKeyArn"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("LogGroupArn") is not None:
+        out["log_group_arn"] = data["LogGroupArn"]
+    if data.get("State") is not None:
+        out["state"] = data["State"]
+    if data.get("LastSuccessfulMetadataSyncTime") is not None:
+        import capo_backup_gateway.types.time
+
+        out["last_successful_metadata_sync_time"] = (
+            capo_backup_gateway.types.time.deserialize_cbor(
+                data["LastSuccessfulMetadataSyncTime"]
+            )
+        )
+    if data.get("LatestMetadataSyncStatusMessage") is not None:
+        out["latest_metadata_sync_status_message"] = data[
+            "LatestMetadataSyncStatusMessage"
+        ]
+    if data.get("LatestMetadataSyncStatus") is not None:
+        out["latest_metadata_sync_status"] = data["LatestMetadataSyncStatus"]
+    return out

@@ -61,3 +61,46 @@ def deserialize_aws_json_1_0(data: dict) -> InferredWorkloadSaving:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InferredWorkloadSaving) -> dict:
+    out: dict = {}
+    if "inferred_workload_types" in value:
+        import capo_compute_optimizer.types.inferred_workload_types
+
+        out["inferredWorkloadTypes"] = (
+            capo_compute_optimizer.types.inferred_workload_types.serialize_cbor(
+                value["inferred_workload_types"]
+            )
+        )
+    if "estimated_monthly_savings" in value:
+        import capo_compute_optimizer.types.estimated_monthly_savings
+
+        out["estimatedMonthlySavings"] = (
+            capo_compute_optimizer.types.estimated_monthly_savings.serialize_cbor(
+                value["estimated_monthly_savings"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> InferredWorkloadSaving:
+    out: InferredWorkloadSaving = {}  # type: ignore[typeddict-item]
+    if data.get("inferredWorkloadTypes") is not None:
+        import capo_compute_optimizer.types.inferred_workload_types
+
+        out["inferred_workload_types"] = (
+            capo_compute_optimizer.types.inferred_workload_types.deserialize_cbor(
+                data["inferredWorkloadTypes"]
+            )
+        )
+    if data.get("estimatedMonthlySavings") is not None:
+        import capo_compute_optimizer.types.estimated_monthly_savings
+
+        out["estimated_monthly_savings"] = (
+            capo_compute_optimizer.types.estimated_monthly_savings.deserialize_cbor(
+                data["estimatedMonthlySavings"]
+            )
+        )
+    return out

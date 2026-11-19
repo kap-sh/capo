@@ -70,6 +70,46 @@ def deserialize_aws_json_1_0(data: dict) -> BuyerAgreementApprovalApproverInput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BuyerAgreementApprovalApproverInput) -> dict:
+    out: dict = {}
+    out["agreementApprovalId"] = value["agreement_approval_id"]
+    if "purchase_orders" in value:
+        import capo_marketplace_agreement.types.agreement_approval_purchase_orders
+
+        out["purchaseOrders"] = (
+            capo_marketplace_agreement.types.agreement_approval_purchase_orders.serialize_cbor(
+                value["purchase_orders"]
+            )
+        )
+    if "note" in value:
+        out["note"] = value["note"]
+    if "approver_outcome_id_to_override" in value:
+        out["approverOutcomeIdToOverride"] = value["approver_outcome_id_to_override"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> BuyerAgreementApprovalApproverInput:
+    out: BuyerAgreementApprovalApproverInput = {}  # type: ignore[typeddict-item]
+    if data.get("agreementApprovalId") is not None:
+        out["agreement_approval_id"] = data["agreementApprovalId"]
+    else:
+        out["agreement_approval_id"] = ""
+    if data.get("purchaseOrders") is not None:
+        import capo_marketplace_agreement.types.agreement_approval_purchase_orders
+
+        out["purchase_orders"] = (
+            capo_marketplace_agreement.types.agreement_approval_purchase_orders.deserialize_cbor(
+                data["purchaseOrders"]
+            )
+        )
+    if data.get("note") is not None:
+        out["note"] = data["note"]
+    if data.get("approverOutcomeIdToOverride") is not None:
+        out["approver_outcome_id_to_override"] = data["approverOutcomeIdToOverride"]
+    return out
+
+
 def redact_sensitive(value: BuyerAgreementApprovalApproverInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "note" in value:

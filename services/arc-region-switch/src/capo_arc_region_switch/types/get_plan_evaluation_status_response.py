@@ -107,3 +107,75 @@ def deserialize_aws_json_1_0(data: dict) -> GetPlanEvaluationStatusResponse:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetPlanEvaluationStatusResponse) -> dict:
+    out: dict = {}
+    out["planArn"] = value["plan_arn"]
+    if "last_evaluation_time" in value:
+        import capo_arc_region_switch.types._prelude.timestamp
+
+        out["lastEvaluationTime"] = (
+            capo_arc_region_switch.types._prelude.timestamp.serialize_cbor(
+                value["last_evaluation_time"]
+            )
+        )
+    if "last_evaluated_version" in value:
+        out["lastEvaluatedVersion"] = value["last_evaluated_version"]
+    if "region" in value:
+        out["region"] = value["region"]
+    if "evaluation_state" in value:
+        import capo_arc_region_switch.types.evaluation_status
+
+        out["evaluationState"] = (
+            capo_arc_region_switch.types.evaluation_status.serialize_cbor(
+                value["evaluation_state"]
+            )
+        )
+    if "warnings" in value:
+        import capo_arc_region_switch.types.plan_warnings
+
+        out["warnings"] = capo_arc_region_switch.types.plan_warnings.serialize_cbor(
+            value["warnings"]
+        )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetPlanEvaluationStatusResponse:
+    out: GetPlanEvaluationStatusResponse = {}  # type: ignore[typeddict-item]
+    if data.get("planArn") is not None:
+        out["plan_arn"] = data["planArn"]
+    else:
+        out["plan_arn"] = ""
+    if data.get("lastEvaluationTime") is not None:
+        import capo_arc_region_switch.types._prelude.timestamp
+
+        out["last_evaluation_time"] = (
+            capo_arc_region_switch.types._prelude.timestamp.deserialize_cbor(
+                data["lastEvaluationTime"]
+            )
+        )
+    if data.get("lastEvaluatedVersion") is not None:
+        out["last_evaluated_version"] = data["lastEvaluatedVersion"]
+    if data.get("region") is not None:
+        out["region"] = data["region"]
+    if data.get("evaluationState") is not None:
+        import capo_arc_region_switch.types.evaluation_status
+
+        out["evaluation_state"] = (
+            capo_arc_region_switch.types.evaluation_status.deserialize_cbor(
+                data["evaluationState"]
+            )
+        )
+    if data.get("warnings") is not None:
+        import capo_arc_region_switch.types.plan_warnings
+
+        out["warnings"] = capo_arc_region_switch.types.plan_warnings.deserialize_cbor(
+            data["warnings"]
+        )
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

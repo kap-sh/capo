@@ -33,3 +33,24 @@ def deserialize_aws_json_1_1(data: list) -> ImageBuilderAttributes:
             capo_appstream.types.image_builder_attribute.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ImageBuilderAttributes) -> list:
+    import capo_appstream.types.image_builder_attribute
+
+    out: list = []
+    for item in value:
+        out.append(capo_appstream.types.image_builder_attribute.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> ImageBuilderAttributes:
+    import capo_appstream.types.image_builder_attribute
+
+    out: ImageBuilderAttributes = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_appstream.types.image_builder_attribute.deserialize_cbor(item))
+    return out

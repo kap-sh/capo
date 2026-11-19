@@ -29,3 +29,24 @@ def deserialize_aws_json_1_1(data: list) -> SubtitleFormats:
             continue
         out.append(capo_transcribe.types.subtitle_format.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SubtitleFormats) -> list:
+    import capo_transcribe.types.subtitle_format
+
+    out: list = []
+    for item in value:
+        out.append(capo_transcribe.types.subtitle_format.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> SubtitleFormats:
+    import capo_transcribe.types.subtitle_format
+
+    out: SubtitleFormats = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_transcribe.types.subtitle_format.deserialize_cbor(item))
+    return out

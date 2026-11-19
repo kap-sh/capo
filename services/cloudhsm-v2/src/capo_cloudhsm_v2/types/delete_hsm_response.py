@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteHsmResponse:
     if data.get("HsmId") is not None:
         out["hsm_id"] = data["HsmId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteHsmResponse) -> dict:
+    out: dict = {}
+    if "hsm_id" in value:
+        out["HsmId"] = value["hsm_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteHsmResponse:
+    out: DeleteHsmResponse = {}  # type: ignore[typeddict-item]
+    if data.get("HsmId") is not None:
+        out["hsm_id"] = data["HsmId"]
+    return out

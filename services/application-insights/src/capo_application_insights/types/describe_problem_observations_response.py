@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeProblemObservationsResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeProblemObservationsResponse) -> dict:
+    out: dict = {}
+    if "related_observations" in value:
+        import capo_application_insights.types.related_observations
+
+        out["RelatedObservations"] = (
+            capo_application_insights.types.related_observations.serialize_cbor(
+                value["related_observations"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeProblemObservationsResponse:
+    out: DescribeProblemObservationsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("RelatedObservations") is not None:
+        import capo_application_insights.types.related_observations
+
+        out["related_observations"] = (
+            capo_application_insights.types.related_observations.deserialize_cbor(
+                data["RelatedObservations"]
+            )
+        )
+    return out

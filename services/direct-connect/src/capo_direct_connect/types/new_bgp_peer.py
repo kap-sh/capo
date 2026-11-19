@@ -80,3 +80,49 @@ def deserialize_aws_json_1_1(data: dict) -> NewBGPPeer:
     if data.get("customerAddress") is not None:
         out["customer_address"] = data["customerAddress"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: NewBGPPeer) -> dict:
+    out: dict = {}
+    out["asn"] = value.get("asn", 0)
+    if "asn_long" in value:
+        out["asnLong"] = value["asn_long"]
+    if "auth_key" in value:
+        out["authKey"] = value["auth_key"]
+    if "address_family" in value:
+        import capo_direct_connect.types.address_family
+
+        out["addressFamily"] = capo_direct_connect.types.address_family.serialize_cbor(
+            value["address_family"]
+        )
+    if "amazon_address" in value:
+        out["amazonAddress"] = value["amazon_address"]
+    if "customer_address" in value:
+        out["customerAddress"] = value["customer_address"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> NewBGPPeer:
+    out: NewBGPPeer = {}  # type: ignore[typeddict-item]
+    if data.get("asn") is not None:
+        out["asn"] = data["asn"]
+    else:
+        out["asn"] = 0
+    if data.get("asnLong") is not None:
+        out["asn_long"] = data["asnLong"]
+    if data.get("authKey") is not None:
+        out["auth_key"] = data["authKey"]
+    if data.get("addressFamily") is not None:
+        import capo_direct_connect.types.address_family
+
+        out["address_family"] = (
+            capo_direct_connect.types.address_family.deserialize_cbor(
+                data["addressFamily"]
+            )
+        )
+    if data.get("amazonAddress") is not None:
+        out["amazon_address"] = data["amazonAddress"]
+    if data.get("customerAddress") is not None:
+        out["customer_address"] = data["customerAddress"]
+    return out

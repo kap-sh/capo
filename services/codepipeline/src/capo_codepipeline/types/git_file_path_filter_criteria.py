@@ -60,3 +60,46 @@ def deserialize_aws_json_1_1(data: dict) -> GitFilePathFilterCriteria:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GitFilePathFilterCriteria) -> dict:
+    out: dict = {}
+    if "includes" in value:
+        import capo_codepipeline.types.git_file_path_pattern_list
+
+        out["includes"] = (
+            capo_codepipeline.types.git_file_path_pattern_list.serialize_cbor(
+                value["includes"]
+            )
+        )
+    if "excludes" in value:
+        import capo_codepipeline.types.git_file_path_pattern_list
+
+        out["excludes"] = (
+            capo_codepipeline.types.git_file_path_pattern_list.serialize_cbor(
+                value["excludes"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GitFilePathFilterCriteria:
+    out: GitFilePathFilterCriteria = {}  # type: ignore[typeddict-item]
+    if data.get("includes") is not None:
+        import capo_codepipeline.types.git_file_path_pattern_list
+
+        out["includes"] = (
+            capo_codepipeline.types.git_file_path_pattern_list.deserialize_cbor(
+                data["includes"]
+            )
+        )
+    if data.get("excludes") is not None:
+        import capo_codepipeline.types.git_file_path_pattern_list
+
+        out["excludes"] = (
+            capo_codepipeline.types.git_file_path_pattern_list.deserialize_cbor(
+                data["excludes"]
+            )
+        )
+    return out

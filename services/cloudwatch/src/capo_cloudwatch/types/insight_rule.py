@@ -120,3 +120,38 @@ def deserialize_query(el: Element) -> InsightRule:
             child_apply_on_transformed_logs.text or ""
         ).lower() == "true"
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InsightRule) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "state" in value:
+        out["State"] = value["state"]
+    if "schema" in value:
+        out["Schema"] = value["schema"]
+    if "definition" in value:
+        out["Definition"] = value["definition"]
+    if "managed_rule" in value:
+        out["ManagedRule"] = value["managed_rule"]
+    if "apply_on_transformed_logs" in value:
+        out["ApplyOnTransformedLogs"] = value["apply_on_transformed_logs"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> InsightRule:
+    out: InsightRule = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("State") is not None:
+        out["state"] = data["State"]
+    if data.get("Schema") is not None:
+        out["schema"] = data["Schema"]
+    if data.get("Definition") is not None:
+        out["definition"] = data["Definition"]
+    if data.get("ManagedRule") is not None:
+        out["managed_rule"] = data["ManagedRule"]
+    if data.get("ApplyOnTransformedLogs") is not None:
+        out["apply_on_transformed_logs"] = data["ApplyOnTransformedLogs"]
+    return out

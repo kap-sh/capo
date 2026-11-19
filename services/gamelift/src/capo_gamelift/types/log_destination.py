@@ -16,3 +16,12 @@ def serialize_aws_json_1_1(value: LogDestination) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> LogDestination:
     return cast(LogDestination, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LogDestination) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> LogDestination:
+    return cast(LogDestination, data)

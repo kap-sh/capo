@@ -143,3 +143,94 @@ def deserialize_aws_json_1_1(data: dict) -> Operation:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Operation) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["Id"] = value["id"]
+    if "owner_account" in value:
+        out["OwnerAccount"] = value["owner_account"]
+    if "type" in value:
+        import capo_servicediscovery.types.operation_type
+
+        out["Type"] = capo_servicediscovery.types.operation_type.serialize_cbor(
+            value["type"]
+        )
+    if "status" in value:
+        import capo_servicediscovery.types.operation_status
+
+        out["Status"] = capo_servicediscovery.types.operation_status.serialize_cbor(
+            value["status"]
+        )
+    if "error_message" in value:
+        out["ErrorMessage"] = value["error_message"]
+    if "error_code" in value:
+        out["ErrorCode"] = value["error_code"]
+    if "create_date" in value:
+        import capo_servicediscovery.types.timestamp
+
+        out["CreateDate"] = capo_servicediscovery.types.timestamp.serialize_cbor(
+            value["create_date"]
+        )
+    if "update_date" in value:
+        import capo_servicediscovery.types.timestamp
+
+        out["UpdateDate"] = capo_servicediscovery.types.timestamp.serialize_cbor(
+            value["update_date"]
+        )
+    if "targets" in value:
+        import capo_servicediscovery.types.operation_targets_map
+
+        out["Targets"] = (
+            capo_servicediscovery.types.operation_targets_map.serialize_cbor(
+                value["targets"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Operation:
+    out: Operation = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    if data.get("OwnerAccount") is not None:
+        out["owner_account"] = data["OwnerAccount"]
+    if data.get("Type") is not None:
+        import capo_servicediscovery.types.operation_type
+
+        out["type"] = capo_servicediscovery.types.operation_type.deserialize_cbor(
+            data["Type"]
+        )
+    if data.get("Status") is not None:
+        import capo_servicediscovery.types.operation_status
+
+        out["status"] = capo_servicediscovery.types.operation_status.deserialize_cbor(
+            data["Status"]
+        )
+    if data.get("ErrorMessage") is not None:
+        out["error_message"] = data["ErrorMessage"]
+    if data.get("ErrorCode") is not None:
+        out["error_code"] = data["ErrorCode"]
+    if data.get("CreateDate") is not None:
+        import capo_servicediscovery.types.timestamp
+
+        out["create_date"] = capo_servicediscovery.types.timestamp.deserialize_cbor(
+            data["CreateDate"]
+        )
+    if data.get("UpdateDate") is not None:
+        import capo_servicediscovery.types.timestamp
+
+        out["update_date"] = capo_servicediscovery.types.timestamp.deserialize_cbor(
+            data["UpdateDate"]
+        )
+    if data.get("Targets") is not None:
+        import capo_servicediscovery.types.operation_targets_map
+
+        out["targets"] = (
+            capo_servicediscovery.types.operation_targets_map.deserialize_cbor(
+                data["Targets"]
+            )
+        )
+    return out

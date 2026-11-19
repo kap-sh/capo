@@ -20,3 +20,12 @@ def serialize_aws_json_1_1(value: CLMLanguageCode) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> CLMLanguageCode:
     return cast(CLMLanguageCode, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CLMLanguageCode) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> CLMLanguageCode:
+    return cast(CLMLanguageCode, data)

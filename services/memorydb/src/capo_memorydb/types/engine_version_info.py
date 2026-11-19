@@ -44,3 +44,30 @@ def deserialize_aws_json_1_1(data: dict) -> EngineVersionInfo:
     if data.get("ParameterGroupFamily") is not None:
         out["parameter_group_family"] = data["ParameterGroupFamily"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EngineVersionInfo) -> dict:
+    out: dict = {}
+    if "engine" in value:
+        out["Engine"] = value["engine"]
+    if "engine_version" in value:
+        out["EngineVersion"] = value["engine_version"]
+    if "engine_patch_version" in value:
+        out["EnginePatchVersion"] = value["engine_patch_version"]
+    if "parameter_group_family" in value:
+        out["ParameterGroupFamily"] = value["parameter_group_family"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> EngineVersionInfo:
+    out: EngineVersionInfo = {}  # type: ignore[typeddict-item]
+    if data.get("Engine") is not None:
+        out["engine"] = data["Engine"]
+    if data.get("EngineVersion") is not None:
+        out["engine_version"] = data["EngineVersion"]
+    if data.get("EnginePatchVersion") is not None:
+        out["engine_patch_version"] = data["EnginePatchVersion"]
+    if data.get("ParameterGroupFamily") is not None:
+        out["parameter_group_family"] = data["ParameterGroupFamily"]
+    return out

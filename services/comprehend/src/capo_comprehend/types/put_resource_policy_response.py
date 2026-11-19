@@ -28,3 +28,18 @@ def deserialize_aws_json_1_1(data: dict) -> PutResourcePolicyResponse:
     if data.get("PolicyRevisionId") is not None:
         out["policy_revision_id"] = data["PolicyRevisionId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PutResourcePolicyResponse) -> dict:
+    out: dict = {}
+    if "policy_revision_id" in value:
+        out["PolicyRevisionId"] = value["policy_revision_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> PutResourcePolicyResponse:
+    out: PutResourcePolicyResponse = {}  # type: ignore[typeddict-item]
+    if data.get("PolicyRevisionId") is not None:
+        out["policy_revision_id"] = data["PolicyRevisionId"]
+    return out

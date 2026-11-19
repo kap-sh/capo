@@ -39,3 +39,29 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeTagsRequest:
     else:
         out["resource_arns"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeTagsRequest) -> dict:
+    out: dict = {}
+    import capo_direct_connect.types.resource_arn_list
+
+    out["resourceArns"] = capo_direct_connect.types.resource_arn_list.serialize_cbor(
+        value["resource_arns"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeTagsRequest:
+    out: DescribeTagsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("resourceArns") is not None:
+        import capo_direct_connect.types.resource_arn_list
+
+        out["resource_arns"] = (
+            capo_direct_connect.types.resource_arn_list.deserialize_cbor(
+                data["resourceArns"]
+            )
+        )
+    else:
+        out["resource_arns"] = []
+    return out

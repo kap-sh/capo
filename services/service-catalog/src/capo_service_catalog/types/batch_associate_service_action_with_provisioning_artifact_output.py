@@ -44,3 +44,34 @@ def deserialize_aws_json_1_1(
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(
+    value: BatchAssociateServiceActionWithProvisioningArtifactOutput,
+) -> dict:
+    out: dict = {}
+    if "failed_service_action_associations" in value:
+        import capo_service_catalog.types.failed_service_action_associations
+
+        out["FailedServiceActionAssociations"] = (
+            capo_service_catalog.types.failed_service_action_associations.serialize_cbor(
+                value["failed_service_action_associations"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(
+    data: dict,
+) -> BatchAssociateServiceActionWithProvisioningArtifactOutput:
+    out: BatchAssociateServiceActionWithProvisioningArtifactOutput = {}  # type: ignore[typeddict-item]
+    if data.get("FailedServiceActionAssociations") is not None:
+        import capo_service_catalog.types.failed_service_action_associations
+
+        out["failed_service_action_associations"] = (
+            capo_service_catalog.types.failed_service_action_associations.deserialize_cbor(
+                data["FailedServiceActionAssociations"]
+            )
+        )
+    return out

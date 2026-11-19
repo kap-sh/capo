@@ -61,3 +61,42 @@ def deserialize_aws_json_1_1(data: dict) -> ModificationState:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ModificationState) -> dict:
+    out: dict = {}
+    if "resource" in value:
+        import capo_workspaces.types.modification_resource_enum
+
+        out["Resource"] = (
+            capo_workspaces.types.modification_resource_enum.serialize_cbor(
+                value["resource"]
+            )
+        )
+    if "state" in value:
+        import capo_workspaces.types.modification_state_enum
+
+        out["State"] = capo_workspaces.types.modification_state_enum.serialize_cbor(
+            value["state"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ModificationState:
+    out: ModificationState = {}  # type: ignore[typeddict-item]
+    if data.get("Resource") is not None:
+        import capo_workspaces.types.modification_resource_enum
+
+        out["resource"] = (
+            capo_workspaces.types.modification_resource_enum.deserialize_cbor(
+                data["Resource"]
+            )
+        )
+    if data.get("State") is not None:
+        import capo_workspaces.types.modification_state_enum
+
+        out["state"] = capo_workspaces.types.modification_state_enum.deserialize_cbor(
+            data["State"]
+        )
+    return out

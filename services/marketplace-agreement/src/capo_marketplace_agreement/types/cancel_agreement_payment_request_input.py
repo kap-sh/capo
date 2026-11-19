@@ -37,3 +37,24 @@ def deserialize_aws_json_1_0(data: dict) -> CancelAgreementPaymentRequestInput:
     else:
         out["agreement_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CancelAgreementPaymentRequestInput) -> dict:
+    out: dict = {}
+    out["paymentRequestId"] = value["payment_request_id"]
+    out["agreementId"] = value["agreement_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CancelAgreementPaymentRequestInput:
+    out: CancelAgreementPaymentRequestInput = {}  # type: ignore[typeddict-item]
+    if data.get("paymentRequestId") is not None:
+        out["payment_request_id"] = data["paymentRequestId"]
+    else:
+        out["payment_request_id"] = ""
+    if data.get("agreementId") is not None:
+        out["agreement_id"] = data["agreementId"]
+    else:
+        out["agreement_id"] = ""
+    return out

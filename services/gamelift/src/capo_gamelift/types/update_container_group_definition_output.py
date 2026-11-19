@@ -42,6 +42,33 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateContainerGroupDefinitionOutput
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateContainerGroupDefinitionOutput) -> dict:
+    out: dict = {}
+    if "container_group_definition" in value:
+        import capo_gamelift.types.container_group_definition
+
+        out["ContainerGroupDefinition"] = (
+            capo_gamelift.types.container_group_definition.serialize_cbor(
+                value["container_group_definition"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateContainerGroupDefinitionOutput:
+    out: UpdateContainerGroupDefinitionOutput = {}  # type: ignore[typeddict-item]
+    if data.get("ContainerGroupDefinition") is not None:
+        import capo_gamelift.types.container_group_definition
+
+        out["container_group_definition"] = (
+            capo_gamelift.types.container_group_definition.deserialize_cbor(
+                data["ContainerGroupDefinition"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: UpdateContainerGroupDefinitionOutput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "container_group_definition" in value:

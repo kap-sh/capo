@@ -60,3 +60,39 @@ def deserialize_aws_json_1_0(data: dict) -> AcceptorContact:
     else:
         out["country_code"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AcceptorContact) -> dict:
+    out: dict = {}
+    out["firstName"] = value["first_name"]
+    out["lastName"] = value["last_name"]
+    out["emailAddress"] = value["email_address"]
+    out["companyName"] = value["company_name"]
+    out["countryCode"] = value["country_code"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AcceptorContact:
+    out: AcceptorContact = {}  # type: ignore[typeddict-item]
+    if data.get("firstName") is not None:
+        out["first_name"] = data["firstName"]
+    else:
+        out["first_name"] = ""
+    if data.get("lastName") is not None:
+        out["last_name"] = data["lastName"]
+    else:
+        out["last_name"] = ""
+    if data.get("emailAddress") is not None:
+        out["email_address"] = data["emailAddress"]
+    else:
+        out["email_address"] = ""
+    if data.get("companyName") is not None:
+        out["company_name"] = data["companyName"]
+    else:
+        out["company_name"] = ""
+    if data.get("countryCode") is not None:
+        out["country_code"] = data["countryCode"]
+    else:
+        out["country_code"] = ""
+    return out

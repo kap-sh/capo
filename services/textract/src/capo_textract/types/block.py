@@ -190,3 +190,124 @@ def deserialize_aws_json_1_1(data: dict) -> Block:
 
         out["query"] = capo_textract.types.query.deserialize_aws_json_1_1(data["Query"])
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Block) -> dict:
+    out: dict = {}
+    if "block_type" in value:
+        import capo_textract.types.block_type
+
+        out["BlockType"] = capo_textract.types.block_type.serialize_cbor(
+            value["block_type"]
+        )
+    if "confidence" in value:
+        out["Confidence"] = value["confidence"]
+    if "text" in value:
+        out["Text"] = value["text"]
+    if "text_type" in value:
+        import capo_textract.types.text_type
+
+        out["TextType"] = capo_textract.types.text_type.serialize_cbor(
+            value["text_type"]
+        )
+    if "row_index" in value:
+        out["RowIndex"] = value["row_index"]
+    if "column_index" in value:
+        out["ColumnIndex"] = value["column_index"]
+    if "row_span" in value:
+        out["RowSpan"] = value["row_span"]
+    if "column_span" in value:
+        out["ColumnSpan"] = value["column_span"]
+    if "geometry" in value:
+        import capo_textract.types.geometry
+
+        out["Geometry"] = capo_textract.types.geometry.serialize_cbor(value["geometry"])
+    if "id" in value:
+        out["Id"] = value["id"]
+    if "relationships" in value:
+        import capo_textract.types.relationship_list
+
+        out["Relationships"] = capo_textract.types.relationship_list.serialize_cbor(
+            value["relationships"]
+        )
+    if "entity_types" in value:
+        import capo_textract.types.entity_types
+
+        out["EntityTypes"] = capo_textract.types.entity_types.serialize_cbor(
+            value["entity_types"]
+        )
+    if "selection_status" in value:
+        import capo_textract.types.selection_status
+
+        out["SelectionStatus"] = capo_textract.types.selection_status.serialize_cbor(
+            value["selection_status"]
+        )
+    if "page" in value:
+        out["Page"] = value["page"]
+    if "query" in value:
+        import capo_textract.types.query
+
+        out["Query"] = capo_textract.types.query.serialize_cbor(value["query"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> Block:
+    out: Block = {}  # type: ignore[typeddict-item]
+    if data.get("BlockType") is not None:
+        import capo_textract.types.block_type
+
+        out["block_type"] = capo_textract.types.block_type.deserialize_cbor(
+            data["BlockType"]
+        )
+    if data.get("Confidence") is not None:
+        out["confidence"] = float(data["Confidence"])
+    if data.get("Text") is not None:
+        out["text"] = data["Text"]
+    if data.get("TextType") is not None:
+        import capo_textract.types.text_type
+
+        out["text_type"] = capo_textract.types.text_type.deserialize_cbor(
+            data["TextType"]
+        )
+    if data.get("RowIndex") is not None:
+        out["row_index"] = data["RowIndex"]
+    if data.get("ColumnIndex") is not None:
+        out["column_index"] = data["ColumnIndex"]
+    if data.get("RowSpan") is not None:
+        out["row_span"] = data["RowSpan"]
+    if data.get("ColumnSpan") is not None:
+        out["column_span"] = data["ColumnSpan"]
+    if data.get("Geometry") is not None:
+        import capo_textract.types.geometry
+
+        out["geometry"] = capo_textract.types.geometry.deserialize_cbor(
+            data["Geometry"]
+        )
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    if data.get("Relationships") is not None:
+        import capo_textract.types.relationship_list
+
+        out["relationships"] = capo_textract.types.relationship_list.deserialize_cbor(
+            data["Relationships"]
+        )
+    if data.get("EntityTypes") is not None:
+        import capo_textract.types.entity_types
+
+        out["entity_types"] = capo_textract.types.entity_types.deserialize_cbor(
+            data["EntityTypes"]
+        )
+    if data.get("SelectionStatus") is not None:
+        import capo_textract.types.selection_status
+
+        out["selection_status"] = capo_textract.types.selection_status.deserialize_cbor(
+            data["SelectionStatus"]
+        )
+    if data.get("Page") is not None:
+        out["page"] = data["Page"]
+    if data.get("Query") is not None:
+        import capo_textract.types.query
+
+        out["query"] = capo_textract.types.query.deserialize_cbor(data["Query"])
+    return out

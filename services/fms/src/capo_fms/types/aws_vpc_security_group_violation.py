@@ -73,3 +73,50 @@ def deserialize_aws_json_1_1(data: dict) -> AwsVPCSecurityGroupViolation:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AwsVPCSecurityGroupViolation) -> dict:
+    out: dict = {}
+    if "violation_target" in value:
+        out["ViolationTarget"] = value["violation_target"]
+    if "violation_target_description" in value:
+        out["ViolationTargetDescription"] = value["violation_target_description"]
+    if "partial_matches" in value:
+        import capo_fms.types.partial_matches
+
+        out["PartialMatches"] = capo_fms.types.partial_matches.serialize_cbor(
+            value["partial_matches"]
+        )
+    if "possible_security_group_remediation_actions" in value:
+        import capo_fms.types.security_group_remediation_actions
+
+        out["PossibleSecurityGroupRemediationActions"] = (
+            capo_fms.types.security_group_remediation_actions.serialize_cbor(
+                value["possible_security_group_remediation_actions"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AwsVPCSecurityGroupViolation:
+    out: AwsVPCSecurityGroupViolation = {}  # type: ignore[typeddict-item]
+    if data.get("ViolationTarget") is not None:
+        out["violation_target"] = data["ViolationTarget"]
+    if data.get("ViolationTargetDescription") is not None:
+        out["violation_target_description"] = data["ViolationTargetDescription"]
+    if data.get("PartialMatches") is not None:
+        import capo_fms.types.partial_matches
+
+        out["partial_matches"] = capo_fms.types.partial_matches.deserialize_cbor(
+            data["PartialMatches"]
+        )
+    if data.get("PossibleSecurityGroupRemediationActions") is not None:
+        import capo_fms.types.security_group_remediation_actions
+
+        out["possible_security_group_remediation_actions"] = (
+            capo_fms.types.security_group_remediation_actions.deserialize_cbor(
+                data["PossibleSecurityGroupRemediationActions"]
+            )
+        )
+    return out

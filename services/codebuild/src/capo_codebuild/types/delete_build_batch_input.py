@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteBuildBatchInput:
     else:
         out["id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteBuildBatchInput) -> dict:
+    out: dict = {}
+    out["id"] = value["id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteBuildBatchInput:
+    out: DeleteBuildBatchInput = {}  # type: ignore[typeddict-item]
+    if data.get("id") is not None:
+        out["id"] = data["id"]
+    else:
+        out["id"] = ""
+    return out

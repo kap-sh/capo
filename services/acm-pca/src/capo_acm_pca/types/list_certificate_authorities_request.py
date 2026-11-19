@@ -50,3 +50,34 @@ def deserialize_aws_json_1_1(data: dict) -> ListCertificateAuthoritiesRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListCertificateAuthoritiesRequest) -> dict:
+    out: dict = {}
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "resource_owner" in value:
+        import capo_acm_pca.types.resource_owner
+
+        out["ResourceOwner"] = capo_acm_pca.types.resource_owner.serialize_cbor(
+            value["resource_owner"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListCertificateAuthoritiesRequest:
+    out: ListCertificateAuthoritiesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("ResourceOwner") is not None:
+        import capo_acm_pca.types.resource_owner
+
+        out["resource_owner"] = capo_acm_pca.types.resource_owner.deserialize_cbor(
+            data["ResourceOwner"]
+        )
+    return out

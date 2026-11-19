@@ -92,3 +92,74 @@ def deserialize_aws_json_1_0(data: dict) -> LambdaEventSourceMappingConfiguratio
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LambdaEventSourceMappingConfiguration) -> dict:
+    out: dict = {}
+    out["timeoutMinutes"] = value.get("timeout_minutes", 60)
+    import capo_arc_region_switch.types.event_source_mapping_action
+
+    out["action"] = (
+        capo_arc_region_switch.types.event_source_mapping_action.serialize_cbor(
+            value["action"]
+        )
+    )
+    import capo_arc_region_switch.types.region_event_source_mapping_map
+
+    out["regionEventSourceMappings"] = (
+        capo_arc_region_switch.types.region_event_source_mapping_map.serialize_cbor(
+            value["region_event_source_mappings"]
+        )
+    )
+    if "ungraceful" in value:
+        import capo_arc_region_switch.types.lambda_event_source_mapping_ungraceful
+
+        out["ungraceful"] = (
+            capo_arc_region_switch.types.lambda_event_source_mapping_ungraceful.serialize_cbor(
+                value["ungraceful"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> LambdaEventSourceMappingConfiguration:
+    out: LambdaEventSourceMappingConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("timeoutMinutes") is not None:
+        out["timeout_minutes"] = data["timeoutMinutes"]
+    else:
+        out["timeout_minutes"] = 60
+    if data.get("action") is not None:
+        import capo_arc_region_switch.types.event_source_mapping_action
+
+        out["action"] = (
+            capo_arc_region_switch.types.event_source_mapping_action.deserialize_cbor(
+                data["action"]
+            )
+        )
+    else:
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_arc_region_switch.types.event_source_mapping_action.EventSourceMappingAction",
+            "",
+        )
+    if data.get("regionEventSourceMappings") is not None:
+        import capo_arc_region_switch.types.region_event_source_mapping_map
+
+        out["region_event_source_mappings"] = (
+            capo_arc_region_switch.types.region_event_source_mapping_map.deserialize_cbor(
+                data["regionEventSourceMappings"]
+            )
+        )
+    else:
+        out["region_event_source_mappings"] = {}
+    if data.get("ungraceful") is not None:
+        import capo_arc_region_switch.types.lambda_event_source_mapping_ungraceful
+
+        out["ungraceful"] = (
+            capo_arc_region_switch.types.lambda_event_source_mapping_ungraceful.deserialize_cbor(
+                data["ungraceful"]
+            )
+        )
+    return out

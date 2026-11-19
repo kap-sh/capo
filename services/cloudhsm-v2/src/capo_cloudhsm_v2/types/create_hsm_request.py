@@ -42,3 +42,28 @@ def deserialize_aws_json_1_1(data: dict) -> CreateHsmRequest:
     if data.get("IpAddress") is not None:
         out["ip_address"] = data["IpAddress"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateHsmRequest) -> dict:
+    out: dict = {}
+    out["ClusterId"] = value["cluster_id"]
+    out["AvailabilityZone"] = value["availability_zone"]
+    if "ip_address" in value:
+        out["IpAddress"] = value["ip_address"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateHsmRequest:
+    out: CreateHsmRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ClusterId") is not None:
+        out["cluster_id"] = data["ClusterId"]
+    else:
+        out["cluster_id"] = ""
+    if data.get("AvailabilityZone") is not None:
+        out["availability_zone"] = data["AvailabilityZone"]
+    else:
+        out["availability_zone"] = ""
+    if data.get("IpAddress") is not None:
+        out["ip_address"] = data["IpAddress"]
+    return out

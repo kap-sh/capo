@@ -79,6 +79,56 @@ def deserialize_aws_json_1_1(data: dict) -> CreateComputerRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateComputerRequest) -> dict:
+    out: dict = {}
+    out["DirectoryId"] = value["directory_id"]
+    out["ComputerName"] = value["computer_name"]
+    out["Password"] = value["password"]
+    if "organizational_unit_distinguished_name" in value:
+        out["OrganizationalUnitDistinguishedName"] = value[
+            "organizational_unit_distinguished_name"
+        ]
+    if "computer_attributes" in value:
+        import capo_directory_service.types.attributes
+
+        out["ComputerAttributes"] = (
+            capo_directory_service.types.attributes.serialize_cbor(
+                value["computer_attributes"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateComputerRequest:
+    out: CreateComputerRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    if data.get("ComputerName") is not None:
+        out["computer_name"] = data["ComputerName"]
+    else:
+        out["computer_name"] = ""
+    if data.get("Password") is not None:
+        out["password"] = data["Password"]
+    else:
+        out["password"] = ""
+    if data.get("OrganizationalUnitDistinguishedName") is not None:
+        out["organizational_unit_distinguished_name"] = data[
+            "OrganizationalUnitDistinguishedName"
+        ]
+    if data.get("ComputerAttributes") is not None:
+        import capo_directory_service.types.attributes
+
+        out["computer_attributes"] = (
+            capo_directory_service.types.attributes.deserialize_cbor(
+                data["ComputerAttributes"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: CreateComputerRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "password" in value:

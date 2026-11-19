@@ -67,6 +67,53 @@ def deserialize_aws_json_1_0(data: dict) -> BuyerAgreementApprovalGroup:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BuyerAgreementApprovalGroup) -> dict:
+    out: dict = {}
+    import capo_marketplace_agreement.types.buyer_agreement_approval_criteria
+
+    out["approvalCriteria"] = (
+        capo_marketplace_agreement.types.buyer_agreement_approval_criteria.serialize_cbor(
+            value["approval_criteria"]
+        )
+    )
+    import capo_marketplace_agreement.types.buyer_approver_outcomes
+
+    out["approvers"] = (
+        capo_marketplace_agreement.types.buyer_approver_outcomes.serialize_cbor(
+            value["approvers"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BuyerAgreementApprovalGroup:
+    out: BuyerAgreementApprovalGroup = {}  # type: ignore[typeddict-item]
+    if data.get("approvalCriteria") is not None:
+        import capo_marketplace_agreement.types.buyer_agreement_approval_criteria
+
+        out["approval_criteria"] = (
+            capo_marketplace_agreement.types.buyer_agreement_approval_criteria.deserialize_cbor(
+                data["approvalCriteria"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "BuyerAgreementApprovalGroup.approval_criteria required"
+        )
+    if data.get("approvers") is not None:
+        import capo_marketplace_agreement.types.buyer_approver_outcomes
+
+        out["approvers"] = (
+            capo_marketplace_agreement.types.buyer_approver_outcomes.deserialize_cbor(
+                data["approvers"]
+            )
+        )
+    else:
+        out["approvers"] = []
+    return out
+
+
 def redact_sensitive(value: BuyerAgreementApprovalGroup) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "approvers" in value:

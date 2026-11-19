@@ -45,3 +45,30 @@ def deserialize_aws_json_1_1(data: dict) -> PendingModifiedServiceUpdate:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PendingModifiedServiceUpdate) -> dict:
+    out: dict = {}
+    if "service_update_name" in value:
+        out["ServiceUpdateName"] = value["service_update_name"]
+    if "status" in value:
+        import capo_memorydb.types.service_update_status
+
+        out["Status"] = capo_memorydb.types.service_update_status.serialize_cbor(
+            value["status"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PendingModifiedServiceUpdate:
+    out: PendingModifiedServiceUpdate = {}  # type: ignore[typeddict-item]
+    if data.get("ServiceUpdateName") is not None:
+        out["service_update_name"] = data["ServiceUpdateName"]
+    if data.get("Status") is not None:
+        import capo_memorydb.types.service_update_status
+
+        out["status"] = capo_memorydb.types.service_update_status.deserialize_cbor(
+            data["Status"]
+        )
+    return out

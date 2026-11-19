@@ -63,3 +63,48 @@ def deserialize_aws_json_1_1(data: dict) -> EC2ReplaceRouteTableAssociationActio
             "EC2ReplaceRouteTableAssociationAction.route_table_id required"
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EC2ReplaceRouteTableAssociationAction) -> dict:
+    out: dict = {}
+    if "description" in value:
+        out["Description"] = value["description"]
+    import capo_fms.types.action_target
+
+    out["AssociationId"] = capo_fms.types.action_target.serialize_cbor(
+        value["association_id"]
+    )
+    import capo_fms.types.action_target
+
+    out["RouteTableId"] = capo_fms.types.action_target.serialize_cbor(
+        value["route_table_id"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> EC2ReplaceRouteTableAssociationAction:
+    out: EC2ReplaceRouteTableAssociationAction = {}  # type: ignore[typeddict-item]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("AssociationId") is not None:
+        import capo_fms.types.action_target
+
+        out["association_id"] = capo_fms.types.action_target.deserialize_cbor(
+            data["AssociationId"]
+        )
+    else:
+        raise DeserializationError(
+            "EC2ReplaceRouteTableAssociationAction.association_id required"
+        )
+    if data.get("RouteTableId") is not None:
+        import capo_fms.types.action_target
+
+        out["route_table_id"] = capo_fms.types.action_target.deserialize_cbor(
+            data["RouteTableId"]
+        )
+    else:
+        raise DeserializationError(
+            "EC2ReplaceRouteTableAssociationAction.route_table_id required"
+        )
+    return out

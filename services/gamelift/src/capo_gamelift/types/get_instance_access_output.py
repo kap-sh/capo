@@ -40,6 +40,29 @@ def deserialize_aws_json_1_1(data: dict) -> GetInstanceAccessOutput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetInstanceAccessOutput) -> dict:
+    out: dict = {}
+    if "instance_access" in value:
+        import capo_gamelift.types.instance_access
+
+        out["InstanceAccess"] = capo_gamelift.types.instance_access.serialize_cbor(
+            value["instance_access"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetInstanceAccessOutput:
+    out: GetInstanceAccessOutput = {}  # type: ignore[typeddict-item]
+    if data.get("InstanceAccess") is not None:
+        import capo_gamelift.types.instance_access
+
+        out["instance_access"] = capo_gamelift.types.instance_access.deserialize_cbor(
+            data["InstanceAccess"]
+        )
+    return out
+
+
 def redact_sensitive(value: GetInstanceAccessOutput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "instance_access" in value:

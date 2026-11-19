@@ -39,3 +39,28 @@ def deserialize_aws_json_1_1(data: dict) -> UntagCertificateAuthorityRequest:
     else:
         out["tags"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UntagCertificateAuthorityRequest) -> dict:
+    out: dict = {}
+    out["CertificateAuthorityArn"] = value["certificate_authority_arn"]
+    import capo_acm_pca.types.tag_list
+
+    out["Tags"] = capo_acm_pca.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> UntagCertificateAuthorityRequest:
+    out: UntagCertificateAuthorityRequest = {}  # type: ignore[typeddict-item]
+    if data.get("CertificateAuthorityArn") is not None:
+        out["certificate_authority_arn"] = data["CertificateAuthorityArn"]
+    else:
+        out["certificate_authority_arn"] = ""
+    if data.get("Tags") is not None:
+        import capo_acm_pca.types.tag_list
+
+        out["tags"] = capo_acm_pca.types.tag_list.deserialize_cbor(data["Tags"])
+    else:
+        out["tags"] = []
+    return out

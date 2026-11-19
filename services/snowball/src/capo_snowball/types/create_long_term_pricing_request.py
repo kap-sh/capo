@@ -76,3 +76,56 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLongTermPricingRequest:
             "capo_snowball.types.snowball_type.SnowballType", ""
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateLongTermPricingRequest) -> dict:
+    out: dict = {}
+    import capo_snowball.types.long_term_pricing_type
+
+    out["LongTermPricingType"] = (
+        capo_snowball.types.long_term_pricing_type.serialize_cbor(
+            value["long_term_pricing_type"]
+        )
+    )
+    if "is_long_term_pricing_auto_renew" in value:
+        out["IsLongTermPricingAutoRenew"] = value["is_long_term_pricing_auto_renew"]
+    import capo_snowball.types.snowball_type
+
+    out["SnowballType"] = capo_snowball.types.snowball_type.serialize_cbor(
+        value["snowball_type"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateLongTermPricingRequest:
+    out: CreateLongTermPricingRequest = {}  # type: ignore[typeddict-item]
+    if data.get("LongTermPricingType") is not None:
+        import capo_snowball.types.long_term_pricing_type
+
+        out["long_term_pricing_type"] = (
+            capo_snowball.types.long_term_pricing_type.deserialize_cbor(
+                data["LongTermPricingType"]
+            )
+        )
+    else:
+        import typing
+
+        out["long_term_pricing_type"] = typing.cast(
+            "capo_snowball.types.long_term_pricing_type.LongTermPricingType", ""
+        )
+    if data.get("IsLongTermPricingAutoRenew") is not None:
+        out["is_long_term_pricing_auto_renew"] = data["IsLongTermPricingAutoRenew"]
+    if data.get("SnowballType") is not None:
+        import capo_snowball.types.snowball_type
+
+        out["snowball_type"] = capo_snowball.types.snowball_type.deserialize_cbor(
+            data["SnowballType"]
+        )
+    else:
+        import typing
+
+        out["snowball_type"] = typing.cast(
+            "capo_snowball.types.snowball_type.SnowballType", ""
+        )
+    return out

@@ -41,3 +41,27 @@ def deserialize_aws_json_1_0(data: dict) -> GetAgreementTermsInput:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetAgreementTermsInput) -> dict:
+    out: dict = {}
+    out["agreementId"] = value["agreement_id"]
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetAgreementTermsInput:
+    out: GetAgreementTermsInput = {}  # type: ignore[typeddict-item]
+    if data.get("agreementId") is not None:
+        out["agreement_id"] = data["agreementId"]
+    else:
+        out["agreement_id"] = ""
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

@@ -183,3 +183,142 @@ def deserialize_aws_json_1_0(data: dict) -> Criteria:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Criteria) -> dict:
+    out: dict = {}
+    if "region" in value:
+        import capo_compute_optimizer_automation.types.string_criteria_condition_list
+
+        out["region"] = (
+            capo_compute_optimizer_automation.types.string_criteria_condition_list.serialize_cbor(
+                value["region"]
+            )
+        )
+    if "resource_arn" in value:
+        import capo_compute_optimizer_automation.types.string_criteria_condition_list
+
+        out["resourceArn"] = (
+            capo_compute_optimizer_automation.types.string_criteria_condition_list.serialize_cbor(
+                value["resource_arn"]
+            )
+        )
+    if "ebs_volume_type" in value:
+        import capo_compute_optimizer_automation.types.string_criteria_condition_list
+
+        out["ebsVolumeType"] = (
+            capo_compute_optimizer_automation.types.string_criteria_condition_list.serialize_cbor(
+                value["ebs_volume_type"]
+            )
+        )
+    if "ebs_volume_size_in_gib" in value:
+        import capo_compute_optimizer_automation.types.integer_criteria_condition_list
+
+        out["ebsVolumeSizeInGib"] = (
+            capo_compute_optimizer_automation.types.integer_criteria_condition_list.serialize_cbor(
+                value["ebs_volume_size_in_gib"]
+            )
+        )
+    if "estimated_monthly_savings" in value:
+        import capo_compute_optimizer_automation.types.double_criteria_condition_list
+
+        out["estimatedMonthlySavings"] = (
+            capo_compute_optimizer_automation.types.double_criteria_condition_list.serialize_cbor(
+                value["estimated_monthly_savings"]
+            )
+        )
+    if "resource_tag" in value:
+        import capo_compute_optimizer_automation.types.resource_tags_criteria_condition_list
+
+        out["resourceTag"] = (
+            capo_compute_optimizer_automation.types.resource_tags_criteria_condition_list.serialize_cbor(
+                value["resource_tag"]
+            )
+        )
+    if "look_back_period_in_days" in value:
+        import capo_compute_optimizer_automation.types.integer_criteria_condition_list
+
+        out["lookBackPeriodInDays"] = (
+            capo_compute_optimizer_automation.types.integer_criteria_condition_list.serialize_cbor(
+                value["look_back_period_in_days"]
+            )
+        )
+    if "restart_needed" in value:
+        import capo_compute_optimizer_automation.types.string_criteria_condition_list
+
+        out["restartNeeded"] = (
+            capo_compute_optimizer_automation.types.string_criteria_condition_list.serialize_cbor(
+                value["restart_needed"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Criteria:
+    out: Criteria = {}  # type: ignore[typeddict-item]
+    if data.get("region") is not None:
+        import capo_compute_optimizer_automation.types.string_criteria_condition_list
+
+        out["region"] = (
+            capo_compute_optimizer_automation.types.string_criteria_condition_list.deserialize_cbor(
+                data["region"]
+            )
+        )
+    if data.get("resourceArn") is not None:
+        import capo_compute_optimizer_automation.types.string_criteria_condition_list
+
+        out["resource_arn"] = (
+            capo_compute_optimizer_automation.types.string_criteria_condition_list.deserialize_cbor(
+                data["resourceArn"]
+            )
+        )
+    if data.get("ebsVolumeType") is not None:
+        import capo_compute_optimizer_automation.types.string_criteria_condition_list
+
+        out["ebs_volume_type"] = (
+            capo_compute_optimizer_automation.types.string_criteria_condition_list.deserialize_cbor(
+                data["ebsVolumeType"]
+            )
+        )
+    if data.get("ebsVolumeSizeInGib") is not None:
+        import capo_compute_optimizer_automation.types.integer_criteria_condition_list
+
+        out["ebs_volume_size_in_gib"] = (
+            capo_compute_optimizer_automation.types.integer_criteria_condition_list.deserialize_cbor(
+                data["ebsVolumeSizeInGib"]
+            )
+        )
+    if data.get("estimatedMonthlySavings") is not None:
+        import capo_compute_optimizer_automation.types.double_criteria_condition_list
+
+        out["estimated_monthly_savings"] = (
+            capo_compute_optimizer_automation.types.double_criteria_condition_list.deserialize_cbor(
+                data["estimatedMonthlySavings"]
+            )
+        )
+    if data.get("resourceTag") is not None:
+        import capo_compute_optimizer_automation.types.resource_tags_criteria_condition_list
+
+        out["resource_tag"] = (
+            capo_compute_optimizer_automation.types.resource_tags_criteria_condition_list.deserialize_cbor(
+                data["resourceTag"]
+            )
+        )
+    if data.get("lookBackPeriodInDays") is not None:
+        import capo_compute_optimizer_automation.types.integer_criteria_condition_list
+
+        out["look_back_period_in_days"] = (
+            capo_compute_optimizer_automation.types.integer_criteria_condition_list.deserialize_cbor(
+                data["lookBackPeriodInDays"]
+            )
+        )
+    if data.get("restartNeeded") is not None:
+        import capo_compute_optimizer_automation.types.string_criteria_condition_list
+
+        out["restart_needed"] = (
+            capo_compute_optimizer_automation.types.string_criteria_condition_list.deserialize_cbor(
+                data["restartNeeded"]
+            )
+        )
+    return out

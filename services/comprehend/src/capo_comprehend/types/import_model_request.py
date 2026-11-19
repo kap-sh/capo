@@ -72,3 +72,43 @@ def deserialize_aws_json_1_1(data: dict) -> ImportModelRequest:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ImportModelRequest) -> dict:
+    out: dict = {}
+    out["SourceModelArn"] = value["source_model_arn"]
+    if "model_name" in value:
+        out["ModelName"] = value["model_name"]
+    if "version_name" in value:
+        out["VersionName"] = value["version_name"]
+    if "model_kms_key_id" in value:
+        out["ModelKmsKeyId"] = value["model_kms_key_id"]
+    if "data_access_role_arn" in value:
+        out["DataAccessRoleArn"] = value["data_access_role_arn"]
+    if "tags" in value:
+        import capo_comprehend.types.tag_list
+
+        out["Tags"] = capo_comprehend.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> ImportModelRequest:
+    out: ImportModelRequest = {}  # type: ignore[typeddict-item]
+    if data.get("SourceModelArn") is not None:
+        out["source_model_arn"] = data["SourceModelArn"]
+    else:
+        out["source_model_arn"] = ""
+    if data.get("ModelName") is not None:
+        out["model_name"] = data["ModelName"]
+    if data.get("VersionName") is not None:
+        out["version_name"] = data["VersionName"]
+    if data.get("ModelKmsKeyId") is not None:
+        out["model_kms_key_id"] = data["ModelKmsKeyId"]
+    if data.get("DataAccessRoleArn") is not None:
+        out["data_access_role_arn"] = data["DataAccessRoleArn"]
+    if data.get("Tags") is not None:
+        import capo_comprehend.types.tag_list
+
+        out["tags"] = capo_comprehend.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

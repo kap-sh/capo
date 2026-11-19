@@ -81,3 +81,55 @@ def deserialize_aws_json_1_0(data: dict) -> ArchiveFilterCondition:
         if name is not None:
             return {"$unknown": {"name": name}}
         raise DeserializationError("ArchiveFilterCondition: no recognized variant key")
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ArchiveFilterCondition) -> dict:
+    if "$unknown" in value:
+        raise SerializationError(
+            f"ArchiveFilterCondition: cannot serialize unknown variant {value['$unknown']['name']!r}"
+        )
+    elif "StringExpression" in value:
+        import capo_mailmanager.types.archive_string_expression
+
+        return {
+            "StringExpression": capo_mailmanager.types.archive_string_expression.serialize_cbor(
+                value["StringExpression"]
+            )
+        }
+    elif "BooleanExpression" in value:
+        import capo_mailmanager.types.archive_boolean_expression
+
+        return {
+            "BooleanExpression": capo_mailmanager.types.archive_boolean_expression.serialize_cbor(
+                value["BooleanExpression"]
+            )
+        }
+    else:
+        raise SerializationError("ArchiveFilterCondition: no variant present")
+
+
+def deserialize_cbor(data: dict) -> ArchiveFilterCondition:
+    if data.get("StringExpression") is not None:
+        import capo_mailmanager.types.archive_string_expression
+
+        return {
+            "StringExpression": capo_mailmanager.types.archive_string_expression.deserialize_cbor(
+                data["StringExpression"]
+            )
+        }
+    elif data.get("BooleanExpression") is not None:
+        import capo_mailmanager.types.archive_boolean_expression
+
+        return {
+            "BooleanExpression": capo_mailmanager.types.archive_boolean_expression.deserialize_cbor(
+                data["BooleanExpression"]
+            )
+        }
+    else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return {"$unknown": {"name": name}}
+        raise DeserializationError("ArchiveFilterCondition: no recognized variant key")

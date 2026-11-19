@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteHostInput:
     else:
         out["host_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteHostInput) -> dict:
+    out: dict = {}
+    out["HostArn"] = value["host_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteHostInput:
+    out: DeleteHostInput = {}  # type: ignore[typeddict-item]
+    if data.get("HostArn") is not None:
+        out["host_arn"] = data["HostArn"]
+    else:
+        out["host_arn"] = ""
+    return out

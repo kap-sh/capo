@@ -58,3 +58,40 @@ def deserialize_aws_json_1_1(data: dict) -> UpdatePublicDnsNamespaceRequest:
     else:
         raise DeserializationError("UpdatePublicDnsNamespaceRequest.namespace required")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdatePublicDnsNamespaceRequest) -> dict:
+    out: dict = {}
+    out["Id"] = value["id"]
+    if "updater_request_id" in value:
+        out["UpdaterRequestId"] = value["updater_request_id"]
+    import capo_servicediscovery.types.public_dns_namespace_change
+
+    out["Namespace"] = (
+        capo_servicediscovery.types.public_dns_namespace_change.serialize_cbor(
+            value["namespace"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdatePublicDnsNamespaceRequest:
+    out: UpdatePublicDnsNamespaceRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    else:
+        out["id"] = ""
+    if data.get("UpdaterRequestId") is not None:
+        out["updater_request_id"] = data["UpdaterRequestId"]
+    if data.get("Namespace") is not None:
+        import capo_servicediscovery.types.public_dns_namespace_change
+
+        out["namespace"] = (
+            capo_servicediscovery.types.public_dns_namespace_change.deserialize_cbor(
+                data["Namespace"]
+            )
+        )
+    else:
+        raise DeserializationError("UpdatePublicDnsNamespaceRequest.namespace required")
+    return out

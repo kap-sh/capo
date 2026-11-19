@@ -85,3 +85,51 @@ def deserialize_aws_json_1_1(data: dict) -> BillingRecord:
     else:
         out["price"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BillingRecord) -> dict:
+    out: dict = {}
+    if "domain_name" in value:
+        out["DomainName"] = value["domain_name"]
+    if "operation" in value:
+        import capo_route_53_domains.types.operation_type
+
+        out["Operation"] = capo_route_53_domains.types.operation_type.serialize_cbor(
+            value["operation"]
+        )
+    if "invoice_id" in value:
+        out["InvoiceId"] = value["invoice_id"]
+    if "bill_date" in value:
+        import capo_route_53_domains.types.timestamp
+
+        out["BillDate"] = capo_route_53_domains.types.timestamp.serialize_cbor(
+            value["bill_date"]
+        )
+    out["Price"] = value.get("price", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> BillingRecord:
+    out: BillingRecord = {}  # type: ignore[typeddict-item]
+    if data.get("DomainName") is not None:
+        out["domain_name"] = data["DomainName"]
+    if data.get("Operation") is not None:
+        import capo_route_53_domains.types.operation_type
+
+        out["operation"] = capo_route_53_domains.types.operation_type.deserialize_cbor(
+            data["Operation"]
+        )
+    if data.get("InvoiceId") is not None:
+        out["invoice_id"] = data["InvoiceId"]
+    if data.get("BillDate") is not None:
+        import capo_route_53_domains.types.timestamp
+
+        out["bill_date"] = capo_route_53_domains.types.timestamp.deserialize_cbor(
+            data["BillDate"]
+        )
+    if data.get("Price") is not None:
+        out["price"] = float(data["Price"])
+    else:
+        out["price"] = 0
+    return out

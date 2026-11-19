@@ -16,3 +16,12 @@ def serialize_aws_json_1_1(value: GameServerInstanceStatus) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> GameServerInstanceStatus:
     return cast(GameServerInstanceStatus, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GameServerInstanceStatus) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> GameServerInstanceStatus:
+    return cast(GameServerInstanceStatus, data)

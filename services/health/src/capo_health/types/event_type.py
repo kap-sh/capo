@@ -92,3 +92,62 @@ def deserialize_aws_json_1_1(data: dict) -> EventType:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EventType) -> dict:
+    out: dict = {}
+    if "service" in value:
+        out["service"] = value["service"]
+    if "code" in value:
+        out["code"] = value["code"]
+    if "category" in value:
+        import capo_health.types.event_type_category
+
+        out["category"] = capo_health.types.event_type_category.serialize_cbor(
+            value["category"]
+        )
+    if "actionability" in value:
+        import capo_health.types.event_type_actionability
+
+        out["actionability"] = (
+            capo_health.types.event_type_actionability.serialize_cbor(
+                value["actionability"]
+            )
+        )
+    if "personas" in value:
+        import capo_health.types.event_type_persona_list
+
+        out["personas"] = capo_health.types.event_type_persona_list.serialize_cbor(
+            value["personas"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> EventType:
+    out: EventType = {}  # type: ignore[typeddict-item]
+    if data.get("service") is not None:
+        out["service"] = data["service"]
+    if data.get("code") is not None:
+        out["code"] = data["code"]
+    if data.get("category") is not None:
+        import capo_health.types.event_type_category
+
+        out["category"] = capo_health.types.event_type_category.deserialize_cbor(
+            data["category"]
+        )
+    if data.get("actionability") is not None:
+        import capo_health.types.event_type_actionability
+
+        out["actionability"] = (
+            capo_health.types.event_type_actionability.deserialize_cbor(
+                data["actionability"]
+            )
+        )
+    if data.get("personas") is not None:
+        import capo_health.types.event_type_persona_list
+
+        out["personas"] = capo_health.types.event_type_persona_list.deserialize_cbor(
+            data["personas"]
+        )
+    return out

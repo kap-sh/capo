@@ -45,3 +45,30 @@ def deserialize_aws_json_1_1(data: dict) -> ListRuleTypesInput:
     if data.get("regionFilter") is not None:
         out["region_filter"] = data["regionFilter"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListRuleTypesInput) -> dict:
+    out: dict = {}
+    if "rule_owner_filter" in value:
+        import capo_codepipeline.types.rule_owner
+
+        out["ruleOwnerFilter"] = capo_codepipeline.types.rule_owner.serialize_cbor(
+            value["rule_owner_filter"]
+        )
+    if "region_filter" in value:
+        out["regionFilter"] = value["region_filter"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListRuleTypesInput:
+    out: ListRuleTypesInput = {}  # type: ignore[typeddict-item]
+    if data.get("ruleOwnerFilter") is not None:
+        import capo_codepipeline.types.rule_owner
+
+        out["rule_owner_filter"] = capo_codepipeline.types.rule_owner.deserialize_cbor(
+            data["ruleOwnerFilter"]
+        )
+    if data.get("regionFilter") is not None:
+        out["region_filter"] = data["regionFilter"]
+    return out

@@ -37,3 +37,30 @@ def deserialize_aws_json_1_0(data: list) -> ArcRoutingControlStates:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ArcRoutingControlStates) -> list:
+    import capo_arc_region_switch.types.arc_routing_control_state
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_arc_region_switch.types.arc_routing_control_state.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> ArcRoutingControlStates:
+    import capo_arc_region_switch.types.arc_routing_control_state
+
+    out: ArcRoutingControlStates = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_arc_region_switch.types.arc_routing_control_state.deserialize_cbor(
+                item
+            )
+        )
+    return out

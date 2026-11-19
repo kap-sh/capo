@@ -62,6 +62,41 @@ def deserialize_aws_json_1_0(data: dict) -> BlockDeviceMappingRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BlockDeviceMappingRequest) -> dict:
+    out: dict = {}
+    if "device_name" in value:
+        out["DeviceName"] = value["device_name"]
+    if "ebs" in value:
+        import capo_workspaces_instances.types.ebs_block_device
+
+        out["Ebs"] = capo_workspaces_instances.types.ebs_block_device.serialize_cbor(
+            value["ebs"]
+        )
+    if "no_device" in value:
+        out["NoDevice"] = value["no_device"]
+    if "virtual_name" in value:
+        out["VirtualName"] = value["virtual_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> BlockDeviceMappingRequest:
+    out: BlockDeviceMappingRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DeviceName") is not None:
+        out["device_name"] = data["DeviceName"]
+    if data.get("Ebs") is not None:
+        import capo_workspaces_instances.types.ebs_block_device
+
+        out["ebs"] = capo_workspaces_instances.types.ebs_block_device.deserialize_cbor(
+            data["Ebs"]
+        )
+    if data.get("NoDevice") is not None:
+        out["no_device"] = data["NoDevice"]
+    if data.get("VirtualName") is not None:
+        out["virtual_name"] = data["VirtualName"]
+    return out
+
+
 def redact_sensitive(value: BlockDeviceMappingRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "ebs" in value:

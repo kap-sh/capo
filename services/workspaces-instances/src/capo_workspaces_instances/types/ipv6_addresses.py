@@ -39,6 +39,31 @@ def deserialize_aws_json_1_0(data: list) -> Ipv6Addresses:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Ipv6Addresses) -> list:
+    import capo_workspaces_instances.types.instance_ipv6_address
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_workspaces_instances.types.instance_ipv6_address.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> Ipv6Addresses:
+    import capo_workspaces_instances.types.instance_ipv6_address
+
+    out: Ipv6Addresses = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_workspaces_instances.types.instance_ipv6_address.deserialize_cbor(item)
+        )
+    return out
+
+
 def redact_sensitive(value: Ipv6Addresses) -> list[Any]:
     import capo_workspaces_instances.types.instance_ipv6_address
 

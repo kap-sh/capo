@@ -31,3 +31,24 @@ def deserialize_aws_json_1_1(data: list) -> StandbyWorkspacesList:
             capo_workspaces.types.standby_workspace.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StandbyWorkspacesList) -> list:
+    import capo_workspaces.types.standby_workspace
+
+    out: list = []
+    for item in value:
+        out.append(capo_workspaces.types.standby_workspace.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> StandbyWorkspacesList:
+    import capo_workspaces.types.standby_workspace
+
+    out: StandbyWorkspacesList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_workspaces.types.standby_workspace.deserialize_cbor(item))
+    return out

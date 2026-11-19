@@ -43,3 +43,32 @@ def deserialize_aws_json_1_1(data: dict) -> Filter:
     else:
         out["values"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Filter) -> dict:
+    out: dict = {}
+    out["Name"] = value["name"]
+    import capo_memorydb.types.filter_value_list
+
+    out["Values"] = capo_memorydb.types.filter_value_list.serialize_cbor(
+        value["values"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Filter:
+    out: Filter = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    else:
+        out["name"] = ""
+    if data.get("Values") is not None:
+        import capo_memorydb.types.filter_value_list
+
+        out["values"] = capo_memorydb.types.filter_value_list.deserialize_cbor(
+            data["Values"]
+        )
+    else:
+        out["values"] = []
+    return out

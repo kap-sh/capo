@@ -76,3 +76,47 @@ def deserialize_aws_json_1_1(data: dict) -> CreateConstraintInput:
     else:
         out["idempotency_token"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateConstraintInput) -> dict:
+    out: dict = {}
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    out["PortfolioId"] = value["portfolio_id"]
+    out["ProductId"] = value["product_id"]
+    out["Parameters"] = value["parameters"]
+    out["Type"] = value["type"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    out["IdempotencyToken"] = value["idempotency_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateConstraintInput:
+    out: CreateConstraintInput = {}  # type: ignore[typeddict-item]
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    if data.get("PortfolioId") is not None:
+        out["portfolio_id"] = data["PortfolioId"]
+    else:
+        out["portfolio_id"] = ""
+    if data.get("ProductId") is not None:
+        out["product_id"] = data["ProductId"]
+    else:
+        out["product_id"] = ""
+    if data.get("Parameters") is not None:
+        out["parameters"] = data["Parameters"]
+    else:
+        out["parameters"] = ""
+    if data.get("Type") is not None:
+        out["type"] = data["Type"]
+    else:
+        out["type"] = ""
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("IdempotencyToken") is not None:
+        out["idempotency_token"] = data["IdempotencyToken"]
+    else:
+        out["idempotency_token"] = ""
+    return out

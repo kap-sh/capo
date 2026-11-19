@@ -58,6 +58,42 @@ def deserialize_aws_json_1_0(data: dict) -> ListMembersOfAddressListRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListMembersOfAddressListRequest) -> dict:
+    out: dict = {}
+    out["AddressListId"] = value["address_list_id"]
+    if "filter" in value:
+        import capo_mailmanager.types.address_filter
+
+        out["Filter"] = capo_mailmanager.types.address_filter.serialize_cbor(
+            value["filter"]
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "page_size" in value:
+        out["PageSize"] = value["page_size"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListMembersOfAddressListRequest:
+    out: ListMembersOfAddressListRequest = {}  # type: ignore[typeddict-item]
+    if data.get("AddressListId") is not None:
+        out["address_list_id"] = data["AddressListId"]
+    else:
+        out["address_list_id"] = ""
+    if data.get("Filter") is not None:
+        import capo_mailmanager.types.address_filter
+
+        out["filter"] = capo_mailmanager.types.address_filter.deserialize_cbor(
+            data["Filter"]
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("PageSize") is not None:
+        out["page_size"] = data["PageSize"]
+    return out
+
+
 def redact_sensitive(value: ListMembersOfAddressListRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "filter" in value:

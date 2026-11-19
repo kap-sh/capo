@@ -38,3 +38,26 @@ def deserialize_aws_json_1_1(data: dict) -> OSUpdateSettings:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: OSUpdateSettings) -> dict:
+    out: dict = {}
+    if "os_version" in value:
+        import capo_directory_service.types.os_version
+
+        out["OSVersion"] = capo_directory_service.types.os_version.serialize_cbor(
+            value["os_version"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> OSUpdateSettings:
+    out: OSUpdateSettings = {}  # type: ignore[typeddict-item]
+    if data.get("OSVersion") is not None:
+        import capo_directory_service.types.os_version
+
+        out["os_version"] = capo_directory_service.types.os_version.deserialize_cbor(
+            data["OSVersion"]
+        )
+    return out

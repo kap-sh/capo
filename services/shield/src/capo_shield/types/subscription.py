@@ -136,3 +136,94 @@ def deserialize_aws_json_1_1(data: dict) -> Subscription:
     if data.get("SubscriptionArn") is not None:
         out["subscription_arn"] = data["SubscriptionArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Subscription) -> dict:
+    out: dict = {}
+    if "start_time" in value:
+        import capo_shield.types.timestamp
+
+        out["StartTime"] = capo_shield.types.timestamp.serialize_cbor(
+            value["start_time"]
+        )
+    if "end_time" in value:
+        import capo_shield.types.timestamp
+
+        out["EndTime"] = capo_shield.types.timestamp.serialize_cbor(value["end_time"])
+    out["TimeCommitmentInSeconds"] = value.get("time_commitment_in_seconds", 0)
+    if "auto_renew" in value:
+        import capo_shield.types.auto_renew
+
+        out["AutoRenew"] = capo_shield.types.auto_renew.serialize_cbor(
+            value["auto_renew"]
+        )
+    if "limits" in value:
+        import capo_shield.types.limits
+
+        out["Limits"] = capo_shield.types.limits.serialize_cbor(value["limits"])
+    if "proactive_engagement_status" in value:
+        import capo_shield.types.proactive_engagement_status
+
+        out["ProactiveEngagementStatus"] = (
+            capo_shield.types.proactive_engagement_status.serialize_cbor(
+                value["proactive_engagement_status"]
+            )
+        )
+    import capo_shield.types.subscription_limits
+
+    out["SubscriptionLimits"] = capo_shield.types.subscription_limits.serialize_cbor(
+        value["subscription_limits"]
+    )
+    if "subscription_arn" in value:
+        out["SubscriptionArn"] = value["subscription_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Subscription:
+    out: Subscription = {}  # type: ignore[typeddict-item]
+    if data.get("StartTime") is not None:
+        import capo_shield.types.timestamp
+
+        out["start_time"] = capo_shield.types.timestamp.deserialize_cbor(
+            data["StartTime"]
+        )
+    if data.get("EndTime") is not None:
+        import capo_shield.types.timestamp
+
+        out["end_time"] = capo_shield.types.timestamp.deserialize_cbor(data["EndTime"])
+    if data.get("TimeCommitmentInSeconds") is not None:
+        out["time_commitment_in_seconds"] = data["TimeCommitmentInSeconds"]
+    else:
+        out["time_commitment_in_seconds"] = 0
+    if data.get("AutoRenew") is not None:
+        import capo_shield.types.auto_renew
+
+        out["auto_renew"] = capo_shield.types.auto_renew.deserialize_cbor(
+            data["AutoRenew"]
+        )
+    if data.get("Limits") is not None:
+        import capo_shield.types.limits
+
+        out["limits"] = capo_shield.types.limits.deserialize_cbor(data["Limits"])
+    if data.get("ProactiveEngagementStatus") is not None:
+        import capo_shield.types.proactive_engagement_status
+
+        out["proactive_engagement_status"] = (
+            capo_shield.types.proactive_engagement_status.deserialize_cbor(
+                data["ProactiveEngagementStatus"]
+            )
+        )
+    if data.get("SubscriptionLimits") is not None:
+        import capo_shield.types.subscription_limits
+
+        out["subscription_limits"] = (
+            capo_shield.types.subscription_limits.deserialize_cbor(
+                data["SubscriptionLimits"]
+            )
+        )
+    else:
+        raise DeserializationError("Subscription.subscription_limits required")
+    if data.get("SubscriptionArn") is not None:
+        out["subscription_arn"] = data["SubscriptionArn"]
+    return out

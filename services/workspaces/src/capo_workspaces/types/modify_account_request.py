@@ -53,3 +53,38 @@ def deserialize_aws_json_1_1(data: dict) -> ModifyAccountRequest:
             "DedicatedTenancyManagementCidrRange"
         ]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ModifyAccountRequest) -> dict:
+    out: dict = {}
+    if "dedicated_tenancy_support" in value:
+        import capo_workspaces.types.dedicated_tenancy_support_enum
+
+        out["DedicatedTenancySupport"] = (
+            capo_workspaces.types.dedicated_tenancy_support_enum.serialize_cbor(
+                value["dedicated_tenancy_support"]
+            )
+        )
+    if "dedicated_tenancy_management_cidr_range" in value:
+        out["DedicatedTenancyManagementCidrRange"] = value[
+            "dedicated_tenancy_management_cidr_range"
+        ]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ModifyAccountRequest:
+    out: ModifyAccountRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DedicatedTenancySupport") is not None:
+        import capo_workspaces.types.dedicated_tenancy_support_enum
+
+        out["dedicated_tenancy_support"] = (
+            capo_workspaces.types.dedicated_tenancy_support_enum.deserialize_cbor(
+                data["DedicatedTenancySupport"]
+            )
+        )
+    if data.get("DedicatedTenancyManagementCidrRange") is not None:
+        out["dedicated_tenancy_management_cidr_range"] = data[
+            "DedicatedTenancyManagementCidrRange"
+        ]
+    return out

@@ -143,3 +143,103 @@ def deserialize_aws_json_1_0(data: dict) -> SyncBlocker:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SyncBlocker) -> dict:
+    out: dict = {}
+    out["Id"] = value["id"]
+    import capo_codeconnections.types.blocker_type
+
+    out["Type"] = capo_codeconnections.types.blocker_type.serialize_cbor(value["type"])
+    import capo_codeconnections.types.blocker_status
+
+    out["Status"] = capo_codeconnections.types.blocker_status.serialize_cbor(
+        value["status"]
+    )
+    out["CreatedReason"] = value["created_reason"]
+    import capo_codeconnections.types.timestamp
+
+    out["CreatedAt"] = capo_codeconnections.types.timestamp.serialize_cbor(
+        value["created_at"]
+    )
+    if "contexts" in value:
+        import capo_codeconnections.types.sync_blocker_context_list
+
+        out["Contexts"] = (
+            capo_codeconnections.types.sync_blocker_context_list.serialize_cbor(
+                value["contexts"]
+            )
+        )
+    if "resolved_reason" in value:
+        out["ResolvedReason"] = value["resolved_reason"]
+    if "resolved_at" in value:
+        import capo_codeconnections.types.timestamp
+
+        out["ResolvedAt"] = capo_codeconnections.types.timestamp.serialize_cbor(
+            value["resolved_at"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> SyncBlocker:
+    out: SyncBlocker = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    else:
+        out["id"] = ""
+    if data.get("Type") is not None:
+        import capo_codeconnections.types.blocker_type
+
+        out["type"] = capo_codeconnections.types.blocker_type.deserialize_cbor(
+            data["Type"]
+        )
+    else:
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_codeconnections.types.blocker_type.BlockerType", ""
+        )
+    if data.get("Status") is not None:
+        import capo_codeconnections.types.blocker_status
+
+        out["status"] = capo_codeconnections.types.blocker_status.deserialize_cbor(
+            data["Status"]
+        )
+    else:
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_codeconnections.types.blocker_status.BlockerStatus", ""
+        )
+    if data.get("CreatedReason") is not None:
+        out["created_reason"] = data["CreatedReason"]
+    else:
+        out["created_reason"] = ""
+    if data.get("CreatedAt") is not None:
+        import capo_codeconnections.types.timestamp
+
+        out["created_at"] = capo_codeconnections.types.timestamp.deserialize_cbor(
+            data["CreatedAt"]
+        )
+    else:
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
+    if data.get("Contexts") is not None:
+        import capo_codeconnections.types.sync_blocker_context_list
+
+        out["contexts"] = (
+            capo_codeconnections.types.sync_blocker_context_list.deserialize_cbor(
+                data["Contexts"]
+            )
+        )
+    if data.get("ResolvedReason") is not None:
+        out["resolved_reason"] = data["ResolvedReason"]
+    if data.get("ResolvedAt") is not None:
+        import capo_codeconnections.types.timestamp
+
+        out["resolved_at"] = capo_codeconnections.types.timestamp.deserialize_cbor(
+            data["ResolvedAt"]
+        )
+    return out

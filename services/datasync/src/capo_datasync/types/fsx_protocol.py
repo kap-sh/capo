@@ -51,6 +51,33 @@ def deserialize_aws_json_1_1(data: dict) -> FsxProtocol:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FsxProtocol) -> dict:
+    out: dict = {}
+    if "nfs" in value:
+        import capo_datasync.types.fsx_protocol_nfs
+
+        out["NFS"] = capo_datasync.types.fsx_protocol_nfs.serialize_cbor(value["nfs"])
+    if "smb" in value:
+        import capo_datasync.types.fsx_protocol_smb
+
+        out["SMB"] = capo_datasync.types.fsx_protocol_smb.serialize_cbor(value["smb"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> FsxProtocol:
+    out: FsxProtocol = {}  # type: ignore[typeddict-item]
+    if data.get("NFS") is not None:
+        import capo_datasync.types.fsx_protocol_nfs
+
+        out["nfs"] = capo_datasync.types.fsx_protocol_nfs.deserialize_cbor(data["NFS"])
+    if data.get("SMB") is not None:
+        import capo_datasync.types.fsx_protocol_smb
+
+        out["smb"] = capo_datasync.types.fsx_protocol_smb.deserialize_cbor(data["SMB"])
+    return out
+
+
 def redact_sensitive(value: FsxProtocol) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "smb" in value:

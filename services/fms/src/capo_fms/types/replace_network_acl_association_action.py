@@ -62,3 +62,47 @@ def deserialize_aws_json_1_1(data: dict) -> ReplaceNetworkAclAssociationAction:
     else:
         out["fms_can_remediate"] = False
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ReplaceNetworkAclAssociationAction) -> dict:
+    out: dict = {}
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "association_id" in value:
+        import capo_fms.types.action_target
+
+        out["AssociationId"] = capo_fms.types.action_target.serialize_cbor(
+            value["association_id"]
+        )
+    if "network_acl_id" in value:
+        import capo_fms.types.action_target
+
+        out["NetworkAclId"] = capo_fms.types.action_target.serialize_cbor(
+            value["network_acl_id"]
+        )
+    out["FMSCanRemediate"] = value.get("fms_can_remediate", False)
+    return out
+
+
+def deserialize_cbor(data: dict) -> ReplaceNetworkAclAssociationAction:
+    out: ReplaceNetworkAclAssociationAction = {}  # type: ignore[typeddict-item]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("AssociationId") is not None:
+        import capo_fms.types.action_target
+
+        out["association_id"] = capo_fms.types.action_target.deserialize_cbor(
+            data["AssociationId"]
+        )
+    if data.get("NetworkAclId") is not None:
+        import capo_fms.types.action_target
+
+        out["network_acl_id"] = capo_fms.types.action_target.deserialize_cbor(
+            data["NetworkAclId"]
+        )
+    if data.get("FMSCanRemediate") is not None:
+        out["fms_can_remediate"] = data["FMSCanRemediate"]
+    else:
+        out["fms_can_remediate"] = False
+    return out

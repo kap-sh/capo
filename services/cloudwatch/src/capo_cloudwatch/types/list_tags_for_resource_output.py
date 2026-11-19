@@ -59,3 +59,22 @@ def deserialize_query(el: Element) -> ListTagsForResourceOutput:
 
         out["tags"] = capo_cloudwatch.types.tag_list.deserialize_query(child_tags)
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListTagsForResourceOutput) -> dict:
+    out: dict = {}
+    if "tags" in value:
+        import capo_cloudwatch.types.tag_list
+
+        out["Tags"] = capo_cloudwatch.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListTagsForResourceOutput:
+    out: ListTagsForResourceOutput = {}  # type: ignore[typeddict-item]
+    if data.get("Tags") is not None:
+        import capo_cloudwatch.types.tag_list
+
+        out["tags"] = capo_cloudwatch.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

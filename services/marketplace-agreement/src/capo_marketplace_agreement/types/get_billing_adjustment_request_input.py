@@ -35,3 +35,24 @@ def deserialize_aws_json_1_0(data: dict) -> GetBillingAdjustmentRequestInput:
     else:
         out["billing_adjustment_request_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetBillingAdjustmentRequestInput) -> dict:
+    out: dict = {}
+    out["agreementId"] = value["agreement_id"]
+    out["billingAdjustmentRequestId"] = value["billing_adjustment_request_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetBillingAdjustmentRequestInput:
+    out: GetBillingAdjustmentRequestInput = {}  # type: ignore[typeddict-item]
+    if data.get("agreementId") is not None:
+        out["agreement_id"] = data["agreementId"]
+    else:
+        out["agreement_id"] = ""
+    if data.get("billingAdjustmentRequestId") is not None:
+        out["billing_adjustment_request_id"] = data["billingAdjustmentRequestId"]
+    else:
+        out["billing_adjustment_request_id"] = ""
+    return out

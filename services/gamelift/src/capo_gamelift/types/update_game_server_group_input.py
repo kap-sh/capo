@@ -98,3 +98,70 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateGameServerGroupInput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateGameServerGroupInput) -> dict:
+    out: dict = {}
+    if "game_server_group_name" in value:
+        out["GameServerGroupName"] = value["game_server_group_name"]
+    if "role_arn" in value:
+        out["RoleArn"] = value["role_arn"]
+    if "instance_definitions" in value:
+        import capo_gamelift.types.instance_definitions
+
+        out["InstanceDefinitions"] = (
+            capo_gamelift.types.instance_definitions.serialize_cbor(
+                value["instance_definitions"]
+            )
+        )
+    if "game_server_protection_policy" in value:
+        import capo_gamelift.types.game_server_protection_policy
+
+        out["GameServerProtectionPolicy"] = (
+            capo_gamelift.types.game_server_protection_policy.serialize_cbor(
+                value["game_server_protection_policy"]
+            )
+        )
+    if "balancing_strategy" in value:
+        import capo_gamelift.types.balancing_strategy
+
+        out["BalancingStrategy"] = (
+            capo_gamelift.types.balancing_strategy.serialize_cbor(
+                value["balancing_strategy"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateGameServerGroupInput:
+    out: UpdateGameServerGroupInput = {}  # type: ignore[typeddict-item]
+    if data.get("GameServerGroupName") is not None:
+        out["game_server_group_name"] = data["GameServerGroupName"]
+    if data.get("RoleArn") is not None:
+        out["role_arn"] = data["RoleArn"]
+    if data.get("InstanceDefinitions") is not None:
+        import capo_gamelift.types.instance_definitions
+
+        out["instance_definitions"] = (
+            capo_gamelift.types.instance_definitions.deserialize_cbor(
+                data["InstanceDefinitions"]
+            )
+        )
+    if data.get("GameServerProtectionPolicy") is not None:
+        import capo_gamelift.types.game_server_protection_policy
+
+        out["game_server_protection_policy"] = (
+            capo_gamelift.types.game_server_protection_policy.deserialize_cbor(
+                data["GameServerProtectionPolicy"]
+            )
+        )
+    if data.get("BalancingStrategy") is not None:
+        import capo_gamelift.types.balancing_strategy
+
+        out["balancing_strategy"] = (
+            capo_gamelift.types.balancing_strategy.deserialize_cbor(
+                data["BalancingStrategy"]
+            )
+        )
+    return out

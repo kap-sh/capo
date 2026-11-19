@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeSentimentDetectionJobRespons
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeSentimentDetectionJobResponse) -> dict:
+    out: dict = {}
+    if "sentiment_detection_job_properties" in value:
+        import capo_comprehend.types.sentiment_detection_job_properties
+
+        out["SentimentDetectionJobProperties"] = (
+            capo_comprehend.types.sentiment_detection_job_properties.serialize_cbor(
+                value["sentiment_detection_job_properties"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeSentimentDetectionJobResponse:
+    out: DescribeSentimentDetectionJobResponse = {}  # type: ignore[typeddict-item]
+    if data.get("SentimentDetectionJobProperties") is not None:
+        import capo_comprehend.types.sentiment_detection_job_properties
+
+        out["sentiment_detection_job_properties"] = (
+            capo_comprehend.types.sentiment_detection_job_properties.deserialize_cbor(
+                data["SentimentDetectionJobProperties"]
+            )
+        )
+    return out

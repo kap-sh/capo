@@ -169,3 +169,118 @@ def deserialize_aws_json_1_1(data: dict) -> Webhook:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Webhook) -> dict:
+    out: dict = {}
+    if "url" in value:
+        out["url"] = value["url"]
+    if "payload_url" in value:
+        out["payloadUrl"] = value["payload_url"]
+    if "secret" in value:
+        out["secret"] = value["secret"]
+    if "branch_filter" in value:
+        out["branchFilter"] = value["branch_filter"]
+    if "filter_groups" in value:
+        import capo_codebuild.types.filter_groups
+
+        out["filterGroups"] = capo_codebuild.types.filter_groups.serialize_cbor(
+            value["filter_groups"]
+        )
+    if "build_type" in value:
+        import capo_codebuild.types.webhook_build_type
+
+        out["buildType"] = capo_codebuild.types.webhook_build_type.serialize_cbor(
+            value["build_type"]
+        )
+    if "manual_creation" in value:
+        out["manualCreation"] = value["manual_creation"]
+    if "last_modified_secret" in value:
+        import capo_codebuild.types.timestamp
+
+        out["lastModifiedSecret"] = capo_codebuild.types.timestamp.serialize_cbor(
+            value["last_modified_secret"]
+        )
+    if "scope_configuration" in value:
+        import capo_codebuild.types.scope_configuration
+
+        out["scopeConfiguration"] = (
+            capo_codebuild.types.scope_configuration.serialize_cbor(
+                value["scope_configuration"]
+            )
+        )
+    if "status" in value:
+        import capo_codebuild.types.webhook_status
+
+        out["status"] = capo_codebuild.types.webhook_status.serialize_cbor(
+            value["status"]
+        )
+    if "status_message" in value:
+        out["statusMessage"] = value["status_message"]
+    if "pull_request_build_policy" in value:
+        import capo_codebuild.types.pull_request_build_policy
+
+        out["pullRequestBuildPolicy"] = (
+            capo_codebuild.types.pull_request_build_policy.serialize_cbor(
+                value["pull_request_build_policy"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Webhook:
+    out: Webhook = {}  # type: ignore[typeddict-item]
+    if data.get("url") is not None:
+        out["url"] = data["url"]
+    if data.get("payloadUrl") is not None:
+        out["payload_url"] = data["payloadUrl"]
+    if data.get("secret") is not None:
+        out["secret"] = data["secret"]
+    if data.get("branchFilter") is not None:
+        out["branch_filter"] = data["branchFilter"]
+    if data.get("filterGroups") is not None:
+        import capo_codebuild.types.filter_groups
+
+        out["filter_groups"] = capo_codebuild.types.filter_groups.deserialize_cbor(
+            data["filterGroups"]
+        )
+    if data.get("buildType") is not None:
+        import capo_codebuild.types.webhook_build_type
+
+        out["build_type"] = capo_codebuild.types.webhook_build_type.deserialize_cbor(
+            data["buildType"]
+        )
+    if data.get("manualCreation") is not None:
+        out["manual_creation"] = data["manualCreation"]
+    if data.get("lastModifiedSecret") is not None:
+        import capo_codebuild.types.timestamp
+
+        out["last_modified_secret"] = capo_codebuild.types.timestamp.deserialize_cbor(
+            data["lastModifiedSecret"]
+        )
+    if data.get("scopeConfiguration") is not None:
+        import capo_codebuild.types.scope_configuration
+
+        out["scope_configuration"] = (
+            capo_codebuild.types.scope_configuration.deserialize_cbor(
+                data["scopeConfiguration"]
+            )
+        )
+    if data.get("status") is not None:
+        import capo_codebuild.types.webhook_status
+
+        out["status"] = capo_codebuild.types.webhook_status.deserialize_cbor(
+            data["status"]
+        )
+    if data.get("statusMessage") is not None:
+        out["status_message"] = data["statusMessage"]
+    if data.get("pullRequestBuildPolicy") is not None:
+        import capo_codebuild.types.pull_request_build_policy
+
+        out["pull_request_build_policy"] = (
+            capo_codebuild.types.pull_request_build_policy.deserialize_cbor(
+                data["pullRequestBuildPolicy"]
+            )
+        )
+    return out

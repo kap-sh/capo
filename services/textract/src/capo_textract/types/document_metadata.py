@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> DocumentMetadata:
     if data.get("Pages") is not None:
         out["pages"] = data["Pages"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DocumentMetadata) -> dict:
+    out: dict = {}
+    if "pages" in value:
+        out["Pages"] = value["pages"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DocumentMetadata:
+    out: DocumentMetadata = {}  # type: ignore[typeddict-item]
+    if data.get("Pages") is not None:
+        out["pages"] = data["Pages"]
+    return out

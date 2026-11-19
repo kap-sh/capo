@@ -102,6 +102,71 @@ def deserialize_aws_json_1_1(data: dict) -> FsxUpdateProtocolSmb:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FsxUpdateProtocolSmb) -> dict:
+    out: dict = {}
+    if "domain" in value:
+        out["Domain"] = value["domain"]
+    if "mount_options" in value:
+        import capo_datasync.types.smb_mount_options
+
+        out["MountOptions"] = capo_datasync.types.smb_mount_options.serialize_cbor(
+            value["mount_options"]
+        )
+    if "password" in value:
+        out["Password"] = value["password"]
+    if "user" in value:
+        out["User"] = value["user"]
+    if "cmk_secret_config" in value:
+        import capo_datasync.types.cmk_secret_config
+
+        out["CmkSecretConfig"] = capo_datasync.types.cmk_secret_config.serialize_cbor(
+            value["cmk_secret_config"]
+        )
+    if "custom_secret_config" in value:
+        import capo_datasync.types.custom_secret_config
+
+        out["CustomSecretConfig"] = (
+            capo_datasync.types.custom_secret_config.serialize_cbor(
+                value["custom_secret_config"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> FsxUpdateProtocolSmb:
+    out: FsxUpdateProtocolSmb = {}  # type: ignore[typeddict-item]
+    if data.get("Domain") is not None:
+        out["domain"] = data["Domain"]
+    if data.get("MountOptions") is not None:
+        import capo_datasync.types.smb_mount_options
+
+        out["mount_options"] = capo_datasync.types.smb_mount_options.deserialize_cbor(
+            data["MountOptions"]
+        )
+    if data.get("Password") is not None:
+        out["password"] = data["Password"]
+    if data.get("User") is not None:
+        out["user"] = data["User"]
+    if data.get("CmkSecretConfig") is not None:
+        import capo_datasync.types.cmk_secret_config
+
+        out["cmk_secret_config"] = (
+            capo_datasync.types.cmk_secret_config.deserialize_cbor(
+                data["CmkSecretConfig"]
+            )
+        )
+    if data.get("CustomSecretConfig") is not None:
+        import capo_datasync.types.custom_secret_config
+
+        out["custom_secret_config"] = (
+            capo_datasync.types.custom_secret_config.deserialize_cbor(
+                data["CustomSecretConfig"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: FsxUpdateProtocolSmb) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "password" in value:

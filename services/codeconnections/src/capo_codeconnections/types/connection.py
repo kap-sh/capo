@@ -91,3 +91,60 @@ def deserialize_aws_json_1_0(data: dict) -> Connection:
     if data.get("HostArn") is not None:
         out["host_arn"] = data["HostArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Connection) -> dict:
+    out: dict = {}
+    if "connection_name" in value:
+        out["ConnectionName"] = value["connection_name"]
+    if "connection_arn" in value:
+        out["ConnectionArn"] = value["connection_arn"]
+    if "provider_type" in value:
+        import capo_codeconnections.types.provider_type
+
+        out["ProviderType"] = capo_codeconnections.types.provider_type.serialize_cbor(
+            value["provider_type"]
+        )
+    if "owner_account_id" in value:
+        out["OwnerAccountId"] = value["owner_account_id"]
+    if "connection_status" in value:
+        import capo_codeconnections.types.connection_status
+
+        out["ConnectionStatus"] = (
+            capo_codeconnections.types.connection_status.serialize_cbor(
+                value["connection_status"]
+            )
+        )
+    if "host_arn" in value:
+        out["HostArn"] = value["host_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Connection:
+    out: Connection = {}  # type: ignore[typeddict-item]
+    if data.get("ConnectionName") is not None:
+        out["connection_name"] = data["ConnectionName"]
+    if data.get("ConnectionArn") is not None:
+        out["connection_arn"] = data["ConnectionArn"]
+    if data.get("ProviderType") is not None:
+        import capo_codeconnections.types.provider_type
+
+        out["provider_type"] = (
+            capo_codeconnections.types.provider_type.deserialize_cbor(
+                data["ProviderType"]
+            )
+        )
+    if data.get("OwnerAccountId") is not None:
+        out["owner_account_id"] = data["OwnerAccountId"]
+    if data.get("ConnectionStatus") is not None:
+        import capo_codeconnections.types.connection_status
+
+        out["connection_status"] = (
+            capo_codeconnections.types.connection_status.deserialize_cbor(
+                data["ConnectionStatus"]
+            )
+        )
+    if data.get("HostArn") is not None:
+        out["host_arn"] = data["HostArn"]
+    return out

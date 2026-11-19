@@ -118,3 +118,50 @@ def deserialize_query(el: Element) -> AlarmTagsPropagation:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AlarmTagsPropagation) -> dict:
+    out: dict = {}
+    if "enabled" in value:
+        out["Enabled"] = value["enabled"]
+    if "included_tag_keys" in value:
+        import capo_cloudwatch.types.alarm_tags_propagation_tag_keys
+
+        out["IncludedTagKeys"] = (
+            capo_cloudwatch.types.alarm_tags_propagation_tag_keys.serialize_cbor(
+                value["included_tag_keys"]
+            )
+        )
+    if "excluded_tag_keys" in value:
+        import capo_cloudwatch.types.alarm_tags_propagation_tag_keys
+
+        out["ExcludedTagKeys"] = (
+            capo_cloudwatch.types.alarm_tags_propagation_tag_keys.serialize_cbor(
+                value["excluded_tag_keys"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AlarmTagsPropagation:
+    out: AlarmTagsPropagation = {}  # type: ignore[typeddict-item]
+    if data.get("Enabled") is not None:
+        out["enabled"] = data["Enabled"]
+    if data.get("IncludedTagKeys") is not None:
+        import capo_cloudwatch.types.alarm_tags_propagation_tag_keys
+
+        out["included_tag_keys"] = (
+            capo_cloudwatch.types.alarm_tags_propagation_tag_keys.deserialize_cbor(
+                data["IncludedTagKeys"]
+            )
+        )
+    if data.get("ExcludedTagKeys") is not None:
+        import capo_cloudwatch.types.alarm_tags_propagation_tag_keys
+
+        out["excluded_tag_keys"] = (
+            capo_cloudwatch.types.alarm_tags_propagation_tag_keys.deserialize_cbor(
+                data["ExcludedTagKeys"]
+            )
+        )
+    return out

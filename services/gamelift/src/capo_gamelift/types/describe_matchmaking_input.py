@@ -38,3 +38,26 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeMatchmakingInput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeMatchmakingInput) -> dict:
+    out: dict = {}
+    if "ticket_ids" in value:
+        import capo_gamelift.types.matchmaking_id_list
+
+        out["TicketIds"] = capo_gamelift.types.matchmaking_id_list.serialize_cbor(
+            value["ticket_ids"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeMatchmakingInput:
+    out: DescribeMatchmakingInput = {}  # type: ignore[typeddict-item]
+    if data.get("TicketIds") is not None:
+        import capo_gamelift.types.matchmaking_id_list
+
+        out["ticket_ids"] = capo_gamelift.types.matchmaking_id_list.deserialize_cbor(
+            data["TicketIds"]
+        )
+    return out

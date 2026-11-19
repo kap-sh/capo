@@ -49,3 +49,36 @@ def deserialize_aws_json_1_1(data: dict) -> BatchGetDeploymentGroupsInput:
     else:
         out["deployment_group_names"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchGetDeploymentGroupsInput) -> dict:
+    out: dict = {}
+    out["applicationName"] = value["application_name"]
+    import capo_codedeploy.types.deployment_groups_list
+
+    out["deploymentGroupNames"] = (
+        capo_codedeploy.types.deployment_groups_list.serialize_cbor(
+            value["deployment_group_names"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BatchGetDeploymentGroupsInput:
+    out: BatchGetDeploymentGroupsInput = {}  # type: ignore[typeddict-item]
+    if data.get("applicationName") is not None:
+        out["application_name"] = data["applicationName"]
+    else:
+        out["application_name"] = ""
+    if data.get("deploymentGroupNames") is not None:
+        import capo_codedeploy.types.deployment_groups_list
+
+        out["deployment_group_names"] = (
+            capo_codedeploy.types.deployment_groups_list.deserialize_cbor(
+                data["deploymentGroupNames"]
+            )
+        )
+    else:
+        out["deployment_group_names"] = []
+    return out

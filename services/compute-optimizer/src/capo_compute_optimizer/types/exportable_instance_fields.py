@@ -37,3 +37,30 @@ def deserialize_aws_json_1_0(data: list) -> ExportableInstanceFields:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExportableInstanceFields) -> list:
+    import capo_compute_optimizer.types.exportable_instance_field
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_compute_optimizer.types.exportable_instance_field.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> ExportableInstanceFields:
+    import capo_compute_optimizer.types.exportable_instance_field
+
+    out: ExportableInstanceFields = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_compute_optimizer.types.exportable_instance_field.deserialize_cbor(
+                item
+            )
+        )
+    return out

@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> ProtectionGroupArbitraryPatternLimit
     else:
         out["max_members"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ProtectionGroupArbitraryPatternLimits) -> dict:
+    out: dict = {}
+    out["MaxMembers"] = value.get("max_members", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> ProtectionGroupArbitraryPatternLimits:
+    out: ProtectionGroupArbitraryPatternLimits = {}  # type: ignore[typeddict-item]
+    if data.get("MaxMembers") is not None:
+        out["max_members"] = data["MaxMembers"]
+    else:
+        out["max_members"] = 0
+    return out

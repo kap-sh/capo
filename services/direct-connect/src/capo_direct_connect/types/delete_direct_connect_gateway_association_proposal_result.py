@@ -44,3 +44,30 @@ def deserialize_aws_json_1_1(
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteDirectConnectGatewayAssociationProposalResult) -> dict:
+    out: dict = {}
+    if "direct_connect_gateway_association_proposal" in value:
+        import capo_direct_connect.types.direct_connect_gateway_association_proposal
+
+        out["directConnectGatewayAssociationProposal"] = (
+            capo_direct_connect.types.direct_connect_gateway_association_proposal.serialize_cbor(
+                value["direct_connect_gateway_association_proposal"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteDirectConnectGatewayAssociationProposalResult:
+    out: DeleteDirectConnectGatewayAssociationProposalResult = {}  # type: ignore[typeddict-item]
+    if data.get("directConnectGatewayAssociationProposal") is not None:
+        import capo_direct_connect.types.direct_connect_gateway_association_proposal
+
+        out["direct_connect_gateway_association_proposal"] = (
+            capo_direct_connect.types.direct_connect_gateway_association_proposal.deserialize_cbor(
+                data["directConnectGatewayAssociationProposal"]
+            )
+        )
+    return out

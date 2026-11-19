@@ -39,6 +39,35 @@ def deserialize_aws_json_1_0(data: list) -> PrivateIpAddresses:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PrivateIpAddresses) -> list:
+    import capo_workspaces_instances.types.private_ip_address_specification
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_workspaces_instances.types.private_ip_address_specification.serialize_cbor(
+                item
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> PrivateIpAddresses:
+    import capo_workspaces_instances.types.private_ip_address_specification
+
+    out: PrivateIpAddresses = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_workspaces_instances.types.private_ip_address_specification.deserialize_cbor(
+                item
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: PrivateIpAddresses) -> list[Any]:
     import capo_workspaces_instances.types.private_ip_address_specification
 

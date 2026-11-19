@@ -68,3 +68,46 @@ def deserialize_aws_json_1_1(data: dict) -> ClientProperties:
     if data.get("ClientExperiencePolicy") is not None:
         out["client_experience_policy"] = data["ClientExperiencePolicy"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ClientProperties) -> dict:
+    out: dict = {}
+    if "reconnect_enabled" in value:
+        import capo_workspaces.types.reconnect_enum
+
+        out["ReconnectEnabled"] = capo_workspaces.types.reconnect_enum.serialize_cbor(
+            value["reconnect_enabled"]
+        )
+    if "log_upload_enabled" in value:
+        import capo_workspaces.types.log_upload_enum
+
+        out["LogUploadEnabled"] = capo_workspaces.types.log_upload_enum.serialize_cbor(
+            value["log_upload_enabled"]
+        )
+    if "client_experience_policy" in value:
+        out["ClientExperiencePolicy"] = value["client_experience_policy"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ClientProperties:
+    out: ClientProperties = {}  # type: ignore[typeddict-item]
+    if data.get("ReconnectEnabled") is not None:
+        import capo_workspaces.types.reconnect_enum
+
+        out["reconnect_enabled"] = (
+            capo_workspaces.types.reconnect_enum.deserialize_cbor(
+                data["ReconnectEnabled"]
+            )
+        )
+    if data.get("LogUploadEnabled") is not None:
+        import capo_workspaces.types.log_upload_enum
+
+        out["log_upload_enabled"] = (
+            capo_workspaces.types.log_upload_enum.deserialize_cbor(
+                data["LogUploadEnabled"]
+            )
+        )
+    if data.get("ClientExperiencePolicy") is not None:
+        out["client_experience_policy"] = data["ClientExperiencePolicy"]
+    return out

@@ -159,3 +159,115 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCustomActionTypeInput:
             data["tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateCustomActionTypeInput) -> dict:
+    out: dict = {}
+    import capo_codepipeline.types.action_category
+
+    out["category"] = capo_codepipeline.types.action_category.serialize_cbor(
+        value["category"]
+    )
+    out["provider"] = value["provider"]
+    out["version"] = value["version"]
+    if "settings" in value:
+        import capo_codepipeline.types.action_type_settings
+
+        out["settings"] = capo_codepipeline.types.action_type_settings.serialize_cbor(
+            value["settings"]
+        )
+    if "configuration_properties" in value:
+        import capo_codepipeline.types.action_configuration_property_list
+
+        out["configurationProperties"] = (
+            capo_codepipeline.types.action_configuration_property_list.serialize_cbor(
+                value["configuration_properties"]
+            )
+        )
+    import capo_codepipeline.types.artifact_details
+
+    out["inputArtifactDetails"] = (
+        capo_codepipeline.types.artifact_details.serialize_cbor(
+            value["input_artifact_details"]
+        )
+    )
+    import capo_codepipeline.types.artifact_details
+
+    out["outputArtifactDetails"] = (
+        capo_codepipeline.types.artifact_details.serialize_cbor(
+            value["output_artifact_details"]
+        )
+    )
+    if "tags" in value:
+        import capo_codepipeline.types.tag_list
+
+        out["tags"] = capo_codepipeline.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateCustomActionTypeInput:
+    out: CreateCustomActionTypeInput = {}  # type: ignore[typeddict-item]
+    if data.get("category") is not None:
+        import capo_codepipeline.types.action_category
+
+        out["category"] = capo_codepipeline.types.action_category.deserialize_cbor(
+            data["category"]
+        )
+    else:
+        import typing
+
+        out["category"] = typing.cast(
+            "capo_codepipeline.types.action_category.ActionCategory", ""
+        )
+    if data.get("provider") is not None:
+        out["provider"] = data["provider"]
+    else:
+        out["provider"] = ""
+    if data.get("version") is not None:
+        out["version"] = data["version"]
+    else:
+        out["version"] = ""
+    if data.get("settings") is not None:
+        import capo_codepipeline.types.action_type_settings
+
+        out["settings"] = capo_codepipeline.types.action_type_settings.deserialize_cbor(
+            data["settings"]
+        )
+    if data.get("configurationProperties") is not None:
+        import capo_codepipeline.types.action_configuration_property_list
+
+        out["configuration_properties"] = (
+            capo_codepipeline.types.action_configuration_property_list.deserialize_cbor(
+                data["configurationProperties"]
+            )
+        )
+    if data.get("inputArtifactDetails") is not None:
+        import capo_codepipeline.types.artifact_details
+
+        out["input_artifact_details"] = (
+            capo_codepipeline.types.artifact_details.deserialize_cbor(
+                data["inputArtifactDetails"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "CreateCustomActionTypeInput.input_artifact_details required"
+        )
+    if data.get("outputArtifactDetails") is not None:
+        import capo_codepipeline.types.artifact_details
+
+        out["output_artifact_details"] = (
+            capo_codepipeline.types.artifact_details.deserialize_cbor(
+                data["outputArtifactDetails"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "CreateCustomActionTypeInput.output_artifact_details required"
+        )
+    if data.get("tags") is not None:
+        import capo_codepipeline.types.tag_list
+
+        out["tags"] = capo_codepipeline.types.tag_list.deserialize_cbor(data["tags"])
+    return out

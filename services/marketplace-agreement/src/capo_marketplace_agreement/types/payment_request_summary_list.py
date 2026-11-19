@@ -37,3 +37,32 @@ def deserialize_aws_json_1_0(data: list) -> PaymentRequestSummaryList:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PaymentRequestSummaryList) -> list:
+    import capo_marketplace_agreement.types.payment_request_summary
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_marketplace_agreement.types.payment_request_summary.serialize_cbor(
+                item
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> PaymentRequestSummaryList:
+    import capo_marketplace_agreement.types.payment_request_summary
+
+    out: PaymentRequestSummaryList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_marketplace_agreement.types.payment_request_summary.deserialize_cbor(
+                item
+            )
+        )
+    return out

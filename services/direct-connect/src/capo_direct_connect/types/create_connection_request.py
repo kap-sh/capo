@@ -102,3 +102,65 @@ def deserialize_aws_json_1_1(data: dict) -> CreateConnectionRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateConnectionRequest) -> dict:
+    out: dict = {}
+    out["location"] = value["location"]
+    out["bandwidth"] = value["bandwidth"]
+    out["connectionName"] = value["connection_name"]
+    if "lag_id" in value:
+        out["lagId"] = value["lag_id"]
+    if "tags" in value:
+        import capo_direct_connect.types.tag_list
+
+        out["tags"] = capo_direct_connect.types.tag_list.serialize_cbor(value["tags"])
+    if "provider_name" in value:
+        out["providerName"] = value["provider_name"]
+    if "request_mac_sec" in value:
+        out["requestMACSec"] = value["request_mac_sec"]
+    if "billing_mode" in value:
+        import capo_direct_connect.types.request_billing_mode
+
+        out["billingMode"] = (
+            capo_direct_connect.types.request_billing_mode.serialize_cbor(
+                value["billing_mode"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateConnectionRequest:
+    out: CreateConnectionRequest = {}  # type: ignore[typeddict-item]
+    if data.get("location") is not None:
+        out["location"] = data["location"]
+    else:
+        out["location"] = ""
+    if data.get("bandwidth") is not None:
+        out["bandwidth"] = data["bandwidth"]
+    else:
+        out["bandwidth"] = ""
+    if data.get("connectionName") is not None:
+        out["connection_name"] = data["connectionName"]
+    else:
+        out["connection_name"] = ""
+    if data.get("lagId") is not None:
+        out["lag_id"] = data["lagId"]
+    if data.get("tags") is not None:
+        import capo_direct_connect.types.tag_list
+
+        out["tags"] = capo_direct_connect.types.tag_list.deserialize_cbor(data["tags"])
+    if data.get("providerName") is not None:
+        out["provider_name"] = data["providerName"]
+    if data.get("requestMACSec") is not None:
+        out["request_mac_sec"] = data["requestMACSec"]
+    if data.get("billingMode") is not None:
+        import capo_direct_connect.types.request_billing_mode
+
+        out["billing_mode"] = (
+            capo_direct_connect.types.request_billing_mode.deserialize_cbor(
+                data["billingMode"]
+            )
+        )
+    return out

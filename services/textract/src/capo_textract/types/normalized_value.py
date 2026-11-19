@@ -41,3 +41,30 @@ def deserialize_aws_json_1_1(data: dict) -> NormalizedValue:
             data["ValueType"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: NormalizedValue) -> dict:
+    out: dict = {}
+    if "value" in value:
+        out["Value"] = value["value"]
+    if "value_type" in value:
+        import capo_textract.types.value_type
+
+        out["ValueType"] = capo_textract.types.value_type.serialize_cbor(
+            value["value_type"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> NormalizedValue:
+    out: NormalizedValue = {}  # type: ignore[typeddict-item]
+    if data.get("Value") is not None:
+        out["value"] = data["Value"]
+    if data.get("ValueType") is not None:
+        import capo_textract.types.value_type
+
+        out["value_type"] = capo_textract.types.value_type.deserialize_cbor(
+            data["ValueType"]
+        )
+    return out

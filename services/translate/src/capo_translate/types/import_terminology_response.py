@@ -61,3 +61,46 @@ def deserialize_aws_json_1_1(data: dict) -> ImportTerminologyResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ImportTerminologyResponse) -> dict:
+    out: dict = {}
+    if "terminology_properties" in value:
+        import capo_translate.types.terminology_properties
+
+        out["TerminologyProperties"] = (
+            capo_translate.types.terminology_properties.serialize_cbor(
+                value["terminology_properties"]
+            )
+        )
+    if "auxiliary_data_location" in value:
+        import capo_translate.types.terminology_data_location
+
+        out["AuxiliaryDataLocation"] = (
+            capo_translate.types.terminology_data_location.serialize_cbor(
+                value["auxiliary_data_location"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ImportTerminologyResponse:
+    out: ImportTerminologyResponse = {}  # type: ignore[typeddict-item]
+    if data.get("TerminologyProperties") is not None:
+        import capo_translate.types.terminology_properties
+
+        out["terminology_properties"] = (
+            capo_translate.types.terminology_properties.deserialize_cbor(
+                data["TerminologyProperties"]
+            )
+        )
+    if data.get("AuxiliaryDataLocation") is not None:
+        import capo_translate.types.terminology_data_location
+
+        out["auxiliary_data_location"] = (
+            capo_translate.types.terminology_data_location.deserialize_cbor(
+                data["AuxiliaryDataLocation"]
+            )
+        )
+    return out

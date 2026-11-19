@@ -36,6 +36,25 @@ def deserialize_aws_json_1_1(data: dict) -> PollForJobsOutput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PollForJobsOutput) -> dict:
+    out: dict = {}
+    if "jobs" in value:
+        import capo_codepipeline.types.job_list
+
+        out["jobs"] = capo_codepipeline.types.job_list.serialize_cbor(value["jobs"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> PollForJobsOutput:
+    out: PollForJobsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("jobs") is not None:
+        import capo_codepipeline.types.job_list
+
+        out["jobs"] = capo_codepipeline.types.job_list.deserialize_cbor(data["jobs"])
+    return out
+
+
 def redact_sensitive(value: PollForJobsOutput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "jobs" in value:

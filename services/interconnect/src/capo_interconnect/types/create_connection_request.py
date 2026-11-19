@@ -104,3 +104,69 @@ def deserialize_aws_json_1_0(data: dict) -> CreateConnectionRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateConnectionRequest) -> dict:
+    out: dict = {}
+    if "description" in value:
+        out["description"] = value["description"]
+    out["bandwidth"] = value["bandwidth"]
+    import capo_interconnect.types.attach_point
+
+    out["attachPoint"] = capo_interconnect.types.attach_point.serialize_cbor(
+        value["attach_point"]
+    )
+    out["environmentId"] = value["environment_id"]
+    if "remote_account" in value:
+        import capo_interconnect.types.remote_account_identifier
+
+        out["remoteAccount"] = (
+            capo_interconnect.types.remote_account_identifier.serialize_cbor(
+                value["remote_account"]
+            )
+        )
+    if "tags" in value:
+        import capo_interconnect.types.tag_map
+
+        out["tags"] = capo_interconnect.types.tag_map.serialize_cbor(value["tags"])
+    if "client_token" in value:
+        out["clientToken"] = value["client_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateConnectionRequest:
+    out: CreateConnectionRequest = {}  # type: ignore[typeddict-item]
+    if data.get("description") is not None:
+        out["description"] = data["description"]
+    if data.get("bandwidth") is not None:
+        out["bandwidth"] = data["bandwidth"]
+    else:
+        out["bandwidth"] = ""
+    if data.get("attachPoint") is not None:
+        import capo_interconnect.types.attach_point
+
+        out["attach_point"] = capo_interconnect.types.attach_point.deserialize_cbor(
+            data["attachPoint"]
+        )
+    else:
+        out["attach_point"] = {"$unknown": {"name": ""}}
+    if data.get("environmentId") is not None:
+        out["environment_id"] = data["environmentId"]
+    else:
+        out["environment_id"] = ""
+    if data.get("remoteAccount") is not None:
+        import capo_interconnect.types.remote_account_identifier
+
+        out["remote_account"] = (
+            capo_interconnect.types.remote_account_identifier.deserialize_cbor(
+                data["remoteAccount"]
+            )
+        )
+    if data.get("tags") is not None:
+        import capo_interconnect.types.tag_map
+
+        out["tags"] = capo_interconnect.types.tag_map.deserialize_cbor(data["tags"])
+    if data.get("clientToken") is not None:
+        out["client_token"] = data["clientToken"]
+    return out

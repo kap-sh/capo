@@ -40,3 +40,26 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeClusterResult:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeClusterResult) -> dict:
+    out: dict = {}
+    if "cluster_metadata" in value:
+        import capo_snowball.types.cluster_metadata
+
+        out["ClusterMetadata"] = capo_snowball.types.cluster_metadata.serialize_cbor(
+            value["cluster_metadata"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeClusterResult:
+    out: DescribeClusterResult = {}  # type: ignore[typeddict-item]
+    if data.get("ClusterMetadata") is not None:
+        import capo_snowball.types.cluster_metadata
+
+        out["cluster_metadata"] = capo_snowball.types.cluster_metadata.deserialize_cbor(
+            data["ClusterMetadata"]
+        )
+    return out

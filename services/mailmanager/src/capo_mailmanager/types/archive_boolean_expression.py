@@ -65,3 +65,48 @@ def deserialize_aws_json_1_0(data: dict) -> ArchiveBooleanExpression:
             "capo_mailmanager.types.archive_boolean_operator.ArchiveBooleanOperator", ""
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ArchiveBooleanExpression) -> dict:
+    out: dict = {}
+    import capo_mailmanager.types.archive_boolean_to_evaluate
+
+    out["Evaluate"] = capo_mailmanager.types.archive_boolean_to_evaluate.serialize_cbor(
+        value["evaluate"]
+    )
+    import capo_mailmanager.types.archive_boolean_operator
+
+    out["Operator"] = capo_mailmanager.types.archive_boolean_operator.serialize_cbor(
+        value["operator"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ArchiveBooleanExpression:
+    out: ArchiveBooleanExpression = {}  # type: ignore[typeddict-item]
+    if data.get("Evaluate") is not None:
+        import capo_mailmanager.types.archive_boolean_to_evaluate
+
+        out["evaluate"] = (
+            capo_mailmanager.types.archive_boolean_to_evaluate.deserialize_cbor(
+                data["Evaluate"]
+            )
+        )
+    else:
+        out["evaluate"] = {"$unknown": {"name": ""}}
+    if data.get("Operator") is not None:
+        import capo_mailmanager.types.archive_boolean_operator
+
+        out["operator"] = (
+            capo_mailmanager.types.archive_boolean_operator.deserialize_cbor(
+                data["Operator"]
+            )
+        )
+    else:
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_mailmanager.types.archive_boolean_operator.ArchiveBooleanOperator", ""
+        )
+    return out

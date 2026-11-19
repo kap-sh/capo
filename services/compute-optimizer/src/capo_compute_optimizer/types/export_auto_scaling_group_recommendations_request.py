@@ -151,3 +151,105 @@ def deserialize_aws_json_1_0(
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExportAutoScalingGroupRecommendationsRequest) -> dict:
+    out: dict = {}
+    if "account_ids" in value:
+        import capo_compute_optimizer.types.account_ids
+
+        out["accountIds"] = capo_compute_optimizer.types.account_ids.serialize_cbor(
+            value["account_ids"]
+        )
+    if "filters" in value:
+        import capo_compute_optimizer.types.filters
+
+        out["filters"] = capo_compute_optimizer.types.filters.serialize_cbor(
+            value["filters"]
+        )
+    if "fields_to_export" in value:
+        import capo_compute_optimizer.types.exportable_auto_scaling_group_fields
+
+        out["fieldsToExport"] = (
+            capo_compute_optimizer.types.exportable_auto_scaling_group_fields.serialize_cbor(
+                value["fields_to_export"]
+            )
+        )
+    import capo_compute_optimizer.types.s3_destination_config
+
+    out["s3DestinationConfig"] = (
+        capo_compute_optimizer.types.s3_destination_config.serialize_cbor(
+            value["s3_destination_config"]
+        )
+    )
+    if "file_format" in value:
+        import capo_compute_optimizer.types.file_format
+
+        out["fileFormat"] = capo_compute_optimizer.types.file_format.serialize_cbor(
+            value["file_format"]
+        )
+    if "include_member_accounts" in value:
+        out["includeMemberAccounts"] = value["include_member_accounts"]
+    if "recommendation_preferences" in value:
+        import capo_compute_optimizer.types.recommendation_preferences
+
+        out["recommendationPreferences"] = (
+            capo_compute_optimizer.types.recommendation_preferences.serialize_cbor(
+                value["recommendation_preferences"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ExportAutoScalingGroupRecommendationsRequest:
+    out: ExportAutoScalingGroupRecommendationsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("accountIds") is not None:
+        import capo_compute_optimizer.types.account_ids
+
+        out["account_ids"] = capo_compute_optimizer.types.account_ids.deserialize_cbor(
+            data["accountIds"]
+        )
+    if data.get("filters") is not None:
+        import capo_compute_optimizer.types.filters
+
+        out["filters"] = capo_compute_optimizer.types.filters.deserialize_cbor(
+            data["filters"]
+        )
+    if data.get("fieldsToExport") is not None:
+        import capo_compute_optimizer.types.exportable_auto_scaling_group_fields
+
+        out["fields_to_export"] = (
+            capo_compute_optimizer.types.exportable_auto_scaling_group_fields.deserialize_cbor(
+                data["fieldsToExport"]
+            )
+        )
+    if data.get("s3DestinationConfig") is not None:
+        import capo_compute_optimizer.types.s3_destination_config
+
+        out["s3_destination_config"] = (
+            capo_compute_optimizer.types.s3_destination_config.deserialize_cbor(
+                data["s3DestinationConfig"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "ExportAutoScalingGroupRecommendationsRequest.s3_destination_config required"
+        )
+    if data.get("fileFormat") is not None:
+        import capo_compute_optimizer.types.file_format
+
+        out["file_format"] = capo_compute_optimizer.types.file_format.deserialize_cbor(
+            data["fileFormat"]
+        )
+    if data.get("includeMemberAccounts") is not None:
+        out["include_member_accounts"] = data["includeMemberAccounts"]
+    if data.get("recommendationPreferences") is not None:
+        import capo_compute_optimizer.types.recommendation_preferences
+
+        out["recommendation_preferences"] = (
+            capo_compute_optimizer.types.recommendation_preferences.deserialize_cbor(
+                data["recommendationPreferences"]
+            )
+        )
+    return out

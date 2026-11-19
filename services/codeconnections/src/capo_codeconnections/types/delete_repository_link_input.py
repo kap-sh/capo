@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteRepositoryLinkInput:
     else:
         out["repository_link_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteRepositoryLinkInput) -> dict:
+    out: dict = {}
+    out["RepositoryLinkId"] = value["repository_link_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteRepositoryLinkInput:
+    out: DeleteRepositoryLinkInput = {}  # type: ignore[typeddict-item]
+    if data.get("RepositoryLinkId") is not None:
+        out["repository_link_id"] = data["RepositoryLinkId"]
+    else:
+        out["repository_link_id"] = ""
+    return out

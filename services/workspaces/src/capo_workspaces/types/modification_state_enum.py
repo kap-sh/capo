@@ -16,3 +16,12 @@ def serialize_aws_json_1_1(value: ModificationStateEnum) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> ModificationStateEnum:
     return cast(ModificationStateEnum, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ModificationStateEnum) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ModificationStateEnum:
+    return cast(ModificationStateEnum, data)

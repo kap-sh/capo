@@ -125,6 +125,94 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDomainContactRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateDomainContactRequest) -> dict:
+    out: dict = {}
+    out["DomainName"] = value["domain_name"]
+    if "admin_contact" in value:
+        import capo_route_53_domains.types.contact_detail
+
+        out["AdminContact"] = capo_route_53_domains.types.contact_detail.serialize_cbor(
+            value["admin_contact"]
+        )
+    if "registrant_contact" in value:
+        import capo_route_53_domains.types.contact_detail
+
+        out["RegistrantContact"] = (
+            capo_route_53_domains.types.contact_detail.serialize_cbor(
+                value["registrant_contact"]
+            )
+        )
+    if "tech_contact" in value:
+        import capo_route_53_domains.types.contact_detail
+
+        out["TechContact"] = capo_route_53_domains.types.contact_detail.serialize_cbor(
+            value["tech_contact"]
+        )
+    if "consent" in value:
+        import capo_route_53_domains.types.consent
+
+        out["Consent"] = capo_route_53_domains.types.consent.serialize_cbor(
+            value["consent"]
+        )
+    if "billing_contact" in value:
+        import capo_route_53_domains.types.contact_detail
+
+        out["BillingContact"] = (
+            capo_route_53_domains.types.contact_detail.serialize_cbor(
+                value["billing_contact"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateDomainContactRequest:
+    out: UpdateDomainContactRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DomainName") is not None:
+        out["domain_name"] = data["DomainName"]
+    else:
+        out["domain_name"] = ""
+    if data.get("AdminContact") is not None:
+        import capo_route_53_domains.types.contact_detail
+
+        out["admin_contact"] = (
+            capo_route_53_domains.types.contact_detail.deserialize_cbor(
+                data["AdminContact"]
+            )
+        )
+    if data.get("RegistrantContact") is not None:
+        import capo_route_53_domains.types.contact_detail
+
+        out["registrant_contact"] = (
+            capo_route_53_domains.types.contact_detail.deserialize_cbor(
+                data["RegistrantContact"]
+            )
+        )
+    if data.get("TechContact") is not None:
+        import capo_route_53_domains.types.contact_detail
+
+        out["tech_contact"] = (
+            capo_route_53_domains.types.contact_detail.deserialize_cbor(
+                data["TechContact"]
+            )
+        )
+    if data.get("Consent") is not None:
+        import capo_route_53_domains.types.consent
+
+        out["consent"] = capo_route_53_domains.types.consent.deserialize_cbor(
+            data["Consent"]
+        )
+    if data.get("BillingContact") is not None:
+        import capo_route_53_domains.types.contact_detail
+
+        out["billing_contact"] = (
+            capo_route_53_domains.types.contact_detail.deserialize_cbor(
+                data["BillingContact"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: UpdateDomainContactRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "admin_contact" in value:

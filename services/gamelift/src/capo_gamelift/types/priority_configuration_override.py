@@ -61,3 +61,46 @@ def deserialize_aws_json_1_1(data: dict) -> PriorityConfigurationOverride:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PriorityConfigurationOverride) -> dict:
+    out: dict = {}
+    if "placement_fallback_strategy" in value:
+        import capo_gamelift.types.placement_fallback_strategy
+
+        out["PlacementFallbackStrategy"] = (
+            capo_gamelift.types.placement_fallback_strategy.serialize_cbor(
+                value["placement_fallback_strategy"]
+            )
+        )
+    if "location_order" in value:
+        import capo_gamelift.types.location_order_override_list
+
+        out["LocationOrder"] = (
+            capo_gamelift.types.location_order_override_list.serialize_cbor(
+                value["location_order"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PriorityConfigurationOverride:
+    out: PriorityConfigurationOverride = {}  # type: ignore[typeddict-item]
+    if data.get("PlacementFallbackStrategy") is not None:
+        import capo_gamelift.types.placement_fallback_strategy
+
+        out["placement_fallback_strategy"] = (
+            capo_gamelift.types.placement_fallback_strategy.deserialize_cbor(
+                data["PlacementFallbackStrategy"]
+            )
+        )
+    if data.get("LocationOrder") is not None:
+        import capo_gamelift.types.location_order_override_list
+
+        out["location_order"] = (
+            capo_gamelift.types.location_order_override_list.deserialize_cbor(
+                data["LocationOrder"]
+            )
+        )
+    return out

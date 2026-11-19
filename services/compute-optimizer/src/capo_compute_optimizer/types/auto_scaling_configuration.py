@@ -15,3 +15,12 @@ def serialize_aws_json_1_0(value: AutoScalingConfiguration) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> AutoScalingConfiguration:
     return cast(AutoScalingConfiguration, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AutoScalingConfiguration) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> AutoScalingConfiguration:
+    return cast(AutoScalingConfiguration, data)

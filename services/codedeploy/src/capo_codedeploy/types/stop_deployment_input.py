@@ -36,3 +36,23 @@ def deserialize_aws_json_1_1(data: dict) -> StopDeploymentInput:
     if data.get("autoRollbackEnabled") is not None:
         out["auto_rollback_enabled"] = data["autoRollbackEnabled"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StopDeploymentInput) -> dict:
+    out: dict = {}
+    out["deploymentId"] = value["deployment_id"]
+    if "auto_rollback_enabled" in value:
+        out["autoRollbackEnabled"] = value["auto_rollback_enabled"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StopDeploymentInput:
+    out: StopDeploymentInput = {}  # type: ignore[typeddict-item]
+    if data.get("deploymentId") is not None:
+        out["deployment_id"] = data["deploymentId"]
+    else:
+        out["deployment_id"] = ""
+    if data.get("autoRollbackEnabled") is not None:
+        out["auto_rollback_enabled"] = data["autoRollbackEnabled"]
+    return out

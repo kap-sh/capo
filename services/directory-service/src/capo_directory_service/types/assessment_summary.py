@@ -123,3 +123,82 @@ def deserialize_aws_json_1_1(data: dict) -> AssessmentSummary:
     if data.get("ReportType") is not None:
         out["report_type"] = data["ReportType"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AssessmentSummary) -> dict:
+    out: dict = {}
+    if "assessment_id" in value:
+        out["AssessmentId"] = value["assessment_id"]
+    if "directory_id" in value:
+        out["DirectoryId"] = value["directory_id"]
+    if "dns_name" in value:
+        out["DnsName"] = value["dns_name"]
+    if "start_time" in value:
+        import capo_directory_service.types.assessment_start_time
+
+        out["StartTime"] = (
+            capo_directory_service.types.assessment_start_time.serialize_cbor(
+                value["start_time"]
+            )
+        )
+    if "last_update_date_time" in value:
+        import capo_directory_service.types.last_update_date_time
+
+        out["LastUpdateDateTime"] = (
+            capo_directory_service.types.last_update_date_time.serialize_cbor(
+                value["last_update_date_time"]
+            )
+        )
+    if "status" in value:
+        out["Status"] = value["status"]
+    if "customer_dns_ips" in value:
+        import capo_directory_service.types.customer_dns_ips
+
+        out["CustomerDnsIps"] = (
+            capo_directory_service.types.customer_dns_ips.serialize_cbor(
+                value["customer_dns_ips"]
+            )
+        )
+    if "report_type" in value:
+        out["ReportType"] = value["report_type"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AssessmentSummary:
+    out: AssessmentSummary = {}  # type: ignore[typeddict-item]
+    if data.get("AssessmentId") is not None:
+        out["assessment_id"] = data["AssessmentId"]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    if data.get("DnsName") is not None:
+        out["dns_name"] = data["DnsName"]
+    if data.get("StartTime") is not None:
+        import capo_directory_service.types.assessment_start_time
+
+        out["start_time"] = (
+            capo_directory_service.types.assessment_start_time.deserialize_cbor(
+                data["StartTime"]
+            )
+        )
+    if data.get("LastUpdateDateTime") is not None:
+        import capo_directory_service.types.last_update_date_time
+
+        out["last_update_date_time"] = (
+            capo_directory_service.types.last_update_date_time.deserialize_cbor(
+                data["LastUpdateDateTime"]
+            )
+        )
+    if data.get("Status") is not None:
+        out["status"] = data["Status"]
+    if data.get("CustomerDnsIps") is not None:
+        import capo_directory_service.types.customer_dns_ips
+
+        out["customer_dns_ips"] = (
+            capo_directory_service.types.customer_dns_ips.deserialize_cbor(
+                data["CustomerDnsIps"]
+            )
+        )
+    if data.get("ReportType") is not None:
+        out["report_type"] = data["ReportType"]
+    return out

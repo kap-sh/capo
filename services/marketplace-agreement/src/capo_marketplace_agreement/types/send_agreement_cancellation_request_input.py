@@ -72,6 +72,52 @@ def deserialize_aws_json_1_0(data: dict) -> SendAgreementCancellationRequestInpu
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SendAgreementCancellationRequestInput) -> dict:
+    out: dict = {}
+    out["agreementId"] = value["agreement_id"]
+    import capo_marketplace_agreement.types.agreement_cancellation_request_reason_code
+
+    out["reasonCode"] = (
+        capo_marketplace_agreement.types.agreement_cancellation_request_reason_code.serialize_cbor(
+            value["reason_code"]
+        )
+    )
+    if "client_token" in value:
+        out["clientToken"] = value["client_token"]
+    if "description" in value:
+        out["description"] = value["description"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> SendAgreementCancellationRequestInput:
+    out: SendAgreementCancellationRequestInput = {}  # type: ignore[typeddict-item]
+    if data.get("agreementId") is not None:
+        out["agreement_id"] = data["agreementId"]
+    else:
+        out["agreement_id"] = ""
+    if data.get("reasonCode") is not None:
+        import capo_marketplace_agreement.types.agreement_cancellation_request_reason_code
+
+        out["reason_code"] = (
+            capo_marketplace_agreement.types.agreement_cancellation_request_reason_code.deserialize_cbor(
+                data["reasonCode"]
+            )
+        )
+    else:
+        import typing
+
+        out["reason_code"] = typing.cast(
+            "capo_marketplace_agreement.types.agreement_cancellation_request_reason_code.AgreementCancellationRequestReasonCode",
+            "",
+        )
+    if data.get("clientToken") is not None:
+        out["client_token"] = data["clientToken"]
+    if data.get("description") is not None:
+        out["description"] = data["description"]
+    return out
+
+
 def redact_sensitive(value: SendAgreementCancellationRequestInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "description" in value:

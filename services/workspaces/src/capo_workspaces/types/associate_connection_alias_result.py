@@ -28,3 +28,18 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateConnectionAliasResult:
     if data.get("ConnectionIdentifier") is not None:
         out["connection_identifier"] = data["ConnectionIdentifier"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AssociateConnectionAliasResult) -> dict:
+    out: dict = {}
+    if "connection_identifier" in value:
+        out["ConnectionIdentifier"] = value["connection_identifier"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AssociateConnectionAliasResult:
+    out: AssociateConnectionAliasResult = {}  # type: ignore[typeddict-item]
+    if data.get("ConnectionIdentifier") is not None:
+        out["connection_identifier"] = data["ConnectionIdentifier"]
+    return out

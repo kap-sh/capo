@@ -59,3 +59,39 @@ def deserialize_aws_json_1_1(data: dict) -> CreateComponentRequest:
     else:
         out["resource_list"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateComponentRequest) -> dict:
+    out: dict = {}
+    out["ResourceGroupName"] = value["resource_group_name"]
+    out["ComponentName"] = value["component_name"]
+    import capo_application_insights.types.resource_list
+
+    out["ResourceList"] = capo_application_insights.types.resource_list.serialize_cbor(
+        value["resource_list"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateComponentRequest:
+    out: CreateComponentRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceGroupName") is not None:
+        out["resource_group_name"] = data["ResourceGroupName"]
+    else:
+        out["resource_group_name"] = ""
+    if data.get("ComponentName") is not None:
+        out["component_name"] = data["ComponentName"]
+    else:
+        out["component_name"] = ""
+    if data.get("ResourceList") is not None:
+        import capo_application_insights.types.resource_list
+
+        out["resource_list"] = (
+            capo_application_insights.types.resource_list.deserialize_cbor(
+                data["ResourceList"]
+            )
+        )
+    else:
+        out["resource_list"] = []
+    return out

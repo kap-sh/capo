@@ -51,3 +51,31 @@ def deserialize_aws_json_1_0(data: dict) -> AttachPoint:
         if name is not None:
             return {"$unknown": {"name": name}}
         raise DeserializationError("AttachPoint: no recognized variant key")
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AttachPoint) -> dict:
+    if "$unknown" in value:
+        raise SerializationError(
+            f"AttachPoint: cannot serialize unknown variant {value['$unknown']['name']!r}"
+        )
+    elif "directConnectGateway" in value:
+        return {"directConnectGateway": value["directConnectGateway"]}
+    elif "arn" in value:
+        return {"arn": value["arn"]}
+    else:
+        raise SerializationError("AttachPoint: no variant present")
+
+
+def deserialize_cbor(data: dict) -> AttachPoint:
+    if data.get("directConnectGateway") is not None:
+        return {"directConnectGateway": data["directConnectGateway"]}
+    elif data.get("arn") is not None:
+        return {"arn": data["arn"]}
+    else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return {"$unknown": {"name": name}}
+        raise DeserializationError("AttachPoint: no recognized variant key")

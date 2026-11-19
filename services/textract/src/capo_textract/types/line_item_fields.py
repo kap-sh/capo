@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> LineItemFields:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LineItemFields) -> dict:
+    out: dict = {}
+    if "line_item_expense_fields" in value:
+        import capo_textract.types.expense_field_list
+
+        out["LineItemExpenseFields"] = (
+            capo_textract.types.expense_field_list.serialize_cbor(
+                value["line_item_expense_fields"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> LineItemFields:
+    out: LineItemFields = {}  # type: ignore[typeddict-item]
+    if data.get("LineItemExpenseFields") is not None:
+        import capo_textract.types.expense_field_list
+
+        out["line_item_expense_fields"] = (
+            capo_textract.types.expense_field_list.deserialize_cbor(
+                data["LineItemExpenseFields"]
+            )
+        )
+    return out

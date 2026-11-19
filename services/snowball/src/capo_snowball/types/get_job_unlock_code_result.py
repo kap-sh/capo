@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> GetJobUnlockCodeResult:
     if data.get("UnlockCode") is not None:
         out["unlock_code"] = data["UnlockCode"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetJobUnlockCodeResult) -> dict:
+    out: dict = {}
+    if "unlock_code" in value:
+        out["UnlockCode"] = value["unlock_code"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetJobUnlockCodeResult:
+    out: GetJobUnlockCodeResult = {}  # type: ignore[typeddict-item]
+    if data.get("UnlockCode") is not None:
+        out["unlock_code"] = data["UnlockCode"]
+    return out

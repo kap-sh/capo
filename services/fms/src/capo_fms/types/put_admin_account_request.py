@@ -42,3 +42,31 @@ def deserialize_aws_json_1_1(data: dict) -> PutAdminAccountRequest:
             data["AdminScope"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PutAdminAccountRequest) -> dict:
+    out: dict = {}
+    out["AdminAccount"] = value["admin_account"]
+    if "admin_scope" in value:
+        import capo_fms.types.admin_scope
+
+        out["AdminScope"] = capo_fms.types.admin_scope.serialize_cbor(
+            value["admin_scope"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PutAdminAccountRequest:
+    out: PutAdminAccountRequest = {}  # type: ignore[typeddict-item]
+    if data.get("AdminAccount") is not None:
+        out["admin_account"] = data["AdminAccount"]
+    else:
+        out["admin_account"] = ""
+    if data.get("AdminScope") is not None:
+        import capo_fms.types.admin_scope
+
+        out["admin_scope"] = capo_fms.types.admin_scope.deserialize_cbor(
+            data["AdminScope"]
+        )
+    return out

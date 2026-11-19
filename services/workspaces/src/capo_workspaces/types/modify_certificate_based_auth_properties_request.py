@@ -69,3 +69,51 @@ def deserialize_aws_json_1_1(data: dict) -> ModifyCertificateBasedAuthProperties
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ModifyCertificateBasedAuthPropertiesRequest) -> dict:
+    out: dict = {}
+    out["ResourceId"] = value["resource_id"]
+    if "certificate_based_auth_properties" in value:
+        import capo_workspaces.types.certificate_based_auth_properties
+
+        out["CertificateBasedAuthProperties"] = (
+            capo_workspaces.types.certificate_based_auth_properties.serialize_cbor(
+                value["certificate_based_auth_properties"]
+            )
+        )
+    if "properties_to_delete" in value:
+        import capo_workspaces.types.deletable_certificate_based_auth_properties_list
+
+        out["PropertiesToDelete"] = (
+            capo_workspaces.types.deletable_certificate_based_auth_properties_list.serialize_cbor(
+                value["properties_to_delete"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ModifyCertificateBasedAuthPropertiesRequest:
+    out: ModifyCertificateBasedAuthPropertiesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceId") is not None:
+        out["resource_id"] = data["ResourceId"]
+    else:
+        out["resource_id"] = ""
+    if data.get("CertificateBasedAuthProperties") is not None:
+        import capo_workspaces.types.certificate_based_auth_properties
+
+        out["certificate_based_auth_properties"] = (
+            capo_workspaces.types.certificate_based_auth_properties.deserialize_cbor(
+                data["CertificateBasedAuthProperties"]
+            )
+        )
+    if data.get("PropertiesToDelete") is not None:
+        import capo_workspaces.types.deletable_certificate_based_auth_properties_list
+
+        out["properties_to_delete"] = (
+            capo_workspaces.types.deletable_certificate_based_auth_properties_list.deserialize_cbor(
+                data["PropertiesToDelete"]
+            )
+        )
+    return out

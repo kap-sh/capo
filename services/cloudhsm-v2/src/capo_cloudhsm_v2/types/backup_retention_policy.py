@@ -49,3 +49,30 @@ def deserialize_aws_json_1_1(data: dict) -> BackupRetentionPolicy:
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BackupRetentionPolicy) -> dict:
+    out: dict = {}
+    if "type" in value:
+        import capo_cloudhsm_v2.types.backup_retention_type
+
+        out["Type"] = capo_cloudhsm_v2.types.backup_retention_type.serialize_cbor(
+            value["type"]
+        )
+    if "value" in value:
+        out["Value"] = value["value"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> BackupRetentionPolicy:
+    out: BackupRetentionPolicy = {}  # type: ignore[typeddict-item]
+    if data.get("Type") is not None:
+        import capo_cloudhsm_v2.types.backup_retention_type
+
+        out["type"] = capo_cloudhsm_v2.types.backup_retention_type.deserialize_cbor(
+            data["Type"]
+        )
+    if data.get("Value") is not None:
+        out["value"] = data["Value"]
+    return out

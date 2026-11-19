@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> ListDeploymentConfigsOutput:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListDeploymentConfigsOutput) -> dict:
+    out: dict = {}
+    if "deployment_configs_list" in value:
+        import capo_codedeploy.types.deployment_configs_list
+
+        out["deploymentConfigsList"] = (
+            capo_codedeploy.types.deployment_configs_list.serialize_cbor(
+                value["deployment_configs_list"]
+            )
+        )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListDeploymentConfigsOutput:
+    out: ListDeploymentConfigsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("deploymentConfigsList") is not None:
+        import capo_codedeploy.types.deployment_configs_list
+
+        out["deployment_configs_list"] = (
+            capo_codedeploy.types.deployment_configs_list.deserialize_cbor(
+                data["deploymentConfigsList"]
+            )
+        )
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

@@ -51,6 +51,37 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateRadiusRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateRadiusRequest) -> dict:
+    out: dict = {}
+    out["DirectoryId"] = value["directory_id"]
+    import capo_directory_service.types.radius_settings
+
+    out["RadiusSettings"] = capo_directory_service.types.radius_settings.serialize_cbor(
+        value["radius_settings"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateRadiusRequest:
+    out: UpdateRadiusRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    if data.get("RadiusSettings") is not None:
+        import capo_directory_service.types.radius_settings
+
+        out["radius_settings"] = (
+            capo_directory_service.types.radius_settings.deserialize_cbor(
+                data["RadiusSettings"]
+            )
+        )
+    else:
+        raise DeserializationError("UpdateRadiusRequest.radius_settings required")
+    return out
+
+
 def redact_sensitive(value: UpdateRadiusRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "radius_settings" in value:

@@ -50,3 +50,34 @@ def deserialize_aws_json_1_1(data: dict) -> ShareError:
     if data.get("Error") is not None:
         out["error"] = data["Error"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ShareError) -> dict:
+    out: dict = {}
+    if "accounts" in value:
+        import capo_service_catalog.types.namespaces
+
+        out["Accounts"] = capo_service_catalog.types.namespaces.serialize_cbor(
+            value["accounts"]
+        )
+    if "message" in value:
+        out["Message"] = value["message"]
+    if "error" in value:
+        out["Error"] = value["error"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ShareError:
+    out: ShareError = {}  # type: ignore[typeddict-item]
+    if data.get("Accounts") is not None:
+        import capo_service_catalog.types.namespaces
+
+        out["accounts"] = capo_service_catalog.types.namespaces.deserialize_cbor(
+            data["Accounts"]
+        )
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    if data.get("Error") is not None:
+        out["error"] = data["Error"]
+    return out

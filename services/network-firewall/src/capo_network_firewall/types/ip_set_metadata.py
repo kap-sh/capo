@@ -26,3 +26,18 @@ def deserialize_aws_json_1_0(data: dict) -> IPSetMetadata:
     if data.get("ResolvedCIDRCount") is not None:
         out["resolved_cidr_count"] = data["ResolvedCIDRCount"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IPSetMetadata) -> dict:
+    out: dict = {}
+    if "resolved_cidr_count" in value:
+        out["ResolvedCIDRCount"] = value["resolved_cidr_count"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> IPSetMetadata:
+    out: IPSetMetadata = {}  # type: ignore[typeddict-item]
+    if data.get("ResolvedCIDRCount") is not None:
+        out["resolved_cidr_count"] = data["ResolvedCIDRCount"]
+    return out

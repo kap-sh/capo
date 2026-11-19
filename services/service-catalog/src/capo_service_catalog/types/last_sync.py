@@ -104,3 +104,72 @@ def deserialize_aws_json_1_1(data: dict) -> LastSync:
             "LastSuccessfulSyncProvisioningArtifactId"
         ]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LastSync) -> dict:
+    out: dict = {}
+    if "last_sync_time" in value:
+        import capo_service_catalog.types.last_sync_time
+
+        out["LastSyncTime"] = capo_service_catalog.types.last_sync_time.serialize_cbor(
+            value["last_sync_time"]
+        )
+    if "last_sync_status" in value:
+        import capo_service_catalog.types.last_sync_status
+
+        out["LastSyncStatus"] = (
+            capo_service_catalog.types.last_sync_status.serialize_cbor(
+                value["last_sync_status"]
+            )
+        )
+    if "last_sync_status_message" in value:
+        out["LastSyncStatusMessage"] = value["last_sync_status_message"]
+    if "last_successful_sync_time" in value:
+        import capo_service_catalog.types.last_successful_sync_time
+
+        out["LastSuccessfulSyncTime"] = (
+            capo_service_catalog.types.last_successful_sync_time.serialize_cbor(
+                value["last_successful_sync_time"]
+            )
+        )
+    if "last_successful_sync_provisioning_artifact_id" in value:
+        out["LastSuccessfulSyncProvisioningArtifactId"] = value[
+            "last_successful_sync_provisioning_artifact_id"
+        ]
+    return out
+
+
+def deserialize_cbor(data: dict) -> LastSync:
+    out: LastSync = {}  # type: ignore[typeddict-item]
+    if data.get("LastSyncTime") is not None:
+        import capo_service_catalog.types.last_sync_time
+
+        out["last_sync_time"] = (
+            capo_service_catalog.types.last_sync_time.deserialize_cbor(
+                data["LastSyncTime"]
+            )
+        )
+    if data.get("LastSyncStatus") is not None:
+        import capo_service_catalog.types.last_sync_status
+
+        out["last_sync_status"] = (
+            capo_service_catalog.types.last_sync_status.deserialize_cbor(
+                data["LastSyncStatus"]
+            )
+        )
+    if data.get("LastSyncStatusMessage") is not None:
+        out["last_sync_status_message"] = data["LastSyncStatusMessage"]
+    if data.get("LastSuccessfulSyncTime") is not None:
+        import capo_service_catalog.types.last_successful_sync_time
+
+        out["last_successful_sync_time"] = (
+            capo_service_catalog.types.last_successful_sync_time.deserialize_cbor(
+                data["LastSuccessfulSyncTime"]
+            )
+        )
+    if data.get("LastSuccessfulSyncProvisioningArtifactId") is not None:
+        out["last_successful_sync_provisioning_artifact_id"] = data[
+            "LastSuccessfulSyncProvisioningArtifactId"
+        ]
+    return out

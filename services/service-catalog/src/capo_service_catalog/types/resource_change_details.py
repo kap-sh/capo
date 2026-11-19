@@ -37,3 +37,28 @@ def deserialize_aws_json_1_1(data: list) -> ResourceChangeDetails:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResourceChangeDetails) -> list:
+    import capo_service_catalog.types.resource_change_detail
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_service_catalog.types.resource_change_detail.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> ResourceChangeDetails:
+    import capo_service_catalog.types.resource_change_detail
+
+    out: ResourceChangeDetails = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_service_catalog.types.resource_change_detail.deserialize_cbor(item)
+        )
+    return out

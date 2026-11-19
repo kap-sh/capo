@@ -15,3 +15,12 @@ def serialize_aws_json_1_0(value: IdleRecommendationFilterName) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> IdleRecommendationFilterName:
     return cast(IdleRecommendationFilterName, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IdleRecommendationFilterName) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> IdleRecommendationFilterName:
+    return cast(IdleRecommendationFilterName, data)

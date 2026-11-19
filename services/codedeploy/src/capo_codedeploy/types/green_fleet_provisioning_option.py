@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> GreenFleetProvisioningOption:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GreenFleetProvisioningOption) -> dict:
+    out: dict = {}
+    if "action" in value:
+        import capo_codedeploy.types.green_fleet_provisioning_action
+
+        out["action"] = (
+            capo_codedeploy.types.green_fleet_provisioning_action.serialize_cbor(
+                value["action"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GreenFleetProvisioningOption:
+    out: GreenFleetProvisioningOption = {}  # type: ignore[typeddict-item]
+    if data.get("action") is not None:
+        import capo_codedeploy.types.green_fleet_provisioning_action
+
+        out["action"] = (
+            capo_codedeploy.types.green_fleet_provisioning_action.deserialize_cbor(
+                data["action"]
+            )
+        )
+    return out

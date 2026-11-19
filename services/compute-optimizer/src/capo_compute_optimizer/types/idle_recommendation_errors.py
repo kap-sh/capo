@@ -37,3 +37,30 @@ def deserialize_aws_json_1_0(data: list) -> IdleRecommendationErrors:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IdleRecommendationErrors) -> list:
+    import capo_compute_optimizer.types.idle_recommendation_error
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_compute_optimizer.types.idle_recommendation_error.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> IdleRecommendationErrors:
+    import capo_compute_optimizer.types.idle_recommendation_error
+
+    out: IdleRecommendationErrors = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_compute_optimizer.types.idle_recommendation_error.deserialize_cbor(
+                item
+            )
+        )
+    return out

@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteUserRequest:
     else:
         out["user_name"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteUserRequest) -> dict:
+    out: dict = {}
+    out["UserName"] = value["user_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteUserRequest:
+    out: DeleteUserRequest = {}  # type: ignore[typeddict-item]
+    if data.get("UserName") is not None:
+        out["user_name"] = data["UserName"]
+    else:
+        out["user_name"] = ""
+    return out

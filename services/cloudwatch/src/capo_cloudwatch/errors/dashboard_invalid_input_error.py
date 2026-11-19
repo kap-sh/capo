@@ -87,6 +87,37 @@ def deserialize_query(el: Element) -> DashboardInvalidInputError_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DashboardInvalidInputError_) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["message"] = value["message"]
+    if "dashboard_validation_messages" in value:
+        import capo_cloudwatch.types.dashboard_validation_messages
+
+        out["dashboardValidationMessages"] = (
+            capo_cloudwatch.types.dashboard_validation_messages.serialize_cbor(
+                value["dashboard_validation_messages"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DashboardInvalidInputError_:
+    out: DashboardInvalidInputError_ = {}  # type: ignore[typeddict-item]
+    if data.get("message") is not None:
+        out["message"] = data["message"]
+    if data.get("dashboardValidationMessages") is not None:
+        import capo_cloudwatch.types.dashboard_validation_messages
+
+        out["dashboard_validation_messages"] = (
+            capo_cloudwatch.types.dashboard_validation_messages.deserialize_cbor(
+                data["dashboardValidationMessages"]
+            )
+        )
+    return out
+
+
 class DashboardInvalidInputError(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.cloudwatch#DashboardInvalidInputError``."""
 
@@ -120,3 +151,9 @@ class DashboardInvalidInputError(ServiceError):
         cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "DashboardInvalidInputError":
         return cls(deserialize_query(el), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "DashboardInvalidInputError":
+        return cls(deserialize_cbor(data), message, response=response)

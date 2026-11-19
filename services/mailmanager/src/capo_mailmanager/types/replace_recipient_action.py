@@ -38,6 +38,29 @@ def deserialize_aws_json_1_0(data: dict) -> ReplaceRecipientAction:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ReplaceRecipientAction) -> dict:
+    out: dict = {}
+    if "replace_with" in value:
+        import capo_mailmanager.types.recipients
+
+        out["ReplaceWith"] = capo_mailmanager.types.recipients.serialize_cbor(
+            value["replace_with"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ReplaceRecipientAction:
+    out: ReplaceRecipientAction = {}  # type: ignore[typeddict-item]
+    if data.get("ReplaceWith") is not None:
+        import capo_mailmanager.types.recipients
+
+        out["replace_with"] = capo_mailmanager.types.recipients.deserialize_cbor(
+            data["ReplaceWith"]
+        )
+    return out
+
+
 def redact_sensitive(value: ReplaceRecipientAction) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "replace_with" in value:

@@ -28,3 +28,18 @@ def deserialize_aws_json_1_1(data: dict) -> StopMatchmakingInput:
     if data.get("TicketId") is not None:
         out["ticket_id"] = data["TicketId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StopMatchmakingInput) -> dict:
+    out: dict = {}
+    if "ticket_id" in value:
+        out["TicketId"] = value["ticket_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StopMatchmakingInput:
+    out: StopMatchmakingInput = {}  # type: ignore[typeddict-item]
+    if data.get("TicketId") is not None:
+        out["ticket_id"] = data["TicketId"]
+    return out

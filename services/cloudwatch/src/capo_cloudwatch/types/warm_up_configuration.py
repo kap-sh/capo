@@ -87,3 +87,30 @@ def deserialize_query(el: Element) -> WarmUpConfiguration:
             child_only_start_evaluating_after_warm_up_period_ends.text or ""
         ).lower() == "true"
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: WarmUpConfiguration) -> dict:
+    out: dict = {}
+    if "warm_up_period_duration_in_minutes" in value:
+        out["WarmUpPeriodDurationInMinutes"] = value[
+            "warm_up_period_duration_in_minutes"
+        ]
+    if "only_start_evaluating_after_warm_up_period_ends" in value:
+        out["OnlyStartEvaluatingAfterWarmUpPeriodEnds"] = value[
+            "only_start_evaluating_after_warm_up_period_ends"
+        ]
+    return out
+
+
+def deserialize_cbor(data: dict) -> WarmUpConfiguration:
+    out: WarmUpConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("WarmUpPeriodDurationInMinutes") is not None:
+        out["warm_up_period_duration_in_minutes"] = data[
+            "WarmUpPeriodDurationInMinutes"
+        ]
+    if data.get("OnlyStartEvaluatingAfterWarmUpPeriodEnds") is not None:
+        out["only_start_evaluating_after_warm_up_period_ends"] = data[
+            "OnlyStartEvaluatingAfterWarmUpPeriodEnds"
+        ]
+    return out

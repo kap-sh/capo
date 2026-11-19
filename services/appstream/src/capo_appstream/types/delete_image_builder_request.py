@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteImageBuilderRequest:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteImageBuilderRequest) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteImageBuilderRequest:
+    out: DeleteImageBuilderRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    return out

@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeMultiRegionParametersRespons
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeMultiRegionParametersResponse) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "multi_region_parameters" in value:
+        import capo_memorydb.types.multi_region_parameters_list
+
+        out["MultiRegionParameters"] = (
+            capo_memorydb.types.multi_region_parameters_list.serialize_cbor(
+                value["multi_region_parameters"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeMultiRegionParametersResponse:
+    out: DescribeMultiRegionParametersResponse = {}  # type: ignore[typeddict-item]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("MultiRegionParameters") is not None:
+        import capo_memorydb.types.multi_region_parameters_list
+
+        out["multi_region_parameters"] = (
+            capo_memorydb.types.multi_region_parameters_list.deserialize_cbor(
+                data["MultiRegionParameters"]
+            )
+        )
+    return out

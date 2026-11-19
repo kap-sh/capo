@@ -53,3 +53,40 @@ def deserialize_aws_json_1_0(data: dict) -> VariablePaymentTermConfiguration:
     if data.get("expirationDuration") is not None:
         out["expiration_duration"] = data["expirationDuration"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: VariablePaymentTermConfiguration) -> dict:
+    out: dict = {}
+    import capo_marketplace_agreement.types.payment_request_approval_strategy
+
+    out["paymentRequestApprovalStrategy"] = (
+        capo_marketplace_agreement.types.payment_request_approval_strategy.serialize_cbor(
+            value["payment_request_approval_strategy"]
+        )
+    )
+    if "expiration_duration" in value:
+        out["expirationDuration"] = value["expiration_duration"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> VariablePaymentTermConfiguration:
+    out: VariablePaymentTermConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("paymentRequestApprovalStrategy") is not None:
+        import capo_marketplace_agreement.types.payment_request_approval_strategy
+
+        out["payment_request_approval_strategy"] = (
+            capo_marketplace_agreement.types.payment_request_approval_strategy.deserialize_cbor(
+                data["paymentRequestApprovalStrategy"]
+            )
+        )
+    else:
+        import typing
+
+        out["payment_request_approval_strategy"] = typing.cast(
+            "capo_marketplace_agreement.types.payment_request_approval_strategy.PaymentRequestApprovalStrategy",
+            "",
+        )
+    if data.get("expirationDuration") is not None:
+        out["expiration_duration"] = data["expirationDuration"]
+    return out

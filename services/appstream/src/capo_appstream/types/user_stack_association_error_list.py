@@ -39,6 +39,31 @@ def deserialize_aws_json_1_1(data: list) -> UserStackAssociationErrorList:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UserStackAssociationErrorList) -> list:
+    import capo_appstream.types.user_stack_association_error
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_appstream.types.user_stack_association_error.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> UserStackAssociationErrorList:
+    import capo_appstream.types.user_stack_association_error
+
+    out: UserStackAssociationErrorList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_appstream.types.user_stack_association_error.deserialize_cbor(item)
+        )
+    return out
+
+
 def redact_sensitive(value: UserStackAssociationErrorList) -> list[Any]:
     import capo_appstream.types.user_stack_association_error
 

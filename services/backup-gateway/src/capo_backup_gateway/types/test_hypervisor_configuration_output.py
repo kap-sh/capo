@@ -16,3 +16,14 @@ def serialize_aws_json_1_0(value: TestHypervisorConfigurationOutput) -> dict:
 def deserialize_aws_json_1_0(data: dict) -> TestHypervisorConfigurationOutput:
     out: TestHypervisorConfigurationOutput = {}  # type: ignore[typeddict-item]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TestHypervisorConfigurationOutput) -> dict:
+    out: dict = {}
+    return out
+
+
+def deserialize_cbor(data: dict) -> TestHypervisorConfigurationOutput:
+    out: TestHypervisorConfigurationOutput = {}  # type: ignore[typeddict-item]
+    return out

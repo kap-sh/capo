@@ -57,3 +57,41 @@ def deserialize_aws_json_1_1(data: dict) -> EntryDescription:
             data["EntryType"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EntryDescription) -> dict:
+    out: dict = {}
+    if "entry_detail" in value:
+        import capo_fms.types.network_acl_entry
+
+        out["EntryDetail"] = capo_fms.types.network_acl_entry.serialize_cbor(
+            value["entry_detail"]
+        )
+    out["EntryRuleNumber"] = value.get("entry_rule_number", 0)
+    if "entry_type" in value:
+        import capo_fms.types.entry_type
+
+        out["EntryType"] = capo_fms.types.entry_type.serialize_cbor(value["entry_type"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> EntryDescription:
+    out: EntryDescription = {}  # type: ignore[typeddict-item]
+    if data.get("EntryDetail") is not None:
+        import capo_fms.types.network_acl_entry
+
+        out["entry_detail"] = capo_fms.types.network_acl_entry.deserialize_cbor(
+            data["EntryDetail"]
+        )
+    if data.get("EntryRuleNumber") is not None:
+        out["entry_rule_number"] = data["EntryRuleNumber"]
+    else:
+        out["entry_rule_number"] = 0
+    if data.get("EntryType") is not None:
+        import capo_fms.types.entry_type
+
+        out["entry_type"] = capo_fms.types.entry_type.deserialize_cbor(
+            data["EntryType"]
+        )
+    return out

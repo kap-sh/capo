@@ -81,3 +81,54 @@ def deserialize_aws_json_1_1(data: dict) -> BuildArtifacts:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BuildArtifacts) -> dict:
+    out: dict = {}
+    if "location" in value:
+        out["location"] = value["location"]
+    if "sha256sum" in value:
+        out["sha256sum"] = value["sha256sum"]
+    if "md5sum" in value:
+        out["md5sum"] = value["md5sum"]
+    if "override_artifact_name" in value:
+        out["overrideArtifactName"] = value["override_artifact_name"]
+    if "encryption_disabled" in value:
+        out["encryptionDisabled"] = value["encryption_disabled"]
+    if "artifact_identifier" in value:
+        out["artifactIdentifier"] = value["artifact_identifier"]
+    if "bucket_owner_access" in value:
+        import capo_codebuild.types.bucket_owner_access
+
+        out["bucketOwnerAccess"] = (
+            capo_codebuild.types.bucket_owner_access.serialize_cbor(
+                value["bucket_owner_access"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BuildArtifacts:
+    out: BuildArtifacts = {}  # type: ignore[typeddict-item]
+    if data.get("location") is not None:
+        out["location"] = data["location"]
+    if data.get("sha256sum") is not None:
+        out["sha256sum"] = data["sha256sum"]
+    if data.get("md5sum") is not None:
+        out["md5sum"] = data["md5sum"]
+    if data.get("overrideArtifactName") is not None:
+        out["override_artifact_name"] = data["overrideArtifactName"]
+    if data.get("encryptionDisabled") is not None:
+        out["encryption_disabled"] = data["encryptionDisabled"]
+    if data.get("artifactIdentifier") is not None:
+        out["artifact_identifier"] = data["artifactIdentifier"]
+    if data.get("bucketOwnerAccess") is not None:
+        import capo_codebuild.types.bucket_owner_access
+
+        out["bucket_owner_access"] = (
+            capo_codebuild.types.bucket_owner_access.deserialize_cbor(
+                data["bucketOwnerAccess"]
+            )
+        )
+    return out

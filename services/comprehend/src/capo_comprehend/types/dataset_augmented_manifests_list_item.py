@@ -80,3 +80,58 @@ def deserialize_aws_json_1_1(data: dict) -> DatasetAugmentedManifestsListItem:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DatasetAugmentedManifestsListItem) -> dict:
+    out: dict = {}
+    import capo_comprehend.types.attribute_names_list
+
+    out["AttributeNames"] = capo_comprehend.types.attribute_names_list.serialize_cbor(
+        value["attribute_names"]
+    )
+    out["S3Uri"] = value["s3_uri"]
+    if "annotation_data_s3_uri" in value:
+        out["AnnotationDataS3Uri"] = value["annotation_data_s3_uri"]
+    if "source_documents_s3_uri" in value:
+        out["SourceDocumentsS3Uri"] = value["source_documents_s3_uri"]
+    if "document_type" in value:
+        import capo_comprehend.types.augmented_manifests_document_type_format
+
+        out["DocumentType"] = (
+            capo_comprehend.types.augmented_manifests_document_type_format.serialize_cbor(
+                value["document_type"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DatasetAugmentedManifestsListItem:
+    out: DatasetAugmentedManifestsListItem = {}  # type: ignore[typeddict-item]
+    if data.get("AttributeNames") is not None:
+        import capo_comprehend.types.attribute_names_list
+
+        out["attribute_names"] = (
+            capo_comprehend.types.attribute_names_list.deserialize_cbor(
+                data["AttributeNames"]
+            )
+        )
+    else:
+        out["attribute_names"] = []
+    if data.get("S3Uri") is not None:
+        out["s3_uri"] = data["S3Uri"]
+    else:
+        out["s3_uri"] = ""
+    if data.get("AnnotationDataS3Uri") is not None:
+        out["annotation_data_s3_uri"] = data["AnnotationDataS3Uri"]
+    if data.get("SourceDocumentsS3Uri") is not None:
+        out["source_documents_s3_uri"] = data["SourceDocumentsS3Uri"]
+    if data.get("DocumentType") is not None:
+        import capo_comprehend.types.augmented_manifests_document_type_format
+
+        out["document_type"] = (
+            capo_comprehend.types.augmented_manifests_document_type_format.deserialize_cbor(
+                data["DocumentType"]
+            )
+        )
+    return out

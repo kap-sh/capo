@@ -76,3 +76,53 @@ def deserialize_aws_json_1_1(data: dict) -> EntityAccountFilter:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EntityAccountFilter) -> dict:
+    out: dict = {}
+    out["eventArn"] = value["event_arn"]
+    if "aws_account_id" in value:
+        out["awsAccountId"] = value["aws_account_id"]
+    if "status_codes" in value:
+        import capo_health.types.entity_status_code_list
+
+        out["statusCodes"] = capo_health.types.entity_status_code_list.serialize_cbor(
+            value["status_codes"]
+        )
+    if "tags" in value:
+        import capo_health.types.affected_entities_for_organization_tag_filter
+
+        out["tags"] = (
+            capo_health.types.affected_entities_for_organization_tag_filter.serialize_cbor(
+                value["tags"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> EntityAccountFilter:
+    out: EntityAccountFilter = {}  # type: ignore[typeddict-item]
+    if data.get("eventArn") is not None:
+        out["event_arn"] = data["eventArn"]
+    else:
+        out["event_arn"] = ""
+    if data.get("awsAccountId") is not None:
+        out["aws_account_id"] = data["awsAccountId"]
+    if data.get("statusCodes") is not None:
+        import capo_health.types.entity_status_code_list
+
+        out["status_codes"] = (
+            capo_health.types.entity_status_code_list.deserialize_cbor(
+                data["statusCodes"]
+            )
+        )
+    if data.get("tags") is not None:
+        import capo_health.types.affected_entities_for_organization_tag_filter
+
+        out["tags"] = (
+            capo_health.types.affected_entities_for_organization_tag_filter.deserialize_cbor(
+                data["tags"]
+            )
+        )
+    return out

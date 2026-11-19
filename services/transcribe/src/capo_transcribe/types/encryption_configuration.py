@@ -48,3 +48,35 @@ def deserialize_aws_json_1_1(data: dict) -> EncryptionConfiguration:
     else:
         out["kms_key"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EncryptionConfiguration) -> dict:
+    out: dict = {}
+    if "kms_encryption_context" in value:
+        import capo_transcribe.types.kms_encryption_context_map
+
+        out["KMSEncryptionContext"] = (
+            capo_transcribe.types.kms_encryption_context_map.serialize_cbor(
+                value["kms_encryption_context"]
+            )
+        )
+    out["KMSKey"] = value["kms_key"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> EncryptionConfiguration:
+    out: EncryptionConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("KMSEncryptionContext") is not None:
+        import capo_transcribe.types.kms_encryption_context_map
+
+        out["kms_encryption_context"] = (
+            capo_transcribe.types.kms_encryption_context_map.deserialize_cbor(
+                data["KMSEncryptionContext"]
+            )
+        )
+    if data.get("KMSKey") is not None:
+        out["kms_key"] = data["KMSKey"]
+    else:
+        out["kms_key"] = ""
+    return out

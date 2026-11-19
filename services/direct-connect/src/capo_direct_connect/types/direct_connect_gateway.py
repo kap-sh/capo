@@ -105,3 +105,62 @@ def deserialize_aws_json_1_1(data: dict) -> DirectConnectGateway:
             data["tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DirectConnectGateway) -> dict:
+    out: dict = {}
+    if "direct_connect_gateway_id" in value:
+        out["directConnectGatewayId"] = value["direct_connect_gateway_id"]
+    if "direct_connect_gateway_name" in value:
+        out["directConnectGatewayName"] = value["direct_connect_gateway_name"]
+    if "amazon_side_asn" in value:
+        out["amazonSideAsn"] = value["amazon_side_asn"]
+    if "owner_account" in value:
+        out["ownerAccount"] = value["owner_account"]
+    if "direct_connect_gateway_state" in value:
+        import capo_direct_connect.types.direct_connect_gateway_state
+
+        out["directConnectGatewayState"] = (
+            capo_direct_connect.types.direct_connect_gateway_state.serialize_cbor(
+                value["direct_connect_gateway_state"]
+            )
+        )
+    if "state_change_error" in value:
+        out["stateChangeError"] = value["state_change_error"]
+    if "total_prefix_pool_allocations" in value:
+        out["totalPrefixPoolAllocations"] = value["total_prefix_pool_allocations"]
+    if "tags" in value:
+        import capo_direct_connect.types.tag_list
+
+        out["tags"] = capo_direct_connect.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> DirectConnectGateway:
+    out: DirectConnectGateway = {}  # type: ignore[typeddict-item]
+    if data.get("directConnectGatewayId") is not None:
+        out["direct_connect_gateway_id"] = data["directConnectGatewayId"]
+    if data.get("directConnectGatewayName") is not None:
+        out["direct_connect_gateway_name"] = data["directConnectGatewayName"]
+    if data.get("amazonSideAsn") is not None:
+        out["amazon_side_asn"] = data["amazonSideAsn"]
+    if data.get("ownerAccount") is not None:
+        out["owner_account"] = data["ownerAccount"]
+    if data.get("directConnectGatewayState") is not None:
+        import capo_direct_connect.types.direct_connect_gateway_state
+
+        out["direct_connect_gateway_state"] = (
+            capo_direct_connect.types.direct_connect_gateway_state.deserialize_cbor(
+                data["directConnectGatewayState"]
+            )
+        )
+    if data.get("stateChangeError") is not None:
+        out["state_change_error"] = data["stateChangeError"]
+    if data.get("totalPrefixPoolAllocations") is not None:
+        out["total_prefix_pool_allocations"] = data["totalPrefixPoolAllocations"]
+    if data.get("tags") is not None:
+        import capo_direct_connect.types.tag_list
+
+        out["tags"] = capo_direct_connect.types.tag_list.deserialize_cbor(data["tags"])
+    return out

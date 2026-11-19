@@ -255,3 +255,182 @@ def deserialize_aws_json_1_1(data: dict) -> Fleet:
             data["tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Fleet) -> dict:
+    out: dict = {}
+    if "arn" in value:
+        out["arn"] = value["arn"]
+    if "name" in value:
+        out["name"] = value["name"]
+    if "id" in value:
+        out["id"] = value["id"]
+    if "created" in value:
+        import capo_codebuild.types.timestamp
+
+        out["created"] = capo_codebuild.types.timestamp.serialize_cbor(value["created"])
+    if "last_modified" in value:
+        import capo_codebuild.types.timestamp
+
+        out["lastModified"] = capo_codebuild.types.timestamp.serialize_cbor(
+            value["last_modified"]
+        )
+    if "status" in value:
+        import capo_codebuild.types.fleet_status
+
+        out["status"] = capo_codebuild.types.fleet_status.serialize_cbor(
+            value["status"]
+        )
+    if "base_capacity" in value:
+        out["baseCapacity"] = value["base_capacity"]
+    if "environment_type" in value:
+        import capo_codebuild.types.environment_type
+
+        out["environmentType"] = capo_codebuild.types.environment_type.serialize_cbor(
+            value["environment_type"]
+        )
+    if "compute_type" in value:
+        import capo_codebuild.types.compute_type
+
+        out["computeType"] = capo_codebuild.types.compute_type.serialize_cbor(
+            value["compute_type"]
+        )
+    if "compute_configuration" in value:
+        import capo_codebuild.types.compute_configuration
+
+        out["computeConfiguration"] = (
+            capo_codebuild.types.compute_configuration.serialize_cbor(
+                value["compute_configuration"]
+            )
+        )
+    if "scaling_configuration" in value:
+        import capo_codebuild.types.scaling_configuration_output
+
+        out["scalingConfiguration"] = (
+            capo_codebuild.types.scaling_configuration_output.serialize_cbor(
+                value["scaling_configuration"]
+            )
+        )
+    if "overflow_behavior" in value:
+        import capo_codebuild.types.fleet_overflow_behavior
+
+        out["overflowBehavior"] = (
+            capo_codebuild.types.fleet_overflow_behavior.serialize_cbor(
+                value["overflow_behavior"]
+            )
+        )
+    if "vpc_config" in value:
+        import capo_codebuild.types.vpc_config
+
+        out["vpcConfig"] = capo_codebuild.types.vpc_config.serialize_cbor(
+            value["vpc_config"]
+        )
+    if "proxy_configuration" in value:
+        import capo_codebuild.types.proxy_configuration
+
+        out["proxyConfiguration"] = (
+            capo_codebuild.types.proxy_configuration.serialize_cbor(
+                value["proxy_configuration"]
+            )
+        )
+    if "image_id" in value:
+        out["imageId"] = value["image_id"]
+    if "fleet_service_role" in value:
+        out["fleetServiceRole"] = value["fleet_service_role"]
+    if "tags" in value:
+        import capo_codebuild.types.tag_list
+
+        out["tags"] = capo_codebuild.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> Fleet:
+    out: Fleet = {}  # type: ignore[typeddict-item]
+    if data.get("arn") is not None:
+        out["arn"] = data["arn"]
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    if data.get("id") is not None:
+        out["id"] = data["id"]
+    if data.get("created") is not None:
+        import capo_codebuild.types.timestamp
+
+        out["created"] = capo_codebuild.types.timestamp.deserialize_cbor(
+            data["created"]
+        )
+    if data.get("lastModified") is not None:
+        import capo_codebuild.types.timestamp
+
+        out["last_modified"] = capo_codebuild.types.timestamp.deserialize_cbor(
+            data["lastModified"]
+        )
+    if data.get("status") is not None:
+        import capo_codebuild.types.fleet_status
+
+        out["status"] = capo_codebuild.types.fleet_status.deserialize_cbor(
+            data["status"]
+        )
+    if data.get("baseCapacity") is not None:
+        out["base_capacity"] = data["baseCapacity"]
+    if data.get("environmentType") is not None:
+        import capo_codebuild.types.environment_type
+
+        out["environment_type"] = (
+            capo_codebuild.types.environment_type.deserialize_cbor(
+                data["environmentType"]
+            )
+        )
+    if data.get("computeType") is not None:
+        import capo_codebuild.types.compute_type
+
+        out["compute_type"] = capo_codebuild.types.compute_type.deserialize_cbor(
+            data["computeType"]
+        )
+    if data.get("computeConfiguration") is not None:
+        import capo_codebuild.types.compute_configuration
+
+        out["compute_configuration"] = (
+            capo_codebuild.types.compute_configuration.deserialize_cbor(
+                data["computeConfiguration"]
+            )
+        )
+    if data.get("scalingConfiguration") is not None:
+        import capo_codebuild.types.scaling_configuration_output
+
+        out["scaling_configuration"] = (
+            capo_codebuild.types.scaling_configuration_output.deserialize_cbor(
+                data["scalingConfiguration"]
+            )
+        )
+    if data.get("overflowBehavior") is not None:
+        import capo_codebuild.types.fleet_overflow_behavior
+
+        out["overflow_behavior"] = (
+            capo_codebuild.types.fleet_overflow_behavior.deserialize_cbor(
+                data["overflowBehavior"]
+            )
+        )
+    if data.get("vpcConfig") is not None:
+        import capo_codebuild.types.vpc_config
+
+        out["vpc_config"] = capo_codebuild.types.vpc_config.deserialize_cbor(
+            data["vpcConfig"]
+        )
+    if data.get("proxyConfiguration") is not None:
+        import capo_codebuild.types.proxy_configuration
+
+        out["proxy_configuration"] = (
+            capo_codebuild.types.proxy_configuration.deserialize_cbor(
+                data["proxyConfiguration"]
+            )
+        )
+    if data.get("imageId") is not None:
+        out["image_id"] = data["imageId"]
+    if data.get("fleetServiceRole") is not None:
+        out["fleet_service_role"] = data["fleetServiceRole"]
+    if data.get("tags") is not None:
+        import capo_codebuild.types.tag_list
+
+        out["tags"] = capo_codebuild.types.tag_list.deserialize_cbor(data["tags"])
+    return out

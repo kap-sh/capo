@@ -20,3 +20,12 @@ def serialize_aws_json_1_0(value: RDSStorageFindingReasonCode) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> RDSStorageFindingReasonCode:
     return cast(RDSStorageFindingReasonCode, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RDSStorageFindingReasonCode) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> RDSStorageFindingReasonCode:
+    return cast(RDSStorageFindingReasonCode, data)

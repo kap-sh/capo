@@ -22,3 +22,12 @@ def serialize_aws_json_1_1(value: Action) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> Action:
     return cast(Action, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Action) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> Action:
+    return cast(Action, data)

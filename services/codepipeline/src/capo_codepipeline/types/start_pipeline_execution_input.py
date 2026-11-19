@@ -78,3 +78,55 @@ def deserialize_aws_json_1_1(data: dict) -> StartPipelineExecutionInput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartPipelineExecutionInput) -> dict:
+    out: dict = {}
+    out["name"] = value["name"]
+    if "variables" in value:
+        import capo_codepipeline.types.pipeline_variable_list
+
+        out["variables"] = (
+            capo_codepipeline.types.pipeline_variable_list.serialize_cbor(
+                value["variables"]
+            )
+        )
+    if "client_request_token" in value:
+        out["clientRequestToken"] = value["client_request_token"]
+    if "source_revisions" in value:
+        import capo_codepipeline.types.source_revision_override_list
+
+        out["sourceRevisions"] = (
+            capo_codepipeline.types.source_revision_override_list.serialize_cbor(
+                value["source_revisions"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartPipelineExecutionInput:
+    out: StartPipelineExecutionInput = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    else:
+        out["name"] = ""
+    if data.get("variables") is not None:
+        import capo_codepipeline.types.pipeline_variable_list
+
+        out["variables"] = (
+            capo_codepipeline.types.pipeline_variable_list.deserialize_cbor(
+                data["variables"]
+            )
+        )
+    if data.get("clientRequestToken") is not None:
+        out["client_request_token"] = data["clientRequestToken"]
+    if data.get("sourceRevisions") is not None:
+        import capo_codepipeline.types.source_revision_override_list
+
+        out["source_revisions"] = (
+            capo_codepipeline.types.source_revision_override_list.deserialize_cbor(
+                data["sourceRevisions"]
+            )
+        )
+    return out

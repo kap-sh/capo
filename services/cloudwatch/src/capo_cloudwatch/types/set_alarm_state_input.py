@@ -99,3 +99,38 @@ def deserialize_query(el: Element) -> SetAlarmStateInput:
     if child_state_reason_data is not None:
         out["state_reason_data"] = str(child_state_reason_data.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SetAlarmStateInput) -> dict:
+    out: dict = {}
+    if "alarm_name" in value:
+        out["AlarmName"] = value["alarm_name"]
+    if "state_value" in value:
+        import capo_cloudwatch.types.state_value
+
+        out["StateValue"] = capo_cloudwatch.types.state_value.serialize_cbor(
+            value["state_value"]
+        )
+    if "state_reason" in value:
+        out["StateReason"] = value["state_reason"]
+    if "state_reason_data" in value:
+        out["StateReasonData"] = value["state_reason_data"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> SetAlarmStateInput:
+    out: SetAlarmStateInput = {}  # type: ignore[typeddict-item]
+    if data.get("AlarmName") is not None:
+        out["alarm_name"] = data["AlarmName"]
+    if data.get("StateValue") is not None:
+        import capo_cloudwatch.types.state_value
+
+        out["state_value"] = capo_cloudwatch.types.state_value.deserialize_cbor(
+            data["StateValue"]
+        )
+    if data.get("StateReason") is not None:
+        out["state_reason"] = data["StateReason"]
+    if data.get("StateReasonData") is not None:
+        out["state_reason_data"] = data["StateReasonData"]
+    return out

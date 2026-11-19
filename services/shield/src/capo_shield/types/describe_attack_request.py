@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeAttackRequest:
     else:
         out["attack_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeAttackRequest) -> dict:
+    out: dict = {}
+    out["AttackId"] = value["attack_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeAttackRequest:
+    out: DescribeAttackRequest = {}  # type: ignore[typeddict-item]
+    if data.get("AttackId") is not None:
+        out["attack_id"] = data["AttackId"]
+    else:
+        out["attack_id"] = ""
+    return out

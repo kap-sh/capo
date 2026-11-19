@@ -89,3 +89,62 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeEventsRequest:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeEventsRequest) -> dict:
+    out: dict = {}
+    if "source_name" in value:
+        out["SourceName"] = value["source_name"]
+    if "source_type" in value:
+        import capo_memorydb.types.source_type
+
+        out["SourceType"] = capo_memorydb.types.source_type.serialize_cbor(
+            value["source_type"]
+        )
+    if "start_time" in value:
+        import capo_memorydb.types.t_stamp
+
+        out["StartTime"] = capo_memorydb.types.t_stamp.serialize_cbor(
+            value["start_time"]
+        )
+    if "end_time" in value:
+        import capo_memorydb.types.t_stamp
+
+        out["EndTime"] = capo_memorydb.types.t_stamp.serialize_cbor(value["end_time"])
+    if "duration" in value:
+        out["Duration"] = value["duration"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeEventsRequest:
+    out: DescribeEventsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("SourceName") is not None:
+        out["source_name"] = data["SourceName"]
+    if data.get("SourceType") is not None:
+        import capo_memorydb.types.source_type
+
+        out["source_type"] = capo_memorydb.types.source_type.deserialize_cbor(
+            data["SourceType"]
+        )
+    if data.get("StartTime") is not None:
+        import capo_memorydb.types.t_stamp
+
+        out["start_time"] = capo_memorydb.types.t_stamp.deserialize_cbor(
+            data["StartTime"]
+        )
+    if data.get("EndTime") is not None:
+        import capo_memorydb.types.t_stamp
+
+        out["end_time"] = capo_memorydb.types.t_stamp.deserialize_cbor(data["EndTime"])
+    if data.get("Duration") is not None:
+        out["duration"] = data["Duration"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

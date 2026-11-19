@@ -243,3 +243,161 @@ def deserialize_aws_json_1_1(data: dict) -> CreateClusterRequest:
             data["IpDiscovery"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateClusterRequest) -> dict:
+    out: dict = {}
+    out["ClusterName"] = value["cluster_name"]
+    out["NodeType"] = value["node_type"]
+    if "multi_region_cluster_name" in value:
+        out["MultiRegionClusterName"] = value["multi_region_cluster_name"]
+    if "parameter_group_name" in value:
+        out["ParameterGroupName"] = value["parameter_group_name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "num_shards" in value:
+        out["NumShards"] = value["num_shards"]
+    if "num_replicas_per_shard" in value:
+        out["NumReplicasPerShard"] = value["num_replicas_per_shard"]
+    if "subnet_group_name" in value:
+        out["SubnetGroupName"] = value["subnet_group_name"]
+    if "security_group_ids" in value:
+        import capo_memorydb.types.security_group_ids_list
+
+        out["SecurityGroupIds"] = (
+            capo_memorydb.types.security_group_ids_list.serialize_cbor(
+                value["security_group_ids"]
+            )
+        )
+    if "maintenance_window" in value:
+        out["MaintenanceWindow"] = value["maintenance_window"]
+    if "port" in value:
+        out["Port"] = value["port"]
+    if "sns_topic_arn" in value:
+        out["SnsTopicArn"] = value["sns_topic_arn"]
+    if "tls_enabled" in value:
+        out["TLSEnabled"] = value["tls_enabled"]
+    if "kms_key_id" in value:
+        out["KmsKeyId"] = value["kms_key_id"]
+    if "snapshot_arns" in value:
+        import capo_memorydb.types.snapshot_arns_list
+
+        out["SnapshotArns"] = capo_memorydb.types.snapshot_arns_list.serialize_cbor(
+            value["snapshot_arns"]
+        )
+    if "snapshot_name" in value:
+        out["SnapshotName"] = value["snapshot_name"]
+    if "snapshot_retention_limit" in value:
+        out["SnapshotRetentionLimit"] = value["snapshot_retention_limit"]
+    if "tags" in value:
+        import capo_memorydb.types.tag_list
+
+        out["Tags"] = capo_memorydb.types.tag_list.serialize_cbor(value["tags"])
+    if "snapshot_window" in value:
+        out["SnapshotWindow"] = value["snapshot_window"]
+    out["ACLName"] = value["acl_name"]
+    if "engine" in value:
+        out["Engine"] = value["engine"]
+    if "engine_version" in value:
+        out["EngineVersion"] = value["engine_version"]
+    if "auto_minor_version_upgrade" in value:
+        out["AutoMinorVersionUpgrade"] = value["auto_minor_version_upgrade"]
+    if "data_tiering" in value:
+        out["DataTiering"] = value["data_tiering"]
+    if "network_type" in value:
+        import capo_memorydb.types.network_type
+
+        out["NetworkType"] = capo_memorydb.types.network_type.serialize_cbor(
+            value["network_type"]
+        )
+    if "ip_discovery" in value:
+        import capo_memorydb.types.ip_discovery
+
+        out["IpDiscovery"] = capo_memorydb.types.ip_discovery.serialize_cbor(
+            value["ip_discovery"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateClusterRequest:
+    out: CreateClusterRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ClusterName") is not None:
+        out["cluster_name"] = data["ClusterName"]
+    else:
+        out["cluster_name"] = ""
+    if data.get("NodeType") is not None:
+        out["node_type"] = data["NodeType"]
+    else:
+        out["node_type"] = ""
+    if data.get("MultiRegionClusterName") is not None:
+        out["multi_region_cluster_name"] = data["MultiRegionClusterName"]
+    if data.get("ParameterGroupName") is not None:
+        out["parameter_group_name"] = data["ParameterGroupName"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("NumShards") is not None:
+        out["num_shards"] = data["NumShards"]
+    if data.get("NumReplicasPerShard") is not None:
+        out["num_replicas_per_shard"] = data["NumReplicasPerShard"]
+    if data.get("SubnetGroupName") is not None:
+        out["subnet_group_name"] = data["SubnetGroupName"]
+    if data.get("SecurityGroupIds") is not None:
+        import capo_memorydb.types.security_group_ids_list
+
+        out["security_group_ids"] = (
+            capo_memorydb.types.security_group_ids_list.deserialize_cbor(
+                data["SecurityGroupIds"]
+            )
+        )
+    if data.get("MaintenanceWindow") is not None:
+        out["maintenance_window"] = data["MaintenanceWindow"]
+    if data.get("Port") is not None:
+        out["port"] = data["Port"]
+    if data.get("SnsTopicArn") is not None:
+        out["sns_topic_arn"] = data["SnsTopicArn"]
+    if data.get("TLSEnabled") is not None:
+        out["tls_enabled"] = data["TLSEnabled"]
+    if data.get("KmsKeyId") is not None:
+        out["kms_key_id"] = data["KmsKeyId"]
+    if data.get("SnapshotArns") is not None:
+        import capo_memorydb.types.snapshot_arns_list
+
+        out["snapshot_arns"] = capo_memorydb.types.snapshot_arns_list.deserialize_cbor(
+            data["SnapshotArns"]
+        )
+    if data.get("SnapshotName") is not None:
+        out["snapshot_name"] = data["SnapshotName"]
+    if data.get("SnapshotRetentionLimit") is not None:
+        out["snapshot_retention_limit"] = data["SnapshotRetentionLimit"]
+    if data.get("Tags") is not None:
+        import capo_memorydb.types.tag_list
+
+        out["tags"] = capo_memorydb.types.tag_list.deserialize_cbor(data["Tags"])
+    if data.get("SnapshotWindow") is not None:
+        out["snapshot_window"] = data["SnapshotWindow"]
+    if data.get("ACLName") is not None:
+        out["acl_name"] = data["ACLName"]
+    else:
+        out["acl_name"] = ""
+    if data.get("Engine") is not None:
+        out["engine"] = data["Engine"]
+    if data.get("EngineVersion") is not None:
+        out["engine_version"] = data["EngineVersion"]
+    if data.get("AutoMinorVersionUpgrade") is not None:
+        out["auto_minor_version_upgrade"] = data["AutoMinorVersionUpgrade"]
+    if data.get("DataTiering") is not None:
+        out["data_tiering"] = data["DataTiering"]
+    if data.get("NetworkType") is not None:
+        import capo_memorydb.types.network_type
+
+        out["network_type"] = capo_memorydb.types.network_type.deserialize_cbor(
+            data["NetworkType"]
+        )
+    if data.get("IpDiscovery") is not None:
+        import capo_memorydb.types.ip_discovery
+
+        out["ip_discovery"] = capo_memorydb.types.ip_discovery.deserialize_cbor(
+            data["IpDiscovery"]
+        )
+    return out

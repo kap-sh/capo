@@ -51,3 +51,34 @@ def deserialize_aws_json_1_1(data: dict) -> BatchGetFleetsOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchGetFleetsOutput) -> dict:
+    out: dict = {}
+    if "fleets" in value:
+        import capo_codebuild.types.fleets
+
+        out["fleets"] = capo_codebuild.types.fleets.serialize_cbor(value["fleets"])
+    if "fleets_not_found" in value:
+        import capo_codebuild.types.fleet_names
+
+        out["fleetsNotFound"] = capo_codebuild.types.fleet_names.serialize_cbor(
+            value["fleets_not_found"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BatchGetFleetsOutput:
+    out: BatchGetFleetsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("fleets") is not None:
+        import capo_codebuild.types.fleets
+
+        out["fleets"] = capo_codebuild.types.fleets.deserialize_cbor(data["fleets"])
+    if data.get("fleetsNotFound") is not None:
+        import capo_codebuild.types.fleet_names
+
+        out["fleets_not_found"] = capo_codebuild.types.fleet_names.deserialize_cbor(
+            data["fleetsNotFound"]
+        )
+    return out

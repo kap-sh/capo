@@ -52,3 +52,30 @@ def deserialize_aws_json_1_0(data: dict) -> TlsCertificateData:
     if data.get("StatusMessage") is not None:
         out["status_message"] = data["StatusMessage"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TlsCertificateData) -> dict:
+    out: dict = {}
+    if "certificate_arn" in value:
+        out["CertificateArn"] = value["certificate_arn"]
+    if "certificate_serial" in value:
+        out["CertificateSerial"] = value["certificate_serial"]
+    if "status" in value:
+        out["Status"] = value["status"]
+    if "status_message" in value:
+        out["StatusMessage"] = value["status_message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> TlsCertificateData:
+    out: TlsCertificateData = {}  # type: ignore[typeddict-item]
+    if data.get("CertificateArn") is not None:
+        out["certificate_arn"] = data["CertificateArn"]
+    if data.get("CertificateSerial") is not None:
+        out["certificate_serial"] = data["CertificateSerial"]
+    if data.get("Status") is not None:
+        out["status"] = data["Status"]
+    if data.get("StatusMessage") is not None:
+        out["status_message"] = data["StatusMessage"]
+    return out

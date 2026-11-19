@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateApplicationResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateApplicationResponse) -> dict:
+    out: dict = {}
+    if "application_info" in value:
+        import capo_application_insights.types.application_info
+
+        out["ApplicationInfo"] = (
+            capo_application_insights.types.application_info.serialize_cbor(
+                value["application_info"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateApplicationResponse:
+    out: UpdateApplicationResponse = {}  # type: ignore[typeddict-item]
+    if data.get("ApplicationInfo") is not None:
+        import capo_application_insights.types.application_info
+
+        out["application_info"] = (
+            capo_application_insights.types.application_info.deserialize_cbor(
+                data["ApplicationInfo"]
+            )
+        )
+    return out

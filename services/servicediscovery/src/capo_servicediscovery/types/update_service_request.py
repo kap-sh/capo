@@ -47,3 +47,32 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateServiceRequest:
     else:
         raise DeserializationError("UpdateServiceRequest.service required")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateServiceRequest) -> dict:
+    out: dict = {}
+    out["Id"] = value["id"]
+    import capo_servicediscovery.types.service_change
+
+    out["Service"] = capo_servicediscovery.types.service_change.serialize_cbor(
+        value["service"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateServiceRequest:
+    out: UpdateServiceRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    else:
+        out["id"] = ""
+    if data.get("Service") is not None:
+        import capo_servicediscovery.types.service_change
+
+        out["service"] = capo_servicediscovery.types.service_change.deserialize_cbor(
+            data["Service"]
+        )
+    else:
+        raise DeserializationError("UpdateServiceRequest.service required")
+    return out

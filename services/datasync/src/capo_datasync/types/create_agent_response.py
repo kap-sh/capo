@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAgentResponse:
     if data.get("AgentArn") is not None:
         out["agent_arn"] = data["AgentArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateAgentResponse) -> dict:
+    out: dict = {}
+    if "agent_arn" in value:
+        out["AgentArn"] = value["agent_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateAgentResponse:
+    out: CreateAgentResponse = {}  # type: ignore[typeddict-item]
+    if data.get("AgentArn") is not None:
+        out["agent_arn"] = data["AgentArn"]
+    return out

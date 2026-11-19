@@ -49,3 +49,34 @@ def deserialize_aws_json_1_0(data: dict) -> ListTLSInspectionConfigurationsRespo
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListTLSInspectionConfigurationsResponse) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "tls_inspection_configurations" in value:
+        import capo_network_firewall.types.tls_inspection_configurations
+
+        out["TLSInspectionConfigurations"] = (
+            capo_network_firewall.types.tls_inspection_configurations.serialize_cbor(
+                value["tls_inspection_configurations"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListTLSInspectionConfigurationsResponse:
+    out: ListTLSInspectionConfigurationsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("TLSInspectionConfigurations") is not None:
+        import capo_network_firewall.types.tls_inspection_configurations
+
+        out["tls_inspection_configurations"] = (
+            capo_network_firewall.types.tls_inspection_configurations.deserialize_cbor(
+                data["TLSInspectionConfigurations"]
+            )
+        )
+    return out

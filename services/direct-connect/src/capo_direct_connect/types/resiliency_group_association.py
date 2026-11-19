@@ -58,3 +58,38 @@ def deserialize_aws_json_1_1(data: dict) -> ResiliencyGroupAssociation:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResiliencyGroupAssociation) -> dict:
+    out: dict = {}
+    if "resiliency_group_id" in value:
+        out["resiliencyGroupId"] = value["resiliency_group_id"]
+    if "connection_arn" in value:
+        out["connectionArn"] = value["connection_arn"]
+    if "state" in value:
+        import capo_direct_connect.types.resiliency_group_association_state
+
+        out["state"] = (
+            capo_direct_connect.types.resiliency_group_association_state.serialize_cbor(
+                value["state"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ResiliencyGroupAssociation:
+    out: ResiliencyGroupAssociation = {}  # type: ignore[typeddict-item]
+    if data.get("resiliencyGroupId") is not None:
+        out["resiliency_group_id"] = data["resiliencyGroupId"]
+    if data.get("connectionArn") is not None:
+        out["connection_arn"] = data["connectionArn"]
+    if data.get("state") is not None:
+        import capo_direct_connect.types.resiliency_group_association_state
+
+        out["state"] = (
+            capo_direct_connect.types.resiliency_group_association_state.deserialize_cbor(
+                data["state"]
+            )
+        )
+    return out

@@ -53,3 +53,38 @@ def deserialize_aws_json_1_1(data: dict) -> ExtendedKeyUsage:
             "ExtendedKeyUsageObjectIdentifier"
         ]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExtendedKeyUsage) -> dict:
+    out: dict = {}
+    if "extended_key_usage_type" in value:
+        import capo_acm_pca.types.extended_key_usage_type
+
+        out["ExtendedKeyUsageType"] = (
+            capo_acm_pca.types.extended_key_usage_type.serialize_cbor(
+                value["extended_key_usage_type"]
+            )
+        )
+    if "extended_key_usage_object_identifier" in value:
+        out["ExtendedKeyUsageObjectIdentifier"] = value[
+            "extended_key_usage_object_identifier"
+        ]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ExtendedKeyUsage:
+    out: ExtendedKeyUsage = {}  # type: ignore[typeddict-item]
+    if data.get("ExtendedKeyUsageType") is not None:
+        import capo_acm_pca.types.extended_key_usage_type
+
+        out["extended_key_usage_type"] = (
+            capo_acm_pca.types.extended_key_usage_type.deserialize_cbor(
+                data["ExtendedKeyUsageType"]
+            )
+        )
+    if data.get("ExtendedKeyUsageObjectIdentifier") is not None:
+        out["extended_key_usage_object_identifier"] = data[
+            "ExtendedKeyUsageObjectIdentifier"
+        ]
+    return out

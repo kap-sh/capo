@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> ServiceUpdateRequest:
     if data.get("ServiceUpdateNameToApply") is not None:
         out["service_update_name_to_apply"] = data["ServiceUpdateNameToApply"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ServiceUpdateRequest) -> dict:
+    out: dict = {}
+    if "service_update_name_to_apply" in value:
+        out["ServiceUpdateNameToApply"] = value["service_update_name_to_apply"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ServiceUpdateRequest:
+    out: ServiceUpdateRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ServiceUpdateNameToApply") is not None:
+        out["service_update_name_to_apply"] = data["ServiceUpdateNameToApply"]
+    return out

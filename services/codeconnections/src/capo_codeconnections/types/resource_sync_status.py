@@ -17,3 +17,12 @@ def serialize_aws_json_1_0(value: ResourceSyncStatus) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> ResourceSyncStatus:
     return cast(ResourceSyncStatus, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResourceSyncStatus) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ResourceSyncStatus:
+    return cast(ResourceSyncStatus, data)

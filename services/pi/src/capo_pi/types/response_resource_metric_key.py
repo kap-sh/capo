@@ -42,3 +42,31 @@ def deserialize_aws_json_1_1(data: dict) -> ResponseResourceMetricKey:
             data["Dimensions"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResponseResourceMetricKey) -> dict:
+    out: dict = {}
+    out["Metric"] = value["metric"]
+    if "dimensions" in value:
+        import capo_pi.types.dimension_map
+
+        out["Dimensions"] = capo_pi.types.dimension_map.serialize_cbor(
+            value["dimensions"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ResponseResourceMetricKey:
+    out: ResponseResourceMetricKey = {}  # type: ignore[typeddict-item]
+    if data.get("Metric") is not None:
+        out["metric"] = data["Metric"]
+    else:
+        out["metric"] = ""
+    if data.get("Dimensions") is not None:
+        import capo_pi.types.dimension_map
+
+        out["dimensions"] = capo_pi.types.dimension_map.deserialize_cbor(
+            data["Dimensions"]
+        )
+    return out

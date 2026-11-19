@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> SnowconeDeviceConfiguration:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SnowconeDeviceConfiguration) -> dict:
+    out: dict = {}
+    if "wireless_connection" in value:
+        import capo_snowball.types.wireless_connection
+
+        out["WirelessConnection"] = (
+            capo_snowball.types.wireless_connection.serialize_cbor(
+                value["wireless_connection"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> SnowconeDeviceConfiguration:
+    out: SnowconeDeviceConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("WirelessConnection") is not None:
+        import capo_snowball.types.wireless_connection
+
+        out["wireless_connection"] = (
+            capo_snowball.types.wireless_connection.deserialize_cbor(
+                data["WirelessConnection"]
+            )
+        )
+    return out

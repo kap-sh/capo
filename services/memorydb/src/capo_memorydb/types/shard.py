@@ -60,3 +60,38 @@ def deserialize_aws_json_1_1(data: dict) -> Shard:
     if data.get("NumberOfNodes") is not None:
         out["number_of_nodes"] = data["NumberOfNodes"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Shard) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "status" in value:
+        out["Status"] = value["status"]
+    if "slots" in value:
+        out["Slots"] = value["slots"]
+    if "nodes" in value:
+        import capo_memorydb.types.node_list
+
+        out["Nodes"] = capo_memorydb.types.node_list.serialize_cbor(value["nodes"])
+    if "number_of_nodes" in value:
+        out["NumberOfNodes"] = value["number_of_nodes"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Shard:
+    out: Shard = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Status") is not None:
+        out["status"] = data["Status"]
+    if data.get("Slots") is not None:
+        out["slots"] = data["Slots"]
+    if data.get("Nodes") is not None:
+        import capo_memorydb.types.node_list
+
+        out["nodes"] = capo_memorydb.types.node_list.deserialize_cbor(data["Nodes"])
+    if data.get("NumberOfNodes") is not None:
+        out["number_of_nodes"] = data["NumberOfNodes"]
+    return out

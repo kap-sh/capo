@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteScriptInput:
     if data.get("ScriptId") is not None:
         out["script_id"] = data["ScriptId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteScriptInput) -> dict:
+    out: dict = {}
+    if "script_id" in value:
+        out["ScriptId"] = value["script_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteScriptInput:
+    out: DeleteScriptInput = {}  # type: ignore[typeddict-item]
+    if data.get("ScriptId") is not None:
+        out["script_id"] = data["ScriptId"]
+    return out

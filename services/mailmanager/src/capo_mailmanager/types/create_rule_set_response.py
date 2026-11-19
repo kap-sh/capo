@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> CreateRuleSetResponse:
     else:
         out["rule_set_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateRuleSetResponse) -> dict:
+    out: dict = {}
+    out["RuleSetId"] = value["rule_set_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateRuleSetResponse:
+    out: CreateRuleSetResponse = {}  # type: ignore[typeddict-item]
+    if data.get("RuleSetId") is not None:
+        out["rule_set_id"] = data["RuleSetId"]
+    else:
+        out["rule_set_id"] = ""
+    return out

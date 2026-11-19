@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> ValidateMatchmakingRuleSetInput:
     if data.get("RuleSetBody") is not None:
         out["rule_set_body"] = data["RuleSetBody"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ValidateMatchmakingRuleSetInput) -> dict:
+    out: dict = {}
+    if "rule_set_body" in value:
+        out["RuleSetBody"] = value["rule_set_body"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ValidateMatchmakingRuleSetInput:
+    out: ValidateMatchmakingRuleSetInput = {}  # type: ignore[typeddict-item]
+    if data.get("RuleSetBody") is not None:
+        out["rule_set_body"] = data["RuleSetBody"]
+    return out

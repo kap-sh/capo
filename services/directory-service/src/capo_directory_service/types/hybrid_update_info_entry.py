@@ -146,3 +146,100 @@ def deserialize_aws_json_1_1(data: dict) -> HybridUpdateInfoEntry:
     if data.get("AssessmentId") is not None:
         out["assessment_id"] = data["AssessmentId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: HybridUpdateInfoEntry) -> dict:
+    out: dict = {}
+    if "status" in value:
+        import capo_directory_service.types.update_status
+
+        out["Status"] = capo_directory_service.types.update_status.serialize_cbor(
+            value["status"]
+        )
+    if "status_reason" in value:
+        out["StatusReason"] = value["status_reason"]
+    if "initiated_by" in value:
+        out["InitiatedBy"] = value["initiated_by"]
+    if "new_value" in value:
+        import capo_directory_service.types.hybrid_update_value
+
+        out["NewValue"] = (
+            capo_directory_service.types.hybrid_update_value.serialize_cbor(
+                value["new_value"]
+            )
+        )
+    if "previous_value" in value:
+        import capo_directory_service.types.hybrid_update_value
+
+        out["PreviousValue"] = (
+            capo_directory_service.types.hybrid_update_value.serialize_cbor(
+                value["previous_value"]
+            )
+        )
+    if "start_time" in value:
+        import capo_directory_service.types.start_date_time
+
+        out["StartTime"] = capo_directory_service.types.start_date_time.serialize_cbor(
+            value["start_time"]
+        )
+    if "last_updated_date_time" in value:
+        import capo_directory_service.types.last_updated_date_time
+
+        out["LastUpdatedDateTime"] = (
+            capo_directory_service.types.last_updated_date_time.serialize_cbor(
+                value["last_updated_date_time"]
+            )
+        )
+    if "assessment_id" in value:
+        out["AssessmentId"] = value["assessment_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> HybridUpdateInfoEntry:
+    out: HybridUpdateInfoEntry = {}  # type: ignore[typeddict-item]
+    if data.get("Status") is not None:
+        import capo_directory_service.types.update_status
+
+        out["status"] = capo_directory_service.types.update_status.deserialize_cbor(
+            data["Status"]
+        )
+    if data.get("StatusReason") is not None:
+        out["status_reason"] = data["StatusReason"]
+    if data.get("InitiatedBy") is not None:
+        out["initiated_by"] = data["InitiatedBy"]
+    if data.get("NewValue") is not None:
+        import capo_directory_service.types.hybrid_update_value
+
+        out["new_value"] = (
+            capo_directory_service.types.hybrid_update_value.deserialize_cbor(
+                data["NewValue"]
+            )
+        )
+    if data.get("PreviousValue") is not None:
+        import capo_directory_service.types.hybrid_update_value
+
+        out["previous_value"] = (
+            capo_directory_service.types.hybrid_update_value.deserialize_cbor(
+                data["PreviousValue"]
+            )
+        )
+    if data.get("StartTime") is not None:
+        import capo_directory_service.types.start_date_time
+
+        out["start_time"] = (
+            capo_directory_service.types.start_date_time.deserialize_cbor(
+                data["StartTime"]
+            )
+        )
+    if data.get("LastUpdatedDateTime") is not None:
+        import capo_directory_service.types.last_updated_date_time
+
+        out["last_updated_date_time"] = (
+            capo_directory_service.types.last_updated_date_time.deserialize_cbor(
+                data["LastUpdatedDateTime"]
+            )
+        )
+    if data.get("AssessmentId") is not None:
+        out["assessment_id"] = data["AssessmentId"]
+    return out

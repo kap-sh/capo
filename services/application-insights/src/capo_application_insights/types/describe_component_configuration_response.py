@@ -50,3 +50,32 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeComponentConfigurationRespon
     if data.get("ComponentConfiguration") is not None:
         out["component_configuration"] = data["ComponentConfiguration"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeComponentConfigurationResponse) -> dict:
+    out: dict = {}
+    if "monitor" in value:
+        out["Monitor"] = value["monitor"]
+    if "tier" in value:
+        import capo_application_insights.types.tier
+
+        out["Tier"] = capo_application_insights.types.tier.serialize_cbor(value["tier"])
+    if "component_configuration" in value:
+        out["ComponentConfiguration"] = value["component_configuration"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeComponentConfigurationResponse:
+    out: DescribeComponentConfigurationResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Monitor") is not None:
+        out["monitor"] = data["Monitor"]
+    if data.get("Tier") is not None:
+        import capo_application_insights.types.tier
+
+        out["tier"] = capo_application_insights.types.tier.deserialize_cbor(
+            data["Tier"]
+        )
+    if data.get("ComponentConfiguration") is not None:
+        out["component_configuration"] = data["ComponentConfiguration"]
+    return out

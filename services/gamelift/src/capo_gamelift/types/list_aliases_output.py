@@ -41,3 +41,28 @@ def deserialize_aws_json_1_1(data: dict) -> ListAliasesOutput:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListAliasesOutput) -> dict:
+    out: dict = {}
+    if "aliases" in value:
+        import capo_gamelift.types.alias_list
+
+        out["Aliases"] = capo_gamelift.types.alias_list.serialize_cbor(value["aliases"])
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListAliasesOutput:
+    out: ListAliasesOutput = {}  # type: ignore[typeddict-item]
+    if data.get("Aliases") is not None:
+        import capo_gamelift.types.alias_list
+
+        out["aliases"] = capo_gamelift.types.alias_list.deserialize_cbor(
+            data["Aliases"]
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

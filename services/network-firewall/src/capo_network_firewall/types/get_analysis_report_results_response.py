@@ -130,3 +130,90 @@ def deserialize_aws_json_1_0(data: dict) -> GetAnalysisReportResultsResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetAnalysisReportResultsResponse) -> dict:
+    out: dict = {}
+    if "status" in value:
+        out["Status"] = value["status"]
+    if "start_time" in value:
+        import capo_network_firewall.types.start_time
+
+        out["StartTime"] = capo_network_firewall.types.start_time.serialize_cbor(
+            value["start_time"]
+        )
+    if "end_time" in value:
+        import capo_network_firewall.types.end_time
+
+        out["EndTime"] = capo_network_firewall.types.end_time.serialize_cbor(
+            value["end_time"]
+        )
+    if "report_time" in value:
+        import capo_network_firewall.types.report_time
+
+        out["ReportTime"] = capo_network_firewall.types.report_time.serialize_cbor(
+            value["report_time"]
+        )
+    if "analysis_type" in value:
+        import capo_network_firewall.types.enabled_analysis_type
+
+        out["AnalysisType"] = (
+            capo_network_firewall.types.enabled_analysis_type.serialize_cbor(
+                value["analysis_type"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "analysis_report_results" in value:
+        import capo_network_firewall.types.analysis_report_results
+
+        out["AnalysisReportResults"] = (
+            capo_network_firewall.types.analysis_report_results.serialize_cbor(
+                value["analysis_report_results"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetAnalysisReportResultsResponse:
+    out: GetAnalysisReportResultsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Status") is not None:
+        out["status"] = data["Status"]
+    if data.get("StartTime") is not None:
+        import capo_network_firewall.types.start_time
+
+        out["start_time"] = capo_network_firewall.types.start_time.deserialize_cbor(
+            data["StartTime"]
+        )
+    if data.get("EndTime") is not None:
+        import capo_network_firewall.types.end_time
+
+        out["end_time"] = capo_network_firewall.types.end_time.deserialize_cbor(
+            data["EndTime"]
+        )
+    if data.get("ReportTime") is not None:
+        import capo_network_firewall.types.report_time
+
+        out["report_time"] = capo_network_firewall.types.report_time.deserialize_cbor(
+            data["ReportTime"]
+        )
+    if data.get("AnalysisType") is not None:
+        import capo_network_firewall.types.enabled_analysis_type
+
+        out["analysis_type"] = (
+            capo_network_firewall.types.enabled_analysis_type.deserialize_cbor(
+                data["AnalysisType"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("AnalysisReportResults") is not None:
+        import capo_network_firewall.types.analysis_report_results
+
+        out["analysis_report_results"] = (
+            capo_network_firewall.types.analysis_report_results.deserialize_cbor(
+                data["AnalysisReportResults"]
+            )
+        )
+    return out

@@ -59,3 +59,48 @@ def deserialize_aws_json_1_1(data: dict) -> UntagResourcesInput:
     else:
         out["tag_keys"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UntagResourcesInput) -> dict:
+    out: dict = {}
+    import capo_resource_groups_tagging_api.types.resource_arn_list_for_tag_untag
+
+    out["ResourceARNList"] = (
+        capo_resource_groups_tagging_api.types.resource_arn_list_for_tag_untag.serialize_cbor(
+            value["resource_arn_list"]
+        )
+    )
+    import capo_resource_groups_tagging_api.types.tag_key_list_for_untag
+
+    out["TagKeys"] = (
+        capo_resource_groups_tagging_api.types.tag_key_list_for_untag.serialize_cbor(
+            value["tag_keys"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UntagResourcesInput:
+    out: UntagResourcesInput = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceARNList") is not None:
+        import capo_resource_groups_tagging_api.types.resource_arn_list_for_tag_untag
+
+        out["resource_arn_list"] = (
+            capo_resource_groups_tagging_api.types.resource_arn_list_for_tag_untag.deserialize_cbor(
+                data["ResourceARNList"]
+            )
+        )
+    else:
+        out["resource_arn_list"] = []
+    if data.get("TagKeys") is not None:
+        import capo_resource_groups_tagging_api.types.tag_key_list_for_untag
+
+        out["tag_keys"] = (
+            capo_resource_groups_tagging_api.types.tag_key_list_for_untag.deserialize_cbor(
+                data["TagKeys"]
+            )
+        )
+    else:
+        out["tag_keys"] = []
+    return out

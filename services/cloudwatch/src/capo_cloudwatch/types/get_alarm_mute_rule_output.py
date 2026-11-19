@@ -257,3 +257,100 @@ def deserialize_query(el: Element) -> GetAlarmMuteRuleOutput:
     if child_mute_type is not None:
         out["mute_type"] = str(child_mute_type.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetAlarmMuteRuleOutput) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "alarm_mute_rule_arn" in value:
+        out["AlarmMuteRuleArn"] = value["alarm_mute_rule_arn"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "rule" in value:
+        import capo_cloudwatch.types.rule
+
+        out["Rule"] = capo_cloudwatch.types.rule.serialize_cbor(value["rule"])
+    if "mute_targets" in value:
+        import capo_cloudwatch.types.mute_targets
+
+        out["MuteTargets"] = capo_cloudwatch.types.mute_targets.serialize_cbor(
+            value["mute_targets"]
+        )
+    if "start_date" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["StartDate"] = capo_cloudwatch.types.timestamp.serialize_cbor(
+            value["start_date"]
+        )
+    if "expire_date" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["ExpireDate"] = capo_cloudwatch.types.timestamp.serialize_cbor(
+            value["expire_date"]
+        )
+    if "status" in value:
+        import capo_cloudwatch.types.alarm_mute_rule_status
+
+        out["Status"] = capo_cloudwatch.types.alarm_mute_rule_status.serialize_cbor(
+            value["status"]
+        )
+    if "last_updated_timestamp" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["LastUpdatedTimestamp"] = capo_cloudwatch.types.timestamp.serialize_cbor(
+            value["last_updated_timestamp"]
+        )
+    if "mute_type" in value:
+        out["MuteType"] = value["mute_type"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetAlarmMuteRuleOutput:
+    out: GetAlarmMuteRuleOutput = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("AlarmMuteRuleArn") is not None:
+        out["alarm_mute_rule_arn"] = data["AlarmMuteRuleArn"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("Rule") is not None:
+        import capo_cloudwatch.types.rule
+
+        out["rule"] = capo_cloudwatch.types.rule.deserialize_cbor(data["Rule"])
+    if data.get("MuteTargets") is not None:
+        import capo_cloudwatch.types.mute_targets
+
+        out["mute_targets"] = capo_cloudwatch.types.mute_targets.deserialize_cbor(
+            data["MuteTargets"]
+        )
+    if data.get("StartDate") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["start_date"] = capo_cloudwatch.types.timestamp.deserialize_cbor(
+            data["StartDate"]
+        )
+    if data.get("ExpireDate") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["expire_date"] = capo_cloudwatch.types.timestamp.deserialize_cbor(
+            data["ExpireDate"]
+        )
+    if data.get("Status") is not None:
+        import capo_cloudwatch.types.alarm_mute_rule_status
+
+        out["status"] = capo_cloudwatch.types.alarm_mute_rule_status.deserialize_cbor(
+            data["Status"]
+        )
+    if data.get("LastUpdatedTimestamp") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["last_updated_timestamp"] = (
+            capo_cloudwatch.types.timestamp.deserialize_cbor(
+                data["LastUpdatedTimestamp"]
+            )
+        )
+    if data.get("MuteType") is not None:
+        out["mute_type"] = data["MuteType"]
+    return out

@@ -125,6 +125,45 @@ def deserialize_query(el: Element) -> PutMetricDataQueryDefinitionInput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PutMetricDataQueryDefinitionInput) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["Id"] = value["id"]
+    if "path" in value:
+        out["Path"] = value["path"]
+    if "expression" in value:
+        out["Expression"] = value["expression"]
+    if "type" in value:
+        import capo_cloudwatch.types.query_type
+
+        out["Type"] = capo_cloudwatch.types.query_type.serialize_cbor(value["type"])
+    if "tags" in value:
+        import capo_cloudwatch.types.tag_list
+
+        out["Tags"] = capo_cloudwatch.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> PutMetricDataQueryDefinitionInput:
+    out: PutMetricDataQueryDefinitionInput = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    if data.get("Path") is not None:
+        out["path"] = data["Path"]
+    if data.get("Expression") is not None:
+        out["expression"] = data["Expression"]
+    if data.get("Type") is not None:
+        import capo_cloudwatch.types.query_type
+
+        out["type"] = capo_cloudwatch.types.query_type.deserialize_cbor(data["Type"])
+    if data.get("Tags") is not None:
+        import capo_cloudwatch.types.tag_list
+
+        out["tags"] = capo_cloudwatch.types.tag_list.deserialize_cbor(data["Tags"])
+    return out
+
+
 def redact_sensitive(value: PutMetricDataQueryDefinitionInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "expression" in value:

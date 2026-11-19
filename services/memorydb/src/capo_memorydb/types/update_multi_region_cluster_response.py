@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateMultiRegionClusterResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateMultiRegionClusterResponse) -> dict:
+    out: dict = {}
+    if "multi_region_cluster" in value:
+        import capo_memorydb.types.multi_region_cluster
+
+        out["MultiRegionCluster"] = (
+            capo_memorydb.types.multi_region_cluster.serialize_cbor(
+                value["multi_region_cluster"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateMultiRegionClusterResponse:
+    out: UpdateMultiRegionClusterResponse = {}  # type: ignore[typeddict-item]
+    if data.get("MultiRegionCluster") is not None:
+        import capo_memorydb.types.multi_region_cluster
+
+        out["multi_region_cluster"] = (
+            capo_memorydb.types.multi_region_cluster.deserialize_cbor(
+                data["MultiRegionCluster"]
+            )
+        )
+    return out

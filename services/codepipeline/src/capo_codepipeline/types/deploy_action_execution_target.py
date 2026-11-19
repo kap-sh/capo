@@ -88,3 +88,64 @@ def deserialize_aws_json_1_1(data: dict) -> DeployActionExecutionTarget:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeployActionExecutionTarget) -> dict:
+    out: dict = {}
+    if "target_id" in value:
+        out["targetId"] = value["target_id"]
+    if "target_type" in value:
+        out["targetType"] = value["target_type"]
+    if "status" in value:
+        out["status"] = value["status"]
+    if "start_time" in value:
+        import capo_codepipeline.types.timestamp
+
+        out["startTime"] = capo_codepipeline.types.timestamp.serialize_cbor(
+            value["start_time"]
+        )
+    if "end_time" in value:
+        import capo_codepipeline.types.timestamp
+
+        out["endTime"] = capo_codepipeline.types.timestamp.serialize_cbor(
+            value["end_time"]
+        )
+    if "events" in value:
+        import capo_codepipeline.types.deploy_target_event_list
+
+        out["events"] = capo_codepipeline.types.deploy_target_event_list.serialize_cbor(
+            value["events"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeployActionExecutionTarget:
+    out: DeployActionExecutionTarget = {}  # type: ignore[typeddict-item]
+    if data.get("targetId") is not None:
+        out["target_id"] = data["targetId"]
+    if data.get("targetType") is not None:
+        out["target_type"] = data["targetType"]
+    if data.get("status") is not None:
+        out["status"] = data["status"]
+    if data.get("startTime") is not None:
+        import capo_codepipeline.types.timestamp
+
+        out["start_time"] = capo_codepipeline.types.timestamp.deserialize_cbor(
+            data["startTime"]
+        )
+    if data.get("endTime") is not None:
+        import capo_codepipeline.types.timestamp
+
+        out["end_time"] = capo_codepipeline.types.timestamp.deserialize_cbor(
+            data["endTime"]
+        )
+    if data.get("events") is not None:
+        import capo_codepipeline.types.deploy_target_event_list
+
+        out["events"] = (
+            capo_codepipeline.types.deploy_target_event_list.deserialize_cbor(
+                data["events"]
+            )
+        )
+    return out

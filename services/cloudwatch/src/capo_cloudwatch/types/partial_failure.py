@@ -87,3 +87,30 @@ def deserialize_query(el: Element) -> PartialFailure:
     if child_failure_description is not None:
         out["failure_description"] = str(child_failure_description.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PartialFailure) -> dict:
+    out: dict = {}
+    if "failure_resource" in value:
+        out["FailureResource"] = value["failure_resource"]
+    if "exception_type" in value:
+        out["ExceptionType"] = value["exception_type"]
+    if "failure_code" in value:
+        out["FailureCode"] = value["failure_code"]
+    if "failure_description" in value:
+        out["FailureDescription"] = value["failure_description"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> PartialFailure:
+    out: PartialFailure = {}  # type: ignore[typeddict-item]
+    if data.get("FailureResource") is not None:
+        out["failure_resource"] = data["FailureResource"]
+    if data.get("ExceptionType") is not None:
+        out["exception_type"] = data["ExceptionType"]
+    if data.get("FailureCode") is not None:
+        out["failure_code"] = data["FailureCode"]
+    if data.get("FailureDescription") is not None:
+        out["failure_description"] = data["FailureDescription"]
+    return out

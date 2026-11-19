@@ -87,3 +87,61 @@ def deserialize_aws_json_1_1(
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeEntityAggregatesForOrganizationRequest) -> dict:
+    out: dict = {}
+    import capo_health.types.organization_event_arns_list
+
+    out["eventArns"] = capo_health.types.organization_event_arns_list.serialize_cbor(
+        value["event_arns"]
+    )
+    if "aws_account_ids" in value:
+        import capo_health.types.organization_account_ids_list
+
+        out["awsAccountIds"] = (
+            capo_health.types.organization_account_ids_list.serialize_cbor(
+                value["aws_account_ids"]
+            )
+        )
+    if "filter" in value:
+        import capo_health.types.organization_entity_aggregate_filter
+
+        out["filter"] = (
+            capo_health.types.organization_entity_aggregate_filter.serialize_cbor(
+                value["filter"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeEntityAggregatesForOrganizationRequest:
+    out: DescribeEntityAggregatesForOrganizationRequest = {}  # type: ignore[typeddict-item]
+    if data.get("eventArns") is not None:
+        import capo_health.types.organization_event_arns_list
+
+        out["event_arns"] = (
+            capo_health.types.organization_event_arns_list.deserialize_cbor(
+                data["eventArns"]
+            )
+        )
+    else:
+        out["event_arns"] = []
+    if data.get("awsAccountIds") is not None:
+        import capo_health.types.organization_account_ids_list
+
+        out["aws_account_ids"] = (
+            capo_health.types.organization_account_ids_list.deserialize_cbor(
+                data["awsAccountIds"]
+            )
+        )
+    if data.get("filter") is not None:
+        import capo_health.types.organization_entity_aggregate_filter
+
+        out["filter"] = (
+            capo_health.types.organization_entity_aggregate_filter.deserialize_cbor(
+                data["filter"]
+            )
+        )
+    return out

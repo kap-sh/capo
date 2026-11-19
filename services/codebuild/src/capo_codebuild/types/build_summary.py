@@ -98,3 +98,72 @@ def deserialize_aws_json_1_1(data: dict) -> BuildSummary:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BuildSummary) -> dict:
+    out: dict = {}
+    if "arn" in value:
+        out["arn"] = value["arn"]
+    if "requested_on" in value:
+        import capo_codebuild.types.timestamp
+
+        out["requestedOn"] = capo_codebuild.types.timestamp.serialize_cbor(
+            value["requested_on"]
+        )
+    if "build_status" in value:
+        import capo_codebuild.types.status_type
+
+        out["buildStatus"] = capo_codebuild.types.status_type.serialize_cbor(
+            value["build_status"]
+        )
+    if "primary_artifact" in value:
+        import capo_codebuild.types.resolved_artifact
+
+        out["primaryArtifact"] = capo_codebuild.types.resolved_artifact.serialize_cbor(
+            value["primary_artifact"]
+        )
+    if "secondary_artifacts" in value:
+        import capo_codebuild.types.resolved_secondary_artifacts
+
+        out["secondaryArtifacts"] = (
+            capo_codebuild.types.resolved_secondary_artifacts.serialize_cbor(
+                value["secondary_artifacts"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BuildSummary:
+    out: BuildSummary = {}  # type: ignore[typeddict-item]
+    if data.get("arn") is not None:
+        out["arn"] = data["arn"]
+    if data.get("requestedOn") is not None:
+        import capo_codebuild.types.timestamp
+
+        out["requested_on"] = capo_codebuild.types.timestamp.deserialize_cbor(
+            data["requestedOn"]
+        )
+    if data.get("buildStatus") is not None:
+        import capo_codebuild.types.status_type
+
+        out["build_status"] = capo_codebuild.types.status_type.deserialize_cbor(
+            data["buildStatus"]
+        )
+    if data.get("primaryArtifact") is not None:
+        import capo_codebuild.types.resolved_artifact
+
+        out["primary_artifact"] = (
+            capo_codebuild.types.resolved_artifact.deserialize_cbor(
+                data["primaryArtifact"]
+            )
+        )
+    if data.get("secondaryArtifacts") is not None:
+        import capo_codebuild.types.resolved_secondary_artifacts
+
+        out["secondary_artifacts"] = (
+            capo_codebuild.types.resolved_secondary_artifacts.deserialize_cbor(
+                data["secondaryArtifacts"]
+            )
+        )
+    return out

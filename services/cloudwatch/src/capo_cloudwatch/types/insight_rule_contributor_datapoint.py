@@ -96,3 +96,30 @@ def deserialize_query(el: Element) -> InsightRuleContributorDatapoint:
     if child_approximate_value is not None:
         out["approximate_value"] = float(child_approximate_value.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InsightRuleContributorDatapoint) -> dict:
+    out: dict = {}
+    if "timestamp" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["Timestamp"] = capo_cloudwatch.types.timestamp.serialize_cbor(
+            value["timestamp"]
+        )
+    if "approximate_value" in value:
+        out["ApproximateValue"] = value["approximate_value"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> InsightRuleContributorDatapoint:
+    out: InsightRuleContributorDatapoint = {}  # type: ignore[typeddict-item]
+    if data.get("Timestamp") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["timestamp"] = capo_cloudwatch.types.timestamp.deserialize_cbor(
+            data["Timestamp"]
+        )
+    if data.get("ApproximateValue") is not None:
+        out["approximate_value"] = float(data["ApproximateValue"])
+    return out

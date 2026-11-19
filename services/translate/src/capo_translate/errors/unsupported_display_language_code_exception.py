@@ -39,6 +39,25 @@ def deserialize_aws_json_1_1(data: dict) -> UnsupportedDisplayLanguageCodeExcept
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UnsupportedDisplayLanguageCodeException_) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["Message"] = value["message"]
+    if "display_language_code" in value:
+        out["DisplayLanguageCode"] = value["display_language_code"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UnsupportedDisplayLanguageCodeException_:
+    out: UnsupportedDisplayLanguageCodeException_ = {}  # type: ignore[typeddict-item]
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    if data.get("DisplayLanguageCode") is not None:
+        out["display_language_code"] = data["DisplayLanguageCode"]
+    return out
+
+
 class UnsupportedDisplayLanguageCodeException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.translate#UnsupportedDisplayLanguageCodeException``."""
 
@@ -66,3 +85,9 @@ class UnsupportedDisplayLanguageCodeException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "UnsupportedDisplayLanguageCodeException":
         return cls(deserialize_aws_json_1_1(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "UnsupportedDisplayLanguageCodeException":
+        return cls(deserialize_cbor(data), message, response=response)

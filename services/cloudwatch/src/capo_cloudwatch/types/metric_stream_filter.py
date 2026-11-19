@@ -81,3 +81,34 @@ def deserialize_query(el: Element) -> MetricStreamFilter:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MetricStreamFilter) -> dict:
+    out: dict = {}
+    if "namespace" in value:
+        out["Namespace"] = value["namespace"]
+    if "metric_names" in value:
+        import capo_cloudwatch.types.metric_stream_filter_metric_names
+
+        out["MetricNames"] = (
+            capo_cloudwatch.types.metric_stream_filter_metric_names.serialize_cbor(
+                value["metric_names"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> MetricStreamFilter:
+    out: MetricStreamFilter = {}  # type: ignore[typeddict-item]
+    if data.get("Namespace") is not None:
+        out["namespace"] = data["Namespace"]
+    if data.get("MetricNames") is not None:
+        import capo_cloudwatch.types.metric_stream_filter_metric_names
+
+        out["metric_names"] = (
+            capo_cloudwatch.types.metric_stream_filter_metric_names.deserialize_cbor(
+                data["MetricNames"]
+            )
+        )
+    return out

@@ -91,3 +91,58 @@ def deserialize_aws_json_1_1(data: dict) -> Settings:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Settings) -> dict:
+    out: dict = {}
+    if "vocabulary_name" in value:
+        out["VocabularyName"] = value["vocabulary_name"]
+    if "show_speaker_labels" in value:
+        out["ShowSpeakerLabels"] = value["show_speaker_labels"]
+    if "max_speaker_labels" in value:
+        out["MaxSpeakerLabels"] = value["max_speaker_labels"]
+    if "channel_identification" in value:
+        out["ChannelIdentification"] = value["channel_identification"]
+    if "show_alternatives" in value:
+        out["ShowAlternatives"] = value["show_alternatives"]
+    if "max_alternatives" in value:
+        out["MaxAlternatives"] = value["max_alternatives"]
+    if "vocabulary_filter_name" in value:
+        out["VocabularyFilterName"] = value["vocabulary_filter_name"]
+    if "vocabulary_filter_method" in value:
+        import capo_transcribe.types.vocabulary_filter_method
+
+        out["VocabularyFilterMethod"] = (
+            capo_transcribe.types.vocabulary_filter_method.serialize_cbor(
+                value["vocabulary_filter_method"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Settings:
+    out: Settings = {}  # type: ignore[typeddict-item]
+    if data.get("VocabularyName") is not None:
+        out["vocabulary_name"] = data["VocabularyName"]
+    if data.get("ShowSpeakerLabels") is not None:
+        out["show_speaker_labels"] = data["ShowSpeakerLabels"]
+    if data.get("MaxSpeakerLabels") is not None:
+        out["max_speaker_labels"] = data["MaxSpeakerLabels"]
+    if data.get("ChannelIdentification") is not None:
+        out["channel_identification"] = data["ChannelIdentification"]
+    if data.get("ShowAlternatives") is not None:
+        out["show_alternatives"] = data["ShowAlternatives"]
+    if data.get("MaxAlternatives") is not None:
+        out["max_alternatives"] = data["MaxAlternatives"]
+    if data.get("VocabularyFilterName") is not None:
+        out["vocabulary_filter_name"] = data["VocabularyFilterName"]
+    if data.get("VocabularyFilterMethod") is not None:
+        import capo_transcribe.types.vocabulary_filter_method
+
+        out["vocabulary_filter_method"] = (
+            capo_transcribe.types.vocabulary_filter_method.deserialize_cbor(
+                data["VocabularyFilterMethod"]
+            )
+        )
+    return out

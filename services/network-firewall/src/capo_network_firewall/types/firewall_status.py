@@ -152,3 +152,115 @@ def deserialize_aws_json_1_0(data: dict) -> FirewallStatus:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FirewallStatus) -> dict:
+    out: dict = {}
+    import capo_network_firewall.types.firewall_status_value
+
+    out["Status"] = capo_network_firewall.types.firewall_status_value.serialize_cbor(
+        value["status"]
+    )
+    import capo_network_firewall.types.configuration_sync_state
+
+    out["ConfigurationSyncStateSummary"] = (
+        capo_network_firewall.types.configuration_sync_state.serialize_cbor(
+            value["configuration_sync_state_summary"]
+        )
+    )
+    if "sync_states" in value:
+        import capo_network_firewall.types.sync_states
+
+        out["SyncStates"] = capo_network_firewall.types.sync_states.serialize_cbor(
+            value["sync_states"]
+        )
+    if "capacity_usage_summary" in value:
+        import capo_network_firewall.types.capacity_usage_summary
+
+        out["CapacityUsageSummary"] = (
+            capo_network_firewall.types.capacity_usage_summary.serialize_cbor(
+                value["capacity_usage_summary"]
+            )
+        )
+    if "transit_gateway_attachment_sync_state" in value:
+        import capo_network_firewall.types.transit_gateway_attachment_sync_state
+
+        out["TransitGatewayAttachmentSyncState"] = (
+            capo_network_firewall.types.transit_gateway_attachment_sync_state.serialize_cbor(
+                value["transit_gateway_attachment_sync_state"]
+            )
+        )
+    if "context_store_sync_state" in value:
+        import capo_network_firewall.types.context_store_sync_state
+
+        out["ContextStoreSyncState"] = (
+            capo_network_firewall.types.context_store_sync_state.serialize_cbor(
+                value["context_store_sync_state"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> FirewallStatus:
+    out: FirewallStatus = {}  # type: ignore[typeddict-item]
+    if data.get("Status") is not None:
+        import capo_network_firewall.types.firewall_status_value
+
+        out["status"] = (
+            capo_network_firewall.types.firewall_status_value.deserialize_cbor(
+                data["Status"]
+            )
+        )
+    else:
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_network_firewall.types.firewall_status_value.FirewallStatusValue", ""
+        )
+    if data.get("ConfigurationSyncStateSummary") is not None:
+        import capo_network_firewall.types.configuration_sync_state
+
+        out["configuration_sync_state_summary"] = (
+            capo_network_firewall.types.configuration_sync_state.deserialize_cbor(
+                data["ConfigurationSyncStateSummary"]
+            )
+        )
+    else:
+        import typing
+
+        out["configuration_sync_state_summary"] = typing.cast(
+            "capo_network_firewall.types.configuration_sync_state.ConfigurationSyncState",
+            "",
+        )
+    if data.get("SyncStates") is not None:
+        import capo_network_firewall.types.sync_states
+
+        out["sync_states"] = capo_network_firewall.types.sync_states.deserialize_cbor(
+            data["SyncStates"]
+        )
+    if data.get("CapacityUsageSummary") is not None:
+        import capo_network_firewall.types.capacity_usage_summary
+
+        out["capacity_usage_summary"] = (
+            capo_network_firewall.types.capacity_usage_summary.deserialize_cbor(
+                data["CapacityUsageSummary"]
+            )
+        )
+    if data.get("TransitGatewayAttachmentSyncState") is not None:
+        import capo_network_firewall.types.transit_gateway_attachment_sync_state
+
+        out["transit_gateway_attachment_sync_state"] = (
+            capo_network_firewall.types.transit_gateway_attachment_sync_state.deserialize_cbor(
+                data["TransitGatewayAttachmentSyncState"]
+            )
+        )
+    if data.get("ContextStoreSyncState") is not None:
+        import capo_network_firewall.types.context_store_sync_state
+
+        out["context_store_sync_state"] = (
+            capo_network_firewall.types.context_store_sync_state.deserialize_cbor(
+                data["ContextStoreSyncState"]
+            )
+        )
+    return out

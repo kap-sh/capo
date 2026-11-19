@@ -127,3 +127,80 @@ def deserialize_aws_json_1_1(data: dict) -> StartCallAnalyticsJobRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartCallAnalyticsJobRequest) -> dict:
+    out: dict = {}
+    out["CallAnalyticsJobName"] = value["call_analytics_job_name"]
+    import capo_transcribe.types.media
+
+    out["Media"] = capo_transcribe.types.media.serialize_cbor(value["media"])
+    if "output_location" in value:
+        out["OutputLocation"] = value["output_location"]
+    if "output_encryption_kms_key_id" in value:
+        out["OutputEncryptionKMSKeyId"] = value["output_encryption_kms_key_id"]
+    if "data_access_role_arn" in value:
+        out["DataAccessRoleArn"] = value["data_access_role_arn"]
+    if "settings" in value:
+        import capo_transcribe.types.call_analytics_job_settings
+
+        out["Settings"] = (
+            capo_transcribe.types.call_analytics_job_settings.serialize_cbor(
+                value["settings"]
+            )
+        )
+    if "tags" in value:
+        import capo_transcribe.types.tag_list
+
+        out["Tags"] = capo_transcribe.types.tag_list.serialize_cbor(value["tags"])
+    if "channel_definitions" in value:
+        import capo_transcribe.types.channel_definitions
+
+        out["ChannelDefinitions"] = (
+            capo_transcribe.types.channel_definitions.serialize_cbor(
+                value["channel_definitions"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartCallAnalyticsJobRequest:
+    out: StartCallAnalyticsJobRequest = {}  # type: ignore[typeddict-item]
+    if data.get("CallAnalyticsJobName") is not None:
+        out["call_analytics_job_name"] = data["CallAnalyticsJobName"]
+    else:
+        out["call_analytics_job_name"] = ""
+    if data.get("Media") is not None:
+        import capo_transcribe.types.media
+
+        out["media"] = capo_transcribe.types.media.deserialize_cbor(data["Media"])
+    else:
+        raise DeserializationError("StartCallAnalyticsJobRequest.media required")
+    if data.get("OutputLocation") is not None:
+        out["output_location"] = data["OutputLocation"]
+    if data.get("OutputEncryptionKMSKeyId") is not None:
+        out["output_encryption_kms_key_id"] = data["OutputEncryptionKMSKeyId"]
+    if data.get("DataAccessRoleArn") is not None:
+        out["data_access_role_arn"] = data["DataAccessRoleArn"]
+    if data.get("Settings") is not None:
+        import capo_transcribe.types.call_analytics_job_settings
+
+        out["settings"] = (
+            capo_transcribe.types.call_analytics_job_settings.deserialize_cbor(
+                data["Settings"]
+            )
+        )
+    if data.get("Tags") is not None:
+        import capo_transcribe.types.tag_list
+
+        out["tags"] = capo_transcribe.types.tag_list.deserialize_cbor(data["Tags"])
+    if data.get("ChannelDefinitions") is not None:
+        import capo_transcribe.types.channel_definitions
+
+        out["channel_definitions"] = (
+            capo_transcribe.types.channel_definitions.deserialize_cbor(
+                data["ChannelDefinitions"]
+            )
+        )
+    return out

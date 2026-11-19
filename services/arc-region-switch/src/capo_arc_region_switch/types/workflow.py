@@ -76,6 +76,57 @@ def deserialize_aws_json_1_0(data: dict) -> Workflow:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Workflow) -> dict:
+    out: dict = {}
+    if "steps" in value:
+        import capo_arc_region_switch.types.steps
+
+        out["steps"] = capo_arc_region_switch.types.steps.serialize_cbor(value["steps"])
+    import capo_arc_region_switch.types.workflow_target_action
+
+    out["workflowTargetAction"] = (
+        capo_arc_region_switch.types.workflow_target_action.serialize_cbor(
+            value["workflow_target_action"]
+        )
+    )
+    if "workflow_target_region" in value:
+        out["workflowTargetRegion"] = value["workflow_target_region"]
+    if "workflow_description" in value:
+        out["workflowDescription"] = value["workflow_description"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Workflow:
+    out: Workflow = {}  # type: ignore[typeddict-item]
+    if data.get("steps") is not None:
+        import capo_arc_region_switch.types.steps
+
+        out["steps"] = capo_arc_region_switch.types.steps.deserialize_cbor(
+            data["steps"]
+        )
+    if data.get("workflowTargetAction") is not None:
+        import capo_arc_region_switch.types.workflow_target_action
+
+        out["workflow_target_action"] = (
+            capo_arc_region_switch.types.workflow_target_action.deserialize_cbor(
+                data["workflowTargetAction"]
+            )
+        )
+    else:
+        import typing
+
+        out["workflow_target_action"] = typing.cast(
+            "capo_arc_region_switch.types.workflow_target_action.WorkflowTargetAction",
+            "",
+        )
+    if data.get("workflowTargetRegion") is not None:
+        out["workflow_target_region"] = data["workflowTargetRegion"]
+    if data.get("workflowDescription") is not None:
+        out["workflow_description"] = data["workflowDescription"]
+    return out
+
+
 def redact_sensitive(value: Workflow) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "steps" in value:

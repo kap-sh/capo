@@ -169,6 +169,116 @@ def deserialize_aws_json_1_1(data: dict) -> StartMedicalScribeJobRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartMedicalScribeJobRequest) -> dict:
+    out: dict = {}
+    out["MedicalScribeJobName"] = value["medical_scribe_job_name"]
+    import capo_transcribe.types.media
+
+    out["Media"] = capo_transcribe.types.media.serialize_cbor(value["media"])
+    out["OutputBucketName"] = value["output_bucket_name"]
+    if "output_encryption_kms_key_id" in value:
+        out["OutputEncryptionKMSKeyId"] = value["output_encryption_kms_key_id"]
+    if "kms_encryption_context" in value:
+        import capo_transcribe.types.kms_encryption_context_map
+
+        out["KMSEncryptionContext"] = (
+            capo_transcribe.types.kms_encryption_context_map.serialize_cbor(
+                value["kms_encryption_context"]
+            )
+        )
+    out["DataAccessRoleArn"] = value["data_access_role_arn"]
+    import capo_transcribe.types.medical_scribe_settings
+
+    out["Settings"] = capo_transcribe.types.medical_scribe_settings.serialize_cbor(
+        value["settings"]
+    )
+    if "channel_definitions" in value:
+        import capo_transcribe.types.medical_scribe_channel_definitions
+
+        out["ChannelDefinitions"] = (
+            capo_transcribe.types.medical_scribe_channel_definitions.serialize_cbor(
+                value["channel_definitions"]
+            )
+        )
+    if "tags" in value:
+        import capo_transcribe.types.tag_list
+
+        out["Tags"] = capo_transcribe.types.tag_list.serialize_cbor(value["tags"])
+    if "medical_scribe_context" in value:
+        import capo_transcribe.types.medical_scribe_context
+
+        out["MedicalScribeContext"] = (
+            capo_transcribe.types.medical_scribe_context.serialize_cbor(
+                value["medical_scribe_context"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartMedicalScribeJobRequest:
+    out: StartMedicalScribeJobRequest = {}  # type: ignore[typeddict-item]
+    if data.get("MedicalScribeJobName") is not None:
+        out["medical_scribe_job_name"] = data["MedicalScribeJobName"]
+    else:
+        out["medical_scribe_job_name"] = ""
+    if data.get("Media") is not None:
+        import capo_transcribe.types.media
+
+        out["media"] = capo_transcribe.types.media.deserialize_cbor(data["Media"])
+    else:
+        raise DeserializationError("StartMedicalScribeJobRequest.media required")
+    if data.get("OutputBucketName") is not None:
+        out["output_bucket_name"] = data["OutputBucketName"]
+    else:
+        out["output_bucket_name"] = ""
+    if data.get("OutputEncryptionKMSKeyId") is not None:
+        out["output_encryption_kms_key_id"] = data["OutputEncryptionKMSKeyId"]
+    if data.get("KMSEncryptionContext") is not None:
+        import capo_transcribe.types.kms_encryption_context_map
+
+        out["kms_encryption_context"] = (
+            capo_transcribe.types.kms_encryption_context_map.deserialize_cbor(
+                data["KMSEncryptionContext"]
+            )
+        )
+    if data.get("DataAccessRoleArn") is not None:
+        out["data_access_role_arn"] = data["DataAccessRoleArn"]
+    else:
+        out["data_access_role_arn"] = ""
+    if data.get("Settings") is not None:
+        import capo_transcribe.types.medical_scribe_settings
+
+        out["settings"] = (
+            capo_transcribe.types.medical_scribe_settings.deserialize_cbor(
+                data["Settings"]
+            )
+        )
+    else:
+        raise DeserializationError("StartMedicalScribeJobRequest.settings required")
+    if data.get("ChannelDefinitions") is not None:
+        import capo_transcribe.types.medical_scribe_channel_definitions
+
+        out["channel_definitions"] = (
+            capo_transcribe.types.medical_scribe_channel_definitions.deserialize_cbor(
+                data["ChannelDefinitions"]
+            )
+        )
+    if data.get("Tags") is not None:
+        import capo_transcribe.types.tag_list
+
+        out["tags"] = capo_transcribe.types.tag_list.deserialize_cbor(data["Tags"])
+    if data.get("MedicalScribeContext") is not None:
+        import capo_transcribe.types.medical_scribe_context
+
+        out["medical_scribe_context"] = (
+            capo_transcribe.types.medical_scribe_context.deserialize_cbor(
+                data["MedicalScribeContext"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: StartMedicalScribeJobRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "medical_scribe_context" in value:

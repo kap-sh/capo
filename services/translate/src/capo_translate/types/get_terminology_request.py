@@ -48,3 +48,35 @@ def deserialize_aws_json_1_1(data: dict) -> GetTerminologyRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetTerminologyRequest) -> dict:
+    out: dict = {}
+    out["Name"] = value["name"]
+    if "terminology_data_format" in value:
+        import capo_translate.types.terminology_data_format
+
+        out["TerminologyDataFormat"] = (
+            capo_translate.types.terminology_data_format.serialize_cbor(
+                value["terminology_data_format"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetTerminologyRequest:
+    out: GetTerminologyRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    else:
+        out["name"] = ""
+    if data.get("TerminologyDataFormat") is not None:
+        import capo_translate.types.terminology_data_format
+
+        out["terminology_data_format"] = (
+            capo_translate.types.terminology_data_format.deserialize_cbor(
+                data["TerminologyDataFormat"]
+            )
+        )
+    return out

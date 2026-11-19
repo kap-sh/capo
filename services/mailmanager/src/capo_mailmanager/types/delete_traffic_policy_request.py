@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteTrafficPolicyRequest:
     else:
         out["traffic_policy_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteTrafficPolicyRequest) -> dict:
+    out: dict = {}
+    out["TrafficPolicyId"] = value["traffic_policy_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteTrafficPolicyRequest:
+    out: DeleteTrafficPolicyRequest = {}  # type: ignore[typeddict-item]
+    if data.get("TrafficPolicyId") is not None:
+        out["traffic_policy_id"] = data["TrafficPolicyId"]
+    else:
+        out["traffic_policy_id"] = ""
+    return out

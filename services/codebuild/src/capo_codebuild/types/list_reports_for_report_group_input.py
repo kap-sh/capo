@@ -72,3 +72,51 @@ def deserialize_aws_json_1_1(data: dict) -> ListReportsForReportGroupInput:
             data["filter"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListReportsForReportGroupInput) -> dict:
+    out: dict = {}
+    out["reportGroupArn"] = value["report_group_arn"]
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    if "sort_order" in value:
+        import capo_codebuild.types.sort_order_type
+
+        out["sortOrder"] = capo_codebuild.types.sort_order_type.serialize_cbor(
+            value["sort_order"]
+        )
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    if "filter" in value:
+        import capo_codebuild.types.report_filter
+
+        out["filter"] = capo_codebuild.types.report_filter.serialize_cbor(
+            value["filter"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListReportsForReportGroupInput:
+    out: ListReportsForReportGroupInput = {}  # type: ignore[typeddict-item]
+    if data.get("reportGroupArn") is not None:
+        out["report_group_arn"] = data["reportGroupArn"]
+    else:
+        out["report_group_arn"] = ""
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    if data.get("sortOrder") is not None:
+        import capo_codebuild.types.sort_order_type
+
+        out["sort_order"] = capo_codebuild.types.sort_order_type.deserialize_cbor(
+            data["sortOrder"]
+        )
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    if data.get("filter") is not None:
+        import capo_codebuild.types.report_filter
+
+        out["filter"] = capo_codebuild.types.report_filter.deserialize_cbor(
+            data["filter"]
+        )
+    return out

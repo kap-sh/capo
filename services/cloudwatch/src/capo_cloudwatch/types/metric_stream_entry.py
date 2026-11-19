@@ -175,3 +175,70 @@ def deserialize_query(el: Element) -> MetricStreamEntry:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MetricStreamEntry) -> dict:
+    out: dict = {}
+    if "arn" in value:
+        out["Arn"] = value["arn"]
+    if "creation_date" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["CreationDate"] = capo_cloudwatch.types.timestamp.serialize_cbor(
+            value["creation_date"]
+        )
+    if "last_update_date" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["LastUpdateDate"] = capo_cloudwatch.types.timestamp.serialize_cbor(
+            value["last_update_date"]
+        )
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "firehose_arn" in value:
+        out["FirehoseArn"] = value["firehose_arn"]
+    if "state" in value:
+        out["State"] = value["state"]
+    if "output_format" in value:
+        import capo_cloudwatch.types.metric_stream_output_format
+
+        out["OutputFormat"] = (
+            capo_cloudwatch.types.metric_stream_output_format.serialize_cbor(
+                value["output_format"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> MetricStreamEntry:
+    out: MetricStreamEntry = {}  # type: ignore[typeddict-item]
+    if data.get("Arn") is not None:
+        out["arn"] = data["Arn"]
+    if data.get("CreationDate") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["creation_date"] = capo_cloudwatch.types.timestamp.deserialize_cbor(
+            data["CreationDate"]
+        )
+    if data.get("LastUpdateDate") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["last_update_date"] = capo_cloudwatch.types.timestamp.deserialize_cbor(
+            data["LastUpdateDate"]
+        )
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("FirehoseArn") is not None:
+        out["firehose_arn"] = data["FirehoseArn"]
+    if data.get("State") is not None:
+        out["state"] = data["State"]
+    if data.get("OutputFormat") is not None:
+        import capo_cloudwatch.types.metric_stream_output_format
+
+        out["output_format"] = (
+            capo_cloudwatch.types.metric_stream_output_format.deserialize_cbor(
+                data["OutputFormat"]
+            )
+        )
+    return out

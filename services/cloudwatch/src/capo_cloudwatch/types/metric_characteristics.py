@@ -50,3 +50,18 @@ def deserialize_query(el: Element) -> MetricCharacteristics:
     if child_periodic_spikes is not None:
         out["periodic_spikes"] = (child_periodic_spikes.text or "").lower() == "true"
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MetricCharacteristics) -> dict:
+    out: dict = {}
+    if "periodic_spikes" in value:
+        out["PeriodicSpikes"] = value["periodic_spikes"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> MetricCharacteristics:
+    out: MetricCharacteristics = {}  # type: ignore[typeddict-item]
+    if data.get("PeriodicSpikes") is not None:
+        out["periodic_spikes"] = data["PeriodicSpikes"]
+    return out

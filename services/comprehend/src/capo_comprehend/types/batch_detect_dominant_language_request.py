@@ -43,6 +43,32 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDetectDominantLanguageRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchDetectDominantLanguageRequest) -> dict:
+    out: dict = {}
+    import capo_comprehend.types.customer_input_string_list
+
+    out["TextList"] = capo_comprehend.types.customer_input_string_list.serialize_cbor(
+        value["text_list"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BatchDetectDominantLanguageRequest:
+    out: BatchDetectDominantLanguageRequest = {}  # type: ignore[typeddict-item]
+    if data.get("TextList") is not None:
+        import capo_comprehend.types.customer_input_string_list
+
+        out["text_list"] = (
+            capo_comprehend.types.customer_input_string_list.deserialize_cbor(
+                data["TextList"]
+            )
+        )
+    else:
+        out["text_list"] = []
+    return out
+
+
 def redact_sensitive(value: BatchDetectDominantLanguageRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "text_list" in value:

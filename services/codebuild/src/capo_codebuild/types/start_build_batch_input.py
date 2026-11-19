@@ -455,3 +455,311 @@ def deserialize_aws_json_1_1(data: dict) -> StartBuildBatchInput:
     if data.get("debugSessionEnabled") is not None:
         out["debug_session_enabled"] = data["debugSessionEnabled"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartBuildBatchInput) -> dict:
+    out: dict = {}
+    out["projectName"] = value["project_name"]
+    if "secondary_sources_override" in value:
+        import capo_codebuild.types.project_sources
+
+        out["secondarySourcesOverride"] = (
+            capo_codebuild.types.project_sources.serialize_cbor(
+                value["secondary_sources_override"]
+            )
+        )
+    if "secondary_sources_version_override" in value:
+        import capo_codebuild.types.project_secondary_source_versions
+
+        out["secondarySourcesVersionOverride"] = (
+            capo_codebuild.types.project_secondary_source_versions.serialize_cbor(
+                value["secondary_sources_version_override"]
+            )
+        )
+    if "source_version" in value:
+        out["sourceVersion"] = value["source_version"]
+    if "artifacts_override" in value:
+        import capo_codebuild.types.project_artifacts
+
+        out["artifactsOverride"] = (
+            capo_codebuild.types.project_artifacts.serialize_cbor(
+                value["artifacts_override"]
+            )
+        )
+    if "secondary_artifacts_override" in value:
+        import capo_codebuild.types.project_artifacts_list
+
+        out["secondaryArtifactsOverride"] = (
+            capo_codebuild.types.project_artifacts_list.serialize_cbor(
+                value["secondary_artifacts_override"]
+            )
+        )
+    if "environment_variables_override" in value:
+        import capo_codebuild.types.environment_variables
+
+        out["environmentVariablesOverride"] = (
+            capo_codebuild.types.environment_variables.serialize_cbor(
+                value["environment_variables_override"]
+            )
+        )
+    if "source_type_override" in value:
+        import capo_codebuild.types.source_type
+
+        out["sourceTypeOverride"] = capo_codebuild.types.source_type.serialize_cbor(
+            value["source_type_override"]
+        )
+    if "source_location_override" in value:
+        out["sourceLocationOverride"] = value["source_location_override"]
+    if "source_auth_override" in value:
+        import capo_codebuild.types.source_auth
+
+        out["sourceAuthOverride"] = capo_codebuild.types.source_auth.serialize_cbor(
+            value["source_auth_override"]
+        )
+    if "git_clone_depth_override" in value:
+        out["gitCloneDepthOverride"] = value["git_clone_depth_override"]
+    if "git_submodules_config_override" in value:
+        import capo_codebuild.types.git_submodules_config
+
+        out["gitSubmodulesConfigOverride"] = (
+            capo_codebuild.types.git_submodules_config.serialize_cbor(
+                value["git_submodules_config_override"]
+            )
+        )
+    if "buildspec_override" in value:
+        out["buildspecOverride"] = value["buildspec_override"]
+    if "insecure_ssl_override" in value:
+        out["insecureSslOverride"] = value["insecure_ssl_override"]
+    if "report_build_batch_status_override" in value:
+        out["reportBuildBatchStatusOverride"] = value[
+            "report_build_batch_status_override"
+        ]
+    if "environment_type_override" in value:
+        import capo_codebuild.types.environment_type
+
+        out["environmentTypeOverride"] = (
+            capo_codebuild.types.environment_type.serialize_cbor(
+                value["environment_type_override"]
+            )
+        )
+    if "image_override" in value:
+        out["imageOverride"] = value["image_override"]
+    if "compute_type_override" in value:
+        import capo_codebuild.types.compute_type
+
+        out["computeTypeOverride"] = capo_codebuild.types.compute_type.serialize_cbor(
+            value["compute_type_override"]
+        )
+    if "certificate_override" in value:
+        out["certificateOverride"] = value["certificate_override"]
+    if "cache_override" in value:
+        import capo_codebuild.types.project_cache
+
+        out["cacheOverride"] = capo_codebuild.types.project_cache.serialize_cbor(
+            value["cache_override"]
+        )
+    if "service_role_override" in value:
+        out["serviceRoleOverride"] = value["service_role_override"]
+    if "privileged_mode_override" in value:
+        out["privilegedModeOverride"] = value["privileged_mode_override"]
+    if "build_timeout_in_minutes_override" in value:
+        out["buildTimeoutInMinutesOverride"] = value[
+            "build_timeout_in_minutes_override"
+        ]
+    if "queued_timeout_in_minutes_override" in value:
+        out["queuedTimeoutInMinutesOverride"] = value[
+            "queued_timeout_in_minutes_override"
+        ]
+    if "encryption_key_override" in value:
+        out["encryptionKeyOverride"] = value["encryption_key_override"]
+    if "idempotency_token" in value:
+        out["idempotencyToken"] = value["idempotency_token"]
+    if "logs_config_override" in value:
+        import capo_codebuild.types.logs_config
+
+        out["logsConfigOverride"] = capo_codebuild.types.logs_config.serialize_cbor(
+            value["logs_config_override"]
+        )
+    if "registry_credential_override" in value:
+        import capo_codebuild.types.registry_credential
+
+        out["registryCredentialOverride"] = (
+            capo_codebuild.types.registry_credential.serialize_cbor(
+                value["registry_credential_override"]
+            )
+        )
+    if "image_pull_credentials_type_override" in value:
+        import capo_codebuild.types.image_pull_credentials_type
+
+        out["imagePullCredentialsTypeOverride"] = (
+            capo_codebuild.types.image_pull_credentials_type.serialize_cbor(
+                value["image_pull_credentials_type_override"]
+            )
+        )
+    if "build_batch_config_override" in value:
+        import capo_codebuild.types.project_build_batch_config
+
+        out["buildBatchConfigOverride"] = (
+            capo_codebuild.types.project_build_batch_config.serialize_cbor(
+                value["build_batch_config_override"]
+            )
+        )
+    if "debug_session_enabled" in value:
+        out["debugSessionEnabled"] = value["debug_session_enabled"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartBuildBatchInput:
+    out: StartBuildBatchInput = {}  # type: ignore[typeddict-item]
+    if data.get("projectName") is not None:
+        out["project_name"] = data["projectName"]
+    else:
+        out["project_name"] = ""
+    if data.get("secondarySourcesOverride") is not None:
+        import capo_codebuild.types.project_sources
+
+        out["secondary_sources_override"] = (
+            capo_codebuild.types.project_sources.deserialize_cbor(
+                data["secondarySourcesOverride"]
+            )
+        )
+    if data.get("secondarySourcesVersionOverride") is not None:
+        import capo_codebuild.types.project_secondary_source_versions
+
+        out["secondary_sources_version_override"] = (
+            capo_codebuild.types.project_secondary_source_versions.deserialize_cbor(
+                data["secondarySourcesVersionOverride"]
+            )
+        )
+    if data.get("sourceVersion") is not None:
+        out["source_version"] = data["sourceVersion"]
+    if data.get("artifactsOverride") is not None:
+        import capo_codebuild.types.project_artifacts
+
+        out["artifacts_override"] = (
+            capo_codebuild.types.project_artifacts.deserialize_cbor(
+                data["artifactsOverride"]
+            )
+        )
+    if data.get("secondaryArtifactsOverride") is not None:
+        import capo_codebuild.types.project_artifacts_list
+
+        out["secondary_artifacts_override"] = (
+            capo_codebuild.types.project_artifacts_list.deserialize_cbor(
+                data["secondaryArtifactsOverride"]
+            )
+        )
+    if data.get("environmentVariablesOverride") is not None:
+        import capo_codebuild.types.environment_variables
+
+        out["environment_variables_override"] = (
+            capo_codebuild.types.environment_variables.deserialize_cbor(
+                data["environmentVariablesOverride"]
+            )
+        )
+    if data.get("sourceTypeOverride") is not None:
+        import capo_codebuild.types.source_type
+
+        out["source_type_override"] = capo_codebuild.types.source_type.deserialize_cbor(
+            data["sourceTypeOverride"]
+        )
+    if data.get("sourceLocationOverride") is not None:
+        out["source_location_override"] = data["sourceLocationOverride"]
+    if data.get("sourceAuthOverride") is not None:
+        import capo_codebuild.types.source_auth
+
+        out["source_auth_override"] = capo_codebuild.types.source_auth.deserialize_cbor(
+            data["sourceAuthOverride"]
+        )
+    if data.get("gitCloneDepthOverride") is not None:
+        out["git_clone_depth_override"] = data["gitCloneDepthOverride"]
+    if data.get("gitSubmodulesConfigOverride") is not None:
+        import capo_codebuild.types.git_submodules_config
+
+        out["git_submodules_config_override"] = (
+            capo_codebuild.types.git_submodules_config.deserialize_cbor(
+                data["gitSubmodulesConfigOverride"]
+            )
+        )
+    if data.get("buildspecOverride") is not None:
+        out["buildspec_override"] = data["buildspecOverride"]
+    if data.get("insecureSslOverride") is not None:
+        out["insecure_ssl_override"] = data["insecureSslOverride"]
+    if data.get("reportBuildBatchStatusOverride") is not None:
+        out["report_build_batch_status_override"] = data[
+            "reportBuildBatchStatusOverride"
+        ]
+    if data.get("environmentTypeOverride") is not None:
+        import capo_codebuild.types.environment_type
+
+        out["environment_type_override"] = (
+            capo_codebuild.types.environment_type.deserialize_cbor(
+                data["environmentTypeOverride"]
+            )
+        )
+    if data.get("imageOverride") is not None:
+        out["image_override"] = data["imageOverride"]
+    if data.get("computeTypeOverride") is not None:
+        import capo_codebuild.types.compute_type
+
+        out["compute_type_override"] = (
+            capo_codebuild.types.compute_type.deserialize_cbor(
+                data["computeTypeOverride"]
+            )
+        )
+    if data.get("certificateOverride") is not None:
+        out["certificate_override"] = data["certificateOverride"]
+    if data.get("cacheOverride") is not None:
+        import capo_codebuild.types.project_cache
+
+        out["cache_override"] = capo_codebuild.types.project_cache.deserialize_cbor(
+            data["cacheOverride"]
+        )
+    if data.get("serviceRoleOverride") is not None:
+        out["service_role_override"] = data["serviceRoleOverride"]
+    if data.get("privilegedModeOverride") is not None:
+        out["privileged_mode_override"] = data["privilegedModeOverride"]
+    if data.get("buildTimeoutInMinutesOverride") is not None:
+        out["build_timeout_in_minutes_override"] = data["buildTimeoutInMinutesOverride"]
+    if data.get("queuedTimeoutInMinutesOverride") is not None:
+        out["queued_timeout_in_minutes_override"] = data[
+            "queuedTimeoutInMinutesOverride"
+        ]
+    if data.get("encryptionKeyOverride") is not None:
+        out["encryption_key_override"] = data["encryptionKeyOverride"]
+    if data.get("idempotencyToken") is not None:
+        out["idempotency_token"] = data["idempotencyToken"]
+    if data.get("logsConfigOverride") is not None:
+        import capo_codebuild.types.logs_config
+
+        out["logs_config_override"] = capo_codebuild.types.logs_config.deserialize_cbor(
+            data["logsConfigOverride"]
+        )
+    if data.get("registryCredentialOverride") is not None:
+        import capo_codebuild.types.registry_credential
+
+        out["registry_credential_override"] = (
+            capo_codebuild.types.registry_credential.deserialize_cbor(
+                data["registryCredentialOverride"]
+            )
+        )
+    if data.get("imagePullCredentialsTypeOverride") is not None:
+        import capo_codebuild.types.image_pull_credentials_type
+
+        out["image_pull_credentials_type_override"] = (
+            capo_codebuild.types.image_pull_credentials_type.deserialize_cbor(
+                data["imagePullCredentialsTypeOverride"]
+            )
+        )
+    if data.get("buildBatchConfigOverride") is not None:
+        import capo_codebuild.types.project_build_batch_config
+
+        out["build_batch_config_override"] = (
+            capo_codebuild.types.project_build_batch_config.deserialize_cbor(
+                data["buildBatchConfigOverride"]
+            )
+        )
+    if data.get("debugSessionEnabled") is not None:
+        out["debug_session_enabled"] = data["debugSessionEnabled"]
+    return out

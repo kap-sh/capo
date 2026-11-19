@@ -27,3 +27,24 @@ def deserialize_aws_json_1_1(data: list) -> ListOfKeyPhrases:
             continue
         out.append(capo_comprehend.types.key_phrase.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListOfKeyPhrases) -> list:
+    import capo_comprehend.types.key_phrase
+
+    out: list = []
+    for item in value:
+        out.append(capo_comprehend.types.key_phrase.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> ListOfKeyPhrases:
+    import capo_comprehend.types.key_phrase
+
+    out: ListOfKeyPhrases = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_comprehend.types.key_phrase.deserialize_cbor(item))
+    return out

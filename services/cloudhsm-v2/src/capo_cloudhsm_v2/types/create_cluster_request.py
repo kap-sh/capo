@@ -118,3 +118,84 @@ def deserialize_aws_json_1_1(data: dict) -> CreateClusterRequest:
             data["Mode"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateClusterRequest) -> dict:
+    out: dict = {}
+    if "backup_retention_policy" in value:
+        import capo_cloudhsm_v2.types.backup_retention_policy
+
+        out["BackupRetentionPolicy"] = (
+            capo_cloudhsm_v2.types.backup_retention_policy.serialize_cbor(
+                value["backup_retention_policy"]
+            )
+        )
+    out["HsmType"] = value["hsm_type"]
+    if "source_backup_id" in value:
+        out["SourceBackupId"] = value["source_backup_id"]
+    import capo_cloudhsm_v2.types.subnet_ids
+
+    out["SubnetIds"] = capo_cloudhsm_v2.types.subnet_ids.serialize_cbor(
+        value["subnet_ids"]
+    )
+    if "network_type" in value:
+        import capo_cloudhsm_v2.types.network_type
+
+        out["NetworkType"] = capo_cloudhsm_v2.types.network_type.serialize_cbor(
+            value["network_type"]
+        )
+    if "tag_list" in value:
+        import capo_cloudhsm_v2.types.tag_list
+
+        out["TagList"] = capo_cloudhsm_v2.types.tag_list.serialize_cbor(
+            value["tag_list"]
+        )
+    if "mode" in value:
+        import capo_cloudhsm_v2.types.cluster_mode
+
+        out["Mode"] = capo_cloudhsm_v2.types.cluster_mode.serialize_cbor(value["mode"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateClusterRequest:
+    out: CreateClusterRequest = {}  # type: ignore[typeddict-item]
+    if data.get("BackupRetentionPolicy") is not None:
+        import capo_cloudhsm_v2.types.backup_retention_policy
+
+        out["backup_retention_policy"] = (
+            capo_cloudhsm_v2.types.backup_retention_policy.deserialize_cbor(
+                data["BackupRetentionPolicy"]
+            )
+        )
+    if data.get("HsmType") is not None:
+        out["hsm_type"] = data["HsmType"]
+    else:
+        out["hsm_type"] = ""
+    if data.get("SourceBackupId") is not None:
+        out["source_backup_id"] = data["SourceBackupId"]
+    if data.get("SubnetIds") is not None:
+        import capo_cloudhsm_v2.types.subnet_ids
+
+        out["subnet_ids"] = capo_cloudhsm_v2.types.subnet_ids.deserialize_cbor(
+            data["SubnetIds"]
+        )
+    else:
+        out["subnet_ids"] = []
+    if data.get("NetworkType") is not None:
+        import capo_cloudhsm_v2.types.network_type
+
+        out["network_type"] = capo_cloudhsm_v2.types.network_type.deserialize_cbor(
+            data["NetworkType"]
+        )
+    if data.get("TagList") is not None:
+        import capo_cloudhsm_v2.types.tag_list
+
+        out["tag_list"] = capo_cloudhsm_v2.types.tag_list.deserialize_cbor(
+            data["TagList"]
+        )
+    if data.get("Mode") is not None:
+        import capo_cloudhsm_v2.types.cluster_mode
+
+        out["mode"] = capo_cloudhsm_v2.types.cluster_mode.deserialize_cbor(data["Mode"])
+    return out

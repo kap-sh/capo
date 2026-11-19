@@ -37,3 +37,27 @@ def deserialize_aws_json_1_1(data: dict) -> ListRuleTypesOutput:
     else:
         out["rule_types"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListRuleTypesOutput) -> dict:
+    out: dict = {}
+    import capo_codepipeline.types.rule_type_list
+
+    out["ruleTypes"] = capo_codepipeline.types.rule_type_list.serialize_cbor(
+        value["rule_types"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListRuleTypesOutput:
+    out: ListRuleTypesOutput = {}  # type: ignore[typeddict-item]
+    if data.get("ruleTypes") is not None:
+        import capo_codepipeline.types.rule_type_list
+
+        out["rule_types"] = capo_codepipeline.types.rule_type_list.deserialize_cbor(
+            data["ruleTypes"]
+        )
+    else:
+        out["rule_types"] = []
+    return out

@@ -127,3 +127,82 @@ def deserialize_aws_json_1_1(data: dict) -> GetResourcesInput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetResourcesInput) -> dict:
+    out: dict = {}
+    if "pagination_token" in value:
+        out["PaginationToken"] = value["pagination_token"]
+    if "tag_filters" in value:
+        import capo_resource_groups_tagging_api.types.tag_filter_list
+
+        out["TagFilters"] = (
+            capo_resource_groups_tagging_api.types.tag_filter_list.serialize_cbor(
+                value["tag_filters"]
+            )
+        )
+    if "resources_per_page" in value:
+        out["ResourcesPerPage"] = value["resources_per_page"]
+    if "tags_per_page" in value:
+        out["TagsPerPage"] = value["tags_per_page"]
+    if "resource_type_filters" in value:
+        import capo_resource_groups_tagging_api.types.resource_type_filter_list
+
+        out["ResourceTypeFilters"] = (
+            capo_resource_groups_tagging_api.types.resource_type_filter_list.serialize_cbor(
+                value["resource_type_filters"]
+            )
+        )
+    if "include_compliance_details" in value:
+        out["IncludeComplianceDetails"] = value["include_compliance_details"]
+    if "exclude_compliant_resources" in value:
+        out["ExcludeCompliantResources"] = value["exclude_compliant_resources"]
+    if "resource_arn_list" in value:
+        import capo_resource_groups_tagging_api.types.resource_arn_list_for_get
+
+        out["ResourceARNList"] = (
+            capo_resource_groups_tagging_api.types.resource_arn_list_for_get.serialize_cbor(
+                value["resource_arn_list"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetResourcesInput:
+    out: GetResourcesInput = {}  # type: ignore[typeddict-item]
+    if data.get("PaginationToken") is not None:
+        out["pagination_token"] = data["PaginationToken"]
+    if data.get("TagFilters") is not None:
+        import capo_resource_groups_tagging_api.types.tag_filter_list
+
+        out["tag_filters"] = (
+            capo_resource_groups_tagging_api.types.tag_filter_list.deserialize_cbor(
+                data["TagFilters"]
+            )
+        )
+    if data.get("ResourcesPerPage") is not None:
+        out["resources_per_page"] = data["ResourcesPerPage"]
+    if data.get("TagsPerPage") is not None:
+        out["tags_per_page"] = data["TagsPerPage"]
+    if data.get("ResourceTypeFilters") is not None:
+        import capo_resource_groups_tagging_api.types.resource_type_filter_list
+
+        out["resource_type_filters"] = (
+            capo_resource_groups_tagging_api.types.resource_type_filter_list.deserialize_cbor(
+                data["ResourceTypeFilters"]
+            )
+        )
+    if data.get("IncludeComplianceDetails") is not None:
+        out["include_compliance_details"] = data["IncludeComplianceDetails"]
+    if data.get("ExcludeCompliantResources") is not None:
+        out["exclude_compliant_resources"] = data["ExcludeCompliantResources"]
+    if data.get("ResourceARNList") is not None:
+        import capo_resource_groups_tagging_api.types.resource_arn_list_for_get
+
+        out["resource_arn_list"] = (
+            capo_resource_groups_tagging_api.types.resource_arn_list_for_get.deserialize_cbor(
+                data["ResourceARNList"]
+            )
+        )
+    return out

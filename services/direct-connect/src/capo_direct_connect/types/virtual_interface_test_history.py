@@ -111,3 +111,70 @@ def deserialize_aws_json_1_1(data: dict) -> VirtualInterfaceTestHistory:
             data["endTime"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: VirtualInterfaceTestHistory) -> dict:
+    out: dict = {}
+    if "test_id" in value:
+        out["testId"] = value["test_id"]
+    if "virtual_interface_id" in value:
+        out["virtualInterfaceId"] = value["virtual_interface_id"]
+    if "bgp_peers" in value:
+        import capo_direct_connect.types.bgp_peer_id_list
+
+        out["bgpPeers"] = capo_direct_connect.types.bgp_peer_id_list.serialize_cbor(
+            value["bgp_peers"]
+        )
+    if "status" in value:
+        out["status"] = value["status"]
+    if "owner_account" in value:
+        out["ownerAccount"] = value["owner_account"]
+    if "test_duration_in_minutes" in value:
+        out["testDurationInMinutes"] = value["test_duration_in_minutes"]
+    if "start_time" in value:
+        import capo_direct_connect.types.start_time
+
+        out["startTime"] = capo_direct_connect.types.start_time.serialize_cbor(
+            value["start_time"]
+        )
+    if "end_time" in value:
+        import capo_direct_connect.types.end_time
+
+        out["endTime"] = capo_direct_connect.types.end_time.serialize_cbor(
+            value["end_time"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> VirtualInterfaceTestHistory:
+    out: VirtualInterfaceTestHistory = {}  # type: ignore[typeddict-item]
+    if data.get("testId") is not None:
+        out["test_id"] = data["testId"]
+    if data.get("virtualInterfaceId") is not None:
+        out["virtual_interface_id"] = data["virtualInterfaceId"]
+    if data.get("bgpPeers") is not None:
+        import capo_direct_connect.types.bgp_peer_id_list
+
+        out["bgp_peers"] = capo_direct_connect.types.bgp_peer_id_list.deserialize_cbor(
+            data["bgpPeers"]
+        )
+    if data.get("status") is not None:
+        out["status"] = data["status"]
+    if data.get("ownerAccount") is not None:
+        out["owner_account"] = data["ownerAccount"]
+    if data.get("testDurationInMinutes") is not None:
+        out["test_duration_in_minutes"] = data["testDurationInMinutes"]
+    if data.get("startTime") is not None:
+        import capo_direct_connect.types.start_time
+
+        out["start_time"] = capo_direct_connect.types.start_time.deserialize_cbor(
+            data["startTime"]
+        )
+    if data.get("endTime") is not None:
+        import capo_direct_connect.types.end_time
+
+        out["end_time"] = capo_direct_connect.types.end_time.deserialize_cbor(
+            data["endTime"]
+        )
+    return out

@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: GreenFleetProvisioningAction) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> GreenFleetProvisioningAction:
     return cast(GreenFleetProvisioningAction, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GreenFleetProvisioningAction) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> GreenFleetProvisioningAction:
+    return cast(GreenFleetProvisioningAction, data)

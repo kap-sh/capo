@@ -106,3 +106,68 @@ def deserialize_aws_json_1_0(data: dict) -> Document:
     else:
         out["original_score"] = 0.0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Document) -> dict:
+    out: dict = {}
+    out["Id"] = value["id"]
+    if "group_id" in value:
+        out["GroupId"] = value["group_id"]
+    if "title" in value:
+        out["Title"] = value["title"]
+    if "body" in value:
+        out["Body"] = value["body"]
+    if "tokenized_title" in value:
+        import capo_kendra_ranking.types.title_tokens_list
+
+        out["TokenizedTitle"] = (
+            capo_kendra_ranking.types.title_tokens_list.serialize_cbor(
+                value["tokenized_title"]
+            )
+        )
+    if "tokenized_body" in value:
+        import capo_kendra_ranking.types.body_tokens_list
+
+        out["TokenizedBody"] = (
+            capo_kendra_ranking.types.body_tokens_list.serialize_cbor(
+                value["tokenized_body"]
+            )
+        )
+    out["OriginalScore"] = value["original_score"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Document:
+    out: Document = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    else:
+        out["id"] = ""
+    if data.get("GroupId") is not None:
+        out["group_id"] = data["GroupId"]
+    if data.get("Title") is not None:
+        out["title"] = data["Title"]
+    if data.get("Body") is not None:
+        out["body"] = data["Body"]
+    if data.get("TokenizedTitle") is not None:
+        import capo_kendra_ranking.types.title_tokens_list
+
+        out["tokenized_title"] = (
+            capo_kendra_ranking.types.title_tokens_list.deserialize_cbor(
+                data["TokenizedTitle"]
+            )
+        )
+    if data.get("TokenizedBody") is not None:
+        import capo_kendra_ranking.types.body_tokens_list
+
+        out["tokenized_body"] = (
+            capo_kendra_ranking.types.body_tokens_list.deserialize_cbor(
+                data["TokenizedBody"]
+            )
+        )
+    if data.get("OriginalScore") is not None:
+        out["original_score"] = float(data["OriginalScore"])
+    else:
+        out["original_score"] = 0.0
+    return out

@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> ReplicaConfigurationRequest:
     else:
         out["replica_count"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ReplicaConfigurationRequest) -> dict:
+    out: dict = {}
+    out["ReplicaCount"] = value.get("replica_count", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> ReplicaConfigurationRequest:
+    out: ReplicaConfigurationRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ReplicaCount") is not None:
+        out["replica_count"] = data["ReplicaCount"]
+    else:
+        out["replica_count"] = 0
+    return out

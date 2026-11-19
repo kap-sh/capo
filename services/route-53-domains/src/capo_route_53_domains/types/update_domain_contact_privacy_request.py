@@ -52,3 +52,35 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDomainContactPrivacyRequest:
     if data.get("BillingPrivacy") is not None:
         out["billing_privacy"] = data["BillingPrivacy"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateDomainContactPrivacyRequest) -> dict:
+    out: dict = {}
+    out["DomainName"] = value["domain_name"]
+    if "admin_privacy" in value:
+        out["AdminPrivacy"] = value["admin_privacy"]
+    if "registrant_privacy" in value:
+        out["RegistrantPrivacy"] = value["registrant_privacy"]
+    if "tech_privacy" in value:
+        out["TechPrivacy"] = value["tech_privacy"]
+    if "billing_privacy" in value:
+        out["BillingPrivacy"] = value["billing_privacy"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateDomainContactPrivacyRequest:
+    out: UpdateDomainContactPrivacyRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DomainName") is not None:
+        out["domain_name"] = data["DomainName"]
+    else:
+        out["domain_name"] = ""
+    if data.get("AdminPrivacy") is not None:
+        out["admin_privacy"] = data["AdminPrivacy"]
+    if data.get("RegistrantPrivacy") is not None:
+        out["registrant_privacy"] = data["RegistrantPrivacy"]
+    if data.get("TechPrivacy") is not None:
+        out["tech_privacy"] = data["TechPrivacy"]
+    if data.get("BillingPrivacy") is not None:
+        out["billing_privacy"] = data["BillingPrivacy"]
+    return out

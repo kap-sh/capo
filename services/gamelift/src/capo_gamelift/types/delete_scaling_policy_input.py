@@ -33,3 +33,22 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteScalingPolicyInput:
     if data.get("FleetId") is not None:
         out["fleet_id"] = data["FleetId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteScalingPolicyInput) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteScalingPolicyInput:
+    out: DeleteScalingPolicyInput = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    return out

@@ -29,3 +29,24 @@ def deserialize_aws_json_1_0(data: list) -> TrafficPolicyList:
             continue
         out.append(capo_mailmanager.types.traffic_policy.deserialize_aws_json_1_0(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TrafficPolicyList) -> list:
+    import capo_mailmanager.types.traffic_policy
+
+    out: list = []
+    for item in value:
+        out.append(capo_mailmanager.types.traffic_policy.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> TrafficPolicyList:
+    import capo_mailmanager.types.traffic_policy
+
+    out: TrafficPolicyList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_mailmanager.types.traffic_policy.deserialize_cbor(item))
+    return out

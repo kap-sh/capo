@@ -37,3 +37,24 @@ def deserialize_aws_json_1_0(data: dict) -> Gpu:
     else:
         out["gpu_memory_size_in_mi_b"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Gpu) -> dict:
+    out: dict = {}
+    out["gpuCount"] = value.get("gpu_count", 0)
+    out["gpuMemorySizeInMiB"] = value.get("gpu_memory_size_in_mi_b", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> Gpu:
+    out: Gpu = {}  # type: ignore[typeddict-item]
+    if data.get("gpuCount") is not None:
+        out["gpu_count"] = data["gpuCount"]
+    else:
+        out["gpu_count"] = 0
+    if data.get("gpuMemorySizeInMiB") is not None:
+        out["gpu_memory_size_in_mi_b"] = data["gpuMemorySizeInMiB"]
+    else:
+        out["gpu_memory_size_in_mi_b"] = 0
+    return out

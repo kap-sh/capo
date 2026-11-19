@@ -124,3 +124,78 @@ def deserialize_aws_json_1_1(data: dict) -> NamespaceSummary:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: NamespaceSummary) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["Id"] = value["id"]
+    if "arn" in value:
+        out["Arn"] = value["arn"]
+    if "resource_owner" in value:
+        out["ResourceOwner"] = value["resource_owner"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "type" in value:
+        import capo_servicediscovery.types.namespace_type
+
+        out["Type"] = capo_servicediscovery.types.namespace_type.serialize_cbor(
+            value["type"]
+        )
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "service_count" in value:
+        out["ServiceCount"] = value["service_count"]
+    if "properties" in value:
+        import capo_servicediscovery.types.namespace_properties
+
+        out["Properties"] = (
+            capo_servicediscovery.types.namespace_properties.serialize_cbor(
+                value["properties"]
+            )
+        )
+    if "create_date" in value:
+        import capo_servicediscovery.types.timestamp
+
+        out["CreateDate"] = capo_servicediscovery.types.timestamp.serialize_cbor(
+            value["create_date"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> NamespaceSummary:
+    out: NamespaceSummary = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    if data.get("Arn") is not None:
+        out["arn"] = data["Arn"]
+    if data.get("ResourceOwner") is not None:
+        out["resource_owner"] = data["ResourceOwner"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Type") is not None:
+        import capo_servicediscovery.types.namespace_type
+
+        out["type"] = capo_servicediscovery.types.namespace_type.deserialize_cbor(
+            data["Type"]
+        )
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("ServiceCount") is not None:
+        out["service_count"] = data["ServiceCount"]
+    if data.get("Properties") is not None:
+        import capo_servicediscovery.types.namespace_properties
+
+        out["properties"] = (
+            capo_servicediscovery.types.namespace_properties.deserialize_cbor(
+                data["Properties"]
+            )
+        )
+    if data.get("CreateDate") is not None:
+        import capo_servicediscovery.types.timestamp
+
+        out["create_date"] = capo_servicediscovery.types.timestamp.deserialize_cbor(
+            data["CreateDate"]
+        )
+    return out

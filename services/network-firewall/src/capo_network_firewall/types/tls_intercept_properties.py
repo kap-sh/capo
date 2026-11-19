@@ -47,3 +47,34 @@ def deserialize_aws_json_1_0(data: dict) -> TlsInterceptProperties:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TlsInterceptProperties) -> dict:
+    out: dict = {}
+    if "pca_arn" in value:
+        out["PcaArn"] = value["pca_arn"]
+    if "tls_intercept_mode" in value:
+        import capo_network_firewall.types.tls_intercept_mode
+
+        out["TlsInterceptMode"] = (
+            capo_network_firewall.types.tls_intercept_mode.serialize_cbor(
+                value["tls_intercept_mode"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TlsInterceptProperties:
+    out: TlsInterceptProperties = {}  # type: ignore[typeddict-item]
+    if data.get("PcaArn") is not None:
+        out["pca_arn"] = data["PcaArn"]
+    if data.get("TlsInterceptMode") is not None:
+        import capo_network_firewall.types.tls_intercept_mode
+
+        out["tls_intercept_mode"] = (
+            capo_network_firewall.types.tls_intercept_mode.deserialize_cbor(
+                data["TlsInterceptMode"]
+            )
+        )
+    return out

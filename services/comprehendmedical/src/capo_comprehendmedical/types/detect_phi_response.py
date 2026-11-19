@@ -51,3 +51,36 @@ def deserialize_aws_json_1_1(data: dict) -> DetectPHIResponse:
     else:
         out["model_version"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DetectPHIResponse) -> dict:
+    out: dict = {}
+    import capo_comprehendmedical.types.entity_list
+
+    out["Entities"] = capo_comprehendmedical.types.entity_list.serialize_cbor(
+        value["entities"]
+    )
+    if "pagination_token" in value:
+        out["PaginationToken"] = value["pagination_token"]
+    out["ModelVersion"] = value["model_version"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DetectPHIResponse:
+    out: DetectPHIResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Entities") is not None:
+        import capo_comprehendmedical.types.entity_list
+
+        out["entities"] = capo_comprehendmedical.types.entity_list.deserialize_cbor(
+            data["Entities"]
+        )
+    else:
+        out["entities"] = []
+    if data.get("PaginationToken") is not None:
+        out["pagination_token"] = data["PaginationToken"]
+    if data.get("ModelVersion") is not None:
+        out["model_version"] = data["ModelVersion"]
+    else:
+        out["model_version"] = ""
+    return out

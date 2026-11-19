@@ -38,3 +38,26 @@ def deserialize_aws_json_1_0(data: dict) -> StatefulRuleGroupOverride:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StatefulRuleGroupOverride) -> dict:
+    out: dict = {}
+    if "action" in value:
+        import capo_network_firewall.types.override_action
+
+        out["Action"] = capo_network_firewall.types.override_action.serialize_cbor(
+            value["action"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StatefulRuleGroupOverride:
+    out: StatefulRuleGroupOverride = {}  # type: ignore[typeddict-item]
+    if data.get("Action") is not None:
+        import capo_network_firewall.types.override_action
+
+        out["action"] = capo_network_firewall.types.override_action.deserialize_cbor(
+            data["Action"]
+        )
+    return out

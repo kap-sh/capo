@@ -204,6 +204,143 @@ def deserialize_aws_json_1_0(data: dict) -> GetIngressPointResponse:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetIngressPointResponse) -> dict:
+    out: dict = {}
+    out["IngressPointId"] = value["ingress_point_id"]
+    out["IngressPointName"] = value["ingress_point_name"]
+    if "ingress_point_arn" in value:
+        out["IngressPointArn"] = value["ingress_point_arn"]
+    if "status" in value:
+        import capo_mailmanager.types.ingress_point_status
+
+        out["Status"] = capo_mailmanager.types.ingress_point_status.serialize_cbor(
+            value["status"]
+        )
+    if "type" in value:
+        import capo_mailmanager.types.ingress_point_type
+
+        out["Type"] = capo_mailmanager.types.ingress_point_type.serialize_cbor(
+            value["type"]
+        )
+    if "a_record" in value:
+        out["ARecord"] = value["a_record"]
+    if "rule_set_id" in value:
+        out["RuleSetId"] = value["rule_set_id"]
+    if "traffic_policy_id" in value:
+        out["TrafficPolicyId"] = value["traffic_policy_id"]
+    if "ingress_point_auth_configuration" in value:
+        import capo_mailmanager.types.ingress_point_auth_configuration
+
+        out["IngressPointAuthConfiguration"] = (
+            capo_mailmanager.types.ingress_point_auth_configuration.serialize_cbor(
+                value["ingress_point_auth_configuration"]
+            )
+        )
+    if "network_configuration" in value:
+        import capo_mailmanager.types.network_configuration
+
+        out["NetworkConfiguration"] = (
+            capo_mailmanager.types.network_configuration.serialize_cbor(
+                value["network_configuration"]
+            )
+        )
+    if "tls_policy" in value:
+        import capo_mailmanager.types.tls_policy
+
+        out["TlsPolicy"] = capo_mailmanager.types.tls_policy.serialize_cbor(
+            value["tls_policy"]
+        )
+    if "created_timestamp" in value:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["CreatedTimestamp"] = (
+            capo_mailmanager.types._prelude.timestamp.serialize_cbor(
+                value["created_timestamp"]
+            )
+        )
+    if "last_updated_timestamp" in value:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["LastUpdatedTimestamp"] = (
+            capo_mailmanager.types._prelude.timestamp.serialize_cbor(
+                value["last_updated_timestamp"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetIngressPointResponse:
+    out: GetIngressPointResponse = {}  # type: ignore[typeddict-item]
+    if data.get("IngressPointId") is not None:
+        out["ingress_point_id"] = data["IngressPointId"]
+    else:
+        out["ingress_point_id"] = ""
+    if data.get("IngressPointName") is not None:
+        out["ingress_point_name"] = data["IngressPointName"]
+    else:
+        out["ingress_point_name"] = ""
+    if data.get("IngressPointArn") is not None:
+        out["ingress_point_arn"] = data["IngressPointArn"]
+    if data.get("Status") is not None:
+        import capo_mailmanager.types.ingress_point_status
+
+        out["status"] = capo_mailmanager.types.ingress_point_status.deserialize_cbor(
+            data["Status"]
+        )
+    if data.get("Type") is not None:
+        import capo_mailmanager.types.ingress_point_type
+
+        out["type"] = capo_mailmanager.types.ingress_point_type.deserialize_cbor(
+            data["Type"]
+        )
+    if data.get("ARecord") is not None:
+        out["a_record"] = data["ARecord"]
+    if data.get("RuleSetId") is not None:
+        out["rule_set_id"] = data["RuleSetId"]
+    if data.get("TrafficPolicyId") is not None:
+        out["traffic_policy_id"] = data["TrafficPolicyId"]
+    if data.get("IngressPointAuthConfiguration") is not None:
+        import capo_mailmanager.types.ingress_point_auth_configuration
+
+        out["ingress_point_auth_configuration"] = (
+            capo_mailmanager.types.ingress_point_auth_configuration.deserialize_cbor(
+                data["IngressPointAuthConfiguration"]
+            )
+        )
+    if data.get("NetworkConfiguration") is not None:
+        import capo_mailmanager.types.network_configuration
+
+        out["network_configuration"] = (
+            capo_mailmanager.types.network_configuration.deserialize_cbor(
+                data["NetworkConfiguration"]
+            )
+        )
+    if data.get("TlsPolicy") is not None:
+        import capo_mailmanager.types.tls_policy
+
+        out["tls_policy"] = capo_mailmanager.types.tls_policy.deserialize_cbor(
+            data["TlsPolicy"]
+        )
+    if data.get("CreatedTimestamp") is not None:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["created_timestamp"] = (
+            capo_mailmanager.types._prelude.timestamp.deserialize_cbor(
+                data["CreatedTimestamp"]
+            )
+        )
+    if data.get("LastUpdatedTimestamp") is not None:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["last_updated_timestamp"] = (
+            capo_mailmanager.types._prelude.timestamp.deserialize_cbor(
+                data["LastUpdatedTimestamp"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: GetIngressPointResponse) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "ingress_point_auth_configuration" in value:

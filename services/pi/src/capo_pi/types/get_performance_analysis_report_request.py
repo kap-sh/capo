@@ -83,3 +83,63 @@ def deserialize_aws_json_1_1(data: dict) -> GetPerformanceAnalysisReportRequest:
             data["AcceptLanguage"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetPerformanceAnalysisReportRequest) -> dict:
+    out: dict = {}
+    import capo_pi.types.service_type
+
+    out["ServiceType"] = capo_pi.types.service_type.serialize_cbor(
+        value["service_type"]
+    )
+    out["Identifier"] = value["identifier"]
+    out["AnalysisReportId"] = value["analysis_report_id"]
+    if "text_format" in value:
+        import capo_pi.types.text_format
+
+        out["TextFormat"] = capo_pi.types.text_format.serialize_cbor(
+            value["text_format"]
+        )
+    if "accept_language" in value:
+        import capo_pi.types.accept_language
+
+        out["AcceptLanguage"] = capo_pi.types.accept_language.serialize_cbor(
+            value["accept_language"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetPerformanceAnalysisReportRequest:
+    out: GetPerformanceAnalysisReportRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ServiceType") is not None:
+        import capo_pi.types.service_type
+
+        out["service_type"] = capo_pi.types.service_type.deserialize_cbor(
+            data["ServiceType"]
+        )
+    else:
+        import typing
+
+        out["service_type"] = typing.cast("capo_pi.types.service_type.ServiceType", "")
+    if data.get("Identifier") is not None:
+        out["identifier"] = data["Identifier"]
+    else:
+        out["identifier"] = ""
+    if data.get("AnalysisReportId") is not None:
+        out["analysis_report_id"] = data["AnalysisReportId"]
+    else:
+        out["analysis_report_id"] = ""
+    if data.get("TextFormat") is not None:
+        import capo_pi.types.text_format
+
+        out["text_format"] = capo_pi.types.text_format.deserialize_cbor(
+            data["TextFormat"]
+        )
+    if data.get("AcceptLanguage") is not None:
+        import capo_pi.types.accept_language
+
+        out["accept_language"] = capo_pi.types.accept_language.deserialize_cbor(
+            data["AcceptLanguage"]
+        )
+    return out

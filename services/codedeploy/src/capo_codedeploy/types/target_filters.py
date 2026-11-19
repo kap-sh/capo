@@ -38,3 +38,31 @@ def deserialize_aws_json_1_1(data: dict) -> TargetFilters:
             capo_codedeploy.types.filter_value_list.deserialize_aws_json_1_1(value)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(input_to_serialize: TargetFilters) -> dict:
+    out: dict = {}
+    for key, value in input_to_serialize.items():
+        import capo_codedeploy.types.filter_value_list
+        import capo_codedeploy.types.target_filter_name
+
+        out[capo_codedeploy.types.target_filter_name.serialize_cbor(key)] = (
+            capo_codedeploy.types.filter_value_list.serialize_cbor(value)
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TargetFilters:
+    out: TargetFilters = {}
+    for key, value in data.items():
+        import capo_codedeploy.types.target_filter_name
+
+        if value is None:
+            continue
+        import capo_codedeploy.types.filter_value_list
+
+        out[capo_codedeploy.types.target_filter_name.deserialize_cbor(key)] = (
+            capo_codedeploy.types.filter_value_list.deserialize_cbor(value)
+        )
+    return out

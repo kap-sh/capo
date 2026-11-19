@@ -96,3 +96,32 @@ def deserialize_aws_json_1_0(data: list) -> MetricDataQueryDefinitionSummaries:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MetricDataQueryDefinitionSummaries) -> list:
+    import capo_cloudwatch.types.metric_data_query_definition_summary
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_cloudwatch.types.metric_data_query_definition_summary.serialize_cbor(
+                item
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> MetricDataQueryDefinitionSummaries:
+    import capo_cloudwatch.types.metric_data_query_definition_summary
+
+    out: MetricDataQueryDefinitionSummaries = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_cloudwatch.types.metric_data_query_definition_summary.deserialize_cbor(
+                item
+            )
+        )
+    return out

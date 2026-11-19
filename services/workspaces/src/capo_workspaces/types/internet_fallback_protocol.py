@@ -12,3 +12,12 @@ def serialize_aws_json_1_1(value: InternetFallbackProtocol) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> InternetFallbackProtocol:
     return cast(InternetFallbackProtocol, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InternetFallbackProtocol) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> InternetFallbackProtocol:
+    return cast(InternetFallbackProtocol, data)

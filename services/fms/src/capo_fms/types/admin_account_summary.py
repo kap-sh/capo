@@ -49,3 +49,35 @@ def deserialize_aws_json_1_1(data: dict) -> AdminAccountSummary:
             data["Status"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AdminAccountSummary) -> dict:
+    out: dict = {}
+    if "admin_account" in value:
+        out["AdminAccount"] = value["admin_account"]
+    out["DefaultAdmin"] = value.get("default_admin", False)
+    if "status" in value:
+        import capo_fms.types.organization_status
+
+        out["Status"] = capo_fms.types.organization_status.serialize_cbor(
+            value["status"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AdminAccountSummary:
+    out: AdminAccountSummary = {}  # type: ignore[typeddict-item]
+    if data.get("AdminAccount") is not None:
+        out["admin_account"] = data["AdminAccount"]
+    if data.get("DefaultAdmin") is not None:
+        out["default_admin"] = data["DefaultAdmin"]
+    else:
+        out["default_admin"] = False
+    if data.get("Status") is not None:
+        import capo_fms.types.organization_status
+
+        out["status"] = capo_fms.types.organization_status.deserialize_cbor(
+            data["Status"]
+        )
+    return out

@@ -42,3 +42,29 @@ def deserialize_aws_json_1_0(data: dict) -> ListTypesResponse:
     else:
         out["types"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListTypesResponse) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    import capo_keyspaces.types.type_name_list
+
+    out["types"] = capo_keyspaces.types.type_name_list.serialize_cbor(value["types"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListTypesResponse:
+    out: ListTypesResponse = {}  # type: ignore[typeddict-item]
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    if data.get("types") is not None:
+        import capo_keyspaces.types.type_name_list
+
+        out["types"] = capo_keyspaces.types.type_name_list.deserialize_cbor(
+            data["types"]
+        )
+    else:
+        out["types"] = []
+    return out

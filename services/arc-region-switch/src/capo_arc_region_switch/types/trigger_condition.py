@@ -50,3 +50,38 @@ def deserialize_aws_json_1_0(data: dict) -> TriggerCondition:
             "capo_arc_region_switch.types.alarm_condition.AlarmCondition", ""
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TriggerCondition) -> dict:
+    out: dict = {}
+    out["associatedAlarmName"] = value["associated_alarm_name"]
+    import capo_arc_region_switch.types.alarm_condition
+
+    out["condition"] = capo_arc_region_switch.types.alarm_condition.serialize_cbor(
+        value["condition"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TriggerCondition:
+    out: TriggerCondition = {}  # type: ignore[typeddict-item]
+    if data.get("associatedAlarmName") is not None:
+        out["associated_alarm_name"] = data["associatedAlarmName"]
+    else:
+        out["associated_alarm_name"] = ""
+    if data.get("condition") is not None:
+        import capo_arc_region_switch.types.alarm_condition
+
+        out["condition"] = (
+            capo_arc_region_switch.types.alarm_condition.deserialize_cbor(
+                data["condition"]
+            )
+        )
+    else:
+        import typing
+
+        out["condition"] = typing.cast(
+            "capo_arc_region_switch.types.alarm_condition.AlarmCondition", ""
+        )
+    return out

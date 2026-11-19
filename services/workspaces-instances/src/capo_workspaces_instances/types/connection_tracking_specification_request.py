@@ -44,3 +44,26 @@ def deserialize_aws_json_1_0(data: dict) -> ConnectionTrackingSpecificationReque
     if data.get("UdpTimeout") is not None:
         out["udp_timeout"] = data["UdpTimeout"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ConnectionTrackingSpecificationRequest) -> dict:
+    out: dict = {}
+    if "tcp_established_timeout" in value:
+        out["TcpEstablishedTimeout"] = value["tcp_established_timeout"]
+    if "udp_stream_timeout" in value:
+        out["UdpStreamTimeout"] = value["udp_stream_timeout"]
+    if "udp_timeout" in value:
+        out["UdpTimeout"] = value["udp_timeout"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ConnectionTrackingSpecificationRequest:
+    out: ConnectionTrackingSpecificationRequest = {}  # type: ignore[typeddict-item]
+    if data.get("TcpEstablishedTimeout") is not None:
+        out["tcp_established_timeout"] = data["TcpEstablishedTimeout"]
+    if data.get("UdpStreamTimeout") is not None:
+        out["udp_stream_timeout"] = data["UdpStreamTimeout"]
+    if data.get("UdpTimeout") is not None:
+        out["udp_timeout"] = data["UdpTimeout"]
+    return out

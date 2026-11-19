@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> DrainSessionInstanceRequest:
     if data.get("SessionId") is not None:
         out["session_id"] = data["SessionId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DrainSessionInstanceRequest) -> dict:
+    out: dict = {}
+    if "session_id" in value:
+        out["SessionId"] = value["session_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DrainSessionInstanceRequest:
+    out: DrainSessionInstanceRequest = {}  # type: ignore[typeddict-item]
+    if data.get("SessionId") is not None:
+        out["session_id"] = data["SessionId"]
+    return out

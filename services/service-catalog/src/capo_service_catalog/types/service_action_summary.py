@@ -65,3 +65,42 @@ def deserialize_aws_json_1_1(data: dict) -> ServiceActionSummary:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ServiceActionSummary) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["Id"] = value["id"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "definition_type" in value:
+        import capo_service_catalog.types.service_action_definition_type
+
+        out["DefinitionType"] = (
+            capo_service_catalog.types.service_action_definition_type.serialize_cbor(
+                value["definition_type"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ServiceActionSummary:
+    out: ServiceActionSummary = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("DefinitionType") is not None:
+        import capo_service_catalog.types.service_action_definition_type
+
+        out["definition_type"] = (
+            capo_service_catalog.types.service_action_definition_type.deserialize_cbor(
+                data["DefinitionType"]
+            )
+        )
+    return out

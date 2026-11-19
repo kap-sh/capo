@@ -80,6 +80,53 @@ def deserialize_aws_json_1_0(data: dict) -> EbsBlockDevice:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EbsBlockDevice) -> dict:
+    out: dict = {}
+    if "volume_type" in value:
+        import capo_workspaces_instances.types.volume_type_enum
+
+        out["VolumeType"] = (
+            capo_workspaces_instances.types.volume_type_enum.serialize_cbor(
+                value["volume_type"]
+            )
+        )
+    if "encrypted" in value:
+        out["Encrypted"] = value["encrypted"]
+    if "kms_key_id" in value:
+        out["KmsKeyId"] = value["kms_key_id"]
+    if "iops" in value:
+        out["Iops"] = value["iops"]
+    if "throughput" in value:
+        out["Throughput"] = value["throughput"]
+    if "volume_size" in value:
+        out["VolumeSize"] = value["volume_size"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> EbsBlockDevice:
+    out: EbsBlockDevice = {}  # type: ignore[typeddict-item]
+    if data.get("VolumeType") is not None:
+        import capo_workspaces_instances.types.volume_type_enum
+
+        out["volume_type"] = (
+            capo_workspaces_instances.types.volume_type_enum.deserialize_cbor(
+                data["VolumeType"]
+            )
+        )
+    if data.get("Encrypted") is not None:
+        out["encrypted"] = data["Encrypted"]
+    if data.get("KmsKeyId") is not None:
+        out["kms_key_id"] = data["KmsKeyId"]
+    if data.get("Iops") is not None:
+        out["iops"] = data["Iops"]
+    if data.get("Throughput") is not None:
+        out["throughput"] = data["Throughput"]
+    if data.get("VolumeSize") is not None:
+        out["volume_size"] = data["VolumeSize"]
+    return out
+
+
 def redact_sensitive(value: EbsBlockDevice) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "kms_key_id" in value:

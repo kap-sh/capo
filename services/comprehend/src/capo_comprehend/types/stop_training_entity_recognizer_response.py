@@ -16,3 +16,14 @@ def serialize_aws_json_1_1(value: StopTrainingEntityRecognizerResponse) -> dict:
 def deserialize_aws_json_1_1(data: dict) -> StopTrainingEntityRecognizerResponse:
     out: StopTrainingEntityRecognizerResponse = {}  # type: ignore[typeddict-item]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StopTrainingEntityRecognizerResponse) -> dict:
+    out: dict = {}
+    return out
+
+
+def deserialize_cbor(data: dict) -> StopTrainingEntityRecognizerResponse:
+    out: StopTrainingEntityRecognizerResponse = {}  # type: ignore[typeddict-item]
+    return out

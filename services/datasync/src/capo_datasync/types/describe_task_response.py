@@ -286,3 +286,196 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeTaskResponse:
             data["TaskMode"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeTaskResponse) -> dict:
+    out: dict = {}
+    if "task_arn" in value:
+        out["TaskArn"] = value["task_arn"]
+    if "status" in value:
+        import capo_datasync.types.task_status
+
+        out["Status"] = capo_datasync.types.task_status.serialize_cbor(value["status"])
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "current_task_execution_arn" in value:
+        out["CurrentTaskExecutionArn"] = value["current_task_execution_arn"]
+    if "source_location_arn" in value:
+        out["SourceLocationArn"] = value["source_location_arn"]
+    if "destination_location_arn" in value:
+        out["DestinationLocationArn"] = value["destination_location_arn"]
+    if "cloud_watch_log_group_arn" in value:
+        out["CloudWatchLogGroupArn"] = value["cloud_watch_log_group_arn"]
+    if "source_network_interface_arns" in value:
+        import capo_datasync.types.source_network_interface_arns
+
+        out["SourceNetworkInterfaceArns"] = (
+            capo_datasync.types.source_network_interface_arns.serialize_cbor(
+                value["source_network_interface_arns"]
+            )
+        )
+    if "destination_network_interface_arns" in value:
+        import capo_datasync.types.destination_network_interface_arns
+
+        out["DestinationNetworkInterfaceArns"] = (
+            capo_datasync.types.destination_network_interface_arns.serialize_cbor(
+                value["destination_network_interface_arns"]
+            )
+        )
+    if "options" in value:
+        import capo_datasync.types.options
+
+        out["Options"] = capo_datasync.types.options.serialize_cbor(value["options"])
+    if "excludes" in value:
+        import capo_datasync.types.filter_list
+
+        out["Excludes"] = capo_datasync.types.filter_list.serialize_cbor(
+            value["excludes"]
+        )
+    if "schedule" in value:
+        import capo_datasync.types.task_schedule
+
+        out["Schedule"] = capo_datasync.types.task_schedule.serialize_cbor(
+            value["schedule"]
+        )
+    if "error_code" in value:
+        out["ErrorCode"] = value["error_code"]
+    if "error_detail" in value:
+        out["ErrorDetail"] = value["error_detail"]
+    if "creation_time" in value:
+        import capo_datasync.types.time
+
+        out["CreationTime"] = capo_datasync.types.time.serialize_cbor(
+            value["creation_time"]
+        )
+    if "includes" in value:
+        import capo_datasync.types.filter_list
+
+        out["Includes"] = capo_datasync.types.filter_list.serialize_cbor(
+            value["includes"]
+        )
+    if "manifest_config" in value:
+        import capo_datasync.types.manifest_config
+
+        out["ManifestConfig"] = capo_datasync.types.manifest_config.serialize_cbor(
+            value["manifest_config"]
+        )
+    if "task_report_config" in value:
+        import capo_datasync.types.task_report_config
+
+        out["TaskReportConfig"] = capo_datasync.types.task_report_config.serialize_cbor(
+            value["task_report_config"]
+        )
+    if "schedule_details" in value:
+        import capo_datasync.types.task_schedule_details
+
+        out["ScheduleDetails"] = (
+            capo_datasync.types.task_schedule_details.serialize_cbor(
+                value["schedule_details"]
+            )
+        )
+    if "task_mode" in value:
+        import capo_datasync.types.task_mode
+
+        out["TaskMode"] = capo_datasync.types.task_mode.serialize_cbor(
+            value["task_mode"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeTaskResponse:
+    out: DescribeTaskResponse = {}  # type: ignore[typeddict-item]
+    if data.get("TaskArn") is not None:
+        out["task_arn"] = data["TaskArn"]
+    if data.get("Status") is not None:
+        import capo_datasync.types.task_status
+
+        out["status"] = capo_datasync.types.task_status.deserialize_cbor(data["Status"])
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("CurrentTaskExecutionArn") is not None:
+        out["current_task_execution_arn"] = data["CurrentTaskExecutionArn"]
+    if data.get("SourceLocationArn") is not None:
+        out["source_location_arn"] = data["SourceLocationArn"]
+    if data.get("DestinationLocationArn") is not None:
+        out["destination_location_arn"] = data["DestinationLocationArn"]
+    if data.get("CloudWatchLogGroupArn") is not None:
+        out["cloud_watch_log_group_arn"] = data["CloudWatchLogGroupArn"]
+    if data.get("SourceNetworkInterfaceArns") is not None:
+        import capo_datasync.types.source_network_interface_arns
+
+        out["source_network_interface_arns"] = (
+            capo_datasync.types.source_network_interface_arns.deserialize_cbor(
+                data["SourceNetworkInterfaceArns"]
+            )
+        )
+    if data.get("DestinationNetworkInterfaceArns") is not None:
+        import capo_datasync.types.destination_network_interface_arns
+
+        out["destination_network_interface_arns"] = (
+            capo_datasync.types.destination_network_interface_arns.deserialize_cbor(
+                data["DestinationNetworkInterfaceArns"]
+            )
+        )
+    if data.get("Options") is not None:
+        import capo_datasync.types.options
+
+        out["options"] = capo_datasync.types.options.deserialize_cbor(data["Options"])
+    if data.get("Excludes") is not None:
+        import capo_datasync.types.filter_list
+
+        out["excludes"] = capo_datasync.types.filter_list.deserialize_cbor(
+            data["Excludes"]
+        )
+    if data.get("Schedule") is not None:
+        import capo_datasync.types.task_schedule
+
+        out["schedule"] = capo_datasync.types.task_schedule.deserialize_cbor(
+            data["Schedule"]
+        )
+    if data.get("ErrorCode") is not None:
+        out["error_code"] = data["ErrorCode"]
+    if data.get("ErrorDetail") is not None:
+        out["error_detail"] = data["ErrorDetail"]
+    if data.get("CreationTime") is not None:
+        import capo_datasync.types.time
+
+        out["creation_time"] = capo_datasync.types.time.deserialize_cbor(
+            data["CreationTime"]
+        )
+    if data.get("Includes") is not None:
+        import capo_datasync.types.filter_list
+
+        out["includes"] = capo_datasync.types.filter_list.deserialize_cbor(
+            data["Includes"]
+        )
+    if data.get("ManifestConfig") is not None:
+        import capo_datasync.types.manifest_config
+
+        out["manifest_config"] = capo_datasync.types.manifest_config.deserialize_cbor(
+            data["ManifestConfig"]
+        )
+    if data.get("TaskReportConfig") is not None:
+        import capo_datasync.types.task_report_config
+
+        out["task_report_config"] = (
+            capo_datasync.types.task_report_config.deserialize_cbor(
+                data["TaskReportConfig"]
+            )
+        )
+    if data.get("ScheduleDetails") is not None:
+        import capo_datasync.types.task_schedule_details
+
+        out["schedule_details"] = (
+            capo_datasync.types.task_schedule_details.deserialize_cbor(
+                data["ScheduleDetails"]
+            )
+        )
+    if data.get("TaskMode") is not None:
+        import capo_datasync.types.task_mode
+
+        out["task_mode"] = capo_datasync.types.task_mode.deserialize_cbor(
+            data["TaskMode"]
+        )
+    return out

@@ -59,3 +59,46 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDetectDominantLanguageResponse:
     else:
         out["error_list"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchDetectDominantLanguageResponse) -> dict:
+    out: dict = {}
+    import capo_comprehend.types.list_of_detect_dominant_language_result
+
+    out["ResultList"] = (
+        capo_comprehend.types.list_of_detect_dominant_language_result.serialize_cbor(
+            value["result_list"]
+        )
+    )
+    import capo_comprehend.types.batch_item_error_list
+
+    out["ErrorList"] = capo_comprehend.types.batch_item_error_list.serialize_cbor(
+        value["error_list"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BatchDetectDominantLanguageResponse:
+    out: BatchDetectDominantLanguageResponse = {}  # type: ignore[typeddict-item]
+    if data.get("ResultList") is not None:
+        import capo_comprehend.types.list_of_detect_dominant_language_result
+
+        out["result_list"] = (
+            capo_comprehend.types.list_of_detect_dominant_language_result.deserialize_cbor(
+                data["ResultList"]
+            )
+        )
+    else:
+        out["result_list"] = []
+    if data.get("ErrorList") is not None:
+        import capo_comprehend.types.batch_item_error_list
+
+        out["error_list"] = (
+            capo_comprehend.types.batch_item_error_list.deserialize_cbor(
+                data["ErrorList"]
+            )
+        )
+    else:
+        out["error_list"] = []
+    return out

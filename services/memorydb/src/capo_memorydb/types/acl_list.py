@@ -27,3 +27,24 @@ def deserialize_aws_json_1_1(data: list) -> ACLList:
             continue
         out.append(capo_memorydb.types.acl.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ACLList) -> list:
+    import capo_memorydb.types.acl
+
+    out: list = []
+    for item in value:
+        out.append(capo_memorydb.types.acl.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> ACLList:
+    import capo_memorydb.types.acl
+
+    out: ACLList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_memorydb.types.acl.deserialize_cbor(item))
+    return out

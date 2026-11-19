@@ -35,3 +35,24 @@ def deserialize_aws_json_1_0(data: dict) -> GetTableRequest:
     else:
         out["table_name"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetTableRequest) -> dict:
+    out: dict = {}
+    out["keyspaceName"] = value["keyspace_name"]
+    out["tableName"] = value["table_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetTableRequest:
+    out: GetTableRequest = {}  # type: ignore[typeddict-item]
+    if data.get("keyspaceName") is not None:
+        out["keyspace_name"] = data["keyspaceName"]
+    else:
+        out["keyspace_name"] = ""
+    if data.get("tableName") is not None:
+        out["table_name"] = data["tableName"]
+    else:
+        out["table_name"] = ""
+    return out

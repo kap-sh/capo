@@ -70,3 +70,47 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateWorkloadRequest:
             "UpdateWorkloadRequest.workload_configuration required"
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateWorkloadRequest) -> dict:
+    out: dict = {}
+    out["ResourceGroupName"] = value["resource_group_name"]
+    out["ComponentName"] = value["component_name"]
+    if "workload_id" in value:
+        out["WorkloadId"] = value["workload_id"]
+    import capo_application_insights.types.workload_configuration
+
+    out["WorkloadConfiguration"] = (
+        capo_application_insights.types.workload_configuration.serialize_cbor(
+            value["workload_configuration"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateWorkloadRequest:
+    out: UpdateWorkloadRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceGroupName") is not None:
+        out["resource_group_name"] = data["ResourceGroupName"]
+    else:
+        out["resource_group_name"] = ""
+    if data.get("ComponentName") is not None:
+        out["component_name"] = data["ComponentName"]
+    else:
+        out["component_name"] = ""
+    if data.get("WorkloadId") is not None:
+        out["workload_id"] = data["WorkloadId"]
+    if data.get("WorkloadConfiguration") is not None:
+        import capo_application_insights.types.workload_configuration
+
+        out["workload_configuration"] = (
+            capo_application_insights.types.workload_configuration.deserialize_cbor(
+                data["WorkloadConfiguration"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "UpdateWorkloadRequest.workload_configuration required"
+        )
+    return out

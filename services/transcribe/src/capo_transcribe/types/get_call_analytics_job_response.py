@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> GetCallAnalyticsJobResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetCallAnalyticsJobResponse) -> dict:
+    out: dict = {}
+    if "call_analytics_job" in value:
+        import capo_transcribe.types.call_analytics_job
+
+        out["CallAnalyticsJob"] = (
+            capo_transcribe.types.call_analytics_job.serialize_cbor(
+                value["call_analytics_job"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetCallAnalyticsJobResponse:
+    out: GetCallAnalyticsJobResponse = {}  # type: ignore[typeddict-item]
+    if data.get("CallAnalyticsJob") is not None:
+        import capo_transcribe.types.call_analytics_job
+
+        out["call_analytics_job"] = (
+            capo_transcribe.types.call_analytics_job.deserialize_cbor(
+                data["CallAnalyticsJob"]
+            )
+        )
+    return out

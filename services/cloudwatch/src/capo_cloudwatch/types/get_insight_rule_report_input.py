@@ -178,3 +178,68 @@ def deserialize_query(el: Element) -> GetInsightRuleReportInput:
     if child_order_by is not None:
         out["order_by"] = str(child_order_by.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetInsightRuleReportInput) -> dict:
+    out: dict = {}
+    if "rule_name" in value:
+        out["RuleName"] = value["rule_name"]
+    if "start_time" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["StartTime"] = capo_cloudwatch.types.timestamp.serialize_cbor(
+            value["start_time"]
+        )
+    if "end_time" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["EndTime"] = capo_cloudwatch.types.timestamp.serialize_cbor(
+            value["end_time"]
+        )
+    if "period" in value:
+        out["Period"] = value["period"]
+    if "max_contributor_count" in value:
+        out["MaxContributorCount"] = value["max_contributor_count"]
+    if "metrics" in value:
+        import capo_cloudwatch.types.insight_rule_metric_list
+
+        out["Metrics"] = capo_cloudwatch.types.insight_rule_metric_list.serialize_cbor(
+            value["metrics"]
+        )
+    if "order_by" in value:
+        out["OrderBy"] = value["order_by"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetInsightRuleReportInput:
+    out: GetInsightRuleReportInput = {}  # type: ignore[typeddict-item]
+    if data.get("RuleName") is not None:
+        out["rule_name"] = data["RuleName"]
+    if data.get("StartTime") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["start_time"] = capo_cloudwatch.types.timestamp.deserialize_cbor(
+            data["StartTime"]
+        )
+    if data.get("EndTime") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["end_time"] = capo_cloudwatch.types.timestamp.deserialize_cbor(
+            data["EndTime"]
+        )
+    if data.get("Period") is not None:
+        out["period"] = data["Period"]
+    if data.get("MaxContributorCount") is not None:
+        out["max_contributor_count"] = data["MaxContributorCount"]
+    if data.get("Metrics") is not None:
+        import capo_cloudwatch.types.insight_rule_metric_list
+
+        out["metrics"] = (
+            capo_cloudwatch.types.insight_rule_metric_list.deserialize_cbor(
+                data["Metrics"]
+            )
+        )
+    if data.get("OrderBy") is not None:
+        out["order_by"] = data["OrderBy"]
+    return out

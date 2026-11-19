@@ -32,3 +32,22 @@ def deserialize_aws_json_1_1(data: dict) -> BuildStatusConfig:
     if data.get("targetUrl") is not None:
         out["target_url"] = data["targetUrl"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BuildStatusConfig) -> dict:
+    out: dict = {}
+    if "context" in value:
+        out["context"] = value["context"]
+    if "target_url" in value:
+        out["targetUrl"] = value["target_url"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> BuildStatusConfig:
+    out: BuildStatusConfig = {}  # type: ignore[typeddict-item]
+    if data.get("context") is not None:
+        out["context"] = data["context"]
+    if data.get("targetUrl") is not None:
+        out["target_url"] = data["targetUrl"]
+    return out

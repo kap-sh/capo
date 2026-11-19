@@ -69,3 +69,26 @@ def deserialize_query(el: Element) -> GetDatasetOutput:
     if child_kms_key_arn is not None:
         out["kms_key_arn"] = str(child_kms_key_arn.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetDatasetOutput) -> dict:
+    out: dict = {}
+    if "dataset_id" in value:
+        out["DatasetId"] = value["dataset_id"]
+    if "arn" in value:
+        out["Arn"] = value["arn"]
+    if "kms_key_arn" in value:
+        out["KmsKeyArn"] = value["kms_key_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetDatasetOutput:
+    out: GetDatasetOutput = {}  # type: ignore[typeddict-item]
+    if data.get("DatasetId") is not None:
+        out["dataset_id"] = data["DatasetId"]
+    if data.get("Arn") is not None:
+        out["arn"] = data["Arn"]
+    if data.get("KmsKeyArn") is not None:
+        out["kms_key_arn"] = data["KmsKeyArn"]
+    return out

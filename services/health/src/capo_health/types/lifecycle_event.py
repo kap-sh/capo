@@ -75,3 +75,50 @@ def deserialize_aws_json_1_1(data: dict) -> LifecycleEvent:
     if data.get("description") is not None:
         out["description"] = data["description"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LifecycleEvent) -> dict:
+    out: dict = {}
+    if "lifecycle_event_type" in value:
+        out["lifecycleEventType"] = value["lifecycle_event_type"]
+    if "date" in value:
+        import capo_health.types.timestamp
+
+        out["date"] = capo_health.types.timestamp.serialize_cbor(value["date"])
+    if "regions" in value:
+        import capo_health.types.region_list
+
+        out["regions"] = capo_health.types.region_list.serialize_cbor(value["regions"])
+    if "impact_risks" in value:
+        import capo_health.types.impact_risk_list
+
+        out["impactRisks"] = capo_health.types.impact_risk_list.serialize_cbor(
+            value["impact_risks"]
+        )
+    if "description" in value:
+        out["description"] = value["description"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> LifecycleEvent:
+    out: LifecycleEvent = {}  # type: ignore[typeddict-item]
+    if data.get("lifecycleEventType") is not None:
+        out["lifecycle_event_type"] = data["lifecycleEventType"]
+    if data.get("date") is not None:
+        import capo_health.types.timestamp
+
+        out["date"] = capo_health.types.timestamp.deserialize_cbor(data["date"])
+    if data.get("regions") is not None:
+        import capo_health.types.region_list
+
+        out["regions"] = capo_health.types.region_list.deserialize_cbor(data["regions"])
+    if data.get("impactRisks") is not None:
+        import capo_health.types.impact_risk_list
+
+        out["impact_risks"] = capo_health.types.impact_risk_list.deserialize_cbor(
+            data["impactRisks"]
+        )
+    if data.get("description") is not None:
+        out["description"] = data["description"]
+    return out

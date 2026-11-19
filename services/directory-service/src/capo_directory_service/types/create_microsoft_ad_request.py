@@ -132,6 +132,88 @@ def deserialize_aws_json_1_1(data: dict) -> CreateMicrosoftADRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateMicrosoftADRequest) -> dict:
+    out: dict = {}
+    out["Name"] = value["name"]
+    if "short_name" in value:
+        out["ShortName"] = value["short_name"]
+    out["Password"] = value["password"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    import capo_directory_service.types.directory_vpc_settings
+
+    out["VpcSettings"] = (
+        capo_directory_service.types.directory_vpc_settings.serialize_cbor(
+            value["vpc_settings"]
+        )
+    )
+    if "edition" in value:
+        import capo_directory_service.types.directory_edition
+
+        out["Edition"] = capo_directory_service.types.directory_edition.serialize_cbor(
+            value["edition"]
+        )
+    if "tags" in value:
+        import capo_directory_service.types.tags
+
+        out["Tags"] = capo_directory_service.types.tags.serialize_cbor(value["tags"])
+    if "network_type" in value:
+        import capo_directory_service.types.network_type
+
+        out["NetworkType"] = capo_directory_service.types.network_type.serialize_cbor(
+            value["network_type"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateMicrosoftADRequest:
+    out: CreateMicrosoftADRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    else:
+        out["name"] = ""
+    if data.get("ShortName") is not None:
+        out["short_name"] = data["ShortName"]
+    if data.get("Password") is not None:
+        out["password"] = data["Password"]
+    else:
+        out["password"] = ""
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("VpcSettings") is not None:
+        import capo_directory_service.types.directory_vpc_settings
+
+        out["vpc_settings"] = (
+            capo_directory_service.types.directory_vpc_settings.deserialize_cbor(
+                data["VpcSettings"]
+            )
+        )
+    else:
+        raise DeserializationError("CreateMicrosoftADRequest.vpc_settings required")
+    if data.get("Edition") is not None:
+        import capo_directory_service.types.directory_edition
+
+        out["edition"] = (
+            capo_directory_service.types.directory_edition.deserialize_cbor(
+                data["Edition"]
+            )
+        )
+    if data.get("Tags") is not None:
+        import capo_directory_service.types.tags
+
+        out["tags"] = capo_directory_service.types.tags.deserialize_cbor(data["Tags"])
+    if data.get("NetworkType") is not None:
+        import capo_directory_service.types.network_type
+
+        out["network_type"] = (
+            capo_directory_service.types.network_type.deserialize_cbor(
+                data["NetworkType"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: CreateMicrosoftADRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "password" in value:

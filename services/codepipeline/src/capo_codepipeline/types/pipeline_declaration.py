@@ -182,3 +182,129 @@ def deserialize_aws_json_1_1(data: dict) -> PipelineDeclaration:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PipelineDeclaration) -> dict:
+    out: dict = {}
+    out["name"] = value["name"]
+    out["roleArn"] = value["role_arn"]
+    if "artifact_store" in value:
+        import capo_codepipeline.types.artifact_store
+
+        out["artifactStore"] = capo_codepipeline.types.artifact_store.serialize_cbor(
+            value["artifact_store"]
+        )
+    if "artifact_stores" in value:
+        import capo_codepipeline.types.artifact_store_map
+
+        out["artifactStores"] = (
+            capo_codepipeline.types.artifact_store_map.serialize_cbor(
+                value["artifact_stores"]
+            )
+        )
+    import capo_codepipeline.types.pipeline_stage_declaration_list
+
+    out["stages"] = (
+        capo_codepipeline.types.pipeline_stage_declaration_list.serialize_cbor(
+            value["stages"]
+        )
+    )
+    if "version" in value:
+        out["version"] = value["version"]
+    if "execution_mode" in value:
+        import capo_codepipeline.types.execution_mode
+
+        out["executionMode"] = capo_codepipeline.types.execution_mode.serialize_cbor(
+            value["execution_mode"]
+        )
+    if "pipeline_type" in value:
+        import capo_codepipeline.types.pipeline_type
+
+        out["pipelineType"] = capo_codepipeline.types.pipeline_type.serialize_cbor(
+            value["pipeline_type"]
+        )
+    if "variables" in value:
+        import capo_codepipeline.types.pipeline_variable_declaration_list
+
+        out["variables"] = (
+            capo_codepipeline.types.pipeline_variable_declaration_list.serialize_cbor(
+                value["variables"]
+            )
+        )
+    if "triggers" in value:
+        import capo_codepipeline.types.pipeline_trigger_declaration_list
+
+        out["triggers"] = (
+            capo_codepipeline.types.pipeline_trigger_declaration_list.serialize_cbor(
+                value["triggers"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PipelineDeclaration:
+    out: PipelineDeclaration = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    else:
+        out["name"] = ""
+    if data.get("roleArn") is not None:
+        out["role_arn"] = data["roleArn"]
+    else:
+        out["role_arn"] = ""
+    if data.get("artifactStore") is not None:
+        import capo_codepipeline.types.artifact_store
+
+        out["artifact_store"] = capo_codepipeline.types.artifact_store.deserialize_cbor(
+            data["artifactStore"]
+        )
+    if data.get("artifactStores") is not None:
+        import capo_codepipeline.types.artifact_store_map
+
+        out["artifact_stores"] = (
+            capo_codepipeline.types.artifact_store_map.deserialize_cbor(
+                data["artifactStores"]
+            )
+        )
+    if data.get("stages") is not None:
+        import capo_codepipeline.types.pipeline_stage_declaration_list
+
+        out["stages"] = (
+            capo_codepipeline.types.pipeline_stage_declaration_list.deserialize_cbor(
+                data["stages"]
+            )
+        )
+    else:
+        out["stages"] = []
+    if data.get("version") is not None:
+        out["version"] = data["version"]
+    if data.get("executionMode") is not None:
+        import capo_codepipeline.types.execution_mode
+
+        out["execution_mode"] = capo_codepipeline.types.execution_mode.deserialize_cbor(
+            data["executionMode"]
+        )
+    if data.get("pipelineType") is not None:
+        import capo_codepipeline.types.pipeline_type
+
+        out["pipeline_type"] = capo_codepipeline.types.pipeline_type.deserialize_cbor(
+            data["pipelineType"]
+        )
+    if data.get("variables") is not None:
+        import capo_codepipeline.types.pipeline_variable_declaration_list
+
+        out["variables"] = (
+            capo_codepipeline.types.pipeline_variable_declaration_list.deserialize_cbor(
+                data["variables"]
+            )
+        )
+    if data.get("triggers") is not None:
+        import capo_codepipeline.types.pipeline_trigger_declaration_list
+
+        out["triggers"] = (
+            capo_codepipeline.types.pipeline_trigger_declaration_list.deserialize_cbor(
+                data["triggers"]
+            )
+        )
+    return out

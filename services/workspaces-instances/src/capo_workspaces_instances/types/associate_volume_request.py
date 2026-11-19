@@ -45,3 +45,29 @@ def deserialize_aws_json_1_0(data: dict) -> AssociateVolumeRequest:
     else:
         out["device"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AssociateVolumeRequest) -> dict:
+    out: dict = {}
+    out["WorkspaceInstanceId"] = value["workspace_instance_id"]
+    out["VolumeId"] = value["volume_id"]
+    out["Device"] = value["device"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AssociateVolumeRequest:
+    out: AssociateVolumeRequest = {}  # type: ignore[typeddict-item]
+    if data.get("WorkspaceInstanceId") is not None:
+        out["workspace_instance_id"] = data["WorkspaceInstanceId"]
+    else:
+        out["workspace_instance_id"] = ""
+    if data.get("VolumeId") is not None:
+        out["volume_id"] = data["VolumeId"]
+    else:
+        out["volume_id"] = ""
+    if data.get("Device") is not None:
+        out["device"] = data["Device"]
+    else:
+        out["device"] = ""
+    return out

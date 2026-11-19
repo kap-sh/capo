@@ -38,6 +38,30 @@ def deserialize_aws_json_1_0(data: dict) -> RetryableConflictException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RetryableConflictException_) -> dict:
+    out: dict = {}
+    out["message"] = value["message"]
+    if "resource_id" in value:
+        out["resourceId"] = value["resource_id"]
+    if "resource_type" in value:
+        out["resourceType"] = value["resource_type"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RetryableConflictException_:
+    out: RetryableConflictException_ = {}  # type: ignore[typeddict-item]
+    if data.get("message") is not None:
+        out["message"] = data["message"]
+    else:
+        out["message"] = ""
+    if data.get("resourceId") is not None:
+        out["resource_id"] = data["resourceId"]
+    if data.get("resourceType") is not None:
+        out["resource_type"] = data["resourceType"]
+    return out
+
+
 class RetryableConflictException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.arcregionswitch#RetryableConflictException``."""
 
@@ -65,3 +89,9 @@ class RetryableConflictException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "RetryableConflictException":
         return cls(deserialize_aws_json_1_0(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "RetryableConflictException":
+        return cls(deserialize_cbor(data), message, response=response)

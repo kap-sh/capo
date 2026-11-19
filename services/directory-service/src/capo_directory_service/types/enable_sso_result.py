@@ -16,3 +16,14 @@ def serialize_aws_json_1_1(value: EnableSsoResult) -> dict:
 def deserialize_aws_json_1_1(data: dict) -> EnableSsoResult:
     out: EnableSsoResult = {}  # type: ignore[typeddict-item]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EnableSsoResult) -> dict:
+    out: dict = {}
+    return out
+
+
+def deserialize_cbor(data: dict) -> EnableSsoResult:
+    out: EnableSsoResult = {}  # type: ignore[typeddict-item]
+    return out

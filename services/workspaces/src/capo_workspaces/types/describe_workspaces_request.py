@@ -82,3 +82,50 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeWorkspacesRequest:
     if data.get("WorkspaceName") is not None:
         out["workspace_name"] = data["WorkspaceName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeWorkspacesRequest) -> dict:
+    out: dict = {}
+    if "workspace_ids" in value:
+        import capo_workspaces.types.workspace_id_list
+
+        out["WorkspaceIds"] = capo_workspaces.types.workspace_id_list.serialize_cbor(
+            value["workspace_ids"]
+        )
+    if "directory_id" in value:
+        out["DirectoryId"] = value["directory_id"]
+    if "user_name" in value:
+        out["UserName"] = value["user_name"]
+    if "bundle_id" in value:
+        out["BundleId"] = value["bundle_id"]
+    if "limit" in value:
+        out["Limit"] = value["limit"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "workspace_name" in value:
+        out["WorkspaceName"] = value["workspace_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeWorkspacesRequest:
+    out: DescribeWorkspacesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("WorkspaceIds") is not None:
+        import capo_workspaces.types.workspace_id_list
+
+        out["workspace_ids"] = capo_workspaces.types.workspace_id_list.deserialize_cbor(
+            data["WorkspaceIds"]
+        )
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    if data.get("UserName") is not None:
+        out["user_name"] = data["UserName"]
+    if data.get("BundleId") is not None:
+        out["bundle_id"] = data["BundleId"]
+    if data.get("Limit") is not None:
+        out["limit"] = data["Limit"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("WorkspaceName") is not None:
+        out["workspace_name"] = data["WorkspaceName"]
+    return out

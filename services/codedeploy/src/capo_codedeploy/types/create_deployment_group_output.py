@@ -28,3 +28,18 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDeploymentGroupOutput:
     if data.get("deploymentGroupId") is not None:
         out["deployment_group_id"] = data["deploymentGroupId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateDeploymentGroupOutput) -> dict:
+    out: dict = {}
+    if "deployment_group_id" in value:
+        out["deploymentGroupId"] = value["deployment_group_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateDeploymentGroupOutput:
+    out: CreateDeploymentGroupOutput = {}  # type: ignore[typeddict-item]
+    if data.get("deploymentGroupId") is not None:
+        out["deployment_group_id"] = data["deploymentGroupId"]
+    return out

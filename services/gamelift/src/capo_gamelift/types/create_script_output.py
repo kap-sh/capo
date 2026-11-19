@@ -34,3 +34,22 @@ def deserialize_aws_json_1_1(data: dict) -> CreateScriptOutput:
             data["Script"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateScriptOutput) -> dict:
+    out: dict = {}
+    if "script" in value:
+        import capo_gamelift.types.script
+
+        out["Script"] = capo_gamelift.types.script.serialize_cbor(value["script"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateScriptOutput:
+    out: CreateScriptOutput = {}  # type: ignore[typeddict-item]
+    if data.get("Script") is not None:
+        import capo_gamelift.types.script
+
+        out["script"] = capo_gamelift.types.script.deserialize_cbor(data["Script"])
+    return out

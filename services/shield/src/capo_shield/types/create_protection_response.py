@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> CreateProtectionResponse:
     if data.get("ProtectionId") is not None:
         out["protection_id"] = data["ProtectionId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateProtectionResponse) -> dict:
+    out: dict = {}
+    if "protection_id" in value:
+        out["ProtectionId"] = value["protection_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateProtectionResponse:
+    out: CreateProtectionResponse = {}  # type: ignore[typeddict-item]
+    if data.get("ProtectionId") is not None:
+        out["protection_id"] = data["ProtectionId"]
+    return out

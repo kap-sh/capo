@@ -81,3 +81,49 @@ def deserialize_aws_json_1_1(data: dict) -> CreateInterconnectRequest:
     if data.get("requestMACSec") is not None:
         out["request_mac_sec"] = data["requestMACSec"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateInterconnectRequest) -> dict:
+    out: dict = {}
+    out["interconnectName"] = value["interconnect_name"]
+    out["bandwidth"] = value["bandwidth"]
+    out["location"] = value["location"]
+    if "lag_id" in value:
+        out["lagId"] = value["lag_id"]
+    if "tags" in value:
+        import capo_direct_connect.types.tag_list
+
+        out["tags"] = capo_direct_connect.types.tag_list.serialize_cbor(value["tags"])
+    if "provider_name" in value:
+        out["providerName"] = value["provider_name"]
+    if "request_mac_sec" in value:
+        out["requestMACSec"] = value["request_mac_sec"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateInterconnectRequest:
+    out: CreateInterconnectRequest = {}  # type: ignore[typeddict-item]
+    if data.get("interconnectName") is not None:
+        out["interconnect_name"] = data["interconnectName"]
+    else:
+        out["interconnect_name"] = ""
+    if data.get("bandwidth") is not None:
+        out["bandwidth"] = data["bandwidth"]
+    else:
+        out["bandwidth"] = ""
+    if data.get("location") is not None:
+        out["location"] = data["location"]
+    else:
+        out["location"] = ""
+    if data.get("lagId") is not None:
+        out["lag_id"] = data["lagId"]
+    if data.get("tags") is not None:
+        import capo_direct_connect.types.tag_list
+
+        out["tags"] = capo_direct_connect.types.tag_list.deserialize_cbor(data["tags"])
+    if data.get("providerName") is not None:
+        out["provider_name"] = data["providerName"]
+    if data.get("requestMACSec") is not None:
+        out["request_mac_sec"] = data["requestMACSec"]
+    return out

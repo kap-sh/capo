@@ -16,3 +16,14 @@ def serialize_aws_json_1_0(value: DropAction) -> dict:
 def deserialize_aws_json_1_0(data: dict) -> DropAction:
     out: DropAction = {}  # type: ignore[typeddict-item]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DropAction) -> dict:
+    out: dict = {}
+    return out
+
+
+def deserialize_cbor(data: dict) -> DropAction:
+    out: DropAction = {}  # type: ignore[typeddict-item]
+    return out

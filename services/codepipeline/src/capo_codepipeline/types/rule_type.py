@@ -94,3 +94,68 @@ def deserialize_aws_json_1_1(data: dict) -> RuleType:
     else:
         raise DeserializationError("RuleType.input_artifact_details required")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RuleType) -> dict:
+    out: dict = {}
+    import capo_codepipeline.types.rule_type_id
+
+    out["id"] = capo_codepipeline.types.rule_type_id.serialize_cbor(value["id"])
+    if "settings" in value:
+        import capo_codepipeline.types.rule_type_settings
+
+        out["settings"] = capo_codepipeline.types.rule_type_settings.serialize_cbor(
+            value["settings"]
+        )
+    if "rule_configuration_properties" in value:
+        import capo_codepipeline.types.rule_configuration_property_list
+
+        out["ruleConfigurationProperties"] = (
+            capo_codepipeline.types.rule_configuration_property_list.serialize_cbor(
+                value["rule_configuration_properties"]
+            )
+        )
+    import capo_codepipeline.types.artifact_details
+
+    out["inputArtifactDetails"] = (
+        capo_codepipeline.types.artifact_details.serialize_cbor(
+            value["input_artifact_details"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RuleType:
+    out: RuleType = {}  # type: ignore[typeddict-item]
+    if data.get("id") is not None:
+        import capo_codepipeline.types.rule_type_id
+
+        out["id"] = capo_codepipeline.types.rule_type_id.deserialize_cbor(data["id"])
+    else:
+        raise DeserializationError("RuleType.id required")
+    if data.get("settings") is not None:
+        import capo_codepipeline.types.rule_type_settings
+
+        out["settings"] = capo_codepipeline.types.rule_type_settings.deserialize_cbor(
+            data["settings"]
+        )
+    if data.get("ruleConfigurationProperties") is not None:
+        import capo_codepipeline.types.rule_configuration_property_list
+
+        out["rule_configuration_properties"] = (
+            capo_codepipeline.types.rule_configuration_property_list.deserialize_cbor(
+                data["ruleConfigurationProperties"]
+            )
+        )
+    if data.get("inputArtifactDetails") is not None:
+        import capo_codepipeline.types.artifact_details
+
+        out["input_artifact_details"] = (
+            capo_codepipeline.types.artifact_details.deserialize_cbor(
+                data["inputArtifactDetails"]
+            )
+        )
+    else:
+        raise DeserializationError("RuleType.input_artifact_details required")
+    return out

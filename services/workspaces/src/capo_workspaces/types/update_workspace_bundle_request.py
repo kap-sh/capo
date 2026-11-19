@@ -33,3 +33,22 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateWorkspaceBundleRequest:
     if data.get("ImageId") is not None:
         out["image_id"] = data["ImageId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateWorkspaceBundleRequest) -> dict:
+    out: dict = {}
+    if "bundle_id" in value:
+        out["BundleId"] = value["bundle_id"]
+    if "image_id" in value:
+        out["ImageId"] = value["image_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateWorkspaceBundleRequest:
+    out: UpdateWorkspaceBundleRequest = {}  # type: ignore[typeddict-item]
+    if data.get("BundleId") is not None:
+        out["bundle_id"] = data["BundleId"]
+    if data.get("ImageId") is not None:
+        out["image_id"] = data["ImageId"]
+    return out

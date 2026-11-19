@@ -187,3 +187,132 @@ def deserialize_aws_json_1_1(data: dict) -> ImportCustomWorkspaceImageRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ImportCustomWorkspaceImageRequest) -> dict:
+    out: dict = {}
+    out["ImageName"] = value["image_name"]
+    out["ImageDescription"] = value["image_description"]
+    import capo_workspaces.types.image_compute_type
+
+    out["ComputeType"] = capo_workspaces.types.image_compute_type.serialize_cbor(
+        value["compute_type"]
+    )
+    import capo_workspaces.types.custom_image_protocol
+
+    out["Protocol"] = capo_workspaces.types.custom_image_protocol.serialize_cbor(
+        value["protocol"]
+    )
+    import capo_workspaces.types.image_source_identifier
+
+    out["ImageSource"] = capo_workspaces.types.image_source_identifier.serialize_cbor(
+        value["image_source"]
+    )
+    out["InfrastructureConfigurationArn"] = value["infrastructure_configuration_arn"]
+    import capo_workspaces.types.platform
+
+    out["Platform"] = capo_workspaces.types.platform.serialize_cbor(value["platform"])
+    import capo_workspaces.types.os_version
+
+    out["OsVersion"] = capo_workspaces.types.os_version.serialize_cbor(
+        value["os_version"]
+    )
+    if "tags" in value:
+        import capo_workspaces.types.tag_list
+
+        out["Tags"] = capo_workspaces.types.tag_list.serialize_cbor(value["tags"])
+    if "image_validation_mode" in value:
+        import capo_workspaces.types.image_validation_mode
+
+        out["ImageValidationMode"] = (
+            capo_workspaces.types.image_validation_mode.serialize_cbor(
+                value["image_validation_mode"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ImportCustomWorkspaceImageRequest:
+    out: ImportCustomWorkspaceImageRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ImageName") is not None:
+        out["image_name"] = data["ImageName"]
+    else:
+        out["image_name"] = ""
+    if data.get("ImageDescription") is not None:
+        out["image_description"] = data["ImageDescription"]
+    else:
+        out["image_description"] = ""
+    if data.get("ComputeType") is not None:
+        import capo_workspaces.types.image_compute_type
+
+        out["compute_type"] = capo_workspaces.types.image_compute_type.deserialize_cbor(
+            data["ComputeType"]
+        )
+    else:
+        import typing
+
+        out["compute_type"] = typing.cast(
+            "capo_workspaces.types.image_compute_type.ImageComputeType", ""
+        )
+    if data.get("Protocol") is not None:
+        import capo_workspaces.types.custom_image_protocol
+
+        out["protocol"] = capo_workspaces.types.custom_image_protocol.deserialize_cbor(
+            data["Protocol"]
+        )
+    else:
+        import typing
+
+        out["protocol"] = typing.cast(
+            "capo_workspaces.types.custom_image_protocol.CustomImageProtocol", ""
+        )
+    if data.get("ImageSource") is not None:
+        import capo_workspaces.types.image_source_identifier
+
+        out["image_source"] = (
+            capo_workspaces.types.image_source_identifier.deserialize_cbor(
+                data["ImageSource"]
+            )
+        )
+    else:
+        out["image_source"] = {"$unknown": {"name": ""}}
+    if data.get("InfrastructureConfigurationArn") is not None:
+        out["infrastructure_configuration_arn"] = data["InfrastructureConfigurationArn"]
+    else:
+        out["infrastructure_configuration_arn"] = ""
+    if data.get("Platform") is not None:
+        import capo_workspaces.types.platform
+
+        out["platform"] = capo_workspaces.types.platform.deserialize_cbor(
+            data["Platform"]
+        )
+    else:
+        import typing
+
+        out["platform"] = typing.cast("capo_workspaces.types.platform.Platform", "")
+    if data.get("OsVersion") is not None:
+        import capo_workspaces.types.os_version
+
+        out["os_version"] = capo_workspaces.types.os_version.deserialize_cbor(
+            data["OsVersion"]
+        )
+    else:
+        import typing
+
+        out["os_version"] = typing.cast(
+            "capo_workspaces.types.os_version.OSVersion", ""
+        )
+    if data.get("Tags") is not None:
+        import capo_workspaces.types.tag_list
+
+        out["tags"] = capo_workspaces.types.tag_list.deserialize_cbor(data["Tags"])
+    if data.get("ImageValidationMode") is not None:
+        import capo_workspaces.types.image_validation_mode
+
+        out["image_validation_mode"] = (
+            capo_workspaces.types.image_validation_mode.deserialize_cbor(
+                data["ImageValidationMode"]
+            )
+        )
+    return out

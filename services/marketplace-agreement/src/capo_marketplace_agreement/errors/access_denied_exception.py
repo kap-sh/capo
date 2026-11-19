@@ -61,6 +61,41 @@ def deserialize_aws_json_1_0(data: dict) -> AccessDeniedException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AccessDeniedException_) -> dict:
+    out: dict = {}
+    if "request_id" in value:
+        out["requestId"] = value["request_id"]
+    if "message" in value:
+        out["message"] = value["message"]
+    if "reason" in value:
+        import capo_marketplace_agreement.types.access_denied_exception_reason
+
+        out["reason"] = (
+            capo_marketplace_agreement.types.access_denied_exception_reason.serialize_cbor(
+                value["reason"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AccessDeniedException_:
+    out: AccessDeniedException_ = {}  # type: ignore[typeddict-item]
+    if data.get("requestId") is not None:
+        out["request_id"] = data["requestId"]
+    if data.get("message") is not None:
+        out["message"] = data["message"]
+    if data.get("reason") is not None:
+        import capo_marketplace_agreement.types.access_denied_exception_reason
+
+        out["reason"] = (
+            capo_marketplace_agreement.types.access_denied_exception_reason.deserialize_cbor(
+                data["reason"]
+            )
+        )
+    return out
+
+
 class AccessDeniedException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.marketplaceagreement#AccessDeniedException``."""
 
@@ -88,3 +123,9 @@ class AccessDeniedException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "AccessDeniedException":
         return cls(deserialize_aws_json_1_0(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "AccessDeniedException":
+        return cls(deserialize_cbor(data), message, response=response)

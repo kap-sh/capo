@@ -27,3 +27,24 @@ def deserialize_aws_json_1_0(data: list) -> IngressPointsList:
             continue
         out.append(capo_mailmanager.types.ingress_point.deserialize_aws_json_1_0(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IngressPointsList) -> list:
+    import capo_mailmanager.types.ingress_point
+
+    out: list = []
+    for item in value:
+        out.append(capo_mailmanager.types.ingress_point.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> IngressPointsList:
+    import capo_mailmanager.types.ingress_point
+
+    out: IngressPointsList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_mailmanager.types.ingress_point.deserialize_cbor(item))
+    return out

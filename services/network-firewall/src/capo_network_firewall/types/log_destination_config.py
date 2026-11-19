@@ -85,3 +85,69 @@ def deserialize_aws_json_1_0(data: dict) -> LogDestinationConfig:
     else:
         out["log_destination"] = {}
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LogDestinationConfig) -> dict:
+    out: dict = {}
+    import capo_network_firewall.types.log_type
+
+    out["LogType"] = capo_network_firewall.types.log_type.serialize_cbor(
+        value["log_type"]
+    )
+    import capo_network_firewall.types.log_destination_type
+
+    out["LogDestinationType"] = (
+        capo_network_firewall.types.log_destination_type.serialize_cbor(
+            value["log_destination_type"]
+        )
+    )
+    import capo_network_firewall.types.log_destination_map
+
+    out["LogDestination"] = (
+        capo_network_firewall.types.log_destination_map.serialize_cbor(
+            value["log_destination"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> LogDestinationConfig:
+    out: LogDestinationConfig = {}  # type: ignore[typeddict-item]
+    if data.get("LogType") is not None:
+        import capo_network_firewall.types.log_type
+
+        out["log_type"] = capo_network_firewall.types.log_type.deserialize_cbor(
+            data["LogType"]
+        )
+    else:
+        import typing
+
+        out["log_type"] = typing.cast(
+            "capo_network_firewall.types.log_type.LogType", ""
+        )
+    if data.get("LogDestinationType") is not None:
+        import capo_network_firewall.types.log_destination_type
+
+        out["log_destination_type"] = (
+            capo_network_firewall.types.log_destination_type.deserialize_cbor(
+                data["LogDestinationType"]
+            )
+        )
+    else:
+        import typing
+
+        out["log_destination_type"] = typing.cast(
+            "capo_network_firewall.types.log_destination_type.LogDestinationType", ""
+        )
+    if data.get("LogDestination") is not None:
+        import capo_network_firewall.types.log_destination_map
+
+        out["log_destination"] = (
+            capo_network_firewall.types.log_destination_map.deserialize_cbor(
+                data["LogDestination"]
+            )
+        )
+    else:
+        out["log_destination"] = {}
+    return out

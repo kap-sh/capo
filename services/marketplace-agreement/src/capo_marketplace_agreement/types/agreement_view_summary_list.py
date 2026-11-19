@@ -37,3 +37,30 @@ def deserialize_aws_json_1_0(data: list) -> AgreementViewSummaryList:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AgreementViewSummaryList) -> list:
+    import capo_marketplace_agreement.types.agreement_view_summary
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_marketplace_agreement.types.agreement_view_summary.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> AgreementViewSummaryList:
+    import capo_marketplace_agreement.types.agreement_view_summary
+
+    out: AgreementViewSummaryList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_marketplace_agreement.types.agreement_view_summary.deserialize_cbor(
+                item
+            )
+        )
+    return out

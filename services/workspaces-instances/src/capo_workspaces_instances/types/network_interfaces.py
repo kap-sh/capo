@@ -39,6 +39,35 @@ def deserialize_aws_json_1_0(data: list) -> NetworkInterfaces:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: NetworkInterfaces) -> list:
+    import capo_workspaces_instances.types.instance_network_interface_specification
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_workspaces_instances.types.instance_network_interface_specification.serialize_cbor(
+                item
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> NetworkInterfaces:
+    import capo_workspaces_instances.types.instance_network_interface_specification
+
+    out: NetworkInterfaces = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_workspaces_instances.types.instance_network_interface_specification.deserialize_cbor(
+                item
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: NetworkInterfaces) -> list[Any]:
     import capo_workspaces_instances.types.instance_network_interface_specification
 

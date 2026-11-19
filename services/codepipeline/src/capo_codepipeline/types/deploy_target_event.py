@@ -82,3 +82,62 @@ def deserialize_aws_json_1_1(data: dict) -> DeployTargetEvent:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeployTargetEvent) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["name"] = value["name"]
+    if "status" in value:
+        out["status"] = value["status"]
+    if "start_time" in value:
+        import capo_codepipeline.types.timestamp
+
+        out["startTime"] = capo_codepipeline.types.timestamp.serialize_cbor(
+            value["start_time"]
+        )
+    if "end_time" in value:
+        import capo_codepipeline.types.timestamp
+
+        out["endTime"] = capo_codepipeline.types.timestamp.serialize_cbor(
+            value["end_time"]
+        )
+    if "context" in value:
+        import capo_codepipeline.types.deploy_target_event_context
+
+        out["context"] = (
+            capo_codepipeline.types.deploy_target_event_context.serialize_cbor(
+                value["context"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeployTargetEvent:
+    out: DeployTargetEvent = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    if data.get("status") is not None:
+        out["status"] = data["status"]
+    if data.get("startTime") is not None:
+        import capo_codepipeline.types.timestamp
+
+        out["start_time"] = capo_codepipeline.types.timestamp.deserialize_cbor(
+            data["startTime"]
+        )
+    if data.get("endTime") is not None:
+        import capo_codepipeline.types.timestamp
+
+        out["end_time"] = capo_codepipeline.types.timestamp.deserialize_cbor(
+            data["endTime"]
+        )
+    if data.get("context") is not None:
+        import capo_codepipeline.types.deploy_target_event_context
+
+        out["context"] = (
+            capo_codepipeline.types.deploy_target_event_context.deserialize_cbor(
+                data["context"]
+            )
+        )
+    return out

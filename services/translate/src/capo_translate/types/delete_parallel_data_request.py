@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteParallelDataRequest:
     else:
         out["name"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteParallelDataRequest) -> dict:
+    out: dict = {}
+    out["Name"] = value["name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteParallelDataRequest:
+    out: DeleteParallelDataRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    else:
+        out["name"] = ""
+    return out

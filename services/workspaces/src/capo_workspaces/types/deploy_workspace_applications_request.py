@@ -34,3 +34,23 @@ def deserialize_aws_json_1_1(data: dict) -> DeployWorkspaceApplicationsRequest:
     if data.get("Force") is not None:
         out["force"] = data["Force"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeployWorkspaceApplicationsRequest) -> dict:
+    out: dict = {}
+    out["WorkspaceId"] = value["workspace_id"]
+    if "force" in value:
+        out["Force"] = value["force"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeployWorkspaceApplicationsRequest:
+    out: DeployWorkspaceApplicationsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("WorkspaceId") is not None:
+        out["workspace_id"] = data["WorkspaceId"]
+    else:
+        out["workspace_id"] = ""
+    if data.get("Force") is not None:
+        out["force"] = data["Force"]
+    return out

@@ -61,3 +61,46 @@ def deserialize_aws_json_1_0(data: dict) -> InstanceMarketOptionsRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InstanceMarketOptionsRequest) -> dict:
+    out: dict = {}
+    if "market_type" in value:
+        import capo_workspaces_instances.types.market_type_enum
+
+        out["MarketType"] = (
+            capo_workspaces_instances.types.market_type_enum.serialize_cbor(
+                value["market_type"]
+            )
+        )
+    if "spot_options" in value:
+        import capo_workspaces_instances.types.spot_market_options
+
+        out["SpotOptions"] = (
+            capo_workspaces_instances.types.spot_market_options.serialize_cbor(
+                value["spot_options"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> InstanceMarketOptionsRequest:
+    out: InstanceMarketOptionsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("MarketType") is not None:
+        import capo_workspaces_instances.types.market_type_enum
+
+        out["market_type"] = (
+            capo_workspaces_instances.types.market_type_enum.deserialize_cbor(
+                data["MarketType"]
+            )
+        )
+    if data.get("SpotOptions") is not None:
+        import capo_workspaces_instances.types.spot_market_options
+
+        out["spot_options"] = (
+            capo_workspaces_instances.types.spot_market_options.deserialize_cbor(
+                data["SpotOptions"]
+            )
+        )
+    return out

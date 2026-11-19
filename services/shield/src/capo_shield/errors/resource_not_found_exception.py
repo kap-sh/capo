@@ -37,6 +37,25 @@ def deserialize_aws_json_1_1(data: dict) -> ResourceNotFoundException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResourceNotFoundException_) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["message"] = value["message"]
+    if "resource_type" in value:
+        out["resourceType"] = value["resource_type"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ResourceNotFoundException_:
+    out: ResourceNotFoundException_ = {}  # type: ignore[typeddict-item]
+    if data.get("message") is not None:
+        out["message"] = data["message"]
+    if data.get("resourceType") is not None:
+        out["resource_type"] = data["resourceType"]
+    return out
+
+
 class ResourceNotFoundException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.shield#ResourceNotFoundException``."""
 
@@ -64,3 +83,9 @@ class ResourceNotFoundException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ResourceNotFoundException":
         return cls(deserialize_aws_json_1_1(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "ResourceNotFoundException":
+        return cls(deserialize_cbor(data), message, response=response)

@@ -58,3 +58,38 @@ def deserialize_aws_json_1_1(data: dict) -> ExecutionParameter:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExecutionParameter) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "type" in value:
+        out["Type"] = value["type"]
+    if "default_values" in value:
+        import capo_service_catalog.types.execution_parameter_value_list
+
+        out["DefaultValues"] = (
+            capo_service_catalog.types.execution_parameter_value_list.serialize_cbor(
+                value["default_values"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ExecutionParameter:
+    out: ExecutionParameter = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Type") is not None:
+        out["type"] = data["Type"]
+    if data.get("DefaultValues") is not None:
+        import capo_service_catalog.types.execution_parameter_value_list
+
+        out["default_values"] = (
+            capo_service_catalog.types.execution_parameter_value_list.deserialize_cbor(
+                data["DefaultValues"]
+            )
+        )
+    return out

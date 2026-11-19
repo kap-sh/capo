@@ -49,3 +49,34 @@ def deserialize_aws_json_1_0(data: dict) -> ListAutomationEventStepsResponse:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListAutomationEventStepsResponse) -> dict:
+    out: dict = {}
+    if "automation_event_steps" in value:
+        import capo_compute_optimizer_automation.types.automation_event_steps
+
+        out["automationEventSteps"] = (
+            capo_compute_optimizer_automation.types.automation_event_steps.serialize_cbor(
+                value["automation_event_steps"]
+            )
+        )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListAutomationEventStepsResponse:
+    out: ListAutomationEventStepsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("automationEventSteps") is not None:
+        import capo_compute_optimizer_automation.types.automation_event_steps
+
+        out["automation_event_steps"] = (
+            capo_compute_optimizer_automation.types.automation_event_steps.deserialize_cbor(
+                data["automationEventSteps"]
+            )
+        )
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

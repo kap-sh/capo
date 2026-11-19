@@ -27,3 +27,24 @@ def deserialize_aws_json_1_1(data: list) -> TargetFilterList:
             continue
         out.append(capo_codepipeline.types.target_filter.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TargetFilterList) -> list:
+    import capo_codepipeline.types.target_filter
+
+    out: list = []
+    for item in value:
+        out.append(capo_codepipeline.types.target_filter.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> TargetFilterList:
+    import capo_codepipeline.types.target_filter
+
+    out: TargetFilterList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_codepipeline.types.target_filter.deserialize_cbor(item))
+    return out

@@ -33,3 +33,24 @@ def deserialize_aws_json_1_0(data: list) -> SyncConfigurationList:
             capo_codeconnections.types.sync_configuration.deserialize_aws_json_1_0(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SyncConfigurationList) -> list:
+    import capo_codeconnections.types.sync_configuration
+
+    out: list = []
+    for item in value:
+        out.append(capo_codeconnections.types.sync_configuration.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> SyncConfigurationList:
+    import capo_codeconnections.types.sync_configuration
+
+    out: SyncConfigurationList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_codeconnections.types.sync_configuration.deserialize_cbor(item))
+    return out

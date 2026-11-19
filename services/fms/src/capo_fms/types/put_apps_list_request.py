@@ -52,3 +52,33 @@ def deserialize_aws_json_1_1(data: dict) -> PutAppsListRequest:
             data["TagList"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PutAppsListRequest) -> dict:
+    out: dict = {}
+    import capo_fms.types.apps_list_data
+
+    out["AppsList"] = capo_fms.types.apps_list_data.serialize_cbor(value["apps_list"])
+    if "tag_list" in value:
+        import capo_fms.types.tag_list
+
+        out["TagList"] = capo_fms.types.tag_list.serialize_cbor(value["tag_list"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> PutAppsListRequest:
+    out: PutAppsListRequest = {}  # type: ignore[typeddict-item]
+    if data.get("AppsList") is not None:
+        import capo_fms.types.apps_list_data
+
+        out["apps_list"] = capo_fms.types.apps_list_data.deserialize_cbor(
+            data["AppsList"]
+        )
+    else:
+        raise DeserializationError("PutAppsListRequest.apps_list required")
+    if data.get("TagList") is not None:
+        import capo_fms.types.tag_list
+
+        out["tag_list"] = capo_fms.types.tag_list.deserialize_cbor(data["TagList"])
+    return out

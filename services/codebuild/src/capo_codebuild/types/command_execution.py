@@ -149,6 +149,101 @@ def deserialize_aws_json_1_1(data: dict) -> CommandExecution:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CommandExecution) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["id"] = value["id"]
+    if "sandbox_id" in value:
+        out["sandboxId"] = value["sandbox_id"]
+    if "submit_time" in value:
+        import capo_codebuild.types.timestamp
+
+        out["submitTime"] = capo_codebuild.types.timestamp.serialize_cbor(
+            value["submit_time"]
+        )
+    if "start_time" in value:
+        import capo_codebuild.types.timestamp
+
+        out["startTime"] = capo_codebuild.types.timestamp.serialize_cbor(
+            value["start_time"]
+        )
+    if "end_time" in value:
+        import capo_codebuild.types.timestamp
+
+        out["endTime"] = capo_codebuild.types.timestamp.serialize_cbor(
+            value["end_time"]
+        )
+    if "status" in value:
+        out["status"] = value["status"]
+    if "command" in value:
+        out["command"] = value["command"]
+    if "type" in value:
+        import capo_codebuild.types.command_type
+
+        out["type"] = capo_codebuild.types.command_type.serialize_cbor(value["type"])
+    if "exit_code" in value:
+        out["exitCode"] = value["exit_code"]
+    if "standard_output_content" in value:
+        out["standardOutputContent"] = value["standard_output_content"]
+    if "standard_err_content" in value:
+        out["standardErrContent"] = value["standard_err_content"]
+    if "logs" in value:
+        import capo_codebuild.types.logs_location
+
+        out["logs"] = capo_codebuild.types.logs_location.serialize_cbor(value["logs"])
+    if "sandbox_arn" in value:
+        out["sandboxArn"] = value["sandbox_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CommandExecution:
+    out: CommandExecution = {}  # type: ignore[typeddict-item]
+    if data.get("id") is not None:
+        out["id"] = data["id"]
+    if data.get("sandboxId") is not None:
+        out["sandbox_id"] = data["sandboxId"]
+    if data.get("submitTime") is not None:
+        import capo_codebuild.types.timestamp
+
+        out["submit_time"] = capo_codebuild.types.timestamp.deserialize_cbor(
+            data["submitTime"]
+        )
+    if data.get("startTime") is not None:
+        import capo_codebuild.types.timestamp
+
+        out["start_time"] = capo_codebuild.types.timestamp.deserialize_cbor(
+            data["startTime"]
+        )
+    if data.get("endTime") is not None:
+        import capo_codebuild.types.timestamp
+
+        out["end_time"] = capo_codebuild.types.timestamp.deserialize_cbor(
+            data["endTime"]
+        )
+    if data.get("status") is not None:
+        out["status"] = data["status"]
+    if data.get("command") is not None:
+        out["command"] = data["command"]
+    if data.get("type") is not None:
+        import capo_codebuild.types.command_type
+
+        out["type"] = capo_codebuild.types.command_type.deserialize_cbor(data["type"])
+    if data.get("exitCode") is not None:
+        out["exit_code"] = data["exitCode"]
+    if data.get("standardOutputContent") is not None:
+        out["standard_output_content"] = data["standardOutputContent"]
+    if data.get("standardErrContent") is not None:
+        out["standard_err_content"] = data["standardErrContent"]
+    if data.get("logs") is not None:
+        import capo_codebuild.types.logs_location
+
+        out["logs"] = capo_codebuild.types.logs_location.deserialize_cbor(data["logs"])
+    if data.get("sandboxArn") is not None:
+        out["sandbox_arn"] = data["sandboxArn"]
+    return out
+
+
 def redact_sensitive(value: CommandExecution) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "command" in value:

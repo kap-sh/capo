@@ -34,3 +34,26 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeTagKeysResponse:
             data["keys"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeTagKeysResponse) -> dict:
+    out: dict = {}
+    if "keys" in value:
+        import capo_health.types.resource_tag_key_list
+
+        out["keys"] = capo_health.types.resource_tag_key_list.serialize_cbor(
+            value["keys"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeTagKeysResponse:
+    out: DescribeTagKeysResponse = {}  # type: ignore[typeddict-item]
+    if data.get("keys") is not None:
+        import capo_health.types.resource_tag_key_list
+
+        out["keys"] = capo_health.types.resource_tag_key_list.deserialize_cbor(
+            data["keys"]
+        )
+    return out

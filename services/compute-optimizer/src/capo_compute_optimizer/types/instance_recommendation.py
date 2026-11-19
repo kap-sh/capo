@@ -348,3 +348,243 @@ def deserialize_aws_json_1_0(data: dict) -> InstanceRecommendation:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InstanceRecommendation) -> dict:
+    out: dict = {}
+    if "instance_arn" in value:
+        out["instanceArn"] = value["instance_arn"]
+    if "account_id" in value:
+        out["accountId"] = value["account_id"]
+    if "instance_name" in value:
+        out["instanceName"] = value["instance_name"]
+    if "current_instance_type" in value:
+        out["currentInstanceType"] = value["current_instance_type"]
+    if "finding" in value:
+        import capo_compute_optimizer.types.finding
+
+        out["finding"] = capo_compute_optimizer.types.finding.serialize_cbor(
+            value["finding"]
+        )
+    if "finding_reason_codes" in value:
+        import capo_compute_optimizer.types.instance_recommendation_finding_reason_codes
+
+        out["findingReasonCodes"] = (
+            capo_compute_optimizer.types.instance_recommendation_finding_reason_codes.serialize_cbor(
+                value["finding_reason_codes"]
+            )
+        )
+    if "utilization_metrics" in value:
+        import capo_compute_optimizer.types.utilization_metrics
+
+        out["utilizationMetrics"] = (
+            capo_compute_optimizer.types.utilization_metrics.serialize_cbor(
+                value["utilization_metrics"]
+            )
+        )
+    out["lookBackPeriodInDays"] = value.get("look_back_period_in_days", 0)
+    if "recommendation_options" in value:
+        import capo_compute_optimizer.types.recommendation_options
+
+        out["recommendationOptions"] = (
+            capo_compute_optimizer.types.recommendation_options.serialize_cbor(
+                value["recommendation_options"]
+            )
+        )
+    if "recommendation_sources" in value:
+        import capo_compute_optimizer.types.recommendation_sources
+
+        out["recommendationSources"] = (
+            capo_compute_optimizer.types.recommendation_sources.serialize_cbor(
+                value["recommendation_sources"]
+            )
+        )
+    if "last_refresh_timestamp" in value:
+        import capo_compute_optimizer.types.last_refresh_timestamp
+
+        out["lastRefreshTimestamp"] = (
+            capo_compute_optimizer.types.last_refresh_timestamp.serialize_cbor(
+                value["last_refresh_timestamp"]
+            )
+        )
+    if "current_performance_risk" in value:
+        import capo_compute_optimizer.types.current_performance_risk
+
+        out["currentPerformanceRisk"] = (
+            capo_compute_optimizer.types.current_performance_risk.serialize_cbor(
+                value["current_performance_risk"]
+            )
+        )
+    if "effective_recommendation_preferences" in value:
+        import capo_compute_optimizer.types.effective_recommendation_preferences
+
+        out["effectiveRecommendationPreferences"] = (
+            capo_compute_optimizer.types.effective_recommendation_preferences.serialize_cbor(
+                value["effective_recommendation_preferences"]
+            )
+        )
+    if "inferred_workload_types" in value:
+        import capo_compute_optimizer.types.inferred_workload_types
+
+        out["inferredWorkloadTypes"] = (
+            capo_compute_optimizer.types.inferred_workload_types.serialize_cbor(
+                value["inferred_workload_types"]
+            )
+        )
+    if "instance_state" in value:
+        import capo_compute_optimizer.types.instance_state
+
+        out["instanceState"] = (
+            capo_compute_optimizer.types.instance_state.serialize_cbor(
+                value["instance_state"]
+            )
+        )
+    if "tags" in value:
+        import capo_compute_optimizer.types.tags
+
+        out["tags"] = capo_compute_optimizer.types.tags.serialize_cbor(value["tags"])
+    if "external_metric_status" in value:
+        import capo_compute_optimizer.types.external_metric_status
+
+        out["externalMetricStatus"] = (
+            capo_compute_optimizer.types.external_metric_status.serialize_cbor(
+                value["external_metric_status"]
+            )
+        )
+    if "current_instance_gpu_info" in value:
+        import capo_compute_optimizer.types.gpu_info
+
+        out["currentInstanceGpuInfo"] = (
+            capo_compute_optimizer.types.gpu_info.serialize_cbor(
+                value["current_instance_gpu_info"]
+            )
+        )
+    if "idle" in value:
+        import capo_compute_optimizer.types.instance_idle
+
+        out["idle"] = capo_compute_optimizer.types.instance_idle.serialize_cbor(
+            value["idle"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> InstanceRecommendation:
+    out: InstanceRecommendation = {}  # type: ignore[typeddict-item]
+    if data.get("instanceArn") is not None:
+        out["instance_arn"] = data["instanceArn"]
+    if data.get("accountId") is not None:
+        out["account_id"] = data["accountId"]
+    if data.get("instanceName") is not None:
+        out["instance_name"] = data["instanceName"]
+    if data.get("currentInstanceType") is not None:
+        out["current_instance_type"] = data["currentInstanceType"]
+    if data.get("finding") is not None:
+        import capo_compute_optimizer.types.finding
+
+        out["finding"] = capo_compute_optimizer.types.finding.deserialize_cbor(
+            data["finding"]
+        )
+    if data.get("findingReasonCodes") is not None:
+        import capo_compute_optimizer.types.instance_recommendation_finding_reason_codes
+
+        out["finding_reason_codes"] = (
+            capo_compute_optimizer.types.instance_recommendation_finding_reason_codes.deserialize_cbor(
+                data["findingReasonCodes"]
+            )
+        )
+    if data.get("utilizationMetrics") is not None:
+        import capo_compute_optimizer.types.utilization_metrics
+
+        out["utilization_metrics"] = (
+            capo_compute_optimizer.types.utilization_metrics.deserialize_cbor(
+                data["utilizationMetrics"]
+            )
+        )
+    if data.get("lookBackPeriodInDays") is not None:
+        out["look_back_period_in_days"] = float(data["lookBackPeriodInDays"])
+    else:
+        out["look_back_period_in_days"] = 0
+    if data.get("recommendationOptions") is not None:
+        import capo_compute_optimizer.types.recommendation_options
+
+        out["recommendation_options"] = (
+            capo_compute_optimizer.types.recommendation_options.deserialize_cbor(
+                data["recommendationOptions"]
+            )
+        )
+    if data.get("recommendationSources") is not None:
+        import capo_compute_optimizer.types.recommendation_sources
+
+        out["recommendation_sources"] = (
+            capo_compute_optimizer.types.recommendation_sources.deserialize_cbor(
+                data["recommendationSources"]
+            )
+        )
+    if data.get("lastRefreshTimestamp") is not None:
+        import capo_compute_optimizer.types.last_refresh_timestamp
+
+        out["last_refresh_timestamp"] = (
+            capo_compute_optimizer.types.last_refresh_timestamp.deserialize_cbor(
+                data["lastRefreshTimestamp"]
+            )
+        )
+    if data.get("currentPerformanceRisk") is not None:
+        import capo_compute_optimizer.types.current_performance_risk
+
+        out["current_performance_risk"] = (
+            capo_compute_optimizer.types.current_performance_risk.deserialize_cbor(
+                data["currentPerformanceRisk"]
+            )
+        )
+    if data.get("effectiveRecommendationPreferences") is not None:
+        import capo_compute_optimizer.types.effective_recommendation_preferences
+
+        out["effective_recommendation_preferences"] = (
+            capo_compute_optimizer.types.effective_recommendation_preferences.deserialize_cbor(
+                data["effectiveRecommendationPreferences"]
+            )
+        )
+    if data.get("inferredWorkloadTypes") is not None:
+        import capo_compute_optimizer.types.inferred_workload_types
+
+        out["inferred_workload_types"] = (
+            capo_compute_optimizer.types.inferred_workload_types.deserialize_cbor(
+                data["inferredWorkloadTypes"]
+            )
+        )
+    if data.get("instanceState") is not None:
+        import capo_compute_optimizer.types.instance_state
+
+        out["instance_state"] = (
+            capo_compute_optimizer.types.instance_state.deserialize_cbor(
+                data["instanceState"]
+            )
+        )
+    if data.get("tags") is not None:
+        import capo_compute_optimizer.types.tags
+
+        out["tags"] = capo_compute_optimizer.types.tags.deserialize_cbor(data["tags"])
+    if data.get("externalMetricStatus") is not None:
+        import capo_compute_optimizer.types.external_metric_status
+
+        out["external_metric_status"] = (
+            capo_compute_optimizer.types.external_metric_status.deserialize_cbor(
+                data["externalMetricStatus"]
+            )
+        )
+    if data.get("currentInstanceGpuInfo") is not None:
+        import capo_compute_optimizer.types.gpu_info
+
+        out["current_instance_gpu_info"] = (
+            capo_compute_optimizer.types.gpu_info.deserialize_cbor(
+                data["currentInstanceGpuInfo"]
+            )
+        )
+    if data.get("idle") is not None:
+        import capo_compute_optimizer.types.instance_idle
+
+        out["idle"] = capo_compute_optimizer.types.instance_idle.deserialize_cbor(
+            data["idle"]
+        )
+    return out

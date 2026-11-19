@@ -39,3 +39,12 @@ def serialize_query(
 
 def deserialize_query(el: Element) -> AnomalyDetectorOutlierFilteringStrength:
     return from_query_text(el.text or "")
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AnomalyDetectorOutlierFilteringStrength) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> AnomalyDetectorOutlierFilteringStrength:
+    return cast(AnomalyDetectorOutlierFilteringStrength, data)

@@ -34,3 +34,12 @@ def serialize_aws_json_1_0(value: ExportableLicenseField) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> ExportableLicenseField:
     return cast(ExportableLicenseField, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExportableLicenseField) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ExportableLicenseField:
+    return cast(ExportableLicenseField, data)

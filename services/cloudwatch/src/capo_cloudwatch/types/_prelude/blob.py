@@ -29,3 +29,12 @@ def serialize_query(value: bytes, pairs: list[tuple[str, str]], prefix: str) -> 
 
 def deserialize_query(el: Element) -> bytes:
     return from_query_text(el.text or "")
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: bytes) -> bytes:
+    return value
+
+
+def deserialize_cbor(data: bytes) -> bytes:
+    return data

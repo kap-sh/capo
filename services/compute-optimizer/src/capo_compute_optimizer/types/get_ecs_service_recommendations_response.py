@@ -68,3 +68,50 @@ def deserialize_aws_json_1_0(data: dict) -> GetECSServiceRecommendationsResponse
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetECSServiceRecommendationsResponse) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    if "ecs_service_recommendations" in value:
+        import capo_compute_optimizer.types.ecs_service_recommendations
+
+        out["ecsServiceRecommendations"] = (
+            capo_compute_optimizer.types.ecs_service_recommendations.serialize_cbor(
+                value["ecs_service_recommendations"]
+            )
+        )
+    if "errors" in value:
+        import capo_compute_optimizer.types.get_recommendation_errors
+
+        out["errors"] = (
+            capo_compute_optimizer.types.get_recommendation_errors.serialize_cbor(
+                value["errors"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetECSServiceRecommendationsResponse:
+    out: GetECSServiceRecommendationsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    if data.get("ecsServiceRecommendations") is not None:
+        import capo_compute_optimizer.types.ecs_service_recommendations
+
+        out["ecs_service_recommendations"] = (
+            capo_compute_optimizer.types.ecs_service_recommendations.deserialize_cbor(
+                data["ecsServiceRecommendations"]
+            )
+        )
+    if data.get("errors") is not None:
+        import capo_compute_optimizer.types.get_recommendation_errors
+
+        out["errors"] = (
+            capo_compute_optimizer.types.get_recommendation_errors.deserialize_cbor(
+                data["errors"]
+            )
+        )
+    return out

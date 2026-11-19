@@ -94,3 +94,58 @@ def deserialize_aws_json_1_1(data: dict) -> CreateBuildInput:
     if data.get("ServerSdkVersion") is not None:
         out["server_sdk_version"] = data["ServerSdkVersion"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateBuildInput) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "version" in value:
+        out["Version"] = value["version"]
+    if "storage_location" in value:
+        import capo_gamelift.types.s3_location
+
+        out["StorageLocation"] = capo_gamelift.types.s3_location.serialize_cbor(
+            value["storage_location"]
+        )
+    if "operating_system" in value:
+        import capo_gamelift.types.operating_system
+
+        out["OperatingSystem"] = capo_gamelift.types.operating_system.serialize_cbor(
+            value["operating_system"]
+        )
+    if "tags" in value:
+        import capo_gamelift.types.tag_list
+
+        out["Tags"] = capo_gamelift.types.tag_list.serialize_cbor(value["tags"])
+    if "server_sdk_version" in value:
+        out["ServerSdkVersion"] = value["server_sdk_version"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateBuildInput:
+    out: CreateBuildInput = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Version") is not None:
+        out["version"] = data["Version"]
+    if data.get("StorageLocation") is not None:
+        import capo_gamelift.types.s3_location
+
+        out["storage_location"] = capo_gamelift.types.s3_location.deserialize_cbor(
+            data["StorageLocation"]
+        )
+    if data.get("OperatingSystem") is not None:
+        import capo_gamelift.types.operating_system
+
+        out["operating_system"] = capo_gamelift.types.operating_system.deserialize_cbor(
+            data["OperatingSystem"]
+        )
+    if data.get("Tags") is not None:
+        import capo_gamelift.types.tag_list
+
+        out["tags"] = capo_gamelift.types.tag_list.deserialize_cbor(data["Tags"])
+    if data.get("ServerSdkVersion") is not None:
+        out["server_sdk_version"] = data["ServerSdkVersion"]
+    return out

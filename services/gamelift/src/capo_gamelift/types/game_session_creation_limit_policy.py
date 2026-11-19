@@ -36,3 +36,22 @@ def deserialize_aws_json_1_1(data: dict) -> GameSessionCreationLimitPolicy:
     if data.get("PolicyPeriodInMinutes") is not None:
         out["policy_period_in_minutes"] = data["PolicyPeriodInMinutes"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GameSessionCreationLimitPolicy) -> dict:
+    out: dict = {}
+    if "new_game_sessions_per_creator" in value:
+        out["NewGameSessionsPerCreator"] = value["new_game_sessions_per_creator"]
+    if "policy_period_in_minutes" in value:
+        out["PolicyPeriodInMinutes"] = value["policy_period_in_minutes"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GameSessionCreationLimitPolicy:
+    out: GameSessionCreationLimitPolicy = {}  # type: ignore[typeddict-item]
+    if data.get("NewGameSessionsPerCreator") is not None:
+        out["new_game_sessions_per_creator"] = data["NewGameSessionsPerCreator"]
+    if data.get("PolicyPeriodInMinutes") is not None:
+        out["policy_period_in_minutes"] = data["PolicyPeriodInMinutes"]
+    return out

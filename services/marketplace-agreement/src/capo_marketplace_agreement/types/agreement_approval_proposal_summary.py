@@ -84,3 +84,61 @@ def deserialize_aws_json_1_0(data: dict) -> AgreementApprovalProposalSummary:
             "",
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AgreementApprovalProposalSummary) -> dict:
+    out: dict = {}
+    out["offerId"] = value["offer_id"]
+    if "offer_set_id" in value:
+        out["offerSetId"] = value["offer_set_id"]
+    if "resources" in value:
+        import capo_marketplace_agreement.types.agreement_approval_resources
+
+        out["resources"] = (
+            capo_marketplace_agreement.types.agreement_approval_resources.serialize_cbor(
+                value["resources"]
+            )
+        )
+    import capo_marketplace_agreement.types.offer_visibility_scope
+
+    out["visibilityScope"] = (
+        capo_marketplace_agreement.types.offer_visibility_scope.serialize_cbor(
+            value["visibility_scope"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AgreementApprovalProposalSummary:
+    out: AgreementApprovalProposalSummary = {}  # type: ignore[typeddict-item]
+    if data.get("offerId") is not None:
+        out["offer_id"] = data["offerId"]
+    else:
+        out["offer_id"] = ""
+    if data.get("offerSetId") is not None:
+        out["offer_set_id"] = data["offerSetId"]
+    if data.get("resources") is not None:
+        import capo_marketplace_agreement.types.agreement_approval_resources
+
+        out["resources"] = (
+            capo_marketplace_agreement.types.agreement_approval_resources.deserialize_cbor(
+                data["resources"]
+            )
+        )
+    if data.get("visibilityScope") is not None:
+        import capo_marketplace_agreement.types.offer_visibility_scope
+
+        out["visibility_scope"] = (
+            capo_marketplace_agreement.types.offer_visibility_scope.deserialize_cbor(
+                data["visibilityScope"]
+            )
+        )
+    else:
+        import typing
+
+        out["visibility_scope"] = typing.cast(
+            "capo_marketplace_agreement.types.offer_visibility_scope.OfferVisibilityScope",
+            "",
+        )
+    return out

@@ -38,3 +38,26 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateParameterGroupResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateParameterGroupResponse) -> dict:
+    out: dict = {}
+    if "parameter_group" in value:
+        import capo_memorydb.types.parameter_group
+
+        out["ParameterGroup"] = capo_memorydb.types.parameter_group.serialize_cbor(
+            value["parameter_group"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateParameterGroupResponse:
+    out: UpdateParameterGroupResponse = {}  # type: ignore[typeddict-item]
+    if data.get("ParameterGroup") is not None:
+        import capo_memorydb.types.parameter_group
+
+        out["parameter_group"] = capo_memorydb.types.parameter_group.deserialize_cbor(
+            data["ParameterGroup"]
+        )
+    return out

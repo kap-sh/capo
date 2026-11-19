@@ -42,3 +42,26 @@ def deserialize_aws_json_1_1(data: dict) -> ExecutionDetails:
     if data.get("percentComplete") is not None:
         out["percent_complete"] = data["percentComplete"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExecutionDetails) -> dict:
+    out: dict = {}
+    if "summary" in value:
+        out["summary"] = value["summary"]
+    if "external_execution_id" in value:
+        out["externalExecutionId"] = value["external_execution_id"]
+    if "percent_complete" in value:
+        out["percentComplete"] = value["percent_complete"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ExecutionDetails:
+    out: ExecutionDetails = {}  # type: ignore[typeddict-item]
+    if data.get("summary") is not None:
+        out["summary"] = data["summary"]
+    if data.get("externalExecutionId") is not None:
+        out["external_execution_id"] = data["externalExecutionId"]
+    if data.get("percentComplete") is not None:
+        out["percent_complete"] = data["percentComplete"]
+    return out

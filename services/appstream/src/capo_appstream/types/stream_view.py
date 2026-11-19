@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: StreamView) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> StreamView:
     return cast(StreamView, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StreamView) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> StreamView:
+    return cast(StreamView, data)

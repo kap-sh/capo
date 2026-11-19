@@ -64,3 +64,38 @@ def deserialize_aws_json_1_1(data: dict) -> Geometry:
     if data.get("RotationAngle") is not None:
         out["rotation_angle"] = float(data["RotationAngle"])
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Geometry) -> dict:
+    out: dict = {}
+    if "bounding_box" in value:
+        import capo_textract.types.bounding_box
+
+        out["BoundingBox"] = capo_textract.types.bounding_box.serialize_cbor(
+            value["bounding_box"]
+        )
+    if "polygon" in value:
+        import capo_textract.types.polygon
+
+        out["Polygon"] = capo_textract.types.polygon.serialize_cbor(value["polygon"])
+    if "rotation_angle" in value:
+        out["RotationAngle"] = value["rotation_angle"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Geometry:
+    out: Geometry = {}  # type: ignore[typeddict-item]
+    if data.get("BoundingBox") is not None:
+        import capo_textract.types.bounding_box
+
+        out["bounding_box"] = capo_textract.types.bounding_box.deserialize_cbor(
+            data["BoundingBox"]
+        )
+    if data.get("Polygon") is not None:
+        import capo_textract.types.polygon
+
+        out["polygon"] = capo_textract.types.polygon.deserialize_cbor(data["Polygon"])
+    if data.get("RotationAngle") is not None:
+        out["rotation_angle"] = float(data["RotationAngle"])
+    return out

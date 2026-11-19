@@ -42,3 +42,12 @@ def serialize_aws_json_1_0(value: ExportableECSServiceField) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> ExportableECSServiceField:
     return cast(ExportableECSServiceField, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExportableECSServiceField) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ExportableECSServiceField:
+    return cast(ExportableECSServiceField, data)

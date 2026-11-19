@@ -56,3 +56,40 @@ def deserialize_aws_json_1_0(data: dict) -> DeliverToMailboxAction:
     else:
         out["role_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeliverToMailboxAction) -> dict:
+    out: dict = {}
+    if "action_failure_policy" in value:
+        import capo_mailmanager.types.action_failure_policy
+
+        out["ActionFailurePolicy"] = (
+            capo_mailmanager.types.action_failure_policy.serialize_cbor(
+                value["action_failure_policy"]
+            )
+        )
+    out["MailboxArn"] = value["mailbox_arn"]
+    out["RoleArn"] = value["role_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeliverToMailboxAction:
+    out: DeliverToMailboxAction = {}  # type: ignore[typeddict-item]
+    if data.get("ActionFailurePolicy") is not None:
+        import capo_mailmanager.types.action_failure_policy
+
+        out["action_failure_policy"] = (
+            capo_mailmanager.types.action_failure_policy.deserialize_cbor(
+                data["ActionFailurePolicy"]
+            )
+        )
+    if data.get("MailboxArn") is not None:
+        out["mailbox_arn"] = data["MailboxArn"]
+    else:
+        out["mailbox_arn"] = ""
+    if data.get("RoleArn") is not None:
+        out["role_arn"] = data["RoleArn"]
+    else:
+        out["role_arn"] = ""
+    return out

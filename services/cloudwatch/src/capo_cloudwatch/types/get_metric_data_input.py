@@ -208,3 +208,82 @@ def deserialize_query(el: Element) -> GetMetricDataInput:
             child_label_options
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetMetricDataInput) -> dict:
+    out: dict = {}
+    if "metric_data_queries" in value:
+        import capo_cloudwatch.types.metric_data_queries
+
+        out["MetricDataQueries"] = (
+            capo_cloudwatch.types.metric_data_queries.serialize_cbor(
+                value["metric_data_queries"]
+            )
+        )
+    if "start_time" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["StartTime"] = capo_cloudwatch.types.timestamp.serialize_cbor(
+            value["start_time"]
+        )
+    if "end_time" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["EndTime"] = capo_cloudwatch.types.timestamp.serialize_cbor(
+            value["end_time"]
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "scan_by" in value:
+        import capo_cloudwatch.types.scan_by
+
+        out["ScanBy"] = capo_cloudwatch.types.scan_by.serialize_cbor(value["scan_by"])
+    if "max_datapoints" in value:
+        out["MaxDatapoints"] = value["max_datapoints"]
+    if "label_options" in value:
+        import capo_cloudwatch.types.label_options
+
+        out["LabelOptions"] = capo_cloudwatch.types.label_options.serialize_cbor(
+            value["label_options"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetMetricDataInput:
+    out: GetMetricDataInput = {}  # type: ignore[typeddict-item]
+    if data.get("MetricDataQueries") is not None:
+        import capo_cloudwatch.types.metric_data_queries
+
+        out["metric_data_queries"] = (
+            capo_cloudwatch.types.metric_data_queries.deserialize_cbor(
+                data["MetricDataQueries"]
+            )
+        )
+    if data.get("StartTime") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["start_time"] = capo_cloudwatch.types.timestamp.deserialize_cbor(
+            data["StartTime"]
+        )
+    if data.get("EndTime") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["end_time"] = capo_cloudwatch.types.timestamp.deserialize_cbor(
+            data["EndTime"]
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("ScanBy") is not None:
+        import capo_cloudwatch.types.scan_by
+
+        out["scan_by"] = capo_cloudwatch.types.scan_by.deserialize_cbor(data["ScanBy"])
+    if data.get("MaxDatapoints") is not None:
+        out["max_datapoints"] = data["MaxDatapoints"]
+    if data.get("LabelOptions") is not None:
+        import capo_cloudwatch.types.label_options
+
+        out["label_options"] = capo_cloudwatch.types.label_options.deserialize_cbor(
+            data["LabelOptions"]
+        )
+    return out

@@ -204,3 +204,144 @@ def deserialize_aws_json_1_1(data: dict) -> ActionDeclaration:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ActionDeclaration) -> dict:
+    out: dict = {}
+    out["name"] = value["name"]
+    import capo_codepipeline.types.action_type_id
+
+    out["actionTypeId"] = capo_codepipeline.types.action_type_id.serialize_cbor(
+        value["action_type_id"]
+    )
+    if "run_order" in value:
+        out["runOrder"] = value["run_order"]
+    if "configuration" in value:
+        import capo_codepipeline.types.action_configuration_map
+
+        out["configuration"] = (
+            capo_codepipeline.types.action_configuration_map.serialize_cbor(
+                value["configuration"]
+            )
+        )
+    if "commands" in value:
+        import capo_codepipeline.types.command_list
+
+        out["commands"] = capo_codepipeline.types.command_list.serialize_cbor(
+            value["commands"]
+        )
+    if "output_artifacts" in value:
+        import capo_codepipeline.types.output_artifact_list
+
+        out["outputArtifacts"] = (
+            capo_codepipeline.types.output_artifact_list.serialize_cbor(
+                value["output_artifacts"]
+            )
+        )
+    if "input_artifacts" in value:
+        import capo_codepipeline.types.input_artifact_list
+
+        out["inputArtifacts"] = (
+            capo_codepipeline.types.input_artifact_list.serialize_cbor(
+                value["input_artifacts"]
+            )
+        )
+    if "output_variables" in value:
+        import capo_codepipeline.types.output_variable_list
+
+        out["outputVariables"] = (
+            capo_codepipeline.types.output_variable_list.serialize_cbor(
+                value["output_variables"]
+            )
+        )
+    if "role_arn" in value:
+        out["roleArn"] = value["role_arn"]
+    if "region" in value:
+        out["region"] = value["region"]
+    if "namespace" in value:
+        out["namespace"] = value["namespace"]
+    if "timeout_in_minutes" in value:
+        out["timeoutInMinutes"] = value["timeout_in_minutes"]
+    if "environment_variables" in value:
+        import capo_codepipeline.types.environment_variable_list
+
+        out["environmentVariables"] = (
+            capo_codepipeline.types.environment_variable_list.serialize_cbor(
+                value["environment_variables"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ActionDeclaration:
+    out: ActionDeclaration = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    else:
+        out["name"] = ""
+    if data.get("actionTypeId") is not None:
+        import capo_codepipeline.types.action_type_id
+
+        out["action_type_id"] = capo_codepipeline.types.action_type_id.deserialize_cbor(
+            data["actionTypeId"]
+        )
+    else:
+        raise DeserializationError("ActionDeclaration.action_type_id required")
+    if data.get("runOrder") is not None:
+        out["run_order"] = data["runOrder"]
+    if data.get("configuration") is not None:
+        import capo_codepipeline.types.action_configuration_map
+
+        out["configuration"] = (
+            capo_codepipeline.types.action_configuration_map.deserialize_cbor(
+                data["configuration"]
+            )
+        )
+    if data.get("commands") is not None:
+        import capo_codepipeline.types.command_list
+
+        out["commands"] = capo_codepipeline.types.command_list.deserialize_cbor(
+            data["commands"]
+        )
+    if data.get("outputArtifacts") is not None:
+        import capo_codepipeline.types.output_artifact_list
+
+        out["output_artifacts"] = (
+            capo_codepipeline.types.output_artifact_list.deserialize_cbor(
+                data["outputArtifacts"]
+            )
+        )
+    if data.get("inputArtifacts") is not None:
+        import capo_codepipeline.types.input_artifact_list
+
+        out["input_artifacts"] = (
+            capo_codepipeline.types.input_artifact_list.deserialize_cbor(
+                data["inputArtifacts"]
+            )
+        )
+    if data.get("outputVariables") is not None:
+        import capo_codepipeline.types.output_variable_list
+
+        out["output_variables"] = (
+            capo_codepipeline.types.output_variable_list.deserialize_cbor(
+                data["outputVariables"]
+            )
+        )
+    if data.get("roleArn") is not None:
+        out["role_arn"] = data["roleArn"]
+    if data.get("region") is not None:
+        out["region"] = data["region"]
+    if data.get("namespace") is not None:
+        out["namespace"] = data["namespace"]
+    if data.get("timeoutInMinutes") is not None:
+        out["timeout_in_minutes"] = data["timeoutInMinutes"]
+    if data.get("environmentVariables") is not None:
+        import capo_codepipeline.types.environment_variable_list
+
+        out["environment_variables"] = (
+            capo_codepipeline.types.environment_variable_list.deserialize_cbor(
+                data["environmentVariables"]
+            )
+        )
+    return out

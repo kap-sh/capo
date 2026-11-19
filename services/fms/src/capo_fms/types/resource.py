@@ -34,3 +34,23 @@ def deserialize_aws_json_1_1(data: dict) -> Resource:
     if data.get("AccountId") is not None:
         out["account_id"] = data["AccountId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Resource) -> dict:
+    out: dict = {}
+    out["URI"] = value["uri"]
+    if "account_id" in value:
+        out["AccountId"] = value["account_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Resource:
+    out: Resource = {}  # type: ignore[typeddict-item]
+    if data.get("URI") is not None:
+        out["uri"] = data["URI"]
+    else:
+        out["uri"] = ""
+    if data.get("AccountId") is not None:
+        out["account_id"] = data["AccountId"]
+    return out

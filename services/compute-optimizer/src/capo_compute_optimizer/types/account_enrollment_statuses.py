@@ -37,3 +37,30 @@ def deserialize_aws_json_1_0(data: list) -> AccountEnrollmentStatuses:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AccountEnrollmentStatuses) -> list:
+    import capo_compute_optimizer.types.account_enrollment_status
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_compute_optimizer.types.account_enrollment_status.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> AccountEnrollmentStatuses:
+    import capo_compute_optimizer.types.account_enrollment_status
+
+    out: AccountEnrollmentStatuses = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_compute_optimizer.types.account_enrollment_status.deserialize_cbor(
+                item
+            )
+        )
+    return out

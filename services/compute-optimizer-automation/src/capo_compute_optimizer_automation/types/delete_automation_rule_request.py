@@ -43,3 +43,28 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteAutomationRuleRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteAutomationRuleRequest) -> dict:
+    out: dict = {}
+    out["ruleArn"] = value["rule_arn"]
+    out["ruleRevision"] = value["rule_revision"]
+    if "client_token" in value:
+        out["clientToken"] = value["client_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteAutomationRuleRequest:
+    out: DeleteAutomationRuleRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ruleArn") is not None:
+        out["rule_arn"] = data["ruleArn"]
+    else:
+        out["rule_arn"] = ""
+    if data.get("ruleRevision") is not None:
+        out["rule_revision"] = data["ruleRevision"]
+    else:
+        out["rule_revision"] = 0
+    if data.get("clientToken") is not None:
+        out["client_token"] = data["clientToken"]
+    return out

@@ -19,3 +19,12 @@ def serialize_aws_json_1_0(value: RuleAddressListEmailAttribute) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> RuleAddressListEmailAttribute:
     return cast(RuleAddressListEmailAttribute, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RuleAddressListEmailAttribute) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> RuleAddressListEmailAttribute:
+    return cast(RuleAddressListEmailAttribute, data)

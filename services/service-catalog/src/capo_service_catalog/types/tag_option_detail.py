@@ -54,3 +54,34 @@ def deserialize_aws_json_1_1(data: dict) -> TagOptionDetail:
     if data.get("Owner") is not None:
         out["owner"] = data["Owner"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TagOptionDetail) -> dict:
+    out: dict = {}
+    if "key" in value:
+        out["Key"] = value["key"]
+    if "value" in value:
+        out["Value"] = value["value"]
+    if "active" in value:
+        out["Active"] = value["active"]
+    if "id" in value:
+        out["Id"] = value["id"]
+    if "owner" in value:
+        out["Owner"] = value["owner"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> TagOptionDetail:
+    out: TagOptionDetail = {}  # type: ignore[typeddict-item]
+    if data.get("Key") is not None:
+        out["key"] = data["Key"]
+    if data.get("Value") is not None:
+        out["value"] = data["Value"]
+    if data.get("Active") is not None:
+        out["active"] = data["Active"]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    if data.get("Owner") is not None:
+        out["owner"] = data["Owner"]
+    return out

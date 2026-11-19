@@ -172,3 +172,116 @@ def deserialize_aws_json_1_1(data: dict) -> LanguageModel:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LanguageModel) -> dict:
+    out: dict = {}
+    if "model_name" in value:
+        out["ModelName"] = value["model_name"]
+    if "create_time" in value:
+        import capo_transcribe.types.date_time
+
+        out["CreateTime"] = capo_transcribe.types.date_time.serialize_cbor(
+            value["create_time"]
+        )
+    if "last_modified_time" in value:
+        import capo_transcribe.types.date_time
+
+        out["LastModifiedTime"] = capo_transcribe.types.date_time.serialize_cbor(
+            value["last_modified_time"]
+        )
+    if "language_code" in value:
+        import capo_transcribe.types.clm_language_code
+
+        out["LanguageCode"] = capo_transcribe.types.clm_language_code.serialize_cbor(
+            value["language_code"]
+        )
+    if "base_model_name" in value:
+        import capo_transcribe.types.base_model_name
+
+        out["BaseModelName"] = capo_transcribe.types.base_model_name.serialize_cbor(
+            value["base_model_name"]
+        )
+    if "model_status" in value:
+        import capo_transcribe.types.model_status
+
+        out["ModelStatus"] = capo_transcribe.types.model_status.serialize_cbor(
+            value["model_status"]
+        )
+    if "upgrade_availability" in value:
+        out["UpgradeAvailability"] = value["upgrade_availability"]
+    if "failure_reason" in value:
+        out["FailureReason"] = value["failure_reason"]
+    if "input_data_config" in value:
+        import capo_transcribe.types.input_data_config
+
+        out["InputDataConfig"] = capo_transcribe.types.input_data_config.serialize_cbor(
+            value["input_data_config"]
+        )
+    if "encryption_configuration" in value:
+        import capo_transcribe.types.encryption_configuration
+
+        out["EncryptionConfiguration"] = (
+            capo_transcribe.types.encryption_configuration.serialize_cbor(
+                value["encryption_configuration"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> LanguageModel:
+    out: LanguageModel = {}  # type: ignore[typeddict-item]
+    if data.get("ModelName") is not None:
+        out["model_name"] = data["ModelName"]
+    if data.get("CreateTime") is not None:
+        import capo_transcribe.types.date_time
+
+        out["create_time"] = capo_transcribe.types.date_time.deserialize_cbor(
+            data["CreateTime"]
+        )
+    if data.get("LastModifiedTime") is not None:
+        import capo_transcribe.types.date_time
+
+        out["last_modified_time"] = capo_transcribe.types.date_time.deserialize_cbor(
+            data["LastModifiedTime"]
+        )
+    if data.get("LanguageCode") is not None:
+        import capo_transcribe.types.clm_language_code
+
+        out["language_code"] = capo_transcribe.types.clm_language_code.deserialize_cbor(
+            data["LanguageCode"]
+        )
+    if data.get("BaseModelName") is not None:
+        import capo_transcribe.types.base_model_name
+
+        out["base_model_name"] = capo_transcribe.types.base_model_name.deserialize_cbor(
+            data["BaseModelName"]
+        )
+    if data.get("ModelStatus") is not None:
+        import capo_transcribe.types.model_status
+
+        out["model_status"] = capo_transcribe.types.model_status.deserialize_cbor(
+            data["ModelStatus"]
+        )
+    if data.get("UpgradeAvailability") is not None:
+        out["upgrade_availability"] = data["UpgradeAvailability"]
+    if data.get("FailureReason") is not None:
+        out["failure_reason"] = data["FailureReason"]
+    if data.get("InputDataConfig") is not None:
+        import capo_transcribe.types.input_data_config
+
+        out["input_data_config"] = (
+            capo_transcribe.types.input_data_config.deserialize_cbor(
+                data["InputDataConfig"]
+            )
+        )
+    if data.get("EncryptionConfiguration") is not None:
+        import capo_transcribe.types.encryption_configuration
+
+        out["encryption_configuration"] = (
+            capo_transcribe.types.encryption_configuration.deserialize_cbor(
+                data["EncryptionConfiguration"]
+            )
+        )
+    return out

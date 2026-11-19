@@ -46,3 +46,31 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeMultiRegionParametersRequest
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeMultiRegionParametersRequest) -> dict:
+    out: dict = {}
+    out["MultiRegionParameterGroupName"] = value["multi_region_parameter_group_name"]
+    if "source" in value:
+        out["Source"] = value["source"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeMultiRegionParametersRequest:
+    out: DescribeMultiRegionParametersRequest = {}  # type: ignore[typeddict-item]
+    if data.get("MultiRegionParameterGroupName") is not None:
+        out["multi_region_parameter_group_name"] = data["MultiRegionParameterGroupName"]
+    else:
+        out["multi_region_parameter_group_name"] = ""
+    if data.get("Source") is not None:
+        out["source"] = data["Source"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

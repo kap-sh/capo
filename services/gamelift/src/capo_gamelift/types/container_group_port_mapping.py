@@ -60,6 +60,41 @@ def deserialize_aws_json_1_1(data: dict) -> ContainerGroupPortMapping:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ContainerGroupPortMapping) -> dict:
+    out: dict = {}
+    if "container_name" in value:
+        out["ContainerName"] = value["container_name"]
+    if "container_runtime_id" in value:
+        out["ContainerRuntimeId"] = value["container_runtime_id"]
+    if "container_port_mappings" in value:
+        import capo_gamelift.types.container_port_mapping_list
+
+        out["ContainerPortMappings"] = (
+            capo_gamelift.types.container_port_mapping_list.serialize_cbor(
+                value["container_port_mappings"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ContainerGroupPortMapping:
+    out: ContainerGroupPortMapping = {}  # type: ignore[typeddict-item]
+    if data.get("ContainerName") is not None:
+        out["container_name"] = data["ContainerName"]
+    if data.get("ContainerRuntimeId") is not None:
+        out["container_runtime_id"] = data["ContainerRuntimeId"]
+    if data.get("ContainerPortMappings") is not None:
+        import capo_gamelift.types.container_port_mapping_list
+
+        out["container_port_mappings"] = (
+            capo_gamelift.types.container_port_mapping_list.deserialize_cbor(
+                data["ContainerPortMappings"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: ContainerGroupPortMapping) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "container_port_mappings" in value:

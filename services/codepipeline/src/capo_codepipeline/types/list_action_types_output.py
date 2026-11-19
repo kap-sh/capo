@@ -46,3 +46,31 @@ def deserialize_aws_json_1_1(data: dict) -> ListActionTypesOutput:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListActionTypesOutput) -> dict:
+    out: dict = {}
+    import capo_codepipeline.types.action_type_list
+
+    out["actionTypes"] = capo_codepipeline.types.action_type_list.serialize_cbor(
+        value["action_types"]
+    )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListActionTypesOutput:
+    out: ListActionTypesOutput = {}  # type: ignore[typeddict-item]
+    if data.get("actionTypes") is not None:
+        import capo_codepipeline.types.action_type_list
+
+        out["action_types"] = capo_codepipeline.types.action_type_list.deserialize_cbor(
+            data["actionTypes"]
+        )
+    else:
+        out["action_types"] = []
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

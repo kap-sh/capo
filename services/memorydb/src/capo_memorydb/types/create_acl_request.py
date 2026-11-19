@@ -61,3 +61,39 @@ def deserialize_aws_json_1_1(data: dict) -> CreateACLRequest:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateACLRequest) -> dict:
+    out: dict = {}
+    out["ACLName"] = value["acl_name"]
+    if "user_names" in value:
+        import capo_memorydb.types.user_name_list_input
+
+        out["UserNames"] = capo_memorydb.types.user_name_list_input.serialize_cbor(
+            value["user_names"]
+        )
+    if "tags" in value:
+        import capo_memorydb.types.tag_list
+
+        out["Tags"] = capo_memorydb.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateACLRequest:
+    out: CreateACLRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ACLName") is not None:
+        out["acl_name"] = data["ACLName"]
+    else:
+        out["acl_name"] = ""
+    if data.get("UserNames") is not None:
+        import capo_memorydb.types.user_name_list_input
+
+        out["user_names"] = capo_memorydb.types.user_name_list_input.deserialize_cbor(
+            data["UserNames"]
+        )
+    if data.get("Tags") is not None:
+        import capo_memorydb.types.tag_list
+
+        out["tags"] = capo_memorydb.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

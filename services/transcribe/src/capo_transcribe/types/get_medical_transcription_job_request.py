@@ -29,3 +29,19 @@ def deserialize_aws_json_1_1(data: dict) -> GetMedicalTranscriptionJobRequest:
     else:
         out["medical_transcription_job_name"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetMedicalTranscriptionJobRequest) -> dict:
+    out: dict = {}
+    out["MedicalTranscriptionJobName"] = value["medical_transcription_job_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetMedicalTranscriptionJobRequest:
+    out: GetMedicalTranscriptionJobRequest = {}  # type: ignore[typeddict-item]
+    if data.get("MedicalTranscriptionJobName") is not None:
+        out["medical_transcription_job_name"] = data["MedicalTranscriptionJobName"]
+    else:
+        out["medical_transcription_job_name"] = ""
+    return out

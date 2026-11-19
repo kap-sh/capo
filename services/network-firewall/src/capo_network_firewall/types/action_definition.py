@@ -40,3 +40,30 @@ def deserialize_aws_json_1_0(data: dict) -> ActionDefinition:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ActionDefinition) -> dict:
+    out: dict = {}
+    if "publish_metric_action" in value:
+        import capo_network_firewall.types.publish_metric_action
+
+        out["PublishMetricAction"] = (
+            capo_network_firewall.types.publish_metric_action.serialize_cbor(
+                value["publish_metric_action"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ActionDefinition:
+    out: ActionDefinition = {}  # type: ignore[typeddict-item]
+    if data.get("PublishMetricAction") is not None:
+        import capo_network_firewall.types.publish_metric_action
+
+        out["publish_metric_action"] = (
+            capo_network_firewall.types.publish_metric_action.deserialize_cbor(
+                data["PublishMetricAction"]
+            )
+        )
+    return out

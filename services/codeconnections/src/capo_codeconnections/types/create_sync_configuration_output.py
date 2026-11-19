@@ -45,3 +45,33 @@ def deserialize_aws_json_1_0(data: dict) -> CreateSyncConfigurationOutput:
             "CreateSyncConfigurationOutput.sync_configuration required"
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateSyncConfigurationOutput) -> dict:
+    out: dict = {}
+    import capo_codeconnections.types.sync_configuration
+
+    out["SyncConfiguration"] = (
+        capo_codeconnections.types.sync_configuration.serialize_cbor(
+            value["sync_configuration"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateSyncConfigurationOutput:
+    out: CreateSyncConfigurationOutput = {}  # type: ignore[typeddict-item]
+    if data.get("SyncConfiguration") is not None:
+        import capo_codeconnections.types.sync_configuration
+
+        out["sync_configuration"] = (
+            capo_codeconnections.types.sync_configuration.deserialize_cbor(
+                data["SyncConfiguration"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "CreateSyncConfigurationOutput.sync_configuration required"
+        )
+    return out

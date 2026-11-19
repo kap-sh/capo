@@ -44,3 +44,30 @@ def deserialize_aws_json_1_0(data: dict) -> MinimalWorkflow:
     if data.get("name") is not None:
         out["name"] = data["name"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MinimalWorkflow) -> dict:
+    out: dict = {}
+    if "action" in value:
+        import capo_arc_region_switch.types.execution_action
+
+        out["action"] = capo_arc_region_switch.types.execution_action.serialize_cbor(
+            value["action"]
+        )
+    if "name" in value:
+        out["name"] = value["name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> MinimalWorkflow:
+    out: MinimalWorkflow = {}  # type: ignore[typeddict-item]
+    if data.get("action") is not None:
+        import capo_arc_region_switch.types.execution_action
+
+        out["action"] = capo_arc_region_switch.types.execution_action.deserialize_cbor(
+            data["action"]
+        )
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    return out

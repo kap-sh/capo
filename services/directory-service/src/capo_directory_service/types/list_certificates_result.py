@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> ListCertificatesResult:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListCertificatesResult) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "certificates_info" in value:
+        import capo_directory_service.types.certificates_info
+
+        out["CertificatesInfo"] = (
+            capo_directory_service.types.certificates_info.serialize_cbor(
+                value["certificates_info"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListCertificatesResult:
+    out: ListCertificatesResult = {}  # type: ignore[typeddict-item]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("CertificatesInfo") is not None:
+        import capo_directory_service.types.certificates_info
+
+        out["certificates_info"] = (
+            capo_directory_service.types.certificates_info.deserialize_cbor(
+                data["CertificatesInfo"]
+            )
+        )
+    return out

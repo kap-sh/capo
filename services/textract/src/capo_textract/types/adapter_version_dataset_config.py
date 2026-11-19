@@ -35,3 +35,26 @@ def deserialize_aws_json_1_1(data: dict) -> AdapterVersionDatasetConfig:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AdapterVersionDatasetConfig) -> dict:
+    out: dict = {}
+    if "manifest_s3_object" in value:
+        import capo_textract.types.s3_object
+
+        out["ManifestS3Object"] = capo_textract.types.s3_object.serialize_cbor(
+            value["manifest_s3_object"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AdapterVersionDatasetConfig:
+    out: AdapterVersionDatasetConfig = {}  # type: ignore[typeddict-item]
+    if data.get("ManifestS3Object") is not None:
+        import capo_textract.types.s3_object
+
+        out["manifest_s3_object"] = capo_textract.types.s3_object.deserialize_cbor(
+            data["ManifestS3Object"]
+        )
+    return out

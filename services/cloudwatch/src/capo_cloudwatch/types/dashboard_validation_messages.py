@@ -90,3 +90,28 @@ def deserialize_aws_json_1_0(data: list) -> DashboardValidationMessages:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DashboardValidationMessages) -> list:
+    import capo_cloudwatch.types.dashboard_validation_message
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_cloudwatch.types.dashboard_validation_message.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> DashboardValidationMessages:
+    import capo_cloudwatch.types.dashboard_validation_message
+
+    out: DashboardValidationMessages = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_cloudwatch.types.dashboard_validation_message.deserialize_cbor(item)
+        )
+    return out

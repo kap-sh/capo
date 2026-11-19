@@ -28,3 +28,18 @@ def deserialize_aws_json_1_1(data: dict) -> GetGameSessionLogUrlOutput:
     if data.get("PreSignedUrl") is not None:
         out["pre_signed_url"] = data["PreSignedUrl"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetGameSessionLogUrlOutput) -> dict:
+    out: dict = {}
+    if "pre_signed_url" in value:
+        out["PreSignedUrl"] = value["pre_signed_url"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetGameSessionLogUrlOutput:
+    out: GetGameSessionLogUrlOutput = {}  # type: ignore[typeddict-item]
+    if data.get("PreSignedUrl") is not None:
+        out["pre_signed_url"] = data["PreSignedUrl"]
+    return out

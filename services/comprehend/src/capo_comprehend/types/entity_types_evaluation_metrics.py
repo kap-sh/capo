@@ -62,3 +62,26 @@ def deserialize_aws_json_1_1(data: dict) -> EntityTypesEvaluationMetrics:
     if data.get("F1Score") is not None:
         out["f1_score"] = float(data["F1Score"])
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EntityTypesEvaluationMetrics) -> dict:
+    out: dict = {}
+    if "precision" in value:
+        out["Precision"] = value["precision"]
+    if "recall" in value:
+        out["Recall"] = value["recall"]
+    if "f1_score" in value:
+        out["F1Score"] = value["f1_score"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> EntityTypesEvaluationMetrics:
+    out: EntityTypesEvaluationMetrics = {}  # type: ignore[typeddict-item]
+    if data.get("Precision") is not None:
+        out["precision"] = float(data["Precision"])
+    if data.get("Recall") is not None:
+        out["recall"] = float(data["Recall"])
+    if data.get("F1Score") is not None:
+        out["f1_score"] = float(data["F1Score"])
+    return out

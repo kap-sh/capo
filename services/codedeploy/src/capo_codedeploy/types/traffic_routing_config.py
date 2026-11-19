@@ -78,3 +78,54 @@ def deserialize_aws_json_1_1(data: dict) -> TrafficRoutingConfig:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TrafficRoutingConfig) -> dict:
+    out: dict = {}
+    if "type" in value:
+        import capo_codedeploy.types.traffic_routing_type
+
+        out["type"] = capo_codedeploy.types.traffic_routing_type.serialize_cbor(
+            value["type"]
+        )
+    if "time_based_canary" in value:
+        import capo_codedeploy.types.time_based_canary
+
+        out["timeBasedCanary"] = capo_codedeploy.types.time_based_canary.serialize_cbor(
+            value["time_based_canary"]
+        )
+    if "time_based_linear" in value:
+        import capo_codedeploy.types.time_based_linear
+
+        out["timeBasedLinear"] = capo_codedeploy.types.time_based_linear.serialize_cbor(
+            value["time_based_linear"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TrafficRoutingConfig:
+    out: TrafficRoutingConfig = {}  # type: ignore[typeddict-item]
+    if data.get("type") is not None:
+        import capo_codedeploy.types.traffic_routing_type
+
+        out["type"] = capo_codedeploy.types.traffic_routing_type.deserialize_cbor(
+            data["type"]
+        )
+    if data.get("timeBasedCanary") is not None:
+        import capo_codedeploy.types.time_based_canary
+
+        out["time_based_canary"] = (
+            capo_codedeploy.types.time_based_canary.deserialize_cbor(
+                data["timeBasedCanary"]
+            )
+        )
+    if data.get("timeBasedLinear") is not None:
+        import capo_codedeploy.types.time_based_linear
+
+        out["time_based_linear"] = (
+            capo_codedeploy.types.time_based_linear.deserialize_cbor(
+                data["timeBasedLinear"]
+            )
+        )
+    return out

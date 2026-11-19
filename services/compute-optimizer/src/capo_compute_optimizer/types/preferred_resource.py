@@ -81,3 +81,62 @@ def deserialize_aws_json_1_0(data: dict) -> PreferredResource:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PreferredResource) -> dict:
+    out: dict = {}
+    if "name" in value:
+        import capo_compute_optimizer.types.preferred_resource_name
+
+        out["name"] = (
+            capo_compute_optimizer.types.preferred_resource_name.serialize_cbor(
+                value["name"]
+            )
+        )
+    if "include_list" in value:
+        import capo_compute_optimizer.types.preferred_resource_values
+
+        out["includeList"] = (
+            capo_compute_optimizer.types.preferred_resource_values.serialize_cbor(
+                value["include_list"]
+            )
+        )
+    if "exclude_list" in value:
+        import capo_compute_optimizer.types.preferred_resource_values
+
+        out["excludeList"] = (
+            capo_compute_optimizer.types.preferred_resource_values.serialize_cbor(
+                value["exclude_list"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PreferredResource:
+    out: PreferredResource = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        import capo_compute_optimizer.types.preferred_resource_name
+
+        out["name"] = (
+            capo_compute_optimizer.types.preferred_resource_name.deserialize_cbor(
+                data["name"]
+            )
+        )
+    if data.get("includeList") is not None:
+        import capo_compute_optimizer.types.preferred_resource_values
+
+        out["include_list"] = (
+            capo_compute_optimizer.types.preferred_resource_values.deserialize_cbor(
+                data["includeList"]
+            )
+        )
+    if data.get("excludeList") is not None:
+        import capo_compute_optimizer.types.preferred_resource_values
+
+        out["exclude_list"] = (
+            capo_compute_optimizer.types.preferred_resource_values.deserialize_cbor(
+                data["excludeList"]
+            )
+        )
+    return out

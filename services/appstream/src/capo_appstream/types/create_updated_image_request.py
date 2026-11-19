@@ -68,3 +68,46 @@ def deserialize_aws_json_1_1(data: dict) -> CreateUpdatedImageRequest:
     if data.get("dryRun") is not None:
         out["dry_run"] = data["dryRun"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateUpdatedImageRequest) -> dict:
+    out: dict = {}
+    if "existing_image_name" in value:
+        out["existingImageName"] = value["existing_image_name"]
+    if "new_image_name" in value:
+        out["newImageName"] = value["new_image_name"]
+    if "new_image_description" in value:
+        out["newImageDescription"] = value["new_image_description"]
+    if "new_image_display_name" in value:
+        out["newImageDisplayName"] = value["new_image_display_name"]
+    if "new_image_tags" in value:
+        import capo_appstream.types.tags
+
+        out["newImageTags"] = capo_appstream.types.tags.serialize_cbor(
+            value["new_image_tags"]
+        )
+    if "dry_run" in value:
+        out["dryRun"] = value["dry_run"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateUpdatedImageRequest:
+    out: CreateUpdatedImageRequest = {}  # type: ignore[typeddict-item]
+    if data.get("existingImageName") is not None:
+        out["existing_image_name"] = data["existingImageName"]
+    if data.get("newImageName") is not None:
+        out["new_image_name"] = data["newImageName"]
+    if data.get("newImageDescription") is not None:
+        out["new_image_description"] = data["newImageDescription"]
+    if data.get("newImageDisplayName") is not None:
+        out["new_image_display_name"] = data["newImageDisplayName"]
+    if data.get("newImageTags") is not None:
+        import capo_appstream.types.tags
+
+        out["new_image_tags"] = capo_appstream.types.tags.deserialize_cbor(
+            data["newImageTags"]
+        )
+    if data.get("dryRun") is not None:
+        out["dry_run"] = data["dryRun"]
+    return out

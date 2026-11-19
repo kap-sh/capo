@@ -15,3 +15,12 @@ def serialize_aws_json_1_0(value: PullRequestComment) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> PullRequestComment:
     return cast(PullRequestComment, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PullRequestComment) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> PullRequestComment:
+    return cast(PullRequestComment, data)

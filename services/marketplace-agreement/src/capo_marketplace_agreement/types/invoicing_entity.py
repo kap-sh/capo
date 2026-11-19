@@ -36,3 +36,22 @@ def deserialize_aws_json_1_0(data: dict) -> InvoicingEntity:
     if data.get("branchName") is not None:
         out["branch_name"] = data["branchName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InvoicingEntity) -> dict:
+    out: dict = {}
+    if "legal_name" in value:
+        out["legalName"] = value["legal_name"]
+    if "branch_name" in value:
+        out["branchName"] = value["branch_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> InvoicingEntity:
+    out: InvoicingEntity = {}  # type: ignore[typeddict-item]
+    if data.get("legalName") is not None:
+        out["legal_name"] = data["legalName"]
+    if data.get("branchName") is not None:
+        out["branch_name"] = data["branchName"]
+    return out

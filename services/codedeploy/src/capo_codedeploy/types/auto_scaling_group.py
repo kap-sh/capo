@@ -45,3 +45,26 @@ def deserialize_aws_json_1_1(data: dict) -> AutoScalingGroup:
     if data.get("terminationHook") is not None:
         out["termination_hook"] = data["terminationHook"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AutoScalingGroup) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["name"] = value["name"]
+    if "hook" in value:
+        out["hook"] = value["hook"]
+    if "termination_hook" in value:
+        out["terminationHook"] = value["termination_hook"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AutoScalingGroup:
+    out: AutoScalingGroup = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    if data.get("hook") is not None:
+        out["hook"] = data["hook"]
+    if data.get("terminationHook") is not None:
+        out["termination_hook"] = data["terminationHook"]
+    return out

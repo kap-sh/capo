@@ -81,3 +81,51 @@ def deserialize_aws_json_1_0(data: dict) -> CreateRescoreExecutionPlanRequest:
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateRescoreExecutionPlanRequest) -> dict:
+    out: dict = {}
+    out["Name"] = value["name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "capacity_units" in value:
+        import capo_kendra_ranking.types.capacity_units_configuration
+
+        out["CapacityUnits"] = (
+            capo_kendra_ranking.types.capacity_units_configuration.serialize_cbor(
+                value["capacity_units"]
+            )
+        )
+    if "tags" in value:
+        import capo_kendra_ranking.types.tag_list
+
+        out["Tags"] = capo_kendra_ranking.types.tag_list.serialize_cbor(value["tags"])
+    if "client_token" in value:
+        out["ClientToken"] = value["client_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateRescoreExecutionPlanRequest:
+    out: CreateRescoreExecutionPlanRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    else:
+        out["name"] = ""
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("CapacityUnits") is not None:
+        import capo_kendra_ranking.types.capacity_units_configuration
+
+        out["capacity_units"] = (
+            capo_kendra_ranking.types.capacity_units_configuration.deserialize_cbor(
+                data["CapacityUnits"]
+            )
+        )
+    if data.get("Tags") is not None:
+        import capo_kendra_ranking.types.tag_list
+
+        out["tags"] = capo_kendra_ranking.types.tag_list.deserialize_cbor(data["Tags"])
+    if data.get("ClientToken") is not None:
+        out["client_token"] = data["ClientToken"]
+    return out

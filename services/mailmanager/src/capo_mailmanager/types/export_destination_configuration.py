@@ -56,3 +56,41 @@ def deserialize_aws_json_1_0(data: dict) -> ExportDestinationConfiguration:
         raise DeserializationError(
             "ExportDestinationConfiguration: no recognized variant key"
         )
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExportDestinationConfiguration) -> dict:
+    if "$unknown" in value:
+        raise SerializationError(
+            f"ExportDestinationConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
+        )
+    elif "S3" in value:
+        import capo_mailmanager.types.s3_export_destination_configuration
+
+        return {
+            "S3": capo_mailmanager.types.s3_export_destination_configuration.serialize_cbor(
+                value["S3"]
+            )
+        }
+    else:
+        raise SerializationError("ExportDestinationConfiguration: no variant present")
+
+
+def deserialize_cbor(data: dict) -> ExportDestinationConfiguration:
+    if data.get("S3") is not None:
+        import capo_mailmanager.types.s3_export_destination_configuration
+
+        return {
+            "S3": capo_mailmanager.types.s3_export_destination_configuration.deserialize_cbor(
+                data["S3"]
+            )
+        }
+    else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return {"$unknown": {"name": name}}
+        raise DeserializationError(
+            "ExportDestinationConfiguration: no recognized variant key"
+        )

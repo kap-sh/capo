@@ -112,3 +112,82 @@ def deserialize_aws_json_1_0(data: dict) -> ServerCertificateConfiguration:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ServerCertificateConfiguration) -> dict:
+    out: dict = {}
+    if "server_certificates" in value:
+        import capo_network_firewall.types.server_certificates
+
+        out["ServerCertificates"] = (
+            capo_network_firewall.types.server_certificates.serialize_cbor(
+                value["server_certificates"]
+            )
+        )
+    if "scopes" in value:
+        import capo_network_firewall.types.server_certificate_scopes
+
+        out["Scopes"] = (
+            capo_network_firewall.types.server_certificate_scopes.serialize_cbor(
+                value["scopes"]
+            )
+        )
+    if "certificate_authority_arn" in value:
+        out["CertificateAuthorityArn"] = value["certificate_authority_arn"]
+    if "check_certificate_revocation_status" in value:
+        import capo_network_firewall.types.check_certificate_revocation_status_actions
+
+        out["CheckCertificateRevocationStatus"] = (
+            capo_network_firewall.types.check_certificate_revocation_status_actions.serialize_cbor(
+                value["check_certificate_revocation_status"]
+            )
+        )
+    if "default_decryption_behavior" in value:
+        import capo_network_firewall.types.decryption_action
+
+        out["DefaultDecryptionBehavior"] = (
+            capo_network_firewall.types.decryption_action.serialize_cbor(
+                value["default_decryption_behavior"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ServerCertificateConfiguration:
+    out: ServerCertificateConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("ServerCertificates") is not None:
+        import capo_network_firewall.types.server_certificates
+
+        out["server_certificates"] = (
+            capo_network_firewall.types.server_certificates.deserialize_cbor(
+                data["ServerCertificates"]
+            )
+        )
+    if data.get("Scopes") is not None:
+        import capo_network_firewall.types.server_certificate_scopes
+
+        out["scopes"] = (
+            capo_network_firewall.types.server_certificate_scopes.deserialize_cbor(
+                data["Scopes"]
+            )
+        )
+    if data.get("CertificateAuthorityArn") is not None:
+        out["certificate_authority_arn"] = data["CertificateAuthorityArn"]
+    if data.get("CheckCertificateRevocationStatus") is not None:
+        import capo_network_firewall.types.check_certificate_revocation_status_actions
+
+        out["check_certificate_revocation_status"] = (
+            capo_network_firewall.types.check_certificate_revocation_status_actions.deserialize_cbor(
+                data["CheckCertificateRevocationStatus"]
+            )
+        )
+    if data.get("DefaultDecryptionBehavior") is not None:
+        import capo_network_firewall.types.decryption_action
+
+        out["default_decryption_behavior"] = (
+            capo_network_firewall.types.decryption_action.deserialize_cbor(
+                data["DefaultDecryptionBehavior"]
+            )
+        )
+    return out

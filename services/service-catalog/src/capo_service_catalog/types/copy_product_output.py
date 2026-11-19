@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> CopyProductOutput:
     if data.get("CopyProductToken") is not None:
         out["copy_product_token"] = data["CopyProductToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CopyProductOutput) -> dict:
+    out: dict = {}
+    if "copy_product_token" in value:
+        out["CopyProductToken"] = value["copy_product_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CopyProductOutput:
+    out: CopyProductOutput = {}  # type: ignore[typeddict-item]
+    if data.get("CopyProductToken") is not None:
+        out["copy_product_token"] = data["CopyProductToken"]
+    return out

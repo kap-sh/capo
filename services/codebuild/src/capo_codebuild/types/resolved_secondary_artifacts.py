@@ -31,3 +31,24 @@ def deserialize_aws_json_1_1(data: list) -> ResolvedSecondaryArtifacts:
             capo_codebuild.types.resolved_artifact.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResolvedSecondaryArtifacts) -> list:
+    import capo_codebuild.types.resolved_artifact
+
+    out: list = []
+    for item in value:
+        out.append(capo_codebuild.types.resolved_artifact.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> ResolvedSecondaryArtifacts:
+    import capo_codebuild.types.resolved_artifact
+
+    out: ResolvedSecondaryArtifacts = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_codebuild.types.resolved_artifact.deserialize_cbor(item))
+    return out

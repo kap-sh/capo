@@ -45,3 +45,30 @@ def deserialize_aws_json_1_1(data: dict) -> OperationSummary:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: OperationSummary) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["Id"] = value["id"]
+    if "status" in value:
+        import capo_servicediscovery.types.operation_status
+
+        out["Status"] = capo_servicediscovery.types.operation_status.serialize_cbor(
+            value["status"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> OperationSummary:
+    out: OperationSummary = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    if data.get("Status") is not None:
+        import capo_servicediscovery.types.operation_status
+
+        out["status"] = capo_servicediscovery.types.operation_status.deserialize_cbor(
+            data["Status"]
+        )
+    return out

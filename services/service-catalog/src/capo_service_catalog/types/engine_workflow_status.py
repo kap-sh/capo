@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: EngineWorkflowStatus) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> EngineWorkflowStatus:
     return cast(EngineWorkflowStatus, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EngineWorkflowStatus) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> EngineWorkflowStatus:
+    return cast(EngineWorkflowStatus, data)

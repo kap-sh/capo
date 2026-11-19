@@ -74,3 +74,24 @@ def deserialize_aws_json_1_0(data: list) -> MetricData:
             continue
         out.append(capo_cloudwatch.types.metric_datum.deserialize_aws_json_1_0(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MetricData) -> list:
+    import capo_cloudwatch.types.metric_datum
+
+    out: list = []
+    for item in value:
+        out.append(capo_cloudwatch.types.metric_datum.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> MetricData:
+    import capo_cloudwatch.types.metric_datum
+
+    out: MetricData = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_cloudwatch.types.metric_datum.deserialize_cbor(item))
+    return out

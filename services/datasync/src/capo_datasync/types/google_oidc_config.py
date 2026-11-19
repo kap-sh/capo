@@ -50,3 +50,34 @@ def deserialize_aws_json_1_1(data: dict) -> GoogleOidcConfig:
     else:
         out["identity_provider_name"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GoogleOidcConfig) -> dict:
+    out: dict = {}
+    out["ProjectName"] = value["project_name"]
+    out["ProjectNumber"] = value["project_number"]
+    out["IdentityPoolName"] = value["identity_pool_name"]
+    out["IdentityProviderName"] = value["identity_provider_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GoogleOidcConfig:
+    out: GoogleOidcConfig = {}  # type: ignore[typeddict-item]
+    if data.get("ProjectName") is not None:
+        out["project_name"] = data["ProjectName"]
+    else:
+        out["project_name"] = ""
+    if data.get("ProjectNumber") is not None:
+        out["project_number"] = data["ProjectNumber"]
+    else:
+        out["project_number"] = ""
+    if data.get("IdentityPoolName") is not None:
+        out["identity_pool_name"] = data["IdentityPoolName"]
+    else:
+        out["identity_pool_name"] = ""
+    if data.get("IdentityProviderName") is not None:
+        out["identity_provider_name"] = data["IdentityProviderName"]
+    else:
+        out["identity_provider_name"] = ""
+    return out

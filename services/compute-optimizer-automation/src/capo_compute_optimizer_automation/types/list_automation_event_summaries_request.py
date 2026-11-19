@@ -67,3 +67,46 @@ def deserialize_aws_json_1_0(data: dict) -> ListAutomationEventSummariesRequest:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListAutomationEventSummariesRequest) -> dict:
+    out: dict = {}
+    if "filters" in value:
+        import capo_compute_optimizer_automation.types.automation_event_filter_list
+
+        out["filters"] = (
+            capo_compute_optimizer_automation.types.automation_event_filter_list.serialize_cbor(
+                value["filters"]
+            )
+        )
+    if "start_date_inclusive" in value:
+        out["startDateInclusive"] = value["start_date_inclusive"]
+    if "end_date_exclusive" in value:
+        out["endDateExclusive"] = value["end_date_exclusive"]
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListAutomationEventSummariesRequest:
+    out: ListAutomationEventSummariesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("filters") is not None:
+        import capo_compute_optimizer_automation.types.automation_event_filter_list
+
+        out["filters"] = (
+            capo_compute_optimizer_automation.types.automation_event_filter_list.deserialize_cbor(
+                data["filters"]
+            )
+        )
+    if data.get("startDateInclusive") is not None:
+        out["start_date_inclusive"] = data["startDateInclusive"]
+    if data.get("endDateExclusive") is not None:
+        out["end_date_exclusive"] = data["endDateExclusive"]
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

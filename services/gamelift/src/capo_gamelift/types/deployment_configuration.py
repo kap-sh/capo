@@ -70,3 +70,50 @@ def deserialize_aws_json_1_1(data: dict) -> DeploymentConfiguration:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeploymentConfiguration) -> dict:
+    out: dict = {}
+    if "protection_strategy" in value:
+        import capo_gamelift.types.deployment_protection_strategy
+
+        out["ProtectionStrategy"] = (
+            capo_gamelift.types.deployment_protection_strategy.serialize_cbor(
+                value["protection_strategy"]
+            )
+        )
+    if "minimum_healthy_percentage" in value:
+        out["MinimumHealthyPercentage"] = value["minimum_healthy_percentage"]
+    if "impairment_strategy" in value:
+        import capo_gamelift.types.deployment_impairment_strategy
+
+        out["ImpairmentStrategy"] = (
+            capo_gamelift.types.deployment_impairment_strategy.serialize_cbor(
+                value["impairment_strategy"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeploymentConfiguration:
+    out: DeploymentConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("ProtectionStrategy") is not None:
+        import capo_gamelift.types.deployment_protection_strategy
+
+        out["protection_strategy"] = (
+            capo_gamelift.types.deployment_protection_strategy.deserialize_cbor(
+                data["ProtectionStrategy"]
+            )
+        )
+    if data.get("MinimumHealthyPercentage") is not None:
+        out["minimum_healthy_percentage"] = data["MinimumHealthyPercentage"]
+    if data.get("ImpairmentStrategy") is not None:
+        import capo_gamelift.types.deployment_impairment_strategy
+
+        out["impairment_strategy"] = (
+            capo_gamelift.types.deployment_impairment_strategy.deserialize_cbor(
+                data["ImpairmentStrategy"]
+            )
+        )
+    return out

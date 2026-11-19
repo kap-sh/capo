@@ -41,3 +41,27 @@ def deserialize_aws_json_1_1(data: dict) -> ListAppsListsRequest:
     else:
         out["max_results"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListAppsListsRequest) -> dict:
+    out: dict = {}
+    if "default_lists" in value:
+        out["DefaultLists"] = value["default_lists"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    out["MaxResults"] = value["max_results"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListAppsListsRequest:
+    out: ListAppsListsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DefaultLists") is not None:
+        out["default_lists"] = data["DefaultLists"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    else:
+        out["max_results"] = 0
+    return out

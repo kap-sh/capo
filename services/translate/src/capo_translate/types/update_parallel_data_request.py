@@ -66,3 +66,47 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateParallelDataRequest:
     else:
         out["client_token"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateParallelDataRequest) -> dict:
+    out: dict = {}
+    out["Name"] = value["name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    import capo_translate.types.parallel_data_config
+
+    out["ParallelDataConfig"] = (
+        capo_translate.types.parallel_data_config.serialize_cbor(
+            value["parallel_data_config"]
+        )
+    )
+    out["ClientToken"] = value["client_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateParallelDataRequest:
+    out: UpdateParallelDataRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    else:
+        out["name"] = ""
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("ParallelDataConfig") is not None:
+        import capo_translate.types.parallel_data_config
+
+        out["parallel_data_config"] = (
+            capo_translate.types.parallel_data_config.deserialize_cbor(
+                data["ParallelDataConfig"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "UpdateParallelDataRequest.parallel_data_config required"
+        )
+    if data.get("ClientToken") is not None:
+        out["client_token"] = data["ClientToken"]
+    else:
+        out["client_token"] = ""
+    return out

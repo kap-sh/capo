@@ -79,3 +79,49 @@ def deserialize_aws_json_1_1(data: dict) -> GetProtectionStatusRequest:
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetProtectionStatusRequest) -> dict:
+    out: dict = {}
+    out["PolicyId"] = value["policy_id"]
+    if "member_account_id" in value:
+        out["MemberAccountId"] = value["member_account_id"]
+    if "start_time" in value:
+        import capo_fms.types.time_stamp
+
+        out["StartTime"] = capo_fms.types.time_stamp.serialize_cbor(value["start_time"])
+    if "end_time" in value:
+        import capo_fms.types.time_stamp
+
+        out["EndTime"] = capo_fms.types.time_stamp.serialize_cbor(value["end_time"])
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetProtectionStatusRequest:
+    out: GetProtectionStatusRequest = {}  # type: ignore[typeddict-item]
+    if data.get("PolicyId") is not None:
+        out["policy_id"] = data["PolicyId"]
+    else:
+        out["policy_id"] = ""
+    if data.get("MemberAccountId") is not None:
+        out["member_account_id"] = data["MemberAccountId"]
+    if data.get("StartTime") is not None:
+        import capo_fms.types.time_stamp
+
+        out["start_time"] = capo_fms.types.time_stamp.deserialize_cbor(
+            data["StartTime"]
+        )
+    if data.get("EndTime") is not None:
+        import capo_fms.types.time_stamp
+
+        out["end_time"] = capo_fms.types.time_stamp.deserialize_cbor(data["EndTime"])
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    return out

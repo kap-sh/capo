@@ -28,3 +28,18 @@ def deserialize_aws_json_1_0(data: dict) -> CreateWorkspaceInstanceResponse:
     if data.get("WorkspaceInstanceId") is not None:
         out["workspace_instance_id"] = data["WorkspaceInstanceId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateWorkspaceInstanceResponse) -> dict:
+    out: dict = {}
+    if "workspace_instance_id" in value:
+        out["WorkspaceInstanceId"] = value["workspace_instance_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateWorkspaceInstanceResponse:
+    out: CreateWorkspaceInstanceResponse = {}  # type: ignore[typeddict-item]
+    if data.get("WorkspaceInstanceId") is not None:
+        out["workspace_instance_id"] = data["WorkspaceInstanceId"]
+    return out

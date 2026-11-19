@@ -37,3 +37,26 @@ def deserialize_aws_json_1_1(data: dict) -> ListTagsResponse:
 
         out["tags"] = capo_acm_pca.types.tag_list.deserialize_aws_json_1_1(data["Tags"])
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListTagsResponse) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "tags" in value:
+        import capo_acm_pca.types.tag_list
+
+        out["Tags"] = capo_acm_pca.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListTagsResponse:
+    out: ListTagsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("Tags") is not None:
+        import capo_acm_pca.types.tag_list
+
+        out["tags"] = capo_acm_pca.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

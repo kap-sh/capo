@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteBackupRequest:
     else:
         out["backup_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteBackupRequest) -> dict:
+    out: dict = {}
+    out["BackupId"] = value["backup_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteBackupRequest:
+    out: DeleteBackupRequest = {}  # type: ignore[typeddict-item]
+    if data.get("BackupId") is not None:
+        out["backup_id"] = data["BackupId"]
+    else:
+        out["backup_id"] = ""
+    return out

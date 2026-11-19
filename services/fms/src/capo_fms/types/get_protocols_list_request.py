@@ -34,3 +34,23 @@ def deserialize_aws_json_1_1(data: dict) -> GetProtocolsListRequest:
     if data.get("DefaultList") is not None:
         out["default_list"] = data["DefaultList"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetProtocolsListRequest) -> dict:
+    out: dict = {}
+    out["ListId"] = value["list_id"]
+    if "default_list" in value:
+        out["DefaultList"] = value["default_list"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetProtocolsListRequest:
+    out: GetProtocolsListRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ListId") is not None:
+        out["list_id"] = data["ListId"]
+    else:
+        out["list_id"] = ""
+    if data.get("DefaultList") is not None:
+        out["default_list"] = data["DefaultList"]
+    return out

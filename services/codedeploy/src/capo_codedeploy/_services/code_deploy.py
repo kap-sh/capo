@@ -186,6 +186,7 @@ class CodeDeployClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[Interceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_1", "rpcv2Cbor"]
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -202,6 +203,7 @@ class CodeDeployClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -217,6 +219,7 @@ class CodeDeployClient:
         operation_interceptors: Iterable[Interceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_1", "rpcv2Cbor"] = "awsJson1_1",
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -253,6 +256,7 @@ class CodeDeployClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -286,6 +290,9 @@ class CodeDeployClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_1")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -326,13 +333,24 @@ class CodeDeployClient:
         def _handler(
             req: "OperationRequest[capo_codedeploy.types.add_tags_to_on_premises_instances_input.AddTagsToOnPremisesInstancesInput]",
         ) -> OperationResponse[None]:
-            import capo_codedeploy._operations.code_deploy_20141006.add_tags_to_on_premises_instances
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.add_tags_to_on_premises_instances
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.add_tags_to_on_premises_instances.add_tags_to_on_premises_instances(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.add_tags_to_on_premises_instances.add_tags_to_on_premises_instances(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.add_tags_to_on_premises_instances
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.add_tags_to_on_premises_instances.add_tags_to_on_premises_instances(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -379,13 +397,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.batch_get_application_revisions_output.BatchGetApplicationRevisionsOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.batch_get_application_revisions
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.batch_get_application_revisions
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.batch_get_application_revisions.batch_get_application_revisions(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.batch_get_application_revisions.batch_get_application_revisions(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.batch_get_application_revisions
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.batch_get_application_revisions.batch_get_application_revisions(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -430,13 +459,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.batch_get_applications_output.BatchGetApplicationsOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.batch_get_applications
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.batch_get_applications
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.batch_get_applications.batch_get_applications(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.batch_get_applications.batch_get_applications(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.batch_get_applications
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.batch_get_applications.batch_get_applications(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -483,13 +523,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.batch_get_deployment_groups_output.BatchGetDeploymentGroupsOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.batch_get_deployment_groups
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.batch_get_deployment_groups
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.batch_get_deployment_groups.batch_get_deployment_groups(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.batch_get_deployment_groups.batch_get_deployment_groups(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.batch_get_deployment_groups
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.batch_get_deployment_groups.batch_get_deployment_groups(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -537,13 +588,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.batch_get_deployment_instances_output.BatchGetDeploymentInstancesOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.batch_get_deployment_instances
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.batch_get_deployment_instances
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.batch_get_deployment_instances.batch_get_deployment_instances(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.batch_get_deployment_instances.batch_get_deployment_instances(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.batch_get_deployment_instances
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.batch_get_deployment_instances.batch_get_deployment_instances(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -585,13 +647,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.batch_get_deployments_output.BatchGetDeploymentsOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.batch_get_deployments
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.batch_get_deployments
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.batch_get_deployments.batch_get_deployments(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.batch_get_deployments.batch_get_deployments(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.batch_get_deployments
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.batch_get_deployments.batch_get_deployments(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -640,13 +713,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.batch_get_deployment_targets_output.BatchGetDeploymentTargetsOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.batch_get_deployment_targets
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.batch_get_deployment_targets
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.batch_get_deployment_targets.batch_get_deployment_targets(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.batch_get_deployment_targets.batch_get_deployment_targets(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.batch_get_deployment_targets
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.batch_get_deployment_targets.batch_get_deployment_targets(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -688,13 +772,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.batch_get_on_premises_instances_output.BatchGetOnPremisesInstancesOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.batch_get_on_premises_instances
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.batch_get_on_premises_instances
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.batch_get_on_premises_instances.batch_get_on_premises_instances(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.batch_get_on_premises_instances.batch_get_on_premises_instances(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.batch_get_on_premises_instances
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.batch_get_on_premises_instances.batch_get_on_premises_instances(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -744,13 +839,24 @@ class CodeDeployClient:
         def _handler(
             req: "OperationRequest[capo_codedeploy.types.continue_deployment_input.ContinueDeploymentInput]",
         ) -> OperationResponse[None]:
-            import capo_codedeploy._operations.code_deploy_20141006.continue_deployment
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.continue_deployment
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.continue_deployment.continue_deployment(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.continue_deployment.continue_deployment(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.continue_deployment
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.continue_deployment.continue_deployment(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -803,13 +909,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.create_application_output.CreateApplicationOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.create_application
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.create_application
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.create_application.create_application(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.create_application.create_application(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.create_application
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.create_application.create_application(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -926,13 +1043,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.create_deployment_output.CreateDeploymentOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.create_deployment
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.create_deployment
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.create_deployment.create_deployment(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.create_deployment.create_deployment(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.create_deployment
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.create_deployment.create_deployment(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1018,13 +1146,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.create_deployment_config_output.CreateDeploymentConfigOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.create_deployment_config
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.create_deployment_config
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.create_deployment_config.create_deployment_config(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.create_deployment_config.create_deployment_config(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.create_deployment_config
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.create_deployment_config.create_deployment_config(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1171,13 +1310,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.create_deployment_group_output.CreateDeploymentGroupOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.create_deployment_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.create_deployment_group
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.create_deployment_group.create_deployment_group(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.create_deployment_group.create_deployment_group(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.create_deployment_group
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.create_deployment_group.create_deployment_group(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1256,13 +1406,24 @@ class CodeDeployClient:
         def _handler(
             req: "OperationRequest[capo_codedeploy.types.delete_application_input.DeleteApplicationInput]",
         ) -> OperationResponse[None]:
-            import capo_codedeploy._operations.code_deploy_20141006.delete_application
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.delete_application
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.delete_application.delete_application(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.delete_application.delete_application(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.delete_application
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.delete_application.delete_application(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1302,13 +1463,24 @@ class CodeDeployClient:
         def _handler(
             req: "OperationRequest[capo_codedeploy.types.delete_deployment_config_input.DeleteDeploymentConfigInput]",
         ) -> OperationResponse[None]:
-            import capo_codedeploy._operations.code_deploy_20141006.delete_deployment_config
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.delete_deployment_config
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.delete_deployment_config.delete_deployment_config(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.delete_deployment_config.delete_deployment_config(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.delete_deployment_config
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.delete_deployment_config.delete_deployment_config(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1353,13 +1525,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.delete_deployment_group_output.DeleteDeploymentGroupOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.delete_deployment_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.delete_deployment_group
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.delete_deployment_group.delete_deployment_group(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.delete_deployment_group.delete_deployment_group(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.delete_deployment_group
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.delete_deployment_group.delete_deployment_group(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1405,13 +1588,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.delete_git_hub_account_token_output.DeleteGitHubAccountTokenOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.delete_git_hub_account_token
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.delete_git_hub_account_token
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.delete_git_hub_account_token.delete_git_hub_account_token(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.delete_git_hub_account_token.delete_git_hub_account_token(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.delete_git_hub_account_token
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.delete_git_hub_account_token.delete_git_hub_account_token(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1449,13 +1643,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.delete_resources_by_external_id_output.DeleteResourcesByExternalIdOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.delete_resources_by_external_id
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.delete_resources_by_external_id
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.delete_resources_by_external_id.delete_resources_by_external_id(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.delete_resources_by_external_id.delete_resources_by_external_id(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.delete_resources_by_external_id
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.delete_resources_by_external_id.delete_resources_by_external_id(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1493,13 +1698,24 @@ class CodeDeployClient:
         def _handler(
             req: "OperationRequest[capo_codedeploy.types.deregister_on_premises_instance_input.DeregisterOnPremisesInstanceInput]",
         ) -> OperationResponse[None]:
-            import capo_codedeploy._operations.code_deploy_20141006.deregister_on_premises_instance
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.deregister_on_premises_instance
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.deregister_on_premises_instance.deregister_on_premises_instance(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.deregister_on_premises_instance.deregister_on_premises_instance(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.deregister_on_premises_instance
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.deregister_on_premises_instance.deregister_on_premises_instance(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1540,13 +1756,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.get_application_output.GetApplicationOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.get_application
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.get_application
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.get_application.get_application(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.get_application.get_application(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.get_application
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.get_application.get_application(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1592,13 +1819,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.get_application_revision_output.GetApplicationRevisionOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.get_application_revision
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.get_application_revision
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.get_application_revision.get_application_revision(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.get_application_revision.get_application_revision(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.get_application_revision
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.get_application_revision.get_application_revision(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1640,13 +1878,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.get_deployment_output.GetDeploymentOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.get_deployment
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.get_deployment
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.get_deployment.get_deployment(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.get_deployment.get_deployment(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.get_deployment
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.get_deployment.get_deployment(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1688,13 +1937,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.get_deployment_config_output.GetDeploymentConfigOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.get_deployment_config
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.get_deployment_config
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.get_deployment_config.get_deployment_config(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.get_deployment_config.get_deployment_config(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.get_deployment_config
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.get_deployment_config.get_deployment_config(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1741,13 +2001,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.get_deployment_group_output.GetDeploymentGroupOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.get_deployment_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.get_deployment_group
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.get_deployment_group.get_deployment_group(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.get_deployment_group.get_deployment_group(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.get_deployment_group
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.get_deployment_group.get_deployment_group(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1795,13 +2066,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.get_deployment_instance_output.GetDeploymentInstanceOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.get_deployment_instance
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.get_deployment_instance
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.get_deployment_instance.get_deployment_instance(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.get_deployment_instance.get_deployment_instance(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.get_deployment_instance
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.get_deployment_instance.get_deployment_instance(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1850,13 +2132,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.get_deployment_target_output.GetDeploymentTargetOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.get_deployment_target
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.get_deployment_target
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.get_deployment_target.get_deployment_target(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.get_deployment_target.get_deployment_target(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.get_deployment_target
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.get_deployment_target.get_deployment_target(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1898,13 +2191,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.get_on_premises_instance_output.GetOnPremisesInstanceOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.get_on_premises_instance
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.get_on_premises_instance
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.get_on_premises_instance.get_on_premises_instance(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.get_on_premises_instance.get_on_premises_instance(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.get_on_premises_instance
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.get_on_premises_instance.get_on_premises_instance(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1968,13 +2272,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.list_application_revisions_output.ListApplicationRevisionsOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.list_application_revisions
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.list_application_revisions
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.list_application_revisions.list_application_revisions(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.list_application_revisions.list_application_revisions(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.list_application_revisions
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.list_application_revisions.list_application_revisions(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2060,13 +2375,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.list_applications_output.ListApplicationsOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.list_applications
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.list_applications
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.list_applications.list_applications(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.list_applications.list_applications(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.list_applications
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.list_applications.list_applications(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2124,13 +2450,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.list_deployment_configs_output.ListDeploymentConfigsOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.list_deployment_configs
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.list_deployment_configs
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.list_deployment_configs.list_deployment_configs(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.list_deployment_configs.list_deployment_configs(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.list_deployment_configs
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.list_deployment_configs.list_deployment_configs(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2195,13 +2532,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.list_deployment_groups_output.ListDeploymentGroupsOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.list_deployment_groups
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.list_deployment_groups
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.list_deployment_groups.list_deployment_groups(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.list_deployment_groups.list_deployment_groups(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.list_deployment_groups
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.list_deployment_groups.list_deployment_groups(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2284,13 +2632,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.list_deployment_instances_output.ListDeploymentInstancesOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.list_deployment_instances
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.list_deployment_instances
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.list_deployment_instances.list_deployment_instances(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.list_deployment_instances.list_deployment_instances(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.list_deployment_instances
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.list_deployment_instances.list_deployment_instances(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2392,13 +2751,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.list_deployments_output.ListDeploymentsOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.list_deployments
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.list_deployments
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.list_deployments.list_deployments(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.list_deployments.list_deployments(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.list_deployments
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.list_deployments.list_deployments(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2500,13 +2870,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.list_deployment_targets_output.ListDeploymentTargetsOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.list_deployment_targets
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.list_deployment_targets
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.list_deployment_targets.list_deployment_targets(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.list_deployment_targets.list_deployment_targets(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.list_deployment_targets
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.list_deployment_targets.list_deployment_targets(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2551,13 +2932,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.list_git_hub_account_token_names_output.ListGitHubAccountTokenNamesOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.list_git_hub_account_token_names
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.list_git_hub_account_token_names
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.list_git_hub_account_token_names.list_git_hub_account_token_names(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.list_git_hub_account_token_names.list_git_hub_account_token_names(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.list_git_hub_account_token_names
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.list_git_hub_account_token_names.list_git_hub_account_token_names(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2606,13 +2998,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.list_on_premises_instances_output.ListOnPremisesInstancesOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.list_on_premises_instances
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.list_on_premises_instances
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.list_on_premises_instances.list_on_premises_instances(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.list_on_premises_instances.list_on_premises_instances(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.list_on_premises_instances
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.list_on_premises_instances.list_on_premises_instances(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2661,13 +3064,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.list_tags_for_resource_output.ListTagsForResourceOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.list_tags_for_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.list_tags_for_resource
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.list_tags_for_resource.list_tags_for_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.list_tags_for_resource
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2724,13 +3138,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.put_lifecycle_event_hook_execution_status_output.PutLifecycleEventHookExecutionStatusOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.put_lifecycle_event_hook_execution_status
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.put_lifecycle_event_hook_execution_status
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.put_lifecycle_event_hook_execution_status.put_lifecycle_event_hook_execution_status(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.put_lifecycle_event_hook_execution_status.put_lifecycle_event_hook_execution_status(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.put_lifecycle_event_hook_execution_status
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.put_lifecycle_event_hook_execution_status.put_lifecycle_event_hook_execution_status(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2782,13 +3207,24 @@ class CodeDeployClient:
         def _handler(
             req: "OperationRequest[capo_codedeploy.types.register_application_revision_input.RegisterApplicationRevisionInput]",
         ) -> OperationResponse[None]:
-            import capo_codedeploy._operations.code_deploy_20141006.register_application_revision
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.register_application_revision
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.register_application_revision.register_application_revision(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.register_application_revision.register_application_revision(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.register_application_revision
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.register_application_revision.register_application_revision(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2843,13 +3279,24 @@ class CodeDeployClient:
         def _handler(
             req: "OperationRequest[capo_codedeploy.types.register_on_premises_instance_input.RegisterOnPremisesInstanceInput]",
         ) -> OperationResponse[None]:
-            import capo_codedeploy._operations.code_deploy_20141006.register_on_premises_instance
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.register_on_premises_instance
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.register_on_premises_instance.register_on_premises_instance(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.register_on_premises_instance.register_on_premises_instance(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.register_on_premises_instance
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.register_on_premises_instance.register_on_premises_instance(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2898,13 +3345,24 @@ class CodeDeployClient:
         def _handler(
             req: "OperationRequest[capo_codedeploy.types.remove_tags_from_on_premises_instances_input.RemoveTagsFromOnPremisesInstancesInput]",
         ) -> OperationResponse[None]:
-            import capo_codedeploy._operations.code_deploy_20141006.remove_tags_from_on_premises_instances
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.remove_tags_from_on_premises_instances
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.remove_tags_from_on_premises_instances.remove_tags_from_on_premises_instances(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.remove_tags_from_on_premises_instances.remove_tags_from_on_premises_instances(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.remove_tags_from_on_premises_instances
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.remove_tags_from_on_premises_instances.remove_tags_from_on_premises_instances(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2949,13 +3407,24 @@ class CodeDeployClient:
         def _handler(
             req: "OperationRequest[capo_codedeploy.types.skip_wait_time_for_instance_termination_input.SkipWaitTimeForInstanceTerminationInput]",
         ) -> OperationResponse[None]:
-            import capo_codedeploy._operations.code_deploy_20141006.skip_wait_time_for_instance_termination
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.skip_wait_time_for_instance_termination
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.skip_wait_time_for_instance_termination.skip_wait_time_for_instance_termination(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.skip_wait_time_for_instance_termination.skip_wait_time_for_instance_termination(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.skip_wait_time_for_instance_termination
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.skip_wait_time_for_instance_termination.skip_wait_time_for_instance_termination(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3003,13 +3472,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.stop_deployment_output.StopDeploymentOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.stop_deployment
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.stop_deployment
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.stop_deployment.stop_deployment(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.stop_deployment.stop_deployment(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.stop_deployment
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.stop_deployment.stop_deployment(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3059,13 +3539,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.tag_resource_output.TagResourceOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.tag_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.tag_resource
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.tag_resource.tag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.tag_resource
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3114,13 +3605,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.untag_resource_output.UntagResourceOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.untag_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.untag_resource
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.untag_resource.untag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.untag_resource
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3167,13 +3669,24 @@ class CodeDeployClient:
         def _handler(
             req: "OperationRequest[capo_codedeploy.types.update_application_input.UpdateApplicationInput]",
         ) -> OperationResponse[None]:
-            import capo_codedeploy._operations.code_deploy_20141006.update_application
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.update_application
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.update_application.update_application(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.update_application.update_application(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.update_application
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.update_application.update_application(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3314,13 +3827,24 @@ class CodeDeployClient:
         ) -> OperationResponse[
             "capo_codedeploy.types.update_deployment_group_output.UpdateDeploymentGroupOutput"
         ]:
-            import capo_codedeploy._operations.code_deploy_20141006.update_deployment_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.update_deployment_group
 
-            output, http_response = (
-                capo_codedeploy._operations.code_deploy_20141006.update_deployment_group.update_deployment_group(
-                    req.options, req.input
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.aws_json1_1.update_deployment_group.update_deployment_group(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.update_deployment_group
+
+                output, http_response = (
+                    capo_codedeploy._operations.code_deploy_20141006.rpcv2_cbor.update_deployment_group.update_deployment_group(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

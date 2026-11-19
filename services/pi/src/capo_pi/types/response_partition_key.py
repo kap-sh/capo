@@ -35,3 +35,25 @@ def deserialize_aws_json_1_1(data: dict) -> ResponsePartitionKey:
     else:
         out["dimensions"] = {}
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResponsePartitionKey) -> dict:
+    out: dict = {}
+    import capo_pi.types.dimension_map
+
+    out["Dimensions"] = capo_pi.types.dimension_map.serialize_cbor(value["dimensions"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> ResponsePartitionKey:
+    out: ResponsePartitionKey = {}  # type: ignore[typeddict-item]
+    if data.get("Dimensions") is not None:
+        import capo_pi.types.dimension_map
+
+        out["dimensions"] = capo_pi.types.dimension_map.deserialize_cbor(
+            data["Dimensions"]
+        )
+    else:
+        out["dimensions"] = {}
+    return out

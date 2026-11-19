@@ -43,3 +43,23 @@ def deserialize_aws_json_1_1(data: dict) -> RecurringCharge:
     if data.get("RecurringChargeFrequency") is not None:
         out["recurring_charge_frequency"] = data["RecurringChargeFrequency"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RecurringCharge) -> dict:
+    out: dict = {}
+    out["RecurringChargeAmount"] = value.get("recurring_charge_amount", 0)
+    if "recurring_charge_frequency" in value:
+        out["RecurringChargeFrequency"] = value["recurring_charge_frequency"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RecurringCharge:
+    out: RecurringCharge = {}  # type: ignore[typeddict-item]
+    if data.get("RecurringChargeAmount") is not None:
+        out["recurring_charge_amount"] = float(data["RecurringChargeAmount"])
+    else:
+        out["recurring_charge_amount"] = 0
+    if data.get("RecurringChargeFrequency") is not None:
+        out["recurring_charge_frequency"] = data["RecurringChargeFrequency"]
+    return out

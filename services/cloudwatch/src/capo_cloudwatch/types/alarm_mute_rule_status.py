@@ -37,3 +37,12 @@ def serialize_query(
 
 def deserialize_query(el: Element) -> AlarmMuteRuleStatus:
     return from_query_text(el.text or "")
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AlarmMuteRuleStatus) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> AlarmMuteRuleStatus:
+    return cast(AlarmMuteRuleStatus, data)

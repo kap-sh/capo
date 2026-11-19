@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> EC2DeploymentOptions:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EC2DeploymentOptions) -> dict:
+    out: dict = {}
+    if "auto_scaling_group_processes_to_suspend" in value:
+        import capo_codedeploy.types.auto_scaling_group_processes_to_suspend_list
+
+        out["autoScalingGroupProcessesToSuspend"] = (
+            capo_codedeploy.types.auto_scaling_group_processes_to_suspend_list.serialize_cbor(
+                value["auto_scaling_group_processes_to_suspend"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> EC2DeploymentOptions:
+    out: EC2DeploymentOptions = {}  # type: ignore[typeddict-item]
+    if data.get("autoScalingGroupProcessesToSuspend") is not None:
+        import capo_codedeploy.types.auto_scaling_group_processes_to_suspend_list
+
+        out["auto_scaling_group_processes_to_suspend"] = (
+            capo_codedeploy.types.auto_scaling_group_processes_to_suspend_list.deserialize_cbor(
+                data["autoScalingGroupProcessesToSuspend"]
+            )
+        )
+    return out

@@ -90,6 +90,68 @@ def deserialize_aws_json_1_0(data: dict) -> CreateWorkspaceInstanceRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateWorkspaceInstanceRequest) -> dict:
+    out: dict = {}
+    if "client_token" in value:
+        out["ClientToken"] = value["client_token"]
+    if "tags" in value:
+        import capo_workspaces_instances.types.tag_list
+
+        out["Tags"] = capo_workspaces_instances.types.tag_list.serialize_cbor(
+            value["tags"]
+        )
+    import capo_workspaces_instances.types.managed_instance_request
+
+    out["ManagedInstance"] = (
+        capo_workspaces_instances.types.managed_instance_request.serialize_cbor(
+            value["managed_instance"]
+        )
+    )
+    if "billing_configuration" in value:
+        import capo_workspaces_instances.types.billing_configuration
+
+        out["BillingConfiguration"] = (
+            capo_workspaces_instances.types.billing_configuration.serialize_cbor(
+                value["billing_configuration"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateWorkspaceInstanceRequest:
+    out: CreateWorkspaceInstanceRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ClientToken") is not None:
+        out["client_token"] = data["ClientToken"]
+    if data.get("Tags") is not None:
+        import capo_workspaces_instances.types.tag_list
+
+        out["tags"] = capo_workspaces_instances.types.tag_list.deserialize_cbor(
+            data["Tags"]
+        )
+    if data.get("ManagedInstance") is not None:
+        import capo_workspaces_instances.types.managed_instance_request
+
+        out["managed_instance"] = (
+            capo_workspaces_instances.types.managed_instance_request.deserialize_cbor(
+                data["ManagedInstance"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "CreateWorkspaceInstanceRequest.managed_instance required"
+        )
+    if data.get("BillingConfiguration") is not None:
+        import capo_workspaces_instances.types.billing_configuration
+
+        out["billing_configuration"] = (
+            capo_workspaces_instances.types.billing_configuration.deserialize_cbor(
+                data["BillingConfiguration"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: CreateWorkspaceInstanceRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "client_token" in value:

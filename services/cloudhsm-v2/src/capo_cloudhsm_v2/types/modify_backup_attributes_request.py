@@ -35,3 +35,24 @@ def deserialize_aws_json_1_1(data: dict) -> ModifyBackupAttributesRequest:
     else:
         out["never_expires"] = False
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ModifyBackupAttributesRequest) -> dict:
+    out: dict = {}
+    out["BackupId"] = value["backup_id"]
+    out["NeverExpires"] = value["never_expires"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ModifyBackupAttributesRequest:
+    out: ModifyBackupAttributesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("BackupId") is not None:
+        out["backup_id"] = data["BackupId"]
+    else:
+        out["backup_id"] = ""
+    if data.get("NeverExpires") is not None:
+        out["never_expires"] = data["NeverExpires"]
+    else:
+        out["never_expires"] = False
+    return out

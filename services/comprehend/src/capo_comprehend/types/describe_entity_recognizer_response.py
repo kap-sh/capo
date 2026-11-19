@@ -42,6 +42,33 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeEntityRecognizerResponse:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeEntityRecognizerResponse) -> dict:
+    out: dict = {}
+    if "entity_recognizer_properties" in value:
+        import capo_comprehend.types.entity_recognizer_properties
+
+        out["EntityRecognizerProperties"] = (
+            capo_comprehend.types.entity_recognizer_properties.serialize_cbor(
+                value["entity_recognizer_properties"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeEntityRecognizerResponse:
+    out: DescribeEntityRecognizerResponse = {}  # type: ignore[typeddict-item]
+    if data.get("EntityRecognizerProperties") is not None:
+        import capo_comprehend.types.entity_recognizer_properties
+
+        out["entity_recognizer_properties"] = (
+            capo_comprehend.types.entity_recognizer_properties.deserialize_cbor(
+                data["EntityRecognizerProperties"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: DescribeEntityRecognizerResponse) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "entity_recognizer_properties" in value:

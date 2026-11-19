@@ -32,3 +32,22 @@ def deserialize_aws_json_1_1(data: dict) -> TestCaseFilter:
     if data.get("keyword") is not None:
         out["keyword"] = data["keyword"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TestCaseFilter) -> dict:
+    out: dict = {}
+    if "status" in value:
+        out["status"] = value["status"]
+    if "keyword" in value:
+        out["keyword"] = value["keyword"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> TestCaseFilter:
+    out: TestCaseFilter = {}  # type: ignore[typeddict-item]
+    if data.get("status") is not None:
+        out["status"] = data["status"]
+    if data.get("keyword") is not None:
+        out["keyword"] = data["keyword"]
+    return out

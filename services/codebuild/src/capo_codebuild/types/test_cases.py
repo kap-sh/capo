@@ -27,3 +27,24 @@ def deserialize_aws_json_1_1(data: list) -> TestCases:
             continue
         out.append(capo_codebuild.types.test_case.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TestCases) -> list:
+    import capo_codebuild.types.test_case
+
+    out: list = []
+    for item in value:
+        out.append(capo_codebuild.types.test_case.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> TestCases:
+    import capo_codebuild.types.test_case
+
+    out: TestCases = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_codebuild.types.test_case.deserialize_cbor(item))
+    return out

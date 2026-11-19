@@ -50,6 +50,38 @@ def deserialize_aws_json_1_0(data: dict) -> ListWorkspaceInstancesResponse:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListWorkspaceInstancesResponse) -> dict:
+    out: dict = {}
+    import capo_workspaces_instances.types.workspace_instances
+
+    out["WorkspaceInstances"] = (
+        capo_workspaces_instances.types.workspace_instances.serialize_cbor(
+            value["workspace_instances"]
+        )
+    )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListWorkspaceInstancesResponse:
+    out: ListWorkspaceInstancesResponse = {}  # type: ignore[typeddict-item]
+    if data.get("WorkspaceInstances") is not None:
+        import capo_workspaces_instances.types.workspace_instances
+
+        out["workspace_instances"] = (
+            capo_workspaces_instances.types.workspace_instances.deserialize_cbor(
+                data["WorkspaceInstances"]
+            )
+        )
+    else:
+        out["workspace_instances"] = []
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out
+
+
 def redact_sensitive(value: ListWorkspaceInstancesResponse) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "next_token" in value:

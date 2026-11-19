@@ -57,3 +57,39 @@ def deserialize_aws_json_1_0(data: dict) -> ProxySettings:
     if data.get("DomainName") is not None:
         out["domain_name"] = data["DomainName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ProxySettings) -> dict:
+    out: dict = {}
+    import capo_network_firewall.types.listener_properties
+
+    out["ListenerProperties"] = (
+        capo_network_firewall.types.listener_properties.serialize_cbor(
+            value["listener_properties"]
+        )
+    )
+    if "certificate_arn" in value:
+        out["CertificateArn"] = value["certificate_arn"]
+    if "domain_name" in value:
+        out["DomainName"] = value["domain_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ProxySettings:
+    out: ProxySettings = {}  # type: ignore[typeddict-item]
+    if data.get("ListenerProperties") is not None:
+        import capo_network_firewall.types.listener_properties
+
+        out["listener_properties"] = (
+            capo_network_firewall.types.listener_properties.deserialize_cbor(
+                data["ListenerProperties"]
+            )
+        )
+    else:
+        out["listener_properties"] = []
+    if data.get("CertificateArn") is not None:
+        out["certificate_arn"] = data["CertificateArn"]
+    if data.get("DomainName") is not None:
+        out["domain_name"] = data["DomainName"]
+    return out

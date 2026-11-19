@@ -52,6 +52,35 @@ def deserialize_aws_json_1_1(data: dict) -> StartCommandExecutionInput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartCommandExecutionInput) -> dict:
+    out: dict = {}
+    out["sandboxId"] = value["sandbox_id"]
+    out["command"] = value["command"]
+    if "type" in value:
+        import capo_codebuild.types.command_type
+
+        out["type"] = capo_codebuild.types.command_type.serialize_cbor(value["type"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartCommandExecutionInput:
+    out: StartCommandExecutionInput = {}  # type: ignore[typeddict-item]
+    if data.get("sandboxId") is not None:
+        out["sandbox_id"] = data["sandboxId"]
+    else:
+        out["sandbox_id"] = ""
+    if data.get("command") is not None:
+        out["command"] = data["command"]
+    else:
+        out["command"] = ""
+    if data.get("type") is not None:
+        import capo_codebuild.types.command_type
+
+        out["type"] = capo_codebuild.types.command_type.deserialize_cbor(data["type"])
+    return out
+
+
 def redact_sensitive(value: StartCommandExecutionInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "command" in value:

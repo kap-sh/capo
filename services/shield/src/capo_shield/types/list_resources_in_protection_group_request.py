@@ -41,3 +41,27 @@ def deserialize_aws_json_1_1(data: dict) -> ListResourcesInProtectionGroupReques
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListResourcesInProtectionGroupRequest) -> dict:
+    out: dict = {}
+    out["ProtectionGroupId"] = value["protection_group_id"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListResourcesInProtectionGroupRequest:
+    out: ListResourcesInProtectionGroupRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ProtectionGroupId") is not None:
+        out["protection_group_id"] = data["ProtectionGroupId"]
+    else:
+        out["protection_group_id"] = ""
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    return out

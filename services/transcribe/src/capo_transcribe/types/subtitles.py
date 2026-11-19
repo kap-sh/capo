@@ -45,3 +45,30 @@ def deserialize_aws_json_1_1(data: dict) -> Subtitles:
     if data.get("OutputStartIndex") is not None:
         out["output_start_index"] = data["OutputStartIndex"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Subtitles) -> dict:
+    out: dict = {}
+    if "formats" in value:
+        import capo_transcribe.types.subtitle_formats
+
+        out["Formats"] = capo_transcribe.types.subtitle_formats.serialize_cbor(
+            value["formats"]
+        )
+    if "output_start_index" in value:
+        out["OutputStartIndex"] = value["output_start_index"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Subtitles:
+    out: Subtitles = {}  # type: ignore[typeddict-item]
+    if data.get("Formats") is not None:
+        import capo_transcribe.types.subtitle_formats
+
+        out["formats"] = capo_transcribe.types.subtitle_formats.deserialize_cbor(
+            data["Formats"]
+        )
+    if data.get("OutputStartIndex") is not None:
+        out["output_start_index"] = data["OutputStartIndex"]
+    return out

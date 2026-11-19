@@ -127,3 +127,85 @@ def deserialize_aws_json_1_1(data: dict) -> CreateFlywheelRequest:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateFlywheelRequest) -> dict:
+    out: dict = {}
+    out["FlywheelName"] = value["flywheel_name"]
+    if "active_model_arn" in value:
+        out["ActiveModelArn"] = value["active_model_arn"]
+    out["DataAccessRoleArn"] = value["data_access_role_arn"]
+    if "task_config" in value:
+        import capo_comprehend.types.task_config
+
+        out["TaskConfig"] = capo_comprehend.types.task_config.serialize_cbor(
+            value["task_config"]
+        )
+    if "model_type" in value:
+        import capo_comprehend.types.model_type
+
+        out["ModelType"] = capo_comprehend.types.model_type.serialize_cbor(
+            value["model_type"]
+        )
+    out["DataLakeS3Uri"] = value["data_lake_s3_uri"]
+    if "data_security_config" in value:
+        import capo_comprehend.types.data_security_config
+
+        out["DataSecurityConfig"] = (
+            capo_comprehend.types.data_security_config.serialize_cbor(
+                value["data_security_config"]
+            )
+        )
+    if "client_request_token" in value:
+        out["ClientRequestToken"] = value["client_request_token"]
+    if "tags" in value:
+        import capo_comprehend.types.tag_list
+
+        out["Tags"] = capo_comprehend.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateFlywheelRequest:
+    out: CreateFlywheelRequest = {}  # type: ignore[typeddict-item]
+    if data.get("FlywheelName") is not None:
+        out["flywheel_name"] = data["FlywheelName"]
+    else:
+        out["flywheel_name"] = ""
+    if data.get("ActiveModelArn") is not None:
+        out["active_model_arn"] = data["ActiveModelArn"]
+    if data.get("DataAccessRoleArn") is not None:
+        out["data_access_role_arn"] = data["DataAccessRoleArn"]
+    else:
+        out["data_access_role_arn"] = ""
+    if data.get("TaskConfig") is not None:
+        import capo_comprehend.types.task_config
+
+        out["task_config"] = capo_comprehend.types.task_config.deserialize_cbor(
+            data["TaskConfig"]
+        )
+    if data.get("ModelType") is not None:
+        import capo_comprehend.types.model_type
+
+        out["model_type"] = capo_comprehend.types.model_type.deserialize_cbor(
+            data["ModelType"]
+        )
+    if data.get("DataLakeS3Uri") is not None:
+        out["data_lake_s3_uri"] = data["DataLakeS3Uri"]
+    else:
+        out["data_lake_s3_uri"] = ""
+    if data.get("DataSecurityConfig") is not None:
+        import capo_comprehend.types.data_security_config
+
+        out["data_security_config"] = (
+            capo_comprehend.types.data_security_config.deserialize_cbor(
+                data["DataSecurityConfig"]
+            )
+        )
+    if data.get("ClientRequestToken") is not None:
+        out["client_request_token"] = data["ClientRequestToken"]
+    if data.get("Tags") is not None:
+        import capo_comprehend.types.tag_list
+
+        out["tags"] = capo_comprehend.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

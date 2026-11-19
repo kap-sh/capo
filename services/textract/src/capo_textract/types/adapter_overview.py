@@ -65,3 +65,46 @@ def deserialize_aws_json_1_1(data: dict) -> AdapterOverview:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AdapterOverview) -> dict:
+    out: dict = {}
+    if "adapter_id" in value:
+        out["AdapterId"] = value["adapter_id"]
+    if "adapter_name" in value:
+        out["AdapterName"] = value["adapter_name"]
+    if "creation_time" in value:
+        import capo_textract.types.date_time
+
+        out["CreationTime"] = capo_textract.types.date_time.serialize_cbor(
+            value["creation_time"]
+        )
+    if "feature_types" in value:
+        import capo_textract.types.feature_types
+
+        out["FeatureTypes"] = capo_textract.types.feature_types.serialize_cbor(
+            value["feature_types"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AdapterOverview:
+    out: AdapterOverview = {}  # type: ignore[typeddict-item]
+    if data.get("AdapterId") is not None:
+        out["adapter_id"] = data["AdapterId"]
+    if data.get("AdapterName") is not None:
+        out["adapter_name"] = data["AdapterName"]
+    if data.get("CreationTime") is not None:
+        import capo_textract.types.date_time
+
+        out["creation_time"] = capo_textract.types.date_time.deserialize_cbor(
+            data["CreationTime"]
+        )
+    if data.get("FeatureTypes") is not None:
+        import capo_textract.types.feature_types
+
+        out["feature_types"] = capo_textract.types.feature_types.deserialize_cbor(
+            data["FeatureTypes"]
+        )
+    return out

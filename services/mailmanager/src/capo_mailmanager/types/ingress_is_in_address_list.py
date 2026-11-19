@@ -66,3 +66,53 @@ def deserialize_aws_json_1_0(data: dict) -> IngressIsInAddressList:
     else:
         out["address_lists"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IngressIsInAddressList) -> dict:
+    out: dict = {}
+    import capo_mailmanager.types.ingress_address_list_email_attribute
+
+    out["Attribute"] = (
+        capo_mailmanager.types.ingress_address_list_email_attribute.serialize_cbor(
+            value["attribute"]
+        )
+    )
+    import capo_mailmanager.types.ingress_address_list_arn_list
+
+    out["AddressLists"] = (
+        capo_mailmanager.types.ingress_address_list_arn_list.serialize_cbor(
+            value["address_lists"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> IngressIsInAddressList:
+    out: IngressIsInAddressList = {}  # type: ignore[typeddict-item]
+    if data.get("Attribute") is not None:
+        import capo_mailmanager.types.ingress_address_list_email_attribute
+
+        out["attribute"] = (
+            capo_mailmanager.types.ingress_address_list_email_attribute.deserialize_cbor(
+                data["Attribute"]
+            )
+        )
+    else:
+        import typing
+
+        out["attribute"] = typing.cast(
+            "capo_mailmanager.types.ingress_address_list_email_attribute.IngressAddressListEmailAttribute",
+            "",
+        )
+    if data.get("AddressLists") is not None:
+        import capo_mailmanager.types.ingress_address_list_arn_list
+
+        out["address_lists"] = (
+            capo_mailmanager.types.ingress_address_list_arn_list.deserialize_cbor(
+                data["AddressLists"]
+            )
+        )
+    else:
+        out["address_lists"] = []
+    return out

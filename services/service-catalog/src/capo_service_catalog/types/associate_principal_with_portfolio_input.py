@@ -68,3 +68,47 @@ def deserialize_aws_json_1_1(data: dict) -> AssociatePrincipalWithPortfolioInput
             "capo_service_catalog.types.principal_type.PrincipalType", ""
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AssociatePrincipalWithPortfolioInput) -> dict:
+    out: dict = {}
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    out["PortfolioId"] = value["portfolio_id"]
+    out["PrincipalARN"] = value["principal_arn"]
+    import capo_service_catalog.types.principal_type
+
+    out["PrincipalType"] = capo_service_catalog.types.principal_type.serialize_cbor(
+        value["principal_type"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AssociatePrincipalWithPortfolioInput:
+    out: AssociatePrincipalWithPortfolioInput = {}  # type: ignore[typeddict-item]
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    if data.get("PortfolioId") is not None:
+        out["portfolio_id"] = data["PortfolioId"]
+    else:
+        out["portfolio_id"] = ""
+    if data.get("PrincipalARN") is not None:
+        out["principal_arn"] = data["PrincipalARN"]
+    else:
+        out["principal_arn"] = ""
+    if data.get("PrincipalType") is not None:
+        import capo_service_catalog.types.principal_type
+
+        out["principal_type"] = (
+            capo_service_catalog.types.principal_type.deserialize_cbor(
+                data["PrincipalType"]
+            )
+        )
+    else:
+        import typing
+
+        out["principal_type"] = typing.cast(
+            "capo_service_catalog.types.principal_type.PrincipalType", ""
+        )
+    return out

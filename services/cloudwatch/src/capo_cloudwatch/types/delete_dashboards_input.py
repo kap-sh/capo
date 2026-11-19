@@ -67,3 +67,26 @@ def deserialize_query(el: Element) -> DeleteDashboardsInput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteDashboardsInput) -> dict:
+    out: dict = {}
+    if "dashboard_names" in value:
+        import capo_cloudwatch.types.dashboard_names
+
+        out["DashboardNames"] = capo_cloudwatch.types.dashboard_names.serialize_cbor(
+            value["dashboard_names"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteDashboardsInput:
+    out: DeleteDashboardsInput = {}  # type: ignore[typeddict-item]
+    if data.get("DashboardNames") is not None:
+        import capo_cloudwatch.types.dashboard_names
+
+        out["dashboard_names"] = capo_cloudwatch.types.dashboard_names.deserialize_cbor(
+            data["DashboardNames"]
+        )
+    return out

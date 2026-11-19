@@ -28,3 +28,18 @@ def deserialize_aws_json_1_1(data: dict) -> AnywhereConfiguration:
     if data.get("Cost") is not None:
         out["cost"] = data["Cost"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AnywhereConfiguration) -> dict:
+    out: dict = {}
+    if "cost" in value:
+        out["Cost"] = value["cost"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AnywhereConfiguration:
+    out: AnywhereConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("Cost") is not None:
+        out["cost"] = data["Cost"]
+    return out

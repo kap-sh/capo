@@ -39,3 +39,29 @@ def deserialize_aws_json_1_1(data: dict) -> DnsConfigChange:
     else:
         out["dns_records"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DnsConfigChange) -> dict:
+    out: dict = {}
+    import capo_servicediscovery.types.dns_record_list
+
+    out["DnsRecords"] = capo_servicediscovery.types.dns_record_list.serialize_cbor(
+        value["dns_records"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DnsConfigChange:
+    out: DnsConfigChange = {}  # type: ignore[typeddict-item]
+    if data.get("DnsRecords") is not None:
+        import capo_servicediscovery.types.dns_record_list
+
+        out["dns_records"] = (
+            capo_servicediscovery.types.dns_record_list.deserialize_cbor(
+                data["DnsRecords"]
+            )
+        )
+    else:
+        out["dns_records"] = []
+    return out

@@ -16,3 +16,14 @@ def serialize_aws_json_1_1(value: UpdateImagePermissionsResult) -> dict:
 def deserialize_aws_json_1_1(data: dict) -> UpdateImagePermissionsResult:
     out: UpdateImagePermissionsResult = {}  # type: ignore[typeddict-item]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateImagePermissionsResult) -> dict:
+    out: dict = {}
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateImagePermissionsResult:
+    out: UpdateImagePermissionsResult = {}  # type: ignore[typeddict-item]
+    return out

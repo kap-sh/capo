@@ -54,3 +54,38 @@ def deserialize_aws_json_1_1(data: dict) -> StackInstance:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StackInstance) -> dict:
+    out: dict = {}
+    if "account" in value:
+        out["Account"] = value["account"]
+    if "region" in value:
+        out["Region"] = value["region"]
+    if "stack_instance_status" in value:
+        import capo_service_catalog.types.stack_instance_status
+
+        out["StackInstanceStatus"] = (
+            capo_service_catalog.types.stack_instance_status.serialize_cbor(
+                value["stack_instance_status"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StackInstance:
+    out: StackInstance = {}  # type: ignore[typeddict-item]
+    if data.get("Account") is not None:
+        out["account"] = data["Account"]
+    if data.get("Region") is not None:
+        out["region"] = data["Region"]
+    if data.get("StackInstanceStatus") is not None:
+        import capo_service_catalog.types.stack_instance_status
+
+        out["stack_instance_status"] = (
+            capo_service_catalog.types.stack_instance_status.deserialize_cbor(
+                data["StackInstanceStatus"]
+            )
+        )
+    return out

@@ -49,3 +49,34 @@ def deserialize_aws_json_1_1(data: dict) -> AlarmConfiguration:
             data["alarms"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AlarmConfiguration) -> dict:
+    out: dict = {}
+    out["enabled"] = value.get("enabled", False)
+    out["ignorePollAlarmFailure"] = value.get("ignore_poll_alarm_failure", False)
+    if "alarms" in value:
+        import capo_codedeploy.types.alarm_list
+
+        out["alarms"] = capo_codedeploy.types.alarm_list.serialize_cbor(value["alarms"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> AlarmConfiguration:
+    out: AlarmConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("enabled") is not None:
+        out["enabled"] = data["enabled"]
+    else:
+        out["enabled"] = False
+    if data.get("ignorePollAlarmFailure") is not None:
+        out["ignore_poll_alarm_failure"] = data["ignorePollAlarmFailure"]
+    else:
+        out["ignore_poll_alarm_failure"] = False
+    if data.get("alarms") is not None:
+        import capo_codedeploy.types.alarm_list
+
+        out["alarms"] = capo_codedeploy.types.alarm_list.deserialize_cbor(
+            data["alarms"]
+        )
+    return out

@@ -81,3 +81,34 @@ def deserialize_query(el: Element) -> ListManagedInsightRulesOutput:
     if child_next_token is not None:
         out["next_token"] = str(child_next_token.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListManagedInsightRulesOutput) -> dict:
+    out: dict = {}
+    if "managed_rules" in value:
+        import capo_cloudwatch.types.managed_rule_descriptions
+
+        out["ManagedRules"] = (
+            capo_cloudwatch.types.managed_rule_descriptions.serialize_cbor(
+                value["managed_rules"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListManagedInsightRulesOutput:
+    out: ListManagedInsightRulesOutput = {}  # type: ignore[typeddict-item]
+    if data.get("ManagedRules") is not None:
+        import capo_cloudwatch.types.managed_rule_descriptions
+
+        out["managed_rules"] = (
+            capo_cloudwatch.types.managed_rule_descriptions.deserialize_cbor(
+                data["ManagedRules"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

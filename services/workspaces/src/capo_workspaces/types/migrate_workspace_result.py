@@ -32,3 +32,22 @@ def deserialize_aws_json_1_1(data: dict) -> MigrateWorkspaceResult:
     if data.get("TargetWorkspaceId") is not None:
         out["target_workspace_id"] = data["TargetWorkspaceId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MigrateWorkspaceResult) -> dict:
+    out: dict = {}
+    if "source_workspace_id" in value:
+        out["SourceWorkspaceId"] = value["source_workspace_id"]
+    if "target_workspace_id" in value:
+        out["TargetWorkspaceId"] = value["target_workspace_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> MigrateWorkspaceResult:
+    out: MigrateWorkspaceResult = {}  # type: ignore[typeddict-item]
+    if data.get("SourceWorkspaceId") is not None:
+        out["source_workspace_id"] = data["SourceWorkspaceId"]
+    if data.get("TargetWorkspaceId") is not None:
+        out["target_workspace_id"] = data["TargetWorkspaceId"]
+    return out

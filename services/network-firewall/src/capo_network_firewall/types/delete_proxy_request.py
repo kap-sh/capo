@@ -41,3 +41,27 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteProxyRequest:
     if data.get("ProxyArn") is not None:
         out["proxy_arn"] = data["ProxyArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteProxyRequest) -> dict:
+    out: dict = {}
+    out["NatGatewayId"] = value["nat_gateway_id"]
+    if "proxy_name" in value:
+        out["ProxyName"] = value["proxy_name"]
+    if "proxy_arn" in value:
+        out["ProxyArn"] = value["proxy_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteProxyRequest:
+    out: DeleteProxyRequest = {}  # type: ignore[typeddict-item]
+    if data.get("NatGatewayId") is not None:
+        out["nat_gateway_id"] = data["NatGatewayId"]
+    else:
+        out["nat_gateway_id"] = ""
+    if data.get("ProxyName") is not None:
+        out["proxy_name"] = data["ProxyName"]
+    if data.get("ProxyArn") is not None:
+        out["proxy_arn"] = data["ProxyArn"]
+    return out

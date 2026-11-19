@@ -91,6 +91,65 @@ def deserialize_aws_json_1_1(data: dict) -> GameSessionConnectionInfo:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GameSessionConnectionInfo) -> dict:
+    out: dict = {}
+    if "game_session_arn" in value:
+        out["GameSessionArn"] = value["game_session_arn"]
+    if "ip_address" in value:
+        out["IpAddress"] = value["ip_address"]
+    if "dns_name" in value:
+        out["DnsName"] = value["dns_name"]
+    if "port" in value:
+        out["Port"] = value["port"]
+    if "matched_player_sessions" in value:
+        import capo_gamelift.types.matched_player_session_list
+
+        out["MatchedPlayerSessions"] = (
+            capo_gamelift.types.matched_player_session_list.serialize_cbor(
+                value["matched_player_sessions"]
+            )
+        )
+    if "player_gateway_status" in value:
+        import capo_gamelift.types.player_gateway_status
+
+        out["PlayerGatewayStatus"] = (
+            capo_gamelift.types.player_gateway_status.serialize_cbor(
+                value["player_gateway_status"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GameSessionConnectionInfo:
+    out: GameSessionConnectionInfo = {}  # type: ignore[typeddict-item]
+    if data.get("GameSessionArn") is not None:
+        out["game_session_arn"] = data["GameSessionArn"]
+    if data.get("IpAddress") is not None:
+        out["ip_address"] = data["IpAddress"]
+    if data.get("DnsName") is not None:
+        out["dns_name"] = data["DnsName"]
+    if data.get("Port") is not None:
+        out["port"] = data["Port"]
+    if data.get("MatchedPlayerSessions") is not None:
+        import capo_gamelift.types.matched_player_session_list
+
+        out["matched_player_sessions"] = (
+            capo_gamelift.types.matched_player_session_list.deserialize_cbor(
+                data["MatchedPlayerSessions"]
+            )
+        )
+    if data.get("PlayerGatewayStatus") is not None:
+        import capo_gamelift.types.player_gateway_status
+
+        out["player_gateway_status"] = (
+            capo_gamelift.types.player_gateway_status.deserialize_cbor(
+                data["PlayerGatewayStatus"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: GameSessionConnectionInfo) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "ip_address" in value:

@@ -47,3 +47,36 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeImageAssociationsRequest:
     else:
         out["associated_resource_types"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeImageAssociationsRequest) -> dict:
+    out: dict = {}
+    out["ImageId"] = value["image_id"]
+    import capo_workspaces.types.image_associated_resource_type_list
+
+    out["AssociatedResourceTypes"] = (
+        capo_workspaces.types.image_associated_resource_type_list.serialize_cbor(
+            value["associated_resource_types"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeImageAssociationsRequest:
+    out: DescribeImageAssociationsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ImageId") is not None:
+        out["image_id"] = data["ImageId"]
+    else:
+        out["image_id"] = ""
+    if data.get("AssociatedResourceTypes") is not None:
+        import capo_workspaces.types.image_associated_resource_type_list
+
+        out["associated_resource_types"] = (
+            capo_workspaces.types.image_associated_resource_type_list.deserialize_cbor(
+                data["AssociatedResourceTypes"]
+            )
+        )
+    else:
+        out["associated_resource_types"] = []
+    return out

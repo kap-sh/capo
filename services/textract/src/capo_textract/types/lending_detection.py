@@ -76,3 +76,44 @@ def deserialize_aws_json_1_1(data: dict) -> LendingDetection:
     if data.get("Confidence") is not None:
         out["confidence"] = float(data["Confidence"])
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LendingDetection) -> dict:
+    out: dict = {}
+    if "text" in value:
+        out["Text"] = value["text"]
+    if "selection_status" in value:
+        import capo_textract.types.selection_status
+
+        out["SelectionStatus"] = capo_textract.types.selection_status.serialize_cbor(
+            value["selection_status"]
+        )
+    if "geometry" in value:
+        import capo_textract.types.geometry
+
+        out["Geometry"] = capo_textract.types.geometry.serialize_cbor(value["geometry"])
+    if "confidence" in value:
+        out["Confidence"] = value["confidence"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> LendingDetection:
+    out: LendingDetection = {}  # type: ignore[typeddict-item]
+    if data.get("Text") is not None:
+        out["text"] = data["Text"]
+    if data.get("SelectionStatus") is not None:
+        import capo_textract.types.selection_status
+
+        out["selection_status"] = capo_textract.types.selection_status.deserialize_cbor(
+            data["SelectionStatus"]
+        )
+    if data.get("Geometry") is not None:
+        import capo_textract.types.geometry
+
+        out["geometry"] = capo_textract.types.geometry.deserialize_cbor(
+            data["Geometry"]
+        )
+    if data.get("Confidence") is not None:
+        out["confidence"] = float(data["Confidence"])
+    return out

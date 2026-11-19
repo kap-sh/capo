@@ -16,3 +16,14 @@ def serialize_aws_json_1_1(value: UpdateLocationAzureBlobResponse) -> dict:
 def deserialize_aws_json_1_1(data: dict) -> UpdateLocationAzureBlobResponse:
     out: UpdateLocationAzureBlobResponse = {}  # type: ignore[typeddict-item]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateLocationAzureBlobResponse) -> dict:
+    out: dict = {}
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateLocationAzureBlobResponse:
+    out: UpdateLocationAzureBlobResponse = {}  # type: ignore[typeddict-item]
+    return out

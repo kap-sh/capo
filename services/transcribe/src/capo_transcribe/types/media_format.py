@@ -21,3 +21,12 @@ def serialize_aws_json_1_1(value: MediaFormat) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> MediaFormat:
     return cast(MediaFormat, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MediaFormat) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> MediaFormat:
+    return cast(MediaFormat, data)

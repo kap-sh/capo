@@ -30,6 +30,21 @@ def deserialize_aws_json_1_1(data: dict) -> InvalidTagsException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InvalidTagsException_) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> InvalidTagsException_:
+    out: InvalidTagsException_ = {}  # type: ignore[typeddict-item]
+    if data.get("message") is not None:
+        out["message"] = data["message"]
+    return out
+
+
 class InvalidTagsException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.codepipeline#InvalidTagsException``."""
 
@@ -57,3 +72,9 @@ class InvalidTagsException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidTagsException":
         return cls(deserialize_aws_json_1_1(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "InvalidTagsException":
+        return cls(deserialize_cbor(data), message, response=response)

@@ -28,3 +28,18 @@ def deserialize_aws_json_1_1(data: dict) -> EventDescription:
     if data.get("latestDescription") is not None:
         out["latest_description"] = data["latestDescription"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EventDescription) -> dict:
+    out: dict = {}
+    if "latest_description" in value:
+        out["latestDescription"] = value["latest_description"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> EventDescription:
+    out: EventDescription = {}  # type: ignore[typeddict-item]
+    if data.get("latestDescription") is not None:
+        out["latest_description"] = data["latestDescription"]
+    return out

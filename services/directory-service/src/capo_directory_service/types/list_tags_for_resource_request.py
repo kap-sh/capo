@@ -41,3 +41,27 @@ def deserialize_aws_json_1_1(data: dict) -> ListTagsForResourceRequest:
     if data.get("Limit") is not None:
         out["limit"] = data["Limit"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListTagsForResourceRequest) -> dict:
+    out: dict = {}
+    out["ResourceId"] = value["resource_id"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "limit" in value:
+        out["Limit"] = value["limit"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListTagsForResourceRequest:
+    out: ListTagsForResourceRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceId") is not None:
+        out["resource_id"] = data["ResourceId"]
+    else:
+        out["resource_id"] = ""
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("Limit") is not None:
+        out["limit"] = data["Limit"]
+    return out

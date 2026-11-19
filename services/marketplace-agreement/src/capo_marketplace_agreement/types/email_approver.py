@@ -36,6 +36,26 @@ def deserialize_aws_json_1_0(data: dict) -> EmailApprover:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EmailApprover) -> dict:
+    out: dict = {}
+    out["emailAddress"] = value["email_address"]
+    if "name" in value:
+        out["name"] = value["name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> EmailApprover:
+    out: EmailApprover = {}  # type: ignore[typeddict-item]
+    if data.get("emailAddress") is not None:
+        out["email_address"] = data["emailAddress"]
+    else:
+        out["email_address"] = ""
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    return out
+
+
 def redact_sensitive(value: EmailApprover) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "email_address" in value:

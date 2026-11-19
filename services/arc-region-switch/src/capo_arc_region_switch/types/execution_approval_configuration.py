@@ -34,3 +34,24 @@ def deserialize_aws_json_1_0(data: dict) -> ExecutionApprovalConfiguration:
     else:
         out["approval_role"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExecutionApprovalConfiguration) -> dict:
+    out: dict = {}
+    out["timeoutMinutes"] = value.get("timeout_minutes", 60)
+    out["approvalRole"] = value["approval_role"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ExecutionApprovalConfiguration:
+    out: ExecutionApprovalConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("timeoutMinutes") is not None:
+        out["timeout_minutes"] = data["timeoutMinutes"]
+    else:
+        out["timeout_minutes"] = 60
+    if data.get("approvalRole") is not None:
+        out["approval_role"] = data["approvalRole"]
+    else:
+        out["approval_role"] = ""
+    return out

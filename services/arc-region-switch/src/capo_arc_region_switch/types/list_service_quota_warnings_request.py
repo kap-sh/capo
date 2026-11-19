@@ -52,3 +52,34 @@ def deserialize_aws_json_1_0(data: dict) -> ListServiceQuotaWarningsRequest:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListServiceQuotaWarningsRequest) -> dict:
+    out: dict = {}
+    if "plan_arns" in value:
+        import capo_arc_region_switch.types.plan_arn_list
+
+        out["planArns"] = capo_arc_region_switch.types.plan_arn_list.serialize_cbor(
+            value["plan_arns"]
+        )
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListServiceQuotaWarningsRequest:
+    out: ListServiceQuotaWarningsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("planArns") is not None:
+        import capo_arc_region_switch.types.plan_arn_list
+
+        out["plan_arns"] = capo_arc_region_switch.types.plan_arn_list.deserialize_cbor(
+            data["planArns"]
+        )
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

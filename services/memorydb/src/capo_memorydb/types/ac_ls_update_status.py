@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> ACLsUpdateStatus:
     if data.get("ACLToApply") is not None:
         out["acl_to_apply"] = data["ACLToApply"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ACLsUpdateStatus) -> dict:
+    out: dict = {}
+    if "acl_to_apply" in value:
+        out["ACLToApply"] = value["acl_to_apply"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ACLsUpdateStatus:
+    out: ACLsUpdateStatus = {}  # type: ignore[typeddict-item]
+    if data.get("ACLToApply") is not None:
+        out["acl_to_apply"] = data["ACLToApply"]
+    return out

@@ -1,0 +1,238 @@
+"""Generated from Smithy shape ``com.amazonaws.memorydb#UpdateCluster``."""
+
+from __future__ import annotations
+
+from typing import Any
+
+import zapros
+from typing_extensions import Never
+
+import capo_memorydb._auth._signers
+import capo_memorydb._auth._sigv4
+import capo_memorydb._protocol.eventstream
+import capo_memorydb.errors.acl_not_found_fault
+import capo_memorydb.errors.cluster_not_found_fault
+import capo_memorydb.errors.cluster_quota_for_customer_exceeded_fault
+import capo_memorydb.errors.invalid_acl_state_fault
+import capo_memorydb.errors.invalid_cluster_state_fault
+import capo_memorydb.errors.invalid_kms_key_fault
+import capo_memorydb.errors.invalid_node_state_fault
+import capo_memorydb.errors.invalid_parameter_combination_exception
+import capo_memorydb.errors.invalid_parameter_value_exception
+import capo_memorydb.errors.invalid_vpc_network_state_fault
+import capo_memorydb.errors.no_operation_fault
+import capo_memorydb.errors.node_quota_for_cluster_exceeded_fault
+import capo_memorydb.errors.node_quota_for_customer_exceeded_fault
+import capo_memorydb.errors.parameter_group_not_found_fault
+import capo_memorydb.errors.service_linked_role_not_found_fault
+import capo_memorydb.errors.shards_per_cluster_quota_exceeded_fault
+import capo_memorydb.types.cluster
+import capo_memorydb.types.ip_discovery
+import capo_memorydb.types.replica_configuration_request
+import capo_memorydb.types.security_group_ids_list
+import capo_memorydb.types.shard_configuration_request
+import capo_memorydb.types.update_cluster_request
+import capo_memorydb.types.update_cluster_response
+from capo_memorydb._protocol import cbor
+from capo_memorydb._rule_engine._endpoint_rule_set import EndpointParams, resolve
+from capo_memorydb._services._pipeline import (
+    AsyncOperationOptions,
+    OperationOptions,
+    raise_error,
+)
+from capo_memorydb.errors import UnknownServiceError
+
+
+def handle_error(response: zapros.Response) -> Never:
+    data, code, message = cbor.parse_error(response)
+    match code:
+        case "ACLNotFoundFault":
+            raise capo_memorydb.errors.acl_not_found_fault.ACLNotFoundFault.from_cbor(
+                data, message, response=response
+            )
+        case "ClusterNotFoundFault":
+            raise capo_memorydb.errors.cluster_not_found_fault.ClusterNotFoundFault.from_cbor(
+                data, message, response=response
+            )
+        case "ClusterQuotaForCustomerExceededFault":
+            raise capo_memorydb.errors.cluster_quota_for_customer_exceeded_fault.ClusterQuotaForCustomerExceededFault.from_cbor(
+                data, message, response=response
+            )
+        case "InvalidACLStateFault":
+            raise capo_memorydb.errors.invalid_acl_state_fault.InvalidACLStateFault.from_cbor(
+                data, message, response=response
+            )
+        case "InvalidClusterStateFault":
+            raise capo_memorydb.errors.invalid_cluster_state_fault.InvalidClusterStateFault.from_cbor(
+                data, message, response=response
+            )
+        case "InvalidKMSKeyFault":
+            raise capo_memorydb.errors.invalid_kms_key_fault.InvalidKMSKeyFault.from_cbor(
+                data, message, response=response
+            )
+        case "InvalidNodeStateFault":
+            raise capo_memorydb.errors.invalid_node_state_fault.InvalidNodeStateFault.from_cbor(
+                data, message, response=response
+            )
+        case "InvalidParameterCombinationException":
+            raise capo_memorydb.errors.invalid_parameter_combination_exception.InvalidParameterCombinationException.from_cbor(
+                data, message, response=response
+            )
+        case "InvalidParameterValueException":
+            raise capo_memorydb.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_cbor(
+                data, message, response=response
+            )
+        case "InvalidVPCNetworkStateFault":
+            raise capo_memorydb.errors.invalid_vpc_network_state_fault.InvalidVPCNetworkStateFault.from_cbor(
+                data, message, response=response
+            )
+        case "NodeQuotaForClusterExceededFault":
+            raise capo_memorydb.errors.node_quota_for_cluster_exceeded_fault.NodeQuotaForClusterExceededFault.from_cbor(
+                data, message, response=response
+            )
+        case "NodeQuotaForCustomerExceededFault":
+            raise capo_memorydb.errors.node_quota_for_customer_exceeded_fault.NodeQuotaForCustomerExceededFault.from_cbor(
+                data, message, response=response
+            )
+        case "NoOperationFault":
+            raise capo_memorydb.errors.no_operation_fault.NoOperationFault.from_cbor(
+                data, message, response=response
+            )
+        case "ParameterGroupNotFoundFault":
+            raise capo_memorydb.errors.parameter_group_not_found_fault.ParameterGroupNotFoundFault.from_cbor(
+                data, message, response=response
+            )
+        case "ServiceLinkedRoleNotFoundFault":
+            raise capo_memorydb.errors.service_linked_role_not_found_fault.ServiceLinkedRoleNotFoundFault.from_cbor(
+                data, message, response=response
+            )
+        case "ShardsPerClusterQuotaExceededFault":
+            raise capo_memorydb.errors.shards_per_cluster_quota_exceeded_fault.ShardsPerClusterQuotaExceededFault.from_cbor(
+                data, message, response=response
+            )
+        case _:
+            raise UnknownServiceError(code=code, message=message, response=response)
+
+
+def handle_response(
+    response: zapros.Response,
+) -> capo_memorydb.types.update_cluster_response.UpdateClusterResponse:
+    out: capo_memorydb.types.update_cluster_response.UpdateClusterResponse = (
+        capo_memorydb.types.update_cluster_response.deserialize_cbor(
+            cbor.loads(response.read())
+        )
+    )
+    return out
+
+
+async def async_handle_response(
+    response: zapros.Response,
+) -> capo_memorydb.types.update_cluster_response.UpdateClusterResponse:
+    out: capo_memorydb.types.update_cluster_response.UpdateClusterResponse = (
+        capo_memorydb.types.update_cluster_response.deserialize_cbor(
+            cbor.loads(await response.aread())
+        )
+    )
+    return out
+
+
+def get_signer(
+    options: AsyncOperationOptions | OperationOptions,
+    auth_schemes: list[dict[str, Any]] | None = None,
+) -> capo_memorydb._auth._signers.Signer | None:
+    name_to_schema = {s["name"]: s for s in (auth_schemes or [])}  # noqa: F841
+    if (
+        options.credentials_provider is not None
+        and name_to_schema
+        and not name_to_schema.keys() & {"sigv4", "sigv4-s3express"}
+    ):
+        raise RuntimeError(
+            "Endpoint requires an unsupported auth scheme: " + ", ".join(name_to_schema)
+        )
+    if options.credentials_provider is not None:
+        endpoint_scheme = name_to_schema.get("sigv4") or name_to_schema.get(
+            "sigv4-s3express"
+        )
+        if endpoint_scheme is not None or not name_to_schema:
+            sigv4_config = capo_memorydb._auth._sigv4.build_sigv4_auth_scheme(
+                "memorydb", options.region, endpoint_scheme
+            )
+            if sigv4_config is not None:
+                return capo_memorydb._auth._signers.SigV4Signer(
+                    options.credentials_provider, auth_scheme=sigv4_config
+                )
+    raise RuntimeError("Auth was not resolved")
+
+
+def build_request(
+    options: OperationOptions | AsyncOperationOptions,
+    input_: capo_memorydb.types.update_cluster_request.UpdateClusterRequest,
+) -> zapros.Request:
+    endpoint = resolve(
+        EndpointParams(
+            Region=options.region,
+            UseDualStack=options.use_dual_stack,
+            UseFIPS=options.use_fips,
+            Endpoint=options.endpoint,
+        )
+    )  # noqa: F841
+    url = endpoint.url.rstrip("/") + "/service/AmazonMemoryDB/operation/UpdateCluster"
+    params: list[tuple[str, str]] = []
+    headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
+    headers["smithy-protocol"] = "rpc-v2-cbor"
+    headers["accept"] = "application/cbor"
+    body: bytes | None = cbor.dumps(
+        capo_memorydb.types.update_cluster_request.serialize_cbor(input_)
+    )
+    headers["content-type"] = "application/cbor"
+    signer = (
+        None
+        if options.anonymous
+        else get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
+    )
+    normalized_url = zapros.URL(url)
+    for k, v in params:
+        normalized_url.search_params.append(k, v)
+    return zapros.Request(
+        normalized_url, "POST", headers=headers, body=body, context={"signer": signer}
+    )
+
+
+def update_cluster(
+    options: OperationOptions,
+    input_: capo_memorydb.types.update_cluster_request.UpdateClusterRequest,
+) -> tuple[
+    capo_memorydb.types.update_cluster_response.UpdateClusterResponse, zapros.Response
+]:
+    response = options.client.handler.handle(build_request(options, input_))
+    try:
+        if (
+            response.status != 200
+            or response.headers.get("smithy-protocol") != "rpc-v2-cbor"
+        ):
+            response.read()
+            raise_error(response, handle_error)
+        return handle_response(response), response
+    except BaseException:
+        response.close()
+        raise
+
+
+async def async_update_cluster(
+    options: AsyncOperationOptions,
+    input_: capo_memorydb.types.update_cluster_request.UpdateClusterRequest,
+) -> tuple[
+    capo_memorydb.types.update_cluster_response.UpdateClusterResponse, zapros.Response
+]:
+    response = await options.client.handler.ahandle(build_request(options, input_))
+    try:
+        if (
+            response.status != 200
+            or response.headers.get("smithy-protocol") != "rpc-v2-cbor"
+        ):
+            await response.aread()
+            raise_error(response, handle_error)
+        return await async_handle_response(response), response
+    except BaseException:
+        await response.aclose()
+        raise

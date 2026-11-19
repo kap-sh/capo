@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteWebhookInput:
     else:
         out["name"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteWebhookInput) -> dict:
+    out: dict = {}
+    out["name"] = value["name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteWebhookInput:
+    out: DeleteWebhookInput = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    else:
+        out["name"] = ""
+    return out

@@ -91,6 +91,69 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDirectoryConfigRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateDirectoryConfigRequest) -> dict:
+    out: dict = {}
+    if "directory_name" in value:
+        out["DirectoryName"] = value["directory_name"]
+    if "organizational_unit_distinguished_names" in value:
+        import capo_appstream.types.organizational_unit_distinguished_names_list
+
+        out["OrganizationalUnitDistinguishedNames"] = (
+            capo_appstream.types.organizational_unit_distinguished_names_list.serialize_cbor(
+                value["organizational_unit_distinguished_names"]
+            )
+        )
+    if "service_account_credentials" in value:
+        import capo_appstream.types.service_account_credentials
+
+        out["ServiceAccountCredentials"] = (
+            capo_appstream.types.service_account_credentials.serialize_cbor(
+                value["service_account_credentials"]
+            )
+        )
+    if "certificate_based_auth_properties" in value:
+        import capo_appstream.types.certificate_based_auth_properties
+
+        out["CertificateBasedAuthProperties"] = (
+            capo_appstream.types.certificate_based_auth_properties.serialize_cbor(
+                value["certificate_based_auth_properties"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateDirectoryConfigRequest:
+    out: UpdateDirectoryConfigRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryName") is not None:
+        out["directory_name"] = data["DirectoryName"]
+    if data.get("OrganizationalUnitDistinguishedNames") is not None:
+        import capo_appstream.types.organizational_unit_distinguished_names_list
+
+        out["organizational_unit_distinguished_names"] = (
+            capo_appstream.types.organizational_unit_distinguished_names_list.deserialize_cbor(
+                data["OrganizationalUnitDistinguishedNames"]
+            )
+        )
+    if data.get("ServiceAccountCredentials") is not None:
+        import capo_appstream.types.service_account_credentials
+
+        out["service_account_credentials"] = (
+            capo_appstream.types.service_account_credentials.deserialize_cbor(
+                data["ServiceAccountCredentials"]
+            )
+        )
+    if data.get("CertificateBasedAuthProperties") is not None:
+        import capo_appstream.types.certificate_based_auth_properties
+
+        out["certificate_based_auth_properties"] = (
+            capo_appstream.types.certificate_based_auth_properties.deserialize_cbor(
+                data["CertificateBasedAuthProperties"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: UpdateDirectoryConfigRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "service_account_credentials" in value:

@@ -48,3 +48,30 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeMultiRegionClustersRequest:
     if data.get("ShowClusterDetails") is not None:
         out["show_cluster_details"] = data["ShowClusterDetails"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeMultiRegionClustersRequest) -> dict:
+    out: dict = {}
+    if "multi_region_cluster_name" in value:
+        out["MultiRegionClusterName"] = value["multi_region_cluster_name"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "show_cluster_details" in value:
+        out["ShowClusterDetails"] = value["show_cluster_details"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeMultiRegionClustersRequest:
+    out: DescribeMultiRegionClustersRequest = {}  # type: ignore[typeddict-item]
+    if data.get("MultiRegionClusterName") is not None:
+        out["multi_region_cluster_name"] = data["MultiRegionClusterName"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("ShowClusterDetails") is not None:
+        out["show_cluster_details"] = data["ShowClusterDetails"]
+    return out

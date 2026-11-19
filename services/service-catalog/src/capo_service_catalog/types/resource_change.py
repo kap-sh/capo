@@ -118,3 +118,74 @@ def deserialize_aws_json_1_1(data: dict) -> ResourceChange:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResourceChange) -> dict:
+    out: dict = {}
+    if "action" in value:
+        import capo_service_catalog.types.change_action
+
+        out["Action"] = capo_service_catalog.types.change_action.serialize_cbor(
+            value["action"]
+        )
+    if "logical_resource_id" in value:
+        out["LogicalResourceId"] = value["logical_resource_id"]
+    if "physical_resource_id" in value:
+        out["PhysicalResourceId"] = value["physical_resource_id"]
+    if "resource_type" in value:
+        out["ResourceType"] = value["resource_type"]
+    if "replacement" in value:
+        import capo_service_catalog.types.replacement
+
+        out["Replacement"] = capo_service_catalog.types.replacement.serialize_cbor(
+            value["replacement"]
+        )
+    if "scope" in value:
+        import capo_service_catalog.types.scope
+
+        out["Scope"] = capo_service_catalog.types.scope.serialize_cbor(value["scope"])
+    if "details" in value:
+        import capo_service_catalog.types.resource_change_details
+
+        out["Details"] = (
+            capo_service_catalog.types.resource_change_details.serialize_cbor(
+                value["details"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ResourceChange:
+    out: ResourceChange = {}  # type: ignore[typeddict-item]
+    if data.get("Action") is not None:
+        import capo_service_catalog.types.change_action
+
+        out["action"] = capo_service_catalog.types.change_action.deserialize_cbor(
+            data["Action"]
+        )
+    if data.get("LogicalResourceId") is not None:
+        out["logical_resource_id"] = data["LogicalResourceId"]
+    if data.get("PhysicalResourceId") is not None:
+        out["physical_resource_id"] = data["PhysicalResourceId"]
+    if data.get("ResourceType") is not None:
+        out["resource_type"] = data["ResourceType"]
+    if data.get("Replacement") is not None:
+        import capo_service_catalog.types.replacement
+
+        out["replacement"] = capo_service_catalog.types.replacement.deserialize_cbor(
+            data["Replacement"]
+        )
+    if data.get("Scope") is not None:
+        import capo_service_catalog.types.scope
+
+        out["scope"] = capo_service_catalog.types.scope.deserialize_cbor(data["Scope"])
+    if data.get("Details") is not None:
+        import capo_service_catalog.types.resource_change_details
+
+        out["details"] = (
+            capo_service_catalog.types.resource_change_details.deserialize_cbor(
+                data["Details"]
+            )
+        )
+    return out

@@ -56,3 +56,45 @@ def deserialize_aws_json_1_0(
             "",
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(
+    value: RejectNetworkFirewallTransitGatewayAttachmentResponse,
+) -> dict:
+    out: dict = {}
+    out["TransitGatewayAttachmentId"] = value["transit_gateway_attachment_id"]
+    import capo_network_firewall.types.transit_gateway_attachment_status
+
+    out["TransitGatewayAttachmentStatus"] = (
+        capo_network_firewall.types.transit_gateway_attachment_status.serialize_cbor(
+            value["transit_gateway_attachment_status"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(
+    data: dict,
+) -> RejectNetworkFirewallTransitGatewayAttachmentResponse:
+    out: RejectNetworkFirewallTransitGatewayAttachmentResponse = {}  # type: ignore[typeddict-item]
+    if data.get("TransitGatewayAttachmentId") is not None:
+        out["transit_gateway_attachment_id"] = data["TransitGatewayAttachmentId"]
+    else:
+        out["transit_gateway_attachment_id"] = ""
+    if data.get("TransitGatewayAttachmentStatus") is not None:
+        import capo_network_firewall.types.transit_gateway_attachment_status
+
+        out["transit_gateway_attachment_status"] = (
+            capo_network_firewall.types.transit_gateway_attachment_status.deserialize_cbor(
+                data["TransitGatewayAttachmentStatus"]
+            )
+        )
+    else:
+        import typing
+
+        out["transit_gateway_attachment_status"] = typing.cast(
+            "capo_network_firewall.types.transit_gateway_attachment_status.TransitGatewayAttachmentStatus",
+            "",
+        )
+    return out

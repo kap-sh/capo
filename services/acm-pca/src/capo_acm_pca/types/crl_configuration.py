@@ -110,3 +110,71 @@ def deserialize_aws_json_1_1(data: dict) -> CrlConfiguration:
     if data.get("CustomPath") is not None:
         out["custom_path"] = data["CustomPath"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CrlConfiguration) -> dict:
+    out: dict = {}
+    out["Enabled"] = value["enabled"]
+    if "expiration_in_days" in value:
+        out["ExpirationInDays"] = value["expiration_in_days"]
+    if "custom_cname" in value:
+        out["CustomCname"] = value["custom_cname"]
+    if "s3_bucket_name" in value:
+        out["S3BucketName"] = value["s3_bucket_name"]
+    if "s3_object_acl" in value:
+        import capo_acm_pca.types.s3_object_acl
+
+        out["S3ObjectAcl"] = capo_acm_pca.types.s3_object_acl.serialize_cbor(
+            value["s3_object_acl"]
+        )
+    if "crl_distribution_point_extension_configuration" in value:
+        import capo_acm_pca.types.crl_distribution_point_extension_configuration
+
+        out["CrlDistributionPointExtensionConfiguration"] = (
+            capo_acm_pca.types.crl_distribution_point_extension_configuration.serialize_cbor(
+                value["crl_distribution_point_extension_configuration"]
+            )
+        )
+    if "crl_type" in value:
+        import capo_acm_pca.types.crl_type
+
+        out["CrlType"] = capo_acm_pca.types.crl_type.serialize_cbor(value["crl_type"])
+    if "custom_path" in value:
+        out["CustomPath"] = value["custom_path"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CrlConfiguration:
+    out: CrlConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("Enabled") is not None:
+        out["enabled"] = data["Enabled"]
+    else:
+        out["enabled"] = False
+    if data.get("ExpirationInDays") is not None:
+        out["expiration_in_days"] = data["ExpirationInDays"]
+    if data.get("CustomCname") is not None:
+        out["custom_cname"] = data["CustomCname"]
+    if data.get("S3BucketName") is not None:
+        out["s3_bucket_name"] = data["S3BucketName"]
+    if data.get("S3ObjectAcl") is not None:
+        import capo_acm_pca.types.s3_object_acl
+
+        out["s3_object_acl"] = capo_acm_pca.types.s3_object_acl.deserialize_cbor(
+            data["S3ObjectAcl"]
+        )
+    if data.get("CrlDistributionPointExtensionConfiguration") is not None:
+        import capo_acm_pca.types.crl_distribution_point_extension_configuration
+
+        out["crl_distribution_point_extension_configuration"] = (
+            capo_acm_pca.types.crl_distribution_point_extension_configuration.deserialize_cbor(
+                data["CrlDistributionPointExtensionConfiguration"]
+            )
+        )
+    if data.get("CrlType") is not None:
+        import capo_acm_pca.types.crl_type
+
+        out["crl_type"] = capo_acm_pca.types.crl_type.deserialize_cbor(data["CrlType"])
+    if data.get("CustomPath") is not None:
+        out["custom_path"] = data["CustomPath"]
+    return out

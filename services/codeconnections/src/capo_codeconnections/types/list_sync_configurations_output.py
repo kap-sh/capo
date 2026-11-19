@@ -50,3 +50,35 @@ def deserialize_aws_json_1_0(data: dict) -> ListSyncConfigurationsOutput:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListSyncConfigurationsOutput) -> dict:
+    out: dict = {}
+    import capo_codeconnections.types.sync_configuration_list
+
+    out["SyncConfigurations"] = (
+        capo_codeconnections.types.sync_configuration_list.serialize_cbor(
+            value["sync_configurations"]
+        )
+    )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListSyncConfigurationsOutput:
+    out: ListSyncConfigurationsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("SyncConfigurations") is not None:
+        import capo_codeconnections.types.sync_configuration_list
+
+        out["sync_configurations"] = (
+            capo_codeconnections.types.sync_configuration_list.deserialize_cbor(
+                data["SyncConfigurations"]
+            )
+        )
+    else:
+        out["sync_configurations"] = []
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

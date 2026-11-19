@@ -47,3 +47,34 @@ def deserialize_aws_json_1_0(data: dict) -> ListRoute53HealthChecksResponse:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListRoute53HealthChecksResponse) -> dict:
+    out: dict = {}
+    if "health_checks" in value:
+        import capo_arc_region_switch.types.route53_health_check_list
+
+        out["healthChecks"] = (
+            capo_arc_region_switch.types.route53_health_check_list.serialize_cbor(
+                value["health_checks"]
+            )
+        )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListRoute53HealthChecksResponse:
+    out: ListRoute53HealthChecksResponse = {}  # type: ignore[typeddict-item]
+    if data.get("healthChecks") is not None:
+        import capo_arc_region_switch.types.route53_health_check_list
+
+        out["health_checks"] = (
+            capo_arc_region_switch.types.route53_health_check_list.deserialize_cbor(
+                data["healthChecks"]
+            )
+        )
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

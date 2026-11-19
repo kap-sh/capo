@@ -81,3 +81,59 @@ def deserialize_aws_json_1_0(data: dict) -> IngressStringExpression:
     else:
         out["values"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IngressStringExpression) -> dict:
+    out: dict = {}
+    import capo_mailmanager.types.ingress_string_to_evaluate
+
+    out["Evaluate"] = capo_mailmanager.types.ingress_string_to_evaluate.serialize_cbor(
+        value["evaluate"]
+    )
+    import capo_mailmanager.types.ingress_string_operator
+
+    out["Operator"] = capo_mailmanager.types.ingress_string_operator.serialize_cbor(
+        value["operator"]
+    )
+    import capo_mailmanager.types.string_list
+
+    out["Values"] = capo_mailmanager.types.string_list.serialize_cbor(value["values"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> IngressStringExpression:
+    out: IngressStringExpression = {}  # type: ignore[typeddict-item]
+    if data.get("Evaluate") is not None:
+        import capo_mailmanager.types.ingress_string_to_evaluate
+
+        out["evaluate"] = (
+            capo_mailmanager.types.ingress_string_to_evaluate.deserialize_cbor(
+                data["Evaluate"]
+            )
+        )
+    else:
+        out["evaluate"] = {"$unknown": {"name": ""}}
+    if data.get("Operator") is not None:
+        import capo_mailmanager.types.ingress_string_operator
+
+        out["operator"] = (
+            capo_mailmanager.types.ingress_string_operator.deserialize_cbor(
+                data["Operator"]
+            )
+        )
+    else:
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_mailmanager.types.ingress_string_operator.IngressStringOperator", ""
+        )
+    if data.get("Values") is not None:
+        import capo_mailmanager.types.string_list
+
+        out["values"] = capo_mailmanager.types.string_list.deserialize_cbor(
+            data["Values"]
+        )
+    else:
+        out["values"] = []
+    return out

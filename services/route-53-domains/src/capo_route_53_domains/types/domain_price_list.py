@@ -33,3 +33,24 @@ def deserialize_aws_json_1_1(data: list) -> DomainPriceList:
             capo_route_53_domains.types.domain_price.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DomainPriceList) -> list:
+    import capo_route_53_domains.types.domain_price
+
+    out: list = []
+    for item in value:
+        out.append(capo_route_53_domains.types.domain_price.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> DomainPriceList:
+    import capo_route_53_domains.types.domain_price
+
+    out: DomainPriceList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_route_53_domains.types.domain_price.deserialize_cbor(item))
+    return out

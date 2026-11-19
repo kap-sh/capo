@@ -33,3 +33,24 @@ def deserialize_aws_json_1_1(data: list) -> DeletableSamlPropertiesList:
             capo_workspaces.types.deletable_saml_property.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeletableSamlPropertiesList) -> list:
+    import capo_workspaces.types.deletable_saml_property
+
+    out: list = []
+    for item in value:
+        out.append(capo_workspaces.types.deletable_saml_property.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> DeletableSamlPropertiesList:
+    import capo_workspaces.types.deletable_saml_property
+
+    out: DeletableSamlPropertiesList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_workspaces.types.deletable_saml_property.deserialize_cbor(item))
+    return out

@@ -82,3 +82,62 @@ def deserialize_aws_json_1_1(data: dict) -> PolicyOption:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PolicyOption) -> dict:
+    out: dict = {}
+    if "network_firewall_policy" in value:
+        import capo_fms.types.network_firewall_policy
+
+        out["NetworkFirewallPolicy"] = (
+            capo_fms.types.network_firewall_policy.serialize_cbor(
+                value["network_firewall_policy"]
+            )
+        )
+    if "third_party_firewall_policy" in value:
+        import capo_fms.types.third_party_firewall_policy
+
+        out["ThirdPartyFirewallPolicy"] = (
+            capo_fms.types.third_party_firewall_policy.serialize_cbor(
+                value["third_party_firewall_policy"]
+            )
+        )
+    if "network_acl_common_policy" in value:
+        import capo_fms.types.network_acl_common_policy
+
+        out["NetworkAclCommonPolicy"] = (
+            capo_fms.types.network_acl_common_policy.serialize_cbor(
+                value["network_acl_common_policy"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PolicyOption:
+    out: PolicyOption = {}  # type: ignore[typeddict-item]
+    if data.get("NetworkFirewallPolicy") is not None:
+        import capo_fms.types.network_firewall_policy
+
+        out["network_firewall_policy"] = (
+            capo_fms.types.network_firewall_policy.deserialize_cbor(
+                data["NetworkFirewallPolicy"]
+            )
+        )
+    if data.get("ThirdPartyFirewallPolicy") is not None:
+        import capo_fms.types.third_party_firewall_policy
+
+        out["third_party_firewall_policy"] = (
+            capo_fms.types.third_party_firewall_policy.deserialize_cbor(
+                data["ThirdPartyFirewallPolicy"]
+            )
+        )
+    if data.get("NetworkAclCommonPolicy") is not None:
+        import capo_fms.types.network_acl_common_policy
+
+        out["network_acl_common_policy"] = (
+            capo_fms.types.network_acl_common_policy.deserialize_cbor(
+                data["NetworkAclCommonPolicy"]
+            )
+        )
+    return out

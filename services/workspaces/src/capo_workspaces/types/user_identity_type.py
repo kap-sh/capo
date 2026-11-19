@@ -16,3 +16,12 @@ def serialize_aws_json_1_1(value: UserIdentityType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> UserIdentityType:
     return cast(UserIdentityType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UserIdentityType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> UserIdentityType:
+    return cast(UserIdentityType, data)

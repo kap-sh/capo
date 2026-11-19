@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> RegisterWebhookWithThirdPartyInput:
     if data.get("webhookName") is not None:
         out["webhook_name"] = data["webhookName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RegisterWebhookWithThirdPartyInput) -> dict:
+    out: dict = {}
+    if "webhook_name" in value:
+        out["webhookName"] = value["webhook_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RegisterWebhookWithThirdPartyInput:
+    out: RegisterWebhookWithThirdPartyInput = {}  # type: ignore[typeddict-item]
+    if data.get("webhookName") is not None:
+        out["webhook_name"] = data["webhookName"]
+    return out

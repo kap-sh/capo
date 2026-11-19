@@ -96,3 +96,67 @@ def deserialize_aws_json_1_1(
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateDirectConnectGatewayAssociationProposalRequest) -> dict:
+    out: dict = {}
+    out["directConnectGatewayId"] = value["direct_connect_gateway_id"]
+    out["directConnectGatewayOwnerAccount"] = value[
+        "direct_connect_gateway_owner_account"
+    ]
+    out["gatewayId"] = value["gateway_id"]
+    if "add_allowed_prefixes_to_direct_connect_gateway" in value:
+        import capo_direct_connect.types.route_filter_prefix_list
+
+        out["addAllowedPrefixesToDirectConnectGateway"] = (
+            capo_direct_connect.types.route_filter_prefix_list.serialize_cbor(
+                value["add_allowed_prefixes_to_direct_connect_gateway"]
+            )
+        )
+    if "remove_allowed_prefixes_to_direct_connect_gateway" in value:
+        import capo_direct_connect.types.route_filter_prefix_list
+
+        out["removeAllowedPrefixesToDirectConnectGateway"] = (
+            capo_direct_connect.types.route_filter_prefix_list.serialize_cbor(
+                value["remove_allowed_prefixes_to_direct_connect_gateway"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(
+    data: dict,
+) -> CreateDirectConnectGatewayAssociationProposalRequest:
+    out: CreateDirectConnectGatewayAssociationProposalRequest = {}  # type: ignore[typeddict-item]
+    if data.get("directConnectGatewayId") is not None:
+        out["direct_connect_gateway_id"] = data["directConnectGatewayId"]
+    else:
+        out["direct_connect_gateway_id"] = ""
+    if data.get("directConnectGatewayOwnerAccount") is not None:
+        out["direct_connect_gateway_owner_account"] = data[
+            "directConnectGatewayOwnerAccount"
+        ]
+    else:
+        out["direct_connect_gateway_owner_account"] = ""
+    if data.get("gatewayId") is not None:
+        out["gateway_id"] = data["gatewayId"]
+    else:
+        out["gateway_id"] = ""
+    if data.get("addAllowedPrefixesToDirectConnectGateway") is not None:
+        import capo_direct_connect.types.route_filter_prefix_list
+
+        out["add_allowed_prefixes_to_direct_connect_gateway"] = (
+            capo_direct_connect.types.route_filter_prefix_list.deserialize_cbor(
+                data["addAllowedPrefixesToDirectConnectGateway"]
+            )
+        )
+    if data.get("removeAllowedPrefixesToDirectConnectGateway") is not None:
+        import capo_direct_connect.types.route_filter_prefix_list
+
+        out["remove_allowed_prefixes_to_direct_connect_gateway"] = (
+            capo_direct_connect.types.route_filter_prefix_list.deserialize_cbor(
+                data["removeAllowedPrefixesToDirectConnectGateway"]
+            )
+        )
+    return out

@@ -33,3 +33,24 @@ def deserialize_aws_json_1_0(data: list) -> StatelessRules:
             capo_network_firewall.types.stateless_rule.deserialize_aws_json_1_0(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StatelessRules) -> list:
+    import capo_network_firewall.types.stateless_rule
+
+    out: list = []
+    for item in value:
+        out.append(capo_network_firewall.types.stateless_rule.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> StatelessRules:
+    import capo_network_firewall.types.stateless_rule
+
+    out: StatelessRules = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_network_firewall.types.stateless_rule.deserialize_cbor(item))
+    return out

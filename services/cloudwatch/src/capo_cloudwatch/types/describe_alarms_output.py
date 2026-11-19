@@ -141,3 +141,56 @@ def deserialize_query(el: Element) -> DescribeAlarmsOutput:
     if child_next_token is not None:
         out["next_token"] = str(child_next_token.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeAlarmsOutput) -> dict:
+    out: dict = {}
+    if "composite_alarms" in value:
+        import capo_cloudwatch.types.composite_alarms
+
+        out["CompositeAlarms"] = capo_cloudwatch.types.composite_alarms.serialize_cbor(
+            value["composite_alarms"]
+        )
+    if "metric_alarms" in value:
+        import capo_cloudwatch.types.metric_alarms
+
+        out["MetricAlarms"] = capo_cloudwatch.types.metric_alarms.serialize_cbor(
+            value["metric_alarms"]
+        )
+    if "log_alarms" in value:
+        import capo_cloudwatch.types.log_alarms
+
+        out["LogAlarms"] = capo_cloudwatch.types.log_alarms.serialize_cbor(
+            value["log_alarms"]
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeAlarmsOutput:
+    out: DescribeAlarmsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("CompositeAlarms") is not None:
+        import capo_cloudwatch.types.composite_alarms
+
+        out["composite_alarms"] = (
+            capo_cloudwatch.types.composite_alarms.deserialize_cbor(
+                data["CompositeAlarms"]
+            )
+        )
+    if data.get("MetricAlarms") is not None:
+        import capo_cloudwatch.types.metric_alarms
+
+        out["metric_alarms"] = capo_cloudwatch.types.metric_alarms.deserialize_cbor(
+            data["MetricAlarms"]
+        )
+    if data.get("LogAlarms") is not None:
+        import capo_cloudwatch.types.log_alarms
+
+        out["log_alarms"] = capo_cloudwatch.types.log_alarms.deserialize_cbor(
+            data["LogAlarms"]
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

@@ -41,3 +41,30 @@ def deserialize_aws_json_1_0(data: dict) -> Scope:
     if data.get("value") is not None:
         out["value"] = data["value"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Scope) -> dict:
+    out: dict = {}
+    if "name" in value:
+        import capo_compute_optimizer.types.scope_name
+
+        out["name"] = capo_compute_optimizer.types.scope_name.serialize_cbor(
+            value["name"]
+        )
+    if "value" in value:
+        out["value"] = value["value"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Scope:
+    out: Scope = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        import capo_compute_optimizer.types.scope_name
+
+        out["name"] = capo_compute_optimizer.types.scope_name.deserialize_cbor(
+            data["name"]
+        )
+    if data.get("value") is not None:
+        out["value"] = data["value"]
+    return out

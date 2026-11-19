@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> DetectEntitiesRequest:
     else:
         out["text"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DetectEntitiesRequest) -> dict:
+    out: dict = {}
+    out["Text"] = value["text"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DetectEntitiesRequest:
+    out: DetectEntitiesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Text") is not None:
+        out["text"] = data["Text"]
+    else:
+        out["text"] = ""
+    return out

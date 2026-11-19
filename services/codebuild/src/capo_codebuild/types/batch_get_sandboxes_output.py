@@ -53,3 +53,38 @@ def deserialize_aws_json_1_1(data: dict) -> BatchGetSandboxesOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchGetSandboxesOutput) -> dict:
+    out: dict = {}
+    if "sandboxes" in value:
+        import capo_codebuild.types.sandboxes
+
+        out["sandboxes"] = capo_codebuild.types.sandboxes.serialize_cbor(
+            value["sandboxes"]
+        )
+    if "sandboxes_not_found" in value:
+        import capo_codebuild.types.sandbox_ids
+
+        out["sandboxesNotFound"] = capo_codebuild.types.sandbox_ids.serialize_cbor(
+            value["sandboxes_not_found"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BatchGetSandboxesOutput:
+    out: BatchGetSandboxesOutput = {}  # type: ignore[typeddict-item]
+    if data.get("sandboxes") is not None:
+        import capo_codebuild.types.sandboxes
+
+        out["sandboxes"] = capo_codebuild.types.sandboxes.deserialize_cbor(
+            data["sandboxes"]
+        )
+    if data.get("sandboxesNotFound") is not None:
+        import capo_codebuild.types.sandbox_ids
+
+        out["sandboxes_not_found"] = capo_codebuild.types.sandbox_ids.deserialize_cbor(
+            data["sandboxesNotFound"]
+        )
+    return out

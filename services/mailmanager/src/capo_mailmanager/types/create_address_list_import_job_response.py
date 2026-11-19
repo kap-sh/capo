@@ -37,6 +37,27 @@ def deserialize_aws_json_1_0(data: dict) -> CreateAddressListImportJobResponse:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateAddressListImportJobResponse) -> dict:
+    out: dict = {}
+    out["JobId"] = value["job_id"]
+    out["PreSignedUrl"] = value["pre_signed_url"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateAddressListImportJobResponse:
+    out: CreateAddressListImportJobResponse = {}  # type: ignore[typeddict-item]
+    if data.get("JobId") is not None:
+        out["job_id"] = data["JobId"]
+    else:
+        out["job_id"] = ""
+    if data.get("PreSignedUrl") is not None:
+        out["pre_signed_url"] = data["PreSignedUrl"]
+    else:
+        out["pre_signed_url"] = ""
+    return out
+
+
 def redact_sensitive(value: CreateAddressListImportJobResponse) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "pre_signed_url" in value:

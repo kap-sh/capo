@@ -43,3 +43,33 @@ def deserialize_aws_json_1_0(data: dict) -> ImportDataFormat:
             "capo_mailmanager.types.import_data_type.ImportDataType", ""
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ImportDataFormat) -> dict:
+    out: dict = {}
+    import capo_mailmanager.types.import_data_type
+
+    out["ImportDataType"] = capo_mailmanager.types.import_data_type.serialize_cbor(
+        value["import_data_type"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ImportDataFormat:
+    out: ImportDataFormat = {}  # type: ignore[typeddict-item]
+    if data.get("ImportDataType") is not None:
+        import capo_mailmanager.types.import_data_type
+
+        out["import_data_type"] = (
+            capo_mailmanager.types.import_data_type.deserialize_cbor(
+                data["ImportDataType"]
+            )
+        )
+    else:
+        import typing
+
+        out["import_data_type"] = typing.cast(
+            "capo_mailmanager.types.import_data_type.ImportDataType", ""
+        )
+    return out

@@ -55,3 +55,30 @@ def deserialize_aws_json_1_1(data: dict) -> ICD10CMTrait:
     if data.get("Score") is not None:
         out["score"] = float(data["Score"])
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ICD10CMTrait) -> dict:
+    out: dict = {}
+    if "name" in value:
+        import capo_comprehendmedical.types.icd10_cm_trait_name
+
+        out["Name"] = capo_comprehendmedical.types.icd10_cm_trait_name.serialize_cbor(
+            value["name"]
+        )
+    if "score" in value:
+        out["Score"] = value["score"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ICD10CMTrait:
+    out: ICD10CMTrait = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        import capo_comprehendmedical.types.icd10_cm_trait_name
+
+        out["name"] = capo_comprehendmedical.types.icd10_cm_trait_name.deserialize_cbor(
+            data["Name"]
+        )
+    if data.get("Score") is not None:
+        out["score"] = float(data["Score"])
+    return out

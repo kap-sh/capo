@@ -131,3 +131,92 @@ def deserialize_aws_json_1_0(data: dict) -> GetTrafficPolicyResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetTrafficPolicyResponse) -> dict:
+    out: dict = {}
+    out["TrafficPolicyName"] = value["traffic_policy_name"]
+    out["TrafficPolicyId"] = value["traffic_policy_id"]
+    if "traffic_policy_arn" in value:
+        out["TrafficPolicyArn"] = value["traffic_policy_arn"]
+    if "policy_statements" in value:
+        import capo_mailmanager.types.policy_statement_list
+
+        out["PolicyStatements"] = (
+            capo_mailmanager.types.policy_statement_list.serialize_cbor(
+                value["policy_statements"]
+            )
+        )
+    if "max_message_size_bytes" in value:
+        out["MaxMessageSizeBytes"] = value["max_message_size_bytes"]
+    if "default_action" in value:
+        import capo_mailmanager.types.accept_action
+
+        out["DefaultAction"] = capo_mailmanager.types.accept_action.serialize_cbor(
+            value["default_action"]
+        )
+    if "created_timestamp" in value:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["CreatedTimestamp"] = (
+            capo_mailmanager.types._prelude.timestamp.serialize_cbor(
+                value["created_timestamp"]
+            )
+        )
+    if "last_updated_timestamp" in value:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["LastUpdatedTimestamp"] = (
+            capo_mailmanager.types._prelude.timestamp.serialize_cbor(
+                value["last_updated_timestamp"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetTrafficPolicyResponse:
+    out: GetTrafficPolicyResponse = {}  # type: ignore[typeddict-item]
+    if data.get("TrafficPolicyName") is not None:
+        out["traffic_policy_name"] = data["TrafficPolicyName"]
+    else:
+        out["traffic_policy_name"] = ""
+    if data.get("TrafficPolicyId") is not None:
+        out["traffic_policy_id"] = data["TrafficPolicyId"]
+    else:
+        out["traffic_policy_id"] = ""
+    if data.get("TrafficPolicyArn") is not None:
+        out["traffic_policy_arn"] = data["TrafficPolicyArn"]
+    if data.get("PolicyStatements") is not None:
+        import capo_mailmanager.types.policy_statement_list
+
+        out["policy_statements"] = (
+            capo_mailmanager.types.policy_statement_list.deserialize_cbor(
+                data["PolicyStatements"]
+            )
+        )
+    if data.get("MaxMessageSizeBytes") is not None:
+        out["max_message_size_bytes"] = data["MaxMessageSizeBytes"]
+    if data.get("DefaultAction") is not None:
+        import capo_mailmanager.types.accept_action
+
+        out["default_action"] = capo_mailmanager.types.accept_action.deserialize_cbor(
+            data["DefaultAction"]
+        )
+    if data.get("CreatedTimestamp") is not None:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["created_timestamp"] = (
+            capo_mailmanager.types._prelude.timestamp.deserialize_cbor(
+                data["CreatedTimestamp"]
+            )
+        )
+    if data.get("LastUpdatedTimestamp") is not None:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["last_updated_timestamp"] = (
+            capo_mailmanager.types._prelude.timestamp.deserialize_cbor(
+                data["LastUpdatedTimestamp"]
+            )
+        )
+    return out

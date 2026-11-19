@@ -58,6 +58,43 @@ def deserialize_aws_json_1_0(data: dict) -> BuyerAgreementApprovalPlan:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BuyerAgreementApprovalPlan) -> dict:
+    out: dict = {}
+    out["planReference"] = value["plan_reference"]
+    if "name" in value:
+        out["name"] = value["name"]
+    import capo_marketplace_agreement.types.buyer_agreement_approval_plan_levels
+
+    out["levels"] = (
+        capo_marketplace_agreement.types.buyer_agreement_approval_plan_levels.serialize_cbor(
+            value["levels"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BuyerAgreementApprovalPlan:
+    out: BuyerAgreementApprovalPlan = {}  # type: ignore[typeddict-item]
+    if data.get("planReference") is not None:
+        out["plan_reference"] = data["planReference"]
+    else:
+        out["plan_reference"] = ""
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    if data.get("levels") is not None:
+        import capo_marketplace_agreement.types.buyer_agreement_approval_plan_levels
+
+        out["levels"] = (
+            capo_marketplace_agreement.types.buyer_agreement_approval_plan_levels.deserialize_cbor(
+                data["levels"]
+            )
+        )
+    else:
+        out["levels"] = []
+    return out
+
+
 def redact_sensitive(value: BuyerAgreementApprovalPlan) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "levels" in value:

@@ -33,3 +33,22 @@ def deserialize_aws_json_1_1(data: dict) -> ExportedEnvironmentVariable:
     if data.get("value") is not None:
         out["value"] = data["value"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExportedEnvironmentVariable) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["name"] = value["name"]
+    if "value" in value:
+        out["value"] = value["value"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ExportedEnvironmentVariable:
+    out: ExportedEnvironmentVariable = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    if data.get("value") is not None:
+        out["value"] = data["value"]
+    return out

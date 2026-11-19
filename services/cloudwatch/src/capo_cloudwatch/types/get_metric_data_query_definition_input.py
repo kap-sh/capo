@@ -45,3 +45,18 @@ def deserialize_query(el: Element) -> GetMetricDataQueryDefinitionInput:
     if child_id is not None:
         out["id"] = str(child_id.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetMetricDataQueryDefinitionInput) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["Id"] = value["id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetMetricDataQueryDefinitionInput:
+    out: GetMetricDataQueryDefinitionInput = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    return out

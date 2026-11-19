@@ -51,3 +51,38 @@ def deserialize_aws_json_1_1(data: dict) -> ModifyWorkspaceStateRequest:
             "capo_workspaces.types.target_workspace_state.TargetWorkspaceState", ""
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ModifyWorkspaceStateRequest) -> dict:
+    out: dict = {}
+    out["WorkspaceId"] = value["workspace_id"]
+    import capo_workspaces.types.target_workspace_state
+
+    out["WorkspaceState"] = capo_workspaces.types.target_workspace_state.serialize_cbor(
+        value["workspace_state"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ModifyWorkspaceStateRequest:
+    out: ModifyWorkspaceStateRequest = {}  # type: ignore[typeddict-item]
+    if data.get("WorkspaceId") is not None:
+        out["workspace_id"] = data["WorkspaceId"]
+    else:
+        out["workspace_id"] = ""
+    if data.get("WorkspaceState") is not None:
+        import capo_workspaces.types.target_workspace_state
+
+        out["workspace_state"] = (
+            capo_workspaces.types.target_workspace_state.deserialize_cbor(
+                data["WorkspaceState"]
+            )
+        )
+    else:
+        import typing
+
+        out["workspace_state"] = typing.cast(
+            "capo_workspaces.types.target_workspace_state.TargetWorkspaceState", ""
+        )
+    return out

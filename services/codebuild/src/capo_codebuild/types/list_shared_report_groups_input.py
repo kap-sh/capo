@@ -71,3 +71,50 @@ def deserialize_aws_json_1_1(data: dict) -> ListSharedReportGroupsInput:
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListSharedReportGroupsInput) -> dict:
+    out: dict = {}
+    if "sort_order" in value:
+        import capo_codebuild.types.sort_order_type
+
+        out["sortOrder"] = capo_codebuild.types.sort_order_type.serialize_cbor(
+            value["sort_order"]
+        )
+    if "sort_by" in value:
+        import capo_codebuild.types.shared_resource_sort_by_type
+
+        out["sortBy"] = (
+            capo_codebuild.types.shared_resource_sort_by_type.serialize_cbor(
+                value["sort_by"]
+            )
+        )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListSharedReportGroupsInput:
+    out: ListSharedReportGroupsInput = {}  # type: ignore[typeddict-item]
+    if data.get("sortOrder") is not None:
+        import capo_codebuild.types.sort_order_type
+
+        out["sort_order"] = capo_codebuild.types.sort_order_type.deserialize_cbor(
+            data["sortOrder"]
+        )
+    if data.get("sortBy") is not None:
+        import capo_codebuild.types.shared_resource_sort_by_type
+
+        out["sort_by"] = (
+            capo_codebuild.types.shared_resource_sort_by_type.deserialize_cbor(
+                data["sortBy"]
+            )
+        )
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    return out

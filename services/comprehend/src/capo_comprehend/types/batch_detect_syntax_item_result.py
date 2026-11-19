@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDetectSyntaxItemResult:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchDetectSyntaxItemResult) -> dict:
+    out: dict = {}
+    if "index" in value:
+        out["Index"] = value["index"]
+    if "syntax_tokens" in value:
+        import capo_comprehend.types.list_of_syntax_tokens
+
+        out["SyntaxTokens"] = (
+            capo_comprehend.types.list_of_syntax_tokens.serialize_cbor(
+                value["syntax_tokens"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BatchDetectSyntaxItemResult:
+    out: BatchDetectSyntaxItemResult = {}  # type: ignore[typeddict-item]
+    if data.get("Index") is not None:
+        out["index"] = data["Index"]
+    if data.get("SyntaxTokens") is not None:
+        import capo_comprehend.types.list_of_syntax_tokens
+
+        out["syntax_tokens"] = (
+            capo_comprehend.types.list_of_syntax_tokens.deserialize_cbor(
+                data["SyntaxTokens"]
+            )
+        )
+    return out

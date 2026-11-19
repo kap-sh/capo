@@ -165,3 +165,126 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeProvisioningParametersOutput
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeProvisioningParametersOutput) -> dict:
+    out: dict = {}
+    if "provisioning_artifact_parameters" in value:
+        import capo_service_catalog.types.provisioning_artifact_parameters
+
+        out["ProvisioningArtifactParameters"] = (
+            capo_service_catalog.types.provisioning_artifact_parameters.serialize_cbor(
+                value["provisioning_artifact_parameters"]
+            )
+        )
+    if "constraint_summaries" in value:
+        import capo_service_catalog.types.constraint_summaries
+
+        out["ConstraintSummaries"] = (
+            capo_service_catalog.types.constraint_summaries.serialize_cbor(
+                value["constraint_summaries"]
+            )
+        )
+    if "usage_instructions" in value:
+        import capo_service_catalog.types.usage_instructions
+
+        out["UsageInstructions"] = (
+            capo_service_catalog.types.usage_instructions.serialize_cbor(
+                value["usage_instructions"]
+            )
+        )
+    if "tag_options" in value:
+        import capo_service_catalog.types.tag_option_summaries
+
+        out["TagOptions"] = (
+            capo_service_catalog.types.tag_option_summaries.serialize_cbor(
+                value["tag_options"]
+            )
+        )
+    if "provisioning_artifact_preferences" in value:
+        import capo_service_catalog.types.provisioning_artifact_preferences
+
+        out["ProvisioningArtifactPreferences"] = (
+            capo_service_catalog.types.provisioning_artifact_preferences.serialize_cbor(
+                value["provisioning_artifact_preferences"]
+            )
+        )
+    if "provisioning_artifact_outputs" in value:
+        import capo_service_catalog.types.provisioning_artifact_outputs
+
+        out["ProvisioningArtifactOutputs"] = (
+            capo_service_catalog.types.provisioning_artifact_outputs.serialize_cbor(
+                value["provisioning_artifact_outputs"]
+            )
+        )
+    if "provisioning_artifact_output_keys" in value:
+        import capo_service_catalog.types.provisioning_artifact_outputs
+
+        out["ProvisioningArtifactOutputKeys"] = (
+            capo_service_catalog.types.provisioning_artifact_outputs.serialize_cbor(
+                value["provisioning_artifact_output_keys"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeProvisioningParametersOutput:
+    out: DescribeProvisioningParametersOutput = {}  # type: ignore[typeddict-item]
+    if data.get("ProvisioningArtifactParameters") is not None:
+        import capo_service_catalog.types.provisioning_artifact_parameters
+
+        out["provisioning_artifact_parameters"] = (
+            capo_service_catalog.types.provisioning_artifact_parameters.deserialize_cbor(
+                data["ProvisioningArtifactParameters"]
+            )
+        )
+    if data.get("ConstraintSummaries") is not None:
+        import capo_service_catalog.types.constraint_summaries
+
+        out["constraint_summaries"] = (
+            capo_service_catalog.types.constraint_summaries.deserialize_cbor(
+                data["ConstraintSummaries"]
+            )
+        )
+    if data.get("UsageInstructions") is not None:
+        import capo_service_catalog.types.usage_instructions
+
+        out["usage_instructions"] = (
+            capo_service_catalog.types.usage_instructions.deserialize_cbor(
+                data["UsageInstructions"]
+            )
+        )
+    if data.get("TagOptions") is not None:
+        import capo_service_catalog.types.tag_option_summaries
+
+        out["tag_options"] = (
+            capo_service_catalog.types.tag_option_summaries.deserialize_cbor(
+                data["TagOptions"]
+            )
+        )
+    if data.get("ProvisioningArtifactPreferences") is not None:
+        import capo_service_catalog.types.provisioning_artifact_preferences
+
+        out["provisioning_artifact_preferences"] = (
+            capo_service_catalog.types.provisioning_artifact_preferences.deserialize_cbor(
+                data["ProvisioningArtifactPreferences"]
+            )
+        )
+    if data.get("ProvisioningArtifactOutputs") is not None:
+        import capo_service_catalog.types.provisioning_artifact_outputs
+
+        out["provisioning_artifact_outputs"] = (
+            capo_service_catalog.types.provisioning_artifact_outputs.deserialize_cbor(
+                data["ProvisioningArtifactOutputs"]
+            )
+        )
+    if data.get("ProvisioningArtifactOutputKeys") is not None:
+        import capo_service_catalog.types.provisioning_artifact_outputs
+
+        out["provisioning_artifact_output_keys"] = (
+            capo_service_catalog.types.provisioning_artifact_outputs.deserialize_cbor(
+                data["ProvisioningArtifactOutputKeys"]
+            )
+        )
+    return out

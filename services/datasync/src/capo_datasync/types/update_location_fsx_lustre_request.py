@@ -34,3 +34,23 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateLocationFsxLustreRequest:
     if data.get("Subdirectory") is not None:
         out["subdirectory"] = data["Subdirectory"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateLocationFsxLustreRequest) -> dict:
+    out: dict = {}
+    out["LocationArn"] = value["location_arn"]
+    if "subdirectory" in value:
+        out["Subdirectory"] = value["subdirectory"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateLocationFsxLustreRequest:
+    out: UpdateLocationFsxLustreRequest = {}  # type: ignore[typeddict-item]
+    if data.get("LocationArn") is not None:
+        out["location_arn"] = data["LocationArn"]
+    else:
+        out["location_arn"] = ""
+    if data.get("Subdirectory") is not None:
+        out["subdirectory"] = data["Subdirectory"]
+    return out

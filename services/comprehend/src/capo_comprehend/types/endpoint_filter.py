@@ -80,3 +80,54 @@ def deserialize_aws_json_1_1(data: dict) -> EndpointFilter:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EndpointFilter) -> dict:
+    out: dict = {}
+    if "model_arn" in value:
+        out["ModelArn"] = value["model_arn"]
+    if "status" in value:
+        import capo_comprehend.types.endpoint_status
+
+        out["Status"] = capo_comprehend.types.endpoint_status.serialize_cbor(
+            value["status"]
+        )
+    if "creation_time_before" in value:
+        import capo_comprehend.types.timestamp
+
+        out["CreationTimeBefore"] = capo_comprehend.types.timestamp.serialize_cbor(
+            value["creation_time_before"]
+        )
+    if "creation_time_after" in value:
+        import capo_comprehend.types.timestamp
+
+        out["CreationTimeAfter"] = capo_comprehend.types.timestamp.serialize_cbor(
+            value["creation_time_after"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> EndpointFilter:
+    out: EndpointFilter = {}  # type: ignore[typeddict-item]
+    if data.get("ModelArn") is not None:
+        out["model_arn"] = data["ModelArn"]
+    if data.get("Status") is not None:
+        import capo_comprehend.types.endpoint_status
+
+        out["status"] = capo_comprehend.types.endpoint_status.deserialize_cbor(
+            data["Status"]
+        )
+    if data.get("CreationTimeBefore") is not None:
+        import capo_comprehend.types.timestamp
+
+        out["creation_time_before"] = capo_comprehend.types.timestamp.deserialize_cbor(
+            data["CreationTimeBefore"]
+        )
+    if data.get("CreationTimeAfter") is not None:
+        import capo_comprehend.types.timestamp
+
+        out["creation_time_after"] = capo_comprehend.types.timestamp.deserialize_cbor(
+            data["CreationTimeAfter"]
+        )
+    return out

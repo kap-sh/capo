@@ -98,3 +98,70 @@ def deserialize_aws_json_1_1(data: dict) -> GetLendingAnalysisSummaryResponse:
     if data.get("AnalyzeLendingModelVersion") is not None:
         out["analyze_lending_model_version"] = data["AnalyzeLendingModelVersion"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetLendingAnalysisSummaryResponse) -> dict:
+    out: dict = {}
+    if "document_metadata" in value:
+        import capo_textract.types.document_metadata
+
+        out["DocumentMetadata"] = capo_textract.types.document_metadata.serialize_cbor(
+            value["document_metadata"]
+        )
+    if "job_status" in value:
+        import capo_textract.types.job_status
+
+        out["JobStatus"] = capo_textract.types.job_status.serialize_cbor(
+            value["job_status"]
+        )
+    if "summary" in value:
+        import capo_textract.types.lending_summary
+
+        out["Summary"] = capo_textract.types.lending_summary.serialize_cbor(
+            value["summary"]
+        )
+    if "warnings" in value:
+        import capo_textract.types.warnings
+
+        out["Warnings"] = capo_textract.types.warnings.serialize_cbor(value["warnings"])
+    if "status_message" in value:
+        out["StatusMessage"] = value["status_message"]
+    if "analyze_lending_model_version" in value:
+        out["AnalyzeLendingModelVersion"] = value["analyze_lending_model_version"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetLendingAnalysisSummaryResponse:
+    out: GetLendingAnalysisSummaryResponse = {}  # type: ignore[typeddict-item]
+    if data.get("DocumentMetadata") is not None:
+        import capo_textract.types.document_metadata
+
+        out["document_metadata"] = (
+            capo_textract.types.document_metadata.deserialize_cbor(
+                data["DocumentMetadata"]
+            )
+        )
+    if data.get("JobStatus") is not None:
+        import capo_textract.types.job_status
+
+        out["job_status"] = capo_textract.types.job_status.deserialize_cbor(
+            data["JobStatus"]
+        )
+    if data.get("Summary") is not None:
+        import capo_textract.types.lending_summary
+
+        out["summary"] = capo_textract.types.lending_summary.deserialize_cbor(
+            data["Summary"]
+        )
+    if data.get("Warnings") is not None:
+        import capo_textract.types.warnings
+
+        out["warnings"] = capo_textract.types.warnings.deserialize_cbor(
+            data["Warnings"]
+        )
+    if data.get("StatusMessage") is not None:
+        out["status_message"] = data["StatusMessage"]
+    if data.get("AnalyzeLendingModelVersion") is not None:
+        out["analyze_lending_model_version"] = data["AnalyzeLendingModelVersion"]
+    return out

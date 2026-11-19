@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> GetCallAnalyticsCategoryRequest:
     else:
         out["category_name"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetCallAnalyticsCategoryRequest) -> dict:
+    out: dict = {}
+    out["CategoryName"] = value["category_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetCallAnalyticsCategoryRequest:
+    out: GetCallAnalyticsCategoryRequest = {}  # type: ignore[typeddict-item]
+    if data.get("CategoryName") is not None:
+        out["category_name"] = data["CategoryName"]
+    else:
+        out["category_name"] = ""
+    return out

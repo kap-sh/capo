@@ -38,3 +38,26 @@ def deserialize_aws_json_1_0(data: dict) -> TaxBreakdownItem:
     if data.get("type") is not None:
         out["type"] = data["type"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TaxBreakdownItem) -> dict:
+    out: dict = {}
+    if "amount" in value:
+        out["amount"] = value["amount"]
+    if "rate" in value:
+        out["rate"] = value["rate"]
+    if "type" in value:
+        out["type"] = value["type"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> TaxBreakdownItem:
+    out: TaxBreakdownItem = {}  # type: ignore[typeddict-item]
+    if data.get("amount") is not None:
+        out["amount"] = data["amount"]
+    if data.get("rate") is not None:
+        out["rate"] = data["rate"]
+    if data.get("type") is not None:
+        out["type"] = data["type"]
+    return out

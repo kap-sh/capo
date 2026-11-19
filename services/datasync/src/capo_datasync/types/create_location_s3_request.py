@@ -100,3 +100,66 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLocationS3Request:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateLocationS3Request) -> dict:
+    out: dict = {}
+    if "subdirectory" in value:
+        out["Subdirectory"] = value["subdirectory"]
+    out["S3BucketArn"] = value["s3_bucket_arn"]
+    if "s3_storage_class" in value:
+        import capo_datasync.types.s3_storage_class
+
+        out["S3StorageClass"] = capo_datasync.types.s3_storage_class.serialize_cbor(
+            value["s3_storage_class"]
+        )
+    import capo_datasync.types.s3_config
+
+    out["S3Config"] = capo_datasync.types.s3_config.serialize_cbor(value["s3_config"])
+    if "agent_arns" in value:
+        import capo_datasync.types.agent_arn_list
+
+        out["AgentArns"] = capo_datasync.types.agent_arn_list.serialize_cbor(
+            value["agent_arns"]
+        )
+    if "tags" in value:
+        import capo_datasync.types.input_tag_list
+
+        out["Tags"] = capo_datasync.types.input_tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateLocationS3Request:
+    out: CreateLocationS3Request = {}  # type: ignore[typeddict-item]
+    if data.get("Subdirectory") is not None:
+        out["subdirectory"] = data["Subdirectory"]
+    if data.get("S3BucketArn") is not None:
+        out["s3_bucket_arn"] = data["S3BucketArn"]
+    else:
+        out["s3_bucket_arn"] = ""
+    if data.get("S3StorageClass") is not None:
+        import capo_datasync.types.s3_storage_class
+
+        out["s3_storage_class"] = capo_datasync.types.s3_storage_class.deserialize_cbor(
+            data["S3StorageClass"]
+        )
+    if data.get("S3Config") is not None:
+        import capo_datasync.types.s3_config
+
+        out["s3_config"] = capo_datasync.types.s3_config.deserialize_cbor(
+            data["S3Config"]
+        )
+    else:
+        raise DeserializationError("CreateLocationS3Request.s3_config required")
+    if data.get("AgentArns") is not None:
+        import capo_datasync.types.agent_arn_list
+
+        out["agent_arns"] = capo_datasync.types.agent_arn_list.deserialize_cbor(
+            data["AgentArns"]
+        )
+    if data.get("Tags") is not None:
+        import capo_datasync.types.input_tag_list
+
+        out["tags"] = capo_datasync.types.input_tag_list.deserialize_cbor(data["Tags"])
+    return out

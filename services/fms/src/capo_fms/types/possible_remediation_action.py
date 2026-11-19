@@ -56,3 +56,40 @@ def deserialize_aws_json_1_1(data: dict) -> PossibleRemediationAction:
     else:
         out["is_default_action"] = False
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PossibleRemediationAction) -> dict:
+    out: dict = {}
+    if "description" in value:
+        out["Description"] = value["description"]
+    import capo_fms.types.ordered_remediation_actions
+
+    out["OrderedRemediationActions"] = (
+        capo_fms.types.ordered_remediation_actions.serialize_cbor(
+            value["ordered_remediation_actions"]
+        )
+    )
+    out["IsDefaultAction"] = value.get("is_default_action", False)
+    return out
+
+
+def deserialize_cbor(data: dict) -> PossibleRemediationAction:
+    out: PossibleRemediationAction = {}  # type: ignore[typeddict-item]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("OrderedRemediationActions") is not None:
+        import capo_fms.types.ordered_remediation_actions
+
+        out["ordered_remediation_actions"] = (
+            capo_fms.types.ordered_remediation_actions.deserialize_cbor(
+                data["OrderedRemediationActions"]
+            )
+        )
+    else:
+        out["ordered_remediation_actions"] = []
+    if data.get("IsDefaultAction") is not None:
+        out["is_default_action"] = data["IsDefaultAction"]
+    else:
+        out["is_default_action"] = False
+    return out

@@ -63,3 +63,30 @@ def deserialize_aws_json_1_1(data: dict) -> EntitlementValue:
     if data.get("StringValue") is not None:
         out["string_value"] = data["StringValue"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EntitlementValue) -> dict:
+    out: dict = {}
+    if "integer_value" in value:
+        out["IntegerValue"] = value["integer_value"]
+    if "double_value" in value:
+        out["DoubleValue"] = value["double_value"]
+    if "boolean_value" in value:
+        out["BooleanValue"] = value["boolean_value"]
+    if "string_value" in value:
+        out["StringValue"] = value["string_value"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> EntitlementValue:
+    out: EntitlementValue = {}  # type: ignore[typeddict-item]
+    if data.get("IntegerValue") is not None:
+        out["integer_value"] = data["IntegerValue"]
+    if data.get("DoubleValue") is not None:
+        out["double_value"] = float(data["DoubleValue"])
+    if data.get("BooleanValue") is not None:
+        out["boolean_value"] = data["BooleanValue"]
+    if data.get("StringValue") is not None:
+        out["string_value"] = data["StringValue"]
+    return out

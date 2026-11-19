@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteAliasInput:
     if data.get("AliasId") is not None:
         out["alias_id"] = data["AliasId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteAliasInput) -> dict:
+    out: dict = {}
+    if "alias_id" in value:
+        out["AliasId"] = value["alias_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteAliasInput:
+    out: DeleteAliasInput = {}  # type: ignore[typeddict-item]
+    if data.get("AliasId") is not None:
+        out["alias_id"] = data["AliasId"]
+    return out

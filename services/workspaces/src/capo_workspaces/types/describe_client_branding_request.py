@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeClientBrandingRequest:
     else:
         out["resource_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeClientBrandingRequest) -> dict:
+    out: dict = {}
+    out["ResourceId"] = value["resource_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeClientBrandingRequest:
+    out: DescribeClientBrandingRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceId") is not None:
+        out["resource_id"] = data["ResourceId"]
+    else:
+        out["resource_id"] = ""
+    return out

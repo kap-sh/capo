@@ -179,3 +179,118 @@ def deserialize_aws_json_1_1(data: dict) -> WorkspaceImage:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: WorkspaceImage) -> dict:
+    out: dict = {}
+    if "image_id" in value:
+        out["ImageId"] = value["image_id"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "operating_system" in value:
+        import capo_workspaces.types.operating_system
+
+        out["OperatingSystem"] = capo_workspaces.types.operating_system.serialize_cbor(
+            value["operating_system"]
+        )
+    if "state" in value:
+        import capo_workspaces.types.workspace_image_state
+
+        out["State"] = capo_workspaces.types.workspace_image_state.serialize_cbor(
+            value["state"]
+        )
+    if "required_tenancy" in value:
+        import capo_workspaces.types.workspace_image_required_tenancy
+
+        out["RequiredTenancy"] = (
+            capo_workspaces.types.workspace_image_required_tenancy.serialize_cbor(
+                value["required_tenancy"]
+            )
+        )
+    if "error_code" in value:
+        out["ErrorCode"] = value["error_code"]
+    if "error_message" in value:
+        out["ErrorMessage"] = value["error_message"]
+    if "created" in value:
+        import capo_workspaces.types.timestamp
+
+        out["Created"] = capo_workspaces.types.timestamp.serialize_cbor(
+            value["created"]
+        )
+    if "owner_account_id" in value:
+        out["OwnerAccountId"] = value["owner_account_id"]
+    if "updates" in value:
+        import capo_workspaces.types.update_result
+
+        out["Updates"] = capo_workspaces.types.update_result.serialize_cbor(
+            value["updates"]
+        )
+    if "error_details" in value:
+        import capo_workspaces.types.error_details_list
+
+        out["ErrorDetails"] = capo_workspaces.types.error_details_list.serialize_cbor(
+            value["error_details"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> WorkspaceImage:
+    out: WorkspaceImage = {}  # type: ignore[typeddict-item]
+    if data.get("ImageId") is not None:
+        out["image_id"] = data["ImageId"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("OperatingSystem") is not None:
+        import capo_workspaces.types.operating_system
+
+        out["operating_system"] = (
+            capo_workspaces.types.operating_system.deserialize_cbor(
+                data["OperatingSystem"]
+            )
+        )
+    if data.get("State") is not None:
+        import capo_workspaces.types.workspace_image_state
+
+        out["state"] = capo_workspaces.types.workspace_image_state.deserialize_cbor(
+            data["State"]
+        )
+    if data.get("RequiredTenancy") is not None:
+        import capo_workspaces.types.workspace_image_required_tenancy
+
+        out["required_tenancy"] = (
+            capo_workspaces.types.workspace_image_required_tenancy.deserialize_cbor(
+                data["RequiredTenancy"]
+            )
+        )
+    if data.get("ErrorCode") is not None:
+        out["error_code"] = data["ErrorCode"]
+    if data.get("ErrorMessage") is not None:
+        out["error_message"] = data["ErrorMessage"]
+    if data.get("Created") is not None:
+        import capo_workspaces.types.timestamp
+
+        out["created"] = capo_workspaces.types.timestamp.deserialize_cbor(
+            data["Created"]
+        )
+    if data.get("OwnerAccountId") is not None:
+        out["owner_account_id"] = data["OwnerAccountId"]
+    if data.get("Updates") is not None:
+        import capo_workspaces.types.update_result
+
+        out["updates"] = capo_workspaces.types.update_result.deserialize_cbor(
+            data["Updates"]
+        )
+    if data.get("ErrorDetails") is not None:
+        import capo_workspaces.types.error_details_list
+
+        out["error_details"] = (
+            capo_workspaces.types.error_details_list.deserialize_cbor(
+                data["ErrorDetails"]
+            )
+        )
+    return out

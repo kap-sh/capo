@@ -31,3 +31,24 @@ def deserialize_aws_json_1_1(data: list) -> EngineVersionInfoList:
             capo_memorydb.types.engine_version_info.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EngineVersionInfoList) -> list:
+    import capo_memorydb.types.engine_version_info
+
+    out: list = []
+    for item in value:
+        out.append(capo_memorydb.types.engine_version_info.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> EngineVersionInfoList:
+    import capo_memorydb.types.engine_version_info
+
+    out: EngineVersionInfoList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_memorydb.types.engine_version_info.deserialize_cbor(item))
+    return out

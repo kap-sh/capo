@@ -45,6 +45,34 @@ def deserialize_aws_json_1_0(data: dict) -> ThrottlingException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ThrottlingException_) -> dict:
+    out: dict = {}
+    out["Message"] = value["message"]
+    if "service_code" in value:
+        out["ServiceCode"] = value["service_code"]
+    if "quota_code" in value:
+        out["QuotaCode"] = value["quota_code"]
+    if "retry_after_seconds" in value:
+        out["RetryAfterSeconds"] = value["retry_after_seconds"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ThrottlingException_:
+    out: ThrottlingException_ = {}  # type: ignore[typeddict-item]
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    else:
+        out["message"] = ""
+    if data.get("ServiceCode") is not None:
+        out["service_code"] = data["ServiceCode"]
+    if data.get("QuotaCode") is not None:
+        out["quota_code"] = data["QuotaCode"]
+    if data.get("RetryAfterSeconds") is not None:
+        out["retry_after_seconds"] = data["RetryAfterSeconds"]
+    return out
+
+
 class ThrottlingException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.workspacesinstances#ThrottlingException``."""
 
@@ -72,3 +100,9 @@ class ThrottlingException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ThrottlingException":
         return cls(deserialize_aws_json_1_0(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "ThrottlingException":
+        return cls(deserialize_cbor(data), message, response=response)

@@ -109,13 +109,24 @@ class IngressPointResource:
         ) -> OperationResponse[
             "capo_mailmanager.types.create_ingress_point_response.CreateIngressPointResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.create_ingress_point
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.create_ingress_point
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.create_ingress_point.create_ingress_point(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.create_ingress_point.create_ingress_point(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.create_ingress_point
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.create_ingress_point.create_ingress_point(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -191,13 +202,24 @@ class IngressPointResource:
         ) -> OperationResponse[
             "capo_mailmanager.types.get_ingress_point_response.GetIngressPointResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.get_ingress_point
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_ingress_point
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.get_ingress_point.get_ingress_point(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_ingress_point.get_ingress_point(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_ingress_point
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_ingress_point.get_ingress_point(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -284,13 +306,24 @@ class IngressPointResource:
         ) -> OperationResponse[
             "capo_mailmanager.types.update_ingress_point_response.UpdateIngressPointResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.update_ingress_point
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.update_ingress_point
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.update_ingress_point.update_ingress_point(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.update_ingress_point.update_ingress_point(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.update_ingress_point
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.update_ingress_point.update_ingress_point(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -358,13 +391,24 @@ class IngressPointResource:
         ) -> OperationResponse[
             "capo_mailmanager.types.delete_ingress_point_response.DeleteIngressPointResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.delete_ingress_point
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.delete_ingress_point
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.delete_ingress_point.delete_ingress_point(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.delete_ingress_point.delete_ingress_point(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.delete_ingress_point
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.delete_ingress_point.delete_ingress_point(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(
@@ -420,13 +464,24 @@ class IngressPointResource:
         ) -> OperationResponse[
             "capo_mailmanager.types.list_ingress_points_response.ListIngressPointsResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.list_ingress_points
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_ingress_points
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.list_ingress_points.list_ingress_points(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_ingress_points.list_ingress_points(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_ingress_points
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_ingress_points.list_ingress_points(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(
@@ -507,14 +562,26 @@ class AsyncIngressPointResource:
         ) -> AsyncOperationResponse[
             "capo_mailmanager.types.create_ingress_point_response.CreateIngressPointResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.create_ingress_point
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.create_ingress_point
 
-            (
-                output,
-                http_response,
-            ) = await capo_mailmanager._operations.mail_manager_svc.create_ingress_point.async_create_ingress_point(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_mailmanager._operations.mail_manager_svc.aws_json1_0.create_ingress_point.async_create_ingress_point(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.create_ingress_point
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.create_ingress_point.async_create_ingress_point(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -590,14 +657,26 @@ class AsyncIngressPointResource:
         ) -> AsyncOperationResponse[
             "capo_mailmanager.types.get_ingress_point_response.GetIngressPointResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.get_ingress_point
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_ingress_point
 
-            (
-                output,
-                http_response,
-            ) = await capo_mailmanager._operations.mail_manager_svc.get_ingress_point.async_get_ingress_point(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_ingress_point.async_get_ingress_point(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_ingress_point
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_ingress_point.async_get_ingress_point(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -684,14 +763,26 @@ class AsyncIngressPointResource:
         ) -> AsyncOperationResponse[
             "capo_mailmanager.types.update_ingress_point_response.UpdateIngressPointResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.update_ingress_point
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.update_ingress_point
 
-            (
-                output,
-                http_response,
-            ) = await capo_mailmanager._operations.mail_manager_svc.update_ingress_point.async_update_ingress_point(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_mailmanager._operations.mail_manager_svc.aws_json1_0.update_ingress_point.async_update_ingress_point(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.update_ingress_point
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.update_ingress_point.async_update_ingress_point(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -759,14 +850,26 @@ class AsyncIngressPointResource:
         ) -> AsyncOperationResponse[
             "capo_mailmanager.types.delete_ingress_point_response.DeleteIngressPointResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.delete_ingress_point
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.delete_ingress_point
 
-            (
-                output,
-                http_response,
-            ) = await capo_mailmanager._operations.mail_manager_svc.delete_ingress_point.async_delete_ingress_point(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_mailmanager._operations.mail_manager_svc.aws_json1_0.delete_ingress_point.async_delete_ingress_point(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.delete_ingress_point
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.delete_ingress_point.async_delete_ingress_point(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(
@@ -822,14 +925,26 @@ class AsyncIngressPointResource:
         ) -> AsyncOperationResponse[
             "capo_mailmanager.types.list_ingress_points_response.ListIngressPointsResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.list_ingress_points
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_ingress_points
 
-            (
-                output,
-                http_response,
-            ) = await capo_mailmanager._operations.mail_manager_svc.list_ingress_points.async_list_ingress_points(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_ingress_points.async_list_ingress_points(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_ingress_points
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_ingress_points.async_list_ingress_points(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(

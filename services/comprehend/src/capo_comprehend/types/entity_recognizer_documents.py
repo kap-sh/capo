@@ -50,3 +50,35 @@ def deserialize_aws_json_1_1(data: dict) -> EntityRecognizerDocuments:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EntityRecognizerDocuments) -> dict:
+    out: dict = {}
+    out["S3Uri"] = value["s3_uri"]
+    if "test_s3_uri" in value:
+        out["TestS3Uri"] = value["test_s3_uri"]
+    if "input_format" in value:
+        import capo_comprehend.types.input_format
+
+        out["InputFormat"] = capo_comprehend.types.input_format.serialize_cbor(
+            value["input_format"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> EntityRecognizerDocuments:
+    out: EntityRecognizerDocuments = {}  # type: ignore[typeddict-item]
+    if data.get("S3Uri") is not None:
+        out["s3_uri"] = data["S3Uri"]
+    else:
+        out["s3_uri"] = ""
+    if data.get("TestS3Uri") is not None:
+        out["test_s3_uri"] = data["TestS3Uri"]
+    if data.get("InputFormat") is not None:
+        import capo_comprehend.types.input_format
+
+        out["input_format"] = capo_comprehend.types.input_format.deserialize_cbor(
+            data["InputFormat"]
+        )
+    return out

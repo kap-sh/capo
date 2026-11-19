@@ -61,3 +61,22 @@ def deserialize_query(el: Element) -> ListMetricDataQueryDefinitionsInput:
     if child_next_token is not None:
         out["next_token"] = str(child_next_token.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListMetricDataQueryDefinitionsInput) -> dict:
+    out: dict = {}
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListMetricDataQueryDefinitionsInput:
+    out: ListMetricDataQueryDefinitionsInput = {}  # type: ignore[typeddict-item]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

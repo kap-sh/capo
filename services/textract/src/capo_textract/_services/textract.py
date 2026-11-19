@@ -118,6 +118,7 @@ class TextractClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[Interceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_1", "rpcv2Cbor"]
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -134,6 +135,7 @@ class TextractClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -149,6 +151,7 @@ class TextractClient:
         operation_interceptors: Iterable[Interceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_1", "rpcv2Cbor"] = "awsJson1_1",
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -185,6 +188,7 @@ class TextractClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -218,6 +222,9 @@ class TextractClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_1")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -275,13 +282,24 @@ class TextractClient:
         ) -> OperationResponse[
             "capo_textract.types.analyze_document_response.AnalyzeDocumentResponse"
         ]:
-            import capo_textract._operations.textract.analyze_document
+            if req.options.protocol == "awsJson1_1":
+                import capo_textract._operations.textract.aws_json1_1.analyze_document
 
-            output, http_response = (
-                capo_textract._operations.textract.analyze_document.analyze_document(
-                    req.options, req.input
+                output, http_response = (
+                    capo_textract._operations.textract.aws_json1_1.analyze_document.analyze_document(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_textract._operations.textract.rpcv2_cbor.analyze_document
+
+                output, http_response = (
+                    capo_textract._operations.textract.rpcv2_cbor.analyze_document.analyze_document(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -332,13 +350,24 @@ class TextractClient:
         ) -> OperationResponse[
             "capo_textract.types.analyze_expense_response.AnalyzeExpenseResponse"
         ]:
-            import capo_textract._operations.textract.analyze_expense
+            if req.options.protocol == "awsJson1_1":
+                import capo_textract._operations.textract.aws_json1_1.analyze_expense
 
-            output, http_response = (
-                capo_textract._operations.textract.analyze_expense.analyze_expense(
-                    req.options, req.input
+                output, http_response = (
+                    capo_textract._operations.textract.aws_json1_1.analyze_expense.analyze_expense(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_textract._operations.textract.rpcv2_cbor.analyze_expense
+
+                output, http_response = (
+                    capo_textract._operations.textract.rpcv2_cbor.analyze_expense.analyze_expense(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -385,13 +414,24 @@ class TextractClient:
         ) -> OperationResponse[
             "capo_textract.types.analyze_id_response.AnalyzeIDResponse"
         ]:
-            import capo_textract._operations.textract.analyze_id
+            if req.options.protocol == "awsJson1_1":
+                import capo_textract._operations.textract.aws_json1_1.analyze_id
 
-            output, http_response = (
-                capo_textract._operations.textract.analyze_id.analyze_id(
-                    req.options, req.input
+                output, http_response = (
+                    capo_textract._operations.textract.aws_json1_1.analyze_id.analyze_id(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_textract._operations.textract.rpcv2_cbor.analyze_id
+
+                output, http_response = (
+                    capo_textract._operations.textract.rpcv2_cbor.analyze_id.analyze_id(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -453,13 +493,24 @@ class TextractClient:
         ) -> OperationResponse[
             "capo_textract.types.create_adapter_response.CreateAdapterResponse"
         ]:
-            import capo_textract._operations.textract.create_adapter
+            if req.options.protocol == "awsJson1_1":
+                import capo_textract._operations.textract.aws_json1_1.create_adapter
 
-            output, http_response = (
-                capo_textract._operations.textract.create_adapter.create_adapter(
-                    req.options, req.input
+                output, http_response = (
+                    capo_textract._operations.textract.aws_json1_1.create_adapter.create_adapter(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_textract._operations.textract.rpcv2_cbor.create_adapter
+
+                output, http_response = (
+                    capo_textract._operations.textract.rpcv2_cbor.create_adapter.create_adapter(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -531,13 +582,24 @@ class TextractClient:
         ) -> OperationResponse[
             "capo_textract.types.create_adapter_version_response.CreateAdapterVersionResponse"
         ]:
-            import capo_textract._operations.textract.create_adapter_version
+            if req.options.protocol == "awsJson1_1":
+                import capo_textract._operations.textract.aws_json1_1.create_adapter_version
 
-            output, http_response = (
-                capo_textract._operations.textract.create_adapter_version.create_adapter_version(
-                    req.options, req.input
+                output, http_response = (
+                    capo_textract._operations.textract.aws_json1_1.create_adapter_version.create_adapter_version(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_textract._operations.textract.rpcv2_cbor.create_adapter_version
+
+                output, http_response = (
+                    capo_textract._operations.textract.rpcv2_cbor.create_adapter_version.create_adapter_version(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -592,13 +654,24 @@ class TextractClient:
         ) -> OperationResponse[
             "capo_textract.types.delete_adapter_response.DeleteAdapterResponse"
         ]:
-            import capo_textract._operations.textract.delete_adapter
+            if req.options.protocol == "awsJson1_1":
+                import capo_textract._operations.textract.aws_json1_1.delete_adapter
 
-            output, http_response = (
-                capo_textract._operations.textract.delete_adapter.delete_adapter(
-                    req.options, req.input
+                output, http_response = (
+                    capo_textract._operations.textract.aws_json1_1.delete_adapter.delete_adapter(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_textract._operations.textract.rpcv2_cbor.delete_adapter
+
+                output, http_response = (
+                    capo_textract._operations.textract.rpcv2_cbor.delete_adapter.delete_adapter(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -646,13 +719,24 @@ class TextractClient:
         ) -> OperationResponse[
             "capo_textract.types.delete_adapter_version_response.DeleteAdapterVersionResponse"
         ]:
-            import capo_textract._operations.textract.delete_adapter_version
+            if req.options.protocol == "awsJson1_1":
+                import capo_textract._operations.textract.aws_json1_1.delete_adapter_version
 
-            output, http_response = (
-                capo_textract._operations.textract.delete_adapter_version.delete_adapter_version(
-                    req.options, req.input
+                output, http_response = (
+                    capo_textract._operations.textract.aws_json1_1.delete_adapter_version.delete_adapter_version(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_textract._operations.textract.rpcv2_cbor.delete_adapter_version
+
+                output, http_response = (
+                    capo_textract._operations.textract.rpcv2_cbor.delete_adapter_version.delete_adapter_version(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -700,13 +784,24 @@ class TextractClient:
         ) -> OperationResponse[
             "capo_textract.types.detect_document_text_response.DetectDocumentTextResponse"
         ]:
-            import capo_textract._operations.textract.detect_document_text
+            if req.options.protocol == "awsJson1_1":
+                import capo_textract._operations.textract.aws_json1_1.detect_document_text
 
-            output, http_response = (
-                capo_textract._operations.textract.detect_document_text.detect_document_text(
-                    req.options, req.input
+                output, http_response = (
+                    capo_textract._operations.textract.aws_json1_1.detect_document_text.detect_document_text(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_textract._operations.textract.rpcv2_cbor.detect_document_text
+
+                output, http_response = (
+                    capo_textract._operations.textract.rpcv2_cbor.detect_document_text.detect_document_text(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -751,13 +846,24 @@ class TextractClient:
         ) -> OperationResponse[
             "capo_textract.types.get_adapter_response.GetAdapterResponse"
         ]:
-            import capo_textract._operations.textract.get_adapter
+            if req.options.protocol == "awsJson1_1":
+                import capo_textract._operations.textract.aws_json1_1.get_adapter
 
-            output, http_response = (
-                capo_textract._operations.textract.get_adapter.get_adapter(
-                    req.options, req.input
+                output, http_response = (
+                    capo_textract._operations.textract.aws_json1_1.get_adapter.get_adapter(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_textract._operations.textract.rpcv2_cbor.get_adapter
+
+                output, http_response = (
+                    capo_textract._operations.textract.rpcv2_cbor.get_adapter.get_adapter(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -804,13 +910,24 @@ class TextractClient:
         ) -> OperationResponse[
             "capo_textract.types.get_adapter_version_response.GetAdapterVersionResponse"
         ]:
-            import capo_textract._operations.textract.get_adapter_version
+            if req.options.protocol == "awsJson1_1":
+                import capo_textract._operations.textract.aws_json1_1.get_adapter_version
 
-            output, http_response = (
-                capo_textract._operations.textract.get_adapter_version.get_adapter_version(
-                    req.options, req.input
+                output, http_response = (
+                    capo_textract._operations.textract.aws_json1_1.get_adapter_version.get_adapter_version(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_textract._operations.textract.rpcv2_cbor.get_adapter_version
+
+                output, http_response = (
+                    capo_textract._operations.textract.rpcv2_cbor.get_adapter_version.get_adapter_version(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -865,13 +982,24 @@ class TextractClient:
         ) -> OperationResponse[
             "capo_textract.types.get_document_analysis_response.GetDocumentAnalysisResponse"
         ]:
-            import capo_textract._operations.textract.get_document_analysis
+            if req.options.protocol == "awsJson1_1":
+                import capo_textract._operations.textract.aws_json1_1.get_document_analysis
 
-            output, http_response = (
-                capo_textract._operations.textract.get_document_analysis.get_document_analysis(
-                    req.options, req.input
+                output, http_response = (
+                    capo_textract._operations.textract.aws_json1_1.get_document_analysis.get_document_analysis(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_textract._operations.textract.rpcv2_cbor.get_document_analysis
+
+                output, http_response = (
+                    capo_textract._operations.textract.rpcv2_cbor.get_document_analysis.get_document_analysis(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -927,13 +1055,24 @@ class TextractClient:
         ) -> OperationResponse[
             "capo_textract.types.get_document_text_detection_response.GetDocumentTextDetectionResponse"
         ]:
-            import capo_textract._operations.textract.get_document_text_detection
+            if req.options.protocol == "awsJson1_1":
+                import capo_textract._operations.textract.aws_json1_1.get_document_text_detection
 
-            output, http_response = (
-                capo_textract._operations.textract.get_document_text_detection.get_document_text_detection(
-                    req.options, req.input
+                output, http_response = (
+                    capo_textract._operations.textract.aws_json1_1.get_document_text_detection.get_document_text_detection(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_textract._operations.textract.rpcv2_cbor.get_document_text_detection
+
+                output, http_response = (
+                    capo_textract._operations.textract.rpcv2_cbor.get_document_text_detection.get_document_text_detection(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -989,13 +1128,24 @@ class TextractClient:
         ) -> OperationResponse[
             "capo_textract.types.get_expense_analysis_response.GetExpenseAnalysisResponse"
         ]:
-            import capo_textract._operations.textract.get_expense_analysis
+            if req.options.protocol == "awsJson1_1":
+                import capo_textract._operations.textract.aws_json1_1.get_expense_analysis
 
-            output, http_response = (
-                capo_textract._operations.textract.get_expense_analysis.get_expense_analysis(
-                    req.options, req.input
+                output, http_response = (
+                    capo_textract._operations.textract.aws_json1_1.get_expense_analysis.get_expense_analysis(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_textract._operations.textract.rpcv2_cbor.get_expense_analysis
+
+                output, http_response = (
+                    capo_textract._operations.textract.rpcv2_cbor.get_expense_analysis.get_expense_analysis(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1051,13 +1201,24 @@ class TextractClient:
         ) -> OperationResponse[
             "capo_textract.types.get_lending_analysis_response.GetLendingAnalysisResponse"
         ]:
-            import capo_textract._operations.textract.get_lending_analysis
+            if req.options.protocol == "awsJson1_1":
+                import capo_textract._operations.textract.aws_json1_1.get_lending_analysis
 
-            output, http_response = (
-                capo_textract._operations.textract.get_lending_analysis.get_lending_analysis(
-                    req.options, req.input
+                output, http_response = (
+                    capo_textract._operations.textract.aws_json1_1.get_lending_analysis.get_lending_analysis(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_textract._operations.textract.rpcv2_cbor.get_lending_analysis
+
+                output, http_response = (
+                    capo_textract._operations.textract.rpcv2_cbor.get_lending_analysis.get_lending_analysis(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1107,13 +1268,24 @@ class TextractClient:
         ) -> OperationResponse[
             "capo_textract.types.get_lending_analysis_summary_response.GetLendingAnalysisSummaryResponse"
         ]:
-            import capo_textract._operations.textract.get_lending_analysis_summary
+            if req.options.protocol == "awsJson1_1":
+                import capo_textract._operations.textract.aws_json1_1.get_lending_analysis_summary
 
-            output, http_response = (
-                capo_textract._operations.textract.get_lending_analysis_summary.get_lending_analysis_summary(
-                    req.options, req.input
+                output, http_response = (
+                    capo_textract._operations.textract.aws_json1_1.get_lending_analysis_summary.get_lending_analysis_summary(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_textract._operations.textract.rpcv2_cbor.get_lending_analysis_summary
+
+                output, http_response = (
+                    capo_textract._operations.textract.rpcv2_cbor.get_lending_analysis_summary.get_lending_analysis_summary(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1165,13 +1337,24 @@ class TextractClient:
         ) -> OperationResponse[
             "capo_textract.types.list_adapters_response.ListAdaptersResponse"
         ]:
-            import capo_textract._operations.textract.list_adapters
+            if req.options.protocol == "awsJson1_1":
+                import capo_textract._operations.textract.aws_json1_1.list_adapters
 
-            output, http_response = (
-                capo_textract._operations.textract.list_adapters.list_adapters(
-                    req.options, req.input
+                output, http_response = (
+                    capo_textract._operations.textract.aws_json1_1.list_adapters.list_adapters(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_textract._operations.textract.rpcv2_cbor.list_adapters
+
+                output, http_response = (
+                    capo_textract._operations.textract.rpcv2_cbor.list_adapters.list_adapters(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1261,13 +1444,24 @@ class TextractClient:
         ) -> OperationResponse[
             "capo_textract.types.list_adapter_versions_response.ListAdapterVersionsResponse"
         ]:
-            import capo_textract._operations.textract.list_adapter_versions
+            if req.options.protocol == "awsJson1_1":
+                import capo_textract._operations.textract.aws_json1_1.list_adapter_versions
 
-            output, http_response = (
-                capo_textract._operations.textract.list_adapter_versions.list_adapter_versions(
-                    req.options, req.input
+                output, http_response = (
+                    capo_textract._operations.textract.aws_json1_1.list_adapter_versions.list_adapter_versions(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_textract._operations.textract.rpcv2_cbor.list_adapter_versions
+
+                output, http_response = (
+                    capo_textract._operations.textract.rpcv2_cbor.list_adapter_versions.list_adapter_versions(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1351,13 +1545,24 @@ class TextractClient:
         ) -> OperationResponse[
             "capo_textract.types.list_tags_for_resource_response.ListTagsForResourceResponse"
         ]:
-            import capo_textract._operations.textract.list_tags_for_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_textract._operations.textract.aws_json1_1.list_tags_for_resource
 
-            output, http_response = (
-                capo_textract._operations.textract.list_tags_for_resource.list_tags_for_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_textract._operations.textract.aws_json1_1.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_textract._operations.textract.rpcv2_cbor.list_tags_for_resource
+
+                output, http_response = (
+                    capo_textract._operations.textract.rpcv2_cbor.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1432,13 +1637,24 @@ class TextractClient:
         ) -> OperationResponse[
             "capo_textract.types.start_document_analysis_response.StartDocumentAnalysisResponse"
         ]:
-            import capo_textract._operations.textract.start_document_analysis
+            if req.options.protocol == "awsJson1_1":
+                import capo_textract._operations.textract.aws_json1_1.start_document_analysis
 
-            output, http_response = (
-                capo_textract._operations.textract.start_document_analysis.start_document_analysis(
-                    req.options, req.input
+                output, http_response = (
+                    capo_textract._operations.textract.aws_json1_1.start_document_analysis.start_document_analysis(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_textract._operations.textract.rpcv2_cbor.start_document_analysis
+
+                output, http_response = (
+                    capo_textract._operations.textract.rpcv2_cbor.start_document_analysis.start_document_analysis(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1519,13 +1735,24 @@ class TextractClient:
         ) -> OperationResponse[
             "capo_textract.types.start_document_text_detection_response.StartDocumentTextDetectionResponse"
         ]:
-            import capo_textract._operations.textract.start_document_text_detection
+            if req.options.protocol == "awsJson1_1":
+                import capo_textract._operations.textract.aws_json1_1.start_document_text_detection
 
-            output, http_response = (
-                capo_textract._operations.textract.start_document_text_detection.start_document_text_detection(
-                    req.options, req.input
+                output, http_response = (
+                    capo_textract._operations.textract.aws_json1_1.start_document_text_detection.start_document_text_detection(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_textract._operations.textract.rpcv2_cbor.start_document_text_detection
+
+                output, http_response = (
+                    capo_textract._operations.textract.rpcv2_cbor.start_document_text_detection.start_document_text_detection(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1601,13 +1828,24 @@ class TextractClient:
         ) -> OperationResponse[
             "capo_textract.types.start_expense_analysis_response.StartExpenseAnalysisResponse"
         ]:
-            import capo_textract._operations.textract.start_expense_analysis
+            if req.options.protocol == "awsJson1_1":
+                import capo_textract._operations.textract.aws_json1_1.start_expense_analysis
 
-            output, http_response = (
-                capo_textract._operations.textract.start_expense_analysis.start_expense_analysis(
-                    req.options, req.input
+                output, http_response = (
+                    capo_textract._operations.textract.aws_json1_1.start_expense_analysis.start_expense_analysis(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_textract._operations.textract.rpcv2_cbor.start_expense_analysis
+
+                output, http_response = (
+                    capo_textract._operations.textract.rpcv2_cbor.start_expense_analysis.start_expense_analysis(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1680,13 +1918,24 @@ class TextractClient:
         ) -> OperationResponse[
             "capo_textract.types.start_lending_analysis_response.StartLendingAnalysisResponse"
         ]:
-            import capo_textract._operations.textract.start_lending_analysis
+            if req.options.protocol == "awsJson1_1":
+                import capo_textract._operations.textract.aws_json1_1.start_lending_analysis
 
-            output, http_response = (
-                capo_textract._operations.textract.start_lending_analysis.start_lending_analysis(
-                    req.options, req.input
+                output, http_response = (
+                    capo_textract._operations.textract.aws_json1_1.start_lending_analysis.start_lending_analysis(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_textract._operations.textract.rpcv2_cbor.start_lending_analysis
+
+                output, http_response = (
+                    capo_textract._operations.textract.rpcv2_cbor.start_lending_analysis.start_lending_analysis(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1744,13 +1993,24 @@ class TextractClient:
         ) -> OperationResponse[
             "capo_textract.types.tag_resource_response.TagResourceResponse"
         ]:
-            import capo_textract._operations.textract.tag_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_textract._operations.textract.aws_json1_1.tag_resource
 
-            output, http_response = (
-                capo_textract._operations.textract.tag_resource.tag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_textract._operations.textract.aws_json1_1.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_textract._operations.textract.rpcv2_cbor.tag_resource
+
+                output, http_response = (
+                    capo_textract._operations.textract.rpcv2_cbor.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1798,13 +2058,24 @@ class TextractClient:
         ) -> OperationResponse[
             "capo_textract.types.untag_resource_response.UntagResourceResponse"
         ]:
-            import capo_textract._operations.textract.untag_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_textract._operations.textract.aws_json1_1.untag_resource
 
-            output, http_response = (
-                capo_textract._operations.textract.untag_resource.untag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_textract._operations.textract.aws_json1_1.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_textract._operations.textract.rpcv2_cbor.untag_resource
+
+                output, http_response = (
+                    capo_textract._operations.textract.rpcv2_cbor.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1859,13 +2130,24 @@ class TextractClient:
         ) -> OperationResponse[
             "capo_textract.types.update_adapter_response.UpdateAdapterResponse"
         ]:
-            import capo_textract._operations.textract.update_adapter
+            if req.options.protocol == "awsJson1_1":
+                import capo_textract._operations.textract.aws_json1_1.update_adapter
 
-            output, http_response = (
-                capo_textract._operations.textract.update_adapter.update_adapter(
-                    req.options, req.input
+                output, http_response = (
+                    capo_textract._operations.textract.aws_json1_1.update_adapter.update_adapter(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_textract._operations.textract.rpcv2_cbor.update_adapter
+
+                output, http_response = (
+                    capo_textract._operations.textract.rpcv2_cbor.update_adapter.update_adapter(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

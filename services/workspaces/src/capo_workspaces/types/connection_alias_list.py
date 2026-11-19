@@ -31,3 +31,24 @@ def deserialize_aws_json_1_1(data: list) -> ConnectionAliasList:
             capo_workspaces.types.connection_alias.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ConnectionAliasList) -> list:
+    import capo_workspaces.types.connection_alias
+
+    out: list = []
+    for item in value:
+        out.append(capo_workspaces.types.connection_alias.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> ConnectionAliasList:
+    import capo_workspaces.types.connection_alias
+
+    out: ConnectionAliasList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_workspaces.types.connection_alias.deserialize_cbor(item))
+    return out

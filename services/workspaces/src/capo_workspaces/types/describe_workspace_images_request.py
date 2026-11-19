@@ -69,3 +69,48 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeWorkspaceImagesRequest:
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeWorkspaceImagesRequest) -> dict:
+    out: dict = {}
+    if "image_ids" in value:
+        import capo_workspaces.types.workspace_image_id_list
+
+        out["ImageIds"] = capo_workspaces.types.workspace_image_id_list.serialize_cbor(
+            value["image_ids"]
+        )
+    if "image_type" in value:
+        import capo_workspaces.types.image_type
+
+        out["ImageType"] = capo_workspaces.types.image_type.serialize_cbor(
+            value["image_type"]
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeWorkspaceImagesRequest:
+    out: DescribeWorkspaceImagesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ImageIds") is not None:
+        import capo_workspaces.types.workspace_image_id_list
+
+        out["image_ids"] = (
+            capo_workspaces.types.workspace_image_id_list.deserialize_cbor(
+                data["ImageIds"]
+            )
+        )
+    if data.get("ImageType") is not None:
+        import capo_workspaces.types.image_type
+
+        out["image_type"] = capo_workspaces.types.image_type.deserialize_cbor(
+            data["ImageType"]
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    return out

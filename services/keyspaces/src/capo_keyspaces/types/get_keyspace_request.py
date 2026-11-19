@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> GetKeyspaceRequest:
     else:
         out["keyspace_name"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetKeyspaceRequest) -> dict:
+    out: dict = {}
+    out["keyspaceName"] = value["keyspace_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetKeyspaceRequest:
+    out: GetKeyspaceRequest = {}  # type: ignore[typeddict-item]
+    if data.get("keyspaceName") is not None:
+        out["keyspace_name"] = data["keyspaceName"]
+    else:
+        out["keyspace_name"] = ""
+    return out

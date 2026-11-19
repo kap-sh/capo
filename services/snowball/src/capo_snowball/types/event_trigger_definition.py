@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> EventTriggerDefinition:
     if data.get("EventResourceARN") is not None:
         out["event_resource_arn"] = data["EventResourceARN"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EventTriggerDefinition) -> dict:
+    out: dict = {}
+    if "event_resource_arn" in value:
+        out["EventResourceARN"] = value["event_resource_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> EventTriggerDefinition:
+    out: EventTriggerDefinition = {}  # type: ignore[typeddict-item]
+    if data.get("EventResourceARN") is not None:
+        out["event_resource_arn"] = data["EventResourceARN"]
+    return out

@@ -47,3 +47,34 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeRecommendationExportJobsResp
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeRecommendationExportJobsResponse) -> dict:
+    out: dict = {}
+    if "recommendation_export_jobs" in value:
+        import capo_compute_optimizer.types.recommendation_export_jobs
+
+        out["recommendationExportJobs"] = (
+            capo_compute_optimizer.types.recommendation_export_jobs.serialize_cbor(
+                value["recommendation_export_jobs"]
+            )
+        )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeRecommendationExportJobsResponse:
+    out: DescribeRecommendationExportJobsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("recommendationExportJobs") is not None:
+        import capo_compute_optimizer.types.recommendation_export_jobs
+
+        out["recommendation_export_jobs"] = (
+            capo_compute_optimizer.types.recommendation_export_jobs.deserialize_cbor(
+                data["recommendationExportJobs"]
+            )
+        )
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

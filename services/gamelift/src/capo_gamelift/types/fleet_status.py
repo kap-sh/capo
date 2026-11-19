@@ -24,3 +24,12 @@ def serialize_aws_json_1_1(value: FleetStatus) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> FleetStatus:
     return cast(FleetStatus, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FleetStatus) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> FleetStatus:
+    return cast(FleetStatus, data)

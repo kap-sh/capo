@@ -40,3 +40,26 @@ def deserialize_aws_json_1_1(data: dict) -> ListTagOptionsFilters:
     if data.get("Active") is not None:
         out["active"] = data["Active"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListTagOptionsFilters) -> dict:
+    out: dict = {}
+    if "key" in value:
+        out["Key"] = value["key"]
+    if "value" in value:
+        out["Value"] = value["value"]
+    if "active" in value:
+        out["Active"] = value["active"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListTagOptionsFilters:
+    out: ListTagOptionsFilters = {}  # type: ignore[typeddict-item]
+    if data.get("Key") is not None:
+        out["key"] = data["Key"]
+    if data.get("Value") is not None:
+        out["value"] = data["Value"]
+    if data.get("Active") is not None:
+        out["active"] = data["Active"]
+    return out

@@ -74,3 +74,50 @@ def deserialize_aws_json_1_0(data: dict) -> SearchAgreementsInput:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SearchAgreementsInput) -> dict:
+    out: dict = {}
+    if "catalog" in value:
+        out["catalog"] = value["catalog"]
+    if "filters" in value:
+        import capo_marketplace_agreement.types.filter_list
+
+        out["filters"] = capo_marketplace_agreement.types.filter_list.serialize_cbor(
+            value["filters"]
+        )
+    if "sort" in value:
+        import capo_marketplace_agreement.types.sort
+
+        out["sort"] = capo_marketplace_agreement.types.sort.serialize_cbor(
+            value["sort"]
+        )
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> SearchAgreementsInput:
+    out: SearchAgreementsInput = {}  # type: ignore[typeddict-item]
+    if data.get("catalog") is not None:
+        out["catalog"] = data["catalog"]
+    if data.get("filters") is not None:
+        import capo_marketplace_agreement.types.filter_list
+
+        out["filters"] = capo_marketplace_agreement.types.filter_list.deserialize_cbor(
+            data["filters"]
+        )
+    if data.get("sort") is not None:
+        import capo_marketplace_agreement.types.sort
+
+        out["sort"] = capo_marketplace_agreement.types.sort.deserialize_cbor(
+            data["sort"]
+        )
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

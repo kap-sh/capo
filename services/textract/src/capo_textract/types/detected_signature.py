@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> DetectedSignature:
     if data.get("Page") is not None:
         out["page"] = data["Page"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DetectedSignature) -> dict:
+    out: dict = {}
+    if "page" in value:
+        out["Page"] = value["page"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DetectedSignature:
+    out: DetectedSignature = {}  # type: ignore[typeddict-item]
+    if data.get("Page") is not None:
+        out["page"] = data["Page"]
+    return out

@@ -34,3 +34,26 @@ def deserialize_aws_json_1_1(data: dict) -> ReportOverride:
             data["ReportLevel"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ReportOverride) -> dict:
+    out: dict = {}
+    if "report_level" in value:
+        import capo_datasync.types.report_level
+
+        out["ReportLevel"] = capo_datasync.types.report_level.serialize_cbor(
+            value["report_level"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ReportOverride:
+    out: ReportOverride = {}  # type: ignore[typeddict-item]
+    if data.get("ReportLevel") is not None:
+        import capo_datasync.types.report_level
+
+        out["report_level"] = capo_datasync.types.report_level.deserialize_cbor(
+            data["ReportLevel"]
+        )
+    return out

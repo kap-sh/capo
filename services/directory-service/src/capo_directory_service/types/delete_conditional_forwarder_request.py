@@ -37,3 +37,24 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteConditionalForwarderRequest:
     else:
         out["remote_domain_name"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteConditionalForwarderRequest) -> dict:
+    out: dict = {}
+    out["DirectoryId"] = value["directory_id"]
+    out["RemoteDomainName"] = value["remote_domain_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteConditionalForwarderRequest:
+    out: DeleteConditionalForwarderRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    if data.get("RemoteDomainName") is not None:
+        out["remote_domain_name"] = data["RemoteDomainName"]
+    else:
+        out["remote_domain_name"] = ""
+    return out

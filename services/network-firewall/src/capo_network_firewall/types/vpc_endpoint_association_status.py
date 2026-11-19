@@ -64,3 +64,49 @@ def deserialize_aws_json_1_0(data: dict) -> VpcEndpointAssociationStatus:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: VpcEndpointAssociationStatus) -> dict:
+    out: dict = {}
+    import capo_network_firewall.types.firewall_status_value
+
+    out["Status"] = capo_network_firewall.types.firewall_status_value.serialize_cbor(
+        value["status"]
+    )
+    if "association_sync_state" in value:
+        import capo_network_firewall.types.association_sync_state
+
+        out["AssociationSyncState"] = (
+            capo_network_firewall.types.association_sync_state.serialize_cbor(
+                value["association_sync_state"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> VpcEndpointAssociationStatus:
+    out: VpcEndpointAssociationStatus = {}  # type: ignore[typeddict-item]
+    if data.get("Status") is not None:
+        import capo_network_firewall.types.firewall_status_value
+
+        out["status"] = (
+            capo_network_firewall.types.firewall_status_value.deserialize_cbor(
+                data["Status"]
+            )
+        )
+    else:
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_network_firewall.types.firewall_status_value.FirewallStatusValue", ""
+        )
+    if data.get("AssociationSyncState") is not None:
+        import capo_network_firewall.types.association_sync_state
+
+        out["association_sync_state"] = (
+            capo_network_firewall.types.association_sync_state.deserialize_cbor(
+                data["AssociationSyncState"]
+            )
+        )
+    return out

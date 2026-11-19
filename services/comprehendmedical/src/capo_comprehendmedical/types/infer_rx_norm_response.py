@@ -52,3 +52,37 @@ def deserialize_aws_json_1_1(data: dict) -> InferRxNormResponse:
     if data.get("ModelVersion") is not None:
         out["model_version"] = data["ModelVersion"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InferRxNormResponse) -> dict:
+    out: dict = {}
+    import capo_comprehendmedical.types.rx_norm_entity_list
+
+    out["Entities"] = capo_comprehendmedical.types.rx_norm_entity_list.serialize_cbor(
+        value["entities"]
+    )
+    if "pagination_token" in value:
+        out["PaginationToken"] = value["pagination_token"]
+    if "model_version" in value:
+        out["ModelVersion"] = value["model_version"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> InferRxNormResponse:
+    out: InferRxNormResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Entities") is not None:
+        import capo_comprehendmedical.types.rx_norm_entity_list
+
+        out["entities"] = (
+            capo_comprehendmedical.types.rx_norm_entity_list.deserialize_cbor(
+                data["Entities"]
+            )
+        )
+    else:
+        out["entities"] = []
+    if data.get("PaginationToken") is not None:
+        out["pagination_token"] = data["PaginationToken"]
+    if data.get("ModelVersion") is not None:
+        out["model_version"] = data["ModelVersion"]
+    return out

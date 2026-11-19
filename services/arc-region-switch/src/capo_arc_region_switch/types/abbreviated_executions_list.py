@@ -37,3 +37,28 @@ def deserialize_aws_json_1_0(data: list) -> AbbreviatedExecutionsList:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AbbreviatedExecutionsList) -> list:
+    import capo_arc_region_switch.types.abbreviated_execution
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_arc_region_switch.types.abbreviated_execution.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> AbbreviatedExecutionsList:
+    import capo_arc_region_switch.types.abbreviated_execution
+
+    out: AbbreviatedExecutionsList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_arc_region_switch.types.abbreviated_execution.deserialize_cbor(item)
+        )
+    return out

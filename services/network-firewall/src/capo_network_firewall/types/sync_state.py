@@ -78,3 +78,54 @@ def deserialize_aws_json_1_0(data: dict) -> SyncState:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SyncState) -> dict:
+    out: dict = {}
+    if "attachment" in value:
+        import capo_network_firewall.types.attachment
+
+        out["Attachment"] = capo_network_firewall.types.attachment.serialize_cbor(
+            value["attachment"]
+        )
+    if "config" in value:
+        import capo_network_firewall.types.sync_state_config
+
+        out["Config"] = capo_network_firewall.types.sync_state_config.serialize_cbor(
+            value["config"]
+        )
+    if "nat_gateway_attachments" in value:
+        import capo_network_firewall.types.nat_gateway_attachments_list
+
+        out["NatGatewayAttachments"] = (
+            capo_network_firewall.types.nat_gateway_attachments_list.serialize_cbor(
+                value["nat_gateway_attachments"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> SyncState:
+    out: SyncState = {}  # type: ignore[typeddict-item]
+    if data.get("Attachment") is not None:
+        import capo_network_firewall.types.attachment
+
+        out["attachment"] = capo_network_firewall.types.attachment.deserialize_cbor(
+            data["Attachment"]
+        )
+    if data.get("Config") is not None:
+        import capo_network_firewall.types.sync_state_config
+
+        out["config"] = capo_network_firewall.types.sync_state_config.deserialize_cbor(
+            data["Config"]
+        )
+    if data.get("NatGatewayAttachments") is not None:
+        import capo_network_firewall.types.nat_gateway_attachments_list
+
+        out["nat_gateway_attachments"] = (
+            capo_network_firewall.types.nat_gateway_attachments_list.deserialize_cbor(
+                data["NatGatewayAttachments"]
+            )
+        )
+    return out

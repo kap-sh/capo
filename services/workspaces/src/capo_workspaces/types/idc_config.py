@@ -32,3 +32,22 @@ def deserialize_aws_json_1_1(data: dict) -> IDCConfig:
     if data.get("ApplicationArn") is not None:
         out["application_arn"] = data["ApplicationArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IDCConfig) -> dict:
+    out: dict = {}
+    if "instance_arn" in value:
+        out["InstanceArn"] = value["instance_arn"]
+    if "application_arn" in value:
+        out["ApplicationArn"] = value["application_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> IDCConfig:
+    out: IDCConfig = {}  # type: ignore[typeddict-item]
+    if data.get("InstanceArn") is not None:
+        out["instance_arn"] = data["InstanceArn"]
+    if data.get("ApplicationArn") is not None:
+        out["application_arn"] = data["ApplicationArn"]
+    return out

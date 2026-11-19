@@ -81,6 +81,7 @@ class AsyncResourceGroupsTaggingAPIClientConfig(TypedDict, total=False, closed=T
     operation_interceptors: Iterable[AsyncInterceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_1", "rpcv2Cbor"]
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -97,6 +98,7 @@ class AsyncResourceGroupsTaggingAPIClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -112,6 +114,7 @@ class AsyncResourceGroupsTaggingAPIClient:
         operation_interceptors: Iterable[AsyncInterceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_1", "rpcv2Cbor"] = "awsJson1_1",
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -148,6 +151,7 @@ class AsyncResourceGroupsTaggingAPIClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -181,6 +185,9 @@ class AsyncResourceGroupsTaggingAPIClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_1")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -214,14 +221,26 @@ class AsyncResourceGroupsTaggingAPIClient:
         ) -> AsyncOperationResponse[
             "capo_resource_groups_tagging_api.types.describe_report_creation_output.DescribeReportCreationOutput"
         ]:
-            import capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.describe_report_creation
+            if req.options.protocol == "awsJson1_1":
+                import capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.aws_json1_1.describe_report_creation
 
-            (
-                output,
-                http_response,
-            ) = await capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.describe_report_creation.async_describe_report_creation(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.aws_json1_1.describe_report_creation.async_describe_report_creation(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.rpcv2_cbor.describe_report_creation
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.rpcv2_cbor.describe_report_creation.async_describe_report_creation(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -287,14 +306,26 @@ class AsyncResourceGroupsTaggingAPIClient:
         ) -> AsyncOperationResponse[
             "capo_resource_groups_tagging_api.types.get_compliance_summary_output.GetComplianceSummaryOutput"
         ]:
-            import capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.get_compliance_summary
+            if req.options.protocol == "awsJson1_1":
+                import capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.aws_json1_1.get_compliance_summary
 
-            (
-                output,
-                http_response,
-            ) = await capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.get_compliance_summary.async_get_compliance_summary(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.aws_json1_1.get_compliance_summary.async_get_compliance_summary(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.rpcv2_cbor.get_compliance_summary
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.rpcv2_cbor.get_compliance_summary.async_get_compliance_summary(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -425,14 +456,26 @@ class AsyncResourceGroupsTaggingAPIClient:
         ) -> AsyncOperationResponse[
             "capo_resource_groups_tagging_api.types.get_resources_output.GetResourcesOutput"
         ]:
-            import capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.get_resources
+            if req.options.protocol == "awsJson1_1":
+                import capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.aws_json1_1.get_resources
 
-            (
-                output,
-                http_response,
-            ) = await capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.get_resources.async_get_resources(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.aws_json1_1.get_resources.async_get_resources(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.rpcv2_cbor.get_resources
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.rpcv2_cbor.get_resources.async_get_resources(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -539,14 +582,26 @@ class AsyncResourceGroupsTaggingAPIClient:
         ) -> AsyncOperationResponse[
             "capo_resource_groups_tagging_api.types.get_tag_keys_output.GetTagKeysOutput"
         ]:
-            import capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.get_tag_keys
+            if req.options.protocol == "awsJson1_1":
+                import capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.aws_json1_1.get_tag_keys
 
-            (
-                output,
-                http_response,
-            ) = await capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.get_tag_keys.async_get_tag_keys(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.aws_json1_1.get_tag_keys.async_get_tag_keys(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.rpcv2_cbor.get_tag_keys
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.rpcv2_cbor.get_tag_keys.async_get_tag_keys(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -613,14 +668,26 @@ class AsyncResourceGroupsTaggingAPIClient:
         ) -> AsyncOperationResponse[
             "capo_resource_groups_tagging_api.types.get_tag_values_output.GetTagValuesOutput"
         ]:
-            import capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.get_tag_values
+            if req.options.protocol == "awsJson1_1":
+                import capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.aws_json1_1.get_tag_values
 
-            (
-                output,
-                http_response,
-            ) = await capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.get_tag_values.async_get_tag_values(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.aws_json1_1.get_tag_values.async_get_tag_values(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.rpcv2_cbor.get_tag_values
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.rpcv2_cbor.get_tag_values.async_get_tag_values(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -693,14 +760,26 @@ class AsyncResourceGroupsTaggingAPIClient:
         ) -> AsyncOperationResponse[
             "capo_resource_groups_tagging_api.types.list_required_tags_output.ListRequiredTagsOutput"
         ]:
-            import capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.list_required_tags
+            if req.options.protocol == "awsJson1_1":
+                import capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.aws_json1_1.list_required_tags
 
-            (
-                output,
-                http_response,
-            ) = await capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.list_required_tags.async_list_required_tags(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.aws_json1_1.list_required_tags.async_list_required_tags(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.rpcv2_cbor.list_required_tags
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.rpcv2_cbor.list_required_tags.async_list_required_tags(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -772,14 +851,26 @@ class AsyncResourceGroupsTaggingAPIClient:
         ) -> AsyncOperationResponse[
             "capo_resource_groups_tagging_api.types.start_report_creation_output.StartReportCreationOutput"
         ]:
-            import capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.start_report_creation
+            if req.options.protocol == "awsJson1_1":
+                import capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.aws_json1_1.start_report_creation
 
-            (
-                output,
-                http_response,
-            ) = await capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.start_report_creation.async_start_report_creation(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.aws_json1_1.start_report_creation.async_start_report_creation(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.rpcv2_cbor.start_report_creation
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.rpcv2_cbor.start_report_creation.async_start_report_creation(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -824,14 +915,26 @@ class AsyncResourceGroupsTaggingAPIClient:
         ) -> AsyncOperationResponse[
             "capo_resource_groups_tagging_api.types.tag_resources_output.TagResourcesOutput"
         ]:
-            import capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.tag_resources
+            if req.options.protocol == "awsJson1_1":
+                import capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.aws_json1_1.tag_resources
 
-            (
-                output,
-                http_response,
-            ) = await capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.tag_resources.async_tag_resources(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.aws_json1_1.tag_resources.async_tag_resources(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.rpcv2_cbor.tag_resources
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.rpcv2_cbor.tag_resources.async_tag_resources(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -875,14 +978,26 @@ class AsyncResourceGroupsTaggingAPIClient:
         ) -> AsyncOperationResponse[
             "capo_resource_groups_tagging_api.types.untag_resources_output.UntagResourcesOutput"
         ]:
-            import capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.untag_resources
+            if req.options.protocol == "awsJson1_1":
+                import capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.aws_json1_1.untag_resources
 
-            (
-                output,
-                http_response,
-            ) = await capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.untag_resources.async_untag_resources(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.aws_json1_1.untag_resources.async_untag_resources(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.rpcv2_cbor.untag_resources
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_resource_groups_tagging_api._operations.resource_groups_tagging_api_20170126.rpcv2_cbor.untag_resources.async_untag_resources(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

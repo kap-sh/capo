@@ -65,3 +65,46 @@ def deserialize_aws_json_1_1(data: dict) -> LendingField:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LendingField) -> dict:
+    out: dict = {}
+    if "type" in value:
+        out["Type"] = value["type"]
+    if "key_detection" in value:
+        import capo_textract.types.lending_detection
+
+        out["KeyDetection"] = capo_textract.types.lending_detection.serialize_cbor(
+            value["key_detection"]
+        )
+    if "value_detections" in value:
+        import capo_textract.types.lending_detection_list
+
+        out["ValueDetections"] = (
+            capo_textract.types.lending_detection_list.serialize_cbor(
+                value["value_detections"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> LendingField:
+    out: LendingField = {}  # type: ignore[typeddict-item]
+    if data.get("Type") is not None:
+        out["type"] = data["Type"]
+    if data.get("KeyDetection") is not None:
+        import capo_textract.types.lending_detection
+
+        out["key_detection"] = capo_textract.types.lending_detection.deserialize_cbor(
+            data["KeyDetection"]
+        )
+    if data.get("ValueDetections") is not None:
+        import capo_textract.types.lending_detection_list
+
+        out["value_detections"] = (
+            capo_textract.types.lending_detection_list.deserialize_cbor(
+                data["ValueDetections"]
+            )
+        )
+    return out

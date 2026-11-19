@@ -414,3 +414,291 @@ def deserialize_aws_json_1_1(data: dict) -> BuildBatch:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BuildBatch) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["id"] = value["id"]
+    if "arn" in value:
+        out["arn"] = value["arn"]
+    if "start_time" in value:
+        import capo_codebuild.types.timestamp
+
+        out["startTime"] = capo_codebuild.types.timestamp.serialize_cbor(
+            value["start_time"]
+        )
+    if "end_time" in value:
+        import capo_codebuild.types.timestamp
+
+        out["endTime"] = capo_codebuild.types.timestamp.serialize_cbor(
+            value["end_time"]
+        )
+    if "current_phase" in value:
+        out["currentPhase"] = value["current_phase"]
+    if "build_batch_status" in value:
+        import capo_codebuild.types.status_type
+
+        out["buildBatchStatus"] = capo_codebuild.types.status_type.serialize_cbor(
+            value["build_batch_status"]
+        )
+    if "source_version" in value:
+        out["sourceVersion"] = value["source_version"]
+    if "resolved_source_version" in value:
+        out["resolvedSourceVersion"] = value["resolved_source_version"]
+    if "project_name" in value:
+        out["projectName"] = value["project_name"]
+    if "phases" in value:
+        import capo_codebuild.types.build_batch_phases
+
+        out["phases"] = capo_codebuild.types.build_batch_phases.serialize_cbor(
+            value["phases"]
+        )
+    if "source" in value:
+        import capo_codebuild.types.project_source
+
+        out["source"] = capo_codebuild.types.project_source.serialize_cbor(
+            value["source"]
+        )
+    if "secondary_sources" in value:
+        import capo_codebuild.types.project_sources
+
+        out["secondarySources"] = capo_codebuild.types.project_sources.serialize_cbor(
+            value["secondary_sources"]
+        )
+    if "secondary_source_versions" in value:
+        import capo_codebuild.types.project_secondary_source_versions
+
+        out["secondarySourceVersions"] = (
+            capo_codebuild.types.project_secondary_source_versions.serialize_cbor(
+                value["secondary_source_versions"]
+            )
+        )
+    if "artifacts" in value:
+        import capo_codebuild.types.build_artifacts
+
+        out["artifacts"] = capo_codebuild.types.build_artifacts.serialize_cbor(
+            value["artifacts"]
+        )
+    if "secondary_artifacts" in value:
+        import capo_codebuild.types.build_artifacts_list
+
+        out["secondaryArtifacts"] = (
+            capo_codebuild.types.build_artifacts_list.serialize_cbor(
+                value["secondary_artifacts"]
+            )
+        )
+    if "cache" in value:
+        import capo_codebuild.types.project_cache
+
+        out["cache"] = capo_codebuild.types.project_cache.serialize_cbor(value["cache"])
+    if "environment" in value:
+        import capo_codebuild.types.project_environment
+
+        out["environment"] = capo_codebuild.types.project_environment.serialize_cbor(
+            value["environment"]
+        )
+    if "service_role" in value:
+        out["serviceRole"] = value["service_role"]
+    if "log_config" in value:
+        import capo_codebuild.types.logs_config
+
+        out["logConfig"] = capo_codebuild.types.logs_config.serialize_cbor(
+            value["log_config"]
+        )
+    if "build_timeout_in_minutes" in value:
+        out["buildTimeoutInMinutes"] = value["build_timeout_in_minutes"]
+    if "queued_timeout_in_minutes" in value:
+        out["queuedTimeoutInMinutes"] = value["queued_timeout_in_minutes"]
+    out["complete"] = value.get("complete", False)
+    if "initiator" in value:
+        out["initiator"] = value["initiator"]
+    if "vpc_config" in value:
+        import capo_codebuild.types.vpc_config
+
+        out["vpcConfig"] = capo_codebuild.types.vpc_config.serialize_cbor(
+            value["vpc_config"]
+        )
+    if "encryption_key" in value:
+        out["encryptionKey"] = value["encryption_key"]
+    if "build_batch_number" in value:
+        out["buildBatchNumber"] = value["build_batch_number"]
+    if "file_system_locations" in value:
+        import capo_codebuild.types.project_file_system_locations
+
+        out["fileSystemLocations"] = (
+            capo_codebuild.types.project_file_system_locations.serialize_cbor(
+                value["file_system_locations"]
+            )
+        )
+    if "build_batch_config" in value:
+        import capo_codebuild.types.project_build_batch_config
+
+        out["buildBatchConfig"] = (
+            capo_codebuild.types.project_build_batch_config.serialize_cbor(
+                value["build_batch_config"]
+            )
+        )
+    if "build_groups" in value:
+        import capo_codebuild.types.build_groups
+
+        out["buildGroups"] = capo_codebuild.types.build_groups.serialize_cbor(
+            value["build_groups"]
+        )
+    if "debug_session_enabled" in value:
+        out["debugSessionEnabled"] = value["debug_session_enabled"]
+    if "report_arns" in value:
+        import capo_codebuild.types.build_report_arns
+
+        out["reportArns"] = capo_codebuild.types.build_report_arns.serialize_cbor(
+            value["report_arns"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BuildBatch:
+    out: BuildBatch = {}  # type: ignore[typeddict-item]
+    if data.get("id") is not None:
+        out["id"] = data["id"]
+    if data.get("arn") is not None:
+        out["arn"] = data["arn"]
+    if data.get("startTime") is not None:
+        import capo_codebuild.types.timestamp
+
+        out["start_time"] = capo_codebuild.types.timestamp.deserialize_cbor(
+            data["startTime"]
+        )
+    if data.get("endTime") is not None:
+        import capo_codebuild.types.timestamp
+
+        out["end_time"] = capo_codebuild.types.timestamp.deserialize_cbor(
+            data["endTime"]
+        )
+    if data.get("currentPhase") is not None:
+        out["current_phase"] = data["currentPhase"]
+    if data.get("buildBatchStatus") is not None:
+        import capo_codebuild.types.status_type
+
+        out["build_batch_status"] = capo_codebuild.types.status_type.deserialize_cbor(
+            data["buildBatchStatus"]
+        )
+    if data.get("sourceVersion") is not None:
+        out["source_version"] = data["sourceVersion"]
+    if data.get("resolvedSourceVersion") is not None:
+        out["resolved_source_version"] = data["resolvedSourceVersion"]
+    if data.get("projectName") is not None:
+        out["project_name"] = data["projectName"]
+    if data.get("phases") is not None:
+        import capo_codebuild.types.build_batch_phases
+
+        out["phases"] = capo_codebuild.types.build_batch_phases.deserialize_cbor(
+            data["phases"]
+        )
+    if data.get("source") is not None:
+        import capo_codebuild.types.project_source
+
+        out["source"] = capo_codebuild.types.project_source.deserialize_cbor(
+            data["source"]
+        )
+    if data.get("secondarySources") is not None:
+        import capo_codebuild.types.project_sources
+
+        out["secondary_sources"] = (
+            capo_codebuild.types.project_sources.deserialize_cbor(
+                data["secondarySources"]
+            )
+        )
+    if data.get("secondarySourceVersions") is not None:
+        import capo_codebuild.types.project_secondary_source_versions
+
+        out["secondary_source_versions"] = (
+            capo_codebuild.types.project_secondary_source_versions.deserialize_cbor(
+                data["secondarySourceVersions"]
+            )
+        )
+    if data.get("artifacts") is not None:
+        import capo_codebuild.types.build_artifacts
+
+        out["artifacts"] = capo_codebuild.types.build_artifacts.deserialize_cbor(
+            data["artifacts"]
+        )
+    if data.get("secondaryArtifacts") is not None:
+        import capo_codebuild.types.build_artifacts_list
+
+        out["secondary_artifacts"] = (
+            capo_codebuild.types.build_artifacts_list.deserialize_cbor(
+                data["secondaryArtifacts"]
+            )
+        )
+    if data.get("cache") is not None:
+        import capo_codebuild.types.project_cache
+
+        out["cache"] = capo_codebuild.types.project_cache.deserialize_cbor(
+            data["cache"]
+        )
+    if data.get("environment") is not None:
+        import capo_codebuild.types.project_environment
+
+        out["environment"] = capo_codebuild.types.project_environment.deserialize_cbor(
+            data["environment"]
+        )
+    if data.get("serviceRole") is not None:
+        out["service_role"] = data["serviceRole"]
+    if data.get("logConfig") is not None:
+        import capo_codebuild.types.logs_config
+
+        out["log_config"] = capo_codebuild.types.logs_config.deserialize_cbor(
+            data["logConfig"]
+        )
+    if data.get("buildTimeoutInMinutes") is not None:
+        out["build_timeout_in_minutes"] = data["buildTimeoutInMinutes"]
+    if data.get("queuedTimeoutInMinutes") is not None:
+        out["queued_timeout_in_minutes"] = data["queuedTimeoutInMinutes"]
+    if data.get("complete") is not None:
+        out["complete"] = data["complete"]
+    else:
+        out["complete"] = False
+    if data.get("initiator") is not None:
+        out["initiator"] = data["initiator"]
+    if data.get("vpcConfig") is not None:
+        import capo_codebuild.types.vpc_config
+
+        out["vpc_config"] = capo_codebuild.types.vpc_config.deserialize_cbor(
+            data["vpcConfig"]
+        )
+    if data.get("encryptionKey") is not None:
+        out["encryption_key"] = data["encryptionKey"]
+    if data.get("buildBatchNumber") is not None:
+        out["build_batch_number"] = data["buildBatchNumber"]
+    if data.get("fileSystemLocations") is not None:
+        import capo_codebuild.types.project_file_system_locations
+
+        out["file_system_locations"] = (
+            capo_codebuild.types.project_file_system_locations.deserialize_cbor(
+                data["fileSystemLocations"]
+            )
+        )
+    if data.get("buildBatchConfig") is not None:
+        import capo_codebuild.types.project_build_batch_config
+
+        out["build_batch_config"] = (
+            capo_codebuild.types.project_build_batch_config.deserialize_cbor(
+                data["buildBatchConfig"]
+            )
+        )
+    if data.get("buildGroups") is not None:
+        import capo_codebuild.types.build_groups
+
+        out["build_groups"] = capo_codebuild.types.build_groups.deserialize_cbor(
+            data["buildGroups"]
+        )
+    if data.get("debugSessionEnabled") is not None:
+        out["debug_session_enabled"] = data["debugSessionEnabled"]
+    if data.get("reportArns") is not None:
+        import capo_codebuild.types.build_report_arns
+
+        out["report_arns"] = capo_codebuild.types.build_report_arns.deserialize_cbor(
+            data["reportArns"]
+        )
+    return out

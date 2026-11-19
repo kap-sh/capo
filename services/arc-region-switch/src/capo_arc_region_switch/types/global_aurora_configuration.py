@@ -114,3 +114,82 @@ def deserialize_aws_json_1_0(data: dict) -> GlobalAuroraConfiguration:
     else:
         out["database_cluster_arns"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GlobalAuroraConfiguration) -> dict:
+    out: dict = {}
+    out["timeoutMinutes"] = value.get("timeout_minutes", 60)
+    if "cross_account_role" in value:
+        out["crossAccountRole"] = value["cross_account_role"]
+    if "external_id" in value:
+        out["externalId"] = value["external_id"]
+    import capo_arc_region_switch.types.global_aurora_default_behavior
+
+    out["behavior"] = (
+        capo_arc_region_switch.types.global_aurora_default_behavior.serialize_cbor(
+            value.get("behavior", "switchoverOnly")
+        )
+    )
+    if "ungraceful" in value:
+        import capo_arc_region_switch.types.global_aurora_ungraceful
+
+        out["ungraceful"] = (
+            capo_arc_region_switch.types.global_aurora_ungraceful.serialize_cbor(
+                value["ungraceful"]
+            )
+        )
+    out["globalClusterIdentifier"] = value["global_cluster_identifier"]
+    import capo_arc_region_switch.types.aurora_cluster_arns
+
+    out["databaseClusterArns"] = (
+        capo_arc_region_switch.types.aurora_cluster_arns.serialize_cbor(
+            value["database_cluster_arns"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GlobalAuroraConfiguration:
+    out: GlobalAuroraConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("timeoutMinutes") is not None:
+        out["timeout_minutes"] = data["timeoutMinutes"]
+    else:
+        out["timeout_minutes"] = 60
+    if data.get("crossAccountRole") is not None:
+        out["cross_account_role"] = data["crossAccountRole"]
+    if data.get("externalId") is not None:
+        out["external_id"] = data["externalId"]
+    if data.get("behavior") is not None:
+        import capo_arc_region_switch.types.global_aurora_default_behavior
+
+        out["behavior"] = (
+            capo_arc_region_switch.types.global_aurora_default_behavior.deserialize_cbor(
+                data["behavior"]
+            )
+        )
+    else:
+        out["behavior"] = "switchoverOnly"
+    if data.get("ungraceful") is not None:
+        import capo_arc_region_switch.types.global_aurora_ungraceful
+
+        out["ungraceful"] = (
+            capo_arc_region_switch.types.global_aurora_ungraceful.deserialize_cbor(
+                data["ungraceful"]
+            )
+        )
+    if data.get("globalClusterIdentifier") is not None:
+        out["global_cluster_identifier"] = data["globalClusterIdentifier"]
+    else:
+        out["global_cluster_identifier"] = ""
+    if data.get("databaseClusterArns") is not None:
+        import capo_arc_region_switch.types.aurora_cluster_arns
+
+        out["database_cluster_arns"] = (
+            capo_arc_region_switch.types.aurora_cluster_arns.deserialize_cbor(
+                data["databaseClusterArns"]
+            )
+        )
+    else:
+        out["database_cluster_arns"] = []
+    return out

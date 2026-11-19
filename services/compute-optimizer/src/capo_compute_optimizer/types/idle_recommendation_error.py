@@ -61,3 +61,42 @@ def deserialize_aws_json_1_0(data: dict) -> IdleRecommendationError:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IdleRecommendationError) -> dict:
+    out: dict = {}
+    if "identifier" in value:
+        out["identifier"] = value["identifier"]
+    if "code" in value:
+        out["code"] = value["code"]
+    if "message" in value:
+        out["message"] = value["message"]
+    if "resource_type" in value:
+        import capo_compute_optimizer.types.idle_recommendation_resource_type
+
+        out["resourceType"] = (
+            capo_compute_optimizer.types.idle_recommendation_resource_type.serialize_cbor(
+                value["resource_type"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> IdleRecommendationError:
+    out: IdleRecommendationError = {}  # type: ignore[typeddict-item]
+    if data.get("identifier") is not None:
+        out["identifier"] = data["identifier"]
+    if data.get("code") is not None:
+        out["code"] = data["code"]
+    if data.get("message") is not None:
+        out["message"] = data["message"]
+    if data.get("resourceType") is not None:
+        import capo_compute_optimizer.types.idle_recommendation_resource_type
+
+        out["resource_type"] = (
+            capo_compute_optimizer.types.idle_recommendation_resource_type.deserialize_cbor(
+                data["resourceType"]
+            )
+        )
+    return out

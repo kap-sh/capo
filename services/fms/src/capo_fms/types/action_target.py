@@ -33,3 +33,22 @@ def deserialize_aws_json_1_1(data: dict) -> ActionTarget:
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ActionTarget) -> dict:
+    out: dict = {}
+    if "resource_id" in value:
+        out["ResourceId"] = value["resource_id"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ActionTarget:
+    out: ActionTarget = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceId") is not None:
+        out["resource_id"] = data["ResourceId"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    return out

@@ -39,3 +39,26 @@ def deserialize_aws_json_1_1(data: dict) -> DocumentClassifierOutputDataConfig:
     if data.get("FlywheelStatsS3Prefix") is not None:
         out["flywheel_stats_s3_prefix"] = data["FlywheelStatsS3Prefix"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DocumentClassifierOutputDataConfig) -> dict:
+    out: dict = {}
+    if "s3_uri" in value:
+        out["S3Uri"] = value["s3_uri"]
+    if "kms_key_id" in value:
+        out["KmsKeyId"] = value["kms_key_id"]
+    if "flywheel_stats_s3_prefix" in value:
+        out["FlywheelStatsS3Prefix"] = value["flywheel_stats_s3_prefix"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DocumentClassifierOutputDataConfig:
+    out: DocumentClassifierOutputDataConfig = {}  # type: ignore[typeddict-item]
+    if data.get("S3Uri") is not None:
+        out["s3_uri"] = data["S3Uri"]
+    if data.get("KmsKeyId") is not None:
+        out["kms_key_id"] = data["KmsKeyId"]
+    if data.get("FlywheelStatsS3Prefix") is not None:
+        out["flywheel_stats_s3_prefix"] = data["FlywheelStatsS3Prefix"]
+    return out

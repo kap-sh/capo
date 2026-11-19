@@ -21,3 +21,18 @@ def deserialize_aws_json_1_0(data: dict) -> HibernationOptionsRequest:
     if data.get("Configured") is not None:
         out["configured"] = data["Configured"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: HibernationOptionsRequest) -> dict:
+    out: dict = {}
+    if "configured" in value:
+        out["Configured"] = value["configured"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> HibernationOptionsRequest:
+    out: HibernationOptionsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Configured") is not None:
+        out["configured"] = data["Configured"]
+    return out

@@ -59,3 +59,42 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeADAssessmentResult:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeADAssessmentResult) -> dict:
+    out: dict = {}
+    if "assessment" in value:
+        import capo_directory_service.types.assessment
+
+        out["Assessment"] = capo_directory_service.types.assessment.serialize_cbor(
+            value["assessment"]
+        )
+    if "assessment_reports" in value:
+        import capo_directory_service.types.assessment_reports
+
+        out["AssessmentReports"] = (
+            capo_directory_service.types.assessment_reports.serialize_cbor(
+                value["assessment_reports"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeADAssessmentResult:
+    out: DescribeADAssessmentResult = {}  # type: ignore[typeddict-item]
+    if data.get("Assessment") is not None:
+        import capo_directory_service.types.assessment
+
+        out["assessment"] = capo_directory_service.types.assessment.deserialize_cbor(
+            data["Assessment"]
+        )
+    if data.get("AssessmentReports") is not None:
+        import capo_directory_service.types.assessment_reports
+
+        out["assessment_reports"] = (
+            capo_directory_service.types.assessment_reports.deserialize_cbor(
+                data["AssessmentReports"]
+            )
+        )
+    return out

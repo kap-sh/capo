@@ -58,3 +58,35 @@ def deserialize_aws_json_1_0(data: dict) -> CdcSpecification:
     if data.get("propagateTags") is not None:
         out["propagate_tags"] = data["propagateTags"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CdcSpecification) -> dict:
+    out: dict = {}
+    out["status"] = value["status"]
+    if "view_type" in value:
+        out["viewType"] = value["view_type"]
+    if "tags" in value:
+        import capo_keyspaces.types.tag_list
+
+        out["tags"] = capo_keyspaces.types.tag_list.serialize_cbor(value["tags"])
+    if "propagate_tags" in value:
+        out["propagateTags"] = value["propagate_tags"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CdcSpecification:
+    out: CdcSpecification = {}  # type: ignore[typeddict-item]
+    if data.get("status") is not None:
+        out["status"] = data["status"]
+    else:
+        out["status"] = ""
+    if data.get("viewType") is not None:
+        out["view_type"] = data["viewType"]
+    if data.get("tags") is not None:
+        import capo_keyspaces.types.tag_list
+
+        out["tags"] = capo_keyspaces.types.tag_list.deserialize_cbor(data["tags"])
+    if data.get("propagateTags") is not None:
+        out["propagate_tags"] = data["propagateTags"]
+    return out

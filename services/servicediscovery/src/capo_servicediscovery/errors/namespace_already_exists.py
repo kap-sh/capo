@@ -45,6 +45,29 @@ def deserialize_aws_json_1_1(data: dict) -> NamespaceAlreadyExists_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: NamespaceAlreadyExists_) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["Message"] = value["message"]
+    if "creator_request_id" in value:
+        out["CreatorRequestId"] = value["creator_request_id"]
+    if "namespace_id" in value:
+        out["NamespaceId"] = value["namespace_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> NamespaceAlreadyExists_:
+    out: NamespaceAlreadyExists_ = {}  # type: ignore[typeddict-item]
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    if data.get("CreatorRequestId") is not None:
+        out["creator_request_id"] = data["CreatorRequestId"]
+    if data.get("NamespaceId") is not None:
+        out["namespace_id"] = data["NamespaceId"]
+    return out
+
+
 class NamespaceAlreadyExists(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.servicediscovery#NamespaceAlreadyExists``."""
 
@@ -72,3 +95,9 @@ class NamespaceAlreadyExists(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "NamespaceAlreadyExists":
         return cls(deserialize_aws_json_1_1(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "NamespaceAlreadyExists":
+        return cls(deserialize_cbor(data), message, response=response)

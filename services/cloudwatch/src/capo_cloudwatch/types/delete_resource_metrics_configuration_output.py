@@ -32,3 +32,14 @@ def serialize_query(
 def deserialize_query(el: Element) -> DeleteResourceMetricsConfigurationOutput:
     out: DeleteResourceMetricsConfigurationOutput = {}  # type: ignore[typeddict-item]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteResourceMetricsConfigurationOutput) -> dict:
+    out: dict = {}
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteResourceMetricsConfigurationOutput:
+    out: DeleteResourceMetricsConfigurationOutput = {}  # type: ignore[typeddict-item]
+    return out

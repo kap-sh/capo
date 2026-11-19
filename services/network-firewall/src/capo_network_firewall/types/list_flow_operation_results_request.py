@@ -88,3 +88,48 @@ def deserialize_aws_json_1_0(data: dict) -> ListFlowOperationResultsRequest:
     if data.get("VpcEndpointAssociationArn") is not None:
         out["vpc_endpoint_association_arn"] = data["VpcEndpointAssociationArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListFlowOperationResultsRequest) -> dict:
+    out: dict = {}
+    out["FirewallArn"] = value["firewall_arn"]
+    out["FlowOperationId"] = value["flow_operation_id"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "availability_zone" in value:
+        out["AvailabilityZone"] = value["availability_zone"]
+    if "availability_zone_id" in value:
+        out["AvailabilityZoneId"] = value["availability_zone_id"]
+    if "vpc_endpoint_id" in value:
+        out["VpcEndpointId"] = value["vpc_endpoint_id"]
+    if "vpc_endpoint_association_arn" in value:
+        out["VpcEndpointAssociationArn"] = value["vpc_endpoint_association_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListFlowOperationResultsRequest:
+    out: ListFlowOperationResultsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("FirewallArn") is not None:
+        out["firewall_arn"] = data["FirewallArn"]
+    else:
+        out["firewall_arn"] = ""
+    if data.get("FlowOperationId") is not None:
+        out["flow_operation_id"] = data["FlowOperationId"]
+    else:
+        out["flow_operation_id"] = ""
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("AvailabilityZone") is not None:
+        out["availability_zone"] = data["AvailabilityZone"]
+    if data.get("AvailabilityZoneId") is not None:
+        out["availability_zone_id"] = data["AvailabilityZoneId"]
+    if data.get("VpcEndpointId") is not None:
+        out["vpc_endpoint_id"] = data["VpcEndpointId"]
+    if data.get("VpcEndpointAssociationArn") is not None:
+        out["vpc_endpoint_association_arn"] = data["VpcEndpointAssociationArn"]
+    return out

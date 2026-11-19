@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> StopSNOMEDCTInferenceJobRequest:
     else:
         out["job_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StopSNOMEDCTInferenceJobRequest) -> dict:
+    out: dict = {}
+    out["JobId"] = value["job_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StopSNOMEDCTInferenceJobRequest:
+    out: StopSNOMEDCTInferenceJobRequest = {}  # type: ignore[typeddict-item]
+    if data.get("JobId") is not None:
+        out["job_id"] = data["JobId"]
+    else:
+        out["job_id"] = ""
+    return out

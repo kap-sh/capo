@@ -63,3 +63,41 @@ def deserialize_aws_json_1_1(data: dict) -> CreateApplicationInput:
             data["tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateApplicationInput) -> dict:
+    out: dict = {}
+    out["applicationName"] = value["application_name"]
+    if "compute_platform" in value:
+        import capo_codedeploy.types.compute_platform
+
+        out["computePlatform"] = capo_codedeploy.types.compute_platform.serialize_cbor(
+            value["compute_platform"]
+        )
+    if "tags" in value:
+        import capo_codedeploy.types.tag_list
+
+        out["tags"] = capo_codedeploy.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateApplicationInput:
+    out: CreateApplicationInput = {}  # type: ignore[typeddict-item]
+    if data.get("applicationName") is not None:
+        out["application_name"] = data["applicationName"]
+    else:
+        out["application_name"] = ""
+    if data.get("computePlatform") is not None:
+        import capo_codedeploy.types.compute_platform
+
+        out["compute_platform"] = (
+            capo_codedeploy.types.compute_platform.deserialize_cbor(
+                data["computePlatform"]
+            )
+        )
+    if data.get("tags") is not None:
+        import capo_codedeploy.types.tag_list
+
+        out["tags"] = capo_codedeploy.types.tag_list.deserialize_cbor(data["tags"])
+    return out

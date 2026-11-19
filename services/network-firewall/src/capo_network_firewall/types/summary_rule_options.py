@@ -35,3 +35,26 @@ def deserialize_aws_json_1_0(data: list) -> SummaryRuleOptions:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SummaryRuleOptions) -> list:
+    import capo_network_firewall.types.summary_rule_option
+
+    out: list = []
+    for item in value:
+        out.append(capo_network_firewall.types.summary_rule_option.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> SummaryRuleOptions:
+    import capo_network_firewall.types.summary_rule_option
+
+    out: SummaryRuleOptions = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_network_firewall.types.summary_rule_option.deserialize_cbor(item)
+        )
+    return out

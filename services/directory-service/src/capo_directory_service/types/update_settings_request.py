@@ -45,3 +45,32 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateSettingsRequest:
     else:
         out["settings"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateSettingsRequest) -> dict:
+    out: dict = {}
+    out["DirectoryId"] = value["directory_id"]
+    import capo_directory_service.types.settings
+
+    out["Settings"] = capo_directory_service.types.settings.serialize_cbor(
+        value["settings"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateSettingsRequest:
+    out: UpdateSettingsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    if data.get("Settings") is not None:
+        import capo_directory_service.types.settings
+
+        out["settings"] = capo_directory_service.types.settings.deserialize_cbor(
+            data["Settings"]
+        )
+    else:
+        out["settings"] = []
+    return out

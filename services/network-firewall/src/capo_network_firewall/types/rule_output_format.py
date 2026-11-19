@@ -15,3 +15,12 @@ def serialize_aws_json_1_0(value: RuleOutputFormat) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> RuleOutputFormat:
     return cast(RuleOutputFormat, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RuleOutputFormat) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> RuleOutputFormat:
+    return cast(RuleOutputFormat, data)

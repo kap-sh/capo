@@ -54,3 +54,38 @@ def deserialize_aws_json_1_1(data: dict) -> ListAccountLinksRequest:
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListAccountLinksRequest) -> dict:
+    out: dict = {}
+    if "link_status_filter" in value:
+        import capo_workspaces.types.link_status_filter_list
+
+        out["LinkStatusFilter"] = (
+            capo_workspaces.types.link_status_filter_list.serialize_cbor(
+                value["link_status_filter"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListAccountLinksRequest:
+    out: ListAccountLinksRequest = {}  # type: ignore[typeddict-item]
+    if data.get("LinkStatusFilter") is not None:
+        import capo_workspaces.types.link_status_filter_list
+
+        out["link_status_filter"] = (
+            capo_workspaces.types.link_status_filter_list.deserialize_cbor(
+                data["LinkStatusFilter"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    return out

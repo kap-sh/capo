@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateDRTRoleRequest:
     else:
         out["role_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AssociateDRTRoleRequest) -> dict:
+    out: dict = {}
+    out["RoleArn"] = value["role_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AssociateDRTRoleRequest:
+    out: AssociateDRTRoleRequest = {}  # type: ignore[typeddict-item]
+    if data.get("RoleArn") is not None:
+        out["role_arn"] = data["RoleArn"]
+    else:
+        out["role_arn"] = ""
+    return out

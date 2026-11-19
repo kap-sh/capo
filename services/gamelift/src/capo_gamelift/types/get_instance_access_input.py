@@ -33,3 +33,22 @@ def deserialize_aws_json_1_1(data: dict) -> GetInstanceAccessInput:
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetInstanceAccessInput) -> dict:
+    out: dict = {}
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "instance_id" in value:
+        out["InstanceId"] = value["instance_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetInstanceAccessInput:
+    out: GetInstanceAccessInput = {}  # type: ignore[typeddict-item]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("InstanceId") is not None:
+        out["instance_id"] = data["InstanceId"]
+    return out

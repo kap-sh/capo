@@ -51,3 +51,34 @@ def deserialize_aws_json_1_0(data: dict) -> StartPlanExecutionResponse:
     if data.get("deactivateRegion") is not None:
         out["deactivate_region"] = data["deactivateRegion"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartPlanExecutionResponse) -> dict:
+    out: dict = {}
+    if "execution_id" in value:
+        out["executionId"] = value["execution_id"]
+    if "plan" in value:
+        out["plan"] = value["plan"]
+    if "plan_version" in value:
+        out["planVersion"] = value["plan_version"]
+    if "activate_region" in value:
+        out["activateRegion"] = value["activate_region"]
+    if "deactivate_region" in value:
+        out["deactivateRegion"] = value["deactivate_region"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartPlanExecutionResponse:
+    out: StartPlanExecutionResponse = {}  # type: ignore[typeddict-item]
+    if data.get("executionId") is not None:
+        out["execution_id"] = data["executionId"]
+    if data.get("plan") is not None:
+        out["plan"] = data["plan"]
+    if data.get("planVersion") is not None:
+        out["plan_version"] = data["planVersion"]
+    if data.get("activateRegion") is not None:
+        out["activate_region"] = data["activateRegion"]
+    if data.get("deactivateRegion") is not None:
+        out["deactivate_region"] = data["deactivateRegion"]
+    return out

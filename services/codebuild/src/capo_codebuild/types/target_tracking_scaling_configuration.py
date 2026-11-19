@@ -55,3 +55,34 @@ def deserialize_aws_json_1_1(data: dict) -> TargetTrackingScalingConfiguration:
     if data.get("targetValue") is not None:
         out["target_value"] = float(data["targetValue"])
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TargetTrackingScalingConfiguration) -> dict:
+    out: dict = {}
+    if "metric_type" in value:
+        import capo_codebuild.types.fleet_scaling_metric_type
+
+        out["metricType"] = (
+            capo_codebuild.types.fleet_scaling_metric_type.serialize_cbor(
+                value["metric_type"]
+            )
+        )
+    if "target_value" in value:
+        out["targetValue"] = value["target_value"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> TargetTrackingScalingConfiguration:
+    out: TargetTrackingScalingConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("metricType") is not None:
+        import capo_codebuild.types.fleet_scaling_metric_type
+
+        out["metric_type"] = (
+            capo_codebuild.types.fleet_scaling_metric_type.deserialize_cbor(
+                data["metricType"]
+            )
+        )
+    if data.get("targetValue") is not None:
+        out["target_value"] = float(data["targetValue"])
+    return out

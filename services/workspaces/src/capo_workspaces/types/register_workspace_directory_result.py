@@ -47,3 +47,30 @@ def deserialize_aws_json_1_1(data: dict) -> RegisterWorkspaceDirectoryResult:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RegisterWorkspaceDirectoryResult) -> dict:
+    out: dict = {}
+    if "directory_id" in value:
+        out["DirectoryId"] = value["directory_id"]
+    if "state" in value:
+        import capo_workspaces.types.workspace_directory_state
+
+        out["State"] = capo_workspaces.types.workspace_directory_state.serialize_cbor(
+            value["state"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RegisterWorkspaceDirectoryResult:
+    out: RegisterWorkspaceDirectoryResult = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    if data.get("State") is not None:
+        import capo_workspaces.types.workspace_directory_state
+
+        out["state"] = capo_workspaces.types.workspace_directory_state.deserialize_cbor(
+            data["State"]
+        )
+    return out

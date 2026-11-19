@@ -37,3 +37,24 @@ def deserialize_aws_json_1_1(data: dict) -> CustomAttribute:
     else:
         out["value"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CustomAttribute) -> dict:
+    out: dict = {}
+    out["ObjectIdentifier"] = value["object_identifier"]
+    out["Value"] = value["value"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CustomAttribute:
+    out: CustomAttribute = {}  # type: ignore[typeddict-item]
+    if data.get("ObjectIdentifier") is not None:
+        out["object_identifier"] = data["ObjectIdentifier"]
+    else:
+        out["object_identifier"] = ""
+    if data.get("Value") is not None:
+        out["value"] = data["Value"]
+    else:
+        out["value"] = ""
+    return out

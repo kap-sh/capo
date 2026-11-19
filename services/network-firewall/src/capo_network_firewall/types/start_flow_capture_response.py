@@ -56,3 +56,38 @@ def deserialize_aws_json_1_0(data: dict) -> StartFlowCaptureResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartFlowCaptureResponse) -> dict:
+    out: dict = {}
+    if "firewall_arn" in value:
+        out["FirewallArn"] = value["firewall_arn"]
+    if "flow_operation_id" in value:
+        out["FlowOperationId"] = value["flow_operation_id"]
+    if "flow_operation_status" in value:
+        import capo_network_firewall.types.flow_operation_status
+
+        out["FlowOperationStatus"] = (
+            capo_network_firewall.types.flow_operation_status.serialize_cbor(
+                value["flow_operation_status"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartFlowCaptureResponse:
+    out: StartFlowCaptureResponse = {}  # type: ignore[typeddict-item]
+    if data.get("FirewallArn") is not None:
+        out["firewall_arn"] = data["FirewallArn"]
+    if data.get("FlowOperationId") is not None:
+        out["flow_operation_id"] = data["FlowOperationId"]
+    if data.get("FlowOperationStatus") is not None:
+        import capo_network_firewall.types.flow_operation_status
+
+        out["flow_operation_status"] = (
+            capo_network_firewall.types.flow_operation_status.deserialize_cbor(
+                data["FlowOperationStatus"]
+            )
+        )
+    return out

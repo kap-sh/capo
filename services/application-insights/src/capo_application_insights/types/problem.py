@@ -235,3 +235,154 @@ def deserialize_aws_json_1_1(data: dict) -> Problem:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Problem) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["Id"] = value["id"]
+    if "title" in value:
+        out["Title"] = value["title"]
+    if "short_name" in value:
+        out["ShortName"] = value["short_name"]
+    if "insights" in value:
+        out["Insights"] = value["insights"]
+    if "status" in value:
+        import capo_application_insights.types.status
+
+        out["Status"] = capo_application_insights.types.status.serialize_cbor(
+            value["status"]
+        )
+    if "affected_resource" in value:
+        out["AffectedResource"] = value["affected_resource"]
+    if "start_time" in value:
+        import capo_application_insights.types.start_time
+
+        out["StartTime"] = capo_application_insights.types.start_time.serialize_cbor(
+            value["start_time"]
+        )
+    if "end_time" in value:
+        import capo_application_insights.types.end_time
+
+        out["EndTime"] = capo_application_insights.types.end_time.serialize_cbor(
+            value["end_time"]
+        )
+    if "severity_level" in value:
+        import capo_application_insights.types.severity_level
+
+        out["SeverityLevel"] = (
+            capo_application_insights.types.severity_level.serialize_cbor(
+                value["severity_level"]
+            )
+        )
+    if "account_id" in value:
+        out["AccountId"] = value["account_id"]
+    if "resource_group_name" in value:
+        out["ResourceGroupName"] = value["resource_group_name"]
+    if "feedback" in value:
+        import capo_application_insights.types.feedback
+
+        out["Feedback"] = capo_application_insights.types.feedback.serialize_cbor(
+            value["feedback"]
+        )
+    if "recurring_count" in value:
+        out["RecurringCount"] = value["recurring_count"]
+    if "last_recurrence_time" in value:
+        import capo_application_insights.types.last_recurrence_time
+
+        out["LastRecurrenceTime"] = (
+            capo_application_insights.types.last_recurrence_time.serialize_cbor(
+                value["last_recurrence_time"]
+            )
+        )
+    if "visibility" in value:
+        import capo_application_insights.types.visibility
+
+        out["Visibility"] = capo_application_insights.types.visibility.serialize_cbor(
+            value["visibility"]
+        )
+    if "resolution_method" in value:
+        import capo_application_insights.types.resolution_method
+
+        out["ResolutionMethod"] = (
+            capo_application_insights.types.resolution_method.serialize_cbor(
+                value["resolution_method"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Problem:
+    out: Problem = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    if data.get("Title") is not None:
+        out["title"] = data["Title"]
+    if data.get("ShortName") is not None:
+        out["short_name"] = data["ShortName"]
+    if data.get("Insights") is not None:
+        out["insights"] = data["Insights"]
+    if data.get("Status") is not None:
+        import capo_application_insights.types.status
+
+        out["status"] = capo_application_insights.types.status.deserialize_cbor(
+            data["Status"]
+        )
+    if data.get("AffectedResource") is not None:
+        out["affected_resource"] = data["AffectedResource"]
+    if data.get("StartTime") is not None:
+        import capo_application_insights.types.start_time
+
+        out["start_time"] = capo_application_insights.types.start_time.deserialize_cbor(
+            data["StartTime"]
+        )
+    if data.get("EndTime") is not None:
+        import capo_application_insights.types.end_time
+
+        out["end_time"] = capo_application_insights.types.end_time.deserialize_cbor(
+            data["EndTime"]
+        )
+    if data.get("SeverityLevel") is not None:
+        import capo_application_insights.types.severity_level
+
+        out["severity_level"] = (
+            capo_application_insights.types.severity_level.deserialize_cbor(
+                data["SeverityLevel"]
+            )
+        )
+    if data.get("AccountId") is not None:
+        out["account_id"] = data["AccountId"]
+    if data.get("ResourceGroupName") is not None:
+        out["resource_group_name"] = data["ResourceGroupName"]
+    if data.get("Feedback") is not None:
+        import capo_application_insights.types.feedback
+
+        out["feedback"] = capo_application_insights.types.feedback.deserialize_cbor(
+            data["Feedback"]
+        )
+    if data.get("RecurringCount") is not None:
+        out["recurring_count"] = data["RecurringCount"]
+    if data.get("LastRecurrenceTime") is not None:
+        import capo_application_insights.types.last_recurrence_time
+
+        out["last_recurrence_time"] = (
+            capo_application_insights.types.last_recurrence_time.deserialize_cbor(
+                data["LastRecurrenceTime"]
+            )
+        )
+    if data.get("Visibility") is not None:
+        import capo_application_insights.types.visibility
+
+        out["visibility"] = capo_application_insights.types.visibility.deserialize_cbor(
+            data["Visibility"]
+        )
+    if data.get("ResolutionMethod") is not None:
+        import capo_application_insights.types.resolution_method
+
+        out["resolution_method"] = (
+            capo_application_insights.types.resolution_method.deserialize_cbor(
+                data["ResolutionMethod"]
+            )
+        )
+    return out

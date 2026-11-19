@@ -43,3 +43,31 @@ def deserialize_aws_json_1_0(data: dict) -> GetRepositorySyncStatusOutput:
     else:
         raise DeserializationError("GetRepositorySyncStatusOutput.latest_sync required")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetRepositorySyncStatusOutput) -> dict:
+    out: dict = {}
+    import capo_codeconnections.types.repository_sync_attempt
+
+    out["LatestSync"] = (
+        capo_codeconnections.types.repository_sync_attempt.serialize_cbor(
+            value["latest_sync"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetRepositorySyncStatusOutput:
+    out: GetRepositorySyncStatusOutput = {}  # type: ignore[typeddict-item]
+    if data.get("LatestSync") is not None:
+        import capo_codeconnections.types.repository_sync_attempt
+
+        out["latest_sync"] = (
+            capo_codeconnections.types.repository_sync_attempt.deserialize_cbor(
+                data["LatestSync"]
+            )
+        )
+    else:
+        raise DeserializationError("GetRepositorySyncStatusOutput.latest_sync required")
+    return out

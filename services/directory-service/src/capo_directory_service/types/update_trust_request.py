@@ -48,3 +48,35 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateTrustRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateTrustRequest) -> dict:
+    out: dict = {}
+    out["TrustId"] = value["trust_id"]
+    if "selective_auth" in value:
+        import capo_directory_service.types.selective_auth
+
+        out["SelectiveAuth"] = (
+            capo_directory_service.types.selective_auth.serialize_cbor(
+                value["selective_auth"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateTrustRequest:
+    out: UpdateTrustRequest = {}  # type: ignore[typeddict-item]
+    if data.get("TrustId") is not None:
+        out["trust_id"] = data["TrustId"]
+    else:
+        out["trust_id"] = ""
+    if data.get("SelectiveAuth") is not None:
+        import capo_directory_service.types.selective_auth
+
+        out["selective_auth"] = (
+            capo_directory_service.types.selective_auth.deserialize_cbor(
+                data["SelectiveAuth"]
+            )
+        )
+    return out

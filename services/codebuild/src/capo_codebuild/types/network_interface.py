@@ -34,3 +34,22 @@ def deserialize_aws_json_1_1(data: dict) -> NetworkInterface:
     if data.get("networkInterfaceId") is not None:
         out["network_interface_id"] = data["networkInterfaceId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: NetworkInterface) -> dict:
+    out: dict = {}
+    if "subnet_id" in value:
+        out["subnetId"] = value["subnet_id"]
+    if "network_interface_id" in value:
+        out["networkInterfaceId"] = value["network_interface_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> NetworkInterface:
+    out: NetworkInterface = {}  # type: ignore[typeddict-item]
+    if data.get("subnetId") is not None:
+        out["subnet_id"] = data["subnetId"]
+    if data.get("networkInterfaceId") is not None:
+        out["network_interface_id"] = data["networkInterfaceId"]
+    return out

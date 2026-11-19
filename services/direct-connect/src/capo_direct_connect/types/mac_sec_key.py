@@ -47,3 +47,30 @@ def deserialize_aws_json_1_1(data: dict) -> MacSecKey:
     if data.get("startOn") is not None:
         out["start_on"] = data["startOn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MacSecKey) -> dict:
+    out: dict = {}
+    if "secret_arn" in value:
+        out["secretARN"] = value["secret_arn"]
+    if "ckn" in value:
+        out["ckn"] = value["ckn"]
+    if "state" in value:
+        out["state"] = value["state"]
+    if "start_on" in value:
+        out["startOn"] = value["start_on"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> MacSecKey:
+    out: MacSecKey = {}  # type: ignore[typeddict-item]
+    if data.get("secretARN") is not None:
+        out["secret_arn"] = data["secretARN"]
+    if data.get("ckn") is not None:
+        out["ckn"] = data["ckn"]
+    if data.get("state") is not None:
+        out["state"] = data["state"]
+    if data.get("startOn") is not None:
+        out["start_on"] = data["startOn"]
+    return out

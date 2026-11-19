@@ -56,3 +56,38 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeGameSessionQueuesInput:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeGameSessionQueuesInput) -> dict:
+    out: dict = {}
+    if "names" in value:
+        import capo_gamelift.types.game_session_queue_name_or_arn_list
+
+        out["Names"] = (
+            capo_gamelift.types.game_session_queue_name_or_arn_list.serialize_cbor(
+                value["names"]
+            )
+        )
+    if "limit" in value:
+        out["Limit"] = value["limit"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeGameSessionQueuesInput:
+    out: DescribeGameSessionQueuesInput = {}  # type: ignore[typeddict-item]
+    if data.get("Names") is not None:
+        import capo_gamelift.types.game_session_queue_name_or_arn_list
+
+        out["names"] = (
+            capo_gamelift.types.game_session_queue_name_or_arn_list.deserialize_cbor(
+                data["Names"]
+            )
+        )
+    if data.get("Limit") is not None:
+        out["limit"] = data["Limit"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

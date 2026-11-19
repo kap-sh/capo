@@ -35,3 +35,24 @@ def deserialize_aws_json_1_1(data: dict) -> S3ArtifactLocation:
     else:
         out["object_key"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: S3ArtifactLocation) -> dict:
+    out: dict = {}
+    out["bucketName"] = value["bucket_name"]
+    out["objectKey"] = value["object_key"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> S3ArtifactLocation:
+    out: S3ArtifactLocation = {}  # type: ignore[typeddict-item]
+    if data.get("bucketName") is not None:
+        out["bucket_name"] = data["bucketName"]
+    else:
+        out["bucket_name"] = ""
+    if data.get("objectKey") is not None:
+        out["object_key"] = data["objectKey"]
+    else:
+        out["object_key"] = ""
+    return out

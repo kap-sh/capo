@@ -35,6 +35,25 @@ def deserialize_aws_json_1_1(data: dict) -> DocumentTooLargeException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DocumentTooLargeException_) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["Message"] = value["message"]
+    if "code" in value:
+        out["Code"] = value["code"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DocumentTooLargeException_:
+    out: DocumentTooLargeException_ = {}  # type: ignore[typeddict-item]
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    if data.get("Code") is not None:
+        out["code"] = data["Code"]
+    return out
+
+
 class DocumentTooLargeException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.textract#DocumentTooLargeException``."""
 
@@ -62,3 +81,9 @@ class DocumentTooLargeException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "DocumentTooLargeException":
         return cls(deserialize_aws_json_1_1(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "DocumentTooLargeException":
+        return cls(deserialize_cbor(data), message, response=response)

@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> GetVirtualMachineInput:
     else:
         out["resource_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetVirtualMachineInput) -> dict:
+    out: dict = {}
+    out["ResourceArn"] = value["resource_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetVirtualMachineInput:
+    out: GetVirtualMachineInput = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceArn") is not None:
+        out["resource_arn"] = data["ResourceArn"]
+    else:
+        out["resource_arn"] = ""
+    return out

@@ -77,3 +77,46 @@ def deserialize_aws_json_1_1(data: dict) -> PortfolioDetail:
     if data.get("ProviderName") is not None:
         out["provider_name"] = data["ProviderName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PortfolioDetail) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["Id"] = value["id"]
+    if "arn" in value:
+        out["ARN"] = value["arn"]
+    if "display_name" in value:
+        out["DisplayName"] = value["display_name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "created_time" in value:
+        import capo_service_catalog.types.creation_time
+
+        out["CreatedTime"] = capo_service_catalog.types.creation_time.serialize_cbor(
+            value["created_time"]
+        )
+    if "provider_name" in value:
+        out["ProviderName"] = value["provider_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> PortfolioDetail:
+    out: PortfolioDetail = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    if data.get("ARN") is not None:
+        out["arn"] = data["ARN"]
+    if data.get("DisplayName") is not None:
+        out["display_name"] = data["DisplayName"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("CreatedTime") is not None:
+        import capo_service_catalog.types.creation_time
+
+        out["created_time"] = capo_service_catalog.types.creation_time.deserialize_cbor(
+            data["CreatedTime"]
+        )
+    if data.get("ProviderName") is not None:
+        out["provider_name"] = data["ProviderName"]
+    return out

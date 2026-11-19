@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeMultiRegionClustersResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeMultiRegionClustersResponse) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "multi_region_clusters" in value:
+        import capo_memorydb.types.multi_region_cluster_list
+
+        out["MultiRegionClusters"] = (
+            capo_memorydb.types.multi_region_cluster_list.serialize_cbor(
+                value["multi_region_clusters"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeMultiRegionClustersResponse:
+    out: DescribeMultiRegionClustersResponse = {}  # type: ignore[typeddict-item]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("MultiRegionClusters") is not None:
+        import capo_memorydb.types.multi_region_cluster_list
+
+        out["multi_region_clusters"] = (
+            capo_memorydb.types.multi_region_cluster_list.deserialize_cbor(
+                data["MultiRegionClusters"]
+            )
+        )
+    return out

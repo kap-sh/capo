@@ -74,3 +74,47 @@ def deserialize_aws_json_1_1(data: dict) -> AllocateHostedConnectionRequest:
             data["tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AllocateHostedConnectionRequest) -> dict:
+    out: dict = {}
+    out["connectionId"] = value["connection_id"]
+    out["ownerAccount"] = value["owner_account"]
+    out["bandwidth"] = value["bandwidth"]
+    out["connectionName"] = value["connection_name"]
+    out["vlan"] = value["vlan"]
+    if "tags" in value:
+        import capo_direct_connect.types.tag_list
+
+        out["tags"] = capo_direct_connect.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> AllocateHostedConnectionRequest:
+    out: AllocateHostedConnectionRequest = {}  # type: ignore[typeddict-item]
+    if data.get("connectionId") is not None:
+        out["connection_id"] = data["connectionId"]
+    else:
+        out["connection_id"] = ""
+    if data.get("ownerAccount") is not None:
+        out["owner_account"] = data["ownerAccount"]
+    else:
+        out["owner_account"] = ""
+    if data.get("bandwidth") is not None:
+        out["bandwidth"] = data["bandwidth"]
+    else:
+        out["bandwidth"] = ""
+    if data.get("connectionName") is not None:
+        out["connection_name"] = data["connectionName"]
+    else:
+        out["connection_name"] = ""
+    if data.get("vlan") is not None:
+        out["vlan"] = data["vlan"]
+    else:
+        out["vlan"] = 0
+    if data.get("tags") is not None:
+        import capo_direct_connect.types.tag_list
+
+        out["tags"] = capo_direct_connect.types.tag_list.deserialize_cbor(data["tags"])
+    return out

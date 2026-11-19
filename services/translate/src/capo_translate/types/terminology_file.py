@@ -13,3 +13,12 @@ def serialize_aws_json_1_1(value: TerminologyFile) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> TerminologyFile:
     return base64.b64decode(data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TerminologyFile) -> TerminologyFile:
+    return value
+
+
+def deserialize_cbor(data: TerminologyFile) -> TerminologyFile:
+    return data

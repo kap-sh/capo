@@ -77,3 +77,56 @@ def deserialize_aws_json_1_1(data: dict) -> ActionTypeId:
     else:
         out["version"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ActionTypeId) -> dict:
+    out: dict = {}
+    import capo_codepipeline.types.action_category
+
+    out["category"] = capo_codepipeline.types.action_category.serialize_cbor(
+        value["category"]
+    )
+    import capo_codepipeline.types.action_owner
+
+    out["owner"] = capo_codepipeline.types.action_owner.serialize_cbor(value["owner"])
+    out["provider"] = value["provider"]
+    out["version"] = value["version"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ActionTypeId:
+    out: ActionTypeId = {}  # type: ignore[typeddict-item]
+    if data.get("category") is not None:
+        import capo_codepipeline.types.action_category
+
+        out["category"] = capo_codepipeline.types.action_category.deserialize_cbor(
+            data["category"]
+        )
+    else:
+        import typing
+
+        out["category"] = typing.cast(
+            "capo_codepipeline.types.action_category.ActionCategory", ""
+        )
+    if data.get("owner") is not None:
+        import capo_codepipeline.types.action_owner
+
+        out["owner"] = capo_codepipeline.types.action_owner.deserialize_cbor(
+            data["owner"]
+        )
+    else:
+        import typing
+
+        out["owner"] = typing.cast(
+            "capo_codepipeline.types.action_owner.ActionOwner", ""
+        )
+    if data.get("provider") is not None:
+        out["provider"] = data["provider"]
+    else:
+        out["provider"] = ""
+    if data.get("version") is not None:
+        out["version"] = data["version"]
+    else:
+        out["version"] = ""
+    return out

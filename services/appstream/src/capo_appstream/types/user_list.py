@@ -29,6 +29,27 @@ def deserialize_aws_json_1_1(data: list) -> UserList:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UserList) -> list:
+    import capo_appstream.types.user
+
+    out: list = []
+    for item in value:
+        out.append(capo_appstream.types.user.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> UserList:
+    import capo_appstream.types.user
+
+    out: UserList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_appstream.types.user.deserialize_cbor(item))
+    return out
+
+
 def redact_sensitive(value: UserList) -> list[Any]:
     import capo_appstream.types.user
 

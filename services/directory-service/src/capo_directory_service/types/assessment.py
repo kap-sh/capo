@@ -218,3 +218,142 @@ def deserialize_aws_json_1_1(data: dict) -> Assessment:
     if data.get("Version") is not None:
         out["version"] = data["Version"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Assessment) -> dict:
+    out: dict = {}
+    if "assessment_id" in value:
+        out["AssessmentId"] = value["assessment_id"]
+    if "directory_id" in value:
+        out["DirectoryId"] = value["directory_id"]
+    if "dns_name" in value:
+        out["DnsName"] = value["dns_name"]
+    if "start_time" in value:
+        import capo_directory_service.types.assessment_start_time
+
+        out["StartTime"] = (
+            capo_directory_service.types.assessment_start_time.serialize_cbor(
+                value["start_time"]
+            )
+        )
+    if "last_update_date_time" in value:
+        import capo_directory_service.types.last_update_date_time
+
+        out["LastUpdateDateTime"] = (
+            capo_directory_service.types.last_update_date_time.serialize_cbor(
+                value["last_update_date_time"]
+            )
+        )
+    if "status" in value:
+        out["Status"] = value["status"]
+    if "status_code" in value:
+        out["StatusCode"] = value["status_code"]
+    if "status_reason" in value:
+        out["StatusReason"] = value["status_reason"]
+    if "customer_dns_ips" in value:
+        import capo_directory_service.types.customer_dns_ips
+
+        out["CustomerDnsIps"] = (
+            capo_directory_service.types.customer_dns_ips.serialize_cbor(
+                value["customer_dns_ips"]
+            )
+        )
+    if "vpc_id" in value:
+        out["VpcId"] = value["vpc_id"]
+    if "subnet_ids" in value:
+        import capo_directory_service.types.subnet_ids
+
+        out["SubnetIds"] = capo_directory_service.types.subnet_ids.serialize_cbor(
+            value["subnet_ids"]
+        )
+    if "security_group_ids" in value:
+        import capo_directory_service.types.security_group_ids
+
+        out["SecurityGroupIds"] = (
+            capo_directory_service.types.security_group_ids.serialize_cbor(
+                value["security_group_ids"]
+            )
+        )
+    if "self_managed_instance_ids" in value:
+        import capo_directory_service.types.assessment_instance_ids
+
+        out["SelfManagedInstanceIds"] = (
+            capo_directory_service.types.assessment_instance_ids.serialize_cbor(
+                value["self_managed_instance_ids"]
+            )
+        )
+    if "report_type" in value:
+        out["ReportType"] = value["report_type"]
+    if "version" in value:
+        out["Version"] = value["version"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Assessment:
+    out: Assessment = {}  # type: ignore[typeddict-item]
+    if data.get("AssessmentId") is not None:
+        out["assessment_id"] = data["AssessmentId"]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    if data.get("DnsName") is not None:
+        out["dns_name"] = data["DnsName"]
+    if data.get("StartTime") is not None:
+        import capo_directory_service.types.assessment_start_time
+
+        out["start_time"] = (
+            capo_directory_service.types.assessment_start_time.deserialize_cbor(
+                data["StartTime"]
+            )
+        )
+    if data.get("LastUpdateDateTime") is not None:
+        import capo_directory_service.types.last_update_date_time
+
+        out["last_update_date_time"] = (
+            capo_directory_service.types.last_update_date_time.deserialize_cbor(
+                data["LastUpdateDateTime"]
+            )
+        )
+    if data.get("Status") is not None:
+        out["status"] = data["Status"]
+    if data.get("StatusCode") is not None:
+        out["status_code"] = data["StatusCode"]
+    if data.get("StatusReason") is not None:
+        out["status_reason"] = data["StatusReason"]
+    if data.get("CustomerDnsIps") is not None:
+        import capo_directory_service.types.customer_dns_ips
+
+        out["customer_dns_ips"] = (
+            capo_directory_service.types.customer_dns_ips.deserialize_cbor(
+                data["CustomerDnsIps"]
+            )
+        )
+    if data.get("VpcId") is not None:
+        out["vpc_id"] = data["VpcId"]
+    if data.get("SubnetIds") is not None:
+        import capo_directory_service.types.subnet_ids
+
+        out["subnet_ids"] = capo_directory_service.types.subnet_ids.deserialize_cbor(
+            data["SubnetIds"]
+        )
+    if data.get("SecurityGroupIds") is not None:
+        import capo_directory_service.types.security_group_ids
+
+        out["security_group_ids"] = (
+            capo_directory_service.types.security_group_ids.deserialize_cbor(
+                data["SecurityGroupIds"]
+            )
+        )
+    if data.get("SelfManagedInstanceIds") is not None:
+        import capo_directory_service.types.assessment_instance_ids
+
+        out["self_managed_instance_ids"] = (
+            capo_directory_service.types.assessment_instance_ids.deserialize_cbor(
+                data["SelfManagedInstanceIds"]
+            )
+        )
+    if data.get("ReportType") is not None:
+        out["report_type"] = data["ReportType"]
+    if data.get("Version") is not None:
+        out["version"] = data["Version"]
+    return out

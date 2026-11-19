@@ -45,3 +45,32 @@ def deserialize_aws_json_1_1(data: dict) -> PutResourceSetResponse:
     else:
         out["resource_set_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PutResourceSetResponse) -> dict:
+    out: dict = {}
+    import capo_fms.types.resource_set
+
+    out["ResourceSet"] = capo_fms.types.resource_set.serialize_cbor(
+        value["resource_set"]
+    )
+    out["ResourceSetArn"] = value["resource_set_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> PutResourceSetResponse:
+    out: PutResourceSetResponse = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceSet") is not None:
+        import capo_fms.types.resource_set
+
+        out["resource_set"] = capo_fms.types.resource_set.deserialize_cbor(
+            data["ResourceSet"]
+        )
+    else:
+        raise DeserializationError("PutResourceSetResponse.resource_set required")
+    if data.get("ResourceSetArn") is not None:
+        out["resource_set_arn"] = data["ResourceSetArn"]
+    else:
+        out["resource_set_arn"] = ""
+    return out

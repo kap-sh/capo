@@ -28,3 +28,18 @@ def deserialize_aws_json_1_1(data: dict) -> GetTagKeysInput:
     if data.get("PaginationToken") is not None:
         out["pagination_token"] = data["PaginationToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetTagKeysInput) -> dict:
+    out: dict = {}
+    if "pagination_token" in value:
+        out["PaginationToken"] = value["pagination_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetTagKeysInput:
+    out: GetTagKeysInput = {}  # type: ignore[typeddict-item]
+    if data.get("PaginationToken") is not None:
+        out["pagination_token"] = data["PaginationToken"]
+    return out

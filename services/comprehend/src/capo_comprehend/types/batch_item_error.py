@@ -39,3 +39,26 @@ def deserialize_aws_json_1_1(data: dict) -> BatchItemError:
     if data.get("ErrorMessage") is not None:
         out["error_message"] = data["ErrorMessage"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchItemError) -> dict:
+    out: dict = {}
+    if "index" in value:
+        out["Index"] = value["index"]
+    if "error_code" in value:
+        out["ErrorCode"] = value["error_code"]
+    if "error_message" in value:
+        out["ErrorMessage"] = value["error_message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> BatchItemError:
+    out: BatchItemError = {}  # type: ignore[typeddict-item]
+    if data.get("Index") is not None:
+        out["index"] = data["Index"]
+    if data.get("ErrorCode") is not None:
+        out["error_code"] = data["ErrorCode"]
+    if data.get("ErrorMessage") is not None:
+        out["error_message"] = data["ErrorMessage"]
+    return out

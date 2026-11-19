@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> CreateTrustResult:
     if data.get("TrustId") is not None:
         out["trust_id"] = data["TrustId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateTrustResult) -> dict:
+    out: dict = {}
+    if "trust_id" in value:
+        out["TrustId"] = value["trust_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateTrustResult:
+    out: CreateTrustResult = {}  # type: ignore[typeddict-item]
+    if data.get("TrustId") is not None:
+        out["trust_id"] = data["TrustId"]
+    return out

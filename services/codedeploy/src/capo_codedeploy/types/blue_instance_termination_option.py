@@ -44,3 +44,33 @@ def deserialize_aws_json_1_1(data: dict) -> BlueInstanceTerminationOption:
     else:
         out["termination_wait_time_in_minutes"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BlueInstanceTerminationOption) -> dict:
+    out: dict = {}
+    if "action" in value:
+        import capo_codedeploy.types.instance_action
+
+        out["action"] = capo_codedeploy.types.instance_action.serialize_cbor(
+            value["action"]
+        )
+    out["terminationWaitTimeInMinutes"] = value.get(
+        "termination_wait_time_in_minutes", 0
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BlueInstanceTerminationOption:
+    out: BlueInstanceTerminationOption = {}  # type: ignore[typeddict-item]
+    if data.get("action") is not None:
+        import capo_codedeploy.types.instance_action
+
+        out["action"] = capo_codedeploy.types.instance_action.deserialize_cbor(
+            data["action"]
+        )
+    if data.get("terminationWaitTimeInMinutes") is not None:
+        out["termination_wait_time_in_minutes"] = data["terminationWaitTimeInMinutes"]
+    else:
+        out["termination_wait_time_in_minutes"] = 0
+    return out

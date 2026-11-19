@@ -68,3 +68,46 @@ def deserialize_aws_json_1_1(data: dict) -> CheckDomainTransferabilityResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CheckDomainTransferabilityResponse) -> dict:
+    out: dict = {}
+    if "transferability" in value:
+        import capo_route_53_domains.types.domain_transferability
+
+        out["Transferability"] = (
+            capo_route_53_domains.types.domain_transferability.serialize_cbor(
+                value["transferability"]
+            )
+        )
+    if "message" in value:
+        out["Message"] = value["message"]
+    if "price" in value:
+        import capo_route_53_domains.types.price_with_currency
+
+        out["Price"] = capo_route_53_domains.types.price_with_currency.serialize_cbor(
+            value["price"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CheckDomainTransferabilityResponse:
+    out: CheckDomainTransferabilityResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Transferability") is not None:
+        import capo_route_53_domains.types.domain_transferability
+
+        out["transferability"] = (
+            capo_route_53_domains.types.domain_transferability.deserialize_cbor(
+                data["Transferability"]
+            )
+        )
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    if data.get("Price") is not None:
+        import capo_route_53_domains.types.price_with_currency
+
+        out["price"] = capo_route_53_domains.types.price_with_currency.deserialize_cbor(
+            data["Price"]
+        )
+    return out

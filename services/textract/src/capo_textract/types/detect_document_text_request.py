@@ -37,3 +37,25 @@ def deserialize_aws_json_1_1(data: dict) -> DetectDocumentTextRequest:
     else:
         raise DeserializationError("DetectDocumentTextRequest.document required")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DetectDocumentTextRequest) -> dict:
+    out: dict = {}
+    import capo_textract.types.document
+
+    out["Document"] = capo_textract.types.document.serialize_cbor(value["document"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> DetectDocumentTextRequest:
+    out: DetectDocumentTextRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Document") is not None:
+        import capo_textract.types.document
+
+        out["document"] = capo_textract.types.document.deserialize_cbor(
+            data["Document"]
+        )
+    else:
+        raise DeserializationError("DetectDocumentTextRequest.document required")
+    return out

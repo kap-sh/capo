@@ -34,3 +34,24 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateHostedConnectionRequest:
     else:
         out["parent_connection_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AssociateHostedConnectionRequest) -> dict:
+    out: dict = {}
+    out["connectionId"] = value["connection_id"]
+    out["parentConnectionId"] = value["parent_connection_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AssociateHostedConnectionRequest:
+    out: AssociateHostedConnectionRequest = {}  # type: ignore[typeddict-item]
+    if data.get("connectionId") is not None:
+        out["connection_id"] = data["connectionId"]
+    else:
+        out["connection_id"] = ""
+    if data.get("parentConnectionId") is not None:
+        out["parent_connection_id"] = data["parentConnectionId"]
+    else:
+        out["parent_connection_id"] = ""
+    return out

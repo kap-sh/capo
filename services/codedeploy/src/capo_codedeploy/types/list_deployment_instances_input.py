@@ -76,3 +76,55 @@ def deserialize_aws_json_1_1(data: dict) -> ListDeploymentInstancesInput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListDeploymentInstancesInput) -> dict:
+    out: dict = {}
+    out["deploymentId"] = value["deployment_id"]
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    if "instance_status_filter" in value:
+        import capo_codedeploy.types.instance_status_list
+
+        out["instanceStatusFilter"] = (
+            capo_codedeploy.types.instance_status_list.serialize_cbor(
+                value["instance_status_filter"]
+            )
+        )
+    if "instance_type_filter" in value:
+        import capo_codedeploy.types.instance_type_list
+
+        out["instanceTypeFilter"] = (
+            capo_codedeploy.types.instance_type_list.serialize_cbor(
+                value["instance_type_filter"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListDeploymentInstancesInput:
+    out: ListDeploymentInstancesInput = {}  # type: ignore[typeddict-item]
+    if data.get("deploymentId") is not None:
+        out["deployment_id"] = data["deploymentId"]
+    else:
+        out["deployment_id"] = ""
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    if data.get("instanceStatusFilter") is not None:
+        import capo_codedeploy.types.instance_status_list
+
+        out["instance_status_filter"] = (
+            capo_codedeploy.types.instance_status_list.deserialize_cbor(
+                data["instanceStatusFilter"]
+            )
+        )
+    if data.get("instanceTypeFilter") is not None:
+        import capo_codedeploy.types.instance_type_list
+
+        out["instance_type_filter"] = (
+            capo_codedeploy.types.instance_type_list.deserialize_cbor(
+                data["instanceTypeFilter"]
+            )
+        )
+    return out

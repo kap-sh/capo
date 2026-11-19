@@ -85,3 +85,58 @@ def deserialize_aws_json_1_1(data: dict) -> ExpectedRoute:
     if data.get("RouteTableId") is not None:
         out["route_table_id"] = data["RouteTableId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExpectedRoute) -> dict:
+    out: dict = {}
+    if "ip_v4_cidr" in value:
+        out["IpV4Cidr"] = value["ip_v4_cidr"]
+    if "prefix_list_id" in value:
+        out["PrefixListId"] = value["prefix_list_id"]
+    if "ip_v6_cidr" in value:
+        out["IpV6Cidr"] = value["ip_v6_cidr"]
+    if "contributing_subnets" in value:
+        import capo_fms.types.resource_id_list
+
+        out["ContributingSubnets"] = capo_fms.types.resource_id_list.serialize_cbor(
+            value["contributing_subnets"]
+        )
+    if "allowed_targets" in value:
+        import capo_fms.types.length_bounded_string_list
+
+        out["AllowedTargets"] = (
+            capo_fms.types.length_bounded_string_list.serialize_cbor(
+                value["allowed_targets"]
+            )
+        )
+    if "route_table_id" in value:
+        out["RouteTableId"] = value["route_table_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ExpectedRoute:
+    out: ExpectedRoute = {}  # type: ignore[typeddict-item]
+    if data.get("IpV4Cidr") is not None:
+        out["ip_v4_cidr"] = data["IpV4Cidr"]
+    if data.get("PrefixListId") is not None:
+        out["prefix_list_id"] = data["PrefixListId"]
+    if data.get("IpV6Cidr") is not None:
+        out["ip_v6_cidr"] = data["IpV6Cidr"]
+    if data.get("ContributingSubnets") is not None:
+        import capo_fms.types.resource_id_list
+
+        out["contributing_subnets"] = capo_fms.types.resource_id_list.deserialize_cbor(
+            data["ContributingSubnets"]
+        )
+    if data.get("AllowedTargets") is not None:
+        import capo_fms.types.length_bounded_string_list
+
+        out["allowed_targets"] = (
+            capo_fms.types.length_bounded_string_list.deserialize_cbor(
+                data["AllowedTargets"]
+            )
+        )
+    if data.get("RouteTableId") is not None:
+        out["route_table_id"] = data["RouteTableId"]
+    return out

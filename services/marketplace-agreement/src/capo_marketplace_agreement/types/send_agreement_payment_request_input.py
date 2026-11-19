@@ -71,6 +71,45 @@ def deserialize_aws_json_1_0(data: dict) -> SendAgreementPaymentRequestInput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SendAgreementPaymentRequestInput) -> dict:
+    out: dict = {}
+    if "client_token" in value:
+        out["clientToken"] = value["client_token"]
+    out["agreementId"] = value["agreement_id"]
+    out["termId"] = value["term_id"]
+    out["name"] = value["name"]
+    out["chargeAmount"] = value["charge_amount"]
+    if "description" in value:
+        out["description"] = value["description"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> SendAgreementPaymentRequestInput:
+    out: SendAgreementPaymentRequestInput = {}  # type: ignore[typeddict-item]
+    if data.get("clientToken") is not None:
+        out["client_token"] = data["clientToken"]
+    if data.get("agreementId") is not None:
+        out["agreement_id"] = data["agreementId"]
+    else:
+        out["agreement_id"] = ""
+    if data.get("termId") is not None:
+        out["term_id"] = data["termId"]
+    else:
+        out["term_id"] = ""
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    else:
+        out["name"] = ""
+    if data.get("chargeAmount") is not None:
+        out["charge_amount"] = data["chargeAmount"]
+    else:
+        out["charge_amount"] = ""
+    if data.get("description") is not None:
+        out["description"] = data["description"]
+    return out
+
+
 def redact_sensitive(value: SendAgreementPaymentRequestInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "description" in value:

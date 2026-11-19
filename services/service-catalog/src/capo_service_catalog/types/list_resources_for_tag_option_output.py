@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> ListResourcesForTagOptionOutput:
     if data.get("PageToken") is not None:
         out["page_token"] = data["PageToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListResourcesForTagOptionOutput) -> dict:
+    out: dict = {}
+    if "resource_details" in value:
+        import capo_service_catalog.types.resource_details
+
+        out["ResourceDetails"] = (
+            capo_service_catalog.types.resource_details.serialize_cbor(
+                value["resource_details"]
+            )
+        )
+    if "page_token" in value:
+        out["PageToken"] = value["page_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListResourcesForTagOptionOutput:
+    out: ListResourcesForTagOptionOutput = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceDetails") is not None:
+        import capo_service_catalog.types.resource_details
+
+        out["resource_details"] = (
+            capo_service_catalog.types.resource_details.deserialize_cbor(
+                data["ResourceDetails"]
+            )
+        )
+    if data.get("PageToken") is not None:
+        out["page_token"] = data["PageToken"]
+    return out

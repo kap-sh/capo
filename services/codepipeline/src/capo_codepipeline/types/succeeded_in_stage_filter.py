@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> SucceededInStageFilter:
     if data.get("stageName") is not None:
         out["stage_name"] = data["stageName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SucceededInStageFilter) -> dict:
+    out: dict = {}
+    if "stage_name" in value:
+        out["stageName"] = value["stage_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> SucceededInStageFilter:
+    out: SucceededInStageFilter = {}  # type: ignore[typeddict-item]
+    if data.get("stageName") is not None:
+        out["stage_name"] = data["stageName"]
+    return out

@@ -43,3 +43,26 @@ def deserialize_aws_json_1_1(data: dict) -> DnssecSigningAttributes:
     if data.get("PublicKey") is not None:
         out["public_key"] = data["PublicKey"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DnssecSigningAttributes) -> dict:
+    out: dict = {}
+    if "algorithm" in value:
+        out["Algorithm"] = value["algorithm"]
+    if "flags" in value:
+        out["Flags"] = value["flags"]
+    if "public_key" in value:
+        out["PublicKey"] = value["public_key"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DnssecSigningAttributes:
+    out: DnssecSigningAttributes = {}  # type: ignore[typeddict-item]
+    if data.get("Algorithm") is not None:
+        out["algorithm"] = data["Algorithm"]
+    if data.get("Flags") is not None:
+        out["flags"] = data["Flags"]
+    if data.get("PublicKey") is not None:
+        out["public_key"] = data["PublicKey"]
+    return out

@@ -55,3 +55,42 @@ def deserialize_aws_json_1_1(data: dict) -> LogsConfig:
             data["s3Logs"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LogsConfig) -> dict:
+    out: dict = {}
+    if "cloud_watch_logs" in value:
+        import capo_codebuild.types.cloud_watch_logs_config
+
+        out["cloudWatchLogs"] = (
+            capo_codebuild.types.cloud_watch_logs_config.serialize_cbor(
+                value["cloud_watch_logs"]
+            )
+        )
+    if "s3_logs" in value:
+        import capo_codebuild.types.s3_logs_config
+
+        out["s3Logs"] = capo_codebuild.types.s3_logs_config.serialize_cbor(
+            value["s3_logs"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> LogsConfig:
+    out: LogsConfig = {}  # type: ignore[typeddict-item]
+    if data.get("cloudWatchLogs") is not None:
+        import capo_codebuild.types.cloud_watch_logs_config
+
+        out["cloud_watch_logs"] = (
+            capo_codebuild.types.cloud_watch_logs_config.deserialize_cbor(
+                data["cloudWatchLogs"]
+            )
+        )
+    if data.get("s3Logs") is not None:
+        import capo_codebuild.types.s3_logs_config
+
+        out["s3_logs"] = capo_codebuild.types.s3_logs_config.deserialize_cbor(
+            data["s3Logs"]
+        )
+    return out

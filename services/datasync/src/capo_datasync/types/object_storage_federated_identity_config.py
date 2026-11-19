@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> ObjectStorageFederatedIdentityConfig
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ObjectStorageFederatedIdentityConfig) -> dict:
+    out: dict = {}
+    if "aws_iam_role" in value:
+        out["AwsIamRole"] = value["aws_iam_role"]
+    if "external_identity" in value:
+        import capo_datasync.types.object_storage_external_identity_config
+
+        out["ExternalIdentity"] = (
+            capo_datasync.types.object_storage_external_identity_config.serialize_cbor(
+                value["external_identity"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ObjectStorageFederatedIdentityConfig:
+    out: ObjectStorageFederatedIdentityConfig = {}  # type: ignore[typeddict-item]
+    if data.get("AwsIamRole") is not None:
+        out["aws_iam_role"] = data["AwsIamRole"]
+    if data.get("ExternalIdentity") is not None:
+        import capo_datasync.types.object_storage_external_identity_config
+
+        out["external_identity"] = (
+            capo_datasync.types.object_storage_external_identity_config.deserialize_cbor(
+                data["ExternalIdentity"]
+            )
+        )
+    return out

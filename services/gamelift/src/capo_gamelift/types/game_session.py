@@ -260,6 +260,171 @@ def deserialize_aws_json_1_1(data: dict) -> GameSession:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GameSession) -> dict:
+    out: dict = {}
+    if "game_session_id" in value:
+        out["GameSessionId"] = value["game_session_id"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "fleet_arn" in value:
+        out["FleetArn"] = value["fleet_arn"]
+    if "creation_time" in value:
+        import capo_gamelift.types.timestamp
+
+        out["CreationTime"] = capo_gamelift.types.timestamp.serialize_cbor(
+            value["creation_time"]
+        )
+    if "termination_time" in value:
+        import capo_gamelift.types.timestamp
+
+        out["TerminationTime"] = capo_gamelift.types.timestamp.serialize_cbor(
+            value["termination_time"]
+        )
+    if "current_player_session_count" in value:
+        out["CurrentPlayerSessionCount"] = value["current_player_session_count"]
+    if "maximum_player_session_count" in value:
+        out["MaximumPlayerSessionCount"] = value["maximum_player_session_count"]
+    if "status" in value:
+        import capo_gamelift.types.game_session_status
+
+        out["Status"] = capo_gamelift.types.game_session_status.serialize_cbor(
+            value["status"]
+        )
+    if "status_reason" in value:
+        import capo_gamelift.types.game_session_status_reason
+
+        out["StatusReason"] = (
+            capo_gamelift.types.game_session_status_reason.serialize_cbor(
+                value["status_reason"]
+            )
+        )
+    if "game_properties" in value:
+        import capo_gamelift.types.game_property_list
+
+        out["GameProperties"] = capo_gamelift.types.game_property_list.serialize_cbor(
+            value["game_properties"]
+        )
+    if "ip_address" in value:
+        out["IpAddress"] = value["ip_address"]
+    if "dns_name" in value:
+        out["DnsName"] = value["dns_name"]
+    if "port" in value:
+        out["Port"] = value["port"]
+    if "player_session_creation_policy" in value:
+        import capo_gamelift.types.player_session_creation_policy
+
+        out["PlayerSessionCreationPolicy"] = (
+            capo_gamelift.types.player_session_creation_policy.serialize_cbor(
+                value["player_session_creation_policy"]
+            )
+        )
+    if "creator_id" in value:
+        out["CreatorId"] = value["creator_id"]
+    if "game_session_data" in value:
+        out["GameSessionData"] = value["game_session_data"]
+    if "matchmaker_data" in value:
+        out["MatchmakerData"] = value["matchmaker_data"]
+    if "location" in value:
+        out["Location"] = value["location"]
+    if "compute_name" in value:
+        out["ComputeName"] = value["compute_name"]
+    if "player_gateway_status" in value:
+        import capo_gamelift.types.player_gateway_status
+
+        out["PlayerGatewayStatus"] = (
+            capo_gamelift.types.player_gateway_status.serialize_cbor(
+                value["player_gateway_status"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GameSession:
+    out: GameSession = {}  # type: ignore[typeddict-item]
+    if data.get("GameSessionId") is not None:
+        out["game_session_id"] = data["GameSessionId"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("FleetArn") is not None:
+        out["fleet_arn"] = data["FleetArn"]
+    if data.get("CreationTime") is not None:
+        import capo_gamelift.types.timestamp
+
+        out["creation_time"] = capo_gamelift.types.timestamp.deserialize_cbor(
+            data["CreationTime"]
+        )
+    if data.get("TerminationTime") is not None:
+        import capo_gamelift.types.timestamp
+
+        out["termination_time"] = capo_gamelift.types.timestamp.deserialize_cbor(
+            data["TerminationTime"]
+        )
+    if data.get("CurrentPlayerSessionCount") is not None:
+        out["current_player_session_count"] = data["CurrentPlayerSessionCount"]
+    if data.get("MaximumPlayerSessionCount") is not None:
+        out["maximum_player_session_count"] = data["MaximumPlayerSessionCount"]
+    if data.get("Status") is not None:
+        import capo_gamelift.types.game_session_status
+
+        out["status"] = capo_gamelift.types.game_session_status.deserialize_cbor(
+            data["Status"]
+        )
+    if data.get("StatusReason") is not None:
+        import capo_gamelift.types.game_session_status_reason
+
+        out["status_reason"] = (
+            capo_gamelift.types.game_session_status_reason.deserialize_cbor(
+                data["StatusReason"]
+            )
+        )
+    if data.get("GameProperties") is not None:
+        import capo_gamelift.types.game_property_list
+
+        out["game_properties"] = (
+            capo_gamelift.types.game_property_list.deserialize_cbor(
+                data["GameProperties"]
+            )
+        )
+    if data.get("IpAddress") is not None:
+        out["ip_address"] = data["IpAddress"]
+    if data.get("DnsName") is not None:
+        out["dns_name"] = data["DnsName"]
+    if data.get("Port") is not None:
+        out["port"] = data["Port"]
+    if data.get("PlayerSessionCreationPolicy") is not None:
+        import capo_gamelift.types.player_session_creation_policy
+
+        out["player_session_creation_policy"] = (
+            capo_gamelift.types.player_session_creation_policy.deserialize_cbor(
+                data["PlayerSessionCreationPolicy"]
+            )
+        )
+    if data.get("CreatorId") is not None:
+        out["creator_id"] = data["CreatorId"]
+    if data.get("GameSessionData") is not None:
+        out["game_session_data"] = data["GameSessionData"]
+    if data.get("MatchmakerData") is not None:
+        out["matchmaker_data"] = data["MatchmakerData"]
+    if data.get("Location") is not None:
+        out["location"] = data["Location"]
+    if data.get("ComputeName") is not None:
+        out["compute_name"] = data["ComputeName"]
+    if data.get("PlayerGatewayStatus") is not None:
+        import capo_gamelift.types.player_gateway_status
+
+        out["player_gateway_status"] = (
+            capo_gamelift.types.player_gateway_status.deserialize_cbor(
+                data["PlayerGatewayStatus"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: GameSession) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "game_properties" in value:

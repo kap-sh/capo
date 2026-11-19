@@ -70,3 +70,50 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateProvisionedProductPropertiesOu
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateProvisionedProductPropertiesOutput) -> dict:
+    out: dict = {}
+    if "provisioned_product_id" in value:
+        out["ProvisionedProductId"] = value["provisioned_product_id"]
+    if "provisioned_product_properties" in value:
+        import capo_service_catalog.types.provisioned_product_properties
+
+        out["ProvisionedProductProperties"] = (
+            capo_service_catalog.types.provisioned_product_properties.serialize_cbor(
+                value["provisioned_product_properties"]
+            )
+        )
+    if "record_id" in value:
+        out["RecordId"] = value["record_id"]
+    if "status" in value:
+        import capo_service_catalog.types.record_status
+
+        out["Status"] = capo_service_catalog.types.record_status.serialize_cbor(
+            value["status"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateProvisionedProductPropertiesOutput:
+    out: UpdateProvisionedProductPropertiesOutput = {}  # type: ignore[typeddict-item]
+    if data.get("ProvisionedProductId") is not None:
+        out["provisioned_product_id"] = data["ProvisionedProductId"]
+    if data.get("ProvisionedProductProperties") is not None:
+        import capo_service_catalog.types.provisioned_product_properties
+
+        out["provisioned_product_properties"] = (
+            capo_service_catalog.types.provisioned_product_properties.deserialize_cbor(
+                data["ProvisionedProductProperties"]
+            )
+        )
+    if data.get("RecordId") is not None:
+        out["record_id"] = data["RecordId"]
+    if data.get("Status") is not None:
+        import capo_service_catalog.types.record_status
+
+        out["status"] = capo_service_catalog.types.record_status.deserialize_cbor(
+            data["Status"]
+        )
+    return out

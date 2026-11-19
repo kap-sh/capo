@@ -117,3 +117,50 @@ def deserialize_query(el: Element) -> GetMetricDataOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetMetricDataOutput) -> dict:
+    out: dict = {}
+    if "metric_data_results" in value:
+        import capo_cloudwatch.types.metric_data_results
+
+        out["MetricDataResults"] = (
+            capo_cloudwatch.types.metric_data_results.serialize_cbor(
+                value["metric_data_results"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "messages" in value:
+        import capo_cloudwatch.types.metric_data_result_messages
+
+        out["Messages"] = (
+            capo_cloudwatch.types.metric_data_result_messages.serialize_cbor(
+                value["messages"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetMetricDataOutput:
+    out: GetMetricDataOutput = {}  # type: ignore[typeddict-item]
+    if data.get("MetricDataResults") is not None:
+        import capo_cloudwatch.types.metric_data_results
+
+        out["metric_data_results"] = (
+            capo_cloudwatch.types.metric_data_results.deserialize_cbor(
+                data["MetricDataResults"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("Messages") is not None:
+        import capo_cloudwatch.types.metric_data_result_messages
+
+        out["messages"] = (
+            capo_cloudwatch.types.metric_data_result_messages.deserialize_cbor(
+                data["Messages"]
+            )
+        )
+    return out

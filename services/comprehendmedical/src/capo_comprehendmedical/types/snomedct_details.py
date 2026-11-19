@@ -38,3 +38,26 @@ def deserialize_aws_json_1_1(data: dict) -> SNOMEDCTDetails:
     if data.get("VersionDate") is not None:
         out["version_date"] = data["VersionDate"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SNOMEDCTDetails) -> dict:
+    out: dict = {}
+    if "edition" in value:
+        out["Edition"] = value["edition"]
+    if "language" in value:
+        out["Language"] = value["language"]
+    if "version_date" in value:
+        out["VersionDate"] = value["version_date"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> SNOMEDCTDetails:
+    out: SNOMEDCTDetails = {}  # type: ignore[typeddict-item]
+    if data.get("Edition") is not None:
+        out["edition"] = data["Edition"]
+    if data.get("Language") is not None:
+        out["language"] = data["Language"]
+    if data.get("VersionDate") is not None:
+        out["version_date"] = data["VersionDate"]
+    return out

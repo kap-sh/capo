@@ -49,3 +49,34 @@ def deserialize_aws_json_1_0(data: dict) -> ListRecommendedActionsResponse:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListRecommendedActionsResponse) -> dict:
+    out: dict = {}
+    if "recommended_actions" in value:
+        import capo_compute_optimizer_automation.types.recommended_actions
+
+        out["recommendedActions"] = (
+            capo_compute_optimizer_automation.types.recommended_actions.serialize_cbor(
+                value["recommended_actions"]
+            )
+        )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListRecommendedActionsResponse:
+    out: ListRecommendedActionsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("recommendedActions") is not None:
+        import capo_compute_optimizer_automation.types.recommended_actions
+
+        out["recommended_actions"] = (
+            capo_compute_optimizer_automation.types.recommended_actions.deserialize_cbor(
+                data["recommendedActions"]
+            )
+        )
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

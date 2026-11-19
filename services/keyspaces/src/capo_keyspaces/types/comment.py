@@ -22,3 +22,19 @@ def deserialize_aws_json_1_0(data: dict) -> Comment:
     else:
         out["message"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Comment) -> dict:
+    out: dict = {}
+    out["message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Comment:
+    out: Comment = {}  # type: ignore[typeddict-item]
+    if data.get("message") is not None:
+        out["message"] = data["message"]
+    else:
+        out["message"] = ""
+    return out

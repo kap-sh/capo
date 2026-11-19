@@ -36,3 +36,23 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeCopyProductStatusInput:
     else:
         out["copy_product_token"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeCopyProductStatusInput) -> dict:
+    out: dict = {}
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    out["CopyProductToken"] = value["copy_product_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeCopyProductStatusInput:
+    out: DescribeCopyProductStatusInput = {}  # type: ignore[typeddict-item]
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    if data.get("CopyProductToken") is not None:
+        out["copy_product_token"] = data["CopyProductToken"]
+    else:
+        out["copy_product_token"] = ""
+    return out

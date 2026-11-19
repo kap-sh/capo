@@ -60,3 +60,44 @@ def deserialize_aws_json_1_1(data: dict) -> AnalyzeExpenseResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AnalyzeExpenseResponse) -> dict:
+    out: dict = {}
+    if "document_metadata" in value:
+        import capo_textract.types.document_metadata
+
+        out["DocumentMetadata"] = capo_textract.types.document_metadata.serialize_cbor(
+            value["document_metadata"]
+        )
+    if "expense_documents" in value:
+        import capo_textract.types.expense_document_list
+
+        out["ExpenseDocuments"] = (
+            capo_textract.types.expense_document_list.serialize_cbor(
+                value["expense_documents"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AnalyzeExpenseResponse:
+    out: AnalyzeExpenseResponse = {}  # type: ignore[typeddict-item]
+    if data.get("DocumentMetadata") is not None:
+        import capo_textract.types.document_metadata
+
+        out["document_metadata"] = (
+            capo_textract.types.document_metadata.deserialize_cbor(
+                data["DocumentMetadata"]
+            )
+        )
+    if data.get("ExpenseDocuments") is not None:
+        import capo_textract.types.expense_document_list
+
+        out["expense_documents"] = (
+            capo_textract.types.expense_document_list.deserialize_cbor(
+                data["ExpenseDocuments"]
+            )
+        )
+    return out

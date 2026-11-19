@@ -142,3 +142,107 @@ def deserialize_aws_json_1_1(data: dict) -> EntityRecognizerInputDataConfig:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EntityRecognizerInputDataConfig) -> dict:
+    out: dict = {}
+    if "data_format" in value:
+        import capo_comprehend.types.entity_recognizer_data_format
+
+        out["DataFormat"] = (
+            capo_comprehend.types.entity_recognizer_data_format.serialize_cbor(
+                value["data_format"]
+            )
+        )
+    import capo_comprehend.types.entity_types_list
+
+    out["EntityTypes"] = capo_comprehend.types.entity_types_list.serialize_cbor(
+        value["entity_types"]
+    )
+    if "documents" in value:
+        import capo_comprehend.types.entity_recognizer_documents
+
+        out["Documents"] = (
+            capo_comprehend.types.entity_recognizer_documents.serialize_cbor(
+                value["documents"]
+            )
+        )
+    if "annotations" in value:
+        import capo_comprehend.types.entity_recognizer_annotations
+
+        out["Annotations"] = (
+            capo_comprehend.types.entity_recognizer_annotations.serialize_cbor(
+                value["annotations"]
+            )
+        )
+    if "entity_list" in value:
+        import capo_comprehend.types.entity_recognizer_entity_list
+
+        out["EntityList"] = (
+            capo_comprehend.types.entity_recognizer_entity_list.serialize_cbor(
+                value["entity_list"]
+            )
+        )
+    if "augmented_manifests" in value:
+        import capo_comprehend.types.entity_recognizer_augmented_manifests_list
+
+        out["AugmentedManifests"] = (
+            capo_comprehend.types.entity_recognizer_augmented_manifests_list.serialize_cbor(
+                value["augmented_manifests"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> EntityRecognizerInputDataConfig:
+    out: EntityRecognizerInputDataConfig = {}  # type: ignore[typeddict-item]
+    if data.get("DataFormat") is not None:
+        import capo_comprehend.types.entity_recognizer_data_format
+
+        out["data_format"] = (
+            capo_comprehend.types.entity_recognizer_data_format.deserialize_cbor(
+                data["DataFormat"]
+            )
+        )
+    if data.get("EntityTypes") is not None:
+        import capo_comprehend.types.entity_types_list
+
+        out["entity_types"] = capo_comprehend.types.entity_types_list.deserialize_cbor(
+            data["EntityTypes"]
+        )
+    else:
+        out["entity_types"] = []
+    if data.get("Documents") is not None:
+        import capo_comprehend.types.entity_recognizer_documents
+
+        out["documents"] = (
+            capo_comprehend.types.entity_recognizer_documents.deserialize_cbor(
+                data["Documents"]
+            )
+        )
+    if data.get("Annotations") is not None:
+        import capo_comprehend.types.entity_recognizer_annotations
+
+        out["annotations"] = (
+            capo_comprehend.types.entity_recognizer_annotations.deserialize_cbor(
+                data["Annotations"]
+            )
+        )
+    if data.get("EntityList") is not None:
+        import capo_comprehend.types.entity_recognizer_entity_list
+
+        out["entity_list"] = (
+            capo_comprehend.types.entity_recognizer_entity_list.deserialize_cbor(
+                data["EntityList"]
+            )
+        )
+    if data.get("AugmentedManifests") is not None:
+        import capo_comprehend.types.entity_recognizer_augmented_manifests_list
+
+        out["augmented_manifests"] = (
+            capo_comprehend.types.entity_recognizer_augmented_manifests_list.deserialize_cbor(
+                data["AugmentedManifests"]
+            )
+        )
+    return out

@@ -36,3 +36,23 @@ def deserialize_aws_json_1_0(data: dict) -> GrantItem:
     else:
         out["max_quantity"] = 1
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GrantItem) -> dict:
+    out: dict = {}
+    if "dimension_key" in value:
+        out["dimensionKey"] = value["dimension_key"]
+    out["maxQuantity"] = value.get("max_quantity", 1)
+    return out
+
+
+def deserialize_cbor(data: dict) -> GrantItem:
+    out: GrantItem = {}  # type: ignore[typeddict-item]
+    if data.get("dimensionKey") is not None:
+        out["dimension_key"] = data["dimensionKey"]
+    if data.get("maxQuantity") is not None:
+        out["max_quantity"] = data["maxQuantity"]
+    else:
+        out["max_quantity"] = 1
+    return out

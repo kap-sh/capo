@@ -39,3 +39,26 @@ def deserialize_aws_json_1_1(data: dict) -> DomainJoinInfo:
             "OrganizationalUnitDistinguishedName"
         ]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DomainJoinInfo) -> dict:
+    out: dict = {}
+    if "directory_name" in value:
+        out["DirectoryName"] = value["directory_name"]
+    if "organizational_unit_distinguished_name" in value:
+        out["OrganizationalUnitDistinguishedName"] = value[
+            "organizational_unit_distinguished_name"
+        ]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DomainJoinInfo:
+    out: DomainJoinInfo = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryName") is not None:
+        out["directory_name"] = data["DirectoryName"]
+    if data.get("OrganizationalUnitDistinguishedName") is not None:
+        out["organizational_unit_distinguished_name"] = data[
+            "OrganizationalUnitDistinguishedName"
+        ]
+    return out

@@ -74,3 +74,42 @@ def deserialize_aws_json_1_1(data: dict) -> SearchGameSessionsInput:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SearchGameSessionsInput) -> dict:
+    out: dict = {}
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "alias_id" in value:
+        out["AliasId"] = value["alias_id"]
+    if "location" in value:
+        out["Location"] = value["location"]
+    if "filter_expression" in value:
+        out["FilterExpression"] = value["filter_expression"]
+    if "sort_expression" in value:
+        out["SortExpression"] = value["sort_expression"]
+    if "limit" in value:
+        out["Limit"] = value["limit"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> SearchGameSessionsInput:
+    out: SearchGameSessionsInput = {}  # type: ignore[typeddict-item]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("AliasId") is not None:
+        out["alias_id"] = data["AliasId"]
+    if data.get("Location") is not None:
+        out["location"] = data["Location"]
+    if data.get("FilterExpression") is not None:
+        out["filter_expression"] = data["FilterExpression"]
+    if data.get("SortExpression") is not None:
+        out["sort_expression"] = data["SortExpression"]
+    if data.get("Limit") is not None:
+        out["limit"] = data["Limit"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

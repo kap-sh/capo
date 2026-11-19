@@ -29,3 +29,24 @@ def deserialize_aws_json_1_1(data: list) -> EmergencyContactList:
             continue
         out.append(capo_shield.types.emergency_contact.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EmergencyContactList) -> list:
+    import capo_shield.types.emergency_contact
+
+    out: list = []
+    for item in value:
+        out.append(capo_shield.types.emergency_contact.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> EmergencyContactList:
+    import capo_shield.types.emergency_contact
+
+    out: EmergencyContactList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_shield.types.emergency_contact.deserialize_cbor(item))
+    return out

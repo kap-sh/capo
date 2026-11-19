@@ -479,6 +479,332 @@ def deserialize_aws_json_1_1(data: dict) -> DirectoryDescription:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DirectoryDescription) -> dict:
+    out: dict = {}
+    if "directory_id" in value:
+        out["DirectoryId"] = value["directory_id"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "short_name" in value:
+        out["ShortName"] = value["short_name"]
+    if "size" in value:
+        import capo_directory_service.types.directory_size
+
+        out["Size"] = capo_directory_service.types.directory_size.serialize_cbor(
+            value["size"]
+        )
+    if "edition" in value:
+        import capo_directory_service.types.directory_edition
+
+        out["Edition"] = capo_directory_service.types.directory_edition.serialize_cbor(
+            value["edition"]
+        )
+    if "alias" in value:
+        out["Alias"] = value["alias"]
+    if "access_url" in value:
+        out["AccessUrl"] = value["access_url"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "dns_ip_addrs" in value:
+        import capo_directory_service.types.dns_ip_addrs
+
+        out["DnsIpAddrs"] = capo_directory_service.types.dns_ip_addrs.serialize_cbor(
+            value["dns_ip_addrs"]
+        )
+    if "dns_ipv6_addrs" in value:
+        import capo_directory_service.types.dns_ipv6_addrs
+
+        out["DnsIpv6Addrs"] = (
+            capo_directory_service.types.dns_ipv6_addrs.serialize_cbor(
+                value["dns_ipv6_addrs"]
+            )
+        )
+    if "stage" in value:
+        import capo_directory_service.types.directory_stage
+
+        out["Stage"] = capo_directory_service.types.directory_stage.serialize_cbor(
+            value["stage"]
+        )
+    if "share_status" in value:
+        import capo_directory_service.types.share_status
+
+        out["ShareStatus"] = capo_directory_service.types.share_status.serialize_cbor(
+            value["share_status"]
+        )
+    if "share_method" in value:
+        import capo_directory_service.types.share_method
+
+        out["ShareMethod"] = capo_directory_service.types.share_method.serialize_cbor(
+            value["share_method"]
+        )
+    if "share_notes" in value:
+        out["ShareNotes"] = value["share_notes"]
+    if "launch_time" in value:
+        import capo_directory_service.types.launch_time
+
+        out["LaunchTime"] = capo_directory_service.types.launch_time.serialize_cbor(
+            value["launch_time"]
+        )
+    if "stage_last_updated_date_time" in value:
+        import capo_directory_service.types.last_updated_date_time
+
+        out["StageLastUpdatedDateTime"] = (
+            capo_directory_service.types.last_updated_date_time.serialize_cbor(
+                value["stage_last_updated_date_time"]
+            )
+        )
+    if "type" in value:
+        import capo_directory_service.types.directory_type
+
+        out["Type"] = capo_directory_service.types.directory_type.serialize_cbor(
+            value["type"]
+        )
+    if "vpc_settings" in value:
+        import capo_directory_service.types.directory_vpc_settings_description
+
+        out["VpcSettings"] = (
+            capo_directory_service.types.directory_vpc_settings_description.serialize_cbor(
+                value["vpc_settings"]
+            )
+        )
+    if "connect_settings" in value:
+        import capo_directory_service.types.directory_connect_settings_description
+
+        out["ConnectSettings"] = (
+            capo_directory_service.types.directory_connect_settings_description.serialize_cbor(
+                value["connect_settings"]
+            )
+        )
+    if "radius_settings" in value:
+        import capo_directory_service.types.radius_settings
+
+        out["RadiusSettings"] = (
+            capo_directory_service.types.radius_settings.serialize_cbor(
+                value["radius_settings"]
+            )
+        )
+    if "radius_status" in value:
+        import capo_directory_service.types.radius_status
+
+        out["RadiusStatus"] = capo_directory_service.types.radius_status.serialize_cbor(
+            value["radius_status"]
+        )
+    if "stage_reason" in value:
+        out["StageReason"] = value["stage_reason"]
+    out["SsoEnabled"] = value.get("sso_enabled", False)
+    if "desired_number_of_domain_controllers" in value:
+        out["DesiredNumberOfDomainControllers"] = value[
+            "desired_number_of_domain_controllers"
+        ]
+    if "owner_directory_description" in value:
+        import capo_directory_service.types.owner_directory_description
+
+        out["OwnerDirectoryDescription"] = (
+            capo_directory_service.types.owner_directory_description.serialize_cbor(
+                value["owner_directory_description"]
+            )
+        )
+    if "regions_info" in value:
+        import capo_directory_service.types.regions_info
+
+        out["RegionsInfo"] = capo_directory_service.types.regions_info.serialize_cbor(
+            value["regions_info"]
+        )
+    if "os_version" in value:
+        import capo_directory_service.types.os_version
+
+        out["OsVersion"] = capo_directory_service.types.os_version.serialize_cbor(
+            value["os_version"]
+        )
+    if "hybrid_settings" in value:
+        import capo_directory_service.types.hybrid_settings_description
+
+        out["HybridSettings"] = (
+            capo_directory_service.types.hybrid_settings_description.serialize_cbor(
+                value["hybrid_settings"]
+            )
+        )
+    if "network_type" in value:
+        import capo_directory_service.types.network_type
+
+        out["NetworkType"] = capo_directory_service.types.network_type.serialize_cbor(
+            value["network_type"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DirectoryDescription:
+    out: DirectoryDescription = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("ShortName") is not None:
+        out["short_name"] = data["ShortName"]
+    if data.get("Size") is not None:
+        import capo_directory_service.types.directory_size
+
+        out["size"] = capo_directory_service.types.directory_size.deserialize_cbor(
+            data["Size"]
+        )
+    if data.get("Edition") is not None:
+        import capo_directory_service.types.directory_edition
+
+        out["edition"] = (
+            capo_directory_service.types.directory_edition.deserialize_cbor(
+                data["Edition"]
+            )
+        )
+    if data.get("Alias") is not None:
+        out["alias"] = data["Alias"]
+    if data.get("AccessUrl") is not None:
+        out["access_url"] = data["AccessUrl"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("DnsIpAddrs") is not None:
+        import capo_directory_service.types.dns_ip_addrs
+
+        out["dns_ip_addrs"] = (
+            capo_directory_service.types.dns_ip_addrs.deserialize_cbor(
+                data["DnsIpAddrs"]
+            )
+        )
+    if data.get("DnsIpv6Addrs") is not None:
+        import capo_directory_service.types.dns_ipv6_addrs
+
+        out["dns_ipv6_addrs"] = (
+            capo_directory_service.types.dns_ipv6_addrs.deserialize_cbor(
+                data["DnsIpv6Addrs"]
+            )
+        )
+    if data.get("Stage") is not None:
+        import capo_directory_service.types.directory_stage
+
+        out["stage"] = capo_directory_service.types.directory_stage.deserialize_cbor(
+            data["Stage"]
+        )
+    if data.get("ShareStatus") is not None:
+        import capo_directory_service.types.share_status
+
+        out["share_status"] = (
+            capo_directory_service.types.share_status.deserialize_cbor(
+                data["ShareStatus"]
+            )
+        )
+    if data.get("ShareMethod") is not None:
+        import capo_directory_service.types.share_method
+
+        out["share_method"] = (
+            capo_directory_service.types.share_method.deserialize_cbor(
+                data["ShareMethod"]
+            )
+        )
+    if data.get("ShareNotes") is not None:
+        out["share_notes"] = data["ShareNotes"]
+    if data.get("LaunchTime") is not None:
+        import capo_directory_service.types.launch_time
+
+        out["launch_time"] = capo_directory_service.types.launch_time.deserialize_cbor(
+            data["LaunchTime"]
+        )
+    if data.get("StageLastUpdatedDateTime") is not None:
+        import capo_directory_service.types.last_updated_date_time
+
+        out["stage_last_updated_date_time"] = (
+            capo_directory_service.types.last_updated_date_time.deserialize_cbor(
+                data["StageLastUpdatedDateTime"]
+            )
+        )
+    if data.get("Type") is not None:
+        import capo_directory_service.types.directory_type
+
+        out["type"] = capo_directory_service.types.directory_type.deserialize_cbor(
+            data["Type"]
+        )
+    if data.get("VpcSettings") is not None:
+        import capo_directory_service.types.directory_vpc_settings_description
+
+        out["vpc_settings"] = (
+            capo_directory_service.types.directory_vpc_settings_description.deserialize_cbor(
+                data["VpcSettings"]
+            )
+        )
+    if data.get("ConnectSettings") is not None:
+        import capo_directory_service.types.directory_connect_settings_description
+
+        out["connect_settings"] = (
+            capo_directory_service.types.directory_connect_settings_description.deserialize_cbor(
+                data["ConnectSettings"]
+            )
+        )
+    if data.get("RadiusSettings") is not None:
+        import capo_directory_service.types.radius_settings
+
+        out["radius_settings"] = (
+            capo_directory_service.types.radius_settings.deserialize_cbor(
+                data["RadiusSettings"]
+            )
+        )
+    if data.get("RadiusStatus") is not None:
+        import capo_directory_service.types.radius_status
+
+        out["radius_status"] = (
+            capo_directory_service.types.radius_status.deserialize_cbor(
+                data["RadiusStatus"]
+            )
+        )
+    if data.get("StageReason") is not None:
+        out["stage_reason"] = data["StageReason"]
+    if data.get("SsoEnabled") is not None:
+        out["sso_enabled"] = data["SsoEnabled"]
+    else:
+        out["sso_enabled"] = False
+    if data.get("DesiredNumberOfDomainControllers") is not None:
+        out["desired_number_of_domain_controllers"] = data[
+            "DesiredNumberOfDomainControllers"
+        ]
+    if data.get("OwnerDirectoryDescription") is not None:
+        import capo_directory_service.types.owner_directory_description
+
+        out["owner_directory_description"] = (
+            capo_directory_service.types.owner_directory_description.deserialize_cbor(
+                data["OwnerDirectoryDescription"]
+            )
+        )
+    if data.get("RegionsInfo") is not None:
+        import capo_directory_service.types.regions_info
+
+        out["regions_info"] = (
+            capo_directory_service.types.regions_info.deserialize_cbor(
+                data["RegionsInfo"]
+            )
+        )
+    if data.get("OsVersion") is not None:
+        import capo_directory_service.types.os_version
+
+        out["os_version"] = capo_directory_service.types.os_version.deserialize_cbor(
+            data["OsVersion"]
+        )
+    if data.get("HybridSettings") is not None:
+        import capo_directory_service.types.hybrid_settings_description
+
+        out["hybrid_settings"] = (
+            capo_directory_service.types.hybrid_settings_description.deserialize_cbor(
+                data["HybridSettings"]
+            )
+        )
+    if data.get("NetworkType") is not None:
+        import capo_directory_service.types.network_type
+
+        out["network_type"] = (
+            capo_directory_service.types.network_type.deserialize_cbor(
+                data["NetworkType"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: DirectoryDescription) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "share_notes" in value:

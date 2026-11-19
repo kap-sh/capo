@@ -78,3 +78,60 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteRecommendationPreferencesReque
     else:
         out["recommendation_preference_names"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteRecommendationPreferencesRequest) -> dict:
+    out: dict = {}
+    import capo_compute_optimizer.types.resource_type
+
+    out["resourceType"] = capo_compute_optimizer.types.resource_type.serialize_cbor(
+        value["resource_type"]
+    )
+    if "scope" in value:
+        import capo_compute_optimizer.types.scope
+
+        out["scope"] = capo_compute_optimizer.types.scope.serialize_cbor(value["scope"])
+    import capo_compute_optimizer.types.recommendation_preference_names
+
+    out["recommendationPreferenceNames"] = (
+        capo_compute_optimizer.types.recommendation_preference_names.serialize_cbor(
+            value["recommendation_preference_names"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteRecommendationPreferencesRequest:
+    out: DeleteRecommendationPreferencesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("resourceType") is not None:
+        import capo_compute_optimizer.types.resource_type
+
+        out["resource_type"] = (
+            capo_compute_optimizer.types.resource_type.deserialize_cbor(
+                data["resourceType"]
+            )
+        )
+    else:
+        import typing
+
+        out["resource_type"] = typing.cast(
+            "capo_compute_optimizer.types.resource_type.ResourceType", ""
+        )
+    if data.get("scope") is not None:
+        import capo_compute_optimizer.types.scope
+
+        out["scope"] = capo_compute_optimizer.types.scope.deserialize_cbor(
+            data["scope"]
+        )
+    if data.get("recommendationPreferenceNames") is not None:
+        import capo_compute_optimizer.types.recommendation_preference_names
+
+        out["recommendation_preference_names"] = (
+            capo_compute_optimizer.types.recommendation_preference_names.deserialize_cbor(
+                data["recommendationPreferenceNames"]
+            )
+        )
+    else:
+        out["recommendation_preference_names"] = []
+    return out

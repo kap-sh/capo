@@ -60,3 +60,42 @@ def deserialize_aws_json_1_1(data: dict) -> AccountLink:
     if data.get("TargetAccountId") is not None:
         out["target_account_id"] = data["TargetAccountId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AccountLink) -> dict:
+    out: dict = {}
+    if "account_link_id" in value:
+        out["AccountLinkId"] = value["account_link_id"]
+    if "account_link_status" in value:
+        import capo_workspaces.types.account_link_status_enum
+
+        out["AccountLinkStatus"] = (
+            capo_workspaces.types.account_link_status_enum.serialize_cbor(
+                value["account_link_status"]
+            )
+        )
+    if "source_account_id" in value:
+        out["SourceAccountId"] = value["source_account_id"]
+    if "target_account_id" in value:
+        out["TargetAccountId"] = value["target_account_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AccountLink:
+    out: AccountLink = {}  # type: ignore[typeddict-item]
+    if data.get("AccountLinkId") is not None:
+        out["account_link_id"] = data["AccountLinkId"]
+    if data.get("AccountLinkStatus") is not None:
+        import capo_workspaces.types.account_link_status_enum
+
+        out["account_link_status"] = (
+            capo_workspaces.types.account_link_status_enum.deserialize_cbor(
+                data["AccountLinkStatus"]
+            )
+        )
+    if data.get("SourceAccountId") is not None:
+        out["source_account_id"] = data["SourceAccountId"]
+    if data.get("TargetAccountId") is not None:
+        out["target_account_id"] = data["TargetAccountId"]
+    return out

@@ -64,3 +64,42 @@ def deserialize_aws_json_1_1(data: dict) -> DefaultClientBrandingAttributes:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DefaultClientBrandingAttributes) -> dict:
+    out: dict = {}
+    if "logo_url" in value:
+        out["LogoUrl"] = value["logo_url"]
+    if "support_email" in value:
+        out["SupportEmail"] = value["support_email"]
+    if "support_link" in value:
+        out["SupportLink"] = value["support_link"]
+    if "forgot_password_link" in value:
+        out["ForgotPasswordLink"] = value["forgot_password_link"]
+    if "login_message" in value:
+        import capo_workspaces.types.login_message
+
+        out["LoginMessage"] = capo_workspaces.types.login_message.serialize_cbor(
+            value["login_message"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DefaultClientBrandingAttributes:
+    out: DefaultClientBrandingAttributes = {}  # type: ignore[typeddict-item]
+    if data.get("LogoUrl") is not None:
+        out["logo_url"] = data["LogoUrl"]
+    if data.get("SupportEmail") is not None:
+        out["support_email"] = data["SupportEmail"]
+    if data.get("SupportLink") is not None:
+        out["support_link"] = data["SupportLink"]
+    if data.get("ForgotPasswordLink") is not None:
+        out["forgot_password_link"] = data["ForgotPasswordLink"]
+    if data.get("LoginMessage") is not None:
+        import capo_workspaces.types.login_message
+
+        out["login_message"] = capo_workspaces.types.login_message.deserialize_cbor(
+            data["LoginMessage"]
+        )
+    return out

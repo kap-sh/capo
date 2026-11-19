@@ -65,3 +65,41 @@ def deserialize_aws_json_1_0(data: dict) -> CreateRepositoryLinkInput:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateRepositoryLinkInput) -> dict:
+    out: dict = {}
+    out["ConnectionArn"] = value["connection_arn"]
+    out["OwnerId"] = value["owner_id"]
+    out["RepositoryName"] = value["repository_name"]
+    if "encryption_key_arn" in value:
+        out["EncryptionKeyArn"] = value["encryption_key_arn"]
+    if "tags" in value:
+        import capo_codeconnections.types.tag_list
+
+        out["Tags"] = capo_codeconnections.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateRepositoryLinkInput:
+    out: CreateRepositoryLinkInput = {}  # type: ignore[typeddict-item]
+    if data.get("ConnectionArn") is not None:
+        out["connection_arn"] = data["ConnectionArn"]
+    else:
+        out["connection_arn"] = ""
+    if data.get("OwnerId") is not None:
+        out["owner_id"] = data["OwnerId"]
+    else:
+        out["owner_id"] = ""
+    if data.get("RepositoryName") is not None:
+        out["repository_name"] = data["RepositoryName"]
+    else:
+        out["repository_name"] = ""
+    if data.get("EncryptionKeyArn") is not None:
+        out["encryption_key_arn"] = data["EncryptionKeyArn"]
+    if data.get("Tags") is not None:
+        import capo_codeconnections.types.tag_list
+
+        out["tags"] = capo_codeconnections.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

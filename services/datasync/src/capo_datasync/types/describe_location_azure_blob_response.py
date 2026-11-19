@@ -202,3 +202,148 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeLocationAzureBlobResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeLocationAzureBlobResponse) -> dict:
+    out: dict = {}
+    if "location_arn" in value:
+        out["LocationArn"] = value["location_arn"]
+    if "location_uri" in value:
+        out["LocationUri"] = value["location_uri"]
+    if "authentication_type" in value:
+        import capo_datasync.types.azure_blob_authentication_type
+
+        out["AuthenticationType"] = (
+            capo_datasync.types.azure_blob_authentication_type.serialize_cbor(
+                value["authentication_type"]
+            )
+        )
+    if "federated_identity" in value:
+        import capo_datasync.types.azure_federated_identity_config
+
+        out["FederatedIdentity"] = (
+            capo_datasync.types.azure_federated_identity_config.serialize_cbor(
+                value["federated_identity"]
+            )
+        )
+    if "blob_type" in value:
+        import capo_datasync.types.azure_blob_type
+
+        out["BlobType"] = capo_datasync.types.azure_blob_type.serialize_cbor(
+            value["blob_type"]
+        )
+    if "access_tier" in value:
+        import capo_datasync.types.azure_access_tier
+
+        out["AccessTier"] = capo_datasync.types.azure_access_tier.serialize_cbor(
+            value["access_tier"]
+        )
+    if "agent_arns" in value:
+        import capo_datasync.types.agent_arn_list
+
+        out["AgentArns"] = capo_datasync.types.agent_arn_list.serialize_cbor(
+            value["agent_arns"]
+        )
+    if "creation_time" in value:
+        import capo_datasync.types.time
+
+        out["CreationTime"] = capo_datasync.types.time.serialize_cbor(
+            value["creation_time"]
+        )
+    if "managed_secret_config" in value:
+        import capo_datasync.types.managed_secret_config
+
+        out["ManagedSecretConfig"] = (
+            capo_datasync.types.managed_secret_config.serialize_cbor(
+                value["managed_secret_config"]
+            )
+        )
+    if "cmk_secret_config" in value:
+        import capo_datasync.types.cmk_secret_config
+
+        out["CmkSecretConfig"] = capo_datasync.types.cmk_secret_config.serialize_cbor(
+            value["cmk_secret_config"]
+        )
+    if "custom_secret_config" in value:
+        import capo_datasync.types.custom_secret_config
+
+        out["CustomSecretConfig"] = (
+            capo_datasync.types.custom_secret_config.serialize_cbor(
+                value["custom_secret_config"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeLocationAzureBlobResponse:
+    out: DescribeLocationAzureBlobResponse = {}  # type: ignore[typeddict-item]
+    if data.get("LocationArn") is not None:
+        out["location_arn"] = data["LocationArn"]
+    if data.get("LocationUri") is not None:
+        out["location_uri"] = data["LocationUri"]
+    if data.get("AuthenticationType") is not None:
+        import capo_datasync.types.azure_blob_authentication_type
+
+        out["authentication_type"] = (
+            capo_datasync.types.azure_blob_authentication_type.deserialize_cbor(
+                data["AuthenticationType"]
+            )
+        )
+    if data.get("FederatedIdentity") is not None:
+        import capo_datasync.types.azure_federated_identity_config
+
+        out["federated_identity"] = (
+            capo_datasync.types.azure_federated_identity_config.deserialize_cbor(
+                data["FederatedIdentity"]
+            )
+        )
+    if data.get("BlobType") is not None:
+        import capo_datasync.types.azure_blob_type
+
+        out["blob_type"] = capo_datasync.types.azure_blob_type.deserialize_cbor(
+            data["BlobType"]
+        )
+    if data.get("AccessTier") is not None:
+        import capo_datasync.types.azure_access_tier
+
+        out["access_tier"] = capo_datasync.types.azure_access_tier.deserialize_cbor(
+            data["AccessTier"]
+        )
+    if data.get("AgentArns") is not None:
+        import capo_datasync.types.agent_arn_list
+
+        out["agent_arns"] = capo_datasync.types.agent_arn_list.deserialize_cbor(
+            data["AgentArns"]
+        )
+    if data.get("CreationTime") is not None:
+        import capo_datasync.types.time
+
+        out["creation_time"] = capo_datasync.types.time.deserialize_cbor(
+            data["CreationTime"]
+        )
+    if data.get("ManagedSecretConfig") is not None:
+        import capo_datasync.types.managed_secret_config
+
+        out["managed_secret_config"] = (
+            capo_datasync.types.managed_secret_config.deserialize_cbor(
+                data["ManagedSecretConfig"]
+            )
+        )
+    if data.get("CmkSecretConfig") is not None:
+        import capo_datasync.types.cmk_secret_config
+
+        out["cmk_secret_config"] = (
+            capo_datasync.types.cmk_secret_config.deserialize_cbor(
+                data["CmkSecretConfig"]
+            )
+        )
+    if data.get("CustomSecretConfig") is not None:
+        import capo_datasync.types.custom_secret_config
+
+        out["custom_secret_config"] = (
+            capo_datasync.types.custom_secret_config.deserialize_cbor(
+                data["CustomSecretConfig"]
+            )
+        )
+    return out

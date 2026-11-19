@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> ListConstraintsForPortfolioOutput:
     if data.get("NextPageToken") is not None:
         out["next_page_token"] = data["NextPageToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListConstraintsForPortfolioOutput) -> dict:
+    out: dict = {}
+    if "constraint_details" in value:
+        import capo_service_catalog.types.constraint_details
+
+        out["ConstraintDetails"] = (
+            capo_service_catalog.types.constraint_details.serialize_cbor(
+                value["constraint_details"]
+            )
+        )
+    if "next_page_token" in value:
+        out["NextPageToken"] = value["next_page_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListConstraintsForPortfolioOutput:
+    out: ListConstraintsForPortfolioOutput = {}  # type: ignore[typeddict-item]
+    if data.get("ConstraintDetails") is not None:
+        import capo_service_catalog.types.constraint_details
+
+        out["constraint_details"] = (
+            capo_service_catalog.types.constraint_details.deserialize_cbor(
+                data["ConstraintDetails"]
+            )
+        )
+    if data.get("NextPageToken") is not None:
+        out["next_page_token"] = data["NextPageToken"]
+    return out

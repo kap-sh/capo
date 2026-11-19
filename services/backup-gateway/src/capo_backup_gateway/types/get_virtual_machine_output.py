@@ -40,3 +40,30 @@ def deserialize_aws_json_1_0(data: dict) -> GetVirtualMachineOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetVirtualMachineOutput) -> dict:
+    out: dict = {}
+    if "virtual_machine" in value:
+        import capo_backup_gateway.types.virtual_machine_details
+
+        out["VirtualMachine"] = (
+            capo_backup_gateway.types.virtual_machine_details.serialize_cbor(
+                value["virtual_machine"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetVirtualMachineOutput:
+    out: GetVirtualMachineOutput = {}  # type: ignore[typeddict-item]
+    if data.get("VirtualMachine") is not None:
+        import capo_backup_gateway.types.virtual_machine_details
+
+        out["virtual_machine"] = (
+            capo_backup_gateway.types.virtual_machine_details.deserialize_cbor(
+                data["VirtualMachine"]
+            )
+        )
+    return out

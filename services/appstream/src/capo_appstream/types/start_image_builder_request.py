@@ -35,3 +35,22 @@ def deserialize_aws_json_1_1(data: dict) -> StartImageBuilderRequest:
     if data.get("AppstreamAgentVersion") is not None:
         out["appstream_agent_version"] = data["AppstreamAgentVersion"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartImageBuilderRequest) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "appstream_agent_version" in value:
+        out["AppstreamAgentVersion"] = value["appstream_agent_version"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartImageBuilderRequest:
+    out: StartImageBuilderRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("AppstreamAgentVersion") is not None:
+        out["appstream_agent_version"] = data["AppstreamAgentVersion"]
+    return out

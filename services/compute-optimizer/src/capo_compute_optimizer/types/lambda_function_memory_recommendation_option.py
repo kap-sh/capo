@@ -98,3 +98,72 @@ def deserialize_aws_json_1_0(data: dict) -> LambdaFunctionMemoryRecommendationOp
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LambdaFunctionMemoryRecommendationOption) -> dict:
+    out: dict = {}
+    out["rank"] = value.get("rank", 0)
+    out["memorySize"] = value.get("memory_size", 0)
+    if "projected_utilization_metrics" in value:
+        import capo_compute_optimizer.types.lambda_function_memory_projected_metrics
+
+        out["projectedUtilizationMetrics"] = (
+            capo_compute_optimizer.types.lambda_function_memory_projected_metrics.serialize_cbor(
+                value["projected_utilization_metrics"]
+            )
+        )
+    if "savings_opportunity" in value:
+        import capo_compute_optimizer.types.savings_opportunity
+
+        out["savingsOpportunity"] = (
+            capo_compute_optimizer.types.savings_opportunity.serialize_cbor(
+                value["savings_opportunity"]
+            )
+        )
+    if "savings_opportunity_after_discounts" in value:
+        import capo_compute_optimizer.types.lambda_savings_opportunity_after_discounts
+
+        out["savingsOpportunityAfterDiscounts"] = (
+            capo_compute_optimizer.types.lambda_savings_opportunity_after_discounts.serialize_cbor(
+                value["savings_opportunity_after_discounts"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> LambdaFunctionMemoryRecommendationOption:
+    out: LambdaFunctionMemoryRecommendationOption = {}  # type: ignore[typeddict-item]
+    if data.get("rank") is not None:
+        out["rank"] = data["rank"]
+    else:
+        out["rank"] = 0
+    if data.get("memorySize") is not None:
+        out["memory_size"] = data["memorySize"]
+    else:
+        out["memory_size"] = 0
+    if data.get("projectedUtilizationMetrics") is not None:
+        import capo_compute_optimizer.types.lambda_function_memory_projected_metrics
+
+        out["projected_utilization_metrics"] = (
+            capo_compute_optimizer.types.lambda_function_memory_projected_metrics.deserialize_cbor(
+                data["projectedUtilizationMetrics"]
+            )
+        )
+    if data.get("savingsOpportunity") is not None:
+        import capo_compute_optimizer.types.savings_opportunity
+
+        out["savings_opportunity"] = (
+            capo_compute_optimizer.types.savings_opportunity.deserialize_cbor(
+                data["savingsOpportunity"]
+            )
+        )
+    if data.get("savingsOpportunityAfterDiscounts") is not None:
+        import capo_compute_optimizer.types.lambda_savings_opportunity_after_discounts
+
+        out["savings_opportunity_after_discounts"] = (
+            capo_compute_optimizer.types.lambda_savings_opportunity_after_discounts.deserialize_cbor(
+                data["savingsOpportunityAfterDiscounts"]
+            )
+        )
+    return out

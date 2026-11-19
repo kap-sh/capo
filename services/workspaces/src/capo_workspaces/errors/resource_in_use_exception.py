@@ -37,6 +37,25 @@ def deserialize_aws_json_1_1(data: dict) -> ResourceInUseException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResourceInUseException_) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["message"] = value["message"]
+    if "resource_id" in value:
+        out["ResourceId"] = value["resource_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ResourceInUseException_:
+    out: ResourceInUseException_ = {}  # type: ignore[typeddict-item]
+    if data.get("message") is not None:
+        out["message"] = data["message"]
+    if data.get("ResourceId") is not None:
+        out["resource_id"] = data["ResourceId"]
+    return out
+
+
 class ResourceInUseException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.workspaces#ResourceInUseException``."""
 
@@ -64,3 +83,9 @@ class ResourceInUseException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ResourceInUseException":
         return cls(deserialize_aws_json_1_1(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "ResourceInUseException":
+        return cls(deserialize_cbor(data), message, response=response)

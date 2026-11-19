@@ -63,3 +63,43 @@ def deserialize_aws_json_1_0(data: dict) -> FirewallPolicyError:
     if data.get("ResourceId") is not None:
         out["resource_id"] = data["ResourceId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FirewallPolicyError) -> dict:
+    out: dict = {}
+    import capo_network_firewall.types.firewall_policy_error_code
+
+    out["Code"] = capo_network_firewall.types.firewall_policy_error_code.serialize_cbor(
+        value["code"]
+    )
+    out["Message"] = value["message"]
+    if "resource_id" in value:
+        out["ResourceId"] = value["resource_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> FirewallPolicyError:
+    out: FirewallPolicyError = {}  # type: ignore[typeddict-item]
+    if data.get("Code") is not None:
+        import capo_network_firewall.types.firewall_policy_error_code
+
+        out["code"] = (
+            capo_network_firewall.types.firewall_policy_error_code.deserialize_cbor(
+                data["Code"]
+            )
+        )
+    else:
+        import typing
+
+        out["code"] = typing.cast(
+            "capo_network_firewall.types.firewall_policy_error_code.FirewallPolicyErrorCode",
+            "",
+        )
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    else:
+        out["message"] = ""
+    if data.get("ResourceId") is not None:
+        out["resource_id"] = data["ResourceId"]
+    return out

@@ -138,3 +138,94 @@ def deserialize_aws_json_1_1(data: dict) -> Route:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Route) -> dict:
+    out: dict = {}
+    if "cidr" in value:
+        out["cidr"] = value["cidr"]
+    if "route_direction" in value:
+        import capo_direct_connect.types.route_direction
+
+        out["routeDirection"] = (
+            capo_direct_connect.types.route_direction.serialize_cbor(
+                value["route_direction"]
+            )
+        )
+    if "address_family" in value:
+        import capo_direct_connect.types.address_family
+
+        out["addressFamily"] = capo_direct_connect.types.address_family.serialize_cbor(
+            value["address_family"]
+        )
+    if "as_path" in value:
+        import capo_direct_connect.types.as_path_segment_list
+
+        out["asPath"] = capo_direct_connect.types.as_path_segment_list.serialize_cbor(
+            value["as_path"]
+        )
+    if "communities" in value:
+        import capo_direct_connect.types.community_list
+
+        out["communities"] = capo_direct_connect.types.community_list.serialize_cbor(
+            value["communities"]
+        )
+    if "aws_logical_device_id" in value:
+        out["awsLogicalDeviceId"] = value["aws_logical_device_id"]
+    if "route_installed_at" in value:
+        import capo_direct_connect.types.route_installed_at
+
+        out["routeInstalledAt"] = (
+            capo_direct_connect.types.route_installed_at.serialize_cbor(
+                value["route_installed_at"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Route:
+    out: Route = {}  # type: ignore[typeddict-item]
+    if data.get("cidr") is not None:
+        out["cidr"] = data["cidr"]
+    if data.get("routeDirection") is not None:
+        import capo_direct_connect.types.route_direction
+
+        out["route_direction"] = (
+            capo_direct_connect.types.route_direction.deserialize_cbor(
+                data["routeDirection"]
+            )
+        )
+    if data.get("addressFamily") is not None:
+        import capo_direct_connect.types.address_family
+
+        out["address_family"] = (
+            capo_direct_connect.types.address_family.deserialize_cbor(
+                data["addressFamily"]
+            )
+        )
+    if data.get("asPath") is not None:
+        import capo_direct_connect.types.as_path_segment_list
+
+        out["as_path"] = (
+            capo_direct_connect.types.as_path_segment_list.deserialize_cbor(
+                data["asPath"]
+            )
+        )
+    if data.get("communities") is not None:
+        import capo_direct_connect.types.community_list
+
+        out["communities"] = capo_direct_connect.types.community_list.deserialize_cbor(
+            data["communities"]
+        )
+    if data.get("awsLogicalDeviceId") is not None:
+        out["aws_logical_device_id"] = data["awsLogicalDeviceId"]
+    if data.get("routeInstalledAt") is not None:
+        import capo_direct_connect.types.route_installed_at
+
+        out["route_installed_at"] = (
+            capo_direct_connect.types.route_installed_at.deserialize_cbor(
+                data["routeInstalledAt"]
+            )
+        )
+    return out

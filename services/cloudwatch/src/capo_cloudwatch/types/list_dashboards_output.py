@@ -81,3 +81,34 @@ def deserialize_query(el: Element) -> ListDashboardsOutput:
     if child_next_token is not None:
         out["next_token"] = str(child_next_token.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListDashboardsOutput) -> dict:
+    out: dict = {}
+    if "dashboard_entries" in value:
+        import capo_cloudwatch.types.dashboard_entries
+
+        out["DashboardEntries"] = (
+            capo_cloudwatch.types.dashboard_entries.serialize_cbor(
+                value["dashboard_entries"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListDashboardsOutput:
+    out: ListDashboardsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("DashboardEntries") is not None:
+        import capo_cloudwatch.types.dashboard_entries
+
+        out["dashboard_entries"] = (
+            capo_cloudwatch.types.dashboard_entries.deserialize_cbor(
+                data["DashboardEntries"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

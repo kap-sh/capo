@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeDirectoryDataAccessResult:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeDirectoryDataAccessResult) -> dict:
+    out: dict = {}
+    if "data_access_status" in value:
+        import capo_directory_service.types.data_access_status
+
+        out["DataAccessStatus"] = (
+            capo_directory_service.types.data_access_status.serialize_cbor(
+                value["data_access_status"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeDirectoryDataAccessResult:
+    out: DescribeDirectoryDataAccessResult = {}  # type: ignore[typeddict-item]
+    if data.get("DataAccessStatus") is not None:
+        import capo_directory_service.types.data_access_status
+
+        out["data_access_status"] = (
+            capo_directory_service.types.data_access_status.deserialize_cbor(
+                data["DataAccessStatus"]
+            )
+        )
+    return out

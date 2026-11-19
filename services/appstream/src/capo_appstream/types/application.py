@@ -163,3 +163,114 @@ def deserialize_aws_json_1_1(data: dict) -> Application:
             data["CreatedTime"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Application) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "display_name" in value:
+        out["DisplayName"] = value["display_name"]
+    if "icon_url" in value:
+        out["IconURL"] = value["icon_url"]
+    if "launch_path" in value:
+        out["LaunchPath"] = value["launch_path"]
+    if "launch_parameters" in value:
+        out["LaunchParameters"] = value["launch_parameters"]
+    if "enabled" in value:
+        out["Enabled"] = value["enabled"]
+    if "metadata" in value:
+        import capo_appstream.types.metadata
+
+        out["Metadata"] = capo_appstream.types.metadata.serialize_cbor(
+            value["metadata"]
+        )
+    if "working_directory" in value:
+        out["WorkingDirectory"] = value["working_directory"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "arn" in value:
+        out["Arn"] = value["arn"]
+    if "app_block_arn" in value:
+        out["AppBlockArn"] = value["app_block_arn"]
+    if "icon_s3_location" in value:
+        import capo_appstream.types.s3_location
+
+        out["IconS3Location"] = capo_appstream.types.s3_location.serialize_cbor(
+            value["icon_s3_location"]
+        )
+    if "platforms" in value:
+        import capo_appstream.types.platforms
+
+        out["Platforms"] = capo_appstream.types.platforms.serialize_cbor(
+            value["platforms"]
+        )
+    if "instance_families" in value:
+        import capo_appstream.types.string_list
+
+        out["InstanceFamilies"] = capo_appstream.types.string_list.serialize_cbor(
+            value["instance_families"]
+        )
+    if "created_time" in value:
+        import capo_appstream.types.timestamp
+
+        out["CreatedTime"] = capo_appstream.types.timestamp.serialize_cbor(
+            value["created_time"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Application:
+    out: Application = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("DisplayName") is not None:
+        out["display_name"] = data["DisplayName"]
+    if data.get("IconURL") is not None:
+        out["icon_url"] = data["IconURL"]
+    if data.get("LaunchPath") is not None:
+        out["launch_path"] = data["LaunchPath"]
+    if data.get("LaunchParameters") is not None:
+        out["launch_parameters"] = data["LaunchParameters"]
+    if data.get("Enabled") is not None:
+        out["enabled"] = data["Enabled"]
+    if data.get("Metadata") is not None:
+        import capo_appstream.types.metadata
+
+        out["metadata"] = capo_appstream.types.metadata.deserialize_cbor(
+            data["Metadata"]
+        )
+    if data.get("WorkingDirectory") is not None:
+        out["working_directory"] = data["WorkingDirectory"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("Arn") is not None:
+        out["arn"] = data["Arn"]
+    if data.get("AppBlockArn") is not None:
+        out["app_block_arn"] = data["AppBlockArn"]
+    if data.get("IconS3Location") is not None:
+        import capo_appstream.types.s3_location
+
+        out["icon_s3_location"] = capo_appstream.types.s3_location.deserialize_cbor(
+            data["IconS3Location"]
+        )
+    if data.get("Platforms") is not None:
+        import capo_appstream.types.platforms
+
+        out["platforms"] = capo_appstream.types.platforms.deserialize_cbor(
+            data["Platforms"]
+        )
+    if data.get("InstanceFamilies") is not None:
+        import capo_appstream.types.string_list
+
+        out["instance_families"] = capo_appstream.types.string_list.deserialize_cbor(
+            data["InstanceFamilies"]
+        )
+    if data.get("CreatedTime") is not None:
+        import capo_appstream.types.timestamp
+
+        out["created_time"] = capo_appstream.types.timestamp.deserialize_cbor(
+            data["CreatedTime"]
+        )
+    return out

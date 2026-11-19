@@ -73,3 +73,54 @@ def deserialize_aws_json_1_1(data: dict) -> PipelineMetadata:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PipelineMetadata) -> dict:
+    out: dict = {}
+    if "pipeline_arn" in value:
+        out["pipelineArn"] = value["pipeline_arn"]
+    if "created" in value:
+        import capo_codepipeline.types.timestamp
+
+        out["created"] = capo_codepipeline.types.timestamp.serialize_cbor(
+            value["created"]
+        )
+    if "updated" in value:
+        import capo_codepipeline.types.timestamp
+
+        out["updated"] = capo_codepipeline.types.timestamp.serialize_cbor(
+            value["updated"]
+        )
+    if "polling_disabled_at" in value:
+        import capo_codepipeline.types.timestamp
+
+        out["pollingDisabledAt"] = capo_codepipeline.types.timestamp.serialize_cbor(
+            value["polling_disabled_at"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PipelineMetadata:
+    out: PipelineMetadata = {}  # type: ignore[typeddict-item]
+    if data.get("pipelineArn") is not None:
+        out["pipeline_arn"] = data["pipelineArn"]
+    if data.get("created") is not None:
+        import capo_codepipeline.types.timestamp
+
+        out["created"] = capo_codepipeline.types.timestamp.deserialize_cbor(
+            data["created"]
+        )
+    if data.get("updated") is not None:
+        import capo_codepipeline.types.timestamp
+
+        out["updated"] = capo_codepipeline.types.timestamp.deserialize_cbor(
+            data["updated"]
+        )
+    if data.get("pollingDisabledAt") is not None:
+        import capo_codepipeline.types.timestamp
+
+        out["polling_disabled_at"] = capo_codepipeline.types.timestamp.deserialize_cbor(
+            data["pollingDisabledAt"]
+        )
+    return out

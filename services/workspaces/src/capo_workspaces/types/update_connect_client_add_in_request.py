@@ -49,3 +49,32 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateConnectClientAddInRequest:
     if data.get("URL") is not None:
         out["url"] = data["URL"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateConnectClientAddInRequest) -> dict:
+    out: dict = {}
+    out["AddInId"] = value["add_in_id"]
+    out["ResourceId"] = value["resource_id"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "url" in value:
+        out["URL"] = value["url"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateConnectClientAddInRequest:
+    out: UpdateConnectClientAddInRequest = {}  # type: ignore[typeddict-item]
+    if data.get("AddInId") is not None:
+        out["add_in_id"] = data["AddInId"]
+    else:
+        out["add_in_id"] = ""
+    if data.get("ResourceId") is not None:
+        out["resource_id"] = data["ResourceId"]
+    else:
+        out["resource_id"] = ""
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("URL") is not None:
+        out["url"] = data["URL"]
+    return out

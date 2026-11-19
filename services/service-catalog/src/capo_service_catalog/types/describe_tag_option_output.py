@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeTagOptionOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeTagOptionOutput) -> dict:
+    out: dict = {}
+    if "tag_option_detail" in value:
+        import capo_service_catalog.types.tag_option_detail
+
+        out["TagOptionDetail"] = (
+            capo_service_catalog.types.tag_option_detail.serialize_cbor(
+                value["tag_option_detail"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeTagOptionOutput:
+    out: DescribeTagOptionOutput = {}  # type: ignore[typeddict-item]
+    if data.get("TagOptionDetail") is not None:
+        import capo_service_catalog.types.tag_option_detail
+
+        out["tag_option_detail"] = (
+            capo_service_catalog.types.tag_option_detail.deserialize_cbor(
+                data["TagOptionDetail"]
+            )
+        )
+    return out

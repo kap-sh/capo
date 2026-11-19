@@ -103,3 +103,78 @@ def deserialize_aws_json_1_1(data: dict) -> InclusionProtectionGroupFilters:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InclusionProtectionGroupFilters) -> dict:
+    out: dict = {}
+    if "protection_group_ids" in value:
+        import capo_shield.types.protection_group_id_filters
+
+        out["ProtectionGroupIds"] = (
+            capo_shield.types.protection_group_id_filters.serialize_cbor(
+                value["protection_group_ids"]
+            )
+        )
+    if "patterns" in value:
+        import capo_shield.types.protection_group_pattern_filters
+
+        out["Patterns"] = (
+            capo_shield.types.protection_group_pattern_filters.serialize_cbor(
+                value["patterns"]
+            )
+        )
+    if "resource_types" in value:
+        import capo_shield.types.protected_resource_type_filters
+
+        out["ResourceTypes"] = (
+            capo_shield.types.protected_resource_type_filters.serialize_cbor(
+                value["resource_types"]
+            )
+        )
+    if "aggregations" in value:
+        import capo_shield.types.protection_group_aggregation_filters
+
+        out["Aggregations"] = (
+            capo_shield.types.protection_group_aggregation_filters.serialize_cbor(
+                value["aggregations"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> InclusionProtectionGroupFilters:
+    out: InclusionProtectionGroupFilters = {}  # type: ignore[typeddict-item]
+    if data.get("ProtectionGroupIds") is not None:
+        import capo_shield.types.protection_group_id_filters
+
+        out["protection_group_ids"] = (
+            capo_shield.types.protection_group_id_filters.deserialize_cbor(
+                data["ProtectionGroupIds"]
+            )
+        )
+    if data.get("Patterns") is not None:
+        import capo_shield.types.protection_group_pattern_filters
+
+        out["patterns"] = (
+            capo_shield.types.protection_group_pattern_filters.deserialize_cbor(
+                data["Patterns"]
+            )
+        )
+    if data.get("ResourceTypes") is not None:
+        import capo_shield.types.protected_resource_type_filters
+
+        out["resource_types"] = (
+            capo_shield.types.protected_resource_type_filters.deserialize_cbor(
+                data["ResourceTypes"]
+            )
+        )
+    if data.get("Aggregations") is not None:
+        import capo_shield.types.protection_group_aggregation_filters
+
+        out["aggregations"] = (
+            capo_shield.types.protection_group_aggregation_filters.deserialize_cbor(
+                data["Aggregations"]
+            )
+        )
+    return out

@@ -47,3 +47,32 @@ def deserialize_aws_json_1_1(data: dict) -> AwsEc2NetworkInterfaceViolation:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AwsEc2NetworkInterfaceViolation) -> dict:
+    out: dict = {}
+    if "violation_target" in value:
+        out["ViolationTarget"] = value["violation_target"]
+    if "violating_security_groups" in value:
+        import capo_fms.types.resource_id_list
+
+        out["ViolatingSecurityGroups"] = capo_fms.types.resource_id_list.serialize_cbor(
+            value["violating_security_groups"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AwsEc2NetworkInterfaceViolation:
+    out: AwsEc2NetworkInterfaceViolation = {}  # type: ignore[typeddict-item]
+    if data.get("ViolationTarget") is not None:
+        out["violation_target"] = data["ViolationTarget"]
+    if data.get("ViolatingSecurityGroups") is not None:
+        import capo_fms.types.resource_id_list
+
+        out["violating_security_groups"] = (
+            capo_fms.types.resource_id_list.deserialize_cbor(
+                data["ViolatingSecurityGroups"]
+            )
+        )
+    return out

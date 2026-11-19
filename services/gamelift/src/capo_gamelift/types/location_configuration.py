@@ -28,3 +28,18 @@ def deserialize_aws_json_1_1(data: dict) -> LocationConfiguration:
     if data.get("Location") is not None:
         out["location"] = data["Location"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LocationConfiguration) -> dict:
+    out: dict = {}
+    if "location" in value:
+        out["Location"] = value["location"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> LocationConfiguration:
+    out: LocationConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("Location") is not None:
+        out["location"] = data["Location"]
+    return out

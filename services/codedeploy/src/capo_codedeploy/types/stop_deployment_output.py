@@ -41,3 +41,30 @@ def deserialize_aws_json_1_1(data: dict) -> StopDeploymentOutput:
     if data.get("statusMessage") is not None:
         out["status_message"] = data["statusMessage"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StopDeploymentOutput) -> dict:
+    out: dict = {}
+    if "status" in value:
+        import capo_codedeploy.types.stop_status
+
+        out["status"] = capo_codedeploy.types.stop_status.serialize_cbor(
+            value["status"]
+        )
+    if "status_message" in value:
+        out["statusMessage"] = value["status_message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StopDeploymentOutput:
+    out: StopDeploymentOutput = {}  # type: ignore[typeddict-item]
+    if data.get("status") is not None:
+        import capo_codedeploy.types.stop_status
+
+        out["status"] = capo_codedeploy.types.stop_status.deserialize_cbor(
+            data["status"]
+        )
+    if data.get("statusMessage") is not None:
+        out["status_message"] = data["statusMessage"]
+    return out

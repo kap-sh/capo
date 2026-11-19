@@ -132,3 +132,46 @@ def deserialize_aws_json_1_1(data: dict) -> ClassifierEvaluationMetrics:
     if data.get("HammingLoss") is not None:
         out["hamming_loss"] = float(data["HammingLoss"])
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ClassifierEvaluationMetrics) -> dict:
+    out: dict = {}
+    if "accuracy" in value:
+        out["Accuracy"] = value["accuracy"]
+    if "precision" in value:
+        out["Precision"] = value["precision"]
+    if "recall" in value:
+        out["Recall"] = value["recall"]
+    if "f1_score" in value:
+        out["F1Score"] = value["f1_score"]
+    if "micro_precision" in value:
+        out["MicroPrecision"] = value["micro_precision"]
+    if "micro_recall" in value:
+        out["MicroRecall"] = value["micro_recall"]
+    if "micro_f1_score" in value:
+        out["MicroF1Score"] = value["micro_f1_score"]
+    if "hamming_loss" in value:
+        out["HammingLoss"] = value["hamming_loss"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ClassifierEvaluationMetrics:
+    out: ClassifierEvaluationMetrics = {}  # type: ignore[typeddict-item]
+    if data.get("Accuracy") is not None:
+        out["accuracy"] = float(data["Accuracy"])
+    if data.get("Precision") is not None:
+        out["precision"] = float(data["Precision"])
+    if data.get("Recall") is not None:
+        out["recall"] = float(data["Recall"])
+    if data.get("F1Score") is not None:
+        out["f1_score"] = float(data["F1Score"])
+    if data.get("MicroPrecision") is not None:
+        out["micro_precision"] = float(data["MicroPrecision"])
+    if data.get("MicroRecall") is not None:
+        out["micro_recall"] = float(data["MicroRecall"])
+    if data.get("MicroF1Score") is not None:
+        out["micro_f1_score"] = float(data["MicroF1Score"])
+    if data.get("HammingLoss") is not None:
+        out["hamming_loss"] = float(data["HammingLoss"])
+    return out

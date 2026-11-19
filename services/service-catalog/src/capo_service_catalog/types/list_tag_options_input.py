@@ -54,3 +54,38 @@ def deserialize_aws_json_1_1(data: dict) -> ListTagOptionsInput:
     if data.get("PageToken") is not None:
         out["page_token"] = data["PageToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListTagOptionsInput) -> dict:
+    out: dict = {}
+    if "filters" in value:
+        import capo_service_catalog.types.list_tag_options_filters
+
+        out["Filters"] = (
+            capo_service_catalog.types.list_tag_options_filters.serialize_cbor(
+                value["filters"]
+            )
+        )
+    if "page_size" in value:
+        out["PageSize"] = value["page_size"]
+    if "page_token" in value:
+        out["PageToken"] = value["page_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListTagOptionsInput:
+    out: ListTagOptionsInput = {}  # type: ignore[typeddict-item]
+    if data.get("Filters") is not None:
+        import capo_service_catalog.types.list_tag_options_filters
+
+        out["filters"] = (
+            capo_service_catalog.types.list_tag_options_filters.deserialize_cbor(
+                data["Filters"]
+            )
+        )
+    if data.get("PageSize") is not None:
+        out["page_size"] = data["PageSize"]
+    if data.get("PageToken") is not None:
+        out["page_token"] = data["PageToken"]
+    return out

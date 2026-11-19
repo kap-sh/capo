@@ -103,3 +103,70 @@ def deserialize_aws_json_1_1(data: dict) -> GeneralName:
     if data.get("RegisteredId") is not None:
         out["registered_id"] = data["RegisteredId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GeneralName) -> dict:
+    out: dict = {}
+    if "other_name" in value:
+        import capo_acm_pca.types.other_name
+
+        out["OtherName"] = capo_acm_pca.types.other_name.serialize_cbor(
+            value["other_name"]
+        )
+    if "rfc822_name" in value:
+        out["Rfc822Name"] = value["rfc822_name"]
+    if "dns_name" in value:
+        out["DnsName"] = value["dns_name"]
+    if "directory_name" in value:
+        import capo_acm_pca.types.asn1_subject
+
+        out["DirectoryName"] = capo_acm_pca.types.asn1_subject.serialize_cbor(
+            value["directory_name"]
+        )
+    if "edi_party_name" in value:
+        import capo_acm_pca.types.edi_party_name
+
+        out["EdiPartyName"] = capo_acm_pca.types.edi_party_name.serialize_cbor(
+            value["edi_party_name"]
+        )
+    if "uniform_resource_identifier" in value:
+        out["UniformResourceIdentifier"] = value["uniform_resource_identifier"]
+    if "ip_address" in value:
+        out["IpAddress"] = value["ip_address"]
+    if "registered_id" in value:
+        out["RegisteredId"] = value["registered_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GeneralName:
+    out: GeneralName = {}  # type: ignore[typeddict-item]
+    if data.get("OtherName") is not None:
+        import capo_acm_pca.types.other_name
+
+        out["other_name"] = capo_acm_pca.types.other_name.deserialize_cbor(
+            data["OtherName"]
+        )
+    if data.get("Rfc822Name") is not None:
+        out["rfc822_name"] = data["Rfc822Name"]
+    if data.get("DnsName") is not None:
+        out["dns_name"] = data["DnsName"]
+    if data.get("DirectoryName") is not None:
+        import capo_acm_pca.types.asn1_subject
+
+        out["directory_name"] = capo_acm_pca.types.asn1_subject.deserialize_cbor(
+            data["DirectoryName"]
+        )
+    if data.get("EdiPartyName") is not None:
+        import capo_acm_pca.types.edi_party_name
+
+        out["edi_party_name"] = capo_acm_pca.types.edi_party_name.deserialize_cbor(
+            data["EdiPartyName"]
+        )
+    if data.get("UniformResourceIdentifier") is not None:
+        out["uniform_resource_identifier"] = data["UniformResourceIdentifier"]
+    if data.get("IpAddress") is not None:
+        out["ip_address"] = data["IpAddress"]
+    if data.get("RegisteredId") is not None:
+        out["registered_id"] = data["RegisteredId"]
+    return out

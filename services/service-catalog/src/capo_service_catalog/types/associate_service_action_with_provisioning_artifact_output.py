@@ -20,3 +20,16 @@ def deserialize_aws_json_1_1(
 ) -> AssociateServiceActionWithProvisioningArtifactOutput:
     out: AssociateServiceActionWithProvisioningArtifactOutput = {}  # type: ignore[typeddict-item]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AssociateServiceActionWithProvisioningArtifactOutput) -> dict:
+    out: dict = {}
+    return out
+
+
+def deserialize_cbor(
+    data: dict,
+) -> AssociateServiceActionWithProvisioningArtifactOutput:
+    out: AssociateServiceActionWithProvisioningArtifactOutput = {}  # type: ignore[typeddict-item]
+    return out

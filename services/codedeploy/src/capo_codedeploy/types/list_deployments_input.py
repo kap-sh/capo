@@ -91,3 +91,58 @@ def deserialize_aws_json_1_1(data: dict) -> ListDeploymentsInput:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListDeploymentsInput) -> dict:
+    out: dict = {}
+    if "application_name" in value:
+        out["applicationName"] = value["application_name"]
+    if "deployment_group_name" in value:
+        out["deploymentGroupName"] = value["deployment_group_name"]
+    if "external_id" in value:
+        out["externalId"] = value["external_id"]
+    if "include_only_statuses" in value:
+        import capo_codedeploy.types.deployment_status_list
+
+        out["includeOnlyStatuses"] = (
+            capo_codedeploy.types.deployment_status_list.serialize_cbor(
+                value["include_only_statuses"]
+            )
+        )
+    if "create_time_range" in value:
+        import capo_codedeploy.types.time_range
+
+        out["createTimeRange"] = capo_codedeploy.types.time_range.serialize_cbor(
+            value["create_time_range"]
+        )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListDeploymentsInput:
+    out: ListDeploymentsInput = {}  # type: ignore[typeddict-item]
+    if data.get("applicationName") is not None:
+        out["application_name"] = data["applicationName"]
+    if data.get("deploymentGroupName") is not None:
+        out["deployment_group_name"] = data["deploymentGroupName"]
+    if data.get("externalId") is not None:
+        out["external_id"] = data["externalId"]
+    if data.get("includeOnlyStatuses") is not None:
+        import capo_codedeploy.types.deployment_status_list
+
+        out["include_only_statuses"] = (
+            capo_codedeploy.types.deployment_status_list.deserialize_cbor(
+                data["includeOnlyStatuses"]
+            )
+        )
+    if data.get("createTimeRange") is not None:
+        import capo_codedeploy.types.time_range
+
+        out["create_time_range"] = capo_codedeploy.types.time_range.deserialize_cbor(
+            data["createTimeRange"]
+        )
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

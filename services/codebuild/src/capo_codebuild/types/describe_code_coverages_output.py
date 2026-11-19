@@ -45,3 +45,30 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeCodeCoveragesOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeCodeCoveragesOutput) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    if "code_coverages" in value:
+        import capo_codebuild.types.code_coverages
+
+        out["codeCoverages"] = capo_codebuild.types.code_coverages.serialize_cbor(
+            value["code_coverages"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeCodeCoveragesOutput:
+    out: DescribeCodeCoveragesOutput = {}  # type: ignore[typeddict-item]
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    if data.get("codeCoverages") is not None:
+        import capo_codebuild.types.code_coverages
+
+        out["code_coverages"] = capo_codebuild.types.code_coverages.deserialize_cbor(
+            data["codeCoverages"]
+        )
+    return out

@@ -55,3 +55,37 @@ def deserialize_aws_json_1_1(data: dict) -> ActionRevision:
 
         out["created"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ActionRevision) -> dict:
+    out: dict = {}
+    out["revisionId"] = value["revision_id"]
+    out["revisionChangeId"] = value["revision_change_id"]
+    import capo_codepipeline.types.timestamp
+
+    out["created"] = capo_codepipeline.types.timestamp.serialize_cbor(value["created"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> ActionRevision:
+    out: ActionRevision = {}  # type: ignore[typeddict-item]
+    if data.get("revisionId") is not None:
+        out["revision_id"] = data["revisionId"]
+    else:
+        out["revision_id"] = ""
+    if data.get("revisionChangeId") is not None:
+        out["revision_change_id"] = data["revisionChangeId"]
+    else:
+        out["revision_change_id"] = ""
+    if data.get("created") is not None:
+        import capo_codepipeline.types.timestamp
+
+        out["created"] = capo_codepipeline.types.timestamp.deserialize_cbor(
+            data["created"]
+        )
+    else:
+        import datetime
+
+        out["created"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
+    return out

@@ -77,3 +77,47 @@ def deserialize_aws_json_1_0(data: dict) -> CreateArchiveRequest:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateArchiveRequest) -> dict:
+    out: dict = {}
+    if "client_token" in value:
+        out["ClientToken"] = value["client_token"]
+    out["ArchiveName"] = value["archive_name"]
+    if "retention" in value:
+        import capo_mailmanager.types.archive_retention
+
+        out["Retention"] = capo_mailmanager.types.archive_retention.serialize_cbor(
+            value["retention"]
+        )
+    if "kms_key_arn" in value:
+        out["KmsKeyArn"] = value["kms_key_arn"]
+    if "tags" in value:
+        import capo_mailmanager.types.tag_list
+
+        out["Tags"] = capo_mailmanager.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateArchiveRequest:
+    out: CreateArchiveRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ClientToken") is not None:
+        out["client_token"] = data["ClientToken"]
+    if data.get("ArchiveName") is not None:
+        out["archive_name"] = data["ArchiveName"]
+    else:
+        out["archive_name"] = ""
+    if data.get("Retention") is not None:
+        import capo_mailmanager.types.archive_retention
+
+        out["retention"] = capo_mailmanager.types.archive_retention.deserialize_cbor(
+            data["Retention"]
+        )
+    if data.get("KmsKeyArn") is not None:
+        out["kms_key_arn"] = data["KmsKeyArn"]
+    if data.get("Tags") is not None:
+        import capo_mailmanager.types.tag_list
+
+        out["tags"] = capo_mailmanager.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

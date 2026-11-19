@@ -109,3 +109,66 @@ def deserialize_aws_json_1_1(data: dict) -> ECSTaskSet:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ECSTaskSet) -> dict:
+    out: dict = {}
+    if "identifer" in value:
+        out["identifer"] = value["identifer"]
+    out["desiredCount"] = value.get("desired_count", 0)
+    out["pendingCount"] = value.get("pending_count", 0)
+    out["runningCount"] = value.get("running_count", 0)
+    if "status" in value:
+        out["status"] = value["status"]
+    out["trafficWeight"] = value.get("traffic_weight", 0)
+    if "target_group" in value:
+        import capo_codedeploy.types.target_group_info
+
+        out["targetGroup"] = capo_codedeploy.types.target_group_info.serialize_cbor(
+            value["target_group"]
+        )
+    if "task_set_label" in value:
+        import capo_codedeploy.types.target_label
+
+        out["taskSetLabel"] = capo_codedeploy.types.target_label.serialize_cbor(
+            value["task_set_label"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ECSTaskSet:
+    out: ECSTaskSet = {}  # type: ignore[typeddict-item]
+    if data.get("identifer") is not None:
+        out["identifer"] = data["identifer"]
+    if data.get("desiredCount") is not None:
+        out["desired_count"] = data["desiredCount"]
+    else:
+        out["desired_count"] = 0
+    if data.get("pendingCount") is not None:
+        out["pending_count"] = data["pendingCount"]
+    else:
+        out["pending_count"] = 0
+    if data.get("runningCount") is not None:
+        out["running_count"] = data["runningCount"]
+    else:
+        out["running_count"] = 0
+    if data.get("status") is not None:
+        out["status"] = data["status"]
+    if data.get("trafficWeight") is not None:
+        out["traffic_weight"] = float(data["trafficWeight"])
+    else:
+        out["traffic_weight"] = 0
+    if data.get("targetGroup") is not None:
+        import capo_codedeploy.types.target_group_info
+
+        out["target_group"] = capo_codedeploy.types.target_group_info.deserialize_cbor(
+            data["targetGroup"]
+        )
+    if data.get("taskSetLabel") is not None:
+        import capo_codedeploy.types.target_label
+
+        out["task_set_label"] = capo_codedeploy.types.target_label.deserialize_cbor(
+            data["taskSetLabel"]
+        )
+    return out

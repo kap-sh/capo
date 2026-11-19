@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: DedicatedTenancyAccountType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> DedicatedTenancyAccountType:
     return cast(DedicatedTenancyAccountType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DedicatedTenancyAccountType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> DedicatedTenancyAccountType:
+    return cast(DedicatedTenancyAccountType, data)

@@ -41,6 +41,32 @@ def deserialize_aws_json_1_0(data: dict) -> VolumeModificationRateExceededExcept
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: VolumeModificationRateExceededException_) -> dict:
+    out: dict = {}
+    out["Message"] = value["message"]
+    out["ResourceId"] = value["resource_id"]
+    out["ResourceType"] = value["resource_type"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> VolumeModificationRateExceededException_:
+    out: VolumeModificationRateExceededException_ = {}  # type: ignore[typeddict-item]
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    else:
+        out["message"] = ""
+    if data.get("ResourceId") is not None:
+        out["resource_id"] = data["ResourceId"]
+    else:
+        out["resource_id"] = ""
+    if data.get("ResourceType") is not None:
+        out["resource_type"] = data["ResourceType"]
+    else:
+        out["resource_type"] = ""
+    return out
+
+
 class VolumeModificationRateExceededException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.workspacesinstances#VolumeModificationRateExceededException``."""
 
@@ -68,3 +94,9 @@ class VolumeModificationRateExceededException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "VolumeModificationRateExceededException":
         return cls(deserialize_aws_json_1_0(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "VolumeModificationRateExceededException":
+        return cls(deserialize_cbor(data), message, response=response)

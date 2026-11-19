@@ -41,3 +41,30 @@ def deserialize_aws_json_1_1(data: dict) -> ListBudgetsForResourceOutput:
     if data.get("NextPageToken") is not None:
         out["next_page_token"] = data["NextPageToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListBudgetsForResourceOutput) -> dict:
+    out: dict = {}
+    if "budgets" in value:
+        import capo_service_catalog.types.budgets
+
+        out["Budgets"] = capo_service_catalog.types.budgets.serialize_cbor(
+            value["budgets"]
+        )
+    if "next_page_token" in value:
+        out["NextPageToken"] = value["next_page_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListBudgetsForResourceOutput:
+    out: ListBudgetsForResourceOutput = {}  # type: ignore[typeddict-item]
+    if data.get("Budgets") is not None:
+        import capo_service_catalog.types.budgets
+
+        out["budgets"] = capo_service_catalog.types.budgets.deserialize_cbor(
+            data["Budgets"]
+        )
+    if data.get("NextPageToken") is not None:
+        out["next_page_token"] = data["NextPageToken"]
+    return out

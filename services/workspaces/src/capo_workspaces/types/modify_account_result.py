@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> ModifyAccountResult:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ModifyAccountResult) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["Message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ModifyAccountResult:
+    out: ModifyAccountResult = {}  # type: ignore[typeddict-item]
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    return out

@@ -82,3 +82,62 @@ def deserialize_aws_json_1_1(data: dict) -> BlueGreenDeploymentConfiguration:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BlueGreenDeploymentConfiguration) -> dict:
+    out: dict = {}
+    if "terminate_blue_instances_on_deployment_success" in value:
+        import capo_codedeploy.types.blue_instance_termination_option
+
+        out["terminateBlueInstancesOnDeploymentSuccess"] = (
+            capo_codedeploy.types.blue_instance_termination_option.serialize_cbor(
+                value["terminate_blue_instances_on_deployment_success"]
+            )
+        )
+    if "deployment_ready_option" in value:
+        import capo_codedeploy.types.deployment_ready_option
+
+        out["deploymentReadyOption"] = (
+            capo_codedeploy.types.deployment_ready_option.serialize_cbor(
+                value["deployment_ready_option"]
+            )
+        )
+    if "green_fleet_provisioning_option" in value:
+        import capo_codedeploy.types.green_fleet_provisioning_option
+
+        out["greenFleetProvisioningOption"] = (
+            capo_codedeploy.types.green_fleet_provisioning_option.serialize_cbor(
+                value["green_fleet_provisioning_option"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BlueGreenDeploymentConfiguration:
+    out: BlueGreenDeploymentConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("terminateBlueInstancesOnDeploymentSuccess") is not None:
+        import capo_codedeploy.types.blue_instance_termination_option
+
+        out["terminate_blue_instances_on_deployment_success"] = (
+            capo_codedeploy.types.blue_instance_termination_option.deserialize_cbor(
+                data["terminateBlueInstancesOnDeploymentSuccess"]
+            )
+        )
+    if data.get("deploymentReadyOption") is not None:
+        import capo_codedeploy.types.deployment_ready_option
+
+        out["deployment_ready_option"] = (
+            capo_codedeploy.types.deployment_ready_option.deserialize_cbor(
+                data["deploymentReadyOption"]
+            )
+        )
+    if data.get("greenFleetProvisioningOption") is not None:
+        import capo_codedeploy.types.green_fleet_provisioning_option
+
+        out["green_fleet_provisioning_option"] = (
+            capo_codedeploy.types.green_fleet_provisioning_option.deserialize_cbor(
+                data["greenFleetProvisioningOption"]
+            )
+        )
+    return out

@@ -27,3 +27,24 @@ def deserialize_aws_json_1_0(data: list) -> EnvironmentList:
             continue
         out.append(capo_interconnect.types.environment.deserialize_aws_json_1_0(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EnvironmentList) -> list:
+    import capo_interconnect.types.environment
+
+    out: list = []
+    for item in value:
+        out.append(capo_interconnect.types.environment.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> EnvironmentList:
+    import capo_interconnect.types.environment
+
+    out: EnvironmentList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_interconnect.types.environment.deserialize_cbor(item))
+    return out

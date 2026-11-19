@@ -49,3 +49,34 @@ def deserialize_aws_json_1_0(data: dict) -> ListFirewallPoliciesResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListFirewallPoliciesResponse) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "firewall_policies" in value:
+        import capo_network_firewall.types.firewall_policies
+
+        out["FirewallPolicies"] = (
+            capo_network_firewall.types.firewall_policies.serialize_cbor(
+                value["firewall_policies"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListFirewallPoliciesResponse:
+    out: ListFirewallPoliciesResponse = {}  # type: ignore[typeddict-item]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("FirewallPolicies") is not None:
+        import capo_network_firewall.types.firewall_policies
+
+        out["firewall_policies"] = (
+            capo_network_firewall.types.firewall_policies.deserialize_cbor(
+                data["FirewallPolicies"]
+            )
+        )
+    return out

@@ -41,3 +41,22 @@ def deserialize_aws_json_1_1(data: dict) -> ExpenseType:
     if data.get("Confidence") is not None:
         out["confidence"] = float(data["Confidence"])
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExpenseType) -> dict:
+    out: dict = {}
+    if "text" in value:
+        out["Text"] = value["text"]
+    if "confidence" in value:
+        out["Confidence"] = value["confidence"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ExpenseType:
+    out: ExpenseType = {}  # type: ignore[typeddict-item]
+    if data.get("Text") is not None:
+        out["text"] = data["Text"]
+    if data.get("Confidence") is not None:
+        out["confidence"] = float(data["Confidence"])
+    return out

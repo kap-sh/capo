@@ -49,3 +49,34 @@ def deserialize_aws_json_1_1(data: dict) -> VirtualInterfaces:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: VirtualInterfaces) -> dict:
+    out: dict = {}
+    if "virtual_interfaces" in value:
+        import capo_direct_connect.types.virtual_interface_list
+
+        out["virtualInterfaces"] = (
+            capo_direct_connect.types.virtual_interface_list.serialize_cbor(
+                value["virtual_interfaces"]
+            )
+        )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> VirtualInterfaces:
+    out: VirtualInterfaces = {}  # type: ignore[typeddict-item]
+    if data.get("virtualInterfaces") is not None:
+        import capo_direct_connect.types.virtual_interface_list
+
+        out["virtual_interfaces"] = (
+            capo_direct_connect.types.virtual_interface_list.deserialize_cbor(
+                data["virtualInterfaces"]
+            )
+        )
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

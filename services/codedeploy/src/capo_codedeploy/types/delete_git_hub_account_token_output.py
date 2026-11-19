@@ -28,3 +28,18 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteGitHubAccountTokenOutput:
     if data.get("tokenName") is not None:
         out["token_name"] = data["tokenName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteGitHubAccountTokenOutput) -> dict:
+    out: dict = {}
+    if "token_name" in value:
+        out["tokenName"] = value["token_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteGitHubAccountTokenOutput:
+    out: DeleteGitHubAccountTokenOutput = {}  # type: ignore[typeddict-item]
+    if data.get("tokenName") is not None:
+        out["token_name"] = data["tokenName"]
+    return out

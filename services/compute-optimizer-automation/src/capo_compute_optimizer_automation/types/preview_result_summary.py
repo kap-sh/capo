@@ -47,3 +47,36 @@ def deserialize_aws_json_1_0(data: dict) -> PreviewResultSummary:
     else:
         raise DeserializationError("PreviewResultSummary.total required")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PreviewResultSummary) -> dict:
+    out: dict = {}
+    out["key"] = value["key"]
+    import capo_compute_optimizer_automation.types.rule_preview_total
+
+    out["total"] = (
+        capo_compute_optimizer_automation.types.rule_preview_total.serialize_cbor(
+            value["total"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PreviewResultSummary:
+    out: PreviewResultSummary = {}  # type: ignore[typeddict-item]
+    if data.get("key") is not None:
+        out["key"] = data["key"]
+    else:
+        out["key"] = ""
+    if data.get("total") is not None:
+        import capo_compute_optimizer_automation.types.rule_preview_total
+
+        out["total"] = (
+            capo_compute_optimizer_automation.types.rule_preview_total.deserialize_cbor(
+                data["total"]
+            )
+        )
+    else:
+        raise DeserializationError("PreviewResultSummary.total required")
+    return out

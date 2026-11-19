@@ -34,3 +34,23 @@ def deserialize_aws_json_1_1(data: dict) -> CheckDomainAvailabilityRequest:
     if data.get("IdnLangCode") is not None:
         out["idn_lang_code"] = data["IdnLangCode"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CheckDomainAvailabilityRequest) -> dict:
+    out: dict = {}
+    out["DomainName"] = value["domain_name"]
+    if "idn_lang_code" in value:
+        out["IdnLangCode"] = value["idn_lang_code"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CheckDomainAvailabilityRequest:
+    out: CheckDomainAvailabilityRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DomainName") is not None:
+        out["domain_name"] = data["DomainName"]
+    else:
+        out["domain_name"] = ""
+    if data.get("IdnLangCode") is not None:
+        out["idn_lang_code"] = data["IdnLangCode"]
+    return out

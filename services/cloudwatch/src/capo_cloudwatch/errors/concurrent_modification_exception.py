@@ -48,6 +48,21 @@ def deserialize_query(el: Element) -> ConcurrentModificationException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ConcurrentModificationException_) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["Message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ConcurrentModificationException_:
+    out: ConcurrentModificationException_ = {}  # type: ignore[typeddict-item]
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    return out
+
+
 class ConcurrentModificationException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.cloudwatch#ConcurrentModificationException``."""
 
@@ -81,3 +96,9 @@ class ConcurrentModificationException(ServiceError):
         cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "ConcurrentModificationException":
         return cls(deserialize_query(el), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "ConcurrentModificationException":
+        return cls(deserialize_cbor(data), message, response=response)

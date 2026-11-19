@@ -19,3 +19,12 @@ def serialize_aws_json_1_0(value: InstanceState) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> InstanceState:
     return cast(InstanceState, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InstanceState) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> InstanceState:
+    return cast(InstanceState, data)

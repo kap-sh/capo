@@ -143,3 +143,106 @@ def deserialize_aws_json_1_1(data: dict) -> DocumentClassifierInputDataConfig:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DocumentClassifierInputDataConfig) -> dict:
+    out: dict = {}
+    if "data_format" in value:
+        import capo_comprehend.types.document_classifier_data_format
+
+        out["DataFormat"] = (
+            capo_comprehend.types.document_classifier_data_format.serialize_cbor(
+                value["data_format"]
+            )
+        )
+    if "s3_uri" in value:
+        out["S3Uri"] = value["s3_uri"]
+    if "test_s3_uri" in value:
+        out["TestS3Uri"] = value["test_s3_uri"]
+    if "label_delimiter" in value:
+        out["LabelDelimiter"] = value["label_delimiter"]
+    if "augmented_manifests" in value:
+        import capo_comprehend.types.document_classifier_augmented_manifests_list
+
+        out["AugmentedManifests"] = (
+            capo_comprehend.types.document_classifier_augmented_manifests_list.serialize_cbor(
+                value["augmented_manifests"]
+            )
+        )
+    if "document_type" in value:
+        import capo_comprehend.types.document_classifier_document_type_format
+
+        out["DocumentType"] = (
+            capo_comprehend.types.document_classifier_document_type_format.serialize_cbor(
+                value["document_type"]
+            )
+        )
+    if "documents" in value:
+        import capo_comprehend.types.document_classifier_documents
+
+        out["Documents"] = (
+            capo_comprehend.types.document_classifier_documents.serialize_cbor(
+                value["documents"]
+            )
+        )
+    if "document_reader_config" in value:
+        import capo_comprehend.types.document_reader_config
+
+        out["DocumentReaderConfig"] = (
+            capo_comprehend.types.document_reader_config.serialize_cbor(
+                value["document_reader_config"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DocumentClassifierInputDataConfig:
+    out: DocumentClassifierInputDataConfig = {}  # type: ignore[typeddict-item]
+    if data.get("DataFormat") is not None:
+        import capo_comprehend.types.document_classifier_data_format
+
+        out["data_format"] = (
+            capo_comprehend.types.document_classifier_data_format.deserialize_cbor(
+                data["DataFormat"]
+            )
+        )
+    if data.get("S3Uri") is not None:
+        out["s3_uri"] = data["S3Uri"]
+    if data.get("TestS3Uri") is not None:
+        out["test_s3_uri"] = data["TestS3Uri"]
+    if data.get("LabelDelimiter") is not None:
+        out["label_delimiter"] = data["LabelDelimiter"]
+    if data.get("AugmentedManifests") is not None:
+        import capo_comprehend.types.document_classifier_augmented_manifests_list
+
+        out["augmented_manifests"] = (
+            capo_comprehend.types.document_classifier_augmented_manifests_list.deserialize_cbor(
+                data["AugmentedManifests"]
+            )
+        )
+    if data.get("DocumentType") is not None:
+        import capo_comprehend.types.document_classifier_document_type_format
+
+        out["document_type"] = (
+            capo_comprehend.types.document_classifier_document_type_format.deserialize_cbor(
+                data["DocumentType"]
+            )
+        )
+    if data.get("Documents") is not None:
+        import capo_comprehend.types.document_classifier_documents
+
+        out["documents"] = (
+            capo_comprehend.types.document_classifier_documents.deserialize_cbor(
+                data["Documents"]
+            )
+        )
+    if data.get("DocumentReaderConfig") is not None:
+        import capo_comprehend.types.document_reader_config
+
+        out["document_reader_config"] = (
+            capo_comprehend.types.document_reader_config.deserialize_cbor(
+                data["DocumentReaderConfig"]
+            )
+        )
+    return out

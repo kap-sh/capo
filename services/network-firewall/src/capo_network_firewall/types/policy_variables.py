@@ -38,3 +38,26 @@ def deserialize_aws_json_1_0(data: dict) -> PolicyVariables:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PolicyVariables) -> dict:
+    out: dict = {}
+    if "rule_variables" in value:
+        import capo_network_firewall.types.ip_sets
+
+        out["RuleVariables"] = capo_network_firewall.types.ip_sets.serialize_cbor(
+            value["rule_variables"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PolicyVariables:
+    out: PolicyVariables = {}  # type: ignore[typeddict-item]
+    if data.get("RuleVariables") is not None:
+        import capo_network_firewall.types.ip_sets
+
+        out["rule_variables"] = capo_network_firewall.types.ip_sets.deserialize_cbor(
+            data["RuleVariables"]
+        )
+    return out

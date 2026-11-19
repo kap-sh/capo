@@ -13,3 +13,12 @@ def serialize_aws_json_1_1(value: ImageBuilderAttribute) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> ImageBuilderAttribute:
     return cast(ImageBuilderAttribute, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ImageBuilderAttribute) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ImageBuilderAttribute:
+    return cast(ImageBuilderAttribute, data)

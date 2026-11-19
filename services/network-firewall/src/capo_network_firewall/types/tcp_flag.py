@@ -21,3 +21,12 @@ def serialize_aws_json_1_0(value: TCPFlag) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> TCPFlag:
     return cast(TCPFlag, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TCPFlag) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> TCPFlag:
+    return cast(TCPFlag, data)

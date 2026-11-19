@@ -62,3 +62,46 @@ def deserialize_aws_json_1_1(data: dict) -> ListLanguagesResponse:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListLanguagesResponse) -> dict:
+    out: dict = {}
+    if "languages" in value:
+        import capo_translate.types.languages_list
+
+        out["Languages"] = capo_translate.types.languages_list.serialize_cbor(
+            value["languages"]
+        )
+    if "display_language_code" in value:
+        import capo_translate.types.display_language_code
+
+        out["DisplayLanguageCode"] = (
+            capo_translate.types.display_language_code.serialize_cbor(
+                value["display_language_code"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListLanguagesResponse:
+    out: ListLanguagesResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Languages") is not None:
+        import capo_translate.types.languages_list
+
+        out["languages"] = capo_translate.types.languages_list.deserialize_cbor(
+            data["Languages"]
+        )
+    if data.get("DisplayLanguageCode") is not None:
+        import capo_translate.types.display_language_code
+
+        out["display_language_code"] = (
+            capo_translate.types.display_language_code.deserialize_cbor(
+                data["DisplayLanguageCode"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

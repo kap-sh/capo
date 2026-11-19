@@ -70,3 +70,12 @@ def serialize_aws_json_1_1(value: EventCode) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> EventCode:
     return cast(EventCode, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EventCode) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> EventCode:
+    return cast(EventCode, data)

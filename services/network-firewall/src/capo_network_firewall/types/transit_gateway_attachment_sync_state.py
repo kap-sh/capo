@@ -56,3 +56,38 @@ def deserialize_aws_json_1_0(data: dict) -> TransitGatewayAttachmentSyncState:
     if data.get("StatusMessage") is not None:
         out["status_message"] = data["StatusMessage"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TransitGatewayAttachmentSyncState) -> dict:
+    out: dict = {}
+    if "attachment_id" in value:
+        out["AttachmentId"] = value["attachment_id"]
+    if "transit_gateway_attachment_status" in value:
+        import capo_network_firewall.types.transit_gateway_attachment_status
+
+        out["TransitGatewayAttachmentStatus"] = (
+            capo_network_firewall.types.transit_gateway_attachment_status.serialize_cbor(
+                value["transit_gateway_attachment_status"]
+            )
+        )
+    if "status_message" in value:
+        out["StatusMessage"] = value["status_message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> TransitGatewayAttachmentSyncState:
+    out: TransitGatewayAttachmentSyncState = {}  # type: ignore[typeddict-item]
+    if data.get("AttachmentId") is not None:
+        out["attachment_id"] = data["AttachmentId"]
+    if data.get("TransitGatewayAttachmentStatus") is not None:
+        import capo_network_firewall.types.transit_gateway_attachment_status
+
+        out["transit_gateway_attachment_status"] = (
+            capo_network_firewall.types.transit_gateway_attachment_status.deserialize_cbor(
+                data["TransitGatewayAttachmentStatus"]
+            )
+        )
+    if data.get("StatusMessage") is not None:
+        out["status_message"] = data["StatusMessage"]
+    return out

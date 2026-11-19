@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> GetGameSessionLogUrlInput:
     if data.get("GameSessionId") is not None:
         out["game_session_id"] = data["GameSessionId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetGameSessionLogUrlInput) -> dict:
+    out: dict = {}
+    if "game_session_id" in value:
+        out["GameSessionId"] = value["game_session_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetGameSessionLogUrlInput:
+    out: GetGameSessionLogUrlInput = {}  # type: ignore[typeddict-item]
+    if data.get("GameSessionId") is not None:
+        out["game_session_id"] = data["GameSessionId"]
+    return out

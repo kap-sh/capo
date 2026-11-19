@@ -112,3 +112,76 @@ def deserialize_aws_json_1_1(data: dict) -> SchemaExtensionInfo:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SchemaExtensionInfo) -> dict:
+    out: dict = {}
+    if "directory_id" in value:
+        out["DirectoryId"] = value["directory_id"]
+    if "schema_extension_id" in value:
+        out["SchemaExtensionId"] = value["schema_extension_id"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "schema_extension_status" in value:
+        import capo_directory_service.types.schema_extension_status
+
+        out["SchemaExtensionStatus"] = (
+            capo_directory_service.types.schema_extension_status.serialize_cbor(
+                value["schema_extension_status"]
+            )
+        )
+    if "schema_extension_status_reason" in value:
+        out["SchemaExtensionStatusReason"] = value["schema_extension_status_reason"]
+    if "start_date_time" in value:
+        import capo_directory_service.types.start_date_time
+
+        out["StartDateTime"] = (
+            capo_directory_service.types.start_date_time.serialize_cbor(
+                value["start_date_time"]
+            )
+        )
+    if "end_date_time" in value:
+        import capo_directory_service.types.end_date_time
+
+        out["EndDateTime"] = capo_directory_service.types.end_date_time.serialize_cbor(
+            value["end_date_time"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> SchemaExtensionInfo:
+    out: SchemaExtensionInfo = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    if data.get("SchemaExtensionId") is not None:
+        out["schema_extension_id"] = data["SchemaExtensionId"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("SchemaExtensionStatus") is not None:
+        import capo_directory_service.types.schema_extension_status
+
+        out["schema_extension_status"] = (
+            capo_directory_service.types.schema_extension_status.deserialize_cbor(
+                data["SchemaExtensionStatus"]
+            )
+        )
+    if data.get("SchemaExtensionStatusReason") is not None:
+        out["schema_extension_status_reason"] = data["SchemaExtensionStatusReason"]
+    if data.get("StartDateTime") is not None:
+        import capo_directory_service.types.start_date_time
+
+        out["start_date_time"] = (
+            capo_directory_service.types.start_date_time.deserialize_cbor(
+                data["StartDateTime"]
+            )
+        )
+    if data.get("EndDateTime") is not None:
+        import capo_directory_service.types.end_date_time
+
+        out["end_date_time"] = (
+            capo_directory_service.types.end_date_time.deserialize_cbor(
+                data["EndDateTime"]
+            )
+        )
+    return out

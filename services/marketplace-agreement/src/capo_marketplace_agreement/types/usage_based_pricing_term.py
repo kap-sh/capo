@@ -65,3 +65,42 @@ def deserialize_aws_json_1_0(data: dict) -> UsageBasedPricingTerm:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UsageBasedPricingTerm) -> dict:
+    out: dict = {}
+    if "type" in value:
+        out["type"] = value["type"]
+    if "id" in value:
+        out["id"] = value["id"]
+    if "currency_code" in value:
+        out["currencyCode"] = value["currency_code"]
+    if "rate_cards" in value:
+        import capo_marketplace_agreement.types.usage_based_rate_card_list
+
+        out["rateCards"] = (
+            capo_marketplace_agreement.types.usage_based_rate_card_list.serialize_cbor(
+                value["rate_cards"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UsageBasedPricingTerm:
+    out: UsageBasedPricingTerm = {}  # type: ignore[typeddict-item]
+    if data.get("type") is not None:
+        out["type"] = data["type"]
+    if data.get("id") is not None:
+        out["id"] = data["id"]
+    if data.get("currencyCode") is not None:
+        out["currency_code"] = data["currencyCode"]
+    if data.get("rateCards") is not None:
+        import capo_marketplace_agreement.types.usage_based_rate_card_list
+
+        out["rate_cards"] = (
+            capo_marketplace_agreement.types.usage_based_rate_card_list.deserialize_cbor(
+                data["rateCards"]
+            )
+        )
+    return out

@@ -47,3 +47,30 @@ def deserialize_aws_json_1_1(data: dict) -> ConnectClientAddIn:
     if data.get("URL") is not None:
         out["url"] = data["URL"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ConnectClientAddIn) -> dict:
+    out: dict = {}
+    if "add_in_id" in value:
+        out["AddInId"] = value["add_in_id"]
+    if "resource_id" in value:
+        out["ResourceId"] = value["resource_id"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "url" in value:
+        out["URL"] = value["url"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ConnectClientAddIn:
+    out: ConnectClientAddIn = {}  # type: ignore[typeddict-item]
+    if data.get("AddInId") is not None:
+        out["add_in_id"] = data["AddInId"]
+    if data.get("ResourceId") is not None:
+        out["resource_id"] = data["ResourceId"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("URL") is not None:
+        out["url"] = data["URL"]
+    return out

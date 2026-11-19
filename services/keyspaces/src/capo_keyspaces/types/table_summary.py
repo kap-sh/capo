@@ -43,3 +43,29 @@ def deserialize_aws_json_1_0(data: dict) -> TableSummary:
     else:
         out["resource_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TableSummary) -> dict:
+    out: dict = {}
+    out["keyspaceName"] = value["keyspace_name"]
+    out["tableName"] = value["table_name"]
+    out["resourceArn"] = value["resource_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> TableSummary:
+    out: TableSummary = {}  # type: ignore[typeddict-item]
+    if data.get("keyspaceName") is not None:
+        out["keyspace_name"] = data["keyspaceName"]
+    else:
+        out["keyspace_name"] = ""
+    if data.get("tableName") is not None:
+        out["table_name"] = data["tableName"]
+    else:
+        out["table_name"] = ""
+    if data.get("resourceArn") is not None:
+        out["resource_arn"] = data["resourceArn"]
+    else:
+        out["resource_arn"] = ""
+    return out

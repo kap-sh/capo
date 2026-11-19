@@ -29,3 +29,19 @@ def deserialize_aws_json_1_1(data: dict) -> RollbackStageOutput:
     else:
         out["pipeline_execution_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RollbackStageOutput) -> dict:
+    out: dict = {}
+    out["pipelineExecutionId"] = value["pipeline_execution_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RollbackStageOutput:
+    out: RollbackStageOutput = {}  # type: ignore[typeddict-item]
+    if data.get("pipelineExecutionId") is not None:
+        out["pipeline_execution_id"] = data["pipelineExecutionId"]
+    else:
+        out["pipeline_execution_id"] = ""
+    return out

@@ -68,3 +68,49 @@ def deserialize_aws_json_1_1(
             "ApplicationLayerAutomaticResponseConfiguration.action required"
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ApplicationLayerAutomaticResponseConfiguration) -> dict:
+    out: dict = {}
+    import capo_shield.types.application_layer_automatic_response_status
+
+    out["Status"] = (
+        capo_shield.types.application_layer_automatic_response_status.serialize_cbor(
+            value["status"]
+        )
+    )
+    import capo_shield.types.response_action
+
+    out["Action"] = capo_shield.types.response_action.serialize_cbor(value["action"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> ApplicationLayerAutomaticResponseConfiguration:
+    out: ApplicationLayerAutomaticResponseConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("Status") is not None:
+        import capo_shield.types.application_layer_automatic_response_status
+
+        out["status"] = (
+            capo_shield.types.application_layer_automatic_response_status.deserialize_cbor(
+                data["Status"]
+            )
+        )
+    else:
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_shield.types.application_layer_automatic_response_status.ApplicationLayerAutomaticResponseStatus",
+            "",
+        )
+    if data.get("Action") is not None:
+        import capo_shield.types.response_action
+
+        out["action"] = capo_shield.types.response_action.deserialize_cbor(
+            data["Action"]
+        )
+    else:
+        raise DeserializationError(
+            "ApplicationLayerAutomaticResponseConfiguration.action required"
+        )
+    return out

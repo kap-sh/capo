@@ -67,3 +67,48 @@ def deserialize_aws_json_1_1(data: dict) -> AnalyzeIDResponse:
     if data.get("AnalyzeIDModelVersion") is not None:
         out["analyze_id_model_version"] = data["AnalyzeIDModelVersion"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AnalyzeIDResponse) -> dict:
+    out: dict = {}
+    if "identity_documents" in value:
+        import capo_textract.types.identity_document_list
+
+        out["IdentityDocuments"] = (
+            capo_textract.types.identity_document_list.serialize_cbor(
+                value["identity_documents"]
+            )
+        )
+    if "document_metadata" in value:
+        import capo_textract.types.document_metadata
+
+        out["DocumentMetadata"] = capo_textract.types.document_metadata.serialize_cbor(
+            value["document_metadata"]
+        )
+    if "analyze_id_model_version" in value:
+        out["AnalyzeIDModelVersion"] = value["analyze_id_model_version"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AnalyzeIDResponse:
+    out: AnalyzeIDResponse = {}  # type: ignore[typeddict-item]
+    if data.get("IdentityDocuments") is not None:
+        import capo_textract.types.identity_document_list
+
+        out["identity_documents"] = (
+            capo_textract.types.identity_document_list.deserialize_cbor(
+                data["IdentityDocuments"]
+            )
+        )
+    if data.get("DocumentMetadata") is not None:
+        import capo_textract.types.document_metadata
+
+        out["document_metadata"] = (
+            capo_textract.types.document_metadata.deserialize_cbor(
+                data["DocumentMetadata"]
+            )
+        )
+    if data.get("AnalyzeIDModelVersion") is not None:
+        out["analyze_id_model_version"] = data["AnalyzeIDModelVersion"]
+    return out

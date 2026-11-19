@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteParameterGroupRequest:
     else:
         out["parameter_group_name"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteParameterGroupRequest) -> dict:
+    out: dict = {}
+    out["ParameterGroupName"] = value["parameter_group_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteParameterGroupRequest:
+    out: DeleteParameterGroupRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ParameterGroupName") is not None:
+        out["parameter_group_name"] = data["ParameterGroupName"]
+    else:
+        out["parameter_group_name"] = ""
+    return out

@@ -49,3 +49,18 @@ def deserialize_query(el: Element) -> PutAnomalyDetectorOutput:
     if child_anomaly_detector_id is not None:
         out["anomaly_detector_id"] = str(child_anomaly_detector_id.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PutAnomalyDetectorOutput) -> dict:
+    out: dict = {}
+    if "anomaly_detector_id" in value:
+        out["AnomalyDetectorId"] = value["anomaly_detector_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> PutAnomalyDetectorOutput:
+    out: PutAnomalyDetectorOutput = {}  # type: ignore[typeddict-item]
+    if data.get("AnomalyDetectorId") is not None:
+        out["anomaly_detector_id"] = data["AnomalyDetectorId"]
+    return out

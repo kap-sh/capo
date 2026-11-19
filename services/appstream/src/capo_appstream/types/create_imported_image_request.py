@@ -150,6 +150,101 @@ def deserialize_aws_json_1_1(data: dict) -> CreateImportedImageRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateImportedImageRequest) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "source_ami_id" in value:
+        out["SourceAmiId"] = value["source_ami_id"]
+    if "workspace_image_id" in value:
+        out["WorkspaceImageId"] = value["workspace_image_id"]
+    if "iam_role_arn" in value:
+        out["IamRoleArn"] = value["iam_role_arn"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "display_name" in value:
+        out["DisplayName"] = value["display_name"]
+    if "tags" in value:
+        import capo_appstream.types.tags
+
+        out["Tags"] = capo_appstream.types.tags.serialize_cbor(value["tags"])
+    if "runtime_validation_config" in value:
+        import capo_appstream.types.runtime_validation_config
+
+        out["RuntimeValidationConfig"] = (
+            capo_appstream.types.runtime_validation_config.serialize_cbor(
+                value["runtime_validation_config"]
+            )
+        )
+    if "agent_software_version" in value:
+        import capo_appstream.types.agent_software_version
+
+        out["AgentSoftwareVersion"] = (
+            capo_appstream.types.agent_software_version.serialize_cbor(
+                value["agent_software_version"]
+            )
+        )
+    if "app_catalog_config" in value:
+        import capo_appstream.types.app_catalog_config
+
+        out["AppCatalogConfig"] = (
+            capo_appstream.types.app_catalog_config.serialize_cbor(
+                value["app_catalog_config"]
+            )
+        )
+    if "dry_run" in value:
+        out["DryRun"] = value["dry_run"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateImportedImageRequest:
+    out: CreateImportedImageRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("SourceAmiId") is not None:
+        out["source_ami_id"] = data["SourceAmiId"]
+    if data.get("WorkspaceImageId") is not None:
+        out["workspace_image_id"] = data["WorkspaceImageId"]
+    if data.get("IamRoleArn") is not None:
+        out["iam_role_arn"] = data["IamRoleArn"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("DisplayName") is not None:
+        out["display_name"] = data["DisplayName"]
+    if data.get("Tags") is not None:
+        import capo_appstream.types.tags
+
+        out["tags"] = capo_appstream.types.tags.deserialize_cbor(data["Tags"])
+    if data.get("RuntimeValidationConfig") is not None:
+        import capo_appstream.types.runtime_validation_config
+
+        out["runtime_validation_config"] = (
+            capo_appstream.types.runtime_validation_config.deserialize_cbor(
+                data["RuntimeValidationConfig"]
+            )
+        )
+    if data.get("AgentSoftwareVersion") is not None:
+        import capo_appstream.types.agent_software_version
+
+        out["agent_software_version"] = (
+            capo_appstream.types.agent_software_version.deserialize_cbor(
+                data["AgentSoftwareVersion"]
+            )
+        )
+    if data.get("AppCatalogConfig") is not None:
+        import capo_appstream.types.app_catalog_config
+
+        out["app_catalog_config"] = (
+            capo_appstream.types.app_catalog_config.deserialize_cbor(
+                data["AppCatalogConfig"]
+            )
+        )
+    if data.get("DryRun") is not None:
+        out["dry_run"] = data["DryRun"]
+    return out
+
+
 def redact_sensitive(value: CreateImportedImageRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "app_catalog_config" in value:

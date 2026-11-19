@@ -66,3 +66,46 @@ def deserialize_aws_json_1_1(data: dict) -> ListPerformanceAnalysisReportsReques
     if data.get("ListTags") is not None:
         out["list_tags"] = data["ListTags"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListPerformanceAnalysisReportsRequest) -> dict:
+    out: dict = {}
+    import capo_pi.types.service_type
+
+    out["ServiceType"] = capo_pi.types.service_type.serialize_cbor(
+        value["service_type"]
+    )
+    out["Identifier"] = value["identifier"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "list_tags" in value:
+        out["ListTags"] = value["list_tags"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListPerformanceAnalysisReportsRequest:
+    out: ListPerformanceAnalysisReportsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ServiceType") is not None:
+        import capo_pi.types.service_type
+
+        out["service_type"] = capo_pi.types.service_type.deserialize_cbor(
+            data["ServiceType"]
+        )
+    else:
+        import typing
+
+        out["service_type"] = typing.cast("capo_pi.types.service_type.ServiceType", "")
+    if data.get("Identifier") is not None:
+        out["identifier"] = data["Identifier"]
+    else:
+        out["identifier"] = ""
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("ListTags") is not None:
+        out["list_tags"] = data["ListTags"]
+    return out

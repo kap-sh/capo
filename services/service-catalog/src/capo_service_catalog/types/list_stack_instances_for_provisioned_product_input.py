@@ -52,3 +52,31 @@ def deserialize_aws_json_1_1(
     if data.get("PageSize") is not None:
         out["page_size"] = data["PageSize"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListStackInstancesForProvisionedProductInput) -> dict:
+    out: dict = {}
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    out["ProvisionedProductId"] = value["provisioned_product_id"]
+    if "page_token" in value:
+        out["PageToken"] = value["page_token"]
+    if "page_size" in value:
+        out["PageSize"] = value["page_size"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListStackInstancesForProvisionedProductInput:
+    out: ListStackInstancesForProvisionedProductInput = {}  # type: ignore[typeddict-item]
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    if data.get("ProvisionedProductId") is not None:
+        out["provisioned_product_id"] = data["ProvisionedProductId"]
+    else:
+        out["provisioned_product_id"] = ""
+    if data.get("PageToken") is not None:
+        out["page_token"] = data["PageToken"]
+    if data.get("PageSize") is not None:
+        out["page_size"] = data["PageSize"]
+    return out

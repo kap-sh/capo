@@ -15,3 +15,12 @@ def serialize_aws_json_1_0(value: AmdSevSnpEnum) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> AmdSevSnpEnum:
     return cast(AmdSevSnpEnum, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AmdSevSnpEnum) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> AmdSevSnpEnum:
+    return cast(AmdSevSnpEnum, data)

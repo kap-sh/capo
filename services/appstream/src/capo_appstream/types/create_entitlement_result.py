@@ -34,3 +34,26 @@ def deserialize_aws_json_1_1(data: dict) -> CreateEntitlementResult:
             data["Entitlement"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateEntitlementResult) -> dict:
+    out: dict = {}
+    if "entitlement" in value:
+        import capo_appstream.types.entitlement
+
+        out["Entitlement"] = capo_appstream.types.entitlement.serialize_cbor(
+            value["entitlement"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateEntitlementResult:
+    out: CreateEntitlementResult = {}  # type: ignore[typeddict-item]
+    if data.get("Entitlement") is not None:
+        import capo_appstream.types.entitlement
+
+        out["entitlement"] = capo_appstream.types.entitlement.deserialize_cbor(
+            data["Entitlement"]
+        )
+    return out

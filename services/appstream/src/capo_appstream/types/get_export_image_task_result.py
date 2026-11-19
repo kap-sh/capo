@@ -40,3 +40,28 @@ def deserialize_aws_json_1_1(data: dict) -> GetExportImageTaskResult:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetExportImageTaskResult) -> dict:
+    out: dict = {}
+    if "export_image_task" in value:
+        import capo_appstream.types.export_image_task
+
+        out["ExportImageTask"] = capo_appstream.types.export_image_task.serialize_cbor(
+            value["export_image_task"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetExportImageTaskResult:
+    out: GetExportImageTaskResult = {}  # type: ignore[typeddict-item]
+    if data.get("ExportImageTask") is not None:
+        import capo_appstream.types.export_image_task
+
+        out["export_image_task"] = (
+            capo_appstream.types.export_image_task.deserialize_cbor(
+                data["ExportImageTask"]
+            )
+        )
+    return out

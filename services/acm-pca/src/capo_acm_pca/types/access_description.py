@@ -57,3 +57,40 @@ def deserialize_aws_json_1_1(data: dict) -> AccessDescription:
     else:
         raise DeserializationError("AccessDescription.access_location required")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AccessDescription) -> dict:
+    out: dict = {}
+    import capo_acm_pca.types.access_method
+
+    out["AccessMethod"] = capo_acm_pca.types.access_method.serialize_cbor(
+        value["access_method"]
+    )
+    import capo_acm_pca.types.general_name
+
+    out["AccessLocation"] = capo_acm_pca.types.general_name.serialize_cbor(
+        value["access_location"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AccessDescription:
+    out: AccessDescription = {}  # type: ignore[typeddict-item]
+    if data.get("AccessMethod") is not None:
+        import capo_acm_pca.types.access_method
+
+        out["access_method"] = capo_acm_pca.types.access_method.deserialize_cbor(
+            data["AccessMethod"]
+        )
+    else:
+        raise DeserializationError("AccessDescription.access_method required")
+    if data.get("AccessLocation") is not None:
+        import capo_acm_pca.types.general_name
+
+        out["access_location"] = capo_acm_pca.types.general_name.deserialize_cbor(
+            data["AccessLocation"]
+        )
+    else:
+        raise DeserializationError("AccessDescription.access_location required")
+    return out

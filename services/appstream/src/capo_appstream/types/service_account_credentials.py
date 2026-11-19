@@ -37,6 +37,25 @@ def deserialize_aws_json_1_1(data: dict) -> ServiceAccountCredentials:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ServiceAccountCredentials) -> dict:
+    out: dict = {}
+    if "account_name" in value:
+        out["AccountName"] = value["account_name"]
+    if "account_password" in value:
+        out["AccountPassword"] = value["account_password"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ServiceAccountCredentials:
+    out: ServiceAccountCredentials = {}  # type: ignore[typeddict-item]
+    if data.get("AccountName") is not None:
+        out["account_name"] = data["AccountName"]
+    if data.get("AccountPassword") is not None:
+        out["account_password"] = data["AccountPassword"]
+    return out
+
+
 def redact_sensitive(value: ServiceAccountCredentials) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "account_name" in value:

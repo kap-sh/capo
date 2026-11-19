@@ -19,3 +19,12 @@ def serialize_aws_json_1_1(value: ServiceActionAssociationErrorCode) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> ServiceActionAssociationErrorCode:
     return cast(ServiceActionAssociationErrorCode, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ServiceActionAssociationErrorCode) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ServiceActionAssociationErrorCode:
+    return cast(ServiceActionAssociationErrorCode, data)

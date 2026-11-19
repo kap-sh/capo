@@ -38,3 +38,26 @@ def deserialize_aws_json_1_1(data: dict) -> JobLogs:
     if data.get("JobFailureLogURI") is not None:
         out["job_failure_log_uri"] = data["JobFailureLogURI"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: JobLogs) -> dict:
+    out: dict = {}
+    if "job_completion_report_uri" in value:
+        out["JobCompletionReportURI"] = value["job_completion_report_uri"]
+    if "job_success_log_uri" in value:
+        out["JobSuccessLogURI"] = value["job_success_log_uri"]
+    if "job_failure_log_uri" in value:
+        out["JobFailureLogURI"] = value["job_failure_log_uri"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> JobLogs:
+    out: JobLogs = {}  # type: ignore[typeddict-item]
+    if data.get("JobCompletionReportURI") is not None:
+        out["job_completion_report_uri"] = data["JobCompletionReportURI"]
+    if data.get("JobSuccessLogURI") is not None:
+        out["job_success_log_uri"] = data["JobSuccessLogURI"]
+    if data.get("JobFailureLogURI") is not None:
+        out["job_failure_log_uri"] = data["JobFailureLogURI"]
+    return out

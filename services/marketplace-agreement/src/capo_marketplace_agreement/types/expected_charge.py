@@ -105,3 +105,70 @@ def deserialize_aws_json_1_0(data: dict) -> ExpectedCharge:
     if data.get("purchaseOrderReference") is not None:
         out["purchase_order_reference"] = data["purchaseOrderReference"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExpectedCharge) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["id"] = value["id"]
+    if "time" in value:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["time"] = capo_marketplace_agreement.types.timestamp.serialize_cbor(
+            value["time"]
+        )
+    if "amount" in value:
+        out["amount"] = value["amount"]
+    if "amount_after_tax" in value:
+        out["amountAfterTax"] = value["amount_after_tax"]
+    if "timing" in value:
+        import capo_marketplace_agreement.types.timing
+
+        out["timing"] = capo_marketplace_agreement.types.timing.serialize_cbor(
+            value["timing"]
+        )
+    if "estimated_taxes" in value:
+        import capo_marketplace_agreement.types.estimated_taxes
+
+        out["estimatedTaxes"] = (
+            capo_marketplace_agreement.types.estimated_taxes.serialize_cbor(
+                value["estimated_taxes"]
+            )
+        )
+    if "purchase_order_reference" in value:
+        out["purchaseOrderReference"] = value["purchase_order_reference"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ExpectedCharge:
+    out: ExpectedCharge = {}  # type: ignore[typeddict-item]
+    if data.get("id") is not None:
+        out["id"] = data["id"]
+    if data.get("time") is not None:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["time"] = capo_marketplace_agreement.types.timestamp.deserialize_cbor(
+            data["time"]
+        )
+    if data.get("amount") is not None:
+        out["amount"] = data["amount"]
+    if data.get("amountAfterTax") is not None:
+        out["amount_after_tax"] = data["amountAfterTax"]
+    if data.get("timing") is not None:
+        import capo_marketplace_agreement.types.timing
+
+        out["timing"] = capo_marketplace_agreement.types.timing.deserialize_cbor(
+            data["timing"]
+        )
+    if data.get("estimatedTaxes") is not None:
+        import capo_marketplace_agreement.types.estimated_taxes
+
+        out["estimated_taxes"] = (
+            capo_marketplace_agreement.types.estimated_taxes.deserialize_cbor(
+                data["estimatedTaxes"]
+            )
+        )
+    if data.get("purchaseOrderReference") is not None:
+        out["purchase_order_reference"] = data["purchaseOrderReference"]
+    return out

@@ -37,6 +37,28 @@ def deserialize_aws_json_1_0(data: dict) -> ParallelExecutionBlockConfiguration:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ParallelExecutionBlockConfiguration) -> dict:
+    out: dict = {}
+    import capo_arc_region_switch.types.steps
+
+    out["steps"] = capo_arc_region_switch.types.steps.serialize_cbor(value["steps"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> ParallelExecutionBlockConfiguration:
+    out: ParallelExecutionBlockConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("steps") is not None:
+        import capo_arc_region_switch.types.steps
+
+        out["steps"] = capo_arc_region_switch.types.steps.deserialize_cbor(
+            data["steps"]
+        )
+    else:
+        out["steps"] = []
+    return out
+
+
 def redact_sensitive(value: ParallelExecutionBlockConfiguration) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "steps" in value:

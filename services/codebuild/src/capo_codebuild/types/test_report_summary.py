@@ -55,3 +55,39 @@ def deserialize_aws_json_1_1(data: dict) -> TestReportSummary:
     else:
         out["duration_in_nano_seconds"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TestReportSummary) -> dict:
+    out: dict = {}
+    out["total"] = value["total"]
+    import capo_codebuild.types.report_status_counts
+
+    out["statusCounts"] = capo_codebuild.types.report_status_counts.serialize_cbor(
+        value["status_counts"]
+    )
+    out["durationInNanoSeconds"] = value["duration_in_nano_seconds"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> TestReportSummary:
+    out: TestReportSummary = {}  # type: ignore[typeddict-item]
+    if data.get("total") is not None:
+        out["total"] = data["total"]
+    else:
+        out["total"] = 0
+    if data.get("statusCounts") is not None:
+        import capo_codebuild.types.report_status_counts
+
+        out["status_counts"] = (
+            capo_codebuild.types.report_status_counts.deserialize_cbor(
+                data["statusCounts"]
+            )
+        )
+    else:
+        out["status_counts"] = {}
+    if data.get("durationInNanoSeconds") is not None:
+        out["duration_in_nano_seconds"] = data["durationInNanoSeconds"]
+    else:
+        out["duration_in_nano_seconds"] = 0
+    return out

@@ -35,3 +35,24 @@ def deserialize_aws_json_1_1(data: dict) -> GetInstanceRequest:
     else:
         out["instance_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetInstanceRequest) -> dict:
+    out: dict = {}
+    out["ServiceId"] = value["service_id"]
+    out["InstanceId"] = value["instance_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetInstanceRequest:
+    out: GetInstanceRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ServiceId") is not None:
+        out["service_id"] = data["ServiceId"]
+    else:
+        out["service_id"] = ""
+    if data.get("InstanceId") is not None:
+        out["instance_id"] = data["InstanceId"]
+    else:
+        out["instance_id"] = ""
+    return out

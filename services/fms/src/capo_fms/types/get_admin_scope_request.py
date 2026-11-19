@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> GetAdminScopeRequest:
     else:
         out["admin_account"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetAdminScopeRequest) -> dict:
+    out: dict = {}
+    out["AdminAccount"] = value["admin_account"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetAdminScopeRequest:
+    out: GetAdminScopeRequest = {}  # type: ignore[typeddict-item]
+    if data.get("AdminAccount") is not None:
+        out["admin_account"] = data["AdminAccount"]
+    else:
+        out["admin_account"] = ""
+    return out

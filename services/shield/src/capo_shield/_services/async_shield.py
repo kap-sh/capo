@@ -137,6 +137,7 @@ class AsyncShieldClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[AsyncInterceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_1", "rpcv2Cbor"]
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -153,6 +154,7 @@ class AsyncShieldClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -168,6 +170,7 @@ class AsyncShieldClient:
         operation_interceptors: Iterable[AsyncInterceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_1", "rpcv2Cbor"] = "awsJson1_1",
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -204,6 +207,7 @@ class AsyncShieldClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -237,6 +241,9 @@ class AsyncShieldClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_1")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -278,14 +285,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.associate_drt_log_bucket_response.AssociateDRTLogBucketResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.associate_drt_log_bucket
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.associate_drt_log_bucket
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.associate_drt_log_bucket.async_associate_drt_log_bucket(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.associate_drt_log_bucket.async_associate_drt_log_bucket(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.associate_drt_log_bucket
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.associate_drt_log_bucket.async_associate_drt_log_bucket(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -329,14 +348,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.associate_drt_role_response.AssociateDRTRoleResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.associate_drt_role
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.associate_drt_role
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.associate_drt_role.async_associate_drt_role(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.associate_drt_role.async_associate_drt_role(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.associate_drt_role
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.associate_drt_role.async_associate_drt_role(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -384,14 +415,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.associate_health_check_response.AssociateHealthCheckResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.associate_health_check
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.associate_health_check
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.associate_health_check.async_associate_health_check(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.associate_health_check.async_associate_health_check(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.associate_health_check
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.associate_health_check.async_associate_health_check(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -435,14 +478,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.associate_proactive_engagement_details_response.AssociateProactiveEngagementDetailsResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.associate_proactive_engagement_details
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.associate_proactive_engagement_details
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.associate_proactive_engagement_details.async_associate_proactive_engagement_details(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.associate_proactive_engagement_details.async_associate_proactive_engagement_details(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.associate_proactive_engagement_details
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.associate_proactive_engagement_details.async_associate_proactive_engagement_details(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -492,14 +547,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.create_protection_response.CreateProtectionResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.create_protection
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.create_protection
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.create_protection.async_create_protection(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.create_protection.async_create_protection(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.create_protection
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.create_protection.async_create_protection(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -560,14 +627,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.create_protection_group_response.CreateProtectionGroupResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.create_protection_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.create_protection_group
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.create_protection_group.async_create_protection_group(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.create_protection_group.async_create_protection_group(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.create_protection_group
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.create_protection_group.async_create_protection_group(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -609,14 +688,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.create_subscription_response.CreateSubscriptionResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.create_subscription
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.create_subscription
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.create_subscription.async_create_subscription(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.create_subscription.async_create_subscription(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.create_subscription
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.create_subscription.async_create_subscription(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -655,14 +746,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.delete_protection_response.DeleteProtectionResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.delete_protection
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.delete_protection
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.delete_protection.async_delete_protection(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.delete_protection.async_delete_protection(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.delete_protection
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.delete_protection.async_delete_protection(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -703,14 +806,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.delete_protection_group_response.DeleteProtectionGroupResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.delete_protection_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.delete_protection_group
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.delete_protection_group.async_delete_protection_group(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.delete_protection_group.async_delete_protection_group(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.delete_protection_group
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.delete_protection_group.async_delete_protection_group(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -745,14 +860,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.delete_subscription_response.DeleteSubscriptionResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.delete_subscription
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.delete_subscription
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.delete_subscription.async_delete_subscription(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.delete_subscription.async_delete_subscription(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.delete_subscription
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.delete_subscription.async_delete_subscription(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -790,14 +917,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.describe_attack_response.DescribeAttackResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.describe_attack
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.describe_attack
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.describe_attack.async_describe_attack(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.describe_attack.async_describe_attack(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.describe_attack
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.describe_attack.async_describe_attack(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -830,14 +969,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.describe_attack_statistics_response.DescribeAttackStatisticsResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.describe_attack_statistics
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.describe_attack_statistics
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.describe_attack_statistics.async_describe_attack_statistics(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.describe_attack_statistics.async_describe_attack_statistics(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.describe_attack_statistics
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.describe_attack_statistics.async_describe_attack_statistics(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -869,14 +1020,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.describe_drt_access_response.DescribeDRTAccessResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.describe_drt_access
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.describe_drt_access
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.describe_drt_access.async_describe_drt_access(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.describe_drt_access.async_describe_drt_access(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.describe_drt_access
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.describe_drt_access.async_describe_drt_access(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -908,14 +1071,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.describe_emergency_contact_settings_response.DescribeEmergencyContactSettingsResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.describe_emergency_contact_settings
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.describe_emergency_contact_settings
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.describe_emergency_contact_settings.async_describe_emergency_contact_settings(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.describe_emergency_contact_settings.async_describe_emergency_contact_settings(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.describe_emergency_contact_settings
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.describe_emergency_contact_settings.async_describe_emergency_contact_settings(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -956,14 +1131,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.describe_protection_response.DescribeProtectionResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.describe_protection
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.describe_protection
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.describe_protection.async_describe_protection(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.describe_protection.async_describe_protection(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.describe_protection
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.describe_protection.async_describe_protection(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1005,14 +1192,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.describe_protection_group_response.DescribeProtectionGroupResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.describe_protection_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.describe_protection_group
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.describe_protection_group.async_describe_protection_group(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.describe_protection_group.async_describe_protection_group(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.describe_protection_group
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.describe_protection_group.async_describe_protection_group(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1048,14 +1247,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.describe_subscription_response.DescribeSubscriptionResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.describe_subscription
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.describe_subscription
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.describe_subscription.async_describe_subscription(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.describe_subscription.async_describe_subscription(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.describe_subscription
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.describe_subscription.async_describe_subscription(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1096,14 +1307,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.disable_application_layer_automatic_response_response.DisableApplicationLayerAutomaticResponseResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.disable_application_layer_automatic_response
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.disable_application_layer_automatic_response
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.disable_application_layer_automatic_response.async_disable_application_layer_automatic_response(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.disable_application_layer_automatic_response.async_disable_application_layer_automatic_response(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.disable_application_layer_automatic_response
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.disable_application_layer_automatic_response.async_disable_application_layer_automatic_response(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1141,14 +1364,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.disable_proactive_engagement_response.DisableProactiveEngagementResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.disable_proactive_engagement
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.disable_proactive_engagement
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.disable_proactive_engagement.async_disable_proactive_engagement(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.disable_proactive_engagement.async_disable_proactive_engagement(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.disable_proactive_engagement
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.disable_proactive_engagement.async_disable_proactive_engagement(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1190,14 +1425,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.disassociate_drt_log_bucket_response.DisassociateDRTLogBucketResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.disassociate_drt_log_bucket
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.disassociate_drt_log_bucket
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.disassociate_drt_log_bucket.async_disassociate_drt_log_bucket(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.disassociate_drt_log_bucket.async_disassociate_drt_log_bucket(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.disassociate_drt_log_bucket
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.disassociate_drt_log_bucket.async_disassociate_drt_log_bucket(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1233,14 +1480,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.disassociate_drt_role_response.DisassociateDRTRoleResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.disassociate_drt_role
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.disassociate_drt_role
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.disassociate_drt_role.async_disassociate_drt_role(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.disassociate_drt_role.async_disassociate_drt_role(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.disassociate_drt_role
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.disassociate_drt_role.async_disassociate_drt_role(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1283,14 +1542,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.disassociate_health_check_response.DisassociateHealthCheckResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.disassociate_health_check
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.disassociate_health_check
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.disassociate_health_check.async_disassociate_health_check(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.disassociate_health_check.async_disassociate_health_check(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.disassociate_health_check
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.disassociate_health_check.async_disassociate_health_check(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1337,14 +1608,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.enable_application_layer_automatic_response_response.EnableApplicationLayerAutomaticResponseResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.enable_application_layer_automatic_response
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.enable_application_layer_automatic_response
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.enable_application_layer_automatic_response.async_enable_application_layer_automatic_response(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.enable_application_layer_automatic_response.async_enable_application_layer_automatic_response(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.enable_application_layer_automatic_response
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.enable_application_layer_automatic_response.async_enable_application_layer_automatic_response(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1383,14 +1666,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.enable_proactive_engagement_response.EnableProactiveEngagementResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.enable_proactive_engagement
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.enable_proactive_engagement
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.enable_proactive_engagement.async_enable_proactive_engagement(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.enable_proactive_engagement.async_enable_proactive_engagement(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.enable_proactive_engagement
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.enable_proactive_engagement.async_enable_proactive_engagement(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1423,14 +1718,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.get_subscription_state_response.GetSubscriptionStateResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.get_subscription_state
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.get_subscription_state
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.get_subscription_state.async_get_subscription_state(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.get_subscription_state.async_get_subscription_state(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.get_subscription_state
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.get_subscription_state.async_get_subscription_state(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1479,14 +1786,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.list_attacks_response.ListAttacksResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.list_attacks
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.list_attacks
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.list_attacks.async_list_attacks(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.list_attacks.async_list_attacks(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.list_attacks
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.list_attacks.async_list_attacks(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1572,14 +1891,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.list_protection_groups_response.ListProtectionGroupsResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.list_protection_groups
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.list_protection_groups
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.list_protection_groups.async_list_protection_groups(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.list_protection_groups.async_list_protection_groups(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.list_protection_groups
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.list_protection_groups.async_list_protection_groups(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1653,14 +1984,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.list_protections_response.ListProtectionsResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.list_protections
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.list_protections
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.list_protections.async_list_protections(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.list_protections.async_list_protections(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.list_protections
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.list_protections.async_list_protections(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1734,14 +2077,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.list_resources_in_protection_group_response.ListResourcesInProtectionGroupResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.list_resources_in_protection_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.list_resources_in_protection_group
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.list_resources_in_protection_group.async_list_resources_in_protection_group(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.list_resources_in_protection_group.async_list_resources_in_protection_group(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.list_resources_in_protection_group
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.list_resources_in_protection_group.async_list_resources_in_protection_group(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1809,14 +2164,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.list_tags_for_resource_response.ListTagsForResourceResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.list_tags_for_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.list_tags_for_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.list_tags_for_resource.async_list_tags_for_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.list_tags_for_resource.async_list_tags_for_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.list_tags_for_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.list_tags_for_resource.async_list_tags_for_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1860,14 +2227,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.tag_resource_response.TagResourceResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.tag_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.tag_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.tag_resource.async_tag_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.tag_resource.async_tag_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.tag_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.tag_resource.async_tag_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1912,14 +2291,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.untag_resource_response.UntagResourceResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.untag_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.untag_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.untag_resource.async_untag_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.untag_resource.async_untag_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.untag_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.untag_resource.async_untag_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1965,14 +2356,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.update_application_layer_automatic_response_response.UpdateApplicationLayerAutomaticResponseResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.update_application_layer_automatic_response
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.update_application_layer_automatic_response
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.update_application_layer_automatic_response.async_update_application_layer_automatic_response(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.update_application_layer_automatic_response.async_update_application_layer_automatic_response(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.update_application_layer_automatic_response
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.update_application_layer_automatic_response.async_update_application_layer_automatic_response(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2018,14 +2421,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.update_emergency_contact_settings_response.UpdateEmergencyContactSettingsResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.update_emergency_contact_settings
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.update_emergency_contact_settings
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.update_emergency_contact_settings.async_update_emergency_contact_settings(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.update_emergency_contact_settings.async_update_emergency_contact_settings(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.update_emergency_contact_settings
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.update_emergency_contact_settings.async_update_emergency_contact_settings(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2079,14 +2494,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.update_protection_group_response.UpdateProtectionGroupResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.update_protection_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.update_protection_group
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.update_protection_group.async_update_protection_group(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.update_protection_group.async_update_protection_group(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.update_protection_group
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.update_protection_group.async_update_protection_group(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2135,14 +2562,26 @@ class AsyncShieldClient:
         ) -> AsyncOperationResponse[
             "capo_shield.types.update_subscription_response.UpdateSubscriptionResponse"
         ]:
-            import capo_shield._operations.aws_shield_20160616.update_subscription
+            if req.options.protocol == "awsJson1_1":
+                import capo_shield._operations.aws_shield_20160616.aws_json1_1.update_subscription
 
-            (
-                output,
-                http_response,
-            ) = await capo_shield._operations.aws_shield_20160616.update_subscription.async_update_subscription(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.aws_json1_1.update_subscription.async_update_subscription(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_shield._operations.aws_shield_20160616.rpcv2_cbor.update_subscription
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_shield._operations.aws_shield_20160616.rpcv2_cbor.update_subscription.async_update_subscription(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

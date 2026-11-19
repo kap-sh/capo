@@ -43,6 +43,29 @@ def deserialize_aws_json_1_1(data: dict) -> Recommendation:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Recommendation) -> dict:
+    out: dict = {}
+    if "recommendation_id" in value:
+        out["RecommendationId"] = value["recommendation_id"]
+    if "recommendation_description" in value:
+        out["RecommendationDescription"] = value["recommendation_description"]
+    if "recommendation_details" in value:
+        out["RecommendationDetails"] = value["recommendation_details"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Recommendation:
+    out: Recommendation = {}  # type: ignore[typeddict-item]
+    if data.get("RecommendationId") is not None:
+        out["recommendation_id"] = data["RecommendationId"]
+    if data.get("RecommendationDescription") is not None:
+        out["recommendation_description"] = data["RecommendationDescription"]
+    if data.get("RecommendationDetails") is not None:
+        out["recommendation_details"] = data["RecommendationDetails"]
+    return out
+
+
 def redact_sensitive(value: Recommendation) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "recommendation_description" in value:

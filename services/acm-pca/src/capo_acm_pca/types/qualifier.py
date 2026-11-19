@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> Qualifier:
     else:
         out["cps_uri"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Qualifier) -> dict:
+    out: dict = {}
+    out["CpsUri"] = value["cps_uri"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Qualifier:
+    out: Qualifier = {}  # type: ignore[typeddict-item]
+    if data.get("CpsUri") is not None:
+        out["cps_uri"] = data["CpsUri"]
+    else:
+        out["cps_uri"] = ""
+    return out

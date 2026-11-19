@@ -35,3 +35,24 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateConnectionWithLagRequest:
     else:
         out["lag_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AssociateConnectionWithLagRequest) -> dict:
+    out: dict = {}
+    out["connectionId"] = value["connection_id"]
+    out["lagId"] = value["lag_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AssociateConnectionWithLagRequest:
+    out: AssociateConnectionWithLagRequest = {}  # type: ignore[typeddict-item]
+    if data.get("connectionId") is not None:
+        out["connection_id"] = data["connectionId"]
+    else:
+        out["connection_id"] = ""
+    if data.get("lagId") is not None:
+        out["lag_id"] = data["lagId"]
+    else:
+        out["lag_id"] = ""
+    return out

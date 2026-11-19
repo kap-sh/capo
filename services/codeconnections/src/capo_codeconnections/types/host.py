@@ -96,3 +96,64 @@ def deserialize_aws_json_1_0(data: dict) -> Host:
     if data.get("StatusMessage") is not None:
         out["status_message"] = data["StatusMessage"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Host) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "host_arn" in value:
+        out["HostArn"] = value["host_arn"]
+    if "provider_type" in value:
+        import capo_codeconnections.types.provider_type
+
+        out["ProviderType"] = capo_codeconnections.types.provider_type.serialize_cbor(
+            value["provider_type"]
+        )
+    if "provider_endpoint" in value:
+        out["ProviderEndpoint"] = value["provider_endpoint"]
+    if "vpc_configuration" in value:
+        import capo_codeconnections.types.vpc_configuration
+
+        out["VpcConfiguration"] = (
+            capo_codeconnections.types.vpc_configuration.serialize_cbor(
+                value["vpc_configuration"]
+            )
+        )
+    if "status" in value:
+        out["Status"] = value["status"]
+    if "status_message" in value:
+        out["StatusMessage"] = value["status_message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Host:
+    out: Host = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("HostArn") is not None:
+        out["host_arn"] = data["HostArn"]
+    if data.get("ProviderType") is not None:
+        import capo_codeconnections.types.provider_type
+
+        out["provider_type"] = (
+            capo_codeconnections.types.provider_type.deserialize_cbor(
+                data["ProviderType"]
+            )
+        )
+    if data.get("ProviderEndpoint") is not None:
+        out["provider_endpoint"] = data["ProviderEndpoint"]
+    if data.get("VpcConfiguration") is not None:
+        import capo_codeconnections.types.vpc_configuration
+
+        out["vpc_configuration"] = (
+            capo_codeconnections.types.vpc_configuration.deserialize_cbor(
+                data["VpcConfiguration"]
+            )
+        )
+    if data.get("Status") is not None:
+        out["status"] = data["Status"]
+    if data.get("StatusMessage") is not None:
+        out["status_message"] = data["StatusMessage"]
+    return out

@@ -15,3 +15,12 @@ def serialize_aws_json_1_0(value: LicenseModel) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> LicenseModel:
     return cast(LicenseModel, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LicenseModel) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> LicenseModel:
+    return cast(LicenseModel, data)

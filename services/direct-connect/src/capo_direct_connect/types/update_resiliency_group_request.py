@@ -48,3 +48,28 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateResiliencyGroupRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateResiliencyGroupRequest) -> dict:
+    out: dict = {}
+    out["resiliencyGroupId"] = value["resiliency_group_id"]
+    out["resiliencyGroupName"] = value["resiliency_group_name"]
+    if "client_token" in value:
+        out["clientToken"] = value["client_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateResiliencyGroupRequest:
+    out: UpdateResiliencyGroupRequest = {}  # type: ignore[typeddict-item]
+    if data.get("resiliencyGroupId") is not None:
+        out["resiliency_group_id"] = data["resiliencyGroupId"]
+    else:
+        out["resiliency_group_id"] = ""
+    if data.get("resiliencyGroupName") is not None:
+        out["resiliency_group_name"] = data["resiliencyGroupName"]
+    else:
+        out["resiliency_group_name"] = ""
+    if data.get("clientToken") is not None:
+        out["client_token"] = data["clientToken"]
+    return out

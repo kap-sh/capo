@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> CreateConnectClientAddInResult:
     if data.get("AddInId") is not None:
         out["add_in_id"] = data["AddInId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateConnectClientAddInResult) -> dict:
+    out: dict = {}
+    if "add_in_id" in value:
+        out["AddInId"] = value["add_in_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateConnectClientAddInResult:
+    out: CreateConnectClientAddInResult = {}  # type: ignore[typeddict-item]
+    if data.get("AddInId") is not None:
+        out["add_in_id"] = data["AddInId"]
+    return out

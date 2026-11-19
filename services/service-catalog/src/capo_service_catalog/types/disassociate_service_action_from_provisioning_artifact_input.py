@@ -63,3 +63,41 @@ def deserialize_aws_json_1_1(
     if data.get("IdempotencyToken") is not None:
         out["idempotency_token"] = data["IdempotencyToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(
+    value: DisassociateServiceActionFromProvisioningArtifactInput,
+) -> dict:
+    out: dict = {}
+    out["ProductId"] = value["product_id"]
+    out["ProvisioningArtifactId"] = value["provisioning_artifact_id"]
+    out["ServiceActionId"] = value["service_action_id"]
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    if "idempotency_token" in value:
+        out["IdempotencyToken"] = value["idempotency_token"]
+    return out
+
+
+def deserialize_cbor(
+    data: dict,
+) -> DisassociateServiceActionFromProvisioningArtifactInput:
+    out: DisassociateServiceActionFromProvisioningArtifactInput = {}  # type: ignore[typeddict-item]
+    if data.get("ProductId") is not None:
+        out["product_id"] = data["ProductId"]
+    else:
+        out["product_id"] = ""
+    if data.get("ProvisioningArtifactId") is not None:
+        out["provisioning_artifact_id"] = data["ProvisioningArtifactId"]
+    else:
+        out["provisioning_artifact_id"] = ""
+    if data.get("ServiceActionId") is not None:
+        out["service_action_id"] = data["ServiceActionId"]
+    else:
+        out["service_action_id"] = ""
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    if data.get("IdempotencyToken") is not None:
+        out["idempotency_token"] = data["IdempotencyToken"]
+    return out

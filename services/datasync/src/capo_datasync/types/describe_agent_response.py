@@ -130,3 +130,94 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeAgentResponse:
             data["Platform"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeAgentResponse) -> dict:
+    out: dict = {}
+    if "agent_arn" in value:
+        out["AgentArn"] = value["agent_arn"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "status" in value:
+        import capo_datasync.types.agent_status
+
+        out["Status"] = capo_datasync.types.agent_status.serialize_cbor(value["status"])
+    if "last_connection_time" in value:
+        import capo_datasync.types.time
+
+        out["LastConnectionTime"] = capo_datasync.types.time.serialize_cbor(
+            value["last_connection_time"]
+        )
+    if "creation_time" in value:
+        import capo_datasync.types.time
+
+        out["CreationTime"] = capo_datasync.types.time.serialize_cbor(
+            value["creation_time"]
+        )
+    if "endpoint_type" in value:
+        import capo_datasync.types.endpoint_type
+
+        out["EndpointType"] = capo_datasync.types.endpoint_type.serialize_cbor(
+            value["endpoint_type"]
+        )
+    if "private_link_config" in value:
+        import capo_datasync.types.private_link_config
+
+        out["PrivateLinkConfig"] = (
+            capo_datasync.types.private_link_config.serialize_cbor(
+                value["private_link_config"]
+            )
+        )
+    if "platform" in value:
+        import capo_datasync.types.platform
+
+        out["Platform"] = capo_datasync.types.platform.serialize_cbor(value["platform"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeAgentResponse:
+    out: DescribeAgentResponse = {}  # type: ignore[typeddict-item]
+    if data.get("AgentArn") is not None:
+        out["agent_arn"] = data["AgentArn"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Status") is not None:
+        import capo_datasync.types.agent_status
+
+        out["status"] = capo_datasync.types.agent_status.deserialize_cbor(
+            data["Status"]
+        )
+    if data.get("LastConnectionTime") is not None:
+        import capo_datasync.types.time
+
+        out["last_connection_time"] = capo_datasync.types.time.deserialize_cbor(
+            data["LastConnectionTime"]
+        )
+    if data.get("CreationTime") is not None:
+        import capo_datasync.types.time
+
+        out["creation_time"] = capo_datasync.types.time.deserialize_cbor(
+            data["CreationTime"]
+        )
+    if data.get("EndpointType") is not None:
+        import capo_datasync.types.endpoint_type
+
+        out["endpoint_type"] = capo_datasync.types.endpoint_type.deserialize_cbor(
+            data["EndpointType"]
+        )
+    if data.get("PrivateLinkConfig") is not None:
+        import capo_datasync.types.private_link_config
+
+        out["private_link_config"] = (
+            capo_datasync.types.private_link_config.deserialize_cbor(
+                data["PrivateLinkConfig"]
+            )
+        )
+    if data.get("Platform") is not None:
+        import capo_datasync.types.platform
+
+        out["platform"] = capo_datasync.types.platform.deserialize_cbor(
+            data["Platform"]
+        )
+    return out

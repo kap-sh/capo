@@ -69,3 +69,30 @@ def deserialize_query(el: Element) -> MetricMathAnomalyDetector:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MetricMathAnomalyDetector) -> dict:
+    out: dict = {}
+    if "metric_data_queries" in value:
+        import capo_cloudwatch.types.metric_data_queries
+
+        out["MetricDataQueries"] = (
+            capo_cloudwatch.types.metric_data_queries.serialize_cbor(
+                value["metric_data_queries"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> MetricMathAnomalyDetector:
+    out: MetricMathAnomalyDetector = {}  # type: ignore[typeddict-item]
+    if data.get("MetricDataQueries") is not None:
+        import capo_cloudwatch.types.metric_data_queries
+
+        out["metric_data_queries"] = (
+            capo_cloudwatch.types.metric_data_queries.deserialize_cbor(
+                data["MetricDataQueries"]
+            )
+        )
+    return out

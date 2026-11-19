@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> RemoveRegionRequest:
     else:
         out["directory_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RemoveRegionRequest) -> dict:
+    out: dict = {}
+    out["DirectoryId"] = value["directory_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RemoveRegionRequest:
+    out: RemoveRegionRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    return out

@@ -50,3 +50,31 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeWorkspacesPoolSessionsReques
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeWorkspacesPoolSessionsRequest) -> dict:
+    out: dict = {}
+    out["PoolId"] = value["pool_id"]
+    if "user_id" in value:
+        out["UserId"] = value["user_id"]
+    if "limit" in value:
+        out["Limit"] = value["limit"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeWorkspacesPoolSessionsRequest:
+    out: DescribeWorkspacesPoolSessionsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("PoolId") is not None:
+        out["pool_id"] = data["PoolId"]
+    else:
+        out["pool_id"] = ""
+    if data.get("UserId") is not None:
+        out["user_id"] = data["UserId"]
+    if data.get("Limit") is not None:
+        out["limit"] = data["Limit"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

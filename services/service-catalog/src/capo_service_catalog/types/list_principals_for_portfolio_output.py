@@ -45,3 +45,30 @@ def deserialize_aws_json_1_1(data: dict) -> ListPrincipalsForPortfolioOutput:
     if data.get("NextPageToken") is not None:
         out["next_page_token"] = data["NextPageToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListPrincipalsForPortfolioOutput) -> dict:
+    out: dict = {}
+    if "principals" in value:
+        import capo_service_catalog.types.principals
+
+        out["Principals"] = capo_service_catalog.types.principals.serialize_cbor(
+            value["principals"]
+        )
+    if "next_page_token" in value:
+        out["NextPageToken"] = value["next_page_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListPrincipalsForPortfolioOutput:
+    out: ListPrincipalsForPortfolioOutput = {}  # type: ignore[typeddict-item]
+    if data.get("Principals") is not None:
+        import capo_service_catalog.types.principals
+
+        out["principals"] = capo_service_catalog.types.principals.deserialize_cbor(
+            data["Principals"]
+        )
+    if data.get("NextPageToken") is not None:
+        out["next_page_token"] = data["NextPageToken"]
+    return out

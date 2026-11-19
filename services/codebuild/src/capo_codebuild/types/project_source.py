@@ -133,3 +133,89 @@ def deserialize_aws_json_1_1(data: dict) -> ProjectSource:
     if data.get("sourceIdentifier") is not None:
         out["source_identifier"] = data["sourceIdentifier"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ProjectSource) -> dict:
+    out: dict = {}
+    import capo_codebuild.types.source_type
+
+    out["type"] = capo_codebuild.types.source_type.serialize_cbor(value["type"])
+    if "location" in value:
+        out["location"] = value["location"]
+    if "git_clone_depth" in value:
+        out["gitCloneDepth"] = value["git_clone_depth"]
+    if "git_submodules_config" in value:
+        import capo_codebuild.types.git_submodules_config
+
+        out["gitSubmodulesConfig"] = (
+            capo_codebuild.types.git_submodules_config.serialize_cbor(
+                value["git_submodules_config"]
+            )
+        )
+    if "buildspec" in value:
+        out["buildspec"] = value["buildspec"]
+    if "auth" in value:
+        import capo_codebuild.types.source_auth
+
+        out["auth"] = capo_codebuild.types.source_auth.serialize_cbor(value["auth"])
+    if "report_build_status" in value:
+        out["reportBuildStatus"] = value["report_build_status"]
+    if "build_status_config" in value:
+        import capo_codebuild.types.build_status_config
+
+        out["buildStatusConfig"] = (
+            capo_codebuild.types.build_status_config.serialize_cbor(
+                value["build_status_config"]
+            )
+        )
+    if "insecure_ssl" in value:
+        out["insecureSsl"] = value["insecure_ssl"]
+    if "source_identifier" in value:
+        out["sourceIdentifier"] = value["source_identifier"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ProjectSource:
+    out: ProjectSource = {}  # type: ignore[typeddict-item]
+    if data.get("type") is not None:
+        import capo_codebuild.types.source_type
+
+        out["type"] = capo_codebuild.types.source_type.deserialize_cbor(data["type"])
+    else:
+        import typing
+
+        out["type"] = typing.cast("capo_codebuild.types.source_type.SourceType", "")
+    if data.get("location") is not None:
+        out["location"] = data["location"]
+    if data.get("gitCloneDepth") is not None:
+        out["git_clone_depth"] = data["gitCloneDepth"]
+    if data.get("gitSubmodulesConfig") is not None:
+        import capo_codebuild.types.git_submodules_config
+
+        out["git_submodules_config"] = (
+            capo_codebuild.types.git_submodules_config.deserialize_cbor(
+                data["gitSubmodulesConfig"]
+            )
+        )
+    if data.get("buildspec") is not None:
+        out["buildspec"] = data["buildspec"]
+    if data.get("auth") is not None:
+        import capo_codebuild.types.source_auth
+
+        out["auth"] = capo_codebuild.types.source_auth.deserialize_cbor(data["auth"])
+    if data.get("reportBuildStatus") is not None:
+        out["report_build_status"] = data["reportBuildStatus"]
+    if data.get("buildStatusConfig") is not None:
+        import capo_codebuild.types.build_status_config
+
+        out["build_status_config"] = (
+            capo_codebuild.types.build_status_config.deserialize_cbor(
+                data["buildStatusConfig"]
+            )
+        )
+    if data.get("insecureSsl") is not None:
+        out["insecure_ssl"] = data["insecureSsl"]
+    if data.get("sourceIdentifier") is not None:
+        out["source_identifier"] = data["sourceIdentifier"]
+    return out

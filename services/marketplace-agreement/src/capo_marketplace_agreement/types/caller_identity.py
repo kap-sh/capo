@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> CallerIdentity:
     else:
         out["principal_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CallerIdentity) -> dict:
+    out: dict = {}
+    out["principalArn"] = value["principal_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CallerIdentity:
+    out: CallerIdentity = {}  # type: ignore[typeddict-item]
+    if data.get("principalArn") is not None:
+        out["principal_arn"] = data["principalArn"]
+    else:
+        out["principal_arn"] = ""
+    return out

@@ -59,3 +59,38 @@ def deserialize_aws_json_1_1(data: dict) -> MatchmakingRuleSet:
             data["CreationTime"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MatchmakingRuleSet) -> dict:
+    out: dict = {}
+    if "rule_set_name" in value:
+        out["RuleSetName"] = value["rule_set_name"]
+    if "rule_set_arn" in value:
+        out["RuleSetArn"] = value["rule_set_arn"]
+    if "rule_set_body" in value:
+        out["RuleSetBody"] = value["rule_set_body"]
+    if "creation_time" in value:
+        import capo_gamelift.types.timestamp
+
+        out["CreationTime"] = capo_gamelift.types.timestamp.serialize_cbor(
+            value["creation_time"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> MatchmakingRuleSet:
+    out: MatchmakingRuleSet = {}  # type: ignore[typeddict-item]
+    if data.get("RuleSetName") is not None:
+        out["rule_set_name"] = data["RuleSetName"]
+    if data.get("RuleSetArn") is not None:
+        out["rule_set_arn"] = data["RuleSetArn"]
+    if data.get("RuleSetBody") is not None:
+        out["rule_set_body"] = data["RuleSetBody"]
+    if data.get("CreationTime") is not None:
+        import capo_gamelift.types.timestamp
+
+        out["creation_time"] = capo_gamelift.types.timestamp.deserialize_cbor(
+            data["CreationTime"]
+        )
+    return out

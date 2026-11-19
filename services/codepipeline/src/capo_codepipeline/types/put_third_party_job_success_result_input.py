@@ -86,3 +86,60 @@ def deserialize_aws_json_1_1(data: dict) -> PutThirdPartyJobSuccessResultInput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PutThirdPartyJobSuccessResultInput) -> dict:
+    out: dict = {}
+    out["jobId"] = value["job_id"]
+    out["clientToken"] = value["client_token"]
+    if "current_revision" in value:
+        import capo_codepipeline.types.current_revision
+
+        out["currentRevision"] = (
+            capo_codepipeline.types.current_revision.serialize_cbor(
+                value["current_revision"]
+            )
+        )
+    if "continuation_token" in value:
+        out["continuationToken"] = value["continuation_token"]
+    if "execution_details" in value:
+        import capo_codepipeline.types.execution_details
+
+        out["executionDetails"] = (
+            capo_codepipeline.types.execution_details.serialize_cbor(
+                value["execution_details"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PutThirdPartyJobSuccessResultInput:
+    out: PutThirdPartyJobSuccessResultInput = {}  # type: ignore[typeddict-item]
+    if data.get("jobId") is not None:
+        out["job_id"] = data["jobId"]
+    else:
+        out["job_id"] = ""
+    if data.get("clientToken") is not None:
+        out["client_token"] = data["clientToken"]
+    else:
+        out["client_token"] = ""
+    if data.get("currentRevision") is not None:
+        import capo_codepipeline.types.current_revision
+
+        out["current_revision"] = (
+            capo_codepipeline.types.current_revision.deserialize_cbor(
+                data["currentRevision"]
+            )
+        )
+    if data.get("continuationToken") is not None:
+        out["continuation_token"] = data["continuationToken"]
+    if data.get("executionDetails") is not None:
+        import capo_codepipeline.types.execution_details
+
+        out["execution_details"] = (
+            capo_codepipeline.types.execution_details.deserialize_cbor(
+                data["executionDetails"]
+            )
+        )
+    return out

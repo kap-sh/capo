@@ -77,3 +77,47 @@ def deserialize_aws_json_1_0(data: dict) -> VolumeConfiguration:
     if data.get("rootVolume") is not None:
         out["root_volume"] = data["rootVolume"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: VolumeConfiguration) -> dict:
+    out: dict = {}
+    if "volume_type" in value:
+        out["volumeType"] = value["volume_type"]
+    out["volumeSize"] = value.get("volume_size", 0)
+    out["volumeBaselineIOPS"] = value.get("volume_baseline_iops", 0)
+    out["volumeBurstIOPS"] = value.get("volume_burst_iops", 0)
+    out["volumeBaselineThroughput"] = value.get("volume_baseline_throughput", 0)
+    out["volumeBurstThroughput"] = value.get("volume_burst_throughput", 0)
+    if "root_volume" in value:
+        out["rootVolume"] = value["root_volume"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> VolumeConfiguration:
+    out: VolumeConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("volumeType") is not None:
+        out["volume_type"] = data["volumeType"]
+    if data.get("volumeSize") is not None:
+        out["volume_size"] = data["volumeSize"]
+    else:
+        out["volume_size"] = 0
+    if data.get("volumeBaselineIOPS") is not None:
+        out["volume_baseline_iops"] = data["volumeBaselineIOPS"]
+    else:
+        out["volume_baseline_iops"] = 0
+    if data.get("volumeBurstIOPS") is not None:
+        out["volume_burst_iops"] = data["volumeBurstIOPS"]
+    else:
+        out["volume_burst_iops"] = 0
+    if data.get("volumeBaselineThroughput") is not None:
+        out["volume_baseline_throughput"] = data["volumeBaselineThroughput"]
+    else:
+        out["volume_baseline_throughput"] = 0
+    if data.get("volumeBurstThroughput") is not None:
+        out["volume_burst_throughput"] = data["volumeBurstThroughput"]
+    else:
+        out["volume_burst_throughput"] = 0
+    if data.get("rootVolume") is not None:
+        out["root_volume"] = data["rootVolume"]
+    return out

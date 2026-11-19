@@ -149,3 +149,98 @@ def deserialize_aws_json_1_1(data: dict) -> Certificate:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Certificate) -> dict:
+    out: dict = {}
+    if "certificate_id" in value:
+        out["CertificateId"] = value["certificate_id"]
+    if "state" in value:
+        import capo_directory_service.types.certificate_state
+
+        out["State"] = capo_directory_service.types.certificate_state.serialize_cbor(
+            value["state"]
+        )
+    if "state_reason" in value:
+        out["StateReason"] = value["state_reason"]
+    if "common_name" in value:
+        out["CommonName"] = value["common_name"]
+    if "registered_date_time" in value:
+        import capo_directory_service.types.certificate_registered_date_time
+
+        out["RegisteredDateTime"] = (
+            capo_directory_service.types.certificate_registered_date_time.serialize_cbor(
+                value["registered_date_time"]
+            )
+        )
+    if "expiry_date_time" in value:
+        import capo_directory_service.types.certificate_expiry_date_time
+
+        out["ExpiryDateTime"] = (
+            capo_directory_service.types.certificate_expiry_date_time.serialize_cbor(
+                value["expiry_date_time"]
+            )
+        )
+    if "type" in value:
+        import capo_directory_service.types.certificate_type
+
+        out["Type"] = capo_directory_service.types.certificate_type.serialize_cbor(
+            value["type"]
+        )
+    if "client_cert_auth_settings" in value:
+        import capo_directory_service.types.client_cert_auth_settings
+
+        out["ClientCertAuthSettings"] = (
+            capo_directory_service.types.client_cert_auth_settings.serialize_cbor(
+                value["client_cert_auth_settings"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Certificate:
+    out: Certificate = {}  # type: ignore[typeddict-item]
+    if data.get("CertificateId") is not None:
+        out["certificate_id"] = data["CertificateId"]
+    if data.get("State") is not None:
+        import capo_directory_service.types.certificate_state
+
+        out["state"] = capo_directory_service.types.certificate_state.deserialize_cbor(
+            data["State"]
+        )
+    if data.get("StateReason") is not None:
+        out["state_reason"] = data["StateReason"]
+    if data.get("CommonName") is not None:
+        out["common_name"] = data["CommonName"]
+    if data.get("RegisteredDateTime") is not None:
+        import capo_directory_service.types.certificate_registered_date_time
+
+        out["registered_date_time"] = (
+            capo_directory_service.types.certificate_registered_date_time.deserialize_cbor(
+                data["RegisteredDateTime"]
+            )
+        )
+    if data.get("ExpiryDateTime") is not None:
+        import capo_directory_service.types.certificate_expiry_date_time
+
+        out["expiry_date_time"] = (
+            capo_directory_service.types.certificate_expiry_date_time.deserialize_cbor(
+                data["ExpiryDateTime"]
+            )
+        )
+    if data.get("Type") is not None:
+        import capo_directory_service.types.certificate_type
+
+        out["type"] = capo_directory_service.types.certificate_type.deserialize_cbor(
+            data["Type"]
+        )
+    if data.get("ClientCertAuthSettings") is not None:
+        import capo_directory_service.types.client_cert_auth_settings
+
+        out["client_cert_auth_settings"] = (
+            capo_directory_service.types.client_cert_auth_settings.deserialize_cbor(
+                data["ClientCertAuthSettings"]
+            )
+        )
+    return out

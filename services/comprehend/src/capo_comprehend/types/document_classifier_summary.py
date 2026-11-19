@@ -80,3 +80,54 @@ def deserialize_aws_json_1_1(data: dict) -> DocumentClassifierSummary:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DocumentClassifierSummary) -> dict:
+    out: dict = {}
+    if "document_classifier_name" in value:
+        out["DocumentClassifierName"] = value["document_classifier_name"]
+    if "number_of_versions" in value:
+        out["NumberOfVersions"] = value["number_of_versions"]
+    if "latest_version_created_at" in value:
+        import capo_comprehend.types.timestamp
+
+        out["LatestVersionCreatedAt"] = capo_comprehend.types.timestamp.serialize_cbor(
+            value["latest_version_created_at"]
+        )
+    if "latest_version_name" in value:
+        out["LatestVersionName"] = value["latest_version_name"]
+    if "latest_version_status" in value:
+        import capo_comprehend.types.model_status
+
+        out["LatestVersionStatus"] = capo_comprehend.types.model_status.serialize_cbor(
+            value["latest_version_status"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DocumentClassifierSummary:
+    out: DocumentClassifierSummary = {}  # type: ignore[typeddict-item]
+    if data.get("DocumentClassifierName") is not None:
+        out["document_classifier_name"] = data["DocumentClassifierName"]
+    if data.get("NumberOfVersions") is not None:
+        out["number_of_versions"] = data["NumberOfVersions"]
+    if data.get("LatestVersionCreatedAt") is not None:
+        import capo_comprehend.types.timestamp
+
+        out["latest_version_created_at"] = (
+            capo_comprehend.types.timestamp.deserialize_cbor(
+                data["LatestVersionCreatedAt"]
+            )
+        )
+    if data.get("LatestVersionName") is not None:
+        out["latest_version_name"] = data["LatestVersionName"]
+    if data.get("LatestVersionStatus") is not None:
+        import capo_comprehend.types.model_status
+
+        out["latest_version_status"] = (
+            capo_comprehend.types.model_status.deserialize_cbor(
+                data["LatestVersionStatus"]
+            )
+        )
+    return out

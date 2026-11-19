@@ -61,3 +61,42 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateFirewallAnalysisSettingsRespon
     if data.get("UpdateToken") is not None:
         out["update_token"] = data["UpdateToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateFirewallAnalysisSettingsResponse) -> dict:
+    out: dict = {}
+    if "enabled_analysis_types" in value:
+        import capo_network_firewall.types.enabled_analysis_types
+
+        out["EnabledAnalysisTypes"] = (
+            capo_network_firewall.types.enabled_analysis_types.serialize_cbor(
+                value["enabled_analysis_types"]
+            )
+        )
+    if "firewall_arn" in value:
+        out["FirewallArn"] = value["firewall_arn"]
+    if "firewall_name" in value:
+        out["FirewallName"] = value["firewall_name"]
+    if "update_token" in value:
+        out["UpdateToken"] = value["update_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateFirewallAnalysisSettingsResponse:
+    out: UpdateFirewallAnalysisSettingsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("EnabledAnalysisTypes") is not None:
+        import capo_network_firewall.types.enabled_analysis_types
+
+        out["enabled_analysis_types"] = (
+            capo_network_firewall.types.enabled_analysis_types.deserialize_cbor(
+                data["EnabledAnalysisTypes"]
+            )
+        )
+    if data.get("FirewallArn") is not None:
+        out["firewall_arn"] = data["FirewallArn"]
+    if data.get("FirewallName") is not None:
+        out["firewall_name"] = data["FirewallName"]
+    if data.get("UpdateToken") is not None:
+        out["update_token"] = data["UpdateToken"]
+    return out

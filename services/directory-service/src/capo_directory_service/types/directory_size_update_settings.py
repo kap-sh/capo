@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> DirectorySizeUpdateSettings:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DirectorySizeUpdateSettings) -> dict:
+    out: dict = {}
+    if "directory_size" in value:
+        import capo_directory_service.types.directory_size
+
+        out["DirectorySize"] = (
+            capo_directory_service.types.directory_size.serialize_cbor(
+                value["directory_size"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DirectorySizeUpdateSettings:
+    out: DirectorySizeUpdateSettings = {}  # type: ignore[typeddict-item]
+    if data.get("DirectorySize") is not None:
+        import capo_directory_service.types.directory_size
+
+        out["directory_size"] = (
+            capo_directory_service.types.directory_size.deserialize_cbor(
+                data["DirectorySize"]
+            )
+        )
+    return out

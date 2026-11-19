@@ -63,3 +63,39 @@ def deserialize_aws_json_1_1(data: dict) -> Instance:
     if data.get("CreatedByAccount") is not None:
         out["created_by_account"] = data["CreatedByAccount"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Instance) -> dict:
+    out: dict = {}
+    out["Id"] = value["id"]
+    if "creator_request_id" in value:
+        out["CreatorRequestId"] = value["creator_request_id"]
+    if "attributes" in value:
+        import capo_servicediscovery.types.attributes
+
+        out["Attributes"] = capo_servicediscovery.types.attributes.serialize_cbor(
+            value["attributes"]
+        )
+    if "created_by_account" in value:
+        out["CreatedByAccount"] = value["created_by_account"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Instance:
+    out: Instance = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    else:
+        out["id"] = ""
+    if data.get("CreatorRequestId") is not None:
+        out["creator_request_id"] = data["CreatorRequestId"]
+    if data.get("Attributes") is not None:
+        import capo_servicediscovery.types.attributes
+
+        out["attributes"] = capo_servicediscovery.types.attributes.deserialize_cbor(
+            data["Attributes"]
+        )
+    if data.get("CreatedByAccount") is not None:
+        out["created_by_account"] = data["CreatedByAccount"]
+    return out

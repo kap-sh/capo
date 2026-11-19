@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> AttackVectorDescription:
     else:
         out["vector_type"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AttackVectorDescription) -> dict:
+    out: dict = {}
+    out["VectorType"] = value["vector_type"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AttackVectorDescription:
+    out: AttackVectorDescription = {}  # type: ignore[typeddict-item]
+    if data.get("VectorType") is not None:
+        out["vector_type"] = data["VectorType"]
+    else:
+        out["vector_type"] = ""
+    return out

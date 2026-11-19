@@ -132,3 +132,88 @@ def deserialize_aws_json_1_1(data: dict) -> GetOperationDetailResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetOperationDetailResponse) -> dict:
+    out: dict = {}
+    if "operation_id" in value:
+        out["OperationId"] = value["operation_id"]
+    if "status" in value:
+        import capo_route_53_domains.types.operation_status
+
+        out["Status"] = capo_route_53_domains.types.operation_status.serialize_cbor(
+            value["status"]
+        )
+    if "message" in value:
+        out["Message"] = value["message"]
+    if "domain_name" in value:
+        out["DomainName"] = value["domain_name"]
+    if "type" in value:
+        import capo_route_53_domains.types.operation_type
+
+        out["Type"] = capo_route_53_domains.types.operation_type.serialize_cbor(
+            value["type"]
+        )
+    if "submitted_date" in value:
+        import capo_route_53_domains.types.timestamp
+
+        out["SubmittedDate"] = capo_route_53_domains.types.timestamp.serialize_cbor(
+            value["submitted_date"]
+        )
+    if "last_updated_date" in value:
+        import capo_route_53_domains.types.timestamp
+
+        out["LastUpdatedDate"] = capo_route_53_domains.types.timestamp.serialize_cbor(
+            value["last_updated_date"]
+        )
+    if "status_flag" in value:
+        import capo_route_53_domains.types.status_flag
+
+        out["StatusFlag"] = capo_route_53_domains.types.status_flag.serialize_cbor(
+            value["status_flag"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetOperationDetailResponse:
+    out: GetOperationDetailResponse = {}  # type: ignore[typeddict-item]
+    if data.get("OperationId") is not None:
+        out["operation_id"] = data["OperationId"]
+    if data.get("Status") is not None:
+        import capo_route_53_domains.types.operation_status
+
+        out["status"] = capo_route_53_domains.types.operation_status.deserialize_cbor(
+            data["Status"]
+        )
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    if data.get("DomainName") is not None:
+        out["domain_name"] = data["DomainName"]
+    if data.get("Type") is not None:
+        import capo_route_53_domains.types.operation_type
+
+        out["type"] = capo_route_53_domains.types.operation_type.deserialize_cbor(
+            data["Type"]
+        )
+    if data.get("SubmittedDate") is not None:
+        import capo_route_53_domains.types.timestamp
+
+        out["submitted_date"] = capo_route_53_domains.types.timestamp.deserialize_cbor(
+            data["SubmittedDate"]
+        )
+    if data.get("LastUpdatedDate") is not None:
+        import capo_route_53_domains.types.timestamp
+
+        out["last_updated_date"] = (
+            capo_route_53_domains.types.timestamp.deserialize_cbor(
+                data["LastUpdatedDate"]
+            )
+        )
+    if data.get("StatusFlag") is not None:
+        import capo_route_53_domains.types.status_flag
+
+        out["status_flag"] = capo_route_53_domains.types.status_flag.deserialize_cbor(
+            data["StatusFlag"]
+        )
+    return out

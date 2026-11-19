@@ -110,3 +110,83 @@ def deserialize_aws_json_1_0(data: dict) -> RDSDBStorageRecommendationOption:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RDSDBStorageRecommendationOption) -> dict:
+    out: dict = {}
+    if "storage_configuration" in value:
+        import capo_compute_optimizer.types.db_storage_configuration
+
+        out["storageConfiguration"] = (
+            capo_compute_optimizer.types.db_storage_configuration.serialize_cbor(
+                value["storage_configuration"]
+            )
+        )
+    out["rank"] = value.get("rank", 0)
+    if "savings_opportunity" in value:
+        import capo_compute_optimizer.types.savings_opportunity
+
+        out["savingsOpportunity"] = (
+            capo_compute_optimizer.types.savings_opportunity.serialize_cbor(
+                value["savings_opportunity"]
+            )
+        )
+    if "savings_opportunity_after_discounts" in value:
+        import capo_compute_optimizer.types.rds_storage_savings_opportunity_after_discounts
+
+        out["savingsOpportunityAfterDiscounts"] = (
+            capo_compute_optimizer.types.rds_storage_savings_opportunity_after_discounts.serialize_cbor(
+                value["savings_opportunity_after_discounts"]
+            )
+        )
+    if "estimated_monthly_volume_io_ps_cost_variation" in value:
+        import capo_compute_optimizer.types.rds_estimated_monthly_volume_io_ps_cost_variation
+
+        out["estimatedMonthlyVolumeIOPsCostVariation"] = (
+            capo_compute_optimizer.types.rds_estimated_monthly_volume_io_ps_cost_variation.serialize_cbor(
+                value["estimated_monthly_volume_io_ps_cost_variation"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RDSDBStorageRecommendationOption:
+    out: RDSDBStorageRecommendationOption = {}  # type: ignore[typeddict-item]
+    if data.get("storageConfiguration") is not None:
+        import capo_compute_optimizer.types.db_storage_configuration
+
+        out["storage_configuration"] = (
+            capo_compute_optimizer.types.db_storage_configuration.deserialize_cbor(
+                data["storageConfiguration"]
+            )
+        )
+    if data.get("rank") is not None:
+        out["rank"] = data["rank"]
+    else:
+        out["rank"] = 0
+    if data.get("savingsOpportunity") is not None:
+        import capo_compute_optimizer.types.savings_opportunity
+
+        out["savings_opportunity"] = (
+            capo_compute_optimizer.types.savings_opportunity.deserialize_cbor(
+                data["savingsOpportunity"]
+            )
+        )
+    if data.get("savingsOpportunityAfterDiscounts") is not None:
+        import capo_compute_optimizer.types.rds_storage_savings_opportunity_after_discounts
+
+        out["savings_opportunity_after_discounts"] = (
+            capo_compute_optimizer.types.rds_storage_savings_opportunity_after_discounts.deserialize_cbor(
+                data["savingsOpportunityAfterDiscounts"]
+            )
+        )
+    if data.get("estimatedMonthlyVolumeIOPsCostVariation") is not None:
+        import capo_compute_optimizer.types.rds_estimated_monthly_volume_io_ps_cost_variation
+
+        out["estimated_monthly_volume_io_ps_cost_variation"] = (
+            capo_compute_optimizer.types.rds_estimated_monthly_volume_io_ps_cost_variation.deserialize_cbor(
+                data["estimatedMonthlyVolumeIOPsCostVariation"]
+            )
+        )
+    return out

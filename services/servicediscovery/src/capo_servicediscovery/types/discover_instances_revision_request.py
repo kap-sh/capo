@@ -44,3 +44,28 @@ def deserialize_aws_json_1_1(data: dict) -> DiscoverInstancesRevisionRequest:
     if data.get("OwnerAccount") is not None:
         out["owner_account"] = data["OwnerAccount"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DiscoverInstancesRevisionRequest) -> dict:
+    out: dict = {}
+    out["NamespaceName"] = value["namespace_name"]
+    out["ServiceName"] = value["service_name"]
+    if "owner_account" in value:
+        out["OwnerAccount"] = value["owner_account"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DiscoverInstancesRevisionRequest:
+    out: DiscoverInstancesRevisionRequest = {}  # type: ignore[typeddict-item]
+    if data.get("NamespaceName") is not None:
+        out["namespace_name"] = data["NamespaceName"]
+    else:
+        out["namespace_name"] = ""
+    if data.get("ServiceName") is not None:
+        out["service_name"] = data["ServiceName"]
+    else:
+        out["service_name"] = ""
+    if data.get("OwnerAccount") is not None:
+        out["owner_account"] = data["OwnerAccount"]
+    return out

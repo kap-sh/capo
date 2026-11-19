@@ -19,3 +19,12 @@ def serialize_aws_json_1_0(value: EBSMetricName) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> EBSMetricName:
     return cast(EBSMetricName, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EBSMetricName) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> EBSMetricName:
+    return cast(EBSMetricName, data)

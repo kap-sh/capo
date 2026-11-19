@@ -49,3 +49,36 @@ def deserialize_aws_json_1_1(data: dict) -> DetectPiiEntitiesRequest:
             "capo_comprehend.types.language_code.LanguageCode", ""
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DetectPiiEntitiesRequest) -> dict:
+    out: dict = {}
+    out["Text"] = value["text"]
+    import capo_comprehend.types.language_code
+
+    out["LanguageCode"] = capo_comprehend.types.language_code.serialize_cbor(
+        value["language_code"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DetectPiiEntitiesRequest:
+    out: DetectPiiEntitiesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Text") is not None:
+        out["text"] = data["Text"]
+    else:
+        out["text"] = ""
+    if data.get("LanguageCode") is not None:
+        import capo_comprehend.types.language_code
+
+        out["language_code"] = capo_comprehend.types.language_code.deserialize_cbor(
+            data["LanguageCode"]
+        )
+    else:
+        import typing
+
+        out["language_code"] = typing.cast(
+            "capo_comprehend.types.language_code.LanguageCode", ""
+        )
+    return out

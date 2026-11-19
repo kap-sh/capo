@@ -84,3 +84,57 @@ def deserialize_aws_json_1_0(data: dict) -> SsmSendCommandConfiguration:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SsmSendCommandConfiguration) -> dict:
+    out: dict = {}
+    out["timeoutMinutes"] = value.get("timeout_minutes", 60)
+    import capo_arc_region_switch.types.region_ssm_document_map
+
+    out["regionDocuments"] = (
+        capo_arc_region_switch.types.region_ssm_document_map.serialize_cbor(
+            value["region_documents"]
+        )
+    )
+    out["retryIntervalMinutes"] = value["retry_interval_minutes"]
+    if "ungraceful" in value:
+        import capo_arc_region_switch.types.ssm_send_command_ungraceful
+
+        out["ungraceful"] = (
+            capo_arc_region_switch.types.ssm_send_command_ungraceful.serialize_cbor(
+                value["ungraceful"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> SsmSendCommandConfiguration:
+    out: SsmSendCommandConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("timeoutMinutes") is not None:
+        out["timeout_minutes"] = data["timeoutMinutes"]
+    else:
+        out["timeout_minutes"] = 60
+    if data.get("regionDocuments") is not None:
+        import capo_arc_region_switch.types.region_ssm_document_map
+
+        out["region_documents"] = (
+            capo_arc_region_switch.types.region_ssm_document_map.deserialize_cbor(
+                data["regionDocuments"]
+            )
+        )
+    else:
+        out["region_documents"] = {}
+    if data.get("retryIntervalMinutes") is not None:
+        out["retry_interval_minutes"] = float(data["retryIntervalMinutes"])
+    else:
+        out["retry_interval_minutes"] = 0.0
+    if data.get("ungraceful") is not None:
+        import capo_arc_region_switch.types.ssm_send_command_ungraceful
+
+        out["ungraceful"] = (
+            capo_arc_region_switch.types.ssm_send_command_ungraceful.deserialize_cbor(
+                data["ungraceful"]
+            )
+        )
+    return out

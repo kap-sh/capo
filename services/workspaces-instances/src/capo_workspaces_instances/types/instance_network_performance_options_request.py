@@ -40,3 +40,30 @@ def deserialize_aws_json_1_0(data: dict) -> InstanceNetworkPerformanceOptionsReq
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InstanceNetworkPerformanceOptionsRequest) -> dict:
+    out: dict = {}
+    if "bandwidth_weighting" in value:
+        import capo_workspaces_instances.types.bandwidth_weighting_enum
+
+        out["BandwidthWeighting"] = (
+            capo_workspaces_instances.types.bandwidth_weighting_enum.serialize_cbor(
+                value["bandwidth_weighting"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> InstanceNetworkPerformanceOptionsRequest:
+    out: InstanceNetworkPerformanceOptionsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("BandwidthWeighting") is not None:
+        import capo_workspaces_instances.types.bandwidth_weighting_enum
+
+        out["bandwidth_weighting"] = (
+            capo_workspaces_instances.types.bandwidth_weighting_enum.deserialize_cbor(
+                data["BandwidthWeighting"]
+            )
+        )
+    return out

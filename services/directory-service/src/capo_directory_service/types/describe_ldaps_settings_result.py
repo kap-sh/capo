@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeLDAPSSettingsResult:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeLDAPSSettingsResult) -> dict:
+    out: dict = {}
+    if "ldaps_settings_info" in value:
+        import capo_directory_service.types.ldaps_settings_info
+
+        out["LDAPSSettingsInfo"] = (
+            capo_directory_service.types.ldaps_settings_info.serialize_cbor(
+                value["ldaps_settings_info"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeLDAPSSettingsResult:
+    out: DescribeLDAPSSettingsResult = {}  # type: ignore[typeddict-item]
+    if data.get("LDAPSSettingsInfo") is not None:
+        import capo_directory_service.types.ldaps_settings_info
+
+        out["ldaps_settings_info"] = (
+            capo_directory_service.types.ldaps_settings_info.deserialize_cbor(
+                data["LDAPSSettingsInfo"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

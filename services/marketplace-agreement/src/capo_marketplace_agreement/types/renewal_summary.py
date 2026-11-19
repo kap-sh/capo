@@ -26,3 +26,18 @@ def deserialize_aws_json_1_0(data: dict) -> RenewalSummary:
     if data.get("offerId") is not None:
         out["offer_id"] = data["offerId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RenewalSummary) -> dict:
+    out: dict = {}
+    if "offer_id" in value:
+        out["offerId"] = value["offer_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RenewalSummary:
+    out: RenewalSummary = {}  # type: ignore[typeddict-item]
+    if data.get("offerId") is not None:
+        out["offer_id"] = data["offerId"]
+    return out

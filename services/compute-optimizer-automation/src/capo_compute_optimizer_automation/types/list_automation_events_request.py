@@ -93,3 +93,70 @@ def deserialize_aws_json_1_0(data: dict) -> ListAutomationEventsRequest:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListAutomationEventsRequest) -> dict:
+    out: dict = {}
+    if "filters" in value:
+        import capo_compute_optimizer_automation.types.automation_event_filter_list
+
+        out["filters"] = (
+            capo_compute_optimizer_automation.types.automation_event_filter_list.serialize_cbor(
+                value["filters"]
+            )
+        )
+    if "start_time_inclusive" in value:
+        import capo_compute_optimizer_automation.types._prelude.timestamp
+
+        out["startTimeInclusive"] = (
+            capo_compute_optimizer_automation.types._prelude.timestamp.serialize_cbor(
+                value["start_time_inclusive"]
+            )
+        )
+    if "end_time_exclusive" in value:
+        import capo_compute_optimizer_automation.types._prelude.timestamp
+
+        out["endTimeExclusive"] = (
+            capo_compute_optimizer_automation.types._prelude.timestamp.serialize_cbor(
+                value["end_time_exclusive"]
+            )
+        )
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListAutomationEventsRequest:
+    out: ListAutomationEventsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("filters") is not None:
+        import capo_compute_optimizer_automation.types.automation_event_filter_list
+
+        out["filters"] = (
+            capo_compute_optimizer_automation.types.automation_event_filter_list.deserialize_cbor(
+                data["filters"]
+            )
+        )
+    if data.get("startTimeInclusive") is not None:
+        import capo_compute_optimizer_automation.types._prelude.timestamp
+
+        out["start_time_inclusive"] = (
+            capo_compute_optimizer_automation.types._prelude.timestamp.deserialize_cbor(
+                data["startTimeInclusive"]
+            )
+        )
+    if data.get("endTimeExclusive") is not None:
+        import capo_compute_optimizer_automation.types._prelude.timestamp
+
+        out["end_time_exclusive"] = (
+            capo_compute_optimizer_automation.types._prelude.timestamp.deserialize_cbor(
+                data["endTimeExclusive"]
+            )
+        )
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

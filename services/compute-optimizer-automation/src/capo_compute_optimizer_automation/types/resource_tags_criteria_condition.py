@@ -70,3 +70,50 @@ def deserialize_aws_json_1_0(data: dict) -> ResourceTagsCriteriaCondition:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResourceTagsCriteriaCondition) -> dict:
+    out: dict = {}
+    if "comparison" in value:
+        import capo_compute_optimizer_automation.types.comparison_operator
+
+        out["comparison"] = (
+            capo_compute_optimizer_automation.types.comparison_operator.serialize_cbor(
+                value["comparison"]
+            )
+        )
+    if "key" in value:
+        out["key"] = value["key"]
+    if "values" in value:
+        import capo_compute_optimizer_automation.types.string_criteria_values
+
+        out["values"] = (
+            capo_compute_optimizer_automation.types.string_criteria_values.serialize_cbor(
+                value["values"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ResourceTagsCriteriaCondition:
+    out: ResourceTagsCriteriaCondition = {}  # type: ignore[typeddict-item]
+    if data.get("comparison") is not None:
+        import capo_compute_optimizer_automation.types.comparison_operator
+
+        out["comparison"] = (
+            capo_compute_optimizer_automation.types.comparison_operator.deserialize_cbor(
+                data["comparison"]
+            )
+        )
+    if data.get("key") is not None:
+        out["key"] = data["key"]
+    if data.get("values") is not None:
+        import capo_compute_optimizer_automation.types.string_criteria_values
+
+        out["values"] = (
+            capo_compute_optimizer_automation.types.string_criteria_values.deserialize_cbor(
+                data["values"]
+            )
+        )
+    return out

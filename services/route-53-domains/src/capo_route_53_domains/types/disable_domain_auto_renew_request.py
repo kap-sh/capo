@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> DisableDomainAutoRenewRequest:
     else:
         out["domain_name"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DisableDomainAutoRenewRequest) -> dict:
+    out: dict = {}
+    out["DomainName"] = value["domain_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DisableDomainAutoRenewRequest:
+    out: DisableDomainAutoRenewRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DomainName") is not None:
+        out["domain_name"] = data["DomainName"]
+    else:
+        out["domain_name"] = ""
+    return out

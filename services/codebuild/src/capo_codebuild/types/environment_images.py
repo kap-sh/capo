@@ -31,3 +31,24 @@ def deserialize_aws_json_1_1(data: list) -> EnvironmentImages:
             capo_codebuild.types.environment_image.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EnvironmentImages) -> list:
+    import capo_codebuild.types.environment_image
+
+    out: list = []
+    for item in value:
+        out.append(capo_codebuild.types.environment_image.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> EnvironmentImages:
+    import capo_codebuild.types.environment_image
+
+    out: EnvironmentImages = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_codebuild.types.environment_image.deserialize_cbor(item))
+    return out

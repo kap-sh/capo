@@ -37,3 +37,32 @@ def deserialize_aws_json_1_0(data: list) -> Ipv4Prefixes:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Ipv4Prefixes) -> list:
+    import capo_workspaces_instances.types.ipv4_prefix_specification_request
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_workspaces_instances.types.ipv4_prefix_specification_request.serialize_cbor(
+                item
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> Ipv4Prefixes:
+    import capo_workspaces_instances.types.ipv4_prefix_specification_request
+
+    out: Ipv4Prefixes = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_workspaces_instances.types.ipv4_prefix_specification_request.deserialize_cbor(
+                item
+            )
+        )
+    return out

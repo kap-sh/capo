@@ -62,6 +62,37 @@ def deserialize_aws_json_1_1(data: dict) -> RegisterGameServerInput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RegisterGameServerInput) -> dict:
+    out: dict = {}
+    if "game_server_group_name" in value:
+        out["GameServerGroupName"] = value["game_server_group_name"]
+    if "game_server_id" in value:
+        out["GameServerId"] = value["game_server_id"]
+    if "instance_id" in value:
+        out["InstanceId"] = value["instance_id"]
+    if "connection_info" in value:
+        out["ConnectionInfo"] = value["connection_info"]
+    if "game_server_data" in value:
+        out["GameServerData"] = value["game_server_data"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RegisterGameServerInput:
+    out: RegisterGameServerInput = {}  # type: ignore[typeddict-item]
+    if data.get("GameServerGroupName") is not None:
+        out["game_server_group_name"] = data["GameServerGroupName"]
+    if data.get("GameServerId") is not None:
+        out["game_server_id"] = data["GameServerId"]
+    if data.get("InstanceId") is not None:
+        out["instance_id"] = data["InstanceId"]
+    if data.get("ConnectionInfo") is not None:
+        out["connection_info"] = data["ConnectionInfo"]
+    if data.get("GameServerData") is not None:
+        out["game_server_data"] = data["GameServerData"]
+    return out
+
+
 def redact_sensitive(value: RegisterGameServerInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "game_server_data" in value:

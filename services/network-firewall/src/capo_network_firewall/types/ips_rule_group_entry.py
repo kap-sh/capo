@@ -68,3 +68,50 @@ def deserialize_aws_json_1_0(data: dict) -> IpsRuleGroupEntry:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IpsRuleGroupEntry) -> dict:
+    out: dict = {}
+    if "resource_arn" in value:
+        out["ResourceArn"] = value["resource_arn"]
+    if "inline_rule_group" in value:
+        import capo_network_firewall.types.ips_rule_group
+
+        out["InlineRuleGroup"] = (
+            capo_network_firewall.types.ips_rule_group.serialize_cbor(
+                value["inline_rule_group"]
+            )
+        )
+    if "override" in value:
+        import capo_network_firewall.types.ips_rule_group_override
+
+        out["Override"] = (
+            capo_network_firewall.types.ips_rule_group_override.serialize_cbor(
+                value["override"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> IpsRuleGroupEntry:
+    out: IpsRuleGroupEntry = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceArn") is not None:
+        out["resource_arn"] = data["ResourceArn"]
+    if data.get("InlineRuleGroup") is not None:
+        import capo_network_firewall.types.ips_rule_group
+
+        out["inline_rule_group"] = (
+            capo_network_firewall.types.ips_rule_group.deserialize_cbor(
+                data["InlineRuleGroup"]
+            )
+        )
+    if data.get("Override") is not None:
+        import capo_network_firewall.types.ips_rule_group_override
+
+        out["override"] = (
+            capo_network_firewall.types.ips_rule_group_override.deserialize_cbor(
+                data["Override"]
+            )
+        )
+    return out

@@ -190,3 +190,74 @@ def deserialize_query(el: Element) -> PutAlarmMuteRuleInput:
             child_expire_date
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PutAlarmMuteRuleInput) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "rule" in value:
+        import capo_cloudwatch.types.rule
+
+        out["Rule"] = capo_cloudwatch.types.rule.serialize_cbor(value["rule"])
+    if "mute_targets" in value:
+        import capo_cloudwatch.types.mute_targets
+
+        out["MuteTargets"] = capo_cloudwatch.types.mute_targets.serialize_cbor(
+            value["mute_targets"]
+        )
+    if "tags" in value:
+        import capo_cloudwatch.types.tag_list
+
+        out["Tags"] = capo_cloudwatch.types.tag_list.serialize_cbor(value["tags"])
+    if "start_date" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["StartDate"] = capo_cloudwatch.types.timestamp.serialize_cbor(
+            value["start_date"]
+        )
+    if "expire_date" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["ExpireDate"] = capo_cloudwatch.types.timestamp.serialize_cbor(
+            value["expire_date"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PutAlarmMuteRuleInput:
+    out: PutAlarmMuteRuleInput = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("Rule") is not None:
+        import capo_cloudwatch.types.rule
+
+        out["rule"] = capo_cloudwatch.types.rule.deserialize_cbor(data["Rule"])
+    if data.get("MuteTargets") is not None:
+        import capo_cloudwatch.types.mute_targets
+
+        out["mute_targets"] = capo_cloudwatch.types.mute_targets.deserialize_cbor(
+            data["MuteTargets"]
+        )
+    if data.get("Tags") is not None:
+        import capo_cloudwatch.types.tag_list
+
+        out["tags"] = capo_cloudwatch.types.tag_list.deserialize_cbor(data["Tags"])
+    if data.get("StartDate") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["start_date"] = capo_cloudwatch.types.timestamp.deserialize_cbor(
+            data["StartDate"]
+        )
+    if data.get("ExpireDate") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["expire_date"] = capo_cloudwatch.types.timestamp.deserialize_cbor(
+            data["ExpireDate"]
+        )
+    return out

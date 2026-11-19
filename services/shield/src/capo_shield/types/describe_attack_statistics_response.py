@@ -59,3 +59,42 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeAttackStatisticsResponse:
     else:
         out["data_items"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeAttackStatisticsResponse) -> dict:
+    out: dict = {}
+    import capo_shield.types.time_range
+
+    out["TimeRange"] = capo_shield.types.time_range.serialize_cbor(value["time_range"])
+    import capo_shield.types.attack_statistics_data_list
+
+    out["DataItems"] = capo_shield.types.attack_statistics_data_list.serialize_cbor(
+        value["data_items"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeAttackStatisticsResponse:
+    out: DescribeAttackStatisticsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("TimeRange") is not None:
+        import capo_shield.types.time_range
+
+        out["time_range"] = capo_shield.types.time_range.deserialize_cbor(
+            data["TimeRange"]
+        )
+    else:
+        raise DeserializationError(
+            "DescribeAttackStatisticsResponse.time_range required"
+        )
+    if data.get("DataItems") is not None:
+        import capo_shield.types.attack_statistics_data_list
+
+        out["data_items"] = (
+            capo_shield.types.attack_statistics_data_list.deserialize_cbor(
+                data["DataItems"]
+            )
+        )
+    else:
+        out["data_items"] = []
+    return out

@@ -40,3 +40,26 @@ def deserialize_aws_json_1_1(data: dict) -> UpdatePipelineOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdatePipelineOutput) -> dict:
+    out: dict = {}
+    if "pipeline" in value:
+        import capo_codepipeline.types.pipeline_declaration
+
+        out["pipeline"] = capo_codepipeline.types.pipeline_declaration.serialize_cbor(
+            value["pipeline"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdatePipelineOutput:
+    out: UpdatePipelineOutput = {}  # type: ignore[typeddict-item]
+    if data.get("pipeline") is not None:
+        import capo_codepipeline.types.pipeline_declaration
+
+        out["pipeline"] = capo_codepipeline.types.pipeline_declaration.deserialize_cbor(
+            data["pipeline"]
+        )
+    return out

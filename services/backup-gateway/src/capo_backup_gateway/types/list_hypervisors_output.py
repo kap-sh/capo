@@ -45,3 +45,30 @@ def deserialize_aws_json_1_0(data: dict) -> ListHypervisorsOutput:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListHypervisorsOutput) -> dict:
+    out: dict = {}
+    if "hypervisors" in value:
+        import capo_backup_gateway.types.hypervisors
+
+        out["Hypervisors"] = capo_backup_gateway.types.hypervisors.serialize_cbor(
+            value["hypervisors"]
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListHypervisorsOutput:
+    out: ListHypervisorsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("Hypervisors") is not None:
+        import capo_backup_gateway.types.hypervisors
+
+        out["hypervisors"] = capo_backup_gateway.types.hypervisors.deserialize_cbor(
+            data["Hypervisors"]
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

@@ -12,3 +12,12 @@ def serialize_aws_json_1_1(value: ICD10CMEntityCategory) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> ICD10CMEntityCategory:
     return cast(ICD10CMEntityCategory, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ICD10CMEntityCategory) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ICD10CMEntityCategory:
+    return cast(ICD10CMEntityCategory, data)

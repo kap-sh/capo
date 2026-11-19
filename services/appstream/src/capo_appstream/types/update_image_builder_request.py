@@ -82,3 +82,58 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateImageBuilderRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateImageBuilderRequest) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "display_name" in value:
+        out["DisplayName"] = value["display_name"]
+    if "agent_access_config" in value:
+        import capo_appstream.types.image_builder_agent_access_config_for_update
+
+        out["AgentAccessConfig"] = (
+            capo_appstream.types.image_builder_agent_access_config_for_update.serialize_cbor(
+                value["agent_access_config"]
+            )
+        )
+    if "attributes_to_delete" in value:
+        import capo_appstream.types.image_builder_attributes
+
+        out["AttributesToDelete"] = (
+            capo_appstream.types.image_builder_attributes.serialize_cbor(
+                value["attributes_to_delete"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateImageBuilderRequest:
+    out: UpdateImageBuilderRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("DisplayName") is not None:
+        out["display_name"] = data["DisplayName"]
+    if data.get("AgentAccessConfig") is not None:
+        import capo_appstream.types.image_builder_agent_access_config_for_update
+
+        out["agent_access_config"] = (
+            capo_appstream.types.image_builder_agent_access_config_for_update.deserialize_cbor(
+                data["AgentAccessConfig"]
+            )
+        )
+    if data.get("AttributesToDelete") is not None:
+        import capo_appstream.types.image_builder_attributes
+
+        out["attributes_to_delete"] = (
+            capo_appstream.types.image_builder_attributes.deserialize_cbor(
+                data["AttributesToDelete"]
+            )
+        )
+    return out

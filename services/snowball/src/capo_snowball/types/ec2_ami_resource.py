@@ -34,3 +34,23 @@ def deserialize_aws_json_1_1(data: dict) -> Ec2AmiResource:
     if data.get("SnowballAmiId") is not None:
         out["snowball_ami_id"] = data["SnowballAmiId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Ec2AmiResource) -> dict:
+    out: dict = {}
+    out["AmiId"] = value["ami_id"]
+    if "snowball_ami_id" in value:
+        out["SnowballAmiId"] = value["snowball_ami_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Ec2AmiResource:
+    out: Ec2AmiResource = {}  # type: ignore[typeddict-item]
+    if data.get("AmiId") is not None:
+        out["ami_id"] = data["AmiId"]
+    else:
+        out["ami_id"] = ""
+    if data.get("SnowballAmiId") is not None:
+        out["snowball_ami_id"] = data["SnowballAmiId"]
+    return out

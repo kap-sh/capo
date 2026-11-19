@@ -64,3 +64,43 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateRescoreExecutionPlanRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateRescoreExecutionPlanRequest) -> dict:
+    out: dict = {}
+    out["Id"] = value["id"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "capacity_units" in value:
+        import capo_kendra_ranking.types.capacity_units_configuration
+
+        out["CapacityUnits"] = (
+            capo_kendra_ranking.types.capacity_units_configuration.serialize_cbor(
+                value["capacity_units"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateRescoreExecutionPlanRequest:
+    out: UpdateRescoreExecutionPlanRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    else:
+        out["id"] = ""
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("CapacityUnits") is not None:
+        import capo_kendra_ranking.types.capacity_units_configuration
+
+        out["capacity_units"] = (
+            capo_kendra_ranking.types.capacity_units_configuration.deserialize_cbor(
+                data["CapacityUnits"]
+            )
+        )
+    return out

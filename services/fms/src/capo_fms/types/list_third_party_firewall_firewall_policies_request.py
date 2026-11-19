@@ -62,3 +62,42 @@ def deserialize_aws_json_1_1(
     else:
         out["max_results"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListThirdPartyFirewallFirewallPoliciesRequest) -> dict:
+    out: dict = {}
+    import capo_fms.types.third_party_firewall
+
+    out["ThirdPartyFirewall"] = capo_fms.types.third_party_firewall.serialize_cbor(
+        value["third_party_firewall"]
+    )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    out["MaxResults"] = value["max_results"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListThirdPartyFirewallFirewallPoliciesRequest:
+    out: ListThirdPartyFirewallFirewallPoliciesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ThirdPartyFirewall") is not None:
+        import capo_fms.types.third_party_firewall
+
+        out["third_party_firewall"] = (
+            capo_fms.types.third_party_firewall.deserialize_cbor(
+                data["ThirdPartyFirewall"]
+            )
+        )
+    else:
+        import typing
+
+        out["third_party_firewall"] = typing.cast(
+            "capo_fms.types.third_party_firewall.ThirdPartyFirewall", ""
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    else:
+        out["max_results"] = 0
+    return out

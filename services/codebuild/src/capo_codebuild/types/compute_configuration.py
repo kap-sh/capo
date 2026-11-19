@@ -62,3 +62,42 @@ def deserialize_aws_json_1_1(data: dict) -> ComputeConfiguration:
     if data.get("instanceType") is not None:
         out["instance_type"] = data["instanceType"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ComputeConfiguration) -> dict:
+    out: dict = {}
+    if "v_cpu" in value:
+        out["vCpu"] = value["v_cpu"]
+    if "memory" in value:
+        out["memory"] = value["memory"]
+    if "disk" in value:
+        out["disk"] = value["disk"]
+    if "machine_type" in value:
+        import capo_codebuild.types.machine_type
+
+        out["machineType"] = capo_codebuild.types.machine_type.serialize_cbor(
+            value["machine_type"]
+        )
+    if "instance_type" in value:
+        out["instanceType"] = value["instance_type"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ComputeConfiguration:
+    out: ComputeConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("vCpu") is not None:
+        out["v_cpu"] = data["vCpu"]
+    if data.get("memory") is not None:
+        out["memory"] = data["memory"]
+    if data.get("disk") is not None:
+        out["disk"] = data["disk"]
+    if data.get("machineType") is not None:
+        import capo_codebuild.types.machine_type
+
+        out["machine_type"] = capo_codebuild.types.machine_type.deserialize_cbor(
+            data["machineType"]
+        )
+    if data.get("instanceType") is not None:
+        out["instance_type"] = data["instanceType"]
+    return out

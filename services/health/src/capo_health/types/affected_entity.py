@@ -139,3 +139,94 @@ def deserialize_aws_json_1_1(data: dict) -> AffectedEntity:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AffectedEntity) -> dict:
+    out: dict = {}
+    if "entity_arn" in value:
+        out["entityArn"] = value["entity_arn"]
+    if "event_arn" in value:
+        out["eventArn"] = value["event_arn"]
+    if "entity_value" in value:
+        out["entityValue"] = value["entity_value"]
+    if "entity_url" in value:
+        out["entityUrl"] = value["entity_url"]
+    if "aws_account_id" in value:
+        out["awsAccountId"] = value["aws_account_id"]
+    if "last_updated_time" in value:
+        import capo_health.types.timestamp
+
+        out["lastUpdatedTime"] = capo_health.types.timestamp.serialize_cbor(
+            value["last_updated_time"]
+        )
+    if "status_code" in value:
+        import capo_health.types.entity_status_code
+
+        out["statusCode"] = capo_health.types.entity_status_code.serialize_cbor(
+            value["status_code"]
+        )
+    if "resource_tags" in value:
+        import capo_health.types.resource_tag_set
+
+        out["resourceTags"] = capo_health.types.resource_tag_set.serialize_cbor(
+            value["resource_tags"]
+        )
+    if "account_tags" in value:
+        import capo_health.types.account_tag_set
+
+        out["accountTags"] = capo_health.types.account_tag_set.serialize_cbor(
+            value["account_tags"]
+        )
+    if "entity_metadata" in value:
+        import capo_health.types.entity_metadata
+
+        out["entityMetadata"] = capo_health.types.entity_metadata.serialize_cbor(
+            value["entity_metadata"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AffectedEntity:
+    out: AffectedEntity = {}  # type: ignore[typeddict-item]
+    if data.get("entityArn") is not None:
+        out["entity_arn"] = data["entityArn"]
+    if data.get("eventArn") is not None:
+        out["event_arn"] = data["eventArn"]
+    if data.get("entityValue") is not None:
+        out["entity_value"] = data["entityValue"]
+    if data.get("entityUrl") is not None:
+        out["entity_url"] = data["entityUrl"]
+    if data.get("awsAccountId") is not None:
+        out["aws_account_id"] = data["awsAccountId"]
+    if data.get("lastUpdatedTime") is not None:
+        import capo_health.types.timestamp
+
+        out["last_updated_time"] = capo_health.types.timestamp.deserialize_cbor(
+            data["lastUpdatedTime"]
+        )
+    if data.get("statusCode") is not None:
+        import capo_health.types.entity_status_code
+
+        out["status_code"] = capo_health.types.entity_status_code.deserialize_cbor(
+            data["statusCode"]
+        )
+    if data.get("resourceTags") is not None:
+        import capo_health.types.resource_tag_set
+
+        out["resource_tags"] = capo_health.types.resource_tag_set.deserialize_cbor(
+            data["resourceTags"]
+        )
+    if data.get("accountTags") is not None:
+        import capo_health.types.account_tag_set
+
+        out["account_tags"] = capo_health.types.account_tag_set.deserialize_cbor(
+            data["accountTags"]
+        )
+    if data.get("entityMetadata") is not None:
+        import capo_health.types.entity_metadata
+
+        out["entity_metadata"] = capo_health.types.entity_metadata.deserialize_cbor(
+            data["entityMetadata"]
+        )
+    return out

@@ -34,3 +34,12 @@ def serialize_query(value: ScanBy, pairs: list[tuple[str, str]], prefix: str) ->
 
 def deserialize_query(el: Element) -> ScanBy:
     return from_query_text(el.text or "")
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ScanBy) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ScanBy:
+    return cast(ScanBy, data)

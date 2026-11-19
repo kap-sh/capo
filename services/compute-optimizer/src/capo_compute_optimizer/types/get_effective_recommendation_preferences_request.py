@@ -29,3 +29,19 @@ def deserialize_aws_json_1_0(
     else:
         out["resource_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetEffectiveRecommendationPreferencesRequest) -> dict:
+    out: dict = {}
+    out["resourceArn"] = value["resource_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetEffectiveRecommendationPreferencesRequest:
+    out: GetEffectiveRecommendationPreferencesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("resourceArn") is not None:
+        out["resource_arn"] = data["resourceArn"]
+    else:
+        out["resource_arn"] = ""
+    return out

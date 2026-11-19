@@ -55,3 +55,37 @@ def deserialize_aws_json_1_0(data: dict) -> RescoreRequest:
     else:
         out["documents"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RescoreRequest) -> dict:
+    out: dict = {}
+    out["RescoreExecutionPlanId"] = value["rescore_execution_plan_id"]
+    out["SearchQuery"] = value["search_query"]
+    import capo_kendra_ranking.types.document_list
+
+    out["Documents"] = capo_kendra_ranking.types.document_list.serialize_cbor(
+        value["documents"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RescoreRequest:
+    out: RescoreRequest = {}  # type: ignore[typeddict-item]
+    if data.get("RescoreExecutionPlanId") is not None:
+        out["rescore_execution_plan_id"] = data["RescoreExecutionPlanId"]
+    else:
+        out["rescore_execution_plan_id"] = ""
+    if data.get("SearchQuery") is not None:
+        out["search_query"] = data["SearchQuery"]
+    else:
+        out["search_query"] = ""
+    if data.get("Documents") is not None:
+        import capo_kendra_ranking.types.document_list
+
+        out["documents"] = capo_kendra_ranking.types.document_list.deserialize_cbor(
+            data["Documents"]
+        )
+    else:
+        out["documents"] = []
+    return out

@@ -127,3 +127,84 @@ def deserialize_aws_json_1_1(data: dict) -> CreateWorkspaceImageResult:
     if data.get("OwnerAccountId") is not None:
         out["owner_account_id"] = data["OwnerAccountId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateWorkspaceImageResult) -> dict:
+    out: dict = {}
+    if "image_id" in value:
+        out["ImageId"] = value["image_id"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "operating_system" in value:
+        import capo_workspaces.types.operating_system
+
+        out["OperatingSystem"] = capo_workspaces.types.operating_system.serialize_cbor(
+            value["operating_system"]
+        )
+    if "state" in value:
+        import capo_workspaces.types.workspace_image_state
+
+        out["State"] = capo_workspaces.types.workspace_image_state.serialize_cbor(
+            value["state"]
+        )
+    if "required_tenancy" in value:
+        import capo_workspaces.types.workspace_image_required_tenancy
+
+        out["RequiredTenancy"] = (
+            capo_workspaces.types.workspace_image_required_tenancy.serialize_cbor(
+                value["required_tenancy"]
+            )
+        )
+    if "created" in value:
+        import capo_workspaces.types.timestamp
+
+        out["Created"] = capo_workspaces.types.timestamp.serialize_cbor(
+            value["created"]
+        )
+    if "owner_account_id" in value:
+        out["OwnerAccountId"] = value["owner_account_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateWorkspaceImageResult:
+    out: CreateWorkspaceImageResult = {}  # type: ignore[typeddict-item]
+    if data.get("ImageId") is not None:
+        out["image_id"] = data["ImageId"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("OperatingSystem") is not None:
+        import capo_workspaces.types.operating_system
+
+        out["operating_system"] = (
+            capo_workspaces.types.operating_system.deserialize_cbor(
+                data["OperatingSystem"]
+            )
+        )
+    if data.get("State") is not None:
+        import capo_workspaces.types.workspace_image_state
+
+        out["state"] = capo_workspaces.types.workspace_image_state.deserialize_cbor(
+            data["State"]
+        )
+    if data.get("RequiredTenancy") is not None:
+        import capo_workspaces.types.workspace_image_required_tenancy
+
+        out["required_tenancy"] = (
+            capo_workspaces.types.workspace_image_required_tenancy.deserialize_cbor(
+                data["RequiredTenancy"]
+            )
+        )
+    if data.get("Created") is not None:
+        import capo_workspaces.types.timestamp
+
+        out["created"] = capo_workspaces.types.timestamp.deserialize_cbor(
+            data["Created"]
+        )
+    if data.get("OwnerAccountId") is not None:
+        out["owner_account_id"] = data["OwnerAccountId"]
+    return out

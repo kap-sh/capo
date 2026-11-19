@@ -49,3 +49,33 @@ def deserialize_aws_json_1_1(data: dict) -> GetDomainSuggestionsRequest:
     if data.get("OnlyStandardPrices") is not None:
         out["only_standard_prices"] = data["OnlyStandardPrices"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetDomainSuggestionsRequest) -> dict:
+    out: dict = {}
+    out["DomainName"] = value["domain_name"]
+    out["SuggestionCount"] = value["suggestion_count"]
+    out["OnlyAvailable"] = value["only_available"]
+    if "only_standard_prices" in value:
+        out["OnlyStandardPrices"] = value["only_standard_prices"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetDomainSuggestionsRequest:
+    out: GetDomainSuggestionsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DomainName") is not None:
+        out["domain_name"] = data["DomainName"]
+    else:
+        out["domain_name"] = ""
+    if data.get("SuggestionCount") is not None:
+        out["suggestion_count"] = data["SuggestionCount"]
+    else:
+        out["suggestion_count"] = 0
+    if data.get("OnlyAvailable") is not None:
+        out["only_available"] = data["OnlyAvailable"]
+    else:
+        out["only_available"] = False
+    if data.get("OnlyStandardPrices") is not None:
+        out["only_standard_prices"] = data["OnlyStandardPrices"]
+    return out

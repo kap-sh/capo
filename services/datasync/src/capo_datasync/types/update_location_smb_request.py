@@ -228,6 +228,158 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateLocationSmbRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateLocationSmbRequest) -> dict:
+    out: dict = {}
+    out["LocationArn"] = value["location_arn"]
+    if "subdirectory" in value:
+        out["Subdirectory"] = value["subdirectory"]
+    if "server_hostname" in value:
+        out["ServerHostname"] = value["server_hostname"]
+    if "user" in value:
+        out["User"] = value["user"]
+    if "domain" in value:
+        out["Domain"] = value["domain"]
+    if "password" in value:
+        out["Password"] = value["password"]
+    if "cmk_secret_config" in value:
+        import capo_datasync.types.cmk_secret_config
+
+        out["CmkSecretConfig"] = capo_datasync.types.cmk_secret_config.serialize_cbor(
+            value["cmk_secret_config"]
+        )
+    if "custom_secret_config" in value:
+        import capo_datasync.types.custom_secret_config
+
+        out["CustomSecretConfig"] = (
+            capo_datasync.types.custom_secret_config.serialize_cbor(
+                value["custom_secret_config"]
+            )
+        )
+    if "agent_arns" in value:
+        import capo_datasync.types.agent_arn_list
+
+        out["AgentArns"] = capo_datasync.types.agent_arn_list.serialize_cbor(
+            value["agent_arns"]
+        )
+    if "mount_options" in value:
+        import capo_datasync.types.smb_mount_options
+
+        out["MountOptions"] = capo_datasync.types.smb_mount_options.serialize_cbor(
+            value["mount_options"]
+        )
+    if "authentication_type" in value:
+        import capo_datasync.types.smb_authentication_type
+
+        out["AuthenticationType"] = (
+            capo_datasync.types.smb_authentication_type.serialize_cbor(
+                value["authentication_type"]
+            )
+        )
+    if "dns_ip_addresses" in value:
+        import capo_datasync.types.dns_ip_list
+
+        out["DnsIpAddresses"] = capo_datasync.types.dns_ip_list.serialize_cbor(
+            value["dns_ip_addresses"]
+        )
+    if "kerberos_principal" in value:
+        out["KerberosPrincipal"] = value["kerberos_principal"]
+    if "kerberos_keytab" in value:
+        import capo_datasync.types.kerberos_keytab_file
+
+        out["KerberosKeytab"] = capo_datasync.types.kerberos_keytab_file.serialize_cbor(
+            value["kerberos_keytab"]
+        )
+    if "kerberos_krb5_conf" in value:
+        import capo_datasync.types.kerberos_krb5_conf_file
+
+        out["KerberosKrb5Conf"] = (
+            capo_datasync.types.kerberos_krb5_conf_file.serialize_cbor(
+                value["kerberos_krb5_conf"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateLocationSmbRequest:
+    out: UpdateLocationSmbRequest = {}  # type: ignore[typeddict-item]
+    if data.get("LocationArn") is not None:
+        out["location_arn"] = data["LocationArn"]
+    else:
+        out["location_arn"] = ""
+    if data.get("Subdirectory") is not None:
+        out["subdirectory"] = data["Subdirectory"]
+    if data.get("ServerHostname") is not None:
+        out["server_hostname"] = data["ServerHostname"]
+    if data.get("User") is not None:
+        out["user"] = data["User"]
+    if data.get("Domain") is not None:
+        out["domain"] = data["Domain"]
+    if data.get("Password") is not None:
+        out["password"] = data["Password"]
+    if data.get("CmkSecretConfig") is not None:
+        import capo_datasync.types.cmk_secret_config
+
+        out["cmk_secret_config"] = (
+            capo_datasync.types.cmk_secret_config.deserialize_cbor(
+                data["CmkSecretConfig"]
+            )
+        )
+    if data.get("CustomSecretConfig") is not None:
+        import capo_datasync.types.custom_secret_config
+
+        out["custom_secret_config"] = (
+            capo_datasync.types.custom_secret_config.deserialize_cbor(
+                data["CustomSecretConfig"]
+            )
+        )
+    if data.get("AgentArns") is not None:
+        import capo_datasync.types.agent_arn_list
+
+        out["agent_arns"] = capo_datasync.types.agent_arn_list.deserialize_cbor(
+            data["AgentArns"]
+        )
+    if data.get("MountOptions") is not None:
+        import capo_datasync.types.smb_mount_options
+
+        out["mount_options"] = capo_datasync.types.smb_mount_options.deserialize_cbor(
+            data["MountOptions"]
+        )
+    if data.get("AuthenticationType") is not None:
+        import capo_datasync.types.smb_authentication_type
+
+        out["authentication_type"] = (
+            capo_datasync.types.smb_authentication_type.deserialize_cbor(
+                data["AuthenticationType"]
+            )
+        )
+    if data.get("DnsIpAddresses") is not None:
+        import capo_datasync.types.dns_ip_list
+
+        out["dns_ip_addresses"] = capo_datasync.types.dns_ip_list.deserialize_cbor(
+            data["DnsIpAddresses"]
+        )
+    if data.get("KerberosPrincipal") is not None:
+        out["kerberos_principal"] = data["KerberosPrincipal"]
+    if data.get("KerberosKeytab") is not None:
+        import capo_datasync.types.kerberos_keytab_file
+
+        out["kerberos_keytab"] = (
+            capo_datasync.types.kerberos_keytab_file.deserialize_cbor(
+                data["KerberosKeytab"]
+            )
+        )
+    if data.get("KerberosKrb5Conf") is not None:
+        import capo_datasync.types.kerberos_krb5_conf_file
+
+        out["kerberos_krb5_conf"] = (
+            capo_datasync.types.kerberos_krb5_conf_file.deserialize_cbor(
+                data["KerberosKrb5Conf"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: UpdateLocationSmbRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "password" in value:

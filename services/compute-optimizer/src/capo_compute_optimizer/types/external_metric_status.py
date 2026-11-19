@@ -49,3 +49,34 @@ def deserialize_aws_json_1_0(data: dict) -> ExternalMetricStatus:
     if data.get("statusReason") is not None:
         out["status_reason"] = data["statusReason"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExternalMetricStatus) -> dict:
+    out: dict = {}
+    if "status_code" in value:
+        import capo_compute_optimizer.types.external_metric_status_code
+
+        out["statusCode"] = (
+            capo_compute_optimizer.types.external_metric_status_code.serialize_cbor(
+                value["status_code"]
+            )
+        )
+    if "status_reason" in value:
+        out["statusReason"] = value["status_reason"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ExternalMetricStatus:
+    out: ExternalMetricStatus = {}  # type: ignore[typeddict-item]
+    if data.get("statusCode") is not None:
+        import capo_compute_optimizer.types.external_metric_status_code
+
+        out["status_code"] = (
+            capo_compute_optimizer.types.external_metric_status_code.deserialize_cbor(
+                data["statusCode"]
+            )
+        )
+    if data.get("statusReason") is not None:
+        out["status_reason"] = data["statusReason"]
+    return out

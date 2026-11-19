@@ -50,3 +50,31 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateLagRequest:
     if data.get("encryptionMode") is not None:
         out["encryption_mode"] = data["encryptionMode"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateLagRequest) -> dict:
+    out: dict = {}
+    out["lagId"] = value["lag_id"]
+    if "lag_name" in value:
+        out["lagName"] = value["lag_name"]
+    if "minimum_links" in value:
+        out["minimumLinks"] = value["minimum_links"]
+    if "encryption_mode" in value:
+        out["encryptionMode"] = value["encryption_mode"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateLagRequest:
+    out: UpdateLagRequest = {}  # type: ignore[typeddict-item]
+    if data.get("lagId") is not None:
+        out["lag_id"] = data["lagId"]
+    else:
+        out["lag_id"] = ""
+    if data.get("lagName") is not None:
+        out["lag_name"] = data["lagName"]
+    if data.get("minimumLinks") is not None:
+        out["minimum_links"] = data["minimumLinks"]
+    if data.get("encryptionMode") is not None:
+        out["encryption_mode"] = data["encryptionMode"]
+    return out

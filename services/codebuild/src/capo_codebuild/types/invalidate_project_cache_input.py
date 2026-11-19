@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> InvalidateProjectCacheInput:
     else:
         out["project_name"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InvalidateProjectCacheInput) -> dict:
+    out: dict = {}
+    out["projectName"] = value["project_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> InvalidateProjectCacheInput:
+    out: InvalidateProjectCacheInput = {}  # type: ignore[typeddict-item]
+    if data.get("projectName") is not None:
+        out["project_name"] = data["projectName"]
+    else:
+        out["project_name"] = ""
+    return out

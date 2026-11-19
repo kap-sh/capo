@@ -49,3 +49,31 @@ def deserialize_aws_json_1_1(data: dict) -> DnsRuleGroupLimitExceededViolation:
     else:
         out["number_of_rule_groups_already_associated"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DnsRuleGroupLimitExceededViolation) -> dict:
+    out: dict = {}
+    if "violation_target" in value:
+        out["ViolationTarget"] = value["violation_target"]
+    if "violation_target_description" in value:
+        out["ViolationTargetDescription"] = value["violation_target_description"]
+    out["NumberOfRuleGroupsAlreadyAssociated"] = value.get(
+        "number_of_rule_groups_already_associated", 0
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DnsRuleGroupLimitExceededViolation:
+    out: DnsRuleGroupLimitExceededViolation = {}  # type: ignore[typeddict-item]
+    if data.get("ViolationTarget") is not None:
+        out["violation_target"] = data["ViolationTarget"]
+    if data.get("ViolationTargetDescription") is not None:
+        out["violation_target_description"] = data["ViolationTargetDescription"]
+    if data.get("NumberOfRuleGroupsAlreadyAssociated") is not None:
+        out["number_of_rule_groups_already_associated"] = data[
+            "NumberOfRuleGroupsAlreadyAssociated"
+        ]
+    else:
+        out["number_of_rule_groups_already_associated"] = 0
+    return out

@@ -226,3 +226,156 @@ def deserialize_aws_json_1_1(data: dict) -> StartMedicalTranscriptionJobRequest:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartMedicalTranscriptionJobRequest) -> dict:
+    out: dict = {}
+    out["MedicalTranscriptionJobName"] = value["medical_transcription_job_name"]
+    import capo_transcribe.types.language_code
+
+    out["LanguageCode"] = capo_transcribe.types.language_code.serialize_cbor(
+        value["language_code"]
+    )
+    if "media_sample_rate_hertz" in value:
+        out["MediaSampleRateHertz"] = value["media_sample_rate_hertz"]
+    if "media_format" in value:
+        import capo_transcribe.types.media_format
+
+        out["MediaFormat"] = capo_transcribe.types.media_format.serialize_cbor(
+            value["media_format"]
+        )
+    import capo_transcribe.types.media
+
+    out["Media"] = capo_transcribe.types.media.serialize_cbor(value["media"])
+    out["OutputBucketName"] = value["output_bucket_name"]
+    if "output_key" in value:
+        out["OutputKey"] = value["output_key"]
+    if "output_encryption_kms_key_id" in value:
+        out["OutputEncryptionKMSKeyId"] = value["output_encryption_kms_key_id"]
+    if "kms_encryption_context" in value:
+        import capo_transcribe.types.kms_encryption_context_map
+
+        out["KMSEncryptionContext"] = (
+            capo_transcribe.types.kms_encryption_context_map.serialize_cbor(
+                value["kms_encryption_context"]
+            )
+        )
+    if "settings" in value:
+        import capo_transcribe.types.medical_transcription_setting
+
+        out["Settings"] = (
+            capo_transcribe.types.medical_transcription_setting.serialize_cbor(
+                value["settings"]
+            )
+        )
+    if "content_identification_type" in value:
+        import capo_transcribe.types.medical_content_identification_type
+
+        out["ContentIdentificationType"] = (
+            capo_transcribe.types.medical_content_identification_type.serialize_cbor(
+                value["content_identification_type"]
+            )
+        )
+    import capo_transcribe.types.specialty
+
+    out["Specialty"] = capo_transcribe.types.specialty.serialize_cbor(
+        value["specialty"]
+    )
+    import capo_transcribe.types.type
+
+    out["Type"] = capo_transcribe.types.type.serialize_cbor(value["type"])
+    if "tags" in value:
+        import capo_transcribe.types.tag_list
+
+        out["Tags"] = capo_transcribe.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartMedicalTranscriptionJobRequest:
+    out: StartMedicalTranscriptionJobRequest = {}  # type: ignore[typeddict-item]
+    if data.get("MedicalTranscriptionJobName") is not None:
+        out["medical_transcription_job_name"] = data["MedicalTranscriptionJobName"]
+    else:
+        out["medical_transcription_job_name"] = ""
+    if data.get("LanguageCode") is not None:
+        import capo_transcribe.types.language_code
+
+        out["language_code"] = capo_transcribe.types.language_code.deserialize_cbor(
+            data["LanguageCode"]
+        )
+    else:
+        import typing
+
+        out["language_code"] = typing.cast(
+            "capo_transcribe.types.language_code.LanguageCode", ""
+        )
+    if data.get("MediaSampleRateHertz") is not None:
+        out["media_sample_rate_hertz"] = data["MediaSampleRateHertz"]
+    if data.get("MediaFormat") is not None:
+        import capo_transcribe.types.media_format
+
+        out["media_format"] = capo_transcribe.types.media_format.deserialize_cbor(
+            data["MediaFormat"]
+        )
+    if data.get("Media") is not None:
+        import capo_transcribe.types.media
+
+        out["media"] = capo_transcribe.types.media.deserialize_cbor(data["Media"])
+    else:
+        raise DeserializationError("StartMedicalTranscriptionJobRequest.media required")
+    if data.get("OutputBucketName") is not None:
+        out["output_bucket_name"] = data["OutputBucketName"]
+    else:
+        out["output_bucket_name"] = ""
+    if data.get("OutputKey") is not None:
+        out["output_key"] = data["OutputKey"]
+    if data.get("OutputEncryptionKMSKeyId") is not None:
+        out["output_encryption_kms_key_id"] = data["OutputEncryptionKMSKeyId"]
+    if data.get("KMSEncryptionContext") is not None:
+        import capo_transcribe.types.kms_encryption_context_map
+
+        out["kms_encryption_context"] = (
+            capo_transcribe.types.kms_encryption_context_map.deserialize_cbor(
+                data["KMSEncryptionContext"]
+            )
+        )
+    if data.get("Settings") is not None:
+        import capo_transcribe.types.medical_transcription_setting
+
+        out["settings"] = (
+            capo_transcribe.types.medical_transcription_setting.deserialize_cbor(
+                data["Settings"]
+            )
+        )
+    if data.get("ContentIdentificationType") is not None:
+        import capo_transcribe.types.medical_content_identification_type
+
+        out["content_identification_type"] = (
+            capo_transcribe.types.medical_content_identification_type.deserialize_cbor(
+                data["ContentIdentificationType"]
+            )
+        )
+    if data.get("Specialty") is not None:
+        import capo_transcribe.types.specialty
+
+        out["specialty"] = capo_transcribe.types.specialty.deserialize_cbor(
+            data["Specialty"]
+        )
+    else:
+        import typing
+
+        out["specialty"] = typing.cast("capo_transcribe.types.specialty.Specialty", "")
+    if data.get("Type") is not None:
+        import capo_transcribe.types.type
+
+        out["type"] = capo_transcribe.types.type.deserialize_cbor(data["Type"])
+    else:
+        import typing
+
+        out["type"] = typing.cast("capo_transcribe.types.type.Type", "")
+    if data.get("Tags") is not None:
+        import capo_transcribe.types.tag_list
+
+        out["tags"] = capo_transcribe.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

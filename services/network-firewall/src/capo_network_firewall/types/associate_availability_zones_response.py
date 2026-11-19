@@ -61,3 +61,42 @@ def deserialize_aws_json_1_0(data: dict) -> AssociateAvailabilityZonesResponse:
     if data.get("UpdateToken") is not None:
         out["update_token"] = data["UpdateToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AssociateAvailabilityZonesResponse) -> dict:
+    out: dict = {}
+    if "firewall_arn" in value:
+        out["FirewallArn"] = value["firewall_arn"]
+    if "firewall_name" in value:
+        out["FirewallName"] = value["firewall_name"]
+    if "availability_zone_mappings" in value:
+        import capo_network_firewall.types.availability_zone_mappings
+
+        out["AvailabilityZoneMappings"] = (
+            capo_network_firewall.types.availability_zone_mappings.serialize_cbor(
+                value["availability_zone_mappings"]
+            )
+        )
+    if "update_token" in value:
+        out["UpdateToken"] = value["update_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AssociateAvailabilityZonesResponse:
+    out: AssociateAvailabilityZonesResponse = {}  # type: ignore[typeddict-item]
+    if data.get("FirewallArn") is not None:
+        out["firewall_arn"] = data["FirewallArn"]
+    if data.get("FirewallName") is not None:
+        out["firewall_name"] = data["FirewallName"]
+    if data.get("AvailabilityZoneMappings") is not None:
+        import capo_network_firewall.types.availability_zone_mappings
+
+        out["availability_zone_mappings"] = (
+            capo_network_firewall.types.availability_zone_mappings.deserialize_cbor(
+                data["AvailabilityZoneMappings"]
+            )
+        )
+    if data.get("UpdateToken") is not None:
+        out["update_token"] = data["UpdateToken"]
+    return out

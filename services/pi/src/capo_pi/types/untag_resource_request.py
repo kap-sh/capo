@@ -61,3 +61,43 @@ def deserialize_aws_json_1_1(data: dict) -> UntagResourceRequest:
     else:
         out["tag_keys"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UntagResourceRequest) -> dict:
+    out: dict = {}
+    import capo_pi.types.service_type
+
+    out["ServiceType"] = capo_pi.types.service_type.serialize_cbor(
+        value["service_type"]
+    )
+    out["ResourceARN"] = value["resource_arn"]
+    import capo_pi.types.tag_key_list
+
+    out["TagKeys"] = capo_pi.types.tag_key_list.serialize_cbor(value["tag_keys"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> UntagResourceRequest:
+    out: UntagResourceRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ServiceType") is not None:
+        import capo_pi.types.service_type
+
+        out["service_type"] = capo_pi.types.service_type.deserialize_cbor(
+            data["ServiceType"]
+        )
+    else:
+        import typing
+
+        out["service_type"] = typing.cast("capo_pi.types.service_type.ServiceType", "")
+    if data.get("ResourceARN") is not None:
+        out["resource_arn"] = data["ResourceARN"]
+    else:
+        out["resource_arn"] = ""
+    if data.get("TagKeys") is not None:
+        import capo_pi.types.tag_key_list
+
+        out["tag_keys"] = capo_pi.types.tag_key_list.deserialize_cbor(data["TagKeys"])
+    else:
+        out["tag_keys"] = []
+    return out

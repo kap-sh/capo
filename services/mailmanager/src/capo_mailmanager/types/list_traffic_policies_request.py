@@ -33,3 +33,22 @@ def deserialize_aws_json_1_0(data: dict) -> ListTrafficPoliciesRequest:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListTrafficPoliciesRequest) -> dict:
+    out: dict = {}
+    if "page_size" in value:
+        out["PageSize"] = value["page_size"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListTrafficPoliciesRequest:
+    out: ListTrafficPoliciesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("PageSize") is not None:
+        out["page_size"] = data["PageSize"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

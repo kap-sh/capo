@@ -42,3 +42,30 @@ def deserialize_aws_json_1_1(
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeDominantLanguageDetectionJobResponse) -> dict:
+    out: dict = {}
+    if "dominant_language_detection_job_properties" in value:
+        import capo_comprehend.types.dominant_language_detection_job_properties
+
+        out["DominantLanguageDetectionJobProperties"] = (
+            capo_comprehend.types.dominant_language_detection_job_properties.serialize_cbor(
+                value["dominant_language_detection_job_properties"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeDominantLanguageDetectionJobResponse:
+    out: DescribeDominantLanguageDetectionJobResponse = {}  # type: ignore[typeddict-item]
+    if data.get("DominantLanguageDetectionJobProperties") is not None:
+        import capo_comprehend.types.dominant_language_detection_job_properties
+
+        out["dominant_language_detection_job_properties"] = (
+            capo_comprehend.types.dominant_language_detection_job_properties.deserialize_cbor(
+                data["DominantLanguageDetectionJobProperties"]
+            )
+        )
+    return out

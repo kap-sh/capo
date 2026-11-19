@@ -19,3 +19,12 @@ def serialize_aws_json_1_1(value: ProtectedResourceType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> ProtectedResourceType:
     return cast(ProtectedResourceType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ProtectedResourceType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ProtectedResourceType:
+    return cast(ProtectedResourceType, data)

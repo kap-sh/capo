@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateAppBlockBuilderAppBlockResu
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AssociateAppBlockBuilderAppBlockResult) -> dict:
+    out: dict = {}
+    if "app_block_builder_app_block_association" in value:
+        import capo_appstream.types.app_block_builder_app_block_association
+
+        out["AppBlockBuilderAppBlockAssociation"] = (
+            capo_appstream.types.app_block_builder_app_block_association.serialize_cbor(
+                value["app_block_builder_app_block_association"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AssociateAppBlockBuilderAppBlockResult:
+    out: AssociateAppBlockBuilderAppBlockResult = {}  # type: ignore[typeddict-item]
+    if data.get("AppBlockBuilderAppBlockAssociation") is not None:
+        import capo_appstream.types.app_block_builder_app_block_association
+
+        out["app_block_builder_app_block_association"] = (
+            capo_appstream.types.app_block_builder_app_block_association.deserialize_cbor(
+                data["AppBlockBuilderAppBlockAssociation"]
+            )
+        )
+    return out

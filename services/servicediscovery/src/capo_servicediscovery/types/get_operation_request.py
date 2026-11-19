@@ -36,3 +36,23 @@ def deserialize_aws_json_1_1(data: dict) -> GetOperationRequest:
     if data.get("OwnerAccount") is not None:
         out["owner_account"] = data["OwnerAccount"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetOperationRequest) -> dict:
+    out: dict = {}
+    out["OperationId"] = value["operation_id"]
+    if "owner_account" in value:
+        out["OwnerAccount"] = value["owner_account"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetOperationRequest:
+    out: GetOperationRequest = {}  # type: ignore[typeddict-item]
+    if data.get("OperationId") is not None:
+        out["operation_id"] = data["OperationId"]
+    else:
+        out["operation_id"] = ""
+    if data.get("OwnerAccount") is not None:
+        out["owner_account"] = data["OwnerAccount"]
+    return out

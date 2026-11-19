@@ -49,3 +49,34 @@ def deserialize_aws_json_1_0(data: dict) -> ListVpcEndpointAssociationsResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListVpcEndpointAssociationsResponse) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "vpc_endpoint_associations" in value:
+        import capo_network_firewall.types.vpc_endpoint_associations
+
+        out["VpcEndpointAssociations"] = (
+            capo_network_firewall.types.vpc_endpoint_associations.serialize_cbor(
+                value["vpc_endpoint_associations"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListVpcEndpointAssociationsResponse:
+    out: ListVpcEndpointAssociationsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("VpcEndpointAssociations") is not None:
+        import capo_network_firewall.types.vpc_endpoint_associations
+
+        out["vpc_endpoint_associations"] = (
+            capo_network_firewall.types.vpc_endpoint_associations.deserialize_cbor(
+                data["VpcEndpointAssociations"]
+            )
+        )
+    return out

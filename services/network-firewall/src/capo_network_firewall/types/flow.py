@@ -96,3 +96,65 @@ def deserialize_aws_json_1_0(data: dict) -> Flow:
     else:
         out["byte_count"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Flow) -> dict:
+    out: dict = {}
+    if "source_address" in value:
+        import capo_network_firewall.types.address
+
+        out["SourceAddress"] = capo_network_firewall.types.address.serialize_cbor(
+            value["source_address"]
+        )
+    if "destination_address" in value:
+        import capo_network_firewall.types.address
+
+        out["DestinationAddress"] = capo_network_firewall.types.address.serialize_cbor(
+            value["destination_address"]
+        )
+    if "source_port" in value:
+        out["SourcePort"] = value["source_port"]
+    if "destination_port" in value:
+        out["DestinationPort"] = value["destination_port"]
+    if "protocol" in value:
+        out["Protocol"] = value["protocol"]
+    if "age" in value:
+        out["Age"] = value["age"]
+    if "packet_count" in value:
+        out["PacketCount"] = value["packet_count"]
+    out["ByteCount"] = value.get("byte_count", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> Flow:
+    out: Flow = {}  # type: ignore[typeddict-item]
+    if data.get("SourceAddress") is not None:
+        import capo_network_firewall.types.address
+
+        out["source_address"] = capo_network_firewall.types.address.deserialize_cbor(
+            data["SourceAddress"]
+        )
+    if data.get("DestinationAddress") is not None:
+        import capo_network_firewall.types.address
+
+        out["destination_address"] = (
+            capo_network_firewall.types.address.deserialize_cbor(
+                data["DestinationAddress"]
+            )
+        )
+    if data.get("SourcePort") is not None:
+        out["source_port"] = data["SourcePort"]
+    if data.get("DestinationPort") is not None:
+        out["destination_port"] = data["DestinationPort"]
+    if data.get("Protocol") is not None:
+        out["protocol"] = data["Protocol"]
+    if data.get("Age") is not None:
+        out["age"] = data["Age"]
+    if data.get("PacketCount") is not None:
+        out["packet_count"] = data["PacketCount"]
+    if data.get("ByteCount") is not None:
+        out["byte_count"] = data["ByteCount"]
+    else:
+        out["byte_count"] = 0
+    return out

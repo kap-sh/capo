@@ -46,3 +46,31 @@ def deserialize_aws_json_1_1(data: dict) -> CreateReturnShippingLabelRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateReturnShippingLabelRequest) -> dict:
+    out: dict = {}
+    out["JobId"] = value["job_id"]
+    if "shipping_option" in value:
+        import capo_snowball.types.shipping_option
+
+        out["ShippingOption"] = capo_snowball.types.shipping_option.serialize_cbor(
+            value["shipping_option"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateReturnShippingLabelRequest:
+    out: CreateReturnShippingLabelRequest = {}  # type: ignore[typeddict-item]
+    if data.get("JobId") is not None:
+        out["job_id"] = data["JobId"]
+    else:
+        out["job_id"] = ""
+    if data.get("ShippingOption") is not None:
+        import capo_snowball.types.shipping_option
+
+        out["shipping_option"] = capo_snowball.types.shipping_option.deserialize_cbor(
+            data["ShippingOption"]
+        )
+    return out

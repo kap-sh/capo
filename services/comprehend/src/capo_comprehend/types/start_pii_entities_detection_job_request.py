@@ -172,3 +172,120 @@ def deserialize_aws_json_1_1(data: dict) -> StartPiiEntitiesDetectionJobRequest:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartPiiEntitiesDetectionJobRequest) -> dict:
+    out: dict = {}
+    import capo_comprehend.types.input_data_config
+
+    out["InputDataConfig"] = capo_comprehend.types.input_data_config.serialize_cbor(
+        value["input_data_config"]
+    )
+    import capo_comprehend.types.output_data_config
+
+    out["OutputDataConfig"] = capo_comprehend.types.output_data_config.serialize_cbor(
+        value["output_data_config"]
+    )
+    import capo_comprehend.types.pii_entities_detection_mode
+
+    out["Mode"] = capo_comprehend.types.pii_entities_detection_mode.serialize_cbor(
+        value["mode"]
+    )
+    if "redaction_config" in value:
+        import capo_comprehend.types.redaction_config
+
+        out["RedactionConfig"] = capo_comprehend.types.redaction_config.serialize_cbor(
+            value["redaction_config"]
+        )
+    out["DataAccessRoleArn"] = value["data_access_role_arn"]
+    if "job_name" in value:
+        out["JobName"] = value["job_name"]
+    import capo_comprehend.types.language_code
+
+    out["LanguageCode"] = capo_comprehend.types.language_code.serialize_cbor(
+        value["language_code"]
+    )
+    if "client_request_token" in value:
+        out["ClientRequestToken"] = value["client_request_token"]
+    if "tags" in value:
+        import capo_comprehend.types.tag_list
+
+        out["Tags"] = capo_comprehend.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartPiiEntitiesDetectionJobRequest:
+    out: StartPiiEntitiesDetectionJobRequest = {}  # type: ignore[typeddict-item]
+    if data.get("InputDataConfig") is not None:
+        import capo_comprehend.types.input_data_config
+
+        out["input_data_config"] = (
+            capo_comprehend.types.input_data_config.deserialize_cbor(
+                data["InputDataConfig"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "StartPiiEntitiesDetectionJobRequest.input_data_config required"
+        )
+    if data.get("OutputDataConfig") is not None:
+        import capo_comprehend.types.output_data_config
+
+        out["output_data_config"] = (
+            capo_comprehend.types.output_data_config.deserialize_cbor(
+                data["OutputDataConfig"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "StartPiiEntitiesDetectionJobRequest.output_data_config required"
+        )
+    if data.get("Mode") is not None:
+        import capo_comprehend.types.pii_entities_detection_mode
+
+        out["mode"] = (
+            capo_comprehend.types.pii_entities_detection_mode.deserialize_cbor(
+                data["Mode"]
+            )
+        )
+    else:
+        import typing
+
+        out["mode"] = typing.cast(
+            "capo_comprehend.types.pii_entities_detection_mode.PiiEntitiesDetectionMode",
+            "",
+        )
+    if data.get("RedactionConfig") is not None:
+        import capo_comprehend.types.redaction_config
+
+        out["redaction_config"] = (
+            capo_comprehend.types.redaction_config.deserialize_cbor(
+                data["RedactionConfig"]
+            )
+        )
+    if data.get("DataAccessRoleArn") is not None:
+        out["data_access_role_arn"] = data["DataAccessRoleArn"]
+    else:
+        out["data_access_role_arn"] = ""
+    if data.get("JobName") is not None:
+        out["job_name"] = data["JobName"]
+    if data.get("LanguageCode") is not None:
+        import capo_comprehend.types.language_code
+
+        out["language_code"] = capo_comprehend.types.language_code.deserialize_cbor(
+            data["LanguageCode"]
+        )
+    else:
+        import typing
+
+        out["language_code"] = typing.cast(
+            "capo_comprehend.types.language_code.LanguageCode", ""
+        )
+    if data.get("ClientRequestToken") is not None:
+        out["client_request_token"] = data["ClientRequestToken"]
+    if data.get("Tags") is not None:
+        import capo_comprehend.types.tag_list
+
+        out["tags"] = capo_comprehend.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

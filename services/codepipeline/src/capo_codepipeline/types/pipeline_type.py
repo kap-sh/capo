@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: PipelineType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> PipelineType:
     return cast(PipelineType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PipelineType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> PipelineType:
+    return cast(PipelineType, data)

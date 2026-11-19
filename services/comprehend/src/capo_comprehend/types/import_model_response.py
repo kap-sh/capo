@@ -28,3 +28,18 @@ def deserialize_aws_json_1_1(data: dict) -> ImportModelResponse:
     if data.get("ModelArn") is not None:
         out["model_arn"] = data["ModelArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ImportModelResponse) -> dict:
+    out: dict = {}
+    if "model_arn" in value:
+        out["ModelArn"] = value["model_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ImportModelResponse:
+    out: ImportModelResponse = {}  # type: ignore[typeddict-item]
+    if data.get("ModelArn") is not None:
+        out["model_arn"] = data["ModelArn"]
+    return out

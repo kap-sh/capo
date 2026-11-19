@@ -55,3 +55,38 @@ def deserialize_aws_json_1_1(data: dict) -> StartSchemaExtensionRequest:
     else:
         out["description"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartSchemaExtensionRequest) -> dict:
+    out: dict = {}
+    out["DirectoryId"] = value["directory_id"]
+    out["CreateSnapshotBeforeSchemaExtension"] = value[
+        "create_snapshot_before_schema_extension"
+    ]
+    out["LdifContent"] = value["ldif_content"]
+    out["Description"] = value["description"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartSchemaExtensionRequest:
+    out: StartSchemaExtensionRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    if data.get("CreateSnapshotBeforeSchemaExtension") is not None:
+        out["create_snapshot_before_schema_extension"] = data[
+            "CreateSnapshotBeforeSchemaExtension"
+        ]
+    else:
+        out["create_snapshot_before_schema_extension"] = False
+    if data.get("LdifContent") is not None:
+        out["ldif_content"] = data["LdifContent"]
+    else:
+        out["ldif_content"] = ""
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    else:
+        out["description"] = ""
+    return out

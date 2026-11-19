@@ -34,3 +34,22 @@ def deserialize_aws_json_1_1(data: dict) -> ComputeType:
             data["Name"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ComputeType) -> dict:
+    out: dict = {}
+    if "name" in value:
+        import capo_workspaces.types.compute
+
+        out["Name"] = capo_workspaces.types.compute.serialize_cbor(value["name"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> ComputeType:
+    out: ComputeType = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        import capo_workspaces.types.compute
+
+        out["name"] = capo_workspaces.types.compute.deserialize_cbor(data["Name"])
+    return out

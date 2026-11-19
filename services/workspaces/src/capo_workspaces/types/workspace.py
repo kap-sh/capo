@@ -244,3 +244,162 @@ def deserialize_aws_json_1_1(data: dict) -> Workspace:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Workspace) -> dict:
+    out: dict = {}
+    if "workspace_id" in value:
+        out["WorkspaceId"] = value["workspace_id"]
+    if "directory_id" in value:
+        out["DirectoryId"] = value["directory_id"]
+    if "user_name" in value:
+        out["UserName"] = value["user_name"]
+    if "ip_address" in value:
+        out["IpAddress"] = value["ip_address"]
+    if "ipv6_address" in value:
+        out["Ipv6Address"] = value["ipv6_address"]
+    if "state" in value:
+        import capo_workspaces.types.workspace_state
+
+        out["State"] = capo_workspaces.types.workspace_state.serialize_cbor(
+            value["state"]
+        )
+    if "bundle_id" in value:
+        out["BundleId"] = value["bundle_id"]
+    if "subnet_id" in value:
+        out["SubnetId"] = value["subnet_id"]
+    if "error_message" in value:
+        out["ErrorMessage"] = value["error_message"]
+    if "error_code" in value:
+        out["ErrorCode"] = value["error_code"]
+    if "computer_name" in value:
+        out["ComputerName"] = value["computer_name"]
+    if "volume_encryption_key" in value:
+        out["VolumeEncryptionKey"] = value["volume_encryption_key"]
+    if "user_volume_encryption_enabled" in value:
+        out["UserVolumeEncryptionEnabled"] = value["user_volume_encryption_enabled"]
+    if "root_volume_encryption_enabled" in value:
+        out["RootVolumeEncryptionEnabled"] = value["root_volume_encryption_enabled"]
+    if "workspace_name" in value:
+        out["WorkspaceName"] = value["workspace_name"]
+    if "workspace_properties" in value:
+        import capo_workspaces.types.workspace_properties
+
+        out["WorkspaceProperties"] = (
+            capo_workspaces.types.workspace_properties.serialize_cbor(
+                value["workspace_properties"]
+            )
+        )
+    if "modification_states" in value:
+        import capo_workspaces.types.modification_state_list
+
+        out["ModificationStates"] = (
+            capo_workspaces.types.modification_state_list.serialize_cbor(
+                value["modification_states"]
+            )
+        )
+    if "related_workspaces" in value:
+        import capo_workspaces.types.related_workspaces
+
+        out["RelatedWorkspaces"] = (
+            capo_workspaces.types.related_workspaces.serialize_cbor(
+                value["related_workspaces"]
+            )
+        )
+    if "data_replication_settings" in value:
+        import capo_workspaces.types.data_replication_settings
+
+        out["DataReplicationSettings"] = (
+            capo_workspaces.types.data_replication_settings.serialize_cbor(
+                value["data_replication_settings"]
+            )
+        )
+    if "standby_workspaces_properties" in value:
+        import capo_workspaces.types.standby_workspaces_properties_list
+
+        out["StandbyWorkspacesProperties"] = (
+            capo_workspaces.types.standby_workspaces_properties_list.serialize_cbor(
+                value["standby_workspaces_properties"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Workspace:
+    out: Workspace = {}  # type: ignore[typeddict-item]
+    if data.get("WorkspaceId") is not None:
+        out["workspace_id"] = data["WorkspaceId"]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    if data.get("UserName") is not None:
+        out["user_name"] = data["UserName"]
+    if data.get("IpAddress") is not None:
+        out["ip_address"] = data["IpAddress"]
+    if data.get("Ipv6Address") is not None:
+        out["ipv6_address"] = data["Ipv6Address"]
+    if data.get("State") is not None:
+        import capo_workspaces.types.workspace_state
+
+        out["state"] = capo_workspaces.types.workspace_state.deserialize_cbor(
+            data["State"]
+        )
+    if data.get("BundleId") is not None:
+        out["bundle_id"] = data["BundleId"]
+    if data.get("SubnetId") is not None:
+        out["subnet_id"] = data["SubnetId"]
+    if data.get("ErrorMessage") is not None:
+        out["error_message"] = data["ErrorMessage"]
+    if data.get("ErrorCode") is not None:
+        out["error_code"] = data["ErrorCode"]
+    if data.get("ComputerName") is not None:
+        out["computer_name"] = data["ComputerName"]
+    if data.get("VolumeEncryptionKey") is not None:
+        out["volume_encryption_key"] = data["VolumeEncryptionKey"]
+    if data.get("UserVolumeEncryptionEnabled") is not None:
+        out["user_volume_encryption_enabled"] = data["UserVolumeEncryptionEnabled"]
+    if data.get("RootVolumeEncryptionEnabled") is not None:
+        out["root_volume_encryption_enabled"] = data["RootVolumeEncryptionEnabled"]
+    if data.get("WorkspaceName") is not None:
+        out["workspace_name"] = data["WorkspaceName"]
+    if data.get("WorkspaceProperties") is not None:
+        import capo_workspaces.types.workspace_properties
+
+        out["workspace_properties"] = (
+            capo_workspaces.types.workspace_properties.deserialize_cbor(
+                data["WorkspaceProperties"]
+            )
+        )
+    if data.get("ModificationStates") is not None:
+        import capo_workspaces.types.modification_state_list
+
+        out["modification_states"] = (
+            capo_workspaces.types.modification_state_list.deserialize_cbor(
+                data["ModificationStates"]
+            )
+        )
+    if data.get("RelatedWorkspaces") is not None:
+        import capo_workspaces.types.related_workspaces
+
+        out["related_workspaces"] = (
+            capo_workspaces.types.related_workspaces.deserialize_cbor(
+                data["RelatedWorkspaces"]
+            )
+        )
+    if data.get("DataReplicationSettings") is not None:
+        import capo_workspaces.types.data_replication_settings
+
+        out["data_replication_settings"] = (
+            capo_workspaces.types.data_replication_settings.deserialize_cbor(
+                data["DataReplicationSettings"]
+            )
+        )
+    if data.get("StandbyWorkspacesProperties") is not None:
+        import capo_workspaces.types.standby_workspaces_properties_list
+
+        out["standby_workspaces_properties"] = (
+            capo_workspaces.types.standby_workspaces_properties_list.deserialize_cbor(
+                data["StandbyWorkspacesProperties"]
+            )
+        )
+    return out

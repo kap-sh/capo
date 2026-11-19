@@ -33,3 +33,24 @@ def deserialize_aws_json_1_1(data: list) -> EventTriggerDefinitionList:
             capo_snowball.types.event_trigger_definition.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EventTriggerDefinitionList) -> list:
+    import capo_snowball.types.event_trigger_definition
+
+    out: list = []
+    for item in value:
+        out.append(capo_snowball.types.event_trigger_definition.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> EventTriggerDefinitionList:
+    import capo_snowball.types.event_trigger_definition
+
+    out: EventTriggerDefinitionList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_snowball.types.event_trigger_definition.deserialize_cbor(item))
+    return out

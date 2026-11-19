@@ -56,3 +56,38 @@ def deserialize_aws_json_1_0(data: dict) -> Bandwidths:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Bandwidths) -> dict:
+    out: dict = {}
+    if "available" in value:
+        import capo_interconnect.types.bandwidth_list
+
+        out["available"] = capo_interconnect.types.bandwidth_list.serialize_cbor(
+            value["available"]
+        )
+    if "supported" in value:
+        import capo_interconnect.types.bandwidth_list
+
+        out["supported"] = capo_interconnect.types.bandwidth_list.serialize_cbor(
+            value["supported"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Bandwidths:
+    out: Bandwidths = {}  # type: ignore[typeddict-item]
+    if data.get("available") is not None:
+        import capo_interconnect.types.bandwidth_list
+
+        out["available"] = capo_interconnect.types.bandwidth_list.deserialize_cbor(
+            data["available"]
+        )
+    if data.get("supported") is not None:
+        import capo_interconnect.types.bandwidth_list
+
+        out["supported"] = capo_interconnect.types.bandwidth_list.deserialize_cbor(
+            data["supported"]
+        )
+    return out

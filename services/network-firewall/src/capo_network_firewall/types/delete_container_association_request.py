@@ -37,3 +37,22 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteContainerAssociationRequest:
     if data.get("ContainerAssociationArn") is not None:
         out["container_association_arn"] = data["ContainerAssociationArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteContainerAssociationRequest) -> dict:
+    out: dict = {}
+    if "container_association_name" in value:
+        out["ContainerAssociationName"] = value["container_association_name"]
+    if "container_association_arn" in value:
+        out["ContainerAssociationArn"] = value["container_association_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteContainerAssociationRequest:
+    out: DeleteContainerAssociationRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ContainerAssociationName") is not None:
+        out["container_association_name"] = data["ContainerAssociationName"]
+    if data.get("ContainerAssociationArn") is not None:
+        out["container_association_arn"] = data["ContainerAssociationArn"]
+    return out

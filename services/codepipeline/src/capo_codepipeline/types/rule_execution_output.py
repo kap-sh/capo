@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> RuleExecutionOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RuleExecutionOutput) -> dict:
+    out: dict = {}
+    if "execution_result" in value:
+        import capo_codepipeline.types.rule_execution_result
+
+        out["executionResult"] = (
+            capo_codepipeline.types.rule_execution_result.serialize_cbor(
+                value["execution_result"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RuleExecutionOutput:
+    out: RuleExecutionOutput = {}  # type: ignore[typeddict-item]
+    if data.get("executionResult") is not None:
+        import capo_codepipeline.types.rule_execution_result
+
+        out["execution_result"] = (
+            capo_codepipeline.types.rule_execution_result.deserialize_cbor(
+                data["executionResult"]
+            )
+        )
+    return out

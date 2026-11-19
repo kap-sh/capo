@@ -29,3 +29,19 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteApplicationRequest:
     else:
         out["resource_group_name"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteApplicationRequest) -> dict:
+    out: dict = {}
+    out["ResourceGroupName"] = value["resource_group_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteApplicationRequest:
+    out: DeleteApplicationRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceGroupName") is not None:
+        out["resource_group_name"] = data["ResourceGroupName"]
+    else:
+        out["resource_group_name"] = ""
+    return out

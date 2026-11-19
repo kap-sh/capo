@@ -41,3 +41,32 @@ def deserialize_aws_json_1_0(
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LambdaFunctionRecommendationFindingReasonCodes) -> list:
+    import capo_compute_optimizer.types.lambda_function_recommendation_finding_reason_code
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_compute_optimizer.types.lambda_function_recommendation_finding_reason_code.serialize_cbor(
+                item
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> LambdaFunctionRecommendationFindingReasonCodes:
+    import capo_compute_optimizer.types.lambda_function_recommendation_finding_reason_code
+
+    out: LambdaFunctionRecommendationFindingReasonCodes = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_compute_optimizer.types.lambda_function_recommendation_finding_reason_code.deserialize_cbor(
+                item
+            )
+        )
+    return out

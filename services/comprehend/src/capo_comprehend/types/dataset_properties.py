@@ -128,3 +128,86 @@ def deserialize_aws_json_1_1(data: dict) -> DatasetProperties:
             data["EndTime"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DatasetProperties) -> dict:
+    out: dict = {}
+    if "dataset_arn" in value:
+        out["DatasetArn"] = value["dataset_arn"]
+    if "dataset_name" in value:
+        out["DatasetName"] = value["dataset_name"]
+    if "dataset_type" in value:
+        import capo_comprehend.types.dataset_type
+
+        out["DatasetType"] = capo_comprehend.types.dataset_type.serialize_cbor(
+            value["dataset_type"]
+        )
+    if "dataset_s3_uri" in value:
+        out["DatasetS3Uri"] = value["dataset_s3_uri"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "status" in value:
+        import capo_comprehend.types.dataset_status
+
+        out["Status"] = capo_comprehend.types.dataset_status.serialize_cbor(
+            value["status"]
+        )
+    if "message" in value:
+        out["Message"] = value["message"]
+    if "number_of_documents" in value:
+        out["NumberOfDocuments"] = value["number_of_documents"]
+    if "creation_time" in value:
+        import capo_comprehend.types.timestamp
+
+        out["CreationTime"] = capo_comprehend.types.timestamp.serialize_cbor(
+            value["creation_time"]
+        )
+    if "end_time" in value:
+        import capo_comprehend.types.timestamp
+
+        out["EndTime"] = capo_comprehend.types.timestamp.serialize_cbor(
+            value["end_time"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DatasetProperties:
+    out: DatasetProperties = {}  # type: ignore[typeddict-item]
+    if data.get("DatasetArn") is not None:
+        out["dataset_arn"] = data["DatasetArn"]
+    if data.get("DatasetName") is not None:
+        out["dataset_name"] = data["DatasetName"]
+    if data.get("DatasetType") is not None:
+        import capo_comprehend.types.dataset_type
+
+        out["dataset_type"] = capo_comprehend.types.dataset_type.deserialize_cbor(
+            data["DatasetType"]
+        )
+    if data.get("DatasetS3Uri") is not None:
+        out["dataset_s3_uri"] = data["DatasetS3Uri"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("Status") is not None:
+        import capo_comprehend.types.dataset_status
+
+        out["status"] = capo_comprehend.types.dataset_status.deserialize_cbor(
+            data["Status"]
+        )
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    if data.get("NumberOfDocuments") is not None:
+        out["number_of_documents"] = data["NumberOfDocuments"]
+    if data.get("CreationTime") is not None:
+        import capo_comprehend.types.timestamp
+
+        out["creation_time"] = capo_comprehend.types.timestamp.deserialize_cbor(
+            data["CreationTime"]
+        )
+    if data.get("EndTime") is not None:
+        import capo_comprehend.types.timestamp
+
+        out["end_time"] = capo_comprehend.types.timestamp.deserialize_cbor(
+            data["EndTime"]
+        )
+    return out

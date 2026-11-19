@@ -43,6 +43,30 @@ def deserialize_aws_json_1_0(data: dict) -> TrustStore:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TrustStore) -> dict:
+    out: dict = {}
+    out["CAContent"] = value["ca_content"]
+    if "crl_content" in value:
+        out["CrlContent"] = value["crl_content"]
+    if "kms_key_arn" in value:
+        out["KmsKeyArn"] = value["kms_key_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> TrustStore:
+    out: TrustStore = {}  # type: ignore[typeddict-item]
+    if data.get("CAContent") is not None:
+        out["ca_content"] = data["CAContent"]
+    else:
+        out["ca_content"] = ""
+    if data.get("CrlContent") is not None:
+        out["crl_content"] = data["CrlContent"]
+    if data.get("KmsKeyArn") is not None:
+        out["kms_key_arn"] = data["KmsKeyArn"]
+    return out
+
+
 def redact_sensitive(value: TrustStore) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "ca_content" in value:

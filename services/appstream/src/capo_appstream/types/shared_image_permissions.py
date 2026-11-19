@@ -47,3 +47,32 @@ def deserialize_aws_json_1_1(data: dict) -> SharedImagePermissions:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SharedImagePermissions) -> dict:
+    out: dict = {}
+    if "shared_account_id" in value:
+        out["sharedAccountId"] = value["shared_account_id"]
+    if "image_permissions" in value:
+        import capo_appstream.types.image_permissions
+
+        out["imagePermissions"] = capo_appstream.types.image_permissions.serialize_cbor(
+            value["image_permissions"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> SharedImagePermissions:
+    out: SharedImagePermissions = {}  # type: ignore[typeddict-item]
+    if data.get("sharedAccountId") is not None:
+        out["shared_account_id"] = data["sharedAccountId"]
+    if data.get("imagePermissions") is not None:
+        import capo_appstream.types.image_permissions
+
+        out["image_permissions"] = (
+            capo_appstream.types.image_permissions.deserialize_cbor(
+                data["imagePermissions"]
+            )
+        )
+    return out

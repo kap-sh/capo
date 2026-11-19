@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> InvalidRequestDetail:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InvalidRequestDetail) -> dict:
+    out: dict = {}
+    if "reason" in value:
+        import capo_comprehend.types.invalid_request_detail_reason
+
+        out["Reason"] = (
+            capo_comprehend.types.invalid_request_detail_reason.serialize_cbor(
+                value["reason"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> InvalidRequestDetail:
+    out: InvalidRequestDetail = {}  # type: ignore[typeddict-item]
+    if data.get("Reason") is not None:
+        import capo_comprehend.types.invalid_request_detail_reason
+
+        out["reason"] = (
+            capo_comprehend.types.invalid_request_detail_reason.deserialize_cbor(
+                data["Reason"]
+            )
+        )
+    return out

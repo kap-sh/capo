@@ -88,3 +88,57 @@ def deserialize_aws_json_1_1(data: dict) -> ApplicationInfo:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ApplicationInfo) -> dict:
+    out: dict = {}
+    if "application_id" in value:
+        out["applicationId"] = value["application_id"]
+    if "application_name" in value:
+        out["applicationName"] = value["application_name"]
+    if "create_time" in value:
+        import capo_codedeploy.types.timestamp
+
+        out["createTime"] = capo_codedeploy.types.timestamp.serialize_cbor(
+            value["create_time"]
+        )
+    out["linkedToGitHub"] = value.get("linked_to_git_hub", False)
+    if "git_hub_account_name" in value:
+        out["gitHubAccountName"] = value["git_hub_account_name"]
+    if "compute_platform" in value:
+        import capo_codedeploy.types.compute_platform
+
+        out["computePlatform"] = capo_codedeploy.types.compute_platform.serialize_cbor(
+            value["compute_platform"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ApplicationInfo:
+    out: ApplicationInfo = {}  # type: ignore[typeddict-item]
+    if data.get("applicationId") is not None:
+        out["application_id"] = data["applicationId"]
+    if data.get("applicationName") is not None:
+        out["application_name"] = data["applicationName"]
+    if data.get("createTime") is not None:
+        import capo_codedeploy.types.timestamp
+
+        out["create_time"] = capo_codedeploy.types.timestamp.deserialize_cbor(
+            data["createTime"]
+        )
+    if data.get("linkedToGitHub") is not None:
+        out["linked_to_git_hub"] = data["linkedToGitHub"]
+    else:
+        out["linked_to_git_hub"] = False
+    if data.get("gitHubAccountName") is not None:
+        out["git_hub_account_name"] = data["gitHubAccountName"]
+    if data.get("computePlatform") is not None:
+        import capo_codedeploy.types.compute_platform
+
+        out["compute_platform"] = (
+            capo_codedeploy.types.compute_platform.deserialize_cbor(
+                data["computePlatform"]
+            )
+        )
+    return out

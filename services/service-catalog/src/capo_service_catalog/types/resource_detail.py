@@ -72,3 +72,46 @@ def deserialize_aws_json_1_1(data: dict) -> ResourceDetail:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResourceDetail) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["Id"] = value["id"]
+    if "arn" in value:
+        out["ARN"] = value["arn"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "created_time" in value:
+        import capo_service_catalog.types.resource_detail_created_time
+
+        out["CreatedTime"] = (
+            capo_service_catalog.types.resource_detail_created_time.serialize_cbor(
+                value["created_time"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ResourceDetail:
+    out: ResourceDetail = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    if data.get("ARN") is not None:
+        out["arn"] = data["ARN"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("CreatedTime") is not None:
+        import capo_service_catalog.types.resource_detail_created_time
+
+        out["created_time"] = (
+            capo_service_catalog.types.resource_detail_created_time.deserialize_cbor(
+                data["CreatedTime"]
+            )
+        )
+    return out

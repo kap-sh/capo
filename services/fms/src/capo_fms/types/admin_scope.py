@@ -89,3 +89,66 @@ def deserialize_aws_json_1_1(data: dict) -> AdminScope:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AdminScope) -> dict:
+    out: dict = {}
+    if "account_scope" in value:
+        import capo_fms.types.account_scope
+
+        out["AccountScope"] = capo_fms.types.account_scope.serialize_cbor(
+            value["account_scope"]
+        )
+    if "organizational_unit_scope" in value:
+        import capo_fms.types.organizational_unit_scope
+
+        out["OrganizationalUnitScope"] = (
+            capo_fms.types.organizational_unit_scope.serialize_cbor(
+                value["organizational_unit_scope"]
+            )
+        )
+    if "region_scope" in value:
+        import capo_fms.types.region_scope
+
+        out["RegionScope"] = capo_fms.types.region_scope.serialize_cbor(
+            value["region_scope"]
+        )
+    if "policy_type_scope" in value:
+        import capo_fms.types.policy_type_scope
+
+        out["PolicyTypeScope"] = capo_fms.types.policy_type_scope.serialize_cbor(
+            value["policy_type_scope"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AdminScope:
+    out: AdminScope = {}  # type: ignore[typeddict-item]
+    if data.get("AccountScope") is not None:
+        import capo_fms.types.account_scope
+
+        out["account_scope"] = capo_fms.types.account_scope.deserialize_cbor(
+            data["AccountScope"]
+        )
+    if data.get("OrganizationalUnitScope") is not None:
+        import capo_fms.types.organizational_unit_scope
+
+        out["organizational_unit_scope"] = (
+            capo_fms.types.organizational_unit_scope.deserialize_cbor(
+                data["OrganizationalUnitScope"]
+            )
+        )
+    if data.get("RegionScope") is not None:
+        import capo_fms.types.region_scope
+
+        out["region_scope"] = capo_fms.types.region_scope.deserialize_cbor(
+            data["RegionScope"]
+        )
+    if data.get("PolicyTypeScope") is not None:
+        import capo_fms.types.policy_type_scope
+
+        out["policy_type_scope"] = capo_fms.types.policy_type_scope.deserialize_cbor(
+            data["PolicyTypeScope"]
+        )
+    return out

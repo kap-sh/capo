@@ -35,3 +35,24 @@ def deserialize_aws_json_1_0(data: dict) -> BatchCreateBillingAdjustmentItem:
     else:
         out["client_token"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchCreateBillingAdjustmentItem) -> dict:
+    out: dict = {}
+    out["billingAdjustmentRequestId"] = value["billing_adjustment_request_id"]
+    out["clientToken"] = value["client_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> BatchCreateBillingAdjustmentItem:
+    out: BatchCreateBillingAdjustmentItem = {}  # type: ignore[typeddict-item]
+    if data.get("billingAdjustmentRequestId") is not None:
+        out["billing_adjustment_request_id"] = data["billingAdjustmentRequestId"]
+    else:
+        out["billing_adjustment_request_id"] = ""
+    if data.get("clientToken") is not None:
+        out["client_token"] = data["clientToken"]
+    else:
+        out["client_token"] = ""
+    return out

@@ -96,3 +96,70 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeLocationS3Response:
             data["CreationTime"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeLocationS3Response) -> dict:
+    out: dict = {}
+    if "location_arn" in value:
+        out["LocationArn"] = value["location_arn"]
+    if "location_uri" in value:
+        out["LocationUri"] = value["location_uri"]
+    if "s3_storage_class" in value:
+        import capo_datasync.types.s3_storage_class
+
+        out["S3StorageClass"] = capo_datasync.types.s3_storage_class.serialize_cbor(
+            value["s3_storage_class"]
+        )
+    if "s3_config" in value:
+        import capo_datasync.types.s3_config
+
+        out["S3Config"] = capo_datasync.types.s3_config.serialize_cbor(
+            value["s3_config"]
+        )
+    if "agent_arns" in value:
+        import capo_datasync.types.agent_arn_list
+
+        out["AgentArns"] = capo_datasync.types.agent_arn_list.serialize_cbor(
+            value["agent_arns"]
+        )
+    if "creation_time" in value:
+        import capo_datasync.types.time
+
+        out["CreationTime"] = capo_datasync.types.time.serialize_cbor(
+            value["creation_time"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeLocationS3Response:
+    out: DescribeLocationS3Response = {}  # type: ignore[typeddict-item]
+    if data.get("LocationArn") is not None:
+        out["location_arn"] = data["LocationArn"]
+    if data.get("LocationUri") is not None:
+        out["location_uri"] = data["LocationUri"]
+    if data.get("S3StorageClass") is not None:
+        import capo_datasync.types.s3_storage_class
+
+        out["s3_storage_class"] = capo_datasync.types.s3_storage_class.deserialize_cbor(
+            data["S3StorageClass"]
+        )
+    if data.get("S3Config") is not None:
+        import capo_datasync.types.s3_config
+
+        out["s3_config"] = capo_datasync.types.s3_config.deserialize_cbor(
+            data["S3Config"]
+        )
+    if data.get("AgentArns") is not None:
+        import capo_datasync.types.agent_arn_list
+
+        out["agent_arns"] = capo_datasync.types.agent_arn_list.deserialize_cbor(
+            data["AgentArns"]
+        )
+    if data.get("CreationTime") is not None:
+        import capo_datasync.types.time
+
+        out["creation_time"] = capo_datasync.types.time.deserialize_cbor(
+            data["CreationTime"]
+        )
+    return out

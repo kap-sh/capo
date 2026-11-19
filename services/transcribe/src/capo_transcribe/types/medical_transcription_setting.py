@@ -61,3 +61,38 @@ def deserialize_aws_json_1_1(data: dict) -> MedicalTranscriptionSetting:
     if data.get("VocabularyName") is not None:
         out["vocabulary_name"] = data["VocabularyName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MedicalTranscriptionSetting) -> dict:
+    out: dict = {}
+    if "show_speaker_labels" in value:
+        out["ShowSpeakerLabels"] = value["show_speaker_labels"]
+    if "max_speaker_labels" in value:
+        out["MaxSpeakerLabels"] = value["max_speaker_labels"]
+    if "channel_identification" in value:
+        out["ChannelIdentification"] = value["channel_identification"]
+    if "show_alternatives" in value:
+        out["ShowAlternatives"] = value["show_alternatives"]
+    if "max_alternatives" in value:
+        out["MaxAlternatives"] = value["max_alternatives"]
+    if "vocabulary_name" in value:
+        out["VocabularyName"] = value["vocabulary_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> MedicalTranscriptionSetting:
+    out: MedicalTranscriptionSetting = {}  # type: ignore[typeddict-item]
+    if data.get("ShowSpeakerLabels") is not None:
+        out["show_speaker_labels"] = data["ShowSpeakerLabels"]
+    if data.get("MaxSpeakerLabels") is not None:
+        out["max_speaker_labels"] = data["MaxSpeakerLabels"]
+    if data.get("ChannelIdentification") is not None:
+        out["channel_identification"] = data["ChannelIdentification"]
+    if data.get("ShowAlternatives") is not None:
+        out["show_alternatives"] = data["ShowAlternatives"]
+    if data.get("MaxAlternatives") is not None:
+        out["max_alternatives"] = data["MaxAlternatives"]
+    if data.get("VocabularyName") is not None:
+        out["vocabulary_name"] = data["VocabularyName"]
+    return out

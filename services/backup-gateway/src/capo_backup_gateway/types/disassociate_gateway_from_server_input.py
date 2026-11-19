@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> DisassociateGatewayFromServerInput:
     else:
         out["gateway_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DisassociateGatewayFromServerInput) -> dict:
+    out: dict = {}
+    out["GatewayArn"] = value["gateway_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DisassociateGatewayFromServerInput:
+    out: DisassociateGatewayFromServerInput = {}  # type: ignore[typeddict-item]
+    if data.get("GatewayArn") is not None:
+        out["gateway_arn"] = data["GatewayArn"]
+    else:
+        out["gateway_arn"] = ""
+    return out

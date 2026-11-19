@@ -70,3 +70,47 @@ def deserialize_aws_json_1_1(data: dict) -> CreateUserRequest:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateUserRequest) -> dict:
+    out: dict = {}
+    out["UserName"] = value["user_name"]
+    import capo_memorydb.types.authentication_mode
+
+    out["AuthenticationMode"] = capo_memorydb.types.authentication_mode.serialize_cbor(
+        value["authentication_mode"]
+    )
+    out["AccessString"] = value["access_string"]
+    if "tags" in value:
+        import capo_memorydb.types.tag_list
+
+        out["Tags"] = capo_memorydb.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateUserRequest:
+    out: CreateUserRequest = {}  # type: ignore[typeddict-item]
+    if data.get("UserName") is not None:
+        out["user_name"] = data["UserName"]
+    else:
+        out["user_name"] = ""
+    if data.get("AuthenticationMode") is not None:
+        import capo_memorydb.types.authentication_mode
+
+        out["authentication_mode"] = (
+            capo_memorydb.types.authentication_mode.deserialize_cbor(
+                data["AuthenticationMode"]
+            )
+        )
+    else:
+        raise DeserializationError("CreateUserRequest.authentication_mode required")
+    if data.get("AccessString") is not None:
+        out["access_string"] = data["AccessString"]
+    else:
+        out["access_string"] = ""
+    if data.get("Tags") is not None:
+        import capo_memorydb.types.tag_list
+
+        out["tags"] = capo_memorydb.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

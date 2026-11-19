@@ -28,3 +28,18 @@ def deserialize_aws_json_1_0(data: dict) -> FlowTimeouts:
     if data.get("TcpIdleTimeoutSeconds") is not None:
         out["tcp_idle_timeout_seconds"] = data["TcpIdleTimeoutSeconds"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FlowTimeouts) -> dict:
+    out: dict = {}
+    if "tcp_idle_timeout_seconds" in value:
+        out["TcpIdleTimeoutSeconds"] = value["tcp_idle_timeout_seconds"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> FlowTimeouts:
+    out: FlowTimeouts = {}  # type: ignore[typeddict-item]
+    if data.get("TcpIdleTimeoutSeconds") is not None:
+        out["tcp_idle_timeout_seconds"] = data["TcpIdleTimeoutSeconds"]
+    return out

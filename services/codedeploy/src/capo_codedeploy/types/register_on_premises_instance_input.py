@@ -41,3 +41,27 @@ def deserialize_aws_json_1_1(data: dict) -> RegisterOnPremisesInstanceInput:
     if data.get("iamUserArn") is not None:
         out["iam_user_arn"] = data["iamUserArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RegisterOnPremisesInstanceInput) -> dict:
+    out: dict = {}
+    out["instanceName"] = value["instance_name"]
+    if "iam_session_arn" in value:
+        out["iamSessionArn"] = value["iam_session_arn"]
+    if "iam_user_arn" in value:
+        out["iamUserArn"] = value["iam_user_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RegisterOnPremisesInstanceInput:
+    out: RegisterOnPremisesInstanceInput = {}  # type: ignore[typeddict-item]
+    if data.get("instanceName") is not None:
+        out["instance_name"] = data["instanceName"]
+    else:
+        out["instance_name"] = ""
+    if data.get("iamSessionArn") is not None:
+        out["iam_session_arn"] = data["iamSessionArn"]
+    if data.get("iamUserArn") is not None:
+        out["iam_user_arn"] = data["iamUserArn"]
+    return out

@@ -171,6 +171,7 @@ class MarketplaceAgreementClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[Interceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_0", "rpcv2Cbor"]
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -187,6 +188,7 @@ class MarketplaceAgreementClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -202,6 +204,7 @@ class MarketplaceAgreementClient:
         operation_interceptors: Iterable[Interceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_0", "rpcv2Cbor"] = "awsJson1_0",
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -238,6 +241,7 @@ class MarketplaceAgreementClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -271,6 +275,9 @@ class MarketplaceAgreementClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_0")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -317,13 +324,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.accept_agreement_approval_output.AcceptAgreementApprovalOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.accept_agreement_approval
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.accept_agreement_approval
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.accept_agreement_approval.accept_agreement_approval(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.accept_agreement_approval.accept_agreement_approval(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.accept_agreement_approval
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.accept_agreement_approval.accept_agreement_approval(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -381,13 +399,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.accept_agreement_cancellation_request_output.AcceptAgreementCancellationRequestOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.accept_agreement_cancellation_request
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.accept_agreement_cancellation_request
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.accept_agreement_cancellation_request.accept_agreement_cancellation_request(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.accept_agreement_cancellation_request.accept_agreement_cancellation_request(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.accept_agreement_cancellation_request
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.accept_agreement_cancellation_request.accept_agreement_cancellation_request(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -450,13 +479,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.accept_agreement_payment_request_output.AcceptAgreementPaymentRequestOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.accept_agreement_payment_request
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.accept_agreement_payment_request
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.accept_agreement_payment_request.accept_agreement_payment_request(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.accept_agreement_payment_request.accept_agreement_payment_request(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.accept_agreement_payment_request
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.accept_agreement_payment_request.accept_agreement_payment_request(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -520,13 +560,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.accept_agreement_request_output.AcceptAgreementRequestOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.accept_agreement_request
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.accept_agreement_request
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.accept_agreement_request.accept_agreement_request(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.accept_agreement_request.accept_agreement_request(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.accept_agreement_request
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.accept_agreement_request.accept_agreement_request(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -576,13 +627,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.batch_create_billing_adjustment_request_output.BatchCreateBillingAdjustmentRequestOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.batch_create_billing_adjustment_request
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.batch_create_billing_adjustment_request
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.batch_create_billing_adjustment_request.batch_create_billing_adjustment_request(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.batch_create_billing_adjustment_request.batch_create_billing_adjustment_request(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.batch_create_billing_adjustment_request
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.batch_create_billing_adjustment_request.batch_create_billing_adjustment_request(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -640,13 +702,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.cancel_agreement_output.CancelAgreementOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.cancel_agreement
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.cancel_agreement
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.cancel_agreement.cancel_agreement(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.cancel_agreement.cancel_agreement(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.cancel_agreement
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.cancel_agreement.cancel_agreement(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -699,13 +772,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.cancel_agreement_cancellation_request_output.CancelAgreementCancellationRequestOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.cancel_agreement_cancellation_request
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.cancel_agreement_cancellation_request
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.cancel_agreement_cancellation_request.cancel_agreement_cancellation_request(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.cancel_agreement_cancellation_request.cancel_agreement_cancellation_request(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.cancel_agreement_cancellation_request
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.cancel_agreement_cancellation_request.cancel_agreement_cancellation_request(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -776,13 +860,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.cancel_agreement_payment_request_output.CancelAgreementPaymentRequestOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.cancel_agreement_payment_request
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.cancel_agreement_payment_request
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.cancel_agreement_payment_request.cancel_agreement_payment_request(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.cancel_agreement_payment_request.cancel_agreement_payment_request(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.cancel_agreement_payment_request
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.cancel_agreement_payment_request.cancel_agreement_payment_request(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -844,13 +939,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.cancel_agreement_request_output.CancelAgreementRequestOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.cancel_agreement_request
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.cancel_agreement_request
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.cancel_agreement_request.cancel_agreement_request(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.cancel_agreement_request.cancel_agreement_request(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.cancel_agreement_request
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.cancel_agreement_request.cancel_agreement_request(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -917,13 +1023,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.create_agreement_request_output.CreateAgreementRequestOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.create_agreement_request
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.create_agreement_request
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.create_agreement_request.create_agreement_request(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.create_agreement_request.create_agreement_request(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.create_agreement_request
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.create_agreement_request.create_agreement_request(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -988,13 +1105,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.describe_agreement_output.DescribeAgreementOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.describe_agreement
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.describe_agreement
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.describe_agreement.describe_agreement(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.describe_agreement.describe_agreement(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.describe_agreement
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.describe_agreement.describe_agreement(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1042,13 +1170,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.get_agreement_approval_output.GetAgreementApprovalOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.get_agreement_approval
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.get_agreement_approval
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.get_agreement_approval.get_agreement_approval(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.get_agreement_approval.get_agreement_approval(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.get_agreement_approval
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.get_agreement_approval.get_agreement_approval(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -1108,13 +1247,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.get_agreement_cancellation_request_output.GetAgreementCancellationRequestOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.get_agreement_cancellation_request
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.get_agreement_cancellation_request
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.get_agreement_cancellation_request.get_agreement_cancellation_request(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.get_agreement_cancellation_request.get_agreement_cancellation_request(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.get_agreement_cancellation_request
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.get_agreement_cancellation_request.get_agreement_cancellation_request(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -1175,13 +1325,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.get_agreement_contacts_output.GetAgreementContactsOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.get_agreement_contacts
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.get_agreement_contacts
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.get_agreement_contacts.get_agreement_contacts(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.get_agreement_contacts.get_agreement_contacts(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.get_agreement_contacts
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.get_agreement_contacts.get_agreement_contacts(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -1242,13 +1403,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.get_agreement_entitlements_output.GetAgreementEntitlementsOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.get_agreement_entitlements
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.get_agreement_entitlements
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.get_agreement_entitlements.get_agreement_entitlements(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.get_agreement_entitlements.get_agreement_entitlements(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.get_agreement_entitlements
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.get_agreement_entitlements.get_agreement_entitlements(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -1334,13 +1506,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.get_agreement_payment_request_output.GetAgreementPaymentRequestOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.get_agreement_payment_request
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.get_agreement_payment_request
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.get_agreement_payment_request.get_agreement_payment_request(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.get_agreement_payment_request.get_agreement_payment_request(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.get_agreement_payment_request
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.get_agreement_payment_request.get_agreement_payment_request(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -1401,13 +1584,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.get_agreement_request_output.GetAgreementRequestOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.get_agreement_request
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.get_agreement_request
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.get_agreement_request.get_agreement_request(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.get_agreement_request.get_agreement_request(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.get_agreement_request
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.get_agreement_request.get_agreement_request(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1463,13 +1657,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.get_agreement_request_approval_plans_output.GetAgreementRequestApprovalPlansOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.get_agreement_request_approval_plans
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.get_agreement_request_approval_plans
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.get_agreement_request_approval_plans.get_agreement_request_approval_plans(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.get_agreement_request_approval_plans.get_agreement_request_approval_plans(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.get_agreement_request_approval_plans
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.get_agreement_request_approval_plans.get_agreement_request_approval_plans(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -1541,13 +1746,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.get_agreement_request_terms_output.GetAgreementRequestTermsOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.get_agreement_request_terms
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.get_agreement_request_terms
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.get_agreement_request_terms.get_agreement_request_terms(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.get_agreement_request_terms.get_agreement_request_terms(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.get_agreement_request_terms
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.get_agreement_request_terms.get_agreement_request_terms(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1629,13 +1845,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.get_agreement_terms_output.GetAgreementTermsOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.get_agreement_terms
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.get_agreement_terms
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.get_agreement_terms.get_agreement_terms(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.get_agreement_terms.get_agreement_terms(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.get_agreement_terms
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.get_agreement_terms.get_agreement_terms(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1716,13 +1943,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.get_billing_adjustment_request_output.GetBillingAdjustmentRequestOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.get_billing_adjustment_request
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.get_billing_adjustment_request
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.get_billing_adjustment_request.get_billing_adjustment_request(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.get_billing_adjustment_request.get_billing_adjustment_request(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.get_billing_adjustment_request
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.get_billing_adjustment_request.get_billing_adjustment_request(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1792,13 +2030,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.list_agreement_approvals_output.ListAgreementApprovalsOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.list_agreement_approvals
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.list_agreement_approvals
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.list_agreement_approvals.list_agreement_approvals(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.list_agreement_approvals.list_agreement_approvals(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.list_agreement_approvals
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.list_agreement_approvals.list_agreement_approvals(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1879,13 +2128,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.list_agreement_cancellation_requests_output.ListAgreementCancellationRequestsOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.list_agreement_cancellation_requests
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.list_agreement_cancellation_requests
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.list_agreement_cancellation_requests.list_agreement_cancellation_requests(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.list_agreement_cancellation_requests.list_agreement_cancellation_requests(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.list_agreement_cancellation_requests
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.list_agreement_cancellation_requests.list_agreement_cancellation_requests(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1996,13 +2256,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.list_agreement_charges_output.ListAgreementChargesOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.list_agreement_charges
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.list_agreement_charges
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.list_agreement_charges.list_agreement_charges(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.list_agreement_charges.list_agreement_charges(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.list_agreement_charges
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.list_agreement_charges.list_agreement_charges(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2123,13 +2394,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.list_agreement_invoice_line_items_output.ListAgreementInvoiceLineItemsOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.list_agreement_invoice_line_items
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.list_agreement_invoice_line_items
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.list_agreement_invoice_line_items.list_agreement_invoice_line_items(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.list_agreement_invoice_line_items.list_agreement_invoice_line_items(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.list_agreement_invoice_line_items
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.list_agreement_invoice_line_items.list_agreement_invoice_line_items(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2259,13 +2541,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.list_agreement_payment_requests_output.ListAgreementPaymentRequestsOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.list_agreement_payment_requests
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.list_agreement_payment_requests
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.list_agreement_payment_requests.list_agreement_payment_requests(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.list_agreement_payment_requests.list_agreement_payment_requests(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.list_agreement_payment_requests
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.list_agreement_payment_requests.list_agreement_payment_requests(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2381,13 +2674,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.list_agreement_requests_output.ListAgreementRequestsOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.list_agreement_requests
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.list_agreement_requests
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.list_agreement_requests.list_agreement_requests(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.list_agreement_requests.list_agreement_requests(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.list_agreement_requests
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.list_agreement_requests.list_agreement_requests(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2505,13 +2809,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.list_billing_adjustment_requests_output.ListBillingAdjustmentRequestsOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.list_billing_adjustment_requests
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.list_billing_adjustment_requests
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.list_billing_adjustment_requests.list_billing_adjustment_requests(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.list_billing_adjustment_requests.list_billing_adjustment_requests(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.list_billing_adjustment_requests
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.list_billing_adjustment_requests.list_billing_adjustment_requests(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2623,13 +2938,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.reject_agreement_approval_output.RejectAgreementApprovalOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.reject_agreement_approval
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.reject_agreement_approval
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.reject_agreement_approval.reject_agreement_approval(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.reject_agreement_approval.reject_agreement_approval(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.reject_agreement_approval
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.reject_agreement_approval.reject_agreement_approval(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -2689,13 +3015,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.reject_agreement_cancellation_request_output.RejectAgreementCancellationRequestOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.reject_agreement_cancellation_request
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.reject_agreement_cancellation_request
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.reject_agreement_cancellation_request.reject_agreement_cancellation_request(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.reject_agreement_cancellation_request.reject_agreement_cancellation_request(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.reject_agreement_cancellation_request
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.reject_agreement_cancellation_request.reject_agreement_cancellation_request(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -2770,13 +3107,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.reject_agreement_payment_request_output.RejectAgreementPaymentRequestOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.reject_agreement_payment_request
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.reject_agreement_payment_request
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.reject_agreement_payment_request.reject_agreement_payment_request(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.reject_agreement_payment_request.reject_agreement_payment_request(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.reject_agreement_payment_request
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.reject_agreement_payment_request.reject_agreement_payment_request(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -2847,13 +3195,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.search_agreements_output.SearchAgreementsOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.search_agreements
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.search_agreements
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.search_agreements.search_agreements(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.search_agreements.search_agreements(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.search_agreements
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.search_agreements.search_agreements(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2953,13 +3312,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.send_agreement_cancellation_request_output.SendAgreementCancellationRequestOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.send_agreement_cancellation_request
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.send_agreement_cancellation_request
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.send_agreement_cancellation_request.send_agreement_cancellation_request(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.send_agreement_cancellation_request.send_agreement_cancellation_request(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.send_agreement_cancellation_request
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.send_agreement_cancellation_request.send_agreement_cancellation_request(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -3046,13 +3416,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.send_agreement_payment_request_output.SendAgreementPaymentRequestOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.send_agreement_payment_request
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.send_agreement_payment_request
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.send_agreement_payment_request.send_agreement_payment_request(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.send_agreement_payment_request.send_agreement_payment_request(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.send_agreement_payment_request
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.send_agreement_payment_request.send_agreement_payment_request(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -3138,13 +3519,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.start_agreement_approvals_output.StartAgreementApprovalsOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.start_agreement_approvals
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.start_agreement_approvals
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.start_agreement_approvals.start_agreement_approvals(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.start_agreement_approvals.start_agreement_approvals(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.start_agreement_approvals
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.start_agreement_approvals.start_agreement_approvals(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -3201,13 +3593,24 @@ class MarketplaceAgreementClient:
         ) -> OperationResponse[
             "capo_marketplace_agreement.types.update_purchase_orders_output.UpdatePurchaseOrdersOutput"
         ]:
-            import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.update_purchase_orders
+            if req.options.protocol == "awsJson1_0":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.update_purchase_orders
 
-            output, http_response = (
-                capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.update_purchase_orders.update_purchase_orders(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.aws_json1_0.update_purchase_orders.update_purchase_orders(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.update_purchase_orders
+
+                output, http_response = (
+                    capo_marketplace_agreement._operations.awsmp_commerce_service_v20200301.rpcv2_cbor.update_purchase_orders.update_purchase_orders(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

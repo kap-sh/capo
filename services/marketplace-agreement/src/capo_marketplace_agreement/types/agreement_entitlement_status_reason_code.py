@@ -22,3 +22,12 @@ def serialize_aws_json_1_0(value: AgreementEntitlementStatusReasonCode) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> AgreementEntitlementStatusReasonCode:
     return cast(AgreementEntitlementStatusReasonCode, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AgreementEntitlementStatusReasonCode) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> AgreementEntitlementStatusReasonCode:
+    return cast(AgreementEntitlementStatusReasonCode, data)

@@ -18,3 +18,12 @@ def serialize_aws_json_1_0(value: ImportJobStatus) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> ImportJobStatus:
     return cast(ImportJobStatus, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ImportJobStatus) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ImportJobStatus:
+    return cast(ImportJobStatus, data)

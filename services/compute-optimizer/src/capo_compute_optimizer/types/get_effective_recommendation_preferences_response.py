@@ -128,3 +128,94 @@ def deserialize_aws_json_1_0(
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetEffectiveRecommendationPreferencesResponse) -> dict:
+    out: dict = {}
+    if "enhanced_infrastructure_metrics" in value:
+        import capo_compute_optimizer.types.enhanced_infrastructure_metrics
+
+        out["enhancedInfrastructureMetrics"] = (
+            capo_compute_optimizer.types.enhanced_infrastructure_metrics.serialize_cbor(
+                value["enhanced_infrastructure_metrics"]
+            )
+        )
+    if "external_metrics_preference" in value:
+        import capo_compute_optimizer.types.external_metrics_preference
+
+        out["externalMetricsPreference"] = (
+            capo_compute_optimizer.types.external_metrics_preference.serialize_cbor(
+                value["external_metrics_preference"]
+            )
+        )
+    if "look_back_period" in value:
+        import capo_compute_optimizer.types.look_back_period_preference
+
+        out["lookBackPeriod"] = (
+            capo_compute_optimizer.types.look_back_period_preference.serialize_cbor(
+                value["look_back_period"]
+            )
+        )
+    if "utilization_preferences" in value:
+        import capo_compute_optimizer.types.utilization_preferences
+
+        out["utilizationPreferences"] = (
+            capo_compute_optimizer.types.utilization_preferences.serialize_cbor(
+                value["utilization_preferences"]
+            )
+        )
+    if "preferred_resources" in value:
+        import capo_compute_optimizer.types.effective_preferred_resources
+
+        out["preferredResources"] = (
+            capo_compute_optimizer.types.effective_preferred_resources.serialize_cbor(
+                value["preferred_resources"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetEffectiveRecommendationPreferencesResponse:
+    out: GetEffectiveRecommendationPreferencesResponse = {}  # type: ignore[typeddict-item]
+    if data.get("enhancedInfrastructureMetrics") is not None:
+        import capo_compute_optimizer.types.enhanced_infrastructure_metrics
+
+        out["enhanced_infrastructure_metrics"] = (
+            capo_compute_optimizer.types.enhanced_infrastructure_metrics.deserialize_cbor(
+                data["enhancedInfrastructureMetrics"]
+            )
+        )
+    if data.get("externalMetricsPreference") is not None:
+        import capo_compute_optimizer.types.external_metrics_preference
+
+        out["external_metrics_preference"] = (
+            capo_compute_optimizer.types.external_metrics_preference.deserialize_cbor(
+                data["externalMetricsPreference"]
+            )
+        )
+    if data.get("lookBackPeriod") is not None:
+        import capo_compute_optimizer.types.look_back_period_preference
+
+        out["look_back_period"] = (
+            capo_compute_optimizer.types.look_back_period_preference.deserialize_cbor(
+                data["lookBackPeriod"]
+            )
+        )
+    if data.get("utilizationPreferences") is not None:
+        import capo_compute_optimizer.types.utilization_preferences
+
+        out["utilization_preferences"] = (
+            capo_compute_optimizer.types.utilization_preferences.deserialize_cbor(
+                data["utilizationPreferences"]
+            )
+        )
+    if data.get("preferredResources") is not None:
+        import capo_compute_optimizer.types.effective_preferred_resources
+
+        out["preferred_resources"] = (
+            capo_compute_optimizer.types.effective_preferred_resources.deserialize_cbor(
+                data["preferredResources"]
+            )
+        )
+    return out

@@ -36,3 +36,23 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteCertificateAuthorityRequest:
     if data.get("PermanentDeletionTimeInDays") is not None:
         out["permanent_deletion_time_in_days"] = data["PermanentDeletionTimeInDays"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteCertificateAuthorityRequest) -> dict:
+    out: dict = {}
+    out["CertificateAuthorityArn"] = value["certificate_authority_arn"]
+    if "permanent_deletion_time_in_days" in value:
+        out["PermanentDeletionTimeInDays"] = value["permanent_deletion_time_in_days"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteCertificateAuthorityRequest:
+    out: DeleteCertificateAuthorityRequest = {}  # type: ignore[typeddict-item]
+    if data.get("CertificateAuthorityArn") is not None:
+        out["certificate_authority_arn"] = data["CertificateAuthorityArn"]
+    else:
+        out["certificate_authority_arn"] = ""
+    if data.get("PermanentDeletionTimeInDays") is not None:
+        out["permanent_deletion_time_in_days"] = data["PermanentDeletionTimeInDays"]
+    return out

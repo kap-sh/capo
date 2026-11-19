@@ -200,3 +200,137 @@ def deserialize_aws_json_1_0(data: dict) -> FirewallRule:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FirewallRule) -> dict:
+    out: dict = {}
+    import capo_network_firewall.types.firewall_rule_action
+
+    out["Action"] = capo_network_firewall.types.firewall_rule_action.serialize_cbor(
+        value["action"]
+    )
+    import capo_network_firewall.types.action_scope
+
+    out["ActionScope"] = capo_network_firewall.types.action_scope.serialize_cbor(
+        value["action_scope"]
+    )
+    import capo_network_firewall.types.hook_key
+
+    out["Hook"] = capo_network_firewall.types.hook_key.serialize_cbor(value["hook"])
+    import capo_network_firewall.types.firewall_rule_protocol
+
+    out["Protocol"] = capo_network_firewall.types.firewall_rule_protocol.serialize_cbor(
+        value["protocol"]
+    )
+    if "source_i_ps" in value:
+        out["SourceIPs"] = value["source_i_ps"]
+    if "dest_i_ps" in value:
+        out["DestIPs"] = value["dest_i_ps"]
+    if "source_ports" in value:
+        out["SourcePorts"] = value["source_ports"]
+    if "dest_ports" in value:
+        out["DestPorts"] = value["dest_ports"]
+    if "rule_options" in value:
+        import capo_network_firewall.types.rule_options
+
+        out["RuleOptions"] = capo_network_firewall.types.rule_options.serialize_cbor(
+            value["rule_options"]
+        )
+    if "accept_prior_hooks" in value:
+        out["AcceptPriorHooks"] = value["accept_prior_hooks"]
+    if "alert_enabled" in value:
+        out["AlertEnabled"] = value["alert_enabled"]
+    if "bypass_ips_enabled" in value:
+        out["BypassIPSEnabled"] = value["bypass_ips_enabled"]
+    if "rule_metadata" in value:
+        import capo_network_firewall.types.rule_metadata
+
+        out["RuleMetadata"] = capo_network_firewall.types.rule_metadata.serialize_cbor(
+            value["rule_metadata"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> FirewallRule:
+    out: FirewallRule = {}  # type: ignore[typeddict-item]
+    if data.get("Action") is not None:
+        import capo_network_firewall.types.firewall_rule_action
+
+        out["action"] = (
+            capo_network_firewall.types.firewall_rule_action.deserialize_cbor(
+                data["Action"]
+            )
+        )
+    else:
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_network_firewall.types.firewall_rule_action.FirewallRuleAction", ""
+        )
+    if data.get("ActionScope") is not None:
+        import capo_network_firewall.types.action_scope
+
+        out["action_scope"] = capo_network_firewall.types.action_scope.deserialize_cbor(
+            data["ActionScope"]
+        )
+    else:
+        import typing
+
+        out["action_scope"] = typing.cast(
+            "capo_network_firewall.types.action_scope.ActionScope", ""
+        )
+    if data.get("Hook") is not None:
+        import capo_network_firewall.types.hook_key
+
+        out["hook"] = capo_network_firewall.types.hook_key.deserialize_cbor(
+            data["Hook"]
+        )
+    else:
+        import typing
+
+        out["hook"] = typing.cast("capo_network_firewall.types.hook_key.HookKey", "")
+    if data.get("Protocol") is not None:
+        import capo_network_firewall.types.firewall_rule_protocol
+
+        out["protocol"] = (
+            capo_network_firewall.types.firewall_rule_protocol.deserialize_cbor(
+                data["Protocol"]
+            )
+        )
+    else:
+        import typing
+
+        out["protocol"] = typing.cast(
+            "capo_network_firewall.types.firewall_rule_protocol.FirewallRuleProtocol",
+            "",
+        )
+    if data.get("SourceIPs") is not None:
+        out["source_i_ps"] = data["SourceIPs"]
+    if data.get("DestIPs") is not None:
+        out["dest_i_ps"] = data["DestIPs"]
+    if data.get("SourcePorts") is not None:
+        out["source_ports"] = data["SourcePorts"]
+    if data.get("DestPorts") is not None:
+        out["dest_ports"] = data["DestPorts"]
+    if data.get("RuleOptions") is not None:
+        import capo_network_firewall.types.rule_options
+
+        out["rule_options"] = capo_network_firewall.types.rule_options.deserialize_cbor(
+            data["RuleOptions"]
+        )
+    if data.get("AcceptPriorHooks") is not None:
+        out["accept_prior_hooks"] = data["AcceptPriorHooks"]
+    if data.get("AlertEnabled") is not None:
+        out["alert_enabled"] = data["AlertEnabled"]
+    if data.get("BypassIPSEnabled") is not None:
+        out["bypass_ips_enabled"] = data["BypassIPSEnabled"]
+    if data.get("RuleMetadata") is not None:
+        import capo_network_firewall.types.rule_metadata
+
+        out["rule_metadata"] = (
+            capo_network_firewall.types.rule_metadata.deserialize_cbor(
+                data["RuleMetadata"]
+            )
+        )
+    return out

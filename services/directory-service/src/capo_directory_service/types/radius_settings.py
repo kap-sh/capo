@@ -129,6 +129,85 @@ def deserialize_aws_json_1_1(data: dict) -> RadiusSettings:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RadiusSettings) -> dict:
+    out: dict = {}
+    if "radius_servers" in value:
+        import capo_directory_service.types.servers
+
+        out["RadiusServers"] = capo_directory_service.types.servers.serialize_cbor(
+            value["radius_servers"]
+        )
+    if "radius_servers_ipv6" in value:
+        import capo_directory_service.types.servers
+
+        out["RadiusServersIpv6"] = capo_directory_service.types.servers.serialize_cbor(
+            value["radius_servers_ipv6"]
+        )
+    if "radius_port" in value:
+        out["RadiusPort"] = value["radius_port"]
+    if "radius_timeout" in value:
+        out["RadiusTimeout"] = value["radius_timeout"]
+    out["RadiusRetries"] = value.get("radius_retries", 0)
+    if "shared_secret" in value:
+        out["SharedSecret"] = value["shared_secret"]
+    if "authentication_protocol" in value:
+        import capo_directory_service.types.radius_authentication_protocol
+
+        out["AuthenticationProtocol"] = (
+            capo_directory_service.types.radius_authentication_protocol.serialize_cbor(
+                value["authentication_protocol"]
+            )
+        )
+    if "display_label" in value:
+        out["DisplayLabel"] = value["display_label"]
+    out["UseSameUsername"] = value.get("use_same_username", False)
+    return out
+
+
+def deserialize_cbor(data: dict) -> RadiusSettings:
+    out: RadiusSettings = {}  # type: ignore[typeddict-item]
+    if data.get("RadiusServers") is not None:
+        import capo_directory_service.types.servers
+
+        out["radius_servers"] = capo_directory_service.types.servers.deserialize_cbor(
+            data["RadiusServers"]
+        )
+    if data.get("RadiusServersIpv6") is not None:
+        import capo_directory_service.types.servers
+
+        out["radius_servers_ipv6"] = (
+            capo_directory_service.types.servers.deserialize_cbor(
+                data["RadiusServersIpv6"]
+            )
+        )
+    if data.get("RadiusPort") is not None:
+        out["radius_port"] = data["RadiusPort"]
+    if data.get("RadiusTimeout") is not None:
+        out["radius_timeout"] = data["RadiusTimeout"]
+    if data.get("RadiusRetries") is not None:
+        out["radius_retries"] = data["RadiusRetries"]
+    else:
+        out["radius_retries"] = 0
+    if data.get("SharedSecret") is not None:
+        out["shared_secret"] = data["SharedSecret"]
+    if data.get("AuthenticationProtocol") is not None:
+        import capo_directory_service.types.radius_authentication_protocol
+
+        out["authentication_protocol"] = (
+            capo_directory_service.types.radius_authentication_protocol.deserialize_cbor(
+                data["AuthenticationProtocol"]
+            )
+        )
+    if data.get("DisplayLabel") is not None:
+        out["display_label"] = data["DisplayLabel"]
+    if data.get("UseSameUsername") is not None:
+        out["use_same_username"] = data["UseSameUsername"]
+    else:
+        out["use_same_username"] = False
+    return out
+
+
 def redact_sensitive(value: RadiusSettings) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "shared_secret" in value:

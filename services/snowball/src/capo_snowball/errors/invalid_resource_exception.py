@@ -36,6 +36,25 @@ def deserialize_aws_json_1_1(data: dict) -> InvalidResourceException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InvalidResourceException_) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["Message"] = value["message"]
+    if "resource_type" in value:
+        out["ResourceType"] = value["resource_type"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> InvalidResourceException_:
+    out: InvalidResourceException_ = {}  # type: ignore[typeddict-item]
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    if data.get("ResourceType") is not None:
+        out["resource_type"] = data["ResourceType"]
+    return out
+
+
 class InvalidResourceException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.snowball#InvalidResourceException``."""
 
@@ -63,3 +82,9 @@ class InvalidResourceException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidResourceException":
         return cls(deserialize_aws_json_1_1(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "InvalidResourceException":
+        return cls(deserialize_cbor(data), message, response=response)

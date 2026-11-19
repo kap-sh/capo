@@ -92,3 +92,65 @@ def deserialize_aws_json_1_1(data: dict) -> PolicyComplianceDetail:
             data["IssueInfoMap"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PolicyComplianceDetail) -> dict:
+    out: dict = {}
+    if "policy_owner" in value:
+        out["PolicyOwner"] = value["policy_owner"]
+    if "policy_id" in value:
+        out["PolicyId"] = value["policy_id"]
+    if "member_account" in value:
+        out["MemberAccount"] = value["member_account"]
+    if "violators" in value:
+        import capo_fms.types.compliance_violators
+
+        out["Violators"] = capo_fms.types.compliance_violators.serialize_cbor(
+            value["violators"]
+        )
+    out["EvaluationLimitExceeded"] = value.get("evaluation_limit_exceeded", False)
+    if "expired_at" in value:
+        import capo_fms.types.time_stamp
+
+        out["ExpiredAt"] = capo_fms.types.time_stamp.serialize_cbor(value["expired_at"])
+    if "issue_info_map" in value:
+        import capo_fms.types.issue_info_map
+
+        out["IssueInfoMap"] = capo_fms.types.issue_info_map.serialize_cbor(
+            value["issue_info_map"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PolicyComplianceDetail:
+    out: PolicyComplianceDetail = {}  # type: ignore[typeddict-item]
+    if data.get("PolicyOwner") is not None:
+        out["policy_owner"] = data["PolicyOwner"]
+    if data.get("PolicyId") is not None:
+        out["policy_id"] = data["PolicyId"]
+    if data.get("MemberAccount") is not None:
+        out["member_account"] = data["MemberAccount"]
+    if data.get("Violators") is not None:
+        import capo_fms.types.compliance_violators
+
+        out["violators"] = capo_fms.types.compliance_violators.deserialize_cbor(
+            data["Violators"]
+        )
+    if data.get("EvaluationLimitExceeded") is not None:
+        out["evaluation_limit_exceeded"] = data["EvaluationLimitExceeded"]
+    else:
+        out["evaluation_limit_exceeded"] = False
+    if data.get("ExpiredAt") is not None:
+        import capo_fms.types.time_stamp
+
+        out["expired_at"] = capo_fms.types.time_stamp.deserialize_cbor(
+            data["ExpiredAt"]
+        )
+    if data.get("IssueInfoMap") is not None:
+        import capo_fms.types.issue_info_map
+
+        out["issue_info_map"] = capo_fms.types.issue_info_map.deserialize_cbor(
+            data["IssueInfoMap"]
+        )
+    return out

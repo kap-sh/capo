@@ -53,3 +53,38 @@ def deserialize_aws_json_1_0(data: dict) -> RuleSet:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RuleSet) -> dict:
+    out: dict = {}
+    if "rule_set_id" in value:
+        out["RuleSetId"] = value["rule_set_id"]
+    if "rule_set_name" in value:
+        out["RuleSetName"] = value["rule_set_name"]
+    if "last_modification_date" in value:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["LastModificationDate"] = (
+            capo_mailmanager.types._prelude.timestamp.serialize_cbor(
+                value["last_modification_date"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RuleSet:
+    out: RuleSet = {}  # type: ignore[typeddict-item]
+    if data.get("RuleSetId") is not None:
+        out["rule_set_id"] = data["RuleSetId"]
+    if data.get("RuleSetName") is not None:
+        out["rule_set_name"] = data["RuleSetName"]
+    if data.get("LastModificationDate") is not None:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["last_modification_date"] = (
+            capo_mailmanager.types._prelude.timestamp.deserialize_cbor(
+                data["LastModificationDate"]
+            )
+        )
+    return out

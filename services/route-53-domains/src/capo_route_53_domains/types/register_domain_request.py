@@ -182,6 +182,130 @@ def deserialize_aws_json_1_1(data: dict) -> RegisterDomainRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RegisterDomainRequest) -> dict:
+    out: dict = {}
+    out["DomainName"] = value["domain_name"]
+    if "idn_lang_code" in value:
+        out["IdnLangCode"] = value["idn_lang_code"]
+    out["DurationInYears"] = value["duration_in_years"]
+    if "auto_renew" in value:
+        out["AutoRenew"] = value["auto_renew"]
+    import capo_route_53_domains.types.contact_detail
+
+    out["AdminContact"] = capo_route_53_domains.types.contact_detail.serialize_cbor(
+        value["admin_contact"]
+    )
+    import capo_route_53_domains.types.contact_detail
+
+    out["RegistrantContact"] = (
+        capo_route_53_domains.types.contact_detail.serialize_cbor(
+            value["registrant_contact"]
+        )
+    )
+    import capo_route_53_domains.types.contact_detail
+
+    out["TechContact"] = capo_route_53_domains.types.contact_detail.serialize_cbor(
+        value["tech_contact"]
+    )
+    if "privacy_protect_admin_contact" in value:
+        out["PrivacyProtectAdminContact"] = value["privacy_protect_admin_contact"]
+    if "privacy_protect_registrant_contact" in value:
+        out["PrivacyProtectRegistrantContact"] = value[
+            "privacy_protect_registrant_contact"
+        ]
+    if "privacy_protect_tech_contact" in value:
+        out["PrivacyProtectTechContact"] = value["privacy_protect_tech_contact"]
+    if "billing_contact" in value:
+        import capo_route_53_domains.types.contact_detail
+
+        out["BillingContact"] = (
+            capo_route_53_domains.types.contact_detail.serialize_cbor(
+                value["billing_contact"]
+            )
+        )
+    if "privacy_protect_billing_contact" in value:
+        out["PrivacyProtectBillingContact"] = value["privacy_protect_billing_contact"]
+    if "consent" in value:
+        import capo_route_53_domains.types.consent
+
+        out["Consent"] = capo_route_53_domains.types.consent.serialize_cbor(
+            value["consent"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RegisterDomainRequest:
+    out: RegisterDomainRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DomainName") is not None:
+        out["domain_name"] = data["DomainName"]
+    else:
+        out["domain_name"] = ""
+    if data.get("IdnLangCode") is not None:
+        out["idn_lang_code"] = data["IdnLangCode"]
+    if data.get("DurationInYears") is not None:
+        out["duration_in_years"] = data["DurationInYears"]
+    else:
+        out["duration_in_years"] = 0
+    if data.get("AutoRenew") is not None:
+        out["auto_renew"] = data["AutoRenew"]
+    if data.get("AdminContact") is not None:
+        import capo_route_53_domains.types.contact_detail
+
+        out["admin_contact"] = (
+            capo_route_53_domains.types.contact_detail.deserialize_cbor(
+                data["AdminContact"]
+            )
+        )
+    else:
+        raise DeserializationError("RegisterDomainRequest.admin_contact required")
+    if data.get("RegistrantContact") is not None:
+        import capo_route_53_domains.types.contact_detail
+
+        out["registrant_contact"] = (
+            capo_route_53_domains.types.contact_detail.deserialize_cbor(
+                data["RegistrantContact"]
+            )
+        )
+    else:
+        raise DeserializationError("RegisterDomainRequest.registrant_contact required")
+    if data.get("TechContact") is not None:
+        import capo_route_53_domains.types.contact_detail
+
+        out["tech_contact"] = (
+            capo_route_53_domains.types.contact_detail.deserialize_cbor(
+                data["TechContact"]
+            )
+        )
+    else:
+        raise DeserializationError("RegisterDomainRequest.tech_contact required")
+    if data.get("PrivacyProtectAdminContact") is not None:
+        out["privacy_protect_admin_contact"] = data["PrivacyProtectAdminContact"]
+    if data.get("PrivacyProtectRegistrantContact") is not None:
+        out["privacy_protect_registrant_contact"] = data[
+            "PrivacyProtectRegistrantContact"
+        ]
+    if data.get("PrivacyProtectTechContact") is not None:
+        out["privacy_protect_tech_contact"] = data["PrivacyProtectTechContact"]
+    if data.get("BillingContact") is not None:
+        import capo_route_53_domains.types.contact_detail
+
+        out["billing_contact"] = (
+            capo_route_53_domains.types.contact_detail.deserialize_cbor(
+                data["BillingContact"]
+            )
+        )
+    if data.get("PrivacyProtectBillingContact") is not None:
+        out["privacy_protect_billing_contact"] = data["PrivacyProtectBillingContact"]
+    if data.get("Consent") is not None:
+        import capo_route_53_domains.types.consent
+
+        out["consent"] = capo_route_53_domains.types.consent.deserialize_cbor(
+            data["Consent"]
+        )
+    return out
+
+
 def redact_sensitive(value: RegisterDomainRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "admin_contact" in value:

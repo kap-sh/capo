@@ -32,3 +32,22 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateStackResult:
             data["Stack"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateStackResult) -> dict:
+    out: dict = {}
+    if "stack" in value:
+        import capo_appstream.types.stack
+
+        out["Stack"] = capo_appstream.types.stack.serialize_cbor(value["stack"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateStackResult:
+    out: UpdateStackResult = {}  # type: ignore[typeddict-item]
+    if data.get("Stack") is not None:
+        import capo_appstream.types.stack
+
+        out["stack"] = capo_appstream.types.stack.deserialize_cbor(data["Stack"])
+    return out

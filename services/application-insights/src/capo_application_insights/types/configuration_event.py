@@ -125,3 +125,82 @@ def deserialize_aws_json_1_1(data: dict) -> ConfigurationEvent:
     if data.get("EventResourceName") is not None:
         out["event_resource_name"] = data["EventResourceName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ConfigurationEvent) -> dict:
+    out: dict = {}
+    if "resource_group_name" in value:
+        out["ResourceGroupName"] = value["resource_group_name"]
+    if "account_id" in value:
+        out["AccountId"] = value["account_id"]
+    if "monitored_resource_arn" in value:
+        out["MonitoredResourceARN"] = value["monitored_resource_arn"]
+    if "event_status" in value:
+        import capo_application_insights.types.configuration_event_status
+
+        out["EventStatus"] = (
+            capo_application_insights.types.configuration_event_status.serialize_cbor(
+                value["event_status"]
+            )
+        )
+    if "event_resource_type" in value:
+        import capo_application_insights.types.configuration_event_resource_type
+
+        out["EventResourceType"] = (
+            capo_application_insights.types.configuration_event_resource_type.serialize_cbor(
+                value["event_resource_type"]
+            )
+        )
+    if "event_time" in value:
+        import capo_application_insights.types.configuration_event_time
+
+        out["EventTime"] = (
+            capo_application_insights.types.configuration_event_time.serialize_cbor(
+                value["event_time"]
+            )
+        )
+    if "event_detail" in value:
+        out["EventDetail"] = value["event_detail"]
+    if "event_resource_name" in value:
+        out["EventResourceName"] = value["event_resource_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ConfigurationEvent:
+    out: ConfigurationEvent = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceGroupName") is not None:
+        out["resource_group_name"] = data["ResourceGroupName"]
+    if data.get("AccountId") is not None:
+        out["account_id"] = data["AccountId"]
+    if data.get("MonitoredResourceARN") is not None:
+        out["monitored_resource_arn"] = data["MonitoredResourceARN"]
+    if data.get("EventStatus") is not None:
+        import capo_application_insights.types.configuration_event_status
+
+        out["event_status"] = (
+            capo_application_insights.types.configuration_event_status.deserialize_cbor(
+                data["EventStatus"]
+            )
+        )
+    if data.get("EventResourceType") is not None:
+        import capo_application_insights.types.configuration_event_resource_type
+
+        out["event_resource_type"] = (
+            capo_application_insights.types.configuration_event_resource_type.deserialize_cbor(
+                data["EventResourceType"]
+            )
+        )
+    if data.get("EventTime") is not None:
+        import capo_application_insights.types.configuration_event_time
+
+        out["event_time"] = (
+            capo_application_insights.types.configuration_event_time.deserialize_cbor(
+                data["EventTime"]
+            )
+        )
+    if data.get("EventDetail") is not None:
+        out["event_detail"] = data["EventDetail"]
+    if data.get("EventResourceName") is not None:
+        out["event_resource_name"] = data["EventResourceName"]
+    return out

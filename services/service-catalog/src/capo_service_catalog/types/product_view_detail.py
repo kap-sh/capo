@@ -102,3 +102,74 @@ def deserialize_aws_json_1_1(data: dict) -> ProductViewDetail:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ProductViewDetail) -> dict:
+    out: dict = {}
+    if "product_view_summary" in value:
+        import capo_service_catalog.types.product_view_summary
+
+        out["ProductViewSummary"] = (
+            capo_service_catalog.types.product_view_summary.serialize_cbor(
+                value["product_view_summary"]
+            )
+        )
+    if "status" in value:
+        import capo_service_catalog.types.status
+
+        out["Status"] = capo_service_catalog.types.status.serialize_cbor(
+            value["status"]
+        )
+    if "product_arn" in value:
+        out["ProductARN"] = value["product_arn"]
+    if "created_time" in value:
+        import capo_service_catalog.types.created_time
+
+        out["CreatedTime"] = capo_service_catalog.types.created_time.serialize_cbor(
+            value["created_time"]
+        )
+    if "source_connection" in value:
+        import capo_service_catalog.types.source_connection_detail
+
+        out["SourceConnection"] = (
+            capo_service_catalog.types.source_connection_detail.serialize_cbor(
+                value["source_connection"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ProductViewDetail:
+    out: ProductViewDetail = {}  # type: ignore[typeddict-item]
+    if data.get("ProductViewSummary") is not None:
+        import capo_service_catalog.types.product_view_summary
+
+        out["product_view_summary"] = (
+            capo_service_catalog.types.product_view_summary.deserialize_cbor(
+                data["ProductViewSummary"]
+            )
+        )
+    if data.get("Status") is not None:
+        import capo_service_catalog.types.status
+
+        out["status"] = capo_service_catalog.types.status.deserialize_cbor(
+            data["Status"]
+        )
+    if data.get("ProductARN") is not None:
+        out["product_arn"] = data["ProductARN"]
+    if data.get("CreatedTime") is not None:
+        import capo_service_catalog.types.created_time
+
+        out["created_time"] = capo_service_catalog.types.created_time.deserialize_cbor(
+            data["CreatedTime"]
+        )
+    if data.get("SourceConnection") is not None:
+        import capo_service_catalog.types.source_connection_detail
+
+        out["source_connection"] = (
+            capo_service_catalog.types.source_connection_detail.deserialize_cbor(
+                data["SourceConnection"]
+            )
+        )
+    return out

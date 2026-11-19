@@ -49,3 +49,36 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateJobShipmentStateRequest:
             "capo_snowball.types.shipment_state.ShipmentState", ""
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateJobShipmentStateRequest) -> dict:
+    out: dict = {}
+    out["JobId"] = value["job_id"]
+    import capo_snowball.types.shipment_state
+
+    out["ShipmentState"] = capo_snowball.types.shipment_state.serialize_cbor(
+        value["shipment_state"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateJobShipmentStateRequest:
+    out: UpdateJobShipmentStateRequest = {}  # type: ignore[typeddict-item]
+    if data.get("JobId") is not None:
+        out["job_id"] = data["JobId"]
+    else:
+        out["job_id"] = ""
+    if data.get("ShipmentState") is not None:
+        import capo_snowball.types.shipment_state
+
+        out["shipment_state"] = capo_snowball.types.shipment_state.deserialize_cbor(
+            data["ShipmentState"]
+        )
+    else:
+        import typing
+
+        out["shipment_state"] = typing.cast(
+            "capo_snowball.types.shipment_state.ShipmentState", ""
+        )
+    return out

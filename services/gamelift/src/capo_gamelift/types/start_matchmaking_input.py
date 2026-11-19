@@ -54,6 +54,37 @@ def deserialize_aws_json_1_1(data: dict) -> StartMatchmakingInput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartMatchmakingInput) -> dict:
+    out: dict = {}
+    if "ticket_id" in value:
+        out["TicketId"] = value["ticket_id"]
+    if "configuration_name" in value:
+        out["ConfigurationName"] = value["configuration_name"]
+    if "players" in value:
+        import capo_gamelift.types.player_list
+
+        out["Players"] = capo_gamelift.types.player_list.serialize_cbor(
+            value["players"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartMatchmakingInput:
+    out: StartMatchmakingInput = {}  # type: ignore[typeddict-item]
+    if data.get("TicketId") is not None:
+        out["ticket_id"] = data["TicketId"]
+    if data.get("ConfigurationName") is not None:
+        out["configuration_name"] = data["ConfigurationName"]
+    if data.get("Players") is not None:
+        import capo_gamelift.types.player_list
+
+        out["players"] = capo_gamelift.types.player_list.deserialize_cbor(
+            data["Players"]
+        )
+    return out
+
+
 def redact_sensitive(value: StartMatchmakingInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "players" in value:

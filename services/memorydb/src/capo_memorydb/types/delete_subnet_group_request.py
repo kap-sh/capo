@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteSubnetGroupRequest:
     else:
         out["subnet_group_name"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteSubnetGroupRequest) -> dict:
+    out: dict = {}
+    out["SubnetGroupName"] = value["subnet_group_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteSubnetGroupRequest:
+    out: DeleteSubnetGroupRequest = {}  # type: ignore[typeddict-item]
+    if data.get("SubnetGroupName") is not None:
+        out["subnet_group_name"] = data["SubnetGroupName"]
+    else:
+        out["subnet_group_name"] = ""
+    return out

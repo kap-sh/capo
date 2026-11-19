@@ -53,3 +53,36 @@ def deserialize_aws_json_1_1(data: dict) -> CreateSnapshotRequest:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateSnapshotRequest) -> dict:
+    out: dict = {}
+    out["ClusterName"] = value["cluster_name"]
+    out["SnapshotName"] = value["snapshot_name"]
+    if "kms_key_id" in value:
+        out["KmsKeyId"] = value["kms_key_id"]
+    if "tags" in value:
+        import capo_memorydb.types.tag_list
+
+        out["Tags"] = capo_memorydb.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateSnapshotRequest:
+    out: CreateSnapshotRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ClusterName") is not None:
+        out["cluster_name"] = data["ClusterName"]
+    else:
+        out["cluster_name"] = ""
+    if data.get("SnapshotName") is not None:
+        out["snapshot_name"] = data["SnapshotName"]
+    else:
+        out["snapshot_name"] = ""
+    if data.get("KmsKeyId") is not None:
+        out["kms_key_id"] = data["KmsKeyId"]
+    if data.get("Tags") is not None:
+        import capo_memorydb.types.tag_list
+
+        out["tags"] = capo_memorydb.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

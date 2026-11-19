@@ -62,6 +62,45 @@ def deserialize_aws_json_1_1(data: dict) -> CreatePlayerSessionsInput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreatePlayerSessionsInput) -> dict:
+    out: dict = {}
+    if "game_session_id" in value:
+        out["GameSessionId"] = value["game_session_id"]
+    if "player_ids" in value:
+        import capo_gamelift.types.player_id_list
+
+        out["PlayerIds"] = capo_gamelift.types.player_id_list.serialize_cbor(
+            value["player_ids"]
+        )
+    if "player_data_map" in value:
+        import capo_gamelift.types.player_data_map
+
+        out["PlayerDataMap"] = capo_gamelift.types.player_data_map.serialize_cbor(
+            value["player_data_map"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreatePlayerSessionsInput:
+    out: CreatePlayerSessionsInput = {}  # type: ignore[typeddict-item]
+    if data.get("GameSessionId") is not None:
+        out["game_session_id"] = data["GameSessionId"]
+    if data.get("PlayerIds") is not None:
+        import capo_gamelift.types.player_id_list
+
+        out["player_ids"] = capo_gamelift.types.player_id_list.deserialize_cbor(
+            data["PlayerIds"]
+        )
+    if data.get("PlayerDataMap") is not None:
+        import capo_gamelift.types.player_data_map
+
+        out["player_data_map"] = capo_gamelift.types.player_data_map.deserialize_cbor(
+            data["PlayerDataMap"]
+        )
+    return out
+
+
 def redact_sensitive(value: CreatePlayerSessionsInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "player_ids" in value:

@@ -32,3 +32,22 @@ def deserialize_aws_json_1_1(data: dict) -> ListTagsForResourceResponse:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListTagsForResourceResponse) -> dict:
+    out: dict = {}
+    if "tags" in value:
+        import capo_gamelift.types.tag_list
+
+        out["Tags"] = capo_gamelift.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListTagsForResourceResponse:
+    out: ListTagsForResourceResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Tags") is not None:
+        import capo_gamelift.types.tag_list
+
+        out["tags"] = capo_gamelift.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

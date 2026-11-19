@@ -67,3 +67,46 @@ def deserialize_aws_json_1_1(data: dict) -> RetryStageExecutionInput:
             "capo_codepipeline.types.stage_retry_mode.StageRetryMode", ""
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RetryStageExecutionInput) -> dict:
+    out: dict = {}
+    out["pipelineName"] = value["pipeline_name"]
+    out["stageName"] = value["stage_name"]
+    out["pipelineExecutionId"] = value["pipeline_execution_id"]
+    import capo_codepipeline.types.stage_retry_mode
+
+    out["retryMode"] = capo_codepipeline.types.stage_retry_mode.serialize_cbor(
+        value["retry_mode"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RetryStageExecutionInput:
+    out: RetryStageExecutionInput = {}  # type: ignore[typeddict-item]
+    if data.get("pipelineName") is not None:
+        out["pipeline_name"] = data["pipelineName"]
+    else:
+        out["pipeline_name"] = ""
+    if data.get("stageName") is not None:
+        out["stage_name"] = data["stageName"]
+    else:
+        out["stage_name"] = ""
+    if data.get("pipelineExecutionId") is not None:
+        out["pipeline_execution_id"] = data["pipelineExecutionId"]
+    else:
+        out["pipeline_execution_id"] = ""
+    if data.get("retryMode") is not None:
+        import capo_codepipeline.types.stage_retry_mode
+
+        out["retry_mode"] = capo_codepipeline.types.stage_retry_mode.deserialize_cbor(
+            data["retryMode"]
+        )
+    else:
+        import typing
+
+        out["retry_mode"] = typing.cast(
+            "capo_codepipeline.types.stage_retry_mode.StageRetryMode", ""
+        )
+    return out

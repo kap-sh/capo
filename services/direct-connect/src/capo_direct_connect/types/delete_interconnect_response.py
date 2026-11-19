@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteInterconnectResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteInterconnectResponse) -> dict:
+    out: dict = {}
+    if "interconnect_state" in value:
+        import capo_direct_connect.types.interconnect_state
+
+        out["interconnectState"] = (
+            capo_direct_connect.types.interconnect_state.serialize_cbor(
+                value["interconnect_state"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteInterconnectResponse:
+    out: DeleteInterconnectResponse = {}  # type: ignore[typeddict-item]
+    if data.get("interconnectState") is not None:
+        import capo_direct_connect.types.interconnect_state
+
+        out["interconnect_state"] = (
+            capo_direct_connect.types.interconnect_state.deserialize_cbor(
+                data["interconnectState"]
+            )
+        )
+    return out

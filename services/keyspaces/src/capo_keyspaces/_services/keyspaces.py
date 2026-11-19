@@ -104,6 +104,7 @@ class KeyspacesClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[Interceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_0", "rpcv2Cbor"]
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -120,6 +121,7 @@ class KeyspacesClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -135,6 +137,7 @@ class KeyspacesClient:
         operation_interceptors: Iterable[Interceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_0", "rpcv2Cbor"] = "awsJson1_0",
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -171,6 +174,7 @@ class KeyspacesClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -204,6 +208,9 @@ class KeyspacesClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_0")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -248,13 +255,24 @@ class KeyspacesClient:
         ) -> OperationResponse[
             "capo_keyspaces.types.create_keyspace_response.CreateKeyspaceResponse"
         ]:
-            import capo_keyspaces._operations.keyspaces_service.create_keyspace
+            if req.options.protocol == "awsJson1_0":
+                import capo_keyspaces._operations.keyspaces_service.aws_json1_0.create_keyspace
 
-            output, http_response = (
-                capo_keyspaces._operations.keyspaces_service.create_keyspace.create_keyspace(
-                    req.options, req.input
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.aws_json1_0.create_keyspace.create_keyspace(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.create_keyspace
+
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.create_keyspace.create_keyspace(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -348,13 +366,24 @@ class KeyspacesClient:
         ) -> OperationResponse[
             "capo_keyspaces.types.create_table_response.CreateTableResponse"
         ]:
-            import capo_keyspaces._operations.keyspaces_service.create_table
+            if req.options.protocol == "awsJson1_0":
+                import capo_keyspaces._operations.keyspaces_service.aws_json1_0.create_table
 
-            output, http_response = (
-                capo_keyspaces._operations.keyspaces_service.create_table.create_table(
-                    req.options, req.input
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.aws_json1_0.create_table.create_table(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.create_table
+
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.create_table.create_table(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -428,13 +457,24 @@ class KeyspacesClient:
         ) -> OperationResponse[
             "capo_keyspaces.types.create_type_response.CreateTypeResponse"
         ]:
-            import capo_keyspaces._operations.keyspaces_service.create_type
+            if req.options.protocol == "awsJson1_0":
+                import capo_keyspaces._operations.keyspaces_service.aws_json1_0.create_type
 
-            output, http_response = (
-                capo_keyspaces._operations.keyspaces_service.create_type.create_type(
-                    req.options, req.input
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.aws_json1_0.create_type.create_type(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.create_type
+
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.create_type.create_type(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -480,13 +520,24 @@ class KeyspacesClient:
         ) -> OperationResponse[
             "capo_keyspaces.types.delete_keyspace_response.DeleteKeyspaceResponse"
         ]:
-            import capo_keyspaces._operations.keyspaces_service.delete_keyspace
+            if req.options.protocol == "awsJson1_0":
+                import capo_keyspaces._operations.keyspaces_service.aws_json1_0.delete_keyspace
 
-            output, http_response = (
-                capo_keyspaces._operations.keyspaces_service.delete_keyspace.delete_keyspace(
-                    req.options, req.input
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.aws_json1_0.delete_keyspace.delete_keyspace(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.delete_keyspace
+
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.delete_keyspace.delete_keyspace(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -532,13 +583,24 @@ class KeyspacesClient:
         ) -> OperationResponse[
             "capo_keyspaces.types.delete_table_response.DeleteTableResponse"
         ]:
-            import capo_keyspaces._operations.keyspaces_service.delete_table
+            if req.options.protocol == "awsJson1_0":
+                import capo_keyspaces._operations.keyspaces_service.aws_json1_0.delete_table
 
-            output, http_response = (
-                capo_keyspaces._operations.keyspaces_service.delete_table.delete_table(
-                    req.options, req.input
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.aws_json1_0.delete_table.delete_table(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.delete_table
+
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.delete_table.delete_table(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -585,13 +647,24 @@ class KeyspacesClient:
         ) -> OperationResponse[
             "capo_keyspaces.types.delete_type_response.DeleteTypeResponse"
         ]:
-            import capo_keyspaces._operations.keyspaces_service.delete_type
+            if req.options.protocol == "awsJson1_0":
+                import capo_keyspaces._operations.keyspaces_service.aws_json1_0.delete_type
 
-            output, http_response = (
-                capo_keyspaces._operations.keyspaces_service.delete_type.delete_type(
-                    req.options, req.input
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.aws_json1_0.delete_type.delete_type(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.delete_type
+
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.delete_type.delete_type(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -635,13 +708,24 @@ class KeyspacesClient:
         ) -> OperationResponse[
             "capo_keyspaces.types.get_keyspace_response.GetKeyspaceResponse"
         ]:
-            import capo_keyspaces._operations.keyspaces_service.get_keyspace
+            if req.options.protocol == "awsJson1_0":
+                import capo_keyspaces._operations.keyspaces_service.aws_json1_0.get_keyspace
 
-            output, http_response = (
-                capo_keyspaces._operations.keyspaces_service.get_keyspace.get_keyspace(
-                    req.options, req.input
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.aws_json1_0.get_keyspace.get_keyspace(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.get_keyspace
+
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.get_keyspace.get_keyspace(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -686,13 +770,24 @@ class KeyspacesClient:
         ) -> OperationResponse[
             "capo_keyspaces.types.get_table_response.GetTableResponse"
         ]:
-            import capo_keyspaces._operations.keyspaces_service.get_table
+            if req.options.protocol == "awsJson1_0":
+                import capo_keyspaces._operations.keyspaces_service.aws_json1_0.get_table
 
-            output, http_response = (
-                capo_keyspaces._operations.keyspaces_service.get_table.get_table(
-                    req.options, req.input
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.aws_json1_0.get_table.get_table(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.get_table
+
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.get_table.get_table(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -738,13 +833,24 @@ class KeyspacesClient:
         ) -> OperationResponse[
             "capo_keyspaces.types.get_table_auto_scaling_settings_response.GetTableAutoScalingSettingsResponse"
         ]:
-            import capo_keyspaces._operations.keyspaces_service.get_table_auto_scaling_settings
+            if req.options.protocol == "awsJson1_0":
+                import capo_keyspaces._operations.keyspaces_service.aws_json1_0.get_table_auto_scaling_settings
 
-            output, http_response = (
-                capo_keyspaces._operations.keyspaces_service.get_table_auto_scaling_settings.get_table_auto_scaling_settings(
-                    req.options, req.input
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.aws_json1_0.get_table_auto_scaling_settings.get_table_auto_scaling_settings(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.get_table_auto_scaling_settings
+
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.get_table_auto_scaling_settings.get_table_auto_scaling_settings(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -790,13 +896,24 @@ class KeyspacesClient:
         ) -> OperationResponse[
             "capo_keyspaces.types.get_type_response.GetTypeResponse"
         ]:
-            import capo_keyspaces._operations.keyspaces_service.get_type
+            if req.options.protocol == "awsJson1_0":
+                import capo_keyspaces._operations.keyspaces_service.aws_json1_0.get_type
 
-            output, http_response = (
-                capo_keyspaces._operations.keyspaces_service.get_type.get_type(
-                    req.options, req.input
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.aws_json1_0.get_type.get_type(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.get_type
+
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.get_type.get_type(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -842,13 +959,24 @@ class KeyspacesClient:
         ) -> OperationResponse[
             "capo_keyspaces.types.list_keyspaces_response.ListKeyspacesResponse"
         ]:
-            import capo_keyspaces._operations.keyspaces_service.list_keyspaces
+            if req.options.protocol == "awsJson1_0":
+                import capo_keyspaces._operations.keyspaces_service.aws_json1_0.list_keyspaces
 
-            output, http_response = (
-                capo_keyspaces._operations.keyspaces_service.list_keyspaces.list_keyspaces(
-                    req.options, req.input
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.aws_json1_0.list_keyspaces.list_keyspaces(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.list_keyspaces
+
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.list_keyspaces.list_keyspaces(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -918,13 +1046,24 @@ class KeyspacesClient:
         ) -> OperationResponse[
             "capo_keyspaces.types.list_tables_response.ListTablesResponse"
         ]:
-            import capo_keyspaces._operations.keyspaces_service.list_tables
+            if req.options.protocol == "awsJson1_0":
+                import capo_keyspaces._operations.keyspaces_service.aws_json1_0.list_tables
 
-            output, http_response = (
-                capo_keyspaces._operations.keyspaces_service.list_tables.list_tables(
-                    req.options, req.input
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.aws_json1_0.list_tables.list_tables(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.list_tables
+
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.list_tables.list_tables(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -998,13 +1137,24 @@ class KeyspacesClient:
         ) -> OperationResponse[
             "capo_keyspaces.types.list_tags_for_resource_response.ListTagsForResourceResponse"
         ]:
-            import capo_keyspaces._operations.keyspaces_service.list_tags_for_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_keyspaces._operations.keyspaces_service.aws_json1_0.list_tags_for_resource
 
-            output, http_response = (
-                capo_keyspaces._operations.keyspaces_service.list_tags_for_resource.list_tags_for_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.aws_json1_0.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.list_tags_for_resource
+
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1078,13 +1228,24 @@ class KeyspacesClient:
         ) -> OperationResponse[
             "capo_keyspaces.types.list_types_response.ListTypesResponse"
         ]:
-            import capo_keyspaces._operations.keyspaces_service.list_types
+            if req.options.protocol == "awsJson1_0":
+                import capo_keyspaces._operations.keyspaces_service.aws_json1_0.list_types
 
-            output, http_response = (
-                capo_keyspaces._operations.keyspaces_service.list_types.list_types(
-                    req.options, req.input
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.aws_json1_0.list_types.list_types(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.list_types
+
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.list_types.list_types(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1185,13 +1346,24 @@ class KeyspacesClient:
         ) -> OperationResponse[
             "capo_keyspaces.types.restore_table_response.RestoreTableResponse"
         ]:
-            import capo_keyspaces._operations.keyspaces_service.restore_table
+            if req.options.protocol == "awsJson1_0":
+                import capo_keyspaces._operations.keyspaces_service.aws_json1_0.restore_table
 
-            output, http_response = (
-                capo_keyspaces._operations.keyspaces_service.restore_table.restore_table(
-                    req.options, req.input
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.aws_json1_0.restore_table.restore_table(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.restore_table
+
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.restore_table.restore_table(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1256,13 +1428,24 @@ class KeyspacesClient:
         ) -> OperationResponse[
             "capo_keyspaces.types.tag_resource_response.TagResourceResponse"
         ]:
-            import capo_keyspaces._operations.keyspaces_service.tag_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_keyspaces._operations.keyspaces_service.aws_json1_0.tag_resource
 
-            output, http_response = (
-                capo_keyspaces._operations.keyspaces_service.tag_resource.tag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.aws_json1_0.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.tag_resource
+
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1309,13 +1492,24 @@ class KeyspacesClient:
         ) -> OperationResponse[
             "capo_keyspaces.types.untag_resource_response.UntagResourceResponse"
         ]:
-            import capo_keyspaces._operations.keyspaces_service.untag_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_keyspaces._operations.keyspaces_service.aws_json1_0.untag_resource
 
-            output, http_response = (
-                capo_keyspaces._operations.keyspaces_service.untag_resource.untag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.aws_json1_0.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.untag_resource
+
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1364,13 +1558,24 @@ class KeyspacesClient:
         ) -> OperationResponse[
             "capo_keyspaces.types.update_keyspace_response.UpdateKeyspaceResponse"
         ]:
-            import capo_keyspaces._operations.keyspaces_service.update_keyspace
+            if req.options.protocol == "awsJson1_0":
+                import capo_keyspaces._operations.keyspaces_service.aws_json1_0.update_keyspace
 
-            output, http_response = (
-                capo_keyspaces._operations.keyspaces_service.update_keyspace.update_keyspace(
-                    req.options, req.input
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.aws_json1_0.update_keyspace.update_keyspace(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.update_keyspace
+
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.update_keyspace.update_keyspace(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1461,13 +1666,24 @@ class KeyspacesClient:
         ) -> OperationResponse[
             "capo_keyspaces.types.update_table_response.UpdateTableResponse"
         ]:
-            import capo_keyspaces._operations.keyspaces_service.update_table
+            if req.options.protocol == "awsJson1_0":
+                import capo_keyspaces._operations.keyspaces_service.aws_json1_0.update_table
 
-            output, http_response = (
-                capo_keyspaces._operations.keyspaces_service.update_table.update_table(
-                    req.options, req.input
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.aws_json1_0.update_table.update_table(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.update_table
+
+                output, http_response = (
+                    capo_keyspaces._operations.keyspaces_service.rpcv2_cbor.update_table.update_table(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

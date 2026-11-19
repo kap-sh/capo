@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> DimensionDetail:
     if data.get("Identifier") is not None:
         out["identifier"] = data["Identifier"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DimensionDetail) -> dict:
+    out: dict = {}
+    if "identifier" in value:
+        out["Identifier"] = value["identifier"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DimensionDetail:
+    out: DimensionDetail = {}  # type: ignore[typeddict-item]
+    if data.get("Identifier") is not None:
+        out["identifier"] = data["Identifier"]
+    return out

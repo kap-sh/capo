@@ -38,3 +38,26 @@ def deserialize_aws_json_1_1(data: dict) -> JobDetails:
     if data.get("InputDocumentsCount") is not None:
         out["input_documents_count"] = data["InputDocumentsCount"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: JobDetails) -> dict:
+    out: dict = {}
+    if "translated_documents_count" in value:
+        out["TranslatedDocumentsCount"] = value["translated_documents_count"]
+    if "documents_with_errors_count" in value:
+        out["DocumentsWithErrorsCount"] = value["documents_with_errors_count"]
+    if "input_documents_count" in value:
+        out["InputDocumentsCount"] = value["input_documents_count"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> JobDetails:
+    out: JobDetails = {}  # type: ignore[typeddict-item]
+    if data.get("TranslatedDocumentsCount") is not None:
+        out["translated_documents_count"] = data["TranslatedDocumentsCount"]
+    if data.get("DocumentsWithErrorsCount") is not None:
+        out["documents_with_errors_count"] = data["DocumentsWithErrorsCount"]
+    if data.get("InputDocumentsCount") is not None:
+        out["input_documents_count"] = data["InputDocumentsCount"]
+    return out

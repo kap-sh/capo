@@ -51,3 +51,34 @@ def deserialize_aws_json_1_1(
     if data.get("NextPageToken") is not None:
         out["next_page_token"] = data["NextPageToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListStackInstancesForProvisionedProductOutput) -> dict:
+    out: dict = {}
+    if "stack_instances" in value:
+        import capo_service_catalog.types.stack_instances
+
+        out["StackInstances"] = (
+            capo_service_catalog.types.stack_instances.serialize_cbor(
+                value["stack_instances"]
+            )
+        )
+    if "next_page_token" in value:
+        out["NextPageToken"] = value["next_page_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListStackInstancesForProvisionedProductOutput:
+    out: ListStackInstancesForProvisionedProductOutput = {}  # type: ignore[typeddict-item]
+    if data.get("StackInstances") is not None:
+        import capo_service_catalog.types.stack_instances
+
+        out["stack_instances"] = (
+            capo_service_catalog.types.stack_instances.deserialize_cbor(
+                data["StackInstances"]
+            )
+        )
+    if data.get("NextPageToken") is not None:
+        out["next_page_token"] = data["NextPageToken"]
+    return out

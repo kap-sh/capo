@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteAddonInstanceRequest:
     else:
         out["addon_instance_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteAddonInstanceRequest) -> dict:
+    out: dict = {}
+    out["AddonInstanceId"] = value["addon_instance_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteAddonInstanceRequest:
+    out: DeleteAddonInstanceRequest = {}  # type: ignore[typeddict-item]
+    if data.get("AddonInstanceId") is not None:
+        out["addon_instance_id"] = data["AddonInstanceId"]
+    else:
+        out["addon_instance_id"] = ""
+    return out

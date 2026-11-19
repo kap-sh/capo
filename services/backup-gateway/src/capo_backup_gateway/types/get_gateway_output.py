@@ -38,3 +38,26 @@ def deserialize_aws_json_1_0(data: dict) -> GetGatewayOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetGatewayOutput) -> dict:
+    out: dict = {}
+    if "gateway" in value:
+        import capo_backup_gateway.types.gateway_details
+
+        out["Gateway"] = capo_backup_gateway.types.gateway_details.serialize_cbor(
+            value["gateway"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetGatewayOutput:
+    out: GetGatewayOutput = {}  # type: ignore[typeddict-item]
+    if data.get("Gateway") is not None:
+        import capo_backup_gateway.types.gateway_details
+
+        out["gateway"] = capo_backup_gateway.types.gateway_details.deserialize_cbor(
+            data["Gateway"]
+        )
+    return out

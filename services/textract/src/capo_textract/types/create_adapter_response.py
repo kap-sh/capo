@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAdapterResponse:
     if data.get("AdapterId") is not None:
         out["adapter_id"] = data["AdapterId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateAdapterResponse) -> dict:
+    out: dict = {}
+    if "adapter_id" in value:
+        out["AdapterId"] = value["adapter_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateAdapterResponse:
+    out: CreateAdapterResponse = {}  # type: ignore[typeddict-item]
+    if data.get("AdapterId") is not None:
+        out["adapter_id"] = data["AdapterId"]
+    return out

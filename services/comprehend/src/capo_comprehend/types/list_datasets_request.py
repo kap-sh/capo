@@ -59,3 +59,38 @@ def deserialize_aws_json_1_1(data: dict) -> ListDatasetsRequest:
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListDatasetsRequest) -> dict:
+    out: dict = {}
+    if "flywheel_arn" in value:
+        out["FlywheelArn"] = value["flywheel_arn"]
+    if "filter" in value:
+        import capo_comprehend.types.dataset_filter
+
+        out["Filter"] = capo_comprehend.types.dataset_filter.serialize_cbor(
+            value["filter"]
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListDatasetsRequest:
+    out: ListDatasetsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("FlywheelArn") is not None:
+        out["flywheel_arn"] = data["FlywheelArn"]
+    if data.get("Filter") is not None:
+        import capo_comprehend.types.dataset_filter
+
+        out["filter"] = capo_comprehend.types.dataset_filter.deserialize_cbor(
+            data["Filter"]
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    return out

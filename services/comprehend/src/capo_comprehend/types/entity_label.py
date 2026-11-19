@@ -49,3 +49,30 @@ def deserialize_aws_json_1_1(data: dict) -> EntityLabel:
     if data.get("Score") is not None:
         out["score"] = float(data["Score"])
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EntityLabel) -> dict:
+    out: dict = {}
+    if "name" in value:
+        import capo_comprehend.types.pii_entity_type
+
+        out["Name"] = capo_comprehend.types.pii_entity_type.serialize_cbor(
+            value["name"]
+        )
+    if "score" in value:
+        out["Score"] = value["score"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> EntityLabel:
+    out: EntityLabel = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        import capo_comprehend.types.pii_entity_type
+
+        out["name"] = capo_comprehend.types.pii_entity_type.deserialize_cbor(
+            data["Name"]
+        )
+    if data.get("Score") is not None:
+        out["score"] = float(data["Score"])
+    return out

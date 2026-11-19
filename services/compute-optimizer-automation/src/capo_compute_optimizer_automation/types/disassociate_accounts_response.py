@@ -61,3 +61,46 @@ def deserialize_aws_json_1_0(data: dict) -> DisassociateAccountsResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DisassociateAccountsResponse) -> dict:
+    out: dict = {}
+    if "account_ids" in value:
+        import capo_compute_optimizer_automation.types.account_id_list
+
+        out["accountIds"] = (
+            capo_compute_optimizer_automation.types.account_id_list.serialize_cbor(
+                value["account_ids"]
+            )
+        )
+    if "errors" in value:
+        import capo_compute_optimizer_automation.types.string_list
+
+        out["errors"] = (
+            capo_compute_optimizer_automation.types.string_list.serialize_cbor(
+                value["errors"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DisassociateAccountsResponse:
+    out: DisassociateAccountsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("accountIds") is not None:
+        import capo_compute_optimizer_automation.types.account_id_list
+
+        out["account_ids"] = (
+            capo_compute_optimizer_automation.types.account_id_list.deserialize_cbor(
+                data["accountIds"]
+            )
+        )
+    if data.get("errors") is not None:
+        import capo_compute_optimizer_automation.types.string_list
+
+        out["errors"] = (
+            capo_compute_optimizer_automation.types.string_list.deserialize_cbor(
+                data["errors"]
+            )
+        )
+    return out

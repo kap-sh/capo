@@ -55,3 +55,39 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeSettingsRequest:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeSettingsRequest) -> dict:
+    out: dict = {}
+    out["DirectoryId"] = value["directory_id"]
+    if "status" in value:
+        import capo_directory_service.types.directory_configuration_status
+
+        out["Status"] = (
+            capo_directory_service.types.directory_configuration_status.serialize_cbor(
+                value["status"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeSettingsRequest:
+    out: DescribeSettingsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    if data.get("Status") is not None:
+        import capo_directory_service.types.directory_configuration_status
+
+        out["status"] = (
+            capo_directory_service.types.directory_configuration_status.deserialize_cbor(
+                data["Status"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

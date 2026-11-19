@@ -49,3 +49,36 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteServiceAttributesRequest:
     else:
         out["attributes"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteServiceAttributesRequest) -> dict:
+    out: dict = {}
+    out["ServiceId"] = value["service_id"]
+    import capo_servicediscovery.types.service_attribute_key_list
+
+    out["Attributes"] = (
+        capo_servicediscovery.types.service_attribute_key_list.serialize_cbor(
+            value["attributes"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteServiceAttributesRequest:
+    out: DeleteServiceAttributesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ServiceId") is not None:
+        out["service_id"] = data["ServiceId"]
+    else:
+        out["service_id"] = ""
+    if data.get("Attributes") is not None:
+        import capo_servicediscovery.types.service_attribute_key_list
+
+        out["attributes"] = (
+            capo_servicediscovery.types.service_attribute_key_list.deserialize_cbor(
+                data["Attributes"]
+            )
+        )
+    else:
+        out["attributes"] = []
+    return out

@@ -121,3 +121,82 @@ def deserialize_aws_json_1_0(data: dict) -> RenewalTerm:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RenewalTerm) -> dict:
+    out: dict = {}
+    if "type" in value:
+        out["type"] = value["type"]
+    if "id" in value:
+        out["id"] = value["id"]
+    if "configuration" in value:
+        import capo_marketplace_agreement.types.renewal_term_configuration
+
+        out["configuration"] = (
+            capo_marketplace_agreement.types.renewal_term_configuration.serialize_cbor(
+                value["configuration"]
+            )
+        )
+    if "lockout_period" in value:
+        out["lockoutPeriod"] = value["lockout_period"]
+    if "max_renewals" in value:
+        out["maxRenewals"] = value["max_renewals"]
+    if "adjustment_deadline" in value:
+        out["adjustmentDeadline"] = value["adjustment_deadline"]
+    if "price_increase" in value:
+        import capo_marketplace_agreement.types.price_increase
+
+        out["priceIncrease"] = (
+            capo_marketplace_agreement.types.price_increase.serialize_cbor(
+                value["price_increase"]
+            )
+        )
+    if "term_templates" in value:
+        import capo_marketplace_agreement.types.term_template_list
+
+        out["termTemplates"] = (
+            capo_marketplace_agreement.types.term_template_list.serialize_cbor(
+                value["term_templates"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RenewalTerm:
+    out: RenewalTerm = {}  # type: ignore[typeddict-item]
+    if data.get("type") is not None:
+        out["type"] = data["type"]
+    if data.get("id") is not None:
+        out["id"] = data["id"]
+    if data.get("configuration") is not None:
+        import capo_marketplace_agreement.types.renewal_term_configuration
+
+        out["configuration"] = (
+            capo_marketplace_agreement.types.renewal_term_configuration.deserialize_cbor(
+                data["configuration"]
+            )
+        )
+    if data.get("lockoutPeriod") is not None:
+        out["lockout_period"] = data["lockoutPeriod"]
+    if data.get("maxRenewals") is not None:
+        out["max_renewals"] = data["maxRenewals"]
+    if data.get("adjustmentDeadline") is not None:
+        out["adjustment_deadline"] = data["adjustmentDeadline"]
+    if data.get("priceIncrease") is not None:
+        import capo_marketplace_agreement.types.price_increase
+
+        out["price_increase"] = (
+            capo_marketplace_agreement.types.price_increase.deserialize_cbor(
+                data["priceIncrease"]
+            )
+        )
+    if data.get("termTemplates") is not None:
+        import capo_marketplace_agreement.types.term_template_list
+
+        out["term_templates"] = (
+            capo_marketplace_agreement.types.term_template_list.deserialize_cbor(
+                data["termTemplates"]
+            )
+        )
+    return out

@@ -40,3 +40,27 @@ def deserialize_aws_json_1_1(data: dict) -> ListResourceSetResourcesResponse:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListResourceSetResourcesResponse) -> dict:
+    out: dict = {}
+    import capo_fms.types.resource_list
+
+    out["Items"] = capo_fms.types.resource_list.serialize_cbor(value["items"])
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListResourceSetResourcesResponse:
+    out: ListResourceSetResourcesResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Items") is not None:
+        import capo_fms.types.resource_list
+
+        out["items"] = capo_fms.types.resource_list.deserialize_cbor(data["Items"])
+    else:
+        out["items"] = []
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> GetEnvironmentRequest:
     else:
         out["id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetEnvironmentRequest) -> dict:
+    out: dict = {}
+    out["id"] = value["id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetEnvironmentRequest:
+    out: GetEnvironmentRequest = {}  # type: ignore[typeddict-item]
+    if data.get("id") is not None:
+        out["id"] = data["id"]
+    else:
+        out["id"] = ""
+    return out

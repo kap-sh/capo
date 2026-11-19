@@ -32,3 +32,22 @@ def deserialize_aws_json_1_1(data: dict) -> InstanceCredentials:
     if data.get("Secret") is not None:
         out["secret"] = data["Secret"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InstanceCredentials) -> dict:
+    out: dict = {}
+    if "user_name" in value:
+        out["UserName"] = value["user_name"]
+    if "secret" in value:
+        out["Secret"] = value["secret"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> InstanceCredentials:
+    out: InstanceCredentials = {}  # type: ignore[typeddict-item]
+    if data.get("UserName") is not None:
+        out["user_name"] = data["UserName"]
+    if data.get("Secret") is not None:
+        out["secret"] = data["Secret"]
+    return out

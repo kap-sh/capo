@@ -37,3 +37,26 @@ def deserialize_aws_json_1_1(data: dict) -> TagResourceRequest:
 
         out["tags"] = capo_appstream.types.tags.deserialize_aws_json_1_1(data["Tags"])
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TagResourceRequest) -> dict:
+    out: dict = {}
+    if "resource_arn" in value:
+        out["ResourceArn"] = value["resource_arn"]
+    if "tags" in value:
+        import capo_appstream.types.tags
+
+        out["Tags"] = capo_appstream.types.tags.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> TagResourceRequest:
+    out: TagResourceRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceArn") is not None:
+        out["resource_arn"] = data["ResourceArn"]
+    if data.get("Tags") is not None:
+        import capo_appstream.types.tags
+
+        out["tags"] = capo_appstream.types.tags.deserialize_cbor(data["Tags"])
+    return out

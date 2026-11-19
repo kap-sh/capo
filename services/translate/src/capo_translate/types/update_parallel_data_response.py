@@ -84,3 +84,60 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateParallelDataResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateParallelDataResponse) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "status" in value:
+        import capo_translate.types.parallel_data_status
+
+        out["Status"] = capo_translate.types.parallel_data_status.serialize_cbor(
+            value["status"]
+        )
+    if "latest_update_attempt_status" in value:
+        import capo_translate.types.parallel_data_status
+
+        out["LatestUpdateAttemptStatus"] = (
+            capo_translate.types.parallel_data_status.serialize_cbor(
+                value["latest_update_attempt_status"]
+            )
+        )
+    if "latest_update_attempt_at" in value:
+        import capo_translate.types.timestamp
+
+        out["LatestUpdateAttemptAt"] = capo_translate.types.timestamp.serialize_cbor(
+            value["latest_update_attempt_at"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateParallelDataResponse:
+    out: UpdateParallelDataResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Status") is not None:
+        import capo_translate.types.parallel_data_status
+
+        out["status"] = capo_translate.types.parallel_data_status.deserialize_cbor(
+            data["Status"]
+        )
+    if data.get("LatestUpdateAttemptStatus") is not None:
+        import capo_translate.types.parallel_data_status
+
+        out["latest_update_attempt_status"] = (
+            capo_translate.types.parallel_data_status.deserialize_cbor(
+                data["LatestUpdateAttemptStatus"]
+            )
+        )
+    if data.get("LatestUpdateAttemptAt") is not None:
+        import capo_translate.types.timestamp
+
+        out["latest_update_attempt_at"] = (
+            capo_translate.types.timestamp.deserialize_cbor(
+                data["LatestUpdateAttemptAt"]
+            )
+        )
+    return out

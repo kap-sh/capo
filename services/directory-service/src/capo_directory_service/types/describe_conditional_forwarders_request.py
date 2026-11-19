@@ -48,3 +48,35 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeConditionalForwardersRequest
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeConditionalForwardersRequest) -> dict:
+    out: dict = {}
+    out["DirectoryId"] = value["directory_id"]
+    if "remote_domain_names" in value:
+        import capo_directory_service.types.remote_domain_names
+
+        out["RemoteDomainNames"] = (
+            capo_directory_service.types.remote_domain_names.serialize_cbor(
+                value["remote_domain_names"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeConditionalForwardersRequest:
+    out: DescribeConditionalForwardersRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    if data.get("RemoteDomainNames") is not None:
+        import capo_directory_service.types.remote_domain_names
+
+        out["remote_domain_names"] = (
+            capo_directory_service.types.remote_domain_names.deserialize_cbor(
+                data["RemoteDomainNames"]
+            )
+        )
+    return out

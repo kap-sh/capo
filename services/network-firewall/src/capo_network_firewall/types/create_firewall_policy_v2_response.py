@@ -51,3 +51,38 @@ def deserialize_aws_json_1_0(data: dict) -> CreateFirewallPolicyV2Response:
             "CreateFirewallPolicyV2Response.firewall_policy_v2_response required"
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateFirewallPolicyV2Response) -> dict:
+    out: dict = {}
+    out["UpdateToken"] = value["update_token"]
+    import capo_network_firewall.types.firewall_policy_v2_response
+
+    out["FirewallPolicyV2Response"] = (
+        capo_network_firewall.types.firewall_policy_v2_response.serialize_cbor(
+            value["firewall_policy_v2_response"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateFirewallPolicyV2Response:
+    out: CreateFirewallPolicyV2Response = {}  # type: ignore[typeddict-item]
+    if data.get("UpdateToken") is not None:
+        out["update_token"] = data["UpdateToken"]
+    else:
+        out["update_token"] = ""
+    if data.get("FirewallPolicyV2Response") is not None:
+        import capo_network_firewall.types.firewall_policy_v2_response
+
+        out["firewall_policy_v2_response"] = (
+            capo_network_firewall.types.firewall_policy_v2_response.deserialize_cbor(
+                data["FirewallPolicyV2Response"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "CreateFirewallPolicyV2Response.firewall_policy_v2_response required"
+        )
+    return out

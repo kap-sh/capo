@@ -82,3 +82,62 @@ def deserialize_aws_json_1_1(data: dict) -> ActionExecutionOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ActionExecutionOutput) -> dict:
+    out: dict = {}
+    if "output_artifacts" in value:
+        import capo_codepipeline.types.artifact_detail_list
+
+        out["outputArtifacts"] = (
+            capo_codepipeline.types.artifact_detail_list.serialize_cbor(
+                value["output_artifacts"]
+            )
+        )
+    if "execution_result" in value:
+        import capo_codepipeline.types.action_execution_result
+
+        out["executionResult"] = (
+            capo_codepipeline.types.action_execution_result.serialize_cbor(
+                value["execution_result"]
+            )
+        )
+    if "output_variables" in value:
+        import capo_codepipeline.types.output_variables_map
+
+        out["outputVariables"] = (
+            capo_codepipeline.types.output_variables_map.serialize_cbor(
+                value["output_variables"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ActionExecutionOutput:
+    out: ActionExecutionOutput = {}  # type: ignore[typeddict-item]
+    if data.get("outputArtifacts") is not None:
+        import capo_codepipeline.types.artifact_detail_list
+
+        out["output_artifacts"] = (
+            capo_codepipeline.types.artifact_detail_list.deserialize_cbor(
+                data["outputArtifacts"]
+            )
+        )
+    if data.get("executionResult") is not None:
+        import capo_codepipeline.types.action_execution_result
+
+        out["execution_result"] = (
+            capo_codepipeline.types.action_execution_result.deserialize_cbor(
+                data["executionResult"]
+            )
+        )
+    if data.get("outputVariables") is not None:
+        import capo_codepipeline.types.output_variables_map
+
+        out["output_variables"] = (
+            capo_codepipeline.types.output_variables_map.deserialize_cbor(
+                data["outputVariables"]
+            )
+        )
+    return out

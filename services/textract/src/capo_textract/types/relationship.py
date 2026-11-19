@@ -45,3 +45,34 @@ def deserialize_aws_json_1_1(data: dict) -> Relationship:
 
         out["ids"] = capo_textract.types.id_list.deserialize_aws_json_1_1(data["Ids"])
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Relationship) -> dict:
+    out: dict = {}
+    if "type" in value:
+        import capo_textract.types.relationship_type
+
+        out["Type"] = capo_textract.types.relationship_type.serialize_cbor(
+            value["type"]
+        )
+    if "ids" in value:
+        import capo_textract.types.id_list
+
+        out["Ids"] = capo_textract.types.id_list.serialize_cbor(value["ids"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> Relationship:
+    out: Relationship = {}  # type: ignore[typeddict-item]
+    if data.get("Type") is not None:
+        import capo_textract.types.relationship_type
+
+        out["type"] = capo_textract.types.relationship_type.deserialize_cbor(
+            data["Type"]
+        )
+    if data.get("Ids") is not None:
+        import capo_textract.types.id_list
+
+        out["ids"] = capo_textract.types.id_list.deserialize_cbor(data["Ids"])
+    return out

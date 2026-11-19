@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeClientAuthenticationSettings
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeClientAuthenticationSettingsResult) -> dict:
+    out: dict = {}
+    if "client_authentication_settings_info" in value:
+        import capo_directory_service.types.client_authentication_settings_info
+
+        out["ClientAuthenticationSettingsInfo"] = (
+            capo_directory_service.types.client_authentication_settings_info.serialize_cbor(
+                value["client_authentication_settings_info"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeClientAuthenticationSettingsResult:
+    out: DescribeClientAuthenticationSettingsResult = {}  # type: ignore[typeddict-item]
+    if data.get("ClientAuthenticationSettingsInfo") is not None:
+        import capo_directory_service.types.client_authentication_settings_info
+
+        out["client_authentication_settings_info"] = (
+            capo_directory_service.types.client_authentication_settings_info.deserialize_cbor(
+                data["ClientAuthenticationSettingsInfo"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

@@ -34,3 +34,22 @@ def deserialize_aws_json_1_1(data: dict) -> NetworkAccessConfiguration:
     if data.get("EniId") is not None:
         out["eni_id"] = data["EniId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: NetworkAccessConfiguration) -> dict:
+    out: dict = {}
+    if "eni_private_ip_address" in value:
+        out["EniPrivateIpAddress"] = value["eni_private_ip_address"]
+    if "eni_id" in value:
+        out["EniId"] = value["eni_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> NetworkAccessConfiguration:
+    out: NetworkAccessConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("EniPrivateIpAddress") is not None:
+        out["eni_private_ip_address"] = data["EniPrivateIpAddress"]
+    if data.get("EniId") is not None:
+        out["eni_id"] = data["EniId"]
+    return out

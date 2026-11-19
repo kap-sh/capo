@@ -48,3 +48,38 @@ def deserialize_aws_json_1_1(data: dict) -> ApiPassthrough:
             data["Subject"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ApiPassthrough) -> dict:
+    out: dict = {}
+    if "extensions" in value:
+        import capo_acm_pca.types.extensions
+
+        out["Extensions"] = capo_acm_pca.types.extensions.serialize_cbor(
+            value["extensions"]
+        )
+    if "subject" in value:
+        import capo_acm_pca.types.asn1_subject
+
+        out["Subject"] = capo_acm_pca.types.asn1_subject.serialize_cbor(
+            value["subject"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ApiPassthrough:
+    out: ApiPassthrough = {}  # type: ignore[typeddict-item]
+    if data.get("Extensions") is not None:
+        import capo_acm_pca.types.extensions
+
+        out["extensions"] = capo_acm_pca.types.extensions.deserialize_cbor(
+            data["Extensions"]
+        )
+    if data.get("Subject") is not None:
+        import capo_acm_pca.types.asn1_subject
+
+        out["subject"] = capo_acm_pca.types.asn1_subject.deserialize_cbor(
+            data["Subject"]
+        )
+    return out

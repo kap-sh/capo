@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> UserStorage:
     else:
         out["capacity"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UserStorage) -> dict:
+    out: dict = {}
+    out["Capacity"] = value["capacity"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UserStorage:
+    out: UserStorage = {}  # type: ignore[typeddict-item]
+    if data.get("Capacity") is not None:
+        out["capacity"] = data["Capacity"]
+    else:
+        out["capacity"] = ""
+    return out

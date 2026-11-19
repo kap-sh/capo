@@ -38,6 +38,25 @@ def deserialize_aws_json_1_1(data: dict) -> DuplicateRequest_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DuplicateRequest_) -> dict:
+    out: dict = {}
+    if "request_id" in value:
+        out["requestId"] = value["request_id"]
+    if "message" in value:
+        out["message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DuplicateRequest_:
+    out: DuplicateRequest_ = {}  # type: ignore[typeddict-item]
+    if data.get("requestId") is not None:
+        out["request_id"] = data["requestId"]
+    if data.get("message") is not None:
+        out["message"] = data["message"]
+    return out
+
+
 class DuplicateRequest(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.route53domains#DuplicateRequest``."""
 
@@ -65,3 +84,9 @@ class DuplicateRequest(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "DuplicateRequest":
         return cls(deserialize_aws_json_1_1(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "DuplicateRequest":
+        return cls(deserialize_cbor(data), message, response=response)

@@ -18,3 +18,12 @@ def serialize_aws_json_1_0(value: FirstAccessed) -> float:
 
 def deserialize_aws_json_1_0(data: float) -> FirstAccessed:
     return datetime.datetime.fromtimestamp(float(data), tz=datetime.timezone.utc)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FirstAccessed) -> FirstAccessed:
+    return value
+
+
+def deserialize_cbor(data: FirstAccessed) -> FirstAccessed:
+    return data

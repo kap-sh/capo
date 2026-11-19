@@ -63,3 +63,42 @@ def deserialize_aws_json_1_1(data: dict) -> ListAcceptedPortfolioSharesInput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListAcceptedPortfolioSharesInput) -> dict:
+    out: dict = {}
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    if "page_token" in value:
+        out["PageToken"] = value["page_token"]
+    if "page_size" in value:
+        out["PageSize"] = value["page_size"]
+    if "portfolio_share_type" in value:
+        import capo_service_catalog.types.portfolio_share_type
+
+        out["PortfolioShareType"] = (
+            capo_service_catalog.types.portfolio_share_type.serialize_cbor(
+                value["portfolio_share_type"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListAcceptedPortfolioSharesInput:
+    out: ListAcceptedPortfolioSharesInput = {}  # type: ignore[typeddict-item]
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    if data.get("PageToken") is not None:
+        out["page_token"] = data["PageToken"]
+    if data.get("PageSize") is not None:
+        out["page_size"] = data["PageSize"]
+    if data.get("PortfolioShareType") is not None:
+        import capo_service_catalog.types.portfolio_share_type
+
+        out["portfolio_share_type"] = (
+            capo_service_catalog.types.portfolio_share_type.deserialize_cbor(
+                data["PortfolioShareType"]
+            )
+        )
+    return out

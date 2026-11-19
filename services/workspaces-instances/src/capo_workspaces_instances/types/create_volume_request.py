@@ -126,6 +126,82 @@ def deserialize_aws_json_1_0(data: dict) -> CreateVolumeRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateVolumeRequest) -> dict:
+    out: dict = {}
+    out["AvailabilityZone"] = value["availability_zone"]
+    if "client_token" in value:
+        out["ClientToken"] = value["client_token"]
+    if "encrypted" in value:
+        out["Encrypted"] = value["encrypted"]
+    if "iops" in value:
+        out["Iops"] = value["iops"]
+    if "kms_key_id" in value:
+        out["KmsKeyId"] = value["kms_key_id"]
+    if "size_in_gb" in value:
+        out["SizeInGB"] = value["size_in_gb"]
+    if "snapshot_id" in value:
+        out["SnapshotId"] = value["snapshot_id"]
+    if "tag_specifications" in value:
+        import capo_workspaces_instances.types.tag_specifications
+
+        out["TagSpecifications"] = (
+            capo_workspaces_instances.types.tag_specifications.serialize_cbor(
+                value["tag_specifications"]
+            )
+        )
+    if "throughput" in value:
+        out["Throughput"] = value["throughput"]
+    if "volume_type" in value:
+        import capo_workspaces_instances.types.volume_type_enum
+
+        out["VolumeType"] = (
+            capo_workspaces_instances.types.volume_type_enum.serialize_cbor(
+                value["volume_type"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateVolumeRequest:
+    out: CreateVolumeRequest = {}  # type: ignore[typeddict-item]
+    if data.get("AvailabilityZone") is not None:
+        out["availability_zone"] = data["AvailabilityZone"]
+    else:
+        out["availability_zone"] = ""
+    if data.get("ClientToken") is not None:
+        out["client_token"] = data["ClientToken"]
+    if data.get("Encrypted") is not None:
+        out["encrypted"] = data["Encrypted"]
+    if data.get("Iops") is not None:
+        out["iops"] = data["Iops"]
+    if data.get("KmsKeyId") is not None:
+        out["kms_key_id"] = data["KmsKeyId"]
+    if data.get("SizeInGB") is not None:
+        out["size_in_gb"] = data["SizeInGB"]
+    if data.get("SnapshotId") is not None:
+        out["snapshot_id"] = data["SnapshotId"]
+    if data.get("TagSpecifications") is not None:
+        import capo_workspaces_instances.types.tag_specifications
+
+        out["tag_specifications"] = (
+            capo_workspaces_instances.types.tag_specifications.deserialize_cbor(
+                data["TagSpecifications"]
+            )
+        )
+    if data.get("Throughput") is not None:
+        out["throughput"] = data["Throughput"]
+    if data.get("VolumeType") is not None:
+        import capo_workspaces_instances.types.volume_type_enum
+
+        out["volume_type"] = (
+            capo_workspaces_instances.types.volume_type_enum.deserialize_cbor(
+                data["VolumeType"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: CreateVolumeRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "client_token" in value:

@@ -47,3 +47,34 @@ def deserialize_aws_json_1_0(data: dict) -> SsmTarget:
     else:
         out["values"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SsmTarget) -> dict:
+    out: dict = {}
+    out["key"] = value["key"]
+    import capo_arc_region_switch.types.ssm_target_value_list
+
+    out["values"] = capo_arc_region_switch.types.ssm_target_value_list.serialize_cbor(
+        value["values"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> SsmTarget:
+    out: SsmTarget = {}  # type: ignore[typeddict-item]
+    if data.get("key") is not None:
+        out["key"] = data["key"]
+    else:
+        out["key"] = ""
+    if data.get("values") is not None:
+        import capo_arc_region_switch.types.ssm_target_value_list
+
+        out["values"] = (
+            capo_arc_region_switch.types.ssm_target_value_list.deserialize_cbor(
+                data["values"]
+            )
+        )
+    else:
+        out["values"] = []
+    return out

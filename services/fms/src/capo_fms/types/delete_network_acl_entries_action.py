@@ -70,3 +70,51 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteNetworkAclEntriesAction:
     else:
         out["fms_can_remediate"] = False
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteNetworkAclEntriesAction) -> dict:
+    out: dict = {}
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "network_acl_id" in value:
+        import capo_fms.types.action_target
+
+        out["NetworkAclId"] = capo_fms.types.action_target.serialize_cbor(
+            value["network_acl_id"]
+        )
+    if "network_acl_entries_to_be_deleted" in value:
+        import capo_fms.types.entries_description
+
+        out["NetworkAclEntriesToBeDeleted"] = (
+            capo_fms.types.entries_description.serialize_cbor(
+                value["network_acl_entries_to_be_deleted"]
+            )
+        )
+    out["FMSCanRemediate"] = value.get("fms_can_remediate", False)
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteNetworkAclEntriesAction:
+    out: DeleteNetworkAclEntriesAction = {}  # type: ignore[typeddict-item]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("NetworkAclId") is not None:
+        import capo_fms.types.action_target
+
+        out["network_acl_id"] = capo_fms.types.action_target.deserialize_cbor(
+            data["NetworkAclId"]
+        )
+    if data.get("NetworkAclEntriesToBeDeleted") is not None:
+        import capo_fms.types.entries_description
+
+        out["network_acl_entries_to_be_deleted"] = (
+            capo_fms.types.entries_description.deserialize_cbor(
+                data["NetworkAclEntriesToBeDeleted"]
+            )
+        )
+    if data.get("FMSCanRemediate") is not None:
+        out["fms_can_remediate"] = data["FMSCanRemediate"]
+    else:
+        out["fms_can_remediate"] = False
+    return out

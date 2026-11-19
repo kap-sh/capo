@@ -340,6 +340,7 @@ class AsyncWorkSpacesClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[AsyncInterceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_1", "rpcv2Cbor"]
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -356,6 +357,7 @@ class AsyncWorkSpacesClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -371,6 +373,7 @@ class AsyncWorkSpacesClient:
         operation_interceptors: Iterable[AsyncInterceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_1", "rpcv2Cbor"] = "awsJson1_1",
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -407,6 +410,7 @@ class AsyncWorkSpacesClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -440,6 +444,9 @@ class AsyncWorkSpacesClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_1")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -480,14 +487,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.accept_account_link_invitation_result.AcceptAccountLinkInvitationResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.accept_account_link_invitation
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.accept_account_link_invitation
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.accept_account_link_invitation.async_accept_account_link_invitation(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.accept_account_link_invitation.async_accept_account_link_invitation(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.accept_account_link_invitation
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.accept_account_link_invitation.async_accept_account_link_invitation(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -535,14 +554,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.associate_connection_alias_result.AssociateConnectionAliasResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.associate_connection_alias
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.associate_connection_alias
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.associate_connection_alias.async_associate_connection_alias(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.associate_connection_alias.async_associate_connection_alias(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.associate_connection_alias
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.associate_connection_alias.async_associate_connection_alias(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -589,14 +620,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.associate_ip_groups_result.AssociateIpGroupsResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.associate_ip_groups
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.associate_ip_groups
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.associate_ip_groups.async_associate_ip_groups(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.associate_ip_groups.async_associate_ip_groups(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.associate_ip_groups
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.associate_ip_groups.async_associate_ip_groups(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -647,14 +690,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.associate_workspace_application_result.AssociateWorkspaceApplicationResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.associate_workspace_application
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.associate_workspace_application
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.associate_workspace_application.async_associate_workspace_application(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.associate_workspace_application.async_associate_workspace_application(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.associate_workspace_application
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.associate_workspace_application.async_associate_workspace_application(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -700,14 +755,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.authorize_ip_rules_result.AuthorizeIpRulesResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.authorize_ip_rules
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.authorize_ip_rules
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.authorize_ip_rules.async_authorize_ip_rules(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.authorize_ip_rules.async_authorize_ip_rules(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.authorize_ip_rules
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.authorize_ip_rules.async_authorize_ip_rules(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -763,14 +830,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.copy_workspace_image_result.CopyWorkspaceImageResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.copy_workspace_image
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.copy_workspace_image
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.copy_workspace_image.async_copy_workspace_image(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.copy_workspace_image.async_copy_workspace_image(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.copy_workspace_image
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.copy_workspace_image.async_copy_workspace_image(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -820,14 +899,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.create_account_link_invitation_result.CreateAccountLinkInvitationResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.create_account_link_invitation
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.create_account_link_invitation
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.create_account_link_invitation.async_create_account_link_invitation(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.create_account_link_invitation.async_create_account_link_invitation(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.create_account_link_invitation
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.create_account_link_invitation.async_create_account_link_invitation(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -876,14 +967,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.create_connect_client_add_in_result.CreateConnectClientAddInResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.create_connect_client_add_in
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.create_connect_client_add_in
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.create_connect_client_add_in.async_create_connect_client_add_in(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.create_connect_client_add_in.async_create_connect_client_add_in(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.create_connect_client_add_in
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.create_connect_client_add_in.async_create_connect_client_add_in(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -931,14 +1034,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.create_connection_alias_result.CreateConnectionAliasResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.create_connection_alias
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.create_connection_alias
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.create_connection_alias.async_create_connection_alias(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.create_connection_alias.async_create_connection_alias(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.create_connection_alias
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.create_connection_alias.async_create_connection_alias(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -989,14 +1104,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.create_ip_group_result.CreateIpGroupResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.create_ip_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.create_ip_group
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.create_ip_group.async_create_ip_group(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.create_ip_group.async_create_ip_group(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.create_ip_group
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.create_ip_group.async_create_ip_group(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1047,14 +1174,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.create_standby_workspaces_result.CreateStandbyWorkspacesResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.create_standby_workspaces
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.create_standby_workspaces
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.create_standby_workspaces.async_create_standby_workspaces(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.create_standby_workspaces.async_create_standby_workspaces(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.create_standby_workspaces
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.create_standby_workspaces.async_create_standby_workspaces(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1098,14 +1237,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.create_tags_result.CreateTagsResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.create_tags
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.create_tags
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.create_tags.async_create_tags(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.create_tags.async_create_tags(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.create_tags
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.create_tags.async_create_tags(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1157,14 +1308,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.create_updated_workspace_image_result.CreateUpdatedWorkspaceImageResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.create_updated_workspace_image
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.create_updated_workspace_image
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.create_updated_workspace_image.async_create_updated_workspace_image(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.create_updated_workspace_image.async_create_updated_workspace_image(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.create_updated_workspace_image
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.create_updated_workspace_image.async_create_updated_workspace_image(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1221,14 +1384,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.create_workspace_bundle_result.CreateWorkspaceBundleResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.create_workspace_bundle
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.create_workspace_bundle
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.create_workspace_bundle.async_create_workspace_bundle(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.create_workspace_bundle.async_create_workspace_bundle(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.create_workspace_bundle
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.create_workspace_bundle.async_create_workspace_bundle(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1289,14 +1464,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.create_workspace_image_result.CreateWorkspaceImageResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.create_workspace_image
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.create_workspace_image
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.create_workspace_image.async_create_workspace_image(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.create_workspace_image.async_create_workspace_image(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.create_workspace_image
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.create_workspace_image.async_create_workspace_image(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1340,14 +1527,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.create_workspaces_result.CreateWorkspacesResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.create_workspaces
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.create_workspaces
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.create_workspaces.async_create_workspaces(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.create_workspaces.async_create_workspaces(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.create_workspaces
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.create_workspaces.async_create_workspaces(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1415,14 +1614,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.create_workspaces_pool_result.CreateWorkspacesPoolResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.create_workspaces_pool
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.create_workspaces_pool
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.create_workspaces_pool.async_create_workspaces_pool(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.create_workspaces_pool.async_create_workspaces_pool(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.create_workspaces_pool
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.create_workspaces_pool.async_create_workspaces_pool(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1479,14 +1690,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.delete_account_link_invitation_result.DeleteAccountLinkInvitationResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.delete_account_link_invitation
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.delete_account_link_invitation
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.delete_account_link_invitation.async_delete_account_link_invitation(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.delete_account_link_invitation.async_delete_account_link_invitation(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.delete_account_link_invitation
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.delete_account_link_invitation.async_delete_account_link_invitation(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1533,14 +1756,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.delete_client_branding_result.DeleteClientBrandingResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.delete_client_branding
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.delete_client_branding
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.delete_client_branding.async_delete_client_branding(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.delete_client_branding.async_delete_client_branding(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.delete_client_branding
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.delete_client_branding.async_delete_client_branding(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1584,14 +1819,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.delete_connect_client_add_in_result.DeleteConnectClientAddInResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.delete_connect_client_add_in
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.delete_connect_client_add_in
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.delete_connect_client_add_in.async_delete_connect_client_add_in(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.delete_connect_client_add_in.async_delete_connect_client_add_in(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.delete_connect_client_add_in
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.delete_connect_client_add_in.async_delete_connect_client_add_in(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1636,14 +1883,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.delete_connection_alias_result.DeleteConnectionAliasResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.delete_connection_alias
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.delete_connection_alias
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.delete_connection_alias.async_delete_connection_alias(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.delete_connection_alias.async_delete_connection_alias(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.delete_connection_alias
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.delete_connection_alias.async_delete_connection_alias(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1685,14 +1944,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.delete_ip_group_result.DeleteIpGroupResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.delete_ip_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.delete_ip_group
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.delete_ip_group.async_delete_ip_group(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.delete_ip_group.async_delete_ip_group(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.delete_ip_group
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.delete_ip_group.async_delete_ip_group(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1734,14 +2005,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.delete_tags_result.DeleteTagsResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.delete_tags
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.delete_tags
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.delete_tags.async_delete_tags(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.delete_tags.async_delete_tags(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.delete_tags
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.delete_tags.async_delete_tags(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1784,14 +2067,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.delete_workspace_bundle_result.DeleteWorkspaceBundleResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.delete_workspace_bundle
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.delete_workspace_bundle
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.delete_workspace_bundle.async_delete_workspace_bundle(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.delete_workspace_bundle.async_delete_workspace_bundle(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.delete_workspace_bundle
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.delete_workspace_bundle.async_delete_workspace_bundle(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1834,14 +2129,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.delete_workspace_image_result.DeleteWorkspaceImageResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.delete_workspace_image
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.delete_workspace_image
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.delete_workspace_image.async_delete_workspace_image(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.delete_workspace_image.async_delete_workspace_image(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.delete_workspace_image
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.delete_workspace_image.async_delete_workspace_image(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1887,14 +2194,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.deploy_workspace_applications_result.DeployWorkspaceApplicationsResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.deploy_workspace_applications
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.deploy_workspace_applications
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.deploy_workspace_applications.async_deploy_workspace_applications(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.deploy_workspace_applications.async_deploy_workspace_applications(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.deploy_workspace_applications
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.deploy_workspace_applications.async_deploy_workspace_applications(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1939,14 +2258,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.deregister_workspace_directory_result.DeregisterWorkspaceDirectoryResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.deregister_workspace_directory
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.deregister_workspace_directory
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.deregister_workspace_directory.async_deregister_workspace_directory(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.deregister_workspace_directory.async_deregister_workspace_directory(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.deregister_workspace_directory
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.deregister_workspace_directory.async_deregister_workspace_directory(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1979,14 +2310,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.describe_account_result.DescribeAccountResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.describe_account
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.describe_account
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.describe_account.async_describe_account(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.describe_account.async_describe_account(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_account
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_account.async_describe_account(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2025,14 +2368,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.describe_account_modifications_result.DescribeAccountModificationsResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.describe_account_modifications
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.describe_account_modifications
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.describe_account_modifications.async_describe_account_modifications(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.describe_account_modifications.async_describe_account_modifications(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_account_modifications
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_account_modifications.async_describe_account_modifications(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2082,14 +2437,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.describe_application_associations_result.DescribeApplicationAssociationsResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.describe_application_associations
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.describe_application_associations
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.describe_application_associations.async_describe_application_associations(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.describe_application_associations.async_describe_application_associations(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_application_associations
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_application_associations.async_describe_application_associations(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2187,14 +2554,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.describe_applications_result.DescribeApplicationsResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.describe_applications
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.describe_applications
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.describe_applications.async_describe_applications(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.describe_applications.async_describe_applications(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_applications
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_applications.async_describe_applications(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2291,14 +2670,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.describe_bundle_associations_result.DescribeBundleAssociationsResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.describe_bundle_associations
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.describe_bundle_associations
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.describe_bundle_associations.async_describe_bundle_associations(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.describe_bundle_associations.async_describe_bundle_associations(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_bundle_associations
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_bundle_associations.async_describe_bundle_associations(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2340,14 +2731,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.describe_client_branding_result.DescribeClientBrandingResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.describe_client_branding
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.describe_client_branding
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.describe_client_branding.async_describe_client_branding(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.describe_client_branding.async_describe_client_branding(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_client_branding
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_client_branding.async_describe_client_branding(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2388,14 +2791,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.describe_client_properties_result.DescribeClientPropertiesResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.describe_client_properties
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.describe_client_properties
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.describe_client_properties.async_describe_client_properties(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.describe_client_properties.async_describe_client_properties(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_client_properties
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_client_properties.async_describe_client_properties(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2442,14 +2857,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.describe_connect_client_add_ins_result.DescribeConnectClientAddInsResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.describe_connect_client_add_ins
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.describe_connect_client_add_ins
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.describe_connect_client_add_ins.async_describe_connect_client_add_ins(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.describe_connect_client_add_ins.async_describe_connect_client_add_ins(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_connect_client_add_ins
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_connect_client_add_ins.async_describe_connect_client_add_ins(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2506,14 +2933,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.describe_connection_aliases_result.DescribeConnectionAliasesResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.describe_connection_aliases
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.describe_connection_aliases
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.describe_connection_aliases.async_describe_connection_aliases(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.describe_connection_aliases.async_describe_connection_aliases(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_connection_aliases
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_connection_aliases.async_describe_connection_aliases(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2567,14 +3006,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.describe_connection_alias_permissions_result.DescribeConnectionAliasPermissionsResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.describe_connection_alias_permissions
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.describe_connection_alias_permissions
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.describe_connection_alias_permissions.async_describe_connection_alias_permissions(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.describe_connection_alias_permissions.async_describe_connection_alias_permissions(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_connection_alias_permissions
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_connection_alias_permissions.async_describe_connection_alias_permissions(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2618,14 +3069,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.describe_custom_workspace_image_import_result.DescribeCustomWorkspaceImageImportResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.describe_custom_workspace_image_import
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.describe_custom_workspace_image_import
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.describe_custom_workspace_image_import.async_describe_custom_workspace_image_import(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.describe_custom_workspace_image_import.async_describe_custom_workspace_image_import(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_custom_workspace_image_import
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_custom_workspace_image_import.async_describe_custom_workspace_image_import(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2669,14 +3132,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.describe_image_associations_result.DescribeImageAssociationsResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.describe_image_associations
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.describe_image_associations
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.describe_image_associations.async_describe_image_associations(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.describe_image_associations.async_describe_image_associations(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_image_associations
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_image_associations.async_describe_image_associations(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2725,14 +3200,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.describe_ip_groups_result.DescribeIpGroupsResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.describe_ip_groups
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.describe_ip_groups
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.describe_ip_groups.async_describe_ip_groups(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.describe_ip_groups.async_describe_ip_groups(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_ip_groups
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_ip_groups.async_describe_ip_groups(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2775,14 +3262,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.describe_tags_result.DescribeTagsResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.describe_tags
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.describe_tags
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.describe_tags.async_describe_tags(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.describe_tags.async_describe_tags(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_tags
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_tags.async_describe_tags(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2826,14 +3325,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.describe_workspace_associations_result.DescribeWorkspaceAssociationsResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.describe_workspace_associations
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.describe_workspace_associations
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.describe_workspace_associations.async_describe_workspace_associations(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.describe_workspace_associations.async_describe_workspace_associations(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_workspace_associations
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_workspace_associations.async_describe_workspace_associations(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2881,14 +3392,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.describe_workspace_bundles_result.DescribeWorkspaceBundlesResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.describe_workspace_bundles
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.describe_workspace_bundles
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.describe_workspace_bundles.async_describe_workspace_bundles(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.describe_workspace_bundles.async_describe_workspace_bundles(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_workspace_bundles
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_workspace_bundles.async_describe_workspace_bundles(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2974,14 +3497,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.describe_workspace_directories_result.DescribeWorkspaceDirectoriesResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.describe_workspace_directories
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.describe_workspace_directories
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.describe_workspace_directories.async_describe_workspace_directories(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.describe_workspace_directories.async_describe_workspace_directories(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_workspace_directories
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_workspace_directories.async_describe_workspace_directories(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3071,14 +3606,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.describe_workspace_image_permissions_result.DescribeWorkspaceImagePermissionsResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.describe_workspace_image_permissions
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.describe_workspace_image_permissions
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.describe_workspace_image_permissions.async_describe_workspace_image_permissions(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.describe_workspace_image_permissions.async_describe_workspace_image_permissions(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_workspace_image_permissions
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_workspace_image_permissions.async_describe_workspace_image_permissions(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3131,14 +3678,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.describe_workspace_images_result.DescribeWorkspaceImagesResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.describe_workspace_images
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.describe_workspace_images
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.describe_workspace_images.async_describe_workspace_images(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.describe_workspace_images.async_describe_workspace_images(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_workspace_images
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_workspace_images.async_describe_workspace_images(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3202,14 +3761,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.describe_workspaces_result.DescribeWorkspacesResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.describe_workspaces
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.describe_workspaces
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.describe_workspaces.async_describe_workspaces(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.describe_workspaces.async_describe_workspaces(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_workspaces
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_workspaces.async_describe_workspaces(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3303,14 +3874,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.describe_workspaces_connection_status_result.DescribeWorkspacesConnectionStatusResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.describe_workspaces_connection_status
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.describe_workspaces_connection_status
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.describe_workspaces_connection_status.async_describe_workspaces_connection_status(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.describe_workspaces_connection_status.async_describe_workspaces_connection_status(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_workspaces_connection_status
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_workspaces_connection_status.async_describe_workspaces_connection_status(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3353,14 +3936,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.describe_workspace_snapshots_result.DescribeWorkspaceSnapshotsResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.describe_workspace_snapshots
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.describe_workspace_snapshots
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.describe_workspace_snapshots.async_describe_workspace_snapshots(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.describe_workspace_snapshots.async_describe_workspace_snapshots(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_workspace_snapshots
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_workspace_snapshots.async_describe_workspace_snapshots(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3413,14 +4008,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.describe_workspaces_pools_result.DescribeWorkspacesPoolsResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.describe_workspaces_pools
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.describe_workspaces_pools
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.describe_workspaces_pools.async_describe_workspaces_pools(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.describe_workspaces_pools.async_describe_workspaces_pools(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_workspaces_pools
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_workspaces_pools.async_describe_workspaces_pools(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3477,14 +4084,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.describe_workspaces_pool_sessions_result.DescribeWorkspacesPoolSessionsResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.describe_workspaces_pool_sessions
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.describe_workspaces_pool_sessions
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.describe_workspaces_pool_sessions.async_describe_workspaces_pool_sessions(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.describe_workspaces_pool_sessions.async_describe_workspaces_pool_sessions(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_workspaces_pool_sessions
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.describe_workspaces_pool_sessions.async_describe_workspaces_pool_sessions(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3533,14 +4152,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.disassociate_connection_alias_result.DisassociateConnectionAliasResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.disassociate_connection_alias
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.disassociate_connection_alias
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.disassociate_connection_alias.async_disassociate_connection_alias(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.disassociate_connection_alias.async_disassociate_connection_alias(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.disassociate_connection_alias
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.disassociate_connection_alias.async_disassociate_connection_alias(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3587,14 +4218,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.disassociate_ip_groups_result.DisassociateIpGroupsResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.disassociate_ip_groups
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.disassociate_ip_groups
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.disassociate_ip_groups.async_disassociate_ip_groups(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.disassociate_ip_groups.async_disassociate_ip_groups(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.disassociate_ip_groups
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.disassociate_ip_groups.async_disassociate_ip_groups(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3640,14 +4283,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.disassociate_workspace_application_result.DisassociateWorkspaceApplicationResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.disassociate_workspace_application
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.disassociate_workspace_application
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.disassociate_workspace_application.async_disassociate_workspace_application(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.disassociate_workspace_application.async_disassociate_workspace_application(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.disassociate_workspace_application
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.disassociate_workspace_application.async_disassociate_workspace_application(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3694,14 +4349,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.get_account_link_result.GetAccountLinkResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.get_account_link
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.get_account_link
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.get_account_link.async_get_account_link(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.get_account_link.async_get_account_link(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.get_account_link
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.get_account_link.async_get_account_link(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3771,14 +4438,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.import_client_branding_result.ImportClientBrandingResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.import_client_branding
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.import_client_branding
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.import_client_branding.async_import_client_branding(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.import_client_branding.async_import_client_branding(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.import_client_branding
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.import_client_branding.async_import_client_branding(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3854,14 +4533,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.import_custom_workspace_image_result.ImportCustomWorkspaceImageResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.import_custom_workspace_image
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.import_custom_workspace_image
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.import_custom_workspace_image.async_import_custom_workspace_image(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.import_custom_workspace_image.async_import_custom_workspace_image(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.import_custom_workspace_image
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.import_custom_workspace_image.async_import_custom_workspace_image(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3930,14 +4621,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.import_workspace_image_result.ImportWorkspaceImageResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.import_workspace_image
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.import_workspace_image
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.import_workspace_image.async_import_workspace_image(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.import_workspace_image.async_import_workspace_image(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.import_workspace_image
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.import_workspace_image.async_import_workspace_image(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3993,14 +4696,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.list_account_links_result.ListAccountLinksResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.list_account_links
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.list_account_links
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.list_account_links.async_list_account_links(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.list_account_links.async_list_account_links(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.list_account_links
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.list_account_links.async_list_account_links(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4079,14 +4794,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.list_available_management_cidr_ranges_result.ListAvailableManagementCidrRangesResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.list_available_management_cidr_ranges
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.list_available_management_cidr_ranges
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.list_available_management_cidr_ranges.async_list_available_management_cidr_ranges(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.list_available_management_cidr_ranges.async_list_available_management_cidr_ranges(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.list_available_management_cidr_ranges
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.list_available_management_cidr_ranges.async_list_available_management_cidr_ranges(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4136,14 +4863,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.migrate_workspace_result.MigrateWorkspaceResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.migrate_workspace
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.migrate_workspace
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.migrate_workspace.async_migrate_workspace(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.migrate_workspace.async_migrate_workspace(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.migrate_workspace
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.migrate_workspace.async_migrate_workspace(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4193,14 +4932,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.modify_account_result.ModifyAccountResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.modify_account
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.modify_account
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.modify_account.async_modify_account(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.modify_account.async_modify_account(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.modify_account
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.modify_account.async_modify_account(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4254,14 +5005,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.modify_certificate_based_auth_properties_result.ModifyCertificateBasedAuthPropertiesResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.modify_certificate_based_auth_properties
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.modify_certificate_based_auth_properties
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.modify_certificate_based_auth_properties.async_modify_certificate_based_auth_properties(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.modify_certificate_based_auth_properties.async_modify_certificate_based_auth_properties(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.modify_certificate_based_auth_properties
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.modify_certificate_based_auth_properties.async_modify_certificate_based_auth_properties(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4311,14 +5074,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.modify_client_properties_result.ModifyClientPropertiesResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.modify_client_properties
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.modify_client_properties
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.modify_client_properties.async_modify_client_properties(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.modify_client_properties.async_modify_client_properties(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.modify_client_properties
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.modify_client_properties.async_modify_client_properties(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4362,14 +5137,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.modify_endpoint_encryption_mode_response.ModifyEndpointEncryptionModeResponse"
         ]:
-            import capo_workspaces._operations.workspaces_service.modify_endpoint_encryption_mode
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.modify_endpoint_encryption_mode
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.modify_endpoint_encryption_mode.async_modify_endpoint_encryption_mode(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.modify_endpoint_encryption_mode.async_modify_endpoint_encryption_mode(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.modify_endpoint_encryption_mode
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.modify_endpoint_encryption_mode.async_modify_endpoint_encryption_mode(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4422,14 +5209,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.modify_saml_properties_result.ModifySamlPropertiesResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.modify_saml_properties
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.modify_saml_properties
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.modify_saml_properties.async_modify_saml_properties(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.modify_saml_properties.async_modify_saml_properties(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.modify_saml_properties
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.modify_saml_properties.async_modify_saml_properties(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4477,14 +5276,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.modify_selfservice_permissions_result.ModifySelfservicePermissionsResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.modify_selfservice_permissions
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.modify_selfservice_permissions
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.modify_selfservice_permissions.async_modify_selfservice_permissions(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.modify_selfservice_permissions.async_modify_selfservice_permissions(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.modify_selfservice_permissions
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.modify_selfservice_permissions.async_modify_selfservice_permissions(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4531,14 +5342,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.modify_streaming_properties_result.ModifyStreamingPropertiesResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.modify_streaming_properties
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.modify_streaming_properties
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.modify_streaming_properties.async_modify_streaming_properties(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.modify_streaming_properties.async_modify_streaming_properties(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.modify_streaming_properties
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.modify_streaming_properties.async_modify_streaming_properties(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4585,14 +5408,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.modify_workspace_access_properties_result.ModifyWorkspaceAccessPropertiesResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.modify_workspace_access_properties
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.modify_workspace_access_properties
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.modify_workspace_access_properties.async_modify_workspace_access_properties(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.modify_workspace_access_properties.async_modify_workspace_access_properties(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.modify_workspace_access_properties
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.modify_workspace_access_properties.async_modify_workspace_access_properties(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4637,14 +5472,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.modify_workspace_creation_properties_result.ModifyWorkspaceCreationPropertiesResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.modify_workspace_creation_properties
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.modify_workspace_creation_properties
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.modify_workspace_creation_properties.async_modify_workspace_creation_properties(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.modify_workspace_creation_properties.async_modify_workspace_creation_properties(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.modify_workspace_creation_properties
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.modify_workspace_creation_properties.async_modify_workspace_creation_properties(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4698,14 +5545,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.modify_workspace_properties_result.ModifyWorkspacePropertiesResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.modify_workspace_properties
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.modify_workspace_properties
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.modify_workspace_properties.async_modify_workspace_properties(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.modify_workspace_properties.async_modify_workspace_properties(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.modify_workspace_properties
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.modify_workspace_properties.async_modify_workspace_properties(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4755,14 +5614,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.modify_workspace_state_result.ModifyWorkspaceStateResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.modify_workspace_state
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.modify_workspace_state
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.modify_workspace_state.async_modify_workspace_state(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.modify_workspace_state.async_modify_workspace_state(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.modify_workspace_state
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.modify_workspace_state.async_modify_workspace_state(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4802,14 +5673,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.reboot_workspaces_result.RebootWorkspacesResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.reboot_workspaces
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.reboot_workspaces
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.reboot_workspaces.async_reboot_workspaces(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.reboot_workspaces.async_reboot_workspaces(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.reboot_workspaces
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.reboot_workspaces.async_reboot_workspaces(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4848,14 +5731,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.rebuild_workspaces_result.RebuildWorkspacesResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.rebuild_workspaces
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.rebuild_workspaces
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.rebuild_workspaces.async_rebuild_workspaces(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.rebuild_workspaces.async_rebuild_workspaces(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.rebuild_workspaces
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.rebuild_workspaces.async_rebuild_workspaces(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4942,14 +5837,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.register_workspace_directory_result.RegisterWorkspaceDirectoryResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.register_workspace_directory
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.register_workspace_directory
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.register_workspace_directory.async_register_workspace_directory(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.register_workspace_directory.async_register_workspace_directory(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.register_workspace_directory
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.register_workspace_directory.async_register_workspace_directory(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5018,14 +5925,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.reject_account_link_invitation_result.RejectAccountLinkInvitationResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.reject_account_link_invitation
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.reject_account_link_invitation
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.reject_account_link_invitation.async_reject_account_link_invitation(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.reject_account_link_invitation.async_reject_account_link_invitation(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.reject_account_link_invitation
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.reject_account_link_invitation.async_reject_account_link_invitation(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5069,14 +5988,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.restore_workspace_result.RestoreWorkspaceResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.restore_workspace
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.restore_workspace
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.restore_workspace.async_restore_workspace(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.restore_workspace.async_restore_workspace(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.restore_workspace
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.restore_workspace.async_restore_workspace(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5120,14 +6051,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.revoke_ip_rules_result.RevokeIpRulesResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.revoke_ip_rules
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.revoke_ip_rules
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.revoke_ip_rules.async_revoke_ip_rules(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.revoke_ip_rules.async_revoke_ip_rules(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.revoke_ip_rules
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.revoke_ip_rules.async_revoke_ip_rules(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5166,14 +6109,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.start_workspaces_result.StartWorkspacesResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.start_workspaces
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.start_workspaces
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.start_workspaces.async_start_workspaces(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.start_workspaces.async_start_workspaces(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.start_workspaces
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.start_workspaces.async_start_workspaces(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5218,14 +6173,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.start_workspaces_pool_result.StartWorkspacesPoolResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.start_workspaces_pool
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.start_workspaces_pool
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.start_workspaces_pool.async_start_workspaces_pool(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.start_workspaces_pool.async_start_workspaces_pool(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.start_workspaces_pool
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.start_workspaces_pool.async_start_workspaces_pool(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5263,14 +6230,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.stop_workspaces_result.StopWorkspacesResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.stop_workspaces
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.stop_workspaces
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.stop_workspaces.async_stop_workspaces(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.stop_workspaces.async_stop_workspaces(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.stop_workspaces
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.stop_workspaces.async_stop_workspaces(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5313,14 +6292,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.stop_workspaces_pool_result.StopWorkspacesPoolResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.stop_workspaces_pool
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.stop_workspaces_pool
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.stop_workspaces_pool.async_stop_workspaces_pool(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.stop_workspaces_pool.async_stop_workspaces_pool(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.stop_workspaces_pool
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.stop_workspaces_pool.async_stop_workspaces_pool(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5358,14 +6349,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.terminate_workspaces_result.TerminateWorkspacesResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.terminate_workspaces
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.terminate_workspaces
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.terminate_workspaces.async_terminate_workspaces(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.terminate_workspaces.async_terminate_workspaces(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.terminate_workspaces
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.terminate_workspaces.async_terminate_workspaces(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5408,14 +6411,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.terminate_workspaces_pool_result.TerminateWorkspacesPoolResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.terminate_workspaces_pool
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.terminate_workspaces_pool
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.terminate_workspaces_pool.async_terminate_workspaces_pool(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.terminate_workspaces_pool.async_terminate_workspaces_pool(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.terminate_workspaces_pool
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.terminate_workspaces_pool.async_terminate_workspaces_pool(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5458,14 +6473,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.terminate_workspaces_pool_session_result.TerminateWorkspacesPoolSessionResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.terminate_workspaces_pool_session
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.terminate_workspaces_pool_session
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.terminate_workspaces_pool_session.async_terminate_workspaces_pool_session(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.terminate_workspaces_pool_session.async_terminate_workspaces_pool_session(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.terminate_workspaces_pool_session
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.terminate_workspaces_pool_session.async_terminate_workspaces_pool_session(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5512,14 +6539,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.update_connect_client_add_in_result.UpdateConnectClientAddInResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.update_connect_client_add_in
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.update_connect_client_add_in
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.update_connect_client_add_in.async_update_connect_client_add_in(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.update_connect_client_add_in.async_update_connect_client_add_in(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.update_connect_client_add_in
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.update_connect_client_add_in.async_update_connect_client_add_in(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5571,14 +6610,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.update_connection_alias_permission_result.UpdateConnectionAliasPermissionResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.update_connection_alias_permission
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.update_connection_alias_permission
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.update_connection_alias_permission.async_update_connection_alias_permission(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.update_connection_alias_permission.async_update_connection_alias_permission(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.update_connection_alias_permission
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.update_connection_alias_permission.async_update_connection_alias_permission(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5624,14 +6675,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.update_rules_of_ip_group_result.UpdateRulesOfIpGroupResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.update_rules_of_ip_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.update_rules_of_ip_group
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.update_rules_of_ip_group.async_update_rules_of_ip_group(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.update_rules_of_ip_group.async_update_rules_of_ip_group(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.update_rules_of_ip_group
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.update_rules_of_ip_group.async_update_rules_of_ip_group(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5679,14 +6742,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.update_workspace_bundle_result.UpdateWorkspaceBundleResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.update_workspace_bundle
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.update_workspace_bundle
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.update_workspace_bundle.async_update_workspace_bundle(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.update_workspace_bundle.async_update_workspace_bundle(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.update_workspace_bundle
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.update_workspace_bundle.async_update_workspace_bundle(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5735,14 +6810,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.update_workspace_image_permission_result.UpdateWorkspaceImagePermissionResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.update_workspace_image_permission
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.update_workspace_image_permission
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.update_workspace_image_permission.async_update_workspace_image_permission(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.update_workspace_image_permission.async_update_workspace_image_permission(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.update_workspace_image_permission
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.update_workspace_image_permission.async_update_workspace_image_permission(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5813,14 +6900,26 @@ class AsyncWorkSpacesClient:
         ) -> AsyncOperationResponse[
             "capo_workspaces.types.update_workspaces_pool_result.UpdateWorkspacesPoolResult"
         ]:
-            import capo_workspaces._operations.workspaces_service.update_workspaces_pool
+            if req.options.protocol == "awsJson1_1":
+                import capo_workspaces._operations.workspaces_service.aws_json1_1.update_workspaces_pool
 
-            (
-                output,
-                http_response,
-            ) = await capo_workspaces._operations.workspaces_service.update_workspaces_pool.async_update_workspaces_pool(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.aws_json1_1.update_workspaces_pool.async_update_workspaces_pool(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces._operations.workspaces_service.rpcv2_cbor.update_workspaces_pool
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_workspaces._operations.workspaces_service.rpcv2_cbor.update_workspaces_pool.async_update_workspaces_pool(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

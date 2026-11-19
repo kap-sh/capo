@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: Atime) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> Atime:
     return cast(Atime, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Atime) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> Atime:
+    return cast(Atime, data)

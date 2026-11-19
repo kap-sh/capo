@@ -63,3 +63,42 @@ def deserialize_aws_json_1_1(data: dict) -> StatefulRuleGroup:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StatefulRuleGroup) -> dict:
+    out: dict = {}
+    if "rule_group_name" in value:
+        out["RuleGroupName"] = value["rule_group_name"]
+    if "resource_id" in value:
+        out["ResourceId"] = value["resource_id"]
+    if "priority" in value:
+        out["Priority"] = value["priority"]
+    if "override" in value:
+        import capo_fms.types.network_firewall_stateful_rule_group_override
+
+        out["Override"] = (
+            capo_fms.types.network_firewall_stateful_rule_group_override.serialize_cbor(
+                value["override"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StatefulRuleGroup:
+    out: StatefulRuleGroup = {}  # type: ignore[typeddict-item]
+    if data.get("RuleGroupName") is not None:
+        out["rule_group_name"] = data["RuleGroupName"]
+    if data.get("ResourceId") is not None:
+        out["resource_id"] = data["ResourceId"]
+    if data.get("Priority") is not None:
+        out["priority"] = data["Priority"]
+    if data.get("Override") is not None:
+        import capo_fms.types.network_firewall_stateful_rule_group_override
+
+        out["override"] = (
+            capo_fms.types.network_firewall_stateful_rule_group_override.deserialize_cbor(
+                data["Override"]
+            )
+        )
+    return out

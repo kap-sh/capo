@@ -12,3 +12,12 @@ def serialize_aws_json_1_0(value: EBSFilterName) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> EBSFilterName:
     return cast(EBSFilterName, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EBSFilterName) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> EBSFilterName:
+    return cast(EBSFilterName, data)

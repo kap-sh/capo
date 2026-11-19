@@ -49,3 +49,34 @@ def deserialize_aws_json_1_1(data: dict) -> GetResourcesOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetResourcesOutput) -> dict:
+    out: dict = {}
+    if "pagination_token" in value:
+        out["PaginationToken"] = value["pagination_token"]
+    if "resource_tag_mapping_list" in value:
+        import capo_resource_groups_tagging_api.types.resource_tag_mapping_list
+
+        out["ResourceTagMappingList"] = (
+            capo_resource_groups_tagging_api.types.resource_tag_mapping_list.serialize_cbor(
+                value["resource_tag_mapping_list"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetResourcesOutput:
+    out: GetResourcesOutput = {}  # type: ignore[typeddict-item]
+    if data.get("PaginationToken") is not None:
+        out["pagination_token"] = data["PaginationToken"]
+    if data.get("ResourceTagMappingList") is not None:
+        import capo_resource_groups_tagging_api.types.resource_tag_mapping_list
+
+        out["resource_tag_mapping_list"] = (
+            capo_resource_groups_tagging_api.types.resource_tag_mapping_list.deserialize_cbor(
+                data["ResourceTagMappingList"]
+            )
+        )
+    return out

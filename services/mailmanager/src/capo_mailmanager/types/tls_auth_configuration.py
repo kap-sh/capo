@@ -38,6 +38,29 @@ def deserialize_aws_json_1_0(data: dict) -> TlsAuthConfiguration:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TlsAuthConfiguration) -> dict:
+    out: dict = {}
+    if "trust_store" in value:
+        import capo_mailmanager.types.trust_store
+
+        out["TrustStore"] = capo_mailmanager.types.trust_store.serialize_cbor(
+            value["trust_store"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TlsAuthConfiguration:
+    out: TlsAuthConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("TrustStore") is not None:
+        import capo_mailmanager.types.trust_store
+
+        out["trust_store"] = capo_mailmanager.types.trust_store.deserialize_cbor(
+            data["TrustStore"]
+        )
+    return out
+
+
 def redact_sensitive(value: TlsAuthConfiguration) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "trust_store" in value:

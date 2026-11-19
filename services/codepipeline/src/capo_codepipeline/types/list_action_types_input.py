@@ -52,3 +52,36 @@ def deserialize_aws_json_1_1(data: dict) -> ListActionTypesInput:
     if data.get("regionFilter") is not None:
         out["region_filter"] = data["regionFilter"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListActionTypesInput) -> dict:
+    out: dict = {}
+    if "action_owner_filter" in value:
+        import capo_codepipeline.types.action_owner
+
+        out["actionOwnerFilter"] = capo_codepipeline.types.action_owner.serialize_cbor(
+            value["action_owner_filter"]
+        )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    if "region_filter" in value:
+        out["regionFilter"] = value["region_filter"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListActionTypesInput:
+    out: ListActionTypesInput = {}  # type: ignore[typeddict-item]
+    if data.get("actionOwnerFilter") is not None:
+        import capo_codepipeline.types.action_owner
+
+        out["action_owner_filter"] = (
+            capo_codepipeline.types.action_owner.deserialize_cbor(
+                data["actionOwnerFilter"]
+            )
+        )
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    if data.get("regionFilter") is not None:
+        out["region_filter"] = data["regionFilter"]
+    return out

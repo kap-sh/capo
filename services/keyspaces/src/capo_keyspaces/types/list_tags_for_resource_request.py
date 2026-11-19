@@ -41,3 +41,27 @@ def deserialize_aws_json_1_0(data: dict) -> ListTagsForResourceRequest:
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListTagsForResourceRequest) -> dict:
+    out: dict = {}
+    out["resourceArn"] = value["resource_arn"]
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListTagsForResourceRequest:
+    out: ListTagsForResourceRequest = {}  # type: ignore[typeddict-item]
+    if data.get("resourceArn") is not None:
+        out["resource_arn"] = data["resourceArn"]
+    else:
+        out["resource_arn"] = ""
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    return out

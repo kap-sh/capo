@@ -104,3 +104,69 @@ def deserialize_aws_json_1_0(data: dict) -> CreateTrafficPolicyRequest:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateTrafficPolicyRequest) -> dict:
+    out: dict = {}
+    if "client_token" in value:
+        out["ClientToken"] = value["client_token"]
+    out["TrafficPolicyName"] = value["traffic_policy_name"]
+    import capo_mailmanager.types.policy_statement_list
+
+    out["PolicyStatements"] = (
+        capo_mailmanager.types.policy_statement_list.serialize_cbor(
+            value["policy_statements"]
+        )
+    )
+    import capo_mailmanager.types.accept_action
+
+    out["DefaultAction"] = capo_mailmanager.types.accept_action.serialize_cbor(
+        value["default_action"]
+    )
+    if "max_message_size_bytes" in value:
+        out["MaxMessageSizeBytes"] = value["max_message_size_bytes"]
+    if "tags" in value:
+        import capo_mailmanager.types.tag_list
+
+        out["Tags"] = capo_mailmanager.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateTrafficPolicyRequest:
+    out: CreateTrafficPolicyRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ClientToken") is not None:
+        out["client_token"] = data["ClientToken"]
+    if data.get("TrafficPolicyName") is not None:
+        out["traffic_policy_name"] = data["TrafficPolicyName"]
+    else:
+        out["traffic_policy_name"] = ""
+    if data.get("PolicyStatements") is not None:
+        import capo_mailmanager.types.policy_statement_list
+
+        out["policy_statements"] = (
+            capo_mailmanager.types.policy_statement_list.deserialize_cbor(
+                data["PolicyStatements"]
+            )
+        )
+    else:
+        out["policy_statements"] = []
+    if data.get("DefaultAction") is not None:
+        import capo_mailmanager.types.accept_action
+
+        out["default_action"] = capo_mailmanager.types.accept_action.deserialize_cbor(
+            data["DefaultAction"]
+        )
+    else:
+        import typing
+
+        out["default_action"] = typing.cast(
+            "capo_mailmanager.types.accept_action.AcceptAction", ""
+        )
+    if data.get("MaxMessageSizeBytes") is not None:
+        out["max_message_size_bytes"] = data["MaxMessageSizeBytes"]
+    if data.get("Tags") is not None:
+        import capo_mailmanager.types.tag_list
+
+        out["tags"] = capo_mailmanager.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

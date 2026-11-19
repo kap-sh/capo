@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> EnvironmentImage:
             data["versions"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EnvironmentImage) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["name"] = value["name"]
+    if "description" in value:
+        out["description"] = value["description"]
+    if "versions" in value:
+        import capo_codebuild.types.image_versions
+
+        out["versions"] = capo_codebuild.types.image_versions.serialize_cbor(
+            value["versions"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> EnvironmentImage:
+    out: EnvironmentImage = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    if data.get("description") is not None:
+        out["description"] = data["description"]
+    if data.get("versions") is not None:
+        import capo_codebuild.types.image_versions
+
+        out["versions"] = capo_codebuild.types.image_versions.deserialize_cbor(
+            data["versions"]
+        )
+    return out

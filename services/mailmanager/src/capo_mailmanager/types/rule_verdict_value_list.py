@@ -29,3 +29,24 @@ def deserialize_aws_json_1_0(data: list) -> RuleVerdictValueList:
             continue
         out.append(capo_mailmanager.types.rule_verdict.deserialize_aws_json_1_0(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RuleVerdictValueList) -> list:
+    import capo_mailmanager.types.rule_verdict
+
+    out: list = []
+    for item in value:
+        out.append(capo_mailmanager.types.rule_verdict.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> RuleVerdictValueList:
+    import capo_mailmanager.types.rule_verdict
+
+    out: RuleVerdictValueList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_mailmanager.types.rule_verdict.deserialize_cbor(item))
+    return out

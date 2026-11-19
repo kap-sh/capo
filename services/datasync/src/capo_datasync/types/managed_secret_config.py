@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> ManagedSecretConfig:
     if data.get("SecretArn") is not None:
         out["secret_arn"] = data["SecretArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ManagedSecretConfig) -> dict:
+    out: dict = {}
+    if "secret_arn" in value:
+        out["SecretArn"] = value["secret_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ManagedSecretConfig:
+    out: ManagedSecretConfig = {}  # type: ignore[typeddict-item]
+    if data.get("SecretArn") is not None:
+        out["secret_arn"] = data["SecretArn"]
+    return out

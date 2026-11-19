@@ -49,6 +49,37 @@ def deserialize_aws_json_1_1(data: dict) -> ContainerPortRange:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ContainerPortRange) -> dict:
+    out: dict = {}
+    if "from_port" in value:
+        out["FromPort"] = value["from_port"]
+    if "to_port" in value:
+        out["ToPort"] = value["to_port"]
+    if "protocol" in value:
+        import capo_gamelift.types.ip_protocol
+
+        out["Protocol"] = capo_gamelift.types.ip_protocol.serialize_cbor(
+            value["protocol"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ContainerPortRange:
+    out: ContainerPortRange = {}  # type: ignore[typeddict-item]
+    if data.get("FromPort") is not None:
+        out["from_port"] = data["FromPort"]
+    if data.get("ToPort") is not None:
+        out["to_port"] = data["ToPort"]
+    if data.get("Protocol") is not None:
+        import capo_gamelift.types.ip_protocol
+
+        out["protocol"] = capo_gamelift.types.ip_protocol.deserialize_cbor(
+            data["Protocol"]
+        )
+    return out
+
+
 def redact_sensitive(value: ContainerPortRange) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "from_port" in value:

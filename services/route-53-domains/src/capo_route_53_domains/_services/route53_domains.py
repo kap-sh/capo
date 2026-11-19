@@ -144,6 +144,7 @@ class Route53DomainsClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[Interceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_1", "rpcv2Cbor"]
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -160,6 +161,7 @@ class Route53DomainsClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -175,6 +177,7 @@ class Route53DomainsClient:
         operation_interceptors: Iterable[Interceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_1", "rpcv2Cbor"] = "awsJson1_1",
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -211,6 +214,7 @@ class Route53DomainsClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -244,6 +248,9 @@ class Route53DomainsClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_1")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -283,13 +290,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.accept_domain_transfer_from_another_aws_account_response.AcceptDomainTransferFromAnotherAwsAccountResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.accept_domain_transfer_from_another_aws_account
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.accept_domain_transfer_from_another_aws_account
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.accept_domain_transfer_from_another_aws_account.accept_domain_transfer_from_another_aws_account(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.accept_domain_transfer_from_another_aws_account.accept_domain_transfer_from_another_aws_account(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.accept_domain_transfer_from_another_aws_account
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.accept_domain_transfer_from_another_aws_account.accept_domain_transfer_from_another_aws_account(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -348,13 +366,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.associate_delegation_signer_to_domain_response.AssociateDelegationSignerToDomainResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.associate_delegation_signer_to_domain
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.associate_delegation_signer_to_domain
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.associate_delegation_signer_to_domain.associate_delegation_signer_to_domain(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.associate_delegation_signer_to_domain.associate_delegation_signer_to_domain(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.associate_delegation_signer_to_domain
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.associate_delegation_signer_to_domain.associate_delegation_signer_to_domain(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -396,13 +425,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.cancel_domain_transfer_to_another_aws_account_response.CancelDomainTransferToAnotherAwsAccountResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.cancel_domain_transfer_to_another_aws_account
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.cancel_domain_transfer_to_another_aws_account
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.cancel_domain_transfer_to_another_aws_account.cancel_domain_transfer_to_another_aws_account(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.cancel_domain_transfer_to_another_aws_account.cancel_domain_transfer_to_another_aws_account(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.cancel_domain_transfer_to_another_aws_account
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.cancel_domain_transfer_to_another_aws_account.cancel_domain_transfer_to_another_aws_account(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -448,13 +488,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.check_domain_availability_response.CheckDomainAvailabilityResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.check_domain_availability
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.check_domain_availability
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.check_domain_availability.check_domain_availability(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.check_domain_availability.check_domain_availability(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.check_domain_availability
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.check_domain_availability.check_domain_availability(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -501,13 +552,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.check_domain_transferability_response.CheckDomainTransferabilityResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.check_domain_transferability
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.check_domain_transferability
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.check_domain_transferability.check_domain_transferability(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.check_domain_transferability.check_domain_transferability(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.check_domain_transferability
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.check_domain_transferability.check_domain_transferability(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -561,13 +623,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.delete_domain_response.DeleteDomainResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.delete_domain
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.delete_domain
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.delete_domain.delete_domain(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.delete_domain.delete_domain(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.delete_domain
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.delete_domain.delete_domain(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -610,13 +683,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.delete_tags_for_domain_response.DeleteTagsForDomainResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.delete_tags_for_domain
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.delete_tags_for_domain
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.delete_tags_for_domain.delete_tags_for_domain(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.delete_tags_for_domain.delete_tags_for_domain(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.delete_tags_for_domain
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.delete_tags_for_domain.delete_tags_for_domain(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -657,13 +741,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.disable_domain_auto_renew_response.DisableDomainAutoRenewResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.disable_domain_auto_renew
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.disable_domain_auto_renew
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.disable_domain_auto_renew.disable_domain_auto_renew(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.disable_domain_auto_renew.disable_domain_auto_renew(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.disable_domain_auto_renew
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.disable_domain_auto_renew.disable_domain_auto_renew(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -706,13 +801,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.disable_domain_transfer_lock_response.DisableDomainTransferLockResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.disable_domain_transfer_lock
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.disable_domain_transfer_lock
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.disable_domain_transfer_lock.disable_domain_transfer_lock(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.disable_domain_transfer_lock.disable_domain_transfer_lock(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.disable_domain_transfer_lock
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.disable_domain_transfer_lock.disable_domain_transfer_lock(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -757,13 +863,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.disassociate_delegation_signer_from_domain_response.DisassociateDelegationSignerFromDomainResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.disassociate_delegation_signer_from_domain
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.disassociate_delegation_signer_from_domain
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.disassociate_delegation_signer_from_domain.disassociate_delegation_signer_from_domain(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.disassociate_delegation_signer_from_domain.disassociate_delegation_signer_from_domain(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.disassociate_delegation_signer_from_domain
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.disassociate_delegation_signer_from_domain.disassociate_delegation_signer_from_domain(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -805,13 +922,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.enable_domain_auto_renew_response.EnableDomainAutoRenewResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.enable_domain_auto_renew
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.enable_domain_auto_renew
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.enable_domain_auto_renew.enable_domain_auto_renew(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.enable_domain_auto_renew.enable_domain_auto_renew(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.enable_domain_auto_renew
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.enable_domain_auto_renew.enable_domain_auto_renew(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -854,13 +982,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.enable_domain_transfer_lock_response.EnableDomainTransferLockResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.enable_domain_transfer_lock
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.enable_domain_transfer_lock
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.enable_domain_transfer_lock.enable_domain_transfer_lock(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.enable_domain_transfer_lock.enable_domain_transfer_lock(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.enable_domain_transfer_lock
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.enable_domain_transfer_lock.enable_domain_transfer_lock(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -903,13 +1042,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.get_contact_reachability_status_response.GetContactReachabilityStatusResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.get_contact_reachability_status
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.get_contact_reachability_status
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.get_contact_reachability_status.get_contact_reachability_status(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.get_contact_reachability_status.get_contact_reachability_status(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.get_contact_reachability_status
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.get_contact_reachability_status.get_contact_reachability_status(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -951,13 +1101,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.get_domain_detail_response.GetDomainDetailResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.get_domain_detail
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.get_domain_detail
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.get_domain_detail.get_domain_detail(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.get_domain_detail.get_domain_detail(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.get_domain_detail
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.get_domain_detail.get_domain_detail(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -1012,13 +1173,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.get_domain_prices_response.GetDomainPricesResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.get_domain_prices
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.get_domain_prices
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.get_domain_prices.get_domain_prices(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.get_domain_prices.get_domain_prices(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.get_domain_prices
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.get_domain_prices.get_domain_prices(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1067,13 +1239,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.get_domain_suggestions_response.GetDomainSuggestionsResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.get_domain_suggestions
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.get_domain_suggestions
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.get_domain_suggestions.get_domain_suggestions(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.get_domain_suggestions.get_domain_suggestions(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.get_domain_suggestions
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.get_domain_suggestions.get_domain_suggestions(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1116,13 +1299,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.get_operation_detail_response.GetOperationDetailResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.get_operation_detail
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.get_operation_detail
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.get_operation_detail.get_operation_detail(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.get_operation_detail.get_operation_detail(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.get_operation_detail
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.get_operation_detail.get_operation_detail(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1173,13 +1367,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.list_domains_response.ListDomainsResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.list_domains
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.list_domains
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.list_domains.list_domains(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.list_domains.list_domains(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.list_domains
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.list_domains.list_domains(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1277,13 +1482,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.list_operations_response.ListOperationsResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.list_operations
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.list_operations
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.list_operations.list_operations(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.list_operations.list_operations(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.list_operations
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.list_operations.list_operations(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1382,13 +1598,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.list_prices_response.ListPricesResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.list_prices
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.list_prices
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.list_prices.list_prices(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.list_prices.list_prices(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.list_prices
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.list_prices.list_prices(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1458,13 +1685,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.list_tags_for_domain_response.ListTagsForDomainResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.list_tags_for_domain
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.list_tags_for_domain
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.list_tags_for_domain.list_tags_for_domain(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.list_tags_for_domain.list_tags_for_domain(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.list_tags_for_domain
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.list_tags_for_domain.list_tags_for_domain(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1506,13 +1744,24 @@ class Route53DomainsClient:
         def _handler(
             req: "OperationRequest[capo_route_53_domains.types.push_domain_request.PushDomainRequest]",
         ) -> OperationResponse[None]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.push_domain
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.push_domain
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.push_domain.push_domain(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.push_domain.push_domain(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.push_domain
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.push_domain.push_domain(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1593,13 +1842,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.register_domain_response.RegisterDomainResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.register_domain
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.register_domain
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.register_domain.register_domain(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.register_domain.register_domain(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.register_domain
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.register_domain.register_domain(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -1672,13 +1932,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.reject_domain_transfer_from_another_aws_account_response.RejectDomainTransferFromAnotherAwsAccountResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.reject_domain_transfer_from_another_aws_account
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.reject_domain_transfer_from_another_aws_account
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.reject_domain_transfer_from_another_aws_account.reject_domain_transfer_from_another_aws_account(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.reject_domain_transfer_from_another_aws_account.reject_domain_transfer_from_another_aws_account(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.reject_domain_transfer_from_another_aws_account
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.reject_domain_transfer_from_another_aws_account.reject_domain_transfer_from_another_aws_account(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1730,13 +2001,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.renew_domain_response.RenewDomainResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.renew_domain
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.renew_domain
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.renew_domain.renew_domain(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.renew_domain.renew_domain(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.renew_domain
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.renew_domain.renew_domain(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1785,13 +2067,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.resend_contact_reachability_email_response.ResendContactReachabilityEmailResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.resend_contact_reachability_email
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.resend_contact_reachability_email
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.resend_contact_reachability_email.resend_contact_reachability_email(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.resend_contact_reachability_email.resend_contact_reachability_email(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.resend_contact_reachability_email
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.resend_contact_reachability_email.resend_contact_reachability_email(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -1841,13 +2134,24 @@ class Route53DomainsClient:
         def _handler(
             req: "OperationRequest[capo_route_53_domains.types.resend_operation_authorization_request.ResendOperationAuthorizationRequest]",
         ) -> OperationResponse[None]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.resend_operation_authorization
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.resend_operation_authorization
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.resend_operation_authorization.resend_operation_authorization(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.resend_operation_authorization.resend_operation_authorization(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.resend_operation_authorization
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.resend_operation_authorization.resend_operation_authorization(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1891,13 +2195,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.restore_domain_response.RestoreDomainResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.restore_domain
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.restore_domain
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.restore_domain.restore_domain(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.restore_domain.restore_domain(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.restore_domain
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.restore_domain.restore_domain(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1940,13 +2255,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.retrieve_domain_auth_code_response.RetrieveDomainAuthCodeResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.retrieve_domain_auth_code
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.retrieve_domain_auth_code
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.retrieve_domain_auth_code.retrieve_domain_auth_code(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.retrieve_domain_auth_code.retrieve_domain_auth_code(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.retrieve_domain_auth_code
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.retrieve_domain_auth_code.retrieve_domain_auth_code(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -2046,13 +2372,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.transfer_domain_response.TransferDomainResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.transfer_domain
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.transfer_domain
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.transfer_domain.transfer_domain(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.transfer_domain.transfer_domain(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.transfer_domain
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.transfer_domain.transfer_domain(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -2133,13 +2470,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.transfer_domain_to_another_aws_account_response.TransferDomainToAnotherAwsAccountResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.transfer_domain_to_another_aws_account
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.transfer_domain_to_another_aws_account
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.transfer_domain_to_another_aws_account.transfer_domain_to_another_aws_account(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.transfer_domain_to_another_aws_account.transfer_domain_to_another_aws_account(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.transfer_domain_to_another_aws_account
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.transfer_domain_to_another_aws_account.transfer_domain_to_another_aws_account(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -2213,13 +2561,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.update_domain_contact_response.UpdateDomainContactResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.update_domain_contact
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.update_domain_contact
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.update_domain_contact.update_domain_contact(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.update_domain_contact.update_domain_contact(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.update_domain_contact
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.update_domain_contact.update_domain_contact(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -2292,13 +2651,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.update_domain_contact_privacy_response.UpdateDomainContactPrivacyResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.update_domain_contact_privacy
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.update_domain_contact_privacy
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.update_domain_contact_privacy.update_domain_contact_privacy(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.update_domain_contact_privacy.update_domain_contact_privacy(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.update_domain_contact_privacy
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.update_domain_contact_privacy.update_domain_contact_privacy(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2355,13 +2725,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.update_domain_nameservers_response.UpdateDomainNameserversResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.update_domain_nameservers
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.update_domain_nameservers
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.update_domain_nameservers.update_domain_nameservers(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.update_domain_nameservers.update_domain_nameservers(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.update_domain_nameservers
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.update_domain_nameservers.update_domain_nameservers(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -2417,13 +2798,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.update_tags_for_domain_response.UpdateTagsForDomainResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.update_tags_for_domain
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.update_tags_for_domain
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.update_tags_for_domain.update_tags_for_domain(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.update_tags_for_domain.update_tags_for_domain(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.update_tags_for_domain
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.update_tags_for_domain.update_tags_for_domain(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2472,13 +2864,24 @@ class Route53DomainsClient:
         ) -> OperationResponse[
             "capo_route_53_domains.types.view_billing_response.ViewBillingResponse"
         ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.view_billing
+            if req.options.protocol == "awsJson1_1":
+                import capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.view_billing
 
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.view_billing.view_billing(
-                    req.options, req.input
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.aws_json1_1.view_billing.view_billing(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.view_billing
+
+                output, http_response = (
+                    capo_route_53_domains._operations.route53_domains_v20140515.rpcv2_cbor.view_billing.view_billing(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

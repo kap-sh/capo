@@ -37,3 +37,26 @@ def deserialize_aws_json_1_1(data: dict) -> FsxProtocolNfs:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FsxProtocolNfs) -> dict:
+    out: dict = {}
+    if "mount_options" in value:
+        import capo_datasync.types.nfs_mount_options
+
+        out["MountOptions"] = capo_datasync.types.nfs_mount_options.serialize_cbor(
+            value["mount_options"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> FsxProtocolNfs:
+    out: FsxProtocolNfs = {}  # type: ignore[typeddict-item]
+    if data.get("MountOptions") is not None:
+        import capo_datasync.types.nfs_mount_options
+
+        out["mount_options"] = capo_datasync.types.nfs_mount_options.deserialize_cbor(
+            data["MountOptions"]
+        )
+    return out

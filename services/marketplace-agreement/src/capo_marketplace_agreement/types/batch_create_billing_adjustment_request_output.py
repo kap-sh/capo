@@ -59,3 +59,48 @@ def deserialize_aws_json_1_0(data: dict) -> BatchCreateBillingAdjustmentRequestO
     else:
         out["errors"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchCreateBillingAdjustmentRequestOutput) -> dict:
+    out: dict = {}
+    import capo_marketplace_agreement.types.batch_create_billing_adjustment_item_list
+
+    out["items"] = (
+        capo_marketplace_agreement.types.batch_create_billing_adjustment_item_list.serialize_cbor(
+            value["items"]
+        )
+    )
+    import capo_marketplace_agreement.types.batch_create_billing_adjustment_error_list
+
+    out["errors"] = (
+        capo_marketplace_agreement.types.batch_create_billing_adjustment_error_list.serialize_cbor(
+            value["errors"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BatchCreateBillingAdjustmentRequestOutput:
+    out: BatchCreateBillingAdjustmentRequestOutput = {}  # type: ignore[typeddict-item]
+    if data.get("items") is not None:
+        import capo_marketplace_agreement.types.batch_create_billing_adjustment_item_list
+
+        out["items"] = (
+            capo_marketplace_agreement.types.batch_create_billing_adjustment_item_list.deserialize_cbor(
+                data["items"]
+            )
+        )
+    else:
+        out["items"] = []
+    if data.get("errors") is not None:
+        import capo_marketplace_agreement.types.batch_create_billing_adjustment_error_list
+
+        out["errors"] = (
+            capo_marketplace_agreement.types.batch_create_billing_adjustment_error_list.deserialize_cbor(
+                data["errors"]
+            )
+        )
+    else:
+        out["errors"] = []
+    return out

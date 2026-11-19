@@ -33,3 +33,22 @@ def deserialize_aws_json_1_1(data: dict) -> GetAccountLinkRequest:
     if data.get("LinkedAccountId") is not None:
         out["linked_account_id"] = data["LinkedAccountId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetAccountLinkRequest) -> dict:
+    out: dict = {}
+    if "link_id" in value:
+        out["LinkId"] = value["link_id"]
+    if "linked_account_id" in value:
+        out["LinkedAccountId"] = value["linked_account_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetAccountLinkRequest:
+    out: GetAccountLinkRequest = {}  # type: ignore[typeddict-item]
+    if data.get("LinkId") is not None:
+        out["link_id"] = data["LinkId"]
+    if data.get("LinkedAccountId") is not None:
+        out["linked_account_id"] = data["LinkedAccountId"]
+    return out

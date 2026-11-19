@@ -47,3 +47,18 @@ def deserialize_query(el: Element) -> DeleteAlarmMuteRuleInput:
     if child_alarm_mute_rule_name is not None:
         out["alarm_mute_rule_name"] = str(child_alarm_mute_rule_name.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteAlarmMuteRuleInput) -> dict:
+    out: dict = {}
+    if "alarm_mute_rule_name" in value:
+        out["AlarmMuteRuleName"] = value["alarm_mute_rule_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteAlarmMuteRuleInput:
+    out: DeleteAlarmMuteRuleInput = {}  # type: ignore[typeddict-item]
+    if data.get("AlarmMuteRuleName") is not None:
+        out["alarm_mute_rule_name"] = data["AlarmMuteRuleName"]
+    return out

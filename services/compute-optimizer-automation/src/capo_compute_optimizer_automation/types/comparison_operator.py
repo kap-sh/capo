@@ -37,3 +37,12 @@ def serialize_aws_json_1_0(value: ComparisonOperator) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> ComparisonOperator:
     return cast(ComparisonOperator, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ComparisonOperator) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ComparisonOperator:
+    return cast(ComparisonOperator, data)

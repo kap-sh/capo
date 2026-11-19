@@ -38,3 +38,26 @@ def deserialize_aws_json_1_1(data: dict) -> ReportGroupTrendStats:
     if data.get("min") is not None:
         out["min"] = data["min"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ReportGroupTrendStats) -> dict:
+    out: dict = {}
+    if "average" in value:
+        out["average"] = value["average"]
+    if "max" in value:
+        out["max"] = value["max"]
+    if "min" in value:
+        out["min"] = value["min"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ReportGroupTrendStats:
+    out: ReportGroupTrendStats = {}  # type: ignore[typeddict-item]
+    if data.get("average") is not None:
+        out["average"] = data["average"]
+    if data.get("max") is not None:
+        out["max"] = data["max"]
+    if data.get("min") is not None:
+        out["min"] = data["min"]
+    return out

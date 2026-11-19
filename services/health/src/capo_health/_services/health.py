@@ -111,6 +111,7 @@ class HealthClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[Interceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_1", "rpcv2Cbor"]
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -127,6 +128,7 @@ class HealthClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -142,6 +144,7 @@ class HealthClient:
         operation_interceptors: Iterable[Interceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_1", "rpcv2Cbor"] = "awsJson1_1",
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -178,6 +181,7 @@ class HealthClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -211,6 +215,9 @@ class HealthClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_1")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -244,13 +251,24 @@ class HealthClient:
         ) -> OperationResponse[
             "capo_health.types.configure_tags_response.ConfigureTagsResponse"
         ]:
-            import capo_health._operations.aws_health_20160804.configure_tags
+            if req.options.protocol == "awsJson1_1":
+                import capo_health._operations.aws_health_20160804.aws_json1_1.configure_tags
 
-            output, http_response = (
-                capo_health._operations.aws_health_20160804.configure_tags.configure_tags(
-                    req.options, req.input
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.aws_json1_1.configure_tags.configure_tags(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_health._operations.aws_health_20160804.rpcv2_cbor.configure_tags
+
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.rpcv2_cbor.configure_tags.configure_tags(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -288,13 +306,24 @@ class HealthClient:
         ) -> OperationResponse[
             "capo_health.types.configure_tags_for_organization_response.ConfigureTagsForOrganizationResponse"
         ]:
-            import capo_health._operations.aws_health_20160804.configure_tags_for_organization
+            if req.options.protocol == "awsJson1_1":
+                import capo_health._operations.aws_health_20160804.aws_json1_1.configure_tags_for_organization
 
-            output, http_response = (
-                capo_health._operations.aws_health_20160804.configure_tags_for_organization.configure_tags_for_organization(
-                    req.options, req.input
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.aws_json1_1.configure_tags_for_organization.configure_tags_for_organization(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_health._operations.aws_health_20160804.rpcv2_cbor.configure_tags_for_organization
+
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.rpcv2_cbor.configure_tags_for_organization.configure_tags_for_organization(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -341,13 +370,24 @@ class HealthClient:
         ) -> OperationResponse[
             "capo_health.types.describe_affected_accounts_for_organization_response.DescribeAffectedAccountsForOrganizationResponse"
         ]:
-            import capo_health._operations.aws_health_20160804.describe_affected_accounts_for_organization
+            if req.options.protocol == "awsJson1_1":
+                import capo_health._operations.aws_health_20160804.aws_json1_1.describe_affected_accounts_for_organization
 
-            output, http_response = (
-                capo_health._operations.aws_health_20160804.describe_affected_accounts_for_organization.describe_affected_accounts_for_organization(
-                    req.options, req.input
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.aws_json1_1.describe_affected_accounts_for_organization.describe_affected_accounts_for_organization(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_affected_accounts_for_organization
+
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_affected_accounts_for_organization.describe_affected_accounts_for_organization(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -429,13 +469,24 @@ class HealthClient:
         ) -> OperationResponse[
             "capo_health.types.describe_affected_entities_response.DescribeAffectedEntitiesResponse"
         ]:
-            import capo_health._operations.aws_health_20160804.describe_affected_entities
+            if req.options.protocol == "awsJson1_1":
+                import capo_health._operations.aws_health_20160804.aws_json1_1.describe_affected_entities
 
-            output, http_response = (
-                capo_health._operations.aws_health_20160804.describe_affected_entities.describe_affected_entities(
-                    req.options, req.input
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.aws_json1_1.describe_affected_entities.describe_affected_entities(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_affected_entities
+
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_affected_entities.describe_affected_entities(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -522,13 +573,24 @@ class HealthClient:
         ) -> OperationResponse[
             "capo_health.types.describe_affected_entities_for_organization_response.DescribeAffectedEntitiesForOrganizationResponse"
         ]:
-            import capo_health._operations.aws_health_20160804.describe_affected_entities_for_organization
+            if req.options.protocol == "awsJson1_1":
+                import capo_health._operations.aws_health_20160804.aws_json1_1.describe_affected_entities_for_organization
 
-            output, http_response = (
-                capo_health._operations.aws_health_20160804.describe_affected_entities_for_organization.describe_affected_entities_for_organization(
-                    req.options, req.input
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.aws_json1_1.describe_affected_entities_for_organization.describe_affected_entities_for_organization(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_affected_entities_for_organization
+
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_affected_entities_for_organization.describe_affected_entities_for_organization(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -614,13 +676,24 @@ class HealthClient:
         ) -> OperationResponse[
             "capo_health.types.describe_entity_aggregates_response.DescribeEntityAggregatesResponse"
         ]:
-            import capo_health._operations.aws_health_20160804.describe_entity_aggregates
+            if req.options.protocol == "awsJson1_1":
+                import capo_health._operations.aws_health_20160804.aws_json1_1.describe_entity_aggregates
 
-            output, http_response = (
-                capo_health._operations.aws_health_20160804.describe_entity_aggregates.describe_entity_aggregates(
-                    req.options, req.input
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.aws_json1_1.describe_entity_aggregates.describe_entity_aggregates(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_entity_aggregates
+
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_entity_aggregates.describe_entity_aggregates(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -668,13 +741,24 @@ class HealthClient:
         ) -> OperationResponse[
             "capo_health.types.describe_entity_aggregates_for_organization_response.DescribeEntityAggregatesForOrganizationResponse"
         ]:
-            import capo_health._operations.aws_health_20160804.describe_entity_aggregates_for_organization
+            if req.options.protocol == "awsJson1_1":
+                import capo_health._operations.aws_health_20160804.aws_json1_1.describe_entity_aggregates_for_organization
 
-            output, http_response = (
-                capo_health._operations.aws_health_20160804.describe_entity_aggregates_for_organization.describe_entity_aggregates_for_organization(
-                    req.options, req.input
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.aws_json1_1.describe_entity_aggregates_for_organization.describe_entity_aggregates_for_organization(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_entity_aggregates_for_organization
+
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_entity_aggregates_for_organization.describe_entity_aggregates_for_organization(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -724,13 +808,24 @@ class HealthClient:
         ) -> OperationResponse[
             "capo_health.types.describe_event_aggregates_response.DescribeEventAggregatesResponse"
         ]:
-            import capo_health._operations.aws_health_20160804.describe_event_aggregates
+            if req.options.protocol == "awsJson1_1":
+                import capo_health._operations.aws_health_20160804.aws_json1_1.describe_event_aggregates
 
-            output, http_response = (
-                capo_health._operations.aws_health_20160804.describe_event_aggregates.describe_event_aggregates(
-                    req.options, req.input
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.aws_json1_1.describe_event_aggregates.describe_event_aggregates(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_event_aggregates
+
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_event_aggregates.describe_event_aggregates(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -804,13 +899,24 @@ class HealthClient:
         ) -> OperationResponse[
             "capo_health.types.describe_event_details_response.DescribeEventDetailsResponse"
         ]:
-            import capo_health._operations.aws_health_20160804.describe_event_details
+            if req.options.protocol == "awsJson1_1":
+                import capo_health._operations.aws_health_20160804.aws_json1_1.describe_event_details
 
-            output, http_response = (
-                capo_health._operations.aws_health_20160804.describe_event_details.describe_event_details(
-                    req.options, req.input
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.aws_json1_1.describe_event_details.describe_event_details(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_event_details
+
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_event_details.describe_event_details(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -853,13 +959,24 @@ class HealthClient:
         ) -> OperationResponse[
             "capo_health.types.describe_event_details_for_organization_response.DescribeEventDetailsForOrganizationResponse"
         ]:
-            import capo_health._operations.aws_health_20160804.describe_event_details_for_organization
+            if req.options.protocol == "awsJson1_1":
+                import capo_health._operations.aws_health_20160804.aws_json1_1.describe_event_details_for_organization
 
-            output, http_response = (
-                capo_health._operations.aws_health_20160804.describe_event_details_for_organization.describe_event_details_for_organization(
-                    req.options, req.input
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.aws_json1_1.describe_event_details_for_organization.describe_event_details_for_organization(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_event_details_for_organization
+
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_event_details_for_organization.describe_event_details_for_organization(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -909,13 +1026,24 @@ class HealthClient:
         ) -> OperationResponse[
             "capo_health.types.describe_events_response.DescribeEventsResponse"
         ]:
-            import capo_health._operations.aws_health_20160804.describe_events
+            if req.options.protocol == "awsJson1_1":
+                import capo_health._operations.aws_health_20160804.aws_json1_1.describe_events
 
-            output, http_response = (
-                capo_health._operations.aws_health_20160804.describe_events.describe_events(
-                    req.options, req.input
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.aws_json1_1.describe_events.describe_events(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_events
+
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_events.describe_events(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -998,13 +1126,24 @@ class HealthClient:
         ) -> OperationResponse[
             "capo_health.types.describe_events_for_organization_response.DescribeEventsForOrganizationResponse"
         ]:
-            import capo_health._operations.aws_health_20160804.describe_events_for_organization
+            if req.options.protocol == "awsJson1_1":
+                import capo_health._operations.aws_health_20160804.aws_json1_1.describe_events_for_organization
 
-            output, http_response = (
-                capo_health._operations.aws_health_20160804.describe_events_for_organization.describe_events_for_organization(
-                    req.options, req.input
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.aws_json1_1.describe_events_for_organization.describe_events_for_organization(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_events_for_organization
+
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_events_for_organization.describe_events_for_organization(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1085,13 +1224,24 @@ class HealthClient:
         ) -> OperationResponse[
             "capo_health.types.describe_event_types_response.DescribeEventTypesResponse"
         ]:
-            import capo_health._operations.aws_health_20160804.describe_event_types
+            if req.options.protocol == "awsJson1_1":
+                import capo_health._operations.aws_health_20160804.aws_json1_1.describe_event_types
 
-            output, http_response = (
-                capo_health._operations.aws_health_20160804.describe_event_types.describe_event_types(
-                    req.options, req.input
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.aws_json1_1.describe_event_types.describe_event_types(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_event_types
+
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_event_types.describe_event_types(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1154,13 +1304,24 @@ class HealthClient:
         ) -> OperationResponse[
             "capo_health.types.describe_health_service_status_for_organization_response.DescribeHealthServiceStatusForOrganizationResponse"
         ]:
-            import capo_health._operations.aws_health_20160804.describe_health_service_status_for_organization
+            if req.options.protocol == "awsJson1_1":
+                import capo_health._operations.aws_health_20160804.aws_json1_1.describe_health_service_status_for_organization
 
-            output, http_response = (
-                capo_health._operations.aws_health_20160804.describe_health_service_status_for_organization.describe_health_service_status_for_organization(
-                    req.options
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.aws_json1_1.describe_health_service_status_for_organization.describe_health_service_status_for_organization(
+                        req.options
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_health_service_status_for_organization
+
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_health_service_status_for_organization.describe_health_service_status_for_organization(
+                        req.options
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1211,13 +1372,24 @@ class HealthClient:
         ) -> OperationResponse[
             "capo_health.types.describe_service_lifecycle_response.DescribeServiceLifecycleResponse"
         ]:
-            import capo_health._operations.aws_health_20160804.describe_service_lifecycle
+            if req.options.protocol == "awsJson1_1":
+                import capo_health._operations.aws_health_20160804.aws_json1_1.describe_service_lifecycle
 
-            output, http_response = (
-                capo_health._operations.aws_health_20160804.describe_service_lifecycle.describe_service_lifecycle(
-                    req.options, req.input
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.aws_json1_1.describe_service_lifecycle.describe_service_lifecycle(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_service_lifecycle
+
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_service_lifecycle.describe_service_lifecycle(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1280,13 +1452,24 @@ class HealthClient:
         ) -> OperationResponse[
             "capo_health.types.describe_tag_keys_response.DescribeTagKeysResponse"
         ]:
-            import capo_health._operations.aws_health_20160804.describe_tag_keys
+            if req.options.protocol == "awsJson1_1":
+                import capo_health._operations.aws_health_20160804.aws_json1_1.describe_tag_keys
 
-            output, http_response = (
-                capo_health._operations.aws_health_20160804.describe_tag_keys.describe_tag_keys(
-                    req.options
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.aws_json1_1.describe_tag_keys.describe_tag_keys(
+                        req.options
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_tag_keys
+
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_tag_keys.describe_tag_keys(
+                        req.options
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1315,13 +1498,24 @@ class HealthClient:
         ) -> OperationResponse[
             "capo_health.types.describe_tag_keys_for_organization_response.DescribeTagKeysForOrganizationResponse"
         ]:
-            import capo_health._operations.aws_health_20160804.describe_tag_keys_for_organization
+            if req.options.protocol == "awsJson1_1":
+                import capo_health._operations.aws_health_20160804.aws_json1_1.describe_tag_keys_for_organization
 
-            output, http_response = (
-                capo_health._operations.aws_health_20160804.describe_tag_keys_for_organization.describe_tag_keys_for_organization(
-                    req.options
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.aws_json1_1.describe_tag_keys_for_organization.describe_tag_keys_for_organization(
+                        req.options
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_tag_keys_for_organization
+
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_tag_keys_for_organization.describe_tag_keys_for_organization(
+                        req.options
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1361,13 +1555,24 @@ class HealthClient:
         ) -> OperationResponse[
             "capo_health.types.describe_tags_response.DescribeTagsResponse"
         ]:
-            import capo_health._operations.aws_health_20160804.describe_tags
+            if req.options.protocol == "awsJson1_1":
+                import capo_health._operations.aws_health_20160804.aws_json1_1.describe_tags
 
-            output, http_response = (
-                capo_health._operations.aws_health_20160804.describe_tags.describe_tags(
-                    req.options, req.input
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.aws_json1_1.describe_tags.describe_tags(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_tags
+
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_tags.describe_tags(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1439,13 +1644,24 @@ class HealthClient:
         ) -> OperationResponse[
             "capo_health.types.describe_tags_for_organization_response.DescribeTagsForOrganizationResponse"
         ]:
-            import capo_health._operations.aws_health_20160804.describe_tags_for_organization
+            if req.options.protocol == "awsJson1_1":
+                import capo_health._operations.aws_health_20160804.aws_json1_1.describe_tags_for_organization
 
-            output, http_response = (
-                capo_health._operations.aws_health_20160804.describe_tags_for_organization.describe_tags_for_organization(
-                    req.options, req.input
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.aws_json1_1.describe_tags_for_organization.describe_tags_for_organization(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_tags_for_organization
+
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_tags_for_organization.describe_tags_for_organization(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1508,13 +1724,24 @@ class HealthClient:
         ) -> OperationResponse[
             "capo_health.types.describe_tags_onboarding_status_response.DescribeTagsOnboardingStatusResponse"
         ]:
-            import capo_health._operations.aws_health_20160804.describe_tags_onboarding_status
+            if req.options.protocol == "awsJson1_1":
+                import capo_health._operations.aws_health_20160804.aws_json1_1.describe_tags_onboarding_status
 
-            output, http_response = (
-                capo_health._operations.aws_health_20160804.describe_tags_onboarding_status.describe_tags_onboarding_status(
-                    req.options
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.aws_json1_1.describe_tags_onboarding_status.describe_tags_onboarding_status(
+                        req.options
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_tags_onboarding_status
+
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_tags_onboarding_status.describe_tags_onboarding_status(
+                        req.options
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1543,13 +1770,24 @@ class HealthClient:
         ) -> OperationResponse[
             "capo_health.types.describe_tags_onboarding_status_for_organization_response.DescribeTagsOnboardingStatusForOrganizationResponse"
         ]:
-            import capo_health._operations.aws_health_20160804.describe_tags_onboarding_status_for_organization
+            if req.options.protocol == "awsJson1_1":
+                import capo_health._operations.aws_health_20160804.aws_json1_1.describe_tags_onboarding_status_for_organization
 
-            output, http_response = (
-                capo_health._operations.aws_health_20160804.describe_tags_onboarding_status_for_organization.describe_tags_onboarding_status_for_organization(
-                    req.options
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.aws_json1_1.describe_tags_onboarding_status_for_organization.describe_tags_onboarding_status_for_organization(
+                        req.options
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_tags_onboarding_status_for_organization
+
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.rpcv2_cbor.describe_tags_onboarding_status_for_organization.describe_tags_onboarding_status_for_organization(
+                        req.options
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1576,13 +1814,24 @@ class HealthClient:
         """
 
         def _handler(req: "OperationRequest[None]") -> OperationResponse[None]:
-            import capo_health._operations.aws_health_20160804.disable_health_service_access_for_organization
+            if req.options.protocol == "awsJson1_1":
+                import capo_health._operations.aws_health_20160804.aws_json1_1.disable_health_service_access_for_organization
 
-            output, http_response = (
-                capo_health._operations.aws_health_20160804.disable_health_service_access_for_organization.disable_health_service_access_for_organization(
-                    req.options
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.aws_json1_1.disable_health_service_access_for_organization.disable_health_service_access_for_organization(
+                        req.options
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_health._operations.aws_health_20160804.rpcv2_cbor.disable_health_service_access_for_organization
+
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.rpcv2_cbor.disable_health_service_access_for_organization.disable_health_service_access_for_organization(
+                        req.options
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1608,13 +1857,24 @@ class HealthClient:
         """
 
         def _handler(req: "OperationRequest[None]") -> OperationResponse[None]:
-            import capo_health._operations.aws_health_20160804.disable_tags
+            if req.options.protocol == "awsJson1_1":
+                import capo_health._operations.aws_health_20160804.aws_json1_1.disable_tags
 
-            output, http_response = (
-                capo_health._operations.aws_health_20160804.disable_tags.disable_tags(
-                    req.options
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.aws_json1_1.disable_tags.disable_tags(
+                        req.options
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_health._operations.aws_health_20160804.rpcv2_cbor.disable_tags
+
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.rpcv2_cbor.disable_tags.disable_tags(
+                        req.options
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1639,13 +1899,24 @@ class HealthClient:
         """
 
         def _handler(req: "OperationRequest[None]") -> OperationResponse[None]:
-            import capo_health._operations.aws_health_20160804.disable_tags_for_organization
+            if req.options.protocol == "awsJson1_1":
+                import capo_health._operations.aws_health_20160804.aws_json1_1.disable_tags_for_organization
 
-            output, http_response = (
-                capo_health._operations.aws_health_20160804.disable_tags_for_organization.disable_tags_for_organization(
-                    req.options
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.aws_json1_1.disable_tags_for_organization.disable_tags_for_organization(
+                        req.options
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_health._operations.aws_health_20160804.rpcv2_cbor.disable_tags_for_organization
+
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.rpcv2_cbor.disable_tags_for_organization.disable_tags_for_organization(
+                        req.options
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1671,13 +1942,24 @@ class HealthClient:
         """
 
         def _handler(req: "OperationRequest[None]") -> OperationResponse[None]:
-            import capo_health._operations.aws_health_20160804.enable_health_service_access_for_organization
+            if req.options.protocol == "awsJson1_1":
+                import capo_health._operations.aws_health_20160804.aws_json1_1.enable_health_service_access_for_organization
 
-            output, http_response = (
-                capo_health._operations.aws_health_20160804.enable_health_service_access_for_organization.enable_health_service_access_for_organization(
-                    req.options
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.aws_json1_1.enable_health_service_access_for_organization.enable_health_service_access_for_organization(
+                        req.options
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_health._operations.aws_health_20160804.rpcv2_cbor.enable_health_service_access_for_organization
+
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.rpcv2_cbor.enable_health_service_access_for_organization.enable_health_service_access_for_organization(
+                        req.options
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1703,13 +1985,24 @@ class HealthClient:
         """
 
         def _handler(req: "OperationRequest[None]") -> OperationResponse[None]:
-            import capo_health._operations.aws_health_20160804.enable_tags
+            if req.options.protocol == "awsJson1_1":
+                import capo_health._operations.aws_health_20160804.aws_json1_1.enable_tags
 
-            output, http_response = (
-                capo_health._operations.aws_health_20160804.enable_tags.enable_tags(
-                    req.options
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.aws_json1_1.enable_tags.enable_tags(
+                        req.options
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_health._operations.aws_health_20160804.rpcv2_cbor.enable_tags
+
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.rpcv2_cbor.enable_tags.enable_tags(
+                        req.options
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1734,13 +2027,24 @@ class HealthClient:
         """
 
         def _handler(req: "OperationRequest[None]") -> OperationResponse[None]:
-            import capo_health._operations.aws_health_20160804.enable_tags_for_organization
+            if req.options.protocol == "awsJson1_1":
+                import capo_health._operations.aws_health_20160804.aws_json1_1.enable_tags_for_organization
 
-            output, http_response = (
-                capo_health._operations.aws_health_20160804.enable_tags_for_organization.enable_tags_for_organization(
-                    req.options
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.aws_json1_1.enable_tags_for_organization.enable_tags_for_organization(
+                        req.options
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_health._operations.aws_health_20160804.rpcv2_cbor.enable_tags_for_organization
+
+                output, http_response = (
+                    capo_health._operations.aws_health_20160804.rpcv2_cbor.enable_tags_for_organization.enable_tags_for_organization(
+                        req.options
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

@@ -80,3 +80,55 @@ def deserialize_aws_json_1_0(data: dict) -> BandwidthRateLimitInterval:
     else:
         out["days_of_week"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BandwidthRateLimitInterval) -> dict:
+    out: dict = {}
+    if "average_upload_rate_limit_in_bits_per_sec" in value:
+        out["AverageUploadRateLimitInBitsPerSec"] = value[
+            "average_upload_rate_limit_in_bits_per_sec"
+        ]
+    out["StartHourOfDay"] = value["start_hour_of_day"]
+    out["EndHourOfDay"] = value["end_hour_of_day"]
+    out["StartMinuteOfHour"] = value["start_minute_of_hour"]
+    out["EndMinuteOfHour"] = value["end_minute_of_hour"]
+    import capo_backup_gateway.types.days_of_week
+
+    out["DaysOfWeek"] = capo_backup_gateway.types.days_of_week.serialize_cbor(
+        value["days_of_week"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BandwidthRateLimitInterval:
+    out: BandwidthRateLimitInterval = {}  # type: ignore[typeddict-item]
+    if data.get("AverageUploadRateLimitInBitsPerSec") is not None:
+        out["average_upload_rate_limit_in_bits_per_sec"] = data[
+            "AverageUploadRateLimitInBitsPerSec"
+        ]
+    if data.get("StartHourOfDay") is not None:
+        out["start_hour_of_day"] = data["StartHourOfDay"]
+    else:
+        out["start_hour_of_day"] = 0
+    if data.get("EndHourOfDay") is not None:
+        out["end_hour_of_day"] = data["EndHourOfDay"]
+    else:
+        out["end_hour_of_day"] = 0
+    if data.get("StartMinuteOfHour") is not None:
+        out["start_minute_of_hour"] = data["StartMinuteOfHour"]
+    else:
+        out["start_minute_of_hour"] = 0
+    if data.get("EndMinuteOfHour") is not None:
+        out["end_minute_of_hour"] = data["EndMinuteOfHour"]
+    else:
+        out["end_minute_of_hour"] = 0
+    if data.get("DaysOfWeek") is not None:
+        import capo_backup_gateway.types.days_of_week
+
+        out["days_of_week"] = capo_backup_gateway.types.days_of_week.deserialize_cbor(
+            data["DaysOfWeek"]
+        )
+    else:
+        out["days_of_week"] = []
+    return out

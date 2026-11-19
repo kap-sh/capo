@@ -31,3 +31,24 @@ def deserialize_aws_json_1_0(data: list) -> PolicyStatementList:
             capo_mailmanager.types.policy_statement.deserialize_aws_json_1_0(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PolicyStatementList) -> list:
+    import capo_mailmanager.types.policy_statement
+
+    out: list = []
+    for item in value:
+        out.append(capo_mailmanager.types.policy_statement.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> PolicyStatementList:
+    import capo_mailmanager.types.policy_statement
+
+    out: PolicyStatementList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_mailmanager.types.policy_statement.deserialize_cbor(item))
+    return out

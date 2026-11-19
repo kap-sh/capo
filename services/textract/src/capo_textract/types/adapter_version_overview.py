@@ -95,3 +95,62 @@ def deserialize_aws_json_1_1(data: dict) -> AdapterVersionOverview:
     if data.get("StatusMessage") is not None:
         out["status_message"] = data["StatusMessage"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AdapterVersionOverview) -> dict:
+    out: dict = {}
+    if "adapter_id" in value:
+        out["AdapterId"] = value["adapter_id"]
+    if "adapter_version" in value:
+        out["AdapterVersion"] = value["adapter_version"]
+    if "creation_time" in value:
+        import capo_textract.types.date_time
+
+        out["CreationTime"] = capo_textract.types.date_time.serialize_cbor(
+            value["creation_time"]
+        )
+    if "feature_types" in value:
+        import capo_textract.types.feature_types
+
+        out["FeatureTypes"] = capo_textract.types.feature_types.serialize_cbor(
+            value["feature_types"]
+        )
+    if "status" in value:
+        import capo_textract.types.adapter_version_status
+
+        out["Status"] = capo_textract.types.adapter_version_status.serialize_cbor(
+            value["status"]
+        )
+    if "status_message" in value:
+        out["StatusMessage"] = value["status_message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AdapterVersionOverview:
+    out: AdapterVersionOverview = {}  # type: ignore[typeddict-item]
+    if data.get("AdapterId") is not None:
+        out["adapter_id"] = data["AdapterId"]
+    if data.get("AdapterVersion") is not None:
+        out["adapter_version"] = data["AdapterVersion"]
+    if data.get("CreationTime") is not None:
+        import capo_textract.types.date_time
+
+        out["creation_time"] = capo_textract.types.date_time.deserialize_cbor(
+            data["CreationTime"]
+        )
+    if data.get("FeatureTypes") is not None:
+        import capo_textract.types.feature_types
+
+        out["feature_types"] = capo_textract.types.feature_types.deserialize_cbor(
+            data["FeatureTypes"]
+        )
+    if data.get("Status") is not None:
+        import capo_textract.types.adapter_version_status
+
+        out["status"] = capo_textract.types.adapter_version_status.deserialize_cbor(
+            data["Status"]
+        )
+    if data.get("StatusMessage") is not None:
+        out["status_message"] = data["StatusMessage"]
+    return out

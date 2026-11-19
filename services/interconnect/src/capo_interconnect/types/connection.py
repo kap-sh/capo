@@ -179,6 +179,120 @@ def deserialize_aws_json_1_0(data: dict) -> Connection:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Connection) -> dict:
+    out: dict = {}
+    out["id"] = value["id"]
+    out["arn"] = value["arn"]
+    out["description"] = value["description"]
+    out["bandwidth"] = value["bandwidth"]
+    import capo_interconnect.types.attach_point
+
+    out["attachPoint"] = capo_interconnect.types.attach_point.serialize_cbor(
+        value["attach_point"]
+    )
+    out["environmentId"] = value["environment_id"]
+    import capo_interconnect.types.provider
+
+    out["provider"] = capo_interconnect.types.provider.serialize_cbor(value["provider"])
+    out["location"] = value["location"]
+    out["type"] = value["type"]
+    import capo_interconnect.types.connection_state
+
+    out["state"] = capo_interconnect.types.connection_state.serialize_cbor(
+        value["state"]
+    )
+    out["sharedId"] = value["shared_id"]
+    if "billing_tier" in value:
+        out["billingTier"] = value["billing_tier"]
+    out["ownerAccount"] = value["owner_account"]
+    out["activationKey"] = value["activation_key"]
+    if "tags" in value:
+        import capo_interconnect.types.tag_map
+
+        out["tags"] = capo_interconnect.types.tag_map.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> Connection:
+    out: Connection = {}  # type: ignore[typeddict-item]
+    if data.get("id") is not None:
+        out["id"] = data["id"]
+    else:
+        out["id"] = ""
+    if data.get("arn") is not None:
+        out["arn"] = data["arn"]
+    else:
+        out["arn"] = ""
+    if data.get("description") is not None:
+        out["description"] = data["description"]
+    else:
+        out["description"] = ""
+    if data.get("bandwidth") is not None:
+        out["bandwidth"] = data["bandwidth"]
+    else:
+        out["bandwidth"] = ""
+    if data.get("attachPoint") is not None:
+        import capo_interconnect.types.attach_point
+
+        out["attach_point"] = capo_interconnect.types.attach_point.deserialize_cbor(
+            data["attachPoint"]
+        )
+    else:
+        out["attach_point"] = {"$unknown": {"name": ""}}
+    if data.get("environmentId") is not None:
+        out["environment_id"] = data["environmentId"]
+    else:
+        out["environment_id"] = ""
+    if data.get("provider") is not None:
+        import capo_interconnect.types.provider
+
+        out["provider"] = capo_interconnect.types.provider.deserialize_cbor(
+            data["provider"]
+        )
+    else:
+        out["provider"] = {"$unknown": {"name": ""}}
+    if data.get("location") is not None:
+        out["location"] = data["location"]
+    else:
+        out["location"] = ""
+    if data.get("type") is not None:
+        out["type"] = data["type"]
+    else:
+        out["type"] = ""
+    if data.get("state") is not None:
+        import capo_interconnect.types.connection_state
+
+        out["state"] = capo_interconnect.types.connection_state.deserialize_cbor(
+            data["state"]
+        )
+    else:
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_interconnect.types.connection_state.ConnectionState", ""
+        )
+    if data.get("sharedId") is not None:
+        out["shared_id"] = data["sharedId"]
+    else:
+        out["shared_id"] = ""
+    if data.get("billingTier") is not None:
+        out["billing_tier"] = data["billingTier"]
+    if data.get("ownerAccount") is not None:
+        out["owner_account"] = data["ownerAccount"]
+    else:
+        out["owner_account"] = ""
+    if data.get("activationKey") is not None:
+        out["activation_key"] = data["activationKey"]
+    else:
+        out["activation_key"] = ""
+    if data.get("tags") is not None:
+        import capo_interconnect.types.tag_map
+
+        out["tags"] = capo_interconnect.types.tag_map.deserialize_cbor(data["tags"])
+    return out
+
+
 def redact_sensitive(value: Connection) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "activation_key" in value:

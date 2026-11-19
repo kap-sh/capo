@@ -50,3 +50,32 @@ def deserialize_aws_json_1_1(data: dict) -> CreateHybridADRequest:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateHybridADRequest) -> dict:
+    out: dict = {}
+    out["SecretArn"] = value["secret_arn"]
+    out["AssessmentId"] = value["assessment_id"]
+    if "tags" in value:
+        import capo_directory_service.types.tags
+
+        out["Tags"] = capo_directory_service.types.tags.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateHybridADRequest:
+    out: CreateHybridADRequest = {}  # type: ignore[typeddict-item]
+    if data.get("SecretArn") is not None:
+        out["secret_arn"] = data["SecretArn"]
+    else:
+        out["secret_arn"] = ""
+    if data.get("AssessmentId") is not None:
+        out["assessment_id"] = data["AssessmentId"]
+    else:
+        out["assessment_id"] = ""
+    if data.get("Tags") is not None:
+        import capo_directory_service.types.tags
+
+        out["tags"] = capo_directory_service.types.tags.deserialize_cbor(data["Tags"])
+    return out

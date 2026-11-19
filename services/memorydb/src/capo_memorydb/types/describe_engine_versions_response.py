@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeEngineVersionsResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeEngineVersionsResponse) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "engine_versions" in value:
+        import capo_memorydb.types.engine_version_info_list
+
+        out["EngineVersions"] = (
+            capo_memorydb.types.engine_version_info_list.serialize_cbor(
+                value["engine_versions"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeEngineVersionsResponse:
+    out: DescribeEngineVersionsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("EngineVersions") is not None:
+        import capo_memorydb.types.engine_version_info_list
+
+        out["engine_versions"] = (
+            capo_memorydb.types.engine_version_info_list.deserialize_cbor(
+                data["EngineVersions"]
+            )
+        )
+    return out

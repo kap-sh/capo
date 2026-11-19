@@ -86,6 +86,61 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateGameServerInput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateGameServerInput) -> dict:
+    out: dict = {}
+    if "game_server_group_name" in value:
+        out["GameServerGroupName"] = value["game_server_group_name"]
+    if "game_server_id" in value:
+        out["GameServerId"] = value["game_server_id"]
+    if "game_server_data" in value:
+        out["GameServerData"] = value["game_server_data"]
+    if "utilization_status" in value:
+        import capo_gamelift.types.game_server_utilization_status
+
+        out["UtilizationStatus"] = (
+            capo_gamelift.types.game_server_utilization_status.serialize_cbor(
+                value["utilization_status"]
+            )
+        )
+    if "health_check" in value:
+        import capo_gamelift.types.game_server_health_check
+
+        out["HealthCheck"] = (
+            capo_gamelift.types.game_server_health_check.serialize_cbor(
+                value["health_check"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateGameServerInput:
+    out: UpdateGameServerInput = {}  # type: ignore[typeddict-item]
+    if data.get("GameServerGroupName") is not None:
+        out["game_server_group_name"] = data["GameServerGroupName"]
+    if data.get("GameServerId") is not None:
+        out["game_server_id"] = data["GameServerId"]
+    if data.get("GameServerData") is not None:
+        out["game_server_data"] = data["GameServerData"]
+    if data.get("UtilizationStatus") is not None:
+        import capo_gamelift.types.game_server_utilization_status
+
+        out["utilization_status"] = (
+            capo_gamelift.types.game_server_utilization_status.deserialize_cbor(
+                data["UtilizationStatus"]
+            )
+        )
+    if data.get("HealthCheck") is not None:
+        import capo_gamelift.types.game_server_health_check
+
+        out["health_check"] = (
+            capo_gamelift.types.game_server_health_check.deserialize_cbor(
+                data["HealthCheck"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: UpdateGameServerInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "game_server_data" in value:

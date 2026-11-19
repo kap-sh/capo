@@ -114,3 +114,76 @@ def deserialize_aws_json_1_1(data: dict) -> AnalyzeDocumentRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AnalyzeDocumentRequest) -> dict:
+    out: dict = {}
+    import capo_textract.types.document
+
+    out["Document"] = capo_textract.types.document.serialize_cbor(value["document"])
+    import capo_textract.types.feature_types
+
+    out["FeatureTypes"] = capo_textract.types.feature_types.serialize_cbor(
+        value["feature_types"]
+    )
+    if "human_loop_config" in value:
+        import capo_textract.types.human_loop_config
+
+        out["HumanLoopConfig"] = capo_textract.types.human_loop_config.serialize_cbor(
+            value["human_loop_config"]
+        )
+    if "queries_config" in value:
+        import capo_textract.types.queries_config
+
+        out["QueriesConfig"] = capo_textract.types.queries_config.serialize_cbor(
+            value["queries_config"]
+        )
+    if "adapters_config" in value:
+        import capo_textract.types.adapters_config
+
+        out["AdaptersConfig"] = capo_textract.types.adapters_config.serialize_cbor(
+            value["adapters_config"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AnalyzeDocumentRequest:
+    out: AnalyzeDocumentRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Document") is not None:
+        import capo_textract.types.document
+
+        out["document"] = capo_textract.types.document.deserialize_cbor(
+            data["Document"]
+        )
+    else:
+        raise DeserializationError("AnalyzeDocumentRequest.document required")
+    if data.get("FeatureTypes") is not None:
+        import capo_textract.types.feature_types
+
+        out["feature_types"] = capo_textract.types.feature_types.deserialize_cbor(
+            data["FeatureTypes"]
+        )
+    else:
+        out["feature_types"] = []
+    if data.get("HumanLoopConfig") is not None:
+        import capo_textract.types.human_loop_config
+
+        out["human_loop_config"] = (
+            capo_textract.types.human_loop_config.deserialize_cbor(
+                data["HumanLoopConfig"]
+            )
+        )
+    if data.get("QueriesConfig") is not None:
+        import capo_textract.types.queries_config
+
+        out["queries_config"] = capo_textract.types.queries_config.deserialize_cbor(
+            data["QueriesConfig"]
+        )
+    if data.get("AdaptersConfig") is not None:
+        import capo_textract.types.adapters_config
+
+        out["adapters_config"] = capo_textract.types.adapters_config.deserialize_cbor(
+            data["AdaptersConfig"]
+        )
+    return out

@@ -16,3 +16,12 @@ def serialize_aws_json_1_0(value: TlsPolicy) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> TlsPolicy:
     return cast(TlsPolicy, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TlsPolicy) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> TlsPolicy:
+    return cast(TlsPolicy, data)

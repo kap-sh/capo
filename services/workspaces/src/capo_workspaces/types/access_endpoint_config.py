@@ -60,3 +60,45 @@ def deserialize_aws_json_1_1(data: dict) -> AccessEndpointConfig:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AccessEndpointConfig) -> dict:
+    out: dict = {}
+    import capo_workspaces.types.access_endpoint_list
+
+    out["AccessEndpoints"] = capo_workspaces.types.access_endpoint_list.serialize_cbor(
+        value["access_endpoints"]
+    )
+    if "internet_fallback_protocols" in value:
+        import capo_workspaces.types.internet_fallback_protocol_list
+
+        out["InternetFallbackProtocols"] = (
+            capo_workspaces.types.internet_fallback_protocol_list.serialize_cbor(
+                value["internet_fallback_protocols"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AccessEndpointConfig:
+    out: AccessEndpointConfig = {}  # type: ignore[typeddict-item]
+    if data.get("AccessEndpoints") is not None:
+        import capo_workspaces.types.access_endpoint_list
+
+        out["access_endpoints"] = (
+            capo_workspaces.types.access_endpoint_list.deserialize_cbor(
+                data["AccessEndpoints"]
+            )
+        )
+    else:
+        out["access_endpoints"] = []
+    if data.get("InternetFallbackProtocols") is not None:
+        import capo_workspaces.types.internet_fallback_protocol_list
+
+        out["internet_fallback_protocols"] = (
+            capo_workspaces.types.internet_fallback_protocol_list.deserialize_cbor(
+                data["InternetFallbackProtocols"]
+            )
+        )
+    return out

@@ -37,3 +37,32 @@ def deserialize_aws_json_1_1(data: list) -> VirtualInterfaceTestHistoryList:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: VirtualInterfaceTestHistoryList) -> list:
+    import capo_direct_connect.types.virtual_interface_test_history
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_direct_connect.types.virtual_interface_test_history.serialize_cbor(
+                item
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> VirtualInterfaceTestHistoryList:
+    import capo_direct_connect.types.virtual_interface_test_history
+
+    out: VirtualInterfaceTestHistoryList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_direct_connect.types.virtual_interface_test_history.deserialize_cbor(
+                item
+            )
+        )
+    return out

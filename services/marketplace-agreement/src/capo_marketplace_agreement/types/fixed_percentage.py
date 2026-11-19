@@ -28,3 +28,18 @@ def deserialize_aws_json_1_0(data: dict) -> FixedPercentage:
     if data.get("value") is not None:
         out["value"] = data["value"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FixedPercentage) -> dict:
+    out: dict = {}
+    if "value" in value:
+        out["value"] = value["value"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> FixedPercentage:
+    out: FixedPercentage = {}  # type: ignore[typeddict-item]
+    if data.get("value") is not None:
+        out["value"] = data["value"]
+    return out

@@ -73,3 +73,48 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCallAnalyticsCategoryRequest:
             data["InputType"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateCallAnalyticsCategoryRequest) -> dict:
+    out: dict = {}
+    out["CategoryName"] = value["category_name"]
+    import capo_transcribe.types.rule_list
+
+    out["Rules"] = capo_transcribe.types.rule_list.serialize_cbor(value["rules"])
+    if "tags" in value:
+        import capo_transcribe.types.tag_list
+
+        out["Tags"] = capo_transcribe.types.tag_list.serialize_cbor(value["tags"])
+    if "input_type" in value:
+        import capo_transcribe.types.input_type
+
+        out["InputType"] = capo_transcribe.types.input_type.serialize_cbor(
+            value["input_type"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateCallAnalyticsCategoryRequest:
+    out: CreateCallAnalyticsCategoryRequest = {}  # type: ignore[typeddict-item]
+    if data.get("CategoryName") is not None:
+        out["category_name"] = data["CategoryName"]
+    else:
+        out["category_name"] = ""
+    if data.get("Rules") is not None:
+        import capo_transcribe.types.rule_list
+
+        out["rules"] = capo_transcribe.types.rule_list.deserialize_cbor(data["Rules"])
+    else:
+        out["rules"] = []
+    if data.get("Tags") is not None:
+        import capo_transcribe.types.tag_list
+
+        out["tags"] = capo_transcribe.types.tag_list.deserialize_cbor(data["Tags"])
+    if data.get("InputType") is not None:
+        import capo_transcribe.types.input_type
+
+        out["input_type"] = capo_transcribe.types.input_type.deserialize_cbor(
+            data["InputType"]
+        )
+    return out

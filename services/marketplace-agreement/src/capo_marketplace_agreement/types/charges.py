@@ -29,3 +29,24 @@ def deserialize_aws_json_1_0(data: list) -> Charges:
             capo_marketplace_agreement.types.charge.deserialize_aws_json_1_0(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Charges) -> list:
+    import capo_marketplace_agreement.types.charge
+
+    out: list = []
+    for item in value:
+        out.append(capo_marketplace_agreement.types.charge.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> Charges:
+    import capo_marketplace_agreement.types.charge
+
+    out: Charges = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_marketplace_agreement.types.charge.deserialize_cbor(item))
+    return out

@@ -378,6 +378,263 @@ def deserialize_aws_json_1_1(data: dict) -> ContainerFleet:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ContainerFleet) -> dict:
+    out: dict = {}
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "fleet_arn" in value:
+        out["FleetArn"] = value["fleet_arn"]
+    if "fleet_role_arn" in value:
+        out["FleetRoleArn"] = value["fleet_role_arn"]
+    if "game_server_container_group_definition_name" in value:
+        out["GameServerContainerGroupDefinitionName"] = value[
+            "game_server_container_group_definition_name"
+        ]
+    if "game_server_container_group_definition_arn" in value:
+        out["GameServerContainerGroupDefinitionArn"] = value[
+            "game_server_container_group_definition_arn"
+        ]
+    if "per_instance_container_group_definition_name" in value:
+        out["PerInstanceContainerGroupDefinitionName"] = value[
+            "per_instance_container_group_definition_name"
+        ]
+    if "per_instance_container_group_definition_arn" in value:
+        out["PerInstanceContainerGroupDefinitionArn"] = value[
+            "per_instance_container_group_definition_arn"
+        ]
+    if "instance_connection_port_range" in value:
+        import capo_gamelift.types.connection_port_range
+
+        out["InstanceConnectionPortRange"] = (
+            capo_gamelift.types.connection_port_range.serialize_cbor(
+                value["instance_connection_port_range"]
+            )
+        )
+    if "instance_inbound_permissions" in value:
+        import capo_gamelift.types.ip_permissions_list
+
+        out["InstanceInboundPermissions"] = (
+            capo_gamelift.types.ip_permissions_list.serialize_cbor(
+                value["instance_inbound_permissions"]
+            )
+        )
+    if "game_server_container_groups_per_instance" in value:
+        out["GameServerContainerGroupsPerInstance"] = value[
+            "game_server_container_groups_per_instance"
+        ]
+    if "maximum_game_server_container_groups_per_instance" in value:
+        out["MaximumGameServerContainerGroupsPerInstance"] = value[
+            "maximum_game_server_container_groups_per_instance"
+        ]
+    if "instance_type" in value:
+        out["InstanceType"] = value["instance_type"]
+    if "billing_type" in value:
+        import capo_gamelift.types.container_fleet_billing_type
+
+        out["BillingType"] = (
+            capo_gamelift.types.container_fleet_billing_type.serialize_cbor(
+                value["billing_type"]
+            )
+        )
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "creation_time" in value:
+        import capo_gamelift.types.timestamp
+
+        out["CreationTime"] = capo_gamelift.types.timestamp.serialize_cbor(
+            value["creation_time"]
+        )
+    if "metric_groups" in value:
+        import capo_gamelift.types.metric_group_list
+
+        out["MetricGroups"] = capo_gamelift.types.metric_group_list.serialize_cbor(
+            value["metric_groups"]
+        )
+    if "new_game_session_protection_policy" in value:
+        import capo_gamelift.types.protection_policy
+
+        out["NewGameSessionProtectionPolicy"] = (
+            capo_gamelift.types.protection_policy.serialize_cbor(
+                value["new_game_session_protection_policy"]
+            )
+        )
+    if "game_session_creation_limit_policy" in value:
+        import capo_gamelift.types.game_session_creation_limit_policy
+
+        out["GameSessionCreationLimitPolicy"] = (
+            capo_gamelift.types.game_session_creation_limit_policy.serialize_cbor(
+                value["game_session_creation_limit_policy"]
+            )
+        )
+    if "status" in value:
+        import capo_gamelift.types.container_fleet_status
+
+        out["Status"] = capo_gamelift.types.container_fleet_status.serialize_cbor(
+            value["status"]
+        )
+    if "deployment_details" in value:
+        import capo_gamelift.types.deployment_details
+
+        out["DeploymentDetails"] = (
+            capo_gamelift.types.deployment_details.serialize_cbor(
+                value["deployment_details"]
+            )
+        )
+    if "log_configuration" in value:
+        import capo_gamelift.types.log_configuration
+
+        out["LogConfiguration"] = capo_gamelift.types.log_configuration.serialize_cbor(
+            value["log_configuration"]
+        )
+    if "location_attributes" in value:
+        import capo_gamelift.types.container_fleet_location_attributes_list
+
+        out["LocationAttributes"] = (
+            capo_gamelift.types.container_fleet_location_attributes_list.serialize_cbor(
+                value["location_attributes"]
+            )
+        )
+    if "player_gateway_mode" in value:
+        import capo_gamelift.types.player_gateway_mode
+
+        out["PlayerGatewayMode"] = (
+            capo_gamelift.types.player_gateway_mode.serialize_cbor(
+                value["player_gateway_mode"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ContainerFleet:
+    out: ContainerFleet = {}  # type: ignore[typeddict-item]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("FleetArn") is not None:
+        out["fleet_arn"] = data["FleetArn"]
+    if data.get("FleetRoleArn") is not None:
+        out["fleet_role_arn"] = data["FleetRoleArn"]
+    if data.get("GameServerContainerGroupDefinitionName") is not None:
+        out["game_server_container_group_definition_name"] = data[
+            "GameServerContainerGroupDefinitionName"
+        ]
+    if data.get("GameServerContainerGroupDefinitionArn") is not None:
+        out["game_server_container_group_definition_arn"] = data[
+            "GameServerContainerGroupDefinitionArn"
+        ]
+    if data.get("PerInstanceContainerGroupDefinitionName") is not None:
+        out["per_instance_container_group_definition_name"] = data[
+            "PerInstanceContainerGroupDefinitionName"
+        ]
+    if data.get("PerInstanceContainerGroupDefinitionArn") is not None:
+        out["per_instance_container_group_definition_arn"] = data[
+            "PerInstanceContainerGroupDefinitionArn"
+        ]
+    if data.get("InstanceConnectionPortRange") is not None:
+        import capo_gamelift.types.connection_port_range
+
+        out["instance_connection_port_range"] = (
+            capo_gamelift.types.connection_port_range.deserialize_cbor(
+                data["InstanceConnectionPortRange"]
+            )
+        )
+    if data.get("InstanceInboundPermissions") is not None:
+        import capo_gamelift.types.ip_permissions_list
+
+        out["instance_inbound_permissions"] = (
+            capo_gamelift.types.ip_permissions_list.deserialize_cbor(
+                data["InstanceInboundPermissions"]
+            )
+        )
+    if data.get("GameServerContainerGroupsPerInstance") is not None:
+        out["game_server_container_groups_per_instance"] = data[
+            "GameServerContainerGroupsPerInstance"
+        ]
+    if data.get("MaximumGameServerContainerGroupsPerInstance") is not None:
+        out["maximum_game_server_container_groups_per_instance"] = data[
+            "MaximumGameServerContainerGroupsPerInstance"
+        ]
+    if data.get("InstanceType") is not None:
+        out["instance_type"] = data["InstanceType"]
+    if data.get("BillingType") is not None:
+        import capo_gamelift.types.container_fleet_billing_type
+
+        out["billing_type"] = (
+            capo_gamelift.types.container_fleet_billing_type.deserialize_cbor(
+                data["BillingType"]
+            )
+        )
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("CreationTime") is not None:
+        import capo_gamelift.types.timestamp
+
+        out["creation_time"] = capo_gamelift.types.timestamp.deserialize_cbor(
+            data["CreationTime"]
+        )
+    if data.get("MetricGroups") is not None:
+        import capo_gamelift.types.metric_group_list
+
+        out["metric_groups"] = capo_gamelift.types.metric_group_list.deserialize_cbor(
+            data["MetricGroups"]
+        )
+    if data.get("NewGameSessionProtectionPolicy") is not None:
+        import capo_gamelift.types.protection_policy
+
+        out["new_game_session_protection_policy"] = (
+            capo_gamelift.types.protection_policy.deserialize_cbor(
+                data["NewGameSessionProtectionPolicy"]
+            )
+        )
+    if data.get("GameSessionCreationLimitPolicy") is not None:
+        import capo_gamelift.types.game_session_creation_limit_policy
+
+        out["game_session_creation_limit_policy"] = (
+            capo_gamelift.types.game_session_creation_limit_policy.deserialize_cbor(
+                data["GameSessionCreationLimitPolicy"]
+            )
+        )
+    if data.get("Status") is not None:
+        import capo_gamelift.types.container_fleet_status
+
+        out["status"] = capo_gamelift.types.container_fleet_status.deserialize_cbor(
+            data["Status"]
+        )
+    if data.get("DeploymentDetails") is not None:
+        import capo_gamelift.types.deployment_details
+
+        out["deployment_details"] = (
+            capo_gamelift.types.deployment_details.deserialize_cbor(
+                data["DeploymentDetails"]
+            )
+        )
+    if data.get("LogConfiguration") is not None:
+        import capo_gamelift.types.log_configuration
+
+        out["log_configuration"] = (
+            capo_gamelift.types.log_configuration.deserialize_cbor(
+                data["LogConfiguration"]
+            )
+        )
+    if data.get("LocationAttributes") is not None:
+        import capo_gamelift.types.container_fleet_location_attributes_list
+
+        out["location_attributes"] = (
+            capo_gamelift.types.container_fleet_location_attributes_list.deserialize_cbor(
+                data["LocationAttributes"]
+            )
+        )
+    if data.get("PlayerGatewayMode") is not None:
+        import capo_gamelift.types.player_gateway_mode
+
+        out["player_gateway_mode"] = (
+            capo_gamelift.types.player_gateway_mode.deserialize_cbor(
+                data["PlayerGatewayMode"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: ContainerFleet) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "instance_connection_port_range" in value:

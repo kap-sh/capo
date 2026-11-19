@@ -59,3 +59,43 @@ def deserialize_aws_json_1_0(data: dict) -> StartAnalysisReportRequest:
             "capo_network_firewall.types.enabled_analysis_type.EnabledAnalysisType", ""
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartAnalysisReportRequest) -> dict:
+    out: dict = {}
+    if "firewall_name" in value:
+        out["FirewallName"] = value["firewall_name"]
+    if "firewall_arn" in value:
+        out["FirewallArn"] = value["firewall_arn"]
+    import capo_network_firewall.types.enabled_analysis_type
+
+    out["AnalysisType"] = (
+        capo_network_firewall.types.enabled_analysis_type.serialize_cbor(
+            value["analysis_type"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartAnalysisReportRequest:
+    out: StartAnalysisReportRequest = {}  # type: ignore[typeddict-item]
+    if data.get("FirewallName") is not None:
+        out["firewall_name"] = data["FirewallName"]
+    if data.get("FirewallArn") is not None:
+        out["firewall_arn"] = data["FirewallArn"]
+    if data.get("AnalysisType") is not None:
+        import capo_network_firewall.types.enabled_analysis_type
+
+        out["analysis_type"] = (
+            capo_network_firewall.types.enabled_analysis_type.deserialize_cbor(
+                data["AnalysisType"]
+            )
+        )
+    else:
+        import typing
+
+        out["analysis_type"] = typing.cast(
+            "capo_network_firewall.types.enabled_analysis_type.EnabledAnalysisType", ""
+        )
+    return out

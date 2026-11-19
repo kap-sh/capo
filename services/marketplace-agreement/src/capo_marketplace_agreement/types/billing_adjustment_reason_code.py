@@ -20,3 +20,12 @@ def serialize_aws_json_1_0(value: BillingAdjustmentReasonCode) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> BillingAdjustmentReasonCode:
     return cast(BillingAdjustmentReasonCode, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BillingAdjustmentReasonCode) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> BillingAdjustmentReasonCode:
+    return cast(BillingAdjustmentReasonCode, data)

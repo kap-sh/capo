@@ -127,6 +127,7 @@ class SnowballClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[Interceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_1", "rpcv2Cbor"]
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -143,6 +144,7 @@ class SnowballClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -158,6 +160,7 @@ class SnowballClient:
         operation_interceptors: Iterable[Interceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_1", "rpcv2Cbor"] = "awsJson1_1",
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -194,6 +197,7 @@ class SnowballClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -227,6 +231,9 @@ class SnowballClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_1")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -269,13 +276,24 @@ class SnowballClient:
         ) -> OperationResponse[
             "capo_snowball.types.cancel_cluster_result.CancelClusterResult"
         ]:
-            import capo_snowball._operations.awsie_snowball_job_management_service.cancel_cluster
+            if req.options.protocol == "awsJson1_1":
+                import capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.cancel_cluster
 
-            output, http_response = (
-                capo_snowball._operations.awsie_snowball_job_management_service.cancel_cluster.cancel_cluster(
-                    req.options, req.input
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.cancel_cluster.cancel_cluster(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.cancel_cluster
+
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.cancel_cluster.cancel_cluster(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -320,13 +338,24 @@ class SnowballClient:
         def _handler(
             req: "OperationRequest[capo_snowball.types.cancel_job_request.CancelJobRequest]",
         ) -> OperationResponse["capo_snowball.types.cancel_job_result.CancelJobResult"]:
-            import capo_snowball._operations.awsie_snowball_job_management_service.cancel_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.cancel_job
 
-            output, http_response = (
-                capo_snowball._operations.awsie_snowball_job_management_service.cancel_job.cancel_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.cancel_job.cancel_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.cancel_job
+
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.cancel_job.cancel_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -372,13 +401,24 @@ class SnowballClient:
         ) -> OperationResponse[
             "capo_snowball.types.create_address_result.CreateAddressResult"
         ]:
-            import capo_snowball._operations.awsie_snowball_job_management_service.create_address
+            if req.options.protocol == "awsJson1_1":
+                import capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.create_address
 
-            output, http_response = (
-                capo_snowball._operations.awsie_snowball_job_management_service.create_address.create_address(
-                    req.options, req.input
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.create_address.create_address(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.create_address
+
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.create_address.create_address(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -472,13 +512,24 @@ class SnowballClient:
         ) -> OperationResponse[
             "capo_snowball.types.create_cluster_result.CreateClusterResult"
         ]:
-            import capo_snowball._operations.awsie_snowball_job_management_service.create_cluster
+            if req.options.protocol == "awsJson1_1":
+                import capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.create_cluster
 
-            output, http_response = (
-                capo_snowball._operations.awsie_snowball_job_management_service.create_cluster.create_cluster(
-                    req.options, req.input
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.create_cluster.create_cluster(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.create_cluster
+
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.create_cluster.create_cluster(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -610,13 +661,24 @@ class SnowballClient:
         def _handler(
             req: "OperationRequest[capo_snowball.types.create_job_request.CreateJobRequest]",
         ) -> OperationResponse["capo_snowball.types.create_job_result.CreateJobResult"]:
-            import capo_snowball._operations.awsie_snowball_job_management_service.create_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.create_job
 
-            output, http_response = (
-                capo_snowball._operations.awsie_snowball_job_management_service.create_job.create_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.create_job.create_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.create_job
+
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.create_job.create_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -704,13 +766,24 @@ class SnowballClient:
         ) -> OperationResponse[
             "capo_snowball.types.create_long_term_pricing_result.CreateLongTermPricingResult"
         ]:
-            import capo_snowball._operations.awsie_snowball_job_management_service.create_long_term_pricing
+            if req.options.protocol == "awsJson1_1":
+                import capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.create_long_term_pricing
 
-            output, http_response = (
-                capo_snowball._operations.awsie_snowball_job_management_service.create_long_term_pricing.create_long_term_pricing(
-                    req.options, req.input
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.create_long_term_pricing.create_long_term_pricing(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.create_long_term_pricing
+
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.create_long_term_pricing.create_long_term_pricing(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -760,13 +833,24 @@ class SnowballClient:
         ) -> OperationResponse[
             "capo_snowball.types.create_return_shipping_label_result.CreateReturnShippingLabelResult"
         ]:
-            import capo_snowball._operations.awsie_snowball_job_management_service.create_return_shipping_label
+            if req.options.protocol == "awsJson1_1":
+                import capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.create_return_shipping_label
 
-            output, http_response = (
-                capo_snowball._operations.awsie_snowball_job_management_service.create_return_shipping_label.create_return_shipping_label(
-                    req.options, req.input
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.create_return_shipping_label.create_return_shipping_label(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.create_return_shipping_label
+
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.create_return_shipping_label.create_return_shipping_label(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -813,13 +897,24 @@ class SnowballClient:
         ) -> OperationResponse[
             "capo_snowball.types.describe_address_result.DescribeAddressResult"
         ]:
-            import capo_snowball._operations.awsie_snowball_job_management_service.describe_address
+            if req.options.protocol == "awsJson1_1":
+                import capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.describe_address
 
-            output, http_response = (
-                capo_snowball._operations.awsie_snowball_job_management_service.describe_address.describe_address(
-                    req.options, req.input
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.describe_address.describe_address(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.describe_address
+
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.describe_address.describe_address(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -867,13 +962,24 @@ class SnowballClient:
         ) -> OperationResponse[
             "capo_snowball.types.describe_addresses_result.DescribeAddressesResult"
         ]:
-            import capo_snowball._operations.awsie_snowball_job_management_service.describe_addresses
+            if req.options.protocol == "awsJson1_1":
+                import capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.describe_addresses
 
-            output, http_response = (
-                capo_snowball._operations.awsie_snowball_job_management_service.describe_addresses.describe_addresses(
-                    req.options, req.input
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.describe_addresses.describe_addresses(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.describe_addresses
+
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.describe_addresses.describe_addresses(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -935,13 +1041,24 @@ class SnowballClient:
         ) -> OperationResponse[
             "capo_snowball.types.describe_cluster_result.DescribeClusterResult"
         ]:
-            import capo_snowball._operations.awsie_snowball_job_management_service.describe_cluster
+            if req.options.protocol == "awsJson1_1":
+                import capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.describe_cluster
 
-            output, http_response = (
-                capo_snowball._operations.awsie_snowball_job_management_service.describe_cluster.describe_cluster(
-                    req.options, req.input
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.describe_cluster.describe_cluster(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.describe_cluster
+
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.describe_cluster.describe_cluster(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -980,13 +1097,24 @@ class SnowballClient:
         ) -> OperationResponse[
             "capo_snowball.types.describe_job_result.DescribeJobResult"
         ]:
-            import capo_snowball._operations.awsie_snowball_job_management_service.describe_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.describe_job
 
-            output, http_response = (
-                capo_snowball._operations.awsie_snowball_job_management_service.describe_job.describe_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.describe_job.describe_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.describe_job
+
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.describe_job.describe_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -1035,13 +1163,24 @@ class SnowballClient:
         ) -> OperationResponse[
             "capo_snowball.types.describe_return_shipping_label_result.DescribeReturnShippingLabelResult"
         ]:
-            import capo_snowball._operations.awsie_snowball_job_management_service.describe_return_shipping_label
+            if req.options.protocol == "awsJson1_1":
+                import capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.describe_return_shipping_label
 
-            output, http_response = (
-                capo_snowball._operations.awsie_snowball_job_management_service.describe_return_shipping_label.describe_return_shipping_label(
-                    req.options, req.input
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.describe_return_shipping_label.describe_return_shipping_label(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.describe_return_shipping_label
+
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.describe_return_shipping_label.describe_return_shipping_label(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1093,13 +1232,24 @@ class SnowballClient:
         ) -> OperationResponse[
             "capo_snowball.types.get_job_manifest_result.GetJobManifestResult"
         ]:
-            import capo_snowball._operations.awsie_snowball_job_management_service.get_job_manifest
+            if req.options.protocol == "awsJson1_1":
+                import capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.get_job_manifest
 
-            output, http_response = (
-                capo_snowball._operations.awsie_snowball_job_management_service.get_job_manifest.get_job_manifest(
-                    req.options, req.input
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.get_job_manifest.get_job_manifest(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.get_job_manifest
+
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.get_job_manifest.get_job_manifest(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1149,13 +1299,24 @@ class SnowballClient:
         ) -> OperationResponse[
             "capo_snowball.types.get_job_unlock_code_result.GetJobUnlockCodeResult"
         ]:
-            import capo_snowball._operations.awsie_snowball_job_management_service.get_job_unlock_code
+            if req.options.protocol == "awsJson1_1":
+                import capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.get_job_unlock_code
 
-            output, http_response = (
-                capo_snowball._operations.awsie_snowball_job_management_service.get_job_unlock_code.get_job_unlock_code(
-                    req.options, req.input
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.get_job_unlock_code.get_job_unlock_code(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.get_job_unlock_code
+
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.get_job_unlock_code.get_job_unlock_code(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1195,13 +1356,24 @@ class SnowballClient:
         ) -> OperationResponse[
             "capo_snowball.types.get_snowball_usage_result.GetSnowballUsageResult"
         ]:
-            import capo_snowball._operations.awsie_snowball_job_management_service.get_snowball_usage
+            if req.options.protocol == "awsJson1_1":
+                import capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.get_snowball_usage
 
-            output, http_response = (
-                capo_snowball._operations.awsie_snowball_job_management_service.get_snowball_usage.get_snowball_usage(
-                    req.options, req.input
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.get_snowball_usage.get_snowball_usage(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.get_snowball_usage
+
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.get_snowball_usage.get_snowball_usage(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1239,13 +1411,24 @@ class SnowballClient:
         ) -> OperationResponse[
             "capo_snowball.types.get_software_updates_result.GetSoftwareUpdatesResult"
         ]:
-            import capo_snowball._operations.awsie_snowball_job_management_service.get_software_updates
+            if req.options.protocol == "awsJson1_1":
+                import capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.get_software_updates
 
-            output, http_response = (
-                capo_snowball._operations.awsie_snowball_job_management_service.get_software_updates.get_software_updates(
-                    req.options, req.input
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.get_software_updates.get_software_updates(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.get_software_updates
+
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.get_software_updates.get_software_updates(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1289,13 +1472,24 @@ class SnowballClient:
         ) -> OperationResponse[
             "capo_snowball.types.list_cluster_jobs_result.ListClusterJobsResult"
         ]:
-            import capo_snowball._operations.awsie_snowball_job_management_service.list_cluster_jobs
+            if req.options.protocol == "awsJson1_1":
+                import capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.list_cluster_jobs
 
-            output, http_response = (
-                capo_snowball._operations.awsie_snowball_job_management_service.list_cluster_jobs.list_cluster_jobs(
-                    req.options, req.input
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.list_cluster_jobs.list_cluster_jobs(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.list_cluster_jobs
+
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.list_cluster_jobs.list_cluster_jobs(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1363,13 +1557,24 @@ class SnowballClient:
         ) -> OperationResponse[
             "capo_snowball.types.list_clusters_result.ListClustersResult"
         ]:
-            import capo_snowball._operations.awsie_snowball_job_management_service.list_clusters
+            if req.options.protocol == "awsJson1_1":
+                import capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.list_clusters
 
-            output, http_response = (
-                capo_snowball._operations.awsie_snowball_job_management_service.list_clusters.list_clusters(
-                    req.options, req.input
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.list_clusters.list_clusters(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.list_clusters
+
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.list_clusters.list_clusters(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1434,13 +1639,24 @@ class SnowballClient:
         ) -> OperationResponse[
             "capo_snowball.types.list_compatible_images_result.ListCompatibleImagesResult"
         ]:
-            import capo_snowball._operations.awsie_snowball_job_management_service.list_compatible_images
+            if req.options.protocol == "awsJson1_1":
+                import capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.list_compatible_images
 
-            output, http_response = (
-                capo_snowball._operations.awsie_snowball_job_management_service.list_compatible_images.list_compatible_images(
-                    req.options, req.input
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.list_compatible_images.list_compatible_images(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.list_compatible_images
+
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.list_compatible_images.list_compatible_images(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1502,13 +1718,24 @@ class SnowballClient:
         def _handler(
             req: "OperationRequest[capo_snowball.types.list_jobs_request.ListJobsRequest]",
         ) -> OperationResponse["capo_snowball.types.list_jobs_result.ListJobsResult"]:
-            import capo_snowball._operations.awsie_snowball_job_management_service.list_jobs
+            if req.options.protocol == "awsJson1_1":
+                import capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.list_jobs
 
-            output, http_response = (
-                capo_snowball._operations.awsie_snowball_job_management_service.list_jobs.list_jobs(
-                    req.options, req.input
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.list_jobs.list_jobs(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.list_jobs
+
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.list_jobs.list_jobs(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1573,13 +1800,24 @@ class SnowballClient:
         ) -> OperationResponse[
             "capo_snowball.types.list_long_term_pricing_result.ListLongTermPricingResult"
         ]:
-            import capo_snowball._operations.awsie_snowball_job_management_service.list_long_term_pricing
+            if req.options.protocol == "awsJson1_1":
+                import capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.list_long_term_pricing
 
-            output, http_response = (
-                capo_snowball._operations.awsie_snowball_job_management_service.list_long_term_pricing.list_long_term_pricing(
-                    req.options, req.input
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.list_long_term_pricing.list_long_term_pricing(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.list_long_term_pricing
+
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.list_long_term_pricing.list_long_term_pricing(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1649,13 +1887,24 @@ class SnowballClient:
         ) -> OperationResponse[
             "capo_snowball.types.list_pickup_locations_result.ListPickupLocationsResult"
         ]:
-            import capo_snowball._operations.awsie_snowball_job_management_service.list_pickup_locations
+            if req.options.protocol == "awsJson1_1":
+                import capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.list_pickup_locations
 
-            output, http_response = (
-                capo_snowball._operations.awsie_snowball_job_management_service.list_pickup_locations.list_pickup_locations(
-                    req.options, req.input
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.list_pickup_locations.list_pickup_locations(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.list_pickup_locations
+
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.list_pickup_locations.list_pickup_locations(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1724,13 +1973,24 @@ class SnowballClient:
         ) -> OperationResponse[
             "capo_snowball.types.list_service_versions_result.ListServiceVersionsResult"
         ]:
-            import capo_snowball._operations.awsie_snowball_job_management_service.list_service_versions
+            if req.options.protocol == "awsJson1_1":
+                import capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.list_service_versions
 
-            output, http_response = (
-                capo_snowball._operations.awsie_snowball_job_management_service.list_service_versions.list_service_versions(
-                    req.options, req.input
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.list_service_versions.list_service_versions(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.list_service_versions
+
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.list_service_versions.list_service_versions(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1807,13 +2067,24 @@ class SnowballClient:
         ) -> OperationResponse[
             "capo_snowball.types.update_cluster_result.UpdateClusterResult"
         ]:
-            import capo_snowball._operations.awsie_snowball_job_management_service.update_cluster
+            if req.options.protocol == "awsJson1_1":
+                import capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.update_cluster
 
-            output, http_response = (
-                capo_snowball._operations.awsie_snowball_job_management_service.update_cluster.update_cluster(
-                    req.options, req.input
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.update_cluster.update_cluster(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.update_cluster
+
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.update_cluster.update_cluster(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1906,13 +2177,24 @@ class SnowballClient:
         def _handler(
             req: "OperationRequest[capo_snowball.types.update_job_request.UpdateJobRequest]",
         ) -> OperationResponse["capo_snowball.types.update_job_result.UpdateJobResult"]:
-            import capo_snowball._operations.awsie_snowball_job_management_service.update_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.update_job
 
-            output, http_response = (
-                capo_snowball._operations.awsie_snowball_job_management_service.update_job.update_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.update_job.update_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.update_job
+
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.update_job.update_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -1981,13 +2263,24 @@ class SnowballClient:
         ) -> OperationResponse[
             "capo_snowball.types.update_job_shipment_state_result.UpdateJobShipmentStateResult"
         ]:
-            import capo_snowball._operations.awsie_snowball_job_management_service.update_job_shipment_state
+            if req.options.protocol == "awsJson1_1":
+                import capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.update_job_shipment_state
 
-            output, http_response = (
-                capo_snowball._operations.awsie_snowball_job_management_service.update_job_shipment_state.update_job_shipment_state(
-                    req.options, req.input
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.update_job_shipment_state.update_job_shipment_state(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.update_job_shipment_state
+
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.update_job_shipment_state.update_job_shipment_state(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2033,13 +2326,24 @@ class SnowballClient:
         ) -> OperationResponse[
             "capo_snowball.types.update_long_term_pricing_result.UpdateLongTermPricingResult"
         ]:
-            import capo_snowball._operations.awsie_snowball_job_management_service.update_long_term_pricing
+            if req.options.protocol == "awsJson1_1":
+                import capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.update_long_term_pricing
 
-            output, http_response = (
-                capo_snowball._operations.awsie_snowball_job_management_service.update_long_term_pricing.update_long_term_pricing(
-                    req.options, req.input
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.aws_json1_1.update_long_term_pricing.update_long_term_pricing(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.update_long_term_pricing
+
+                output, http_response = (
+                    capo_snowball._operations.awsie_snowball_job_management_service.rpcv2_cbor.update_long_term_pricing.update_long_term_pricing(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

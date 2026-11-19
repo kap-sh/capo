@@ -59,3 +59,46 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDetectKeyPhrasesResponse:
     else:
         out["error_list"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchDetectKeyPhrasesResponse) -> dict:
+    out: dict = {}
+    import capo_comprehend.types.list_of_detect_key_phrases_result
+
+    out["ResultList"] = (
+        capo_comprehend.types.list_of_detect_key_phrases_result.serialize_cbor(
+            value["result_list"]
+        )
+    )
+    import capo_comprehend.types.batch_item_error_list
+
+    out["ErrorList"] = capo_comprehend.types.batch_item_error_list.serialize_cbor(
+        value["error_list"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BatchDetectKeyPhrasesResponse:
+    out: BatchDetectKeyPhrasesResponse = {}  # type: ignore[typeddict-item]
+    if data.get("ResultList") is not None:
+        import capo_comprehend.types.list_of_detect_key_phrases_result
+
+        out["result_list"] = (
+            capo_comprehend.types.list_of_detect_key_phrases_result.deserialize_cbor(
+                data["ResultList"]
+            )
+        )
+    else:
+        out["result_list"] = []
+    if data.get("ErrorList") is not None:
+        import capo_comprehend.types.batch_item_error_list
+
+        out["error_list"] = (
+            capo_comprehend.types.batch_item_error_list.deserialize_cbor(
+                data["ErrorList"]
+            )
+        )
+    else:
+        out["error_list"] = []
+    return out

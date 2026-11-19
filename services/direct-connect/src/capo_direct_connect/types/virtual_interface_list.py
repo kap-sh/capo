@@ -33,3 +33,24 @@ def deserialize_aws_json_1_1(data: list) -> VirtualInterfaceList:
             capo_direct_connect.types.virtual_interface.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: VirtualInterfaceList) -> list:
+    import capo_direct_connect.types.virtual_interface
+
+    out: list = []
+    for item in value:
+        out.append(capo_direct_connect.types.virtual_interface.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> VirtualInterfaceList:
+    import capo_direct_connect.types.virtual_interface
+
+    out: VirtualInterfaceList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_direct_connect.types.virtual_interface.deserialize_cbor(item))
+    return out

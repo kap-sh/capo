@@ -199,6 +199,142 @@ def deserialize_aws_json_1_0(data: dict) -> CreatePlanRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreatePlanRequest) -> dict:
+    out: dict = {}
+    if "description" in value:
+        out["description"] = value["description"]
+    import capo_arc_region_switch.types.workflow_list
+
+    out["workflows"] = capo_arc_region_switch.types.workflow_list.serialize_cbor(
+        value["workflows"]
+    )
+    out["executionRole"] = value["execution_role"]
+    if "recovery_time_objective_minutes" in value:
+        out["recoveryTimeObjectiveMinutes"] = value["recovery_time_objective_minutes"]
+    if "associated_alarms" in value:
+        import capo_arc_region_switch.types.associated_alarm_map
+
+        out["associatedAlarms"] = (
+            capo_arc_region_switch.types.associated_alarm_map.serialize_cbor(
+                value["associated_alarms"]
+            )
+        )
+    if "triggers" in value:
+        import capo_arc_region_switch.types.trigger_list
+
+        out["triggers"] = capo_arc_region_switch.types.trigger_list.serialize_cbor(
+            value["triggers"]
+        )
+    if "report_configuration" in value:
+        import capo_arc_region_switch.types.report_configuration
+
+        out["reportConfiguration"] = (
+            capo_arc_region_switch.types.report_configuration.serialize_cbor(
+                value["report_configuration"]
+            )
+        )
+    if "service_quota_checks_enabled" in value:
+        out["serviceQuotaChecksEnabled"] = value["service_quota_checks_enabled"]
+    out["name"] = value["name"]
+    import capo_arc_region_switch.types.region_list
+
+    out["regions"] = capo_arc_region_switch.types.region_list.serialize_cbor(
+        value["regions"]
+    )
+    import capo_arc_region_switch.types.recovery_approach
+
+    out["recoveryApproach"] = (
+        capo_arc_region_switch.types.recovery_approach.serialize_cbor(
+            value["recovery_approach"]
+        )
+    )
+    if "primary_region" in value:
+        out["primaryRegion"] = value["primary_region"]
+    if "tags" in value:
+        import capo_arc_region_switch.types.tags
+
+        out["tags"] = capo_arc_region_switch.types.tags.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreatePlanRequest:
+    out: CreatePlanRequest = {}  # type: ignore[typeddict-item]
+    if data.get("description") is not None:
+        out["description"] = data["description"]
+    if data.get("workflows") is not None:
+        import capo_arc_region_switch.types.workflow_list
+
+        out["workflows"] = capo_arc_region_switch.types.workflow_list.deserialize_cbor(
+            data["workflows"]
+        )
+    else:
+        out["workflows"] = []
+    if data.get("executionRole") is not None:
+        out["execution_role"] = data["executionRole"]
+    else:
+        out["execution_role"] = ""
+    if data.get("recoveryTimeObjectiveMinutes") is not None:
+        out["recovery_time_objective_minutes"] = data["recoveryTimeObjectiveMinutes"]
+    if data.get("associatedAlarms") is not None:
+        import capo_arc_region_switch.types.associated_alarm_map
+
+        out["associated_alarms"] = (
+            capo_arc_region_switch.types.associated_alarm_map.deserialize_cbor(
+                data["associatedAlarms"]
+            )
+        )
+    if data.get("triggers") is not None:
+        import capo_arc_region_switch.types.trigger_list
+
+        out["triggers"] = capo_arc_region_switch.types.trigger_list.deserialize_cbor(
+            data["triggers"]
+        )
+    if data.get("reportConfiguration") is not None:
+        import capo_arc_region_switch.types.report_configuration
+
+        out["report_configuration"] = (
+            capo_arc_region_switch.types.report_configuration.deserialize_cbor(
+                data["reportConfiguration"]
+            )
+        )
+    if data.get("serviceQuotaChecksEnabled") is not None:
+        out["service_quota_checks_enabled"] = data["serviceQuotaChecksEnabled"]
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    else:
+        out["name"] = ""
+    if data.get("regions") is not None:
+        import capo_arc_region_switch.types.region_list
+
+        out["regions"] = capo_arc_region_switch.types.region_list.deserialize_cbor(
+            data["regions"]
+        )
+    else:
+        out["regions"] = []
+    if data.get("recoveryApproach") is not None:
+        import capo_arc_region_switch.types.recovery_approach
+
+        out["recovery_approach"] = (
+            capo_arc_region_switch.types.recovery_approach.deserialize_cbor(
+                data["recoveryApproach"]
+            )
+        )
+    else:
+        import typing
+
+        out["recovery_approach"] = typing.cast(
+            "capo_arc_region_switch.types.recovery_approach.RecoveryApproach", ""
+        )
+    if data.get("primaryRegion") is not None:
+        out["primary_region"] = data["primaryRegion"]
+    if data.get("tags") is not None:
+        import capo_arc_region_switch.types.tags
+
+        out["tags"] = capo_arc_region_switch.types.tags.deserialize_cbor(data["tags"])
+    return out
+
+
 def redact_sensitive(value: CreatePlanRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "workflows" in value:

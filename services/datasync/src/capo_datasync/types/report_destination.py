@@ -34,3 +34,26 @@ def deserialize_aws_json_1_1(data: dict) -> ReportDestination:
             data["S3"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ReportDestination) -> dict:
+    out: dict = {}
+    if "s3" in value:
+        import capo_datasync.types.report_destination_s3
+
+        out["S3"] = capo_datasync.types.report_destination_s3.serialize_cbor(
+            value["s3"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ReportDestination:
+    out: ReportDestination = {}  # type: ignore[typeddict-item]
+    if data.get("S3") is not None:
+        import capo_datasync.types.report_destination_s3
+
+        out["s3"] = capo_datasync.types.report_destination_s3.deserialize_cbor(
+            data["S3"]
+        )
+    return out

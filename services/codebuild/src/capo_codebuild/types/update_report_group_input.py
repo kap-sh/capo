@@ -63,3 +63,41 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateReportGroupInput:
             data["tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateReportGroupInput) -> dict:
+    out: dict = {}
+    out["arn"] = value["arn"]
+    if "export_config" in value:
+        import capo_codebuild.types.report_export_config
+
+        out["exportConfig"] = capo_codebuild.types.report_export_config.serialize_cbor(
+            value["export_config"]
+        )
+    if "tags" in value:
+        import capo_codebuild.types.tag_list
+
+        out["tags"] = capo_codebuild.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateReportGroupInput:
+    out: UpdateReportGroupInput = {}  # type: ignore[typeddict-item]
+    if data.get("arn") is not None:
+        out["arn"] = data["arn"]
+    else:
+        out["arn"] = ""
+    if data.get("exportConfig") is not None:
+        import capo_codebuild.types.report_export_config
+
+        out["export_config"] = (
+            capo_codebuild.types.report_export_config.deserialize_cbor(
+                data["exportConfig"]
+            )
+        )
+    if data.get("tags") is not None:
+        import capo_codebuild.types.tag_list
+
+        out["tags"] = capo_codebuild.types.tag_list.deserialize_cbor(data["tags"])
+    return out

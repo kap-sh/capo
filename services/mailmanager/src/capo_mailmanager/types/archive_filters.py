@@ -60,3 +60,44 @@ def deserialize_aws_json_1_0(data: dict) -> ArchiveFilters:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ArchiveFilters) -> dict:
+    out: dict = {}
+    if "include" in value:
+        import capo_mailmanager.types.archive_filter_conditions
+
+        out["Include"] = (
+            capo_mailmanager.types.archive_filter_conditions.serialize_cbor(
+                value["include"]
+            )
+        )
+    if "unless" in value:
+        import capo_mailmanager.types.archive_filter_conditions
+
+        out["Unless"] = capo_mailmanager.types.archive_filter_conditions.serialize_cbor(
+            value["unless"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ArchiveFilters:
+    out: ArchiveFilters = {}  # type: ignore[typeddict-item]
+    if data.get("Include") is not None:
+        import capo_mailmanager.types.archive_filter_conditions
+
+        out["include"] = (
+            capo_mailmanager.types.archive_filter_conditions.deserialize_cbor(
+                data["Include"]
+            )
+        )
+    if data.get("Unless") is not None:
+        import capo_mailmanager.types.archive_filter_conditions
+
+        out["unless"] = (
+            capo_mailmanager.types.archive_filter_conditions.deserialize_cbor(
+                data["Unless"]
+            )
+        )
+    return out

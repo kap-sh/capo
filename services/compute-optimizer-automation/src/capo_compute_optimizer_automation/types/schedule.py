@@ -33,3 +33,26 @@ def deserialize_aws_json_1_0(data: dict) -> Schedule:
     if data.get("executionWindowInMinutes") is not None:
         out["execution_window_in_minutes"] = data["executionWindowInMinutes"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Schedule) -> dict:
+    out: dict = {}
+    if "schedule_expression" in value:
+        out["scheduleExpression"] = value["schedule_expression"]
+    if "schedule_expression_timezone" in value:
+        out["scheduleExpressionTimezone"] = value["schedule_expression_timezone"]
+    if "execution_window_in_minutes" in value:
+        out["executionWindowInMinutes"] = value["execution_window_in_minutes"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Schedule:
+    out: Schedule = {}  # type: ignore[typeddict-item]
+    if data.get("scheduleExpression") is not None:
+        out["schedule_expression"] = data["scheduleExpression"]
+    if data.get("scheduleExpressionTimezone") is not None:
+        out["schedule_expression_timezone"] = data["scheduleExpressionTimezone"]
+    if data.get("executionWindowInMinutes") is not None:
+        out["execution_window_in_minutes"] = data["executionWindowInMinutes"]
+    return out

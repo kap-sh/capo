@@ -16,3 +16,12 @@ def serialize_aws_json_1_1(value: ProductViewSortBy) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> ProductViewSortBy:
     return cast(ProductViewSortBy, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ProductViewSortBy) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ProductViewSortBy:
+    return cast(ProductViewSortBy, data)

@@ -94,3 +94,62 @@ def deserialize_aws_json_1_1(data: dict) -> Script:
     if data.get("NodeJsVersion") is not None:
         out["node_js_version"] = data["NodeJsVersion"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Script) -> dict:
+    out: dict = {}
+    if "script_id" in value:
+        out["ScriptId"] = value["script_id"]
+    if "script_arn" in value:
+        out["ScriptArn"] = value["script_arn"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "version" in value:
+        out["Version"] = value["version"]
+    if "size_on_disk" in value:
+        out["SizeOnDisk"] = value["size_on_disk"]
+    if "creation_time" in value:
+        import capo_gamelift.types.timestamp
+
+        out["CreationTime"] = capo_gamelift.types.timestamp.serialize_cbor(
+            value["creation_time"]
+        )
+    if "storage_location" in value:
+        import capo_gamelift.types.s3_location
+
+        out["StorageLocation"] = capo_gamelift.types.s3_location.serialize_cbor(
+            value["storage_location"]
+        )
+    if "node_js_version" in value:
+        out["NodeJsVersion"] = value["node_js_version"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Script:
+    out: Script = {}  # type: ignore[typeddict-item]
+    if data.get("ScriptId") is not None:
+        out["script_id"] = data["ScriptId"]
+    if data.get("ScriptArn") is not None:
+        out["script_arn"] = data["ScriptArn"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Version") is not None:
+        out["version"] = data["Version"]
+    if data.get("SizeOnDisk") is not None:
+        out["size_on_disk"] = data["SizeOnDisk"]
+    if data.get("CreationTime") is not None:
+        import capo_gamelift.types.timestamp
+
+        out["creation_time"] = capo_gamelift.types.timestamp.deserialize_cbor(
+            data["CreationTime"]
+        )
+    if data.get("StorageLocation") is not None:
+        import capo_gamelift.types.s3_location
+
+        out["storage_location"] = capo_gamelift.types.s3_location.deserialize_cbor(
+            data["StorageLocation"]
+        )
+    if data.get("NodeJsVersion") is not None:
+        out["node_js_version"] = data["NodeJsVersion"]
+    return out

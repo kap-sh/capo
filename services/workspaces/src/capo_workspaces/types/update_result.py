@@ -35,3 +35,22 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateResult:
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateResult) -> dict:
+    out: dict = {}
+    if "update_available" in value:
+        out["UpdateAvailable"] = value["update_available"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateResult:
+    out: UpdateResult = {}  # type: ignore[typeddict-item]
+    if data.get("UpdateAvailable") is not None:
+        out["update_available"] = data["UpdateAvailable"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    return out

@@ -49,6 +49,21 @@ def deserialize_query(el: Element) -> LimitExceededFault_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LimitExceededFault_) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> LimitExceededFault_:
+    out: LimitExceededFault_ = {}  # type: ignore[typeddict-item]
+    if data.get("message") is not None:
+        out["message"] = data["message"]
+    return out
+
+
 class LimitExceededFault(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.cloudwatch#LimitExceededFault``."""
 
@@ -82,3 +97,9 @@ class LimitExceededFault(ServiceError):
         cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "LimitExceededFault":
         return cls(deserialize_query(el), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "LimitExceededFault":
+        return cls(deserialize_cbor(data), message, response=response)

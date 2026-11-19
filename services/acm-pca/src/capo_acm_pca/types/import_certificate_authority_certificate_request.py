@@ -70,3 +70,48 @@ def deserialize_aws_json_1_1(
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ImportCertificateAuthorityCertificateRequest) -> dict:
+    out: dict = {}
+    out["CertificateAuthorityArn"] = value["certificate_authority_arn"]
+    import capo_acm_pca.types.certificate_body_blob
+
+    out["Certificate"] = capo_acm_pca.types.certificate_body_blob.serialize_cbor(
+        value["certificate"]
+    )
+    if "certificate_chain" in value:
+        import capo_acm_pca.types.certificate_chain_blob
+
+        out["CertificateChain"] = (
+            capo_acm_pca.types.certificate_chain_blob.serialize_cbor(
+                value["certificate_chain"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ImportCertificateAuthorityCertificateRequest:
+    out: ImportCertificateAuthorityCertificateRequest = {}  # type: ignore[typeddict-item]
+    if data.get("CertificateAuthorityArn") is not None:
+        out["certificate_authority_arn"] = data["CertificateAuthorityArn"]
+    else:
+        out["certificate_authority_arn"] = ""
+    if data.get("Certificate") is not None:
+        import capo_acm_pca.types.certificate_body_blob
+
+        out["certificate"] = capo_acm_pca.types.certificate_body_blob.deserialize_cbor(
+            data["Certificate"]
+        )
+    else:
+        out["certificate"] = b""
+    if data.get("CertificateChain") is not None:
+        import capo_acm_pca.types.certificate_chain_blob
+
+        out["certificate_chain"] = (
+            capo_acm_pca.types.certificate_chain_blob.deserialize_cbor(
+                data["CertificateChain"]
+            )
+        )
+    return out

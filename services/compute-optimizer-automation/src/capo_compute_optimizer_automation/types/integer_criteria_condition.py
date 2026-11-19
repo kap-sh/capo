@@ -61,3 +61,46 @@ def deserialize_aws_json_1_0(data: dict) -> IntegerCriteriaCondition:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IntegerCriteriaCondition) -> dict:
+    out: dict = {}
+    if "comparison" in value:
+        import capo_compute_optimizer_automation.types.comparison_operator
+
+        out["comparison"] = (
+            capo_compute_optimizer_automation.types.comparison_operator.serialize_cbor(
+                value["comparison"]
+            )
+        )
+    if "values" in value:
+        import capo_compute_optimizer_automation.types.integer_list
+
+        out["values"] = (
+            capo_compute_optimizer_automation.types.integer_list.serialize_cbor(
+                value["values"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> IntegerCriteriaCondition:
+    out: IntegerCriteriaCondition = {}  # type: ignore[typeddict-item]
+    if data.get("comparison") is not None:
+        import capo_compute_optimizer_automation.types.comparison_operator
+
+        out["comparison"] = (
+            capo_compute_optimizer_automation.types.comparison_operator.deserialize_cbor(
+                data["comparison"]
+            )
+        )
+    if data.get("values") is not None:
+        import capo_compute_optimizer_automation.types.integer_list
+
+        out["values"] = (
+            capo_compute_optimizer_automation.types.integer_list.deserialize_cbor(
+                data["values"]
+            )
+        )
+    return out

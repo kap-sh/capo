@@ -16,3 +16,12 @@ def serialize_aws_json_1_1(value: Operator) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> Operator:
     return cast(Operator, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Operator) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> Operator:
+    return cast(Operator, data)

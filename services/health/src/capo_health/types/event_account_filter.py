@@ -34,3 +34,23 @@ def deserialize_aws_json_1_1(data: dict) -> EventAccountFilter:
     if data.get("awsAccountId") is not None:
         out["aws_account_id"] = data["awsAccountId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EventAccountFilter) -> dict:
+    out: dict = {}
+    out["eventArn"] = value["event_arn"]
+    if "aws_account_id" in value:
+        out["awsAccountId"] = value["aws_account_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> EventAccountFilter:
+    out: EventAccountFilter = {}  # type: ignore[typeddict-item]
+    if data.get("eventArn") is not None:
+        out["event_arn"] = data["eventArn"]
+    else:
+        out["event_arn"] = ""
+    if data.get("awsAccountId") is not None:
+        out["aws_account_id"] = data["awsAccountId"]
+    return out

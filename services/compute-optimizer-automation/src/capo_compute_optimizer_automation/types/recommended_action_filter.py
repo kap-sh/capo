@@ -47,3 +47,36 @@ def deserialize_aws_json_1_0(data: dict) -> RecommendedActionFilter:
     else:
         out["values"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RecommendedActionFilter) -> dict:
+    out: dict = {}
+    out["name"] = value["name"]
+    import capo_compute_optimizer_automation.types.filter_values
+
+    out["values"] = (
+        capo_compute_optimizer_automation.types.filter_values.serialize_cbor(
+            value["values"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RecommendedActionFilter:
+    out: RecommendedActionFilter = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    else:
+        out["name"] = ""
+    if data.get("values") is not None:
+        import capo_compute_optimizer_automation.types.filter_values
+
+        out["values"] = (
+            capo_compute_optimizer_automation.types.filter_values.deserialize_cbor(
+                data["values"]
+            )
+        )
+    else:
+        out["values"] = []
+    return out

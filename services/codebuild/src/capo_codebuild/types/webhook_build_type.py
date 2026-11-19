@@ -16,3 +16,12 @@ def serialize_aws_json_1_1(value: WebhookBuildType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> WebhookBuildType:
     return cast(WebhookBuildType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: WebhookBuildType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> WebhookBuildType:
+    return cast(WebhookBuildType, data)

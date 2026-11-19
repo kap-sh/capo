@@ -45,3 +45,30 @@ def deserialize_aws_json_1_1(data: dict) -> ParallelDataConfig:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ParallelDataConfig) -> dict:
+    out: dict = {}
+    if "s3_uri" in value:
+        out["S3Uri"] = value["s3_uri"]
+    if "format" in value:
+        import capo_translate.types.parallel_data_format
+
+        out["Format"] = capo_translate.types.parallel_data_format.serialize_cbor(
+            value["format"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ParallelDataConfig:
+    out: ParallelDataConfig = {}  # type: ignore[typeddict-item]
+    if data.get("S3Uri") is not None:
+        out["s3_uri"] = data["S3Uri"]
+    if data.get("Format") is not None:
+        import capo_translate.types.parallel_data_format
+
+        out["format"] = capo_translate.types.parallel_data_format.deserialize_cbor(
+            data["Format"]
+        )
+    return out

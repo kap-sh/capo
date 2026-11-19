@@ -75,3 +75,55 @@ def deserialize_aws_json_1_1(data: dict) -> ListAvailableResourceMetricsRequest:
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListAvailableResourceMetricsRequest) -> dict:
+    out: dict = {}
+    import capo_pi.types.service_type
+
+    out["ServiceType"] = capo_pi.types.service_type.serialize_cbor(
+        value["service_type"]
+    )
+    out["Identifier"] = value["identifier"]
+    import capo_pi.types.metric_type_list
+
+    out["MetricTypes"] = capo_pi.types.metric_type_list.serialize_cbor(
+        value["metric_types"]
+    )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListAvailableResourceMetricsRequest:
+    out: ListAvailableResourceMetricsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ServiceType") is not None:
+        import capo_pi.types.service_type
+
+        out["service_type"] = capo_pi.types.service_type.deserialize_cbor(
+            data["ServiceType"]
+        )
+    else:
+        import typing
+
+        out["service_type"] = typing.cast("capo_pi.types.service_type.ServiceType", "")
+    if data.get("Identifier") is not None:
+        out["identifier"] = data["Identifier"]
+    else:
+        out["identifier"] = ""
+    if data.get("MetricTypes") is not None:
+        import capo_pi.types.metric_type_list
+
+        out["metric_types"] = capo_pi.types.metric_type_list.deserialize_cbor(
+            data["MetricTypes"]
+        )
+    else:
+        out["metric_types"] = []
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    return out

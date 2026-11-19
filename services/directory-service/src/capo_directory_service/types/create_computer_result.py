@@ -36,3 +36,26 @@ def deserialize_aws_json_1_1(data: dict) -> CreateComputerResult:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateComputerResult) -> dict:
+    out: dict = {}
+    if "computer" in value:
+        import capo_directory_service.types.computer
+
+        out["Computer"] = capo_directory_service.types.computer.serialize_cbor(
+            value["computer"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateComputerResult:
+    out: CreateComputerResult = {}  # type: ignore[typeddict-item]
+    if data.get("Computer") is not None:
+        import capo_directory_service.types.computer
+
+        out["computer"] = capo_directory_service.types.computer.deserialize_cbor(
+            data["Computer"]
+        )
+    return out

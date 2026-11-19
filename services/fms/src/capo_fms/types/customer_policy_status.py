@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: CustomerPolicyStatus) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> CustomerPolicyStatus:
     return cast(CustomerPolicyStatus, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CustomerPolicyStatus) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> CustomerPolicyStatus:
+    return cast(CustomerPolicyStatus, data)

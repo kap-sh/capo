@@ -142,3 +142,84 @@ def deserialize_aws_json_1_1(data: dict) -> ActionExecution:
     if data.get("logStreamARN") is not None:
         out["log_stream_arn"] = data["logStreamARN"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ActionExecution) -> dict:
+    out: dict = {}
+    if "action_execution_id" in value:
+        out["actionExecutionId"] = value["action_execution_id"]
+    if "status" in value:
+        import capo_codepipeline.types.action_execution_status
+
+        out["status"] = capo_codepipeline.types.action_execution_status.serialize_cbor(
+            value["status"]
+        )
+    if "summary" in value:
+        out["summary"] = value["summary"]
+    if "last_status_change" in value:
+        import capo_codepipeline.types.timestamp
+
+        out["lastStatusChange"] = capo_codepipeline.types.timestamp.serialize_cbor(
+            value["last_status_change"]
+        )
+    if "token" in value:
+        out["token"] = value["token"]
+    if "last_updated_by" in value:
+        out["lastUpdatedBy"] = value["last_updated_by"]
+    if "external_execution_id" in value:
+        out["externalExecutionId"] = value["external_execution_id"]
+    if "external_execution_url" in value:
+        out["externalExecutionUrl"] = value["external_execution_url"]
+    if "percent_complete" in value:
+        out["percentComplete"] = value["percent_complete"]
+    if "error_details" in value:
+        import capo_codepipeline.types.error_details
+
+        out["errorDetails"] = capo_codepipeline.types.error_details.serialize_cbor(
+            value["error_details"]
+        )
+    if "log_stream_arn" in value:
+        out["logStreamARN"] = value["log_stream_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ActionExecution:
+    out: ActionExecution = {}  # type: ignore[typeddict-item]
+    if data.get("actionExecutionId") is not None:
+        out["action_execution_id"] = data["actionExecutionId"]
+    if data.get("status") is not None:
+        import capo_codepipeline.types.action_execution_status
+
+        out["status"] = (
+            capo_codepipeline.types.action_execution_status.deserialize_cbor(
+                data["status"]
+            )
+        )
+    if data.get("summary") is not None:
+        out["summary"] = data["summary"]
+    if data.get("lastStatusChange") is not None:
+        import capo_codepipeline.types.timestamp
+
+        out["last_status_change"] = capo_codepipeline.types.timestamp.deserialize_cbor(
+            data["lastStatusChange"]
+        )
+    if data.get("token") is not None:
+        out["token"] = data["token"]
+    if data.get("lastUpdatedBy") is not None:
+        out["last_updated_by"] = data["lastUpdatedBy"]
+    if data.get("externalExecutionId") is not None:
+        out["external_execution_id"] = data["externalExecutionId"]
+    if data.get("externalExecutionUrl") is not None:
+        out["external_execution_url"] = data["externalExecutionUrl"]
+    if data.get("percentComplete") is not None:
+        out["percent_complete"] = data["percentComplete"]
+    if data.get("errorDetails") is not None:
+        import capo_codepipeline.types.error_details
+
+        out["error_details"] = capo_codepipeline.types.error_details.deserialize_cbor(
+            data["errorDetails"]
+        )
+    if data.get("logStreamARN") is not None:
+        out["log_stream_arn"] = data["logStreamARN"]
+    return out

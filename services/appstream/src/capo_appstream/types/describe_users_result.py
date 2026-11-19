@@ -43,6 +43,29 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeUsersResult:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeUsersResult) -> dict:
+    out: dict = {}
+    if "users" in value:
+        import capo_appstream.types.user_list
+
+        out["Users"] = capo_appstream.types.user_list.serialize_cbor(value["users"])
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeUsersResult:
+    out: DescribeUsersResult = {}  # type: ignore[typeddict-item]
+    if data.get("Users") is not None:
+        import capo_appstream.types.user_list
+
+        out["users"] = capo_appstream.types.user_list.deserialize_cbor(data["Users"])
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out
+
+
 def redact_sensitive(value: DescribeUsersResult) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "users" in value:

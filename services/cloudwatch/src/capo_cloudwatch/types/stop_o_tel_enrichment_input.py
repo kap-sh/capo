@@ -30,3 +30,14 @@ def serialize_query(
 def deserialize_query(el: Element) -> StopOTelEnrichmentInput:
     out: StopOTelEnrichmentInput = {}  # type: ignore[typeddict-item]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StopOTelEnrichmentInput) -> dict:
+    out: dict = {}
+    return out
+
+
+def deserialize_cbor(data: dict) -> StopOTelEnrichmentInput:
+    out: StopOTelEnrichmentInput = {}  # type: ignore[typeddict-item]
+    return out

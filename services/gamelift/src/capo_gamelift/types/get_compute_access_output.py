@@ -96,6 +96,65 @@ def deserialize_aws_json_1_1(data: dict) -> GetComputeAccessOutput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetComputeAccessOutput) -> dict:
+    out: dict = {}
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "fleet_arn" in value:
+        out["FleetArn"] = value["fleet_arn"]
+    if "compute_name" in value:
+        out["ComputeName"] = value["compute_name"]
+    if "compute_arn" in value:
+        out["ComputeArn"] = value["compute_arn"]
+    if "credentials" in value:
+        import capo_gamelift.types.aws_credentials
+
+        out["Credentials"] = capo_gamelift.types.aws_credentials.serialize_cbor(
+            value["credentials"]
+        )
+    if "target" in value:
+        out["Target"] = value["target"]
+    if "container_identifiers" in value:
+        import capo_gamelift.types.container_identifier_list
+
+        out["ContainerIdentifiers"] = (
+            capo_gamelift.types.container_identifier_list.serialize_cbor(
+                value["container_identifiers"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetComputeAccessOutput:
+    out: GetComputeAccessOutput = {}  # type: ignore[typeddict-item]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("FleetArn") is not None:
+        out["fleet_arn"] = data["FleetArn"]
+    if data.get("ComputeName") is not None:
+        out["compute_name"] = data["ComputeName"]
+    if data.get("ComputeArn") is not None:
+        out["compute_arn"] = data["ComputeArn"]
+    if data.get("Credentials") is not None:
+        import capo_gamelift.types.aws_credentials
+
+        out["credentials"] = capo_gamelift.types.aws_credentials.deserialize_cbor(
+            data["Credentials"]
+        )
+    if data.get("Target") is not None:
+        out["target"] = data["Target"]
+    if data.get("ContainerIdentifiers") is not None:
+        import capo_gamelift.types.container_identifier_list
+
+        out["container_identifiers"] = (
+            capo_gamelift.types.container_identifier_list.deserialize_cbor(
+                data["ContainerIdentifiers"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: GetComputeAccessOutput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "credentials" in value:

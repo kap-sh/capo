@@ -104,3 +104,46 @@ def deserialize_query(el: Element) -> UpdateOTelEnrichmentInput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateOTelEnrichmentInput) -> dict:
+    out: dict = {}
+    if "include_filters" in value:
+        import capo_cloudwatch.types.o_tel_enrichment_metric_selector_list
+
+        out["IncludeFilters"] = (
+            capo_cloudwatch.types.o_tel_enrichment_metric_selector_list.serialize_cbor(
+                value["include_filters"]
+            )
+        )
+    if "exclude_filters" in value:
+        import capo_cloudwatch.types.o_tel_enrichment_metric_selector_list
+
+        out["ExcludeFilters"] = (
+            capo_cloudwatch.types.o_tel_enrichment_metric_selector_list.serialize_cbor(
+                value["exclude_filters"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateOTelEnrichmentInput:
+    out: UpdateOTelEnrichmentInput = {}  # type: ignore[typeddict-item]
+    if data.get("IncludeFilters") is not None:
+        import capo_cloudwatch.types.o_tel_enrichment_metric_selector_list
+
+        out["include_filters"] = (
+            capo_cloudwatch.types.o_tel_enrichment_metric_selector_list.deserialize_cbor(
+                data["IncludeFilters"]
+            )
+        )
+    if data.get("ExcludeFilters") is not None:
+        import capo_cloudwatch.types.o_tel_enrichment_metric_selector_list
+
+        out["exclude_filters"] = (
+            capo_cloudwatch.types.o_tel_enrichment_metric_selector_list.deserialize_cbor(
+                data["ExcludeFilters"]
+            )
+        )
+    return out

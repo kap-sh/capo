@@ -48,3 +48,35 @@ def deserialize_aws_json_1_0(data: dict) -> RequestedTerm:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RequestedTerm) -> dict:
+    out: dict = {}
+    out["id"] = value["id"]
+    if "configuration" in value:
+        import capo_marketplace_agreement.types.requested_term_configuration
+
+        out["configuration"] = (
+            capo_marketplace_agreement.types.requested_term_configuration.serialize_cbor(
+                value["configuration"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RequestedTerm:
+    out: RequestedTerm = {}  # type: ignore[typeddict-item]
+    if data.get("id") is not None:
+        out["id"] = data["id"]
+    else:
+        out["id"] = ""
+    if data.get("configuration") is not None:
+        import capo_marketplace_agreement.types.requested_term_configuration
+
+        out["configuration"] = (
+            capo_marketplace_agreement.types.requested_term_configuration.deserialize_cbor(
+                data["configuration"]
+            )
+        )
+    return out

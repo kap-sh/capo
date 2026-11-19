@@ -178,3 +178,128 @@ def deserialize_aws_json_1_1(data: dict) -> StartTextTranslationJobRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartTextTranslationJobRequest) -> dict:
+    out: dict = {}
+    if "job_name" in value:
+        out["JobName"] = value["job_name"]
+    import capo_translate.types.input_data_config
+
+    out["InputDataConfig"] = capo_translate.types.input_data_config.serialize_cbor(
+        value["input_data_config"]
+    )
+    import capo_translate.types.output_data_config
+
+    out["OutputDataConfig"] = capo_translate.types.output_data_config.serialize_cbor(
+        value["output_data_config"]
+    )
+    out["DataAccessRoleArn"] = value["data_access_role_arn"]
+    out["SourceLanguageCode"] = value["source_language_code"]
+    import capo_translate.types.target_language_code_string_list
+
+    out["TargetLanguageCodes"] = (
+        capo_translate.types.target_language_code_string_list.serialize_cbor(
+            value["target_language_codes"]
+        )
+    )
+    if "terminology_names" in value:
+        import capo_translate.types.resource_name_list
+
+        out["TerminologyNames"] = (
+            capo_translate.types.resource_name_list.serialize_cbor(
+                value["terminology_names"]
+            )
+        )
+    if "parallel_data_names" in value:
+        import capo_translate.types.resource_name_list
+
+        out["ParallelDataNames"] = (
+            capo_translate.types.resource_name_list.serialize_cbor(
+                value["parallel_data_names"]
+            )
+        )
+    out["ClientToken"] = value["client_token"]
+    if "settings" in value:
+        import capo_translate.types.translation_settings
+
+        out["Settings"] = capo_translate.types.translation_settings.serialize_cbor(
+            value["settings"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartTextTranslationJobRequest:
+    out: StartTextTranslationJobRequest = {}  # type: ignore[typeddict-item]
+    if data.get("JobName") is not None:
+        out["job_name"] = data["JobName"]
+    if data.get("InputDataConfig") is not None:
+        import capo_translate.types.input_data_config
+
+        out["input_data_config"] = (
+            capo_translate.types.input_data_config.deserialize_cbor(
+                data["InputDataConfig"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "StartTextTranslationJobRequest.input_data_config required"
+        )
+    if data.get("OutputDataConfig") is not None:
+        import capo_translate.types.output_data_config
+
+        out["output_data_config"] = (
+            capo_translate.types.output_data_config.deserialize_cbor(
+                data["OutputDataConfig"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "StartTextTranslationJobRequest.output_data_config required"
+        )
+    if data.get("DataAccessRoleArn") is not None:
+        out["data_access_role_arn"] = data["DataAccessRoleArn"]
+    else:
+        out["data_access_role_arn"] = ""
+    if data.get("SourceLanguageCode") is not None:
+        out["source_language_code"] = data["SourceLanguageCode"]
+    else:
+        out["source_language_code"] = ""
+    if data.get("TargetLanguageCodes") is not None:
+        import capo_translate.types.target_language_code_string_list
+
+        out["target_language_codes"] = (
+            capo_translate.types.target_language_code_string_list.deserialize_cbor(
+                data["TargetLanguageCodes"]
+            )
+        )
+    else:
+        out["target_language_codes"] = []
+    if data.get("TerminologyNames") is not None:
+        import capo_translate.types.resource_name_list
+
+        out["terminology_names"] = (
+            capo_translate.types.resource_name_list.deserialize_cbor(
+                data["TerminologyNames"]
+            )
+        )
+    if data.get("ParallelDataNames") is not None:
+        import capo_translate.types.resource_name_list
+
+        out["parallel_data_names"] = (
+            capo_translate.types.resource_name_list.deserialize_cbor(
+                data["ParallelDataNames"]
+            )
+        )
+    if data.get("ClientToken") is not None:
+        out["client_token"] = data["ClientToken"]
+    else:
+        out["client_token"] = ""
+    if data.get("Settings") is not None:
+        import capo_translate.types.translation_settings
+
+        out["settings"] = capo_translate.types.translation_settings.deserialize_cbor(
+            data["Settings"]
+        )
+    return out

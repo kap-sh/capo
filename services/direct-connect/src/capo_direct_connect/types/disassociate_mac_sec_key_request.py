@@ -35,3 +35,24 @@ def deserialize_aws_json_1_1(data: dict) -> DisassociateMacSecKeyRequest:
     else:
         out["secret_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DisassociateMacSecKeyRequest) -> dict:
+    out: dict = {}
+    out["connectionId"] = value["connection_id"]
+    out["secretARN"] = value["secret_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DisassociateMacSecKeyRequest:
+    out: DisassociateMacSecKeyRequest = {}  # type: ignore[typeddict-item]
+    if data.get("connectionId") is not None:
+        out["connection_id"] = data["connectionId"]
+    else:
+        out["connection_id"] = ""
+    if data.get("secretARN") is not None:
+        out["secret_arn"] = data["secretARN"]
+    else:
+        out["secret_arn"] = ""
+    return out

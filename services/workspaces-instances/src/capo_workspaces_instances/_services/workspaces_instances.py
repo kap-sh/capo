@@ -93,6 +93,7 @@ class WorkspacesInstancesClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[Interceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_0", "rpcv2Cbor"]
     use_fips: bool | None
     endpoint: str | None
     region: str | None
@@ -108,6 +109,7 @@ class WorkspacesInstancesClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
         endpoint: The value of the ``SDK::Endpoint`` endpoint parameter.
         region: The value of the ``AWS::Region`` endpoint parameter.
@@ -122,6 +124,7 @@ class WorkspacesInstancesClient:
         operation_interceptors: Iterable[Interceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_0", "rpcv2Cbor"] = "awsJson1_0",
         use_fips: bool | None = None,
         endpoint: str | None = None,
         region: str | None = None,
@@ -157,6 +160,7 @@ class WorkspacesInstancesClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "use_fips": use_fips,
                 "endpoint": endpoint,
                 "region": region,
@@ -189,6 +193,9 @@ class WorkspacesInstancesClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_0")
+            ),
             use_fips=overrides.get("use_fips", self._config.get("use_fips")),
             endpoint=overrides.get("endpoint", self._config.get("endpoint")),
             region=overrides.get("region", self._config.get("region")),
@@ -229,13 +236,24 @@ class WorkspacesInstancesClient:
         ) -> OperationResponse[
             "capo_workspaces_instances.types.associate_volume_response.AssociateVolumeResponse"
         ]:
-            import capo_workspaces_instances._operations.eucmi_frontend_api_service.associate_volume
+            if req.options.protocol == "awsJson1_0":
+                import capo_workspaces_instances._operations.eucmi_frontend_api_service.aws_json1_0.associate_volume
 
-            output, http_response = (
-                capo_workspaces_instances._operations.eucmi_frontend_api_service.associate_volume.associate_volume(
-                    req.options, req.input
+                output, http_response = (
+                    capo_workspaces_instances._operations.eucmi_frontend_api_service.aws_json1_0.associate_volume.associate_volume(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces_instances._operations.eucmi_frontend_api_service.rpcv2_cbor.associate_volume
+
+                output, http_response = (
+                    capo_workspaces_instances._operations.eucmi_frontend_api_service.rpcv2_cbor.associate_volume.associate_volume(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -315,13 +333,24 @@ class WorkspacesInstancesClient:
         ) -> OperationResponse[
             "capo_workspaces_instances.types.create_volume_response.CreateVolumeResponse"
         ]:
-            import capo_workspaces_instances._operations.eucmi_frontend_api_service.create_volume
+            if req.options.protocol == "awsJson1_0":
+                import capo_workspaces_instances._operations.eucmi_frontend_api_service.aws_json1_0.create_volume
 
-            output, http_response = (
-                capo_workspaces_instances._operations.eucmi_frontend_api_service.create_volume.create_volume(
-                    req.options, req.input
+                output, http_response = (
+                    capo_workspaces_instances._operations.eucmi_frontend_api_service.aws_json1_0.create_volume.create_volume(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces_instances._operations.eucmi_frontend_api_service.rpcv2_cbor.create_volume
+
+                output, http_response = (
+                    capo_workspaces_instances._operations.eucmi_frontend_api_service.rpcv2_cbor.create_volume.create_volume(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -406,13 +435,24 @@ class WorkspacesInstancesClient:
         ) -> OperationResponse[
             "capo_workspaces_instances.types.create_workspace_instance_response.CreateWorkspaceInstanceResponse"
         ]:
-            import capo_workspaces_instances._operations.eucmi_frontend_api_service.create_workspace_instance
+            if req.options.protocol == "awsJson1_0":
+                import capo_workspaces_instances._operations.eucmi_frontend_api_service.aws_json1_0.create_workspace_instance
 
-            output, http_response = (
-                capo_workspaces_instances._operations.eucmi_frontend_api_service.create_workspace_instance.create_workspace_instance(
-                    req.options, req.input
+                output, http_response = (
+                    capo_workspaces_instances._operations.eucmi_frontend_api_service.aws_json1_0.create_workspace_instance.create_workspace_instance(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces_instances._operations.eucmi_frontend_api_service.rpcv2_cbor.create_workspace_instance
+
+                output, http_response = (
+                    capo_workspaces_instances._operations.eucmi_frontend_api_service.rpcv2_cbor.create_workspace_instance.create_workspace_instance(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -473,13 +513,24 @@ class WorkspacesInstancesClient:
         ) -> OperationResponse[
             "capo_workspaces_instances.types.delete_volume_response.DeleteVolumeResponse"
         ]:
-            import capo_workspaces_instances._operations.eucmi_frontend_api_service.delete_volume
+            if req.options.protocol == "awsJson1_0":
+                import capo_workspaces_instances._operations.eucmi_frontend_api_service.aws_json1_0.delete_volume
 
-            output, http_response = (
-                capo_workspaces_instances._operations.eucmi_frontend_api_service.delete_volume.delete_volume(
-                    req.options, req.input
+                output, http_response = (
+                    capo_workspaces_instances._operations.eucmi_frontend_api_service.aws_json1_0.delete_volume.delete_volume(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces_instances._operations.eucmi_frontend_api_service.rpcv2_cbor.delete_volume
+
+                output, http_response = (
+                    capo_workspaces_instances._operations.eucmi_frontend_api_service.rpcv2_cbor.delete_volume.delete_volume(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -523,13 +574,24 @@ class WorkspacesInstancesClient:
         ) -> OperationResponse[
             "capo_workspaces_instances.types.delete_workspace_instance_response.DeleteWorkspaceInstanceResponse"
         ]:
-            import capo_workspaces_instances._operations.eucmi_frontend_api_service.delete_workspace_instance
+            if req.options.protocol == "awsJson1_0":
+                import capo_workspaces_instances._operations.eucmi_frontend_api_service.aws_json1_0.delete_workspace_instance
 
-            output, http_response = (
-                capo_workspaces_instances._operations.eucmi_frontend_api_service.delete_workspace_instance.delete_workspace_instance(
-                    req.options, req.input
+                output, http_response = (
+                    capo_workspaces_instances._operations.eucmi_frontend_api_service.aws_json1_0.delete_workspace_instance.delete_workspace_instance(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces_instances._operations.eucmi_frontend_api_service.rpcv2_cbor.delete_workspace_instance
+
+                output, http_response = (
+                    capo_workspaces_instances._operations.eucmi_frontend_api_service.rpcv2_cbor.delete_workspace_instance.delete_workspace_instance(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -583,13 +645,24 @@ class WorkspacesInstancesClient:
         ) -> OperationResponse[
             "capo_workspaces_instances.types.disassociate_volume_response.DisassociateVolumeResponse"
         ]:
-            import capo_workspaces_instances._operations.eucmi_frontend_api_service.disassociate_volume
+            if req.options.protocol == "awsJson1_0":
+                import capo_workspaces_instances._operations.eucmi_frontend_api_service.aws_json1_0.disassociate_volume
 
-            output, http_response = (
-                capo_workspaces_instances._operations.eucmi_frontend_api_service.disassociate_volume.disassociate_volume(
-                    req.options, req.input
+                output, http_response = (
+                    capo_workspaces_instances._operations.eucmi_frontend_api_service.aws_json1_0.disassociate_volume.disassociate_volume(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces_instances._operations.eucmi_frontend_api_service.rpcv2_cbor.disassociate_volume
+
+                output, http_response = (
+                    capo_workspaces_instances._operations.eucmi_frontend_api_service.rpcv2_cbor.disassociate_volume.disassociate_volume(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -637,13 +710,24 @@ class WorkspacesInstancesClient:
         ) -> OperationResponse[
             "capo_workspaces_instances.types.get_workspace_instance_response.GetWorkspaceInstanceResponse"
         ]:
-            import capo_workspaces_instances._operations.eucmi_frontend_api_service.get_workspace_instance
+            if req.options.protocol == "awsJson1_0":
+                import capo_workspaces_instances._operations.eucmi_frontend_api_service.aws_json1_0.get_workspace_instance
 
-            output, http_response = (
-                capo_workspaces_instances._operations.eucmi_frontend_api_service.get_workspace_instance.get_workspace_instance(
-                    req.options, req.input
+                output, http_response = (
+                    capo_workspaces_instances._operations.eucmi_frontend_api_service.aws_json1_0.get_workspace_instance.get_workspace_instance(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces_instances._operations.eucmi_frontend_api_service.rpcv2_cbor.get_workspace_instance
+
+                output, http_response = (
+                    capo_workspaces_instances._operations.eucmi_frontend_api_service.rpcv2_cbor.get_workspace_instance.get_workspace_instance(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -695,13 +779,24 @@ class WorkspacesInstancesClient:
         ) -> OperationResponse[
             "capo_workspaces_instances.types.list_instance_types_response.ListInstanceTypesResponse"
         ]:
-            import capo_workspaces_instances._operations.eucmi_frontend_api_service.list_instance_types
+            if req.options.protocol == "awsJson1_0":
+                import capo_workspaces_instances._operations.eucmi_frontend_api_service.aws_json1_0.list_instance_types
 
-            output, http_response = (
-                capo_workspaces_instances._operations.eucmi_frontend_api_service.list_instance_types.list_instance_types(
-                    req.options, req.input
+                output, http_response = (
+                    capo_workspaces_instances._operations.eucmi_frontend_api_service.aws_json1_0.list_instance_types.list_instance_types(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces_instances._operations.eucmi_frontend_api_service.rpcv2_cbor.list_instance_types
+
+                output, http_response = (
+                    capo_workspaces_instances._operations.eucmi_frontend_api_service.rpcv2_cbor.list_instance_types.list_instance_types(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -807,13 +902,24 @@ class WorkspacesInstancesClient:
         ) -> OperationResponse[
             "capo_workspaces_instances.types.list_regions_response.ListRegionsResponse"
         ]:
-            import capo_workspaces_instances._operations.eucmi_frontend_api_service.list_regions
+            if req.options.protocol == "awsJson1_0":
+                import capo_workspaces_instances._operations.eucmi_frontend_api_service.aws_json1_0.list_regions
 
-            output, http_response = (
-                capo_workspaces_instances._operations.eucmi_frontend_api_service.list_regions.list_regions(
-                    req.options, req.input
+                output, http_response = (
+                    capo_workspaces_instances._operations.eucmi_frontend_api_service.aws_json1_0.list_regions.list_regions(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces_instances._operations.eucmi_frontend_api_service.rpcv2_cbor.list_regions
+
+                output, http_response = (
+                    capo_workspaces_instances._operations.eucmi_frontend_api_service.rpcv2_cbor.list_regions.list_regions(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -908,13 +1014,24 @@ class WorkspacesInstancesClient:
         ) -> OperationResponse[
             "capo_workspaces_instances.types.list_tags_for_resource_response.ListTagsForResourceResponse"
         ]:
-            import capo_workspaces_instances._operations.eucmi_frontend_api_service.list_tags_for_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_workspaces_instances._operations.eucmi_frontend_api_service.aws_json1_0.list_tags_for_resource
 
-            output, http_response = (
-                capo_workspaces_instances._operations.eucmi_frontend_api_service.list_tags_for_resource.list_tags_for_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_workspaces_instances._operations.eucmi_frontend_api_service.aws_json1_0.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces_instances._operations.eucmi_frontend_api_service.rpcv2_cbor.list_tags_for_resource
+
+                output, http_response = (
+                    capo_workspaces_instances._operations.eucmi_frontend_api_service.rpcv2_cbor.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -966,13 +1083,24 @@ class WorkspacesInstancesClient:
         ) -> OperationResponse[
             "capo_workspaces_instances.types.list_workspace_instances_response.ListWorkspaceInstancesResponse"
         ]:
-            import capo_workspaces_instances._operations.eucmi_frontend_api_service.list_workspace_instances
+            if req.options.protocol == "awsJson1_0":
+                import capo_workspaces_instances._operations.eucmi_frontend_api_service.aws_json1_0.list_workspace_instances
 
-            output, http_response = (
-                capo_workspaces_instances._operations.eucmi_frontend_api_service.list_workspace_instances.list_workspace_instances(
-                    req.options, req.input
+                output, http_response = (
+                    capo_workspaces_instances._operations.eucmi_frontend_api_service.aws_json1_0.list_workspace_instances.list_workspace_instances(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces_instances._operations.eucmi_frontend_api_service.rpcv2_cbor.list_workspace_instances
+
+                output, http_response = (
+                    capo_workspaces_instances._operations.eucmi_frontend_api_service.rpcv2_cbor.list_workspace_instances.list_workspace_instances(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -1096,13 +1224,24 @@ class WorkspacesInstancesClient:
         ) -> OperationResponse[
             "capo_workspaces_instances.types.modify_volume_response.ModifyVolumeResponse"
         ]:
-            import capo_workspaces_instances._operations.eucmi_frontend_api_service.modify_volume
+            if req.options.protocol == "awsJson1_0":
+                import capo_workspaces_instances._operations.eucmi_frontend_api_service.aws_json1_0.modify_volume
 
-            output, http_response = (
-                capo_workspaces_instances._operations.eucmi_frontend_api_service.modify_volume.modify_volume(
-                    req.options, req.input
+                output, http_response = (
+                    capo_workspaces_instances._operations.eucmi_frontend_api_service.aws_json1_0.modify_volume.modify_volume(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces_instances._operations.eucmi_frontend_api_service.rpcv2_cbor.modify_volume
+
+                output, http_response = (
+                    capo_workspaces_instances._operations.eucmi_frontend_api_service.rpcv2_cbor.modify_volume.modify_volume(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -1170,13 +1309,24 @@ class WorkspacesInstancesClient:
         ) -> OperationResponse[
             "capo_workspaces_instances.types.tag_resource_response.TagResourceResponse"
         ]:
-            import capo_workspaces_instances._operations.eucmi_frontend_api_service.tag_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_workspaces_instances._operations.eucmi_frontend_api_service.aws_json1_0.tag_resource
 
-            output, http_response = (
-                capo_workspaces_instances._operations.eucmi_frontend_api_service.tag_resource.tag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_workspaces_instances._operations.eucmi_frontend_api_service.aws_json1_0.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces_instances._operations.eucmi_frontend_api_service.rpcv2_cbor.tag_resource
+
+                output, http_response = (
+                    capo_workspaces_instances._operations.eucmi_frontend_api_service.rpcv2_cbor.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1224,13 +1374,24 @@ class WorkspacesInstancesClient:
         ) -> OperationResponse[
             "capo_workspaces_instances.types.untag_resource_response.UntagResourceResponse"
         ]:
-            import capo_workspaces_instances._operations.eucmi_frontend_api_service.untag_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_workspaces_instances._operations.eucmi_frontend_api_service.aws_json1_0.untag_resource
 
-            output, http_response = (
-                capo_workspaces_instances._operations.eucmi_frontend_api_service.untag_resource.untag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_workspaces_instances._operations.eucmi_frontend_api_service.aws_json1_0.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_workspaces_instances._operations.eucmi_frontend_api_service.rpcv2_cbor.untag_resource
+
+                output, http_response = (
+                    capo_workspaces_instances._operations.eucmi_frontend_api_service.rpcv2_cbor.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

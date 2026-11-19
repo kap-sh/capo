@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> StartAddressListImportJobRequest:
     else:
         out["job_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartAddressListImportJobRequest) -> dict:
+    out: dict = {}
+    out["JobId"] = value["job_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartAddressListImportJobRequest:
+    out: StartAddressListImportJobRequest = {}  # type: ignore[typeddict-item]
+    if data.get("JobId") is not None:
+        out["job_id"] = data["JobId"]
+    else:
+        out["job_id"] = ""
+    return out

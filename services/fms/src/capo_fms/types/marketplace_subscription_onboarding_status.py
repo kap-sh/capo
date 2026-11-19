@@ -16,3 +16,12 @@ def serialize_aws_json_1_1(value: MarketplaceSubscriptionOnboardingStatus) -> st
 
 def deserialize_aws_json_1_1(data: str) -> MarketplaceSubscriptionOnboardingStatus:
     return cast(MarketplaceSubscriptionOnboardingStatus, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MarketplaceSubscriptionOnboardingStatus) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> MarketplaceSubscriptionOnboardingStatus:
+    return cast(MarketplaceSubscriptionOnboardingStatus, data)

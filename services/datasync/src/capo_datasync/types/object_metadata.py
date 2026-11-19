@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: ObjectMetadata) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> ObjectMetadata:
     return cast(ObjectMetadata, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ObjectMetadata) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ObjectMetadata:
+    return cast(ObjectMetadata, data)

@@ -34,3 +34,22 @@ def deserialize_aws_json_1_1(data: dict) -> FeatureMetadata:
             data["Status"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FeatureMetadata) -> dict:
+    out: dict = {}
+    if "status" in value:
+        import capo_pi.types.feature_status
+
+        out["Status"] = capo_pi.types.feature_status.serialize_cbor(value["status"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> FeatureMetadata:
+    out: FeatureMetadata = {}  # type: ignore[typeddict-item]
+    if data.get("Status") is not None:
+        import capo_pi.types.feature_status
+
+        out["status"] = capo_pi.types.feature_status.deserialize_cbor(data["Status"])
+    return out

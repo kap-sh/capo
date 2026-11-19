@@ -28,3 +28,18 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDeploymentConfigOutput:
     if data.get("deploymentConfigId") is not None:
         out["deployment_config_id"] = data["deploymentConfigId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateDeploymentConfigOutput) -> dict:
+    out: dict = {}
+    if "deployment_config_id" in value:
+        out["deploymentConfigId"] = value["deployment_config_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateDeploymentConfigOutput:
+    out: CreateDeploymentConfigOutput = {}  # type: ignore[typeddict-item]
+    if data.get("deploymentConfigId") is not None:
+        out["deployment_config_id"] = data["deploymentConfigId"]
+    return out

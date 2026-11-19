@@ -94,6 +94,62 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLocationFsxOntapRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateLocationFsxOntapRequest) -> dict:
+    out: dict = {}
+    import capo_datasync.types.fsx_protocol
+
+    out["Protocol"] = capo_datasync.types.fsx_protocol.serialize_cbor(value["protocol"])
+    import capo_datasync.types.ec2_security_group_arn_list
+
+    out["SecurityGroupArns"] = (
+        capo_datasync.types.ec2_security_group_arn_list.serialize_cbor(
+            value["security_group_arns"]
+        )
+    )
+    out["StorageVirtualMachineArn"] = value["storage_virtual_machine_arn"]
+    if "subdirectory" in value:
+        out["Subdirectory"] = value["subdirectory"]
+    if "tags" in value:
+        import capo_datasync.types.input_tag_list
+
+        out["Tags"] = capo_datasync.types.input_tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateLocationFsxOntapRequest:
+    out: CreateLocationFsxOntapRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Protocol") is not None:
+        import capo_datasync.types.fsx_protocol
+
+        out["protocol"] = capo_datasync.types.fsx_protocol.deserialize_cbor(
+            data["Protocol"]
+        )
+    else:
+        raise DeserializationError("CreateLocationFsxOntapRequest.protocol required")
+    if data.get("SecurityGroupArns") is not None:
+        import capo_datasync.types.ec2_security_group_arn_list
+
+        out["security_group_arns"] = (
+            capo_datasync.types.ec2_security_group_arn_list.deserialize_cbor(
+                data["SecurityGroupArns"]
+            )
+        )
+    else:
+        out["security_group_arns"] = []
+    if data.get("StorageVirtualMachineArn") is not None:
+        out["storage_virtual_machine_arn"] = data["StorageVirtualMachineArn"]
+    else:
+        out["storage_virtual_machine_arn"] = ""
+    if data.get("Subdirectory") is not None:
+        out["subdirectory"] = data["Subdirectory"]
+    if data.get("Tags") is not None:
+        import capo_datasync.types.input_tag_list
+
+        out["tags"] = capo_datasync.types.input_tag_list.deserialize_cbor(data["Tags"])
+    return out
+
+
 def redact_sensitive(value: CreateLocationFsxOntapRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "protocol" in value:

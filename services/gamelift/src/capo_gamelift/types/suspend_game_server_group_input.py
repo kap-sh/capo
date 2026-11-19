@@ -49,3 +49,34 @@ def deserialize_aws_json_1_1(data: dict) -> SuspendGameServerGroupInput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SuspendGameServerGroupInput) -> dict:
+    out: dict = {}
+    if "game_server_group_name" in value:
+        out["GameServerGroupName"] = value["game_server_group_name"]
+    if "suspend_actions" in value:
+        import capo_gamelift.types.game_server_group_actions
+
+        out["SuspendActions"] = (
+            capo_gamelift.types.game_server_group_actions.serialize_cbor(
+                value["suspend_actions"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> SuspendGameServerGroupInput:
+    out: SuspendGameServerGroupInput = {}  # type: ignore[typeddict-item]
+    if data.get("GameServerGroupName") is not None:
+        out["game_server_group_name"] = data["GameServerGroupName"]
+    if data.get("SuspendActions") is not None:
+        import capo_gamelift.types.game_server_group_actions
+
+        out["suspend_actions"] = (
+            capo_gamelift.types.game_server_group_actions.deserialize_cbor(
+                data["SuspendActions"]
+            )
+        )
+    return out

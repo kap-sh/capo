@@ -33,3 +33,22 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAppBlockBuilderStreamingURLReq
     if data.get("Validity") is not None:
         out["validity"] = data["Validity"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateAppBlockBuilderStreamingURLRequest) -> dict:
+    out: dict = {}
+    if "app_block_builder_name" in value:
+        out["AppBlockBuilderName"] = value["app_block_builder_name"]
+    if "validity" in value:
+        out["Validity"] = value["validity"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateAppBlockBuilderStreamingURLRequest:
+    out: CreateAppBlockBuilderStreamingURLRequest = {}  # type: ignore[typeddict-item]
+    if data.get("AppBlockBuilderName") is not None:
+        out["app_block_builder_name"] = data["AppBlockBuilderName"]
+    if data.get("Validity") is not None:
+        out["validity"] = data["Validity"]
+    return out

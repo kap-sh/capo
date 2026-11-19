@@ -31,3 +31,21 @@ def deserialize_aws_json_1_0(
     else:
         out["transit_gateway_attachment_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteNetworkFirewallTransitGatewayAttachmentRequest) -> dict:
+    out: dict = {}
+    out["TransitGatewayAttachmentId"] = value["transit_gateway_attachment_id"]
+    return out
+
+
+def deserialize_cbor(
+    data: dict,
+) -> DeleteNetworkFirewallTransitGatewayAttachmentRequest:
+    out: DeleteNetworkFirewallTransitGatewayAttachmentRequest = {}  # type: ignore[typeddict-item]
+    if data.get("TransitGatewayAttachmentId") is not None:
+        out["transit_gateway_attachment_id"] = data["TransitGatewayAttachmentId"]
+    else:
+        out["transit_gateway_attachment_id"] = ""
+    return out

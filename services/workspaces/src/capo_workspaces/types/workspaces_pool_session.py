@@ -146,3 +146,105 @@ def deserialize_aws_json_1_1(data: dict) -> WorkspacesPoolSession:
     else:
         out["user_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: WorkspacesPoolSession) -> dict:
+    out: dict = {}
+    if "authentication_type" in value:
+        import capo_workspaces.types.authentication_type
+
+        out["AuthenticationType"] = (
+            capo_workspaces.types.authentication_type.serialize_cbor(
+                value["authentication_type"]
+            )
+        )
+    if "connection_state" in value:
+        import capo_workspaces.types.session_connection_state
+
+        out["ConnectionState"] = (
+            capo_workspaces.types.session_connection_state.serialize_cbor(
+                value["connection_state"]
+            )
+        )
+    out["SessionId"] = value["session_id"]
+    if "instance_id" in value:
+        out["InstanceId"] = value["instance_id"]
+    out["PoolId"] = value["pool_id"]
+    if "expiration_time" in value:
+        import capo_workspaces.types.timestamp
+
+        out["ExpirationTime"] = capo_workspaces.types.timestamp.serialize_cbor(
+            value["expiration_time"]
+        )
+    if "network_access_configuration" in value:
+        import capo_workspaces.types.network_access_configuration
+
+        out["NetworkAccessConfiguration"] = (
+            capo_workspaces.types.network_access_configuration.serialize_cbor(
+                value["network_access_configuration"]
+            )
+        )
+    if "start_time" in value:
+        import capo_workspaces.types.timestamp
+
+        out["StartTime"] = capo_workspaces.types.timestamp.serialize_cbor(
+            value["start_time"]
+        )
+    out["UserId"] = value["user_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> WorkspacesPoolSession:
+    out: WorkspacesPoolSession = {}  # type: ignore[typeddict-item]
+    if data.get("AuthenticationType") is not None:
+        import capo_workspaces.types.authentication_type
+
+        out["authentication_type"] = (
+            capo_workspaces.types.authentication_type.deserialize_cbor(
+                data["AuthenticationType"]
+            )
+        )
+    if data.get("ConnectionState") is not None:
+        import capo_workspaces.types.session_connection_state
+
+        out["connection_state"] = (
+            capo_workspaces.types.session_connection_state.deserialize_cbor(
+                data["ConnectionState"]
+            )
+        )
+    if data.get("SessionId") is not None:
+        out["session_id"] = data["SessionId"]
+    else:
+        out["session_id"] = ""
+    if data.get("InstanceId") is not None:
+        out["instance_id"] = data["InstanceId"]
+    if data.get("PoolId") is not None:
+        out["pool_id"] = data["PoolId"]
+    else:
+        out["pool_id"] = ""
+    if data.get("ExpirationTime") is not None:
+        import capo_workspaces.types.timestamp
+
+        out["expiration_time"] = capo_workspaces.types.timestamp.deserialize_cbor(
+            data["ExpirationTime"]
+        )
+    if data.get("NetworkAccessConfiguration") is not None:
+        import capo_workspaces.types.network_access_configuration
+
+        out["network_access_configuration"] = (
+            capo_workspaces.types.network_access_configuration.deserialize_cbor(
+                data["NetworkAccessConfiguration"]
+            )
+        )
+    if data.get("StartTime") is not None:
+        import capo_workspaces.types.timestamp
+
+        out["start_time"] = capo_workspaces.types.timestamp.deserialize_cbor(
+            data["StartTime"]
+        )
+    if data.get("UserId") is not None:
+        out["user_id"] = data["UserId"]
+    else:
+        out["user_id"] = ""
+    return out

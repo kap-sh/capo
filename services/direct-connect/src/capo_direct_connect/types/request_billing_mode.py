@@ -19,3 +19,12 @@ def serialize_aws_json_1_1(value: RequestBillingMode) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> RequestBillingMode:
     return cast(RequestBillingMode, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RequestBillingMode) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> RequestBillingMode:
+    return cast(RequestBillingMode, data)

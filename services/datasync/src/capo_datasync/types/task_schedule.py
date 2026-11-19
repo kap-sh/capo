@@ -44,3 +44,31 @@ def deserialize_aws_json_1_1(data: dict) -> TaskSchedule:
             data["Status"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TaskSchedule) -> dict:
+    out: dict = {}
+    out["ScheduleExpression"] = value["schedule_expression"]
+    if "status" in value:
+        import capo_datasync.types.schedule_status
+
+        out["Status"] = capo_datasync.types.schedule_status.serialize_cbor(
+            value["status"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TaskSchedule:
+    out: TaskSchedule = {}  # type: ignore[typeddict-item]
+    if data.get("ScheduleExpression") is not None:
+        out["schedule_expression"] = data["ScheduleExpression"]
+    else:
+        out["schedule_expression"] = ""
+    if data.get("Status") is not None:
+        import capo_datasync.types.schedule_status
+
+        out["status"] = capo_datasync.types.schedule_status.deserialize_cbor(
+            data["Status"]
+        )
+    return out

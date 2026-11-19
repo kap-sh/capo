@@ -156,3 +156,116 @@ def deserialize_aws_json_1_1(data: dict) -> SelfservicePermissions:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SelfservicePermissions) -> dict:
+    out: dict = {}
+    if "restart_workspace" in value:
+        import capo_workspaces.types.reconnect_enum
+
+        out["RestartWorkspace"] = capo_workspaces.types.reconnect_enum.serialize_cbor(
+            value["restart_workspace"]
+        )
+    if "increase_volume_size" in value:
+        import capo_workspaces.types.reconnect_enum
+
+        out["IncreaseVolumeSize"] = capo_workspaces.types.reconnect_enum.serialize_cbor(
+            value["increase_volume_size"]
+        )
+    if "change_compute_type" in value:
+        import capo_workspaces.types.reconnect_enum
+
+        out["ChangeComputeType"] = capo_workspaces.types.reconnect_enum.serialize_cbor(
+            value["change_compute_type"]
+        )
+    if "switch_running_mode" in value:
+        import capo_workspaces.types.reconnect_enum
+
+        out["SwitchRunningMode"] = capo_workspaces.types.reconnect_enum.serialize_cbor(
+            value["switch_running_mode"]
+        )
+    if "rebuild_workspace" in value:
+        import capo_workspaces.types.reconnect_enum
+
+        out["RebuildWorkspace"] = capo_workspaces.types.reconnect_enum.serialize_cbor(
+            value["rebuild_workspace"]
+        )
+    if "nested_virtualization" in value:
+        import capo_workspaces.types.reconnect_enum
+
+        out["NestedVirtualization"] = (
+            capo_workspaces.types.reconnect_enum.serialize_cbor(
+                value["nested_virtualization"]
+            )
+        )
+    if "enable_end_user_advisor" in value:
+        import capo_workspaces.types.reconnect_enum
+
+        out["EnableEndUserAdvisor"] = (
+            capo_workspaces.types.reconnect_enum.serialize_cbor(
+                value["enable_end_user_advisor"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> SelfservicePermissions:
+    out: SelfservicePermissions = {}  # type: ignore[typeddict-item]
+    if data.get("RestartWorkspace") is not None:
+        import capo_workspaces.types.reconnect_enum
+
+        out["restart_workspace"] = (
+            capo_workspaces.types.reconnect_enum.deserialize_cbor(
+                data["RestartWorkspace"]
+            )
+        )
+    if data.get("IncreaseVolumeSize") is not None:
+        import capo_workspaces.types.reconnect_enum
+
+        out["increase_volume_size"] = (
+            capo_workspaces.types.reconnect_enum.deserialize_cbor(
+                data["IncreaseVolumeSize"]
+            )
+        )
+    if data.get("ChangeComputeType") is not None:
+        import capo_workspaces.types.reconnect_enum
+
+        out["change_compute_type"] = (
+            capo_workspaces.types.reconnect_enum.deserialize_cbor(
+                data["ChangeComputeType"]
+            )
+        )
+    if data.get("SwitchRunningMode") is not None:
+        import capo_workspaces.types.reconnect_enum
+
+        out["switch_running_mode"] = (
+            capo_workspaces.types.reconnect_enum.deserialize_cbor(
+                data["SwitchRunningMode"]
+            )
+        )
+    if data.get("RebuildWorkspace") is not None:
+        import capo_workspaces.types.reconnect_enum
+
+        out["rebuild_workspace"] = (
+            capo_workspaces.types.reconnect_enum.deserialize_cbor(
+                data["RebuildWorkspace"]
+            )
+        )
+    if data.get("NestedVirtualization") is not None:
+        import capo_workspaces.types.reconnect_enum
+
+        out["nested_virtualization"] = (
+            capo_workspaces.types.reconnect_enum.deserialize_cbor(
+                data["NestedVirtualization"]
+            )
+        )
+    if data.get("EnableEndUserAdvisor") is not None:
+        import capo_workspaces.types.reconnect_enum
+
+        out["enable_end_user_advisor"] = (
+            capo_workspaces.types.reconnect_enum.deserialize_cbor(
+                data["EnableEndUserAdvisor"]
+            )
+        )
+    return out

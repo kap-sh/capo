@@ -35,3 +35,22 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeContainerGroupDefinitionInpu
     if data.get("VersionNumber") is not None:
         out["version_number"] = data["VersionNumber"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeContainerGroupDefinitionInput) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "version_number" in value:
+        out["VersionNumber"] = value["version_number"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeContainerGroupDefinitionInput:
+    out: DescribeContainerGroupDefinitionInput = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("VersionNumber") is not None:
+        out["version_number"] = data["VersionNumber"]
+    return out

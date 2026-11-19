@@ -16,3 +16,12 @@ def serialize_aws_json_1_1(value: AzureAccessTier) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> AzureAccessTier:
     return cast(AzureAccessTier, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AzureAccessTier) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> AzureAccessTier:
+    return cast(AzureAccessTier, data)

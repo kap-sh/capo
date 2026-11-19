@@ -35,3 +35,24 @@ def deserialize_aws_json_1_1(data: dict) -> InputDataConfig:
     else:
         out["content_type"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InputDataConfig) -> dict:
+    out: dict = {}
+    out["S3Uri"] = value["s3_uri"]
+    out["ContentType"] = value["content_type"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> InputDataConfig:
+    out: InputDataConfig = {}  # type: ignore[typeddict-item]
+    if data.get("S3Uri") is not None:
+        out["s3_uri"] = data["S3Uri"]
+    else:
+        out["s3_uri"] = ""
+    if data.get("ContentType") is not None:
+        out["content_type"] = data["ContentType"]
+    else:
+        out["content_type"] = ""
+    return out

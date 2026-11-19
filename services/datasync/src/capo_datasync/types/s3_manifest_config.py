@@ -52,3 +52,33 @@ def deserialize_aws_json_1_1(data: dict) -> S3ManifestConfig:
     if data.get("ManifestObjectVersionId") is not None:
         out["manifest_object_version_id"] = data["ManifestObjectVersionId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: S3ManifestConfig) -> dict:
+    out: dict = {}
+    out["ManifestObjectPath"] = value["manifest_object_path"]
+    out["BucketAccessRoleArn"] = value["bucket_access_role_arn"]
+    out["S3BucketArn"] = value["s3_bucket_arn"]
+    if "manifest_object_version_id" in value:
+        out["ManifestObjectVersionId"] = value["manifest_object_version_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> S3ManifestConfig:
+    out: S3ManifestConfig = {}  # type: ignore[typeddict-item]
+    if data.get("ManifestObjectPath") is not None:
+        out["manifest_object_path"] = data["ManifestObjectPath"]
+    else:
+        out["manifest_object_path"] = ""
+    if data.get("BucketAccessRoleArn") is not None:
+        out["bucket_access_role_arn"] = data["BucketAccessRoleArn"]
+    else:
+        out["bucket_access_role_arn"] = ""
+    if data.get("S3BucketArn") is not None:
+        out["s3_bucket_arn"] = data["S3BucketArn"]
+    else:
+        out["s3_bucket_arn"] = ""
+    if data.get("ManifestObjectVersionId") is not None:
+        out["manifest_object_version_id"] = data["ManifestObjectVersionId"]
+    return out

@@ -45,3 +45,32 @@ def deserialize_aws_json_1_1(data: dict) -> DirectoryVpcSettings:
     else:
         out["subnet_ids"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DirectoryVpcSettings) -> dict:
+    out: dict = {}
+    out["VpcId"] = value["vpc_id"]
+    import capo_directory_service.types.subnet_ids
+
+    out["SubnetIds"] = capo_directory_service.types.subnet_ids.serialize_cbor(
+        value["subnet_ids"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DirectoryVpcSettings:
+    out: DirectoryVpcSettings = {}  # type: ignore[typeddict-item]
+    if data.get("VpcId") is not None:
+        out["vpc_id"] = data["VpcId"]
+    else:
+        out["vpc_id"] = ""
+    if data.get("SubnetIds") is not None:
+        import capo_directory_service.types.subnet_ids
+
+        out["subnet_ids"] = capo_directory_service.types.subnet_ids.deserialize_cbor(
+            data["SubnetIds"]
+        )
+    else:
+        out["subnet_ids"] = []
+    return out

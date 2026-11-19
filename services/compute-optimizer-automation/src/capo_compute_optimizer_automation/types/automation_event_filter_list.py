@@ -37,3 +37,32 @@ def deserialize_aws_json_1_0(data: list) -> AutomationEventFilterList:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AutomationEventFilterList) -> list:
+    import capo_compute_optimizer_automation.types.automation_event_filter
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_compute_optimizer_automation.types.automation_event_filter.serialize_cbor(
+                item
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> AutomationEventFilterList:
+    import capo_compute_optimizer_automation.types.automation_event_filter
+
+    out: AutomationEventFilterList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_compute_optimizer_automation.types.automation_event_filter.deserialize_cbor(
+                item
+            )
+        )
+    return out

@@ -51,3 +51,31 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDirectConnectGatewayRequest:
     if data.get("amazonSideAsn") is not None:
         out["amazon_side_asn"] = data["amazonSideAsn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateDirectConnectGatewayRequest) -> dict:
+    out: dict = {}
+    out["directConnectGatewayName"] = value["direct_connect_gateway_name"]
+    if "tags" in value:
+        import capo_direct_connect.types.tag_list
+
+        out["tags"] = capo_direct_connect.types.tag_list.serialize_cbor(value["tags"])
+    if "amazon_side_asn" in value:
+        out["amazonSideAsn"] = value["amazon_side_asn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateDirectConnectGatewayRequest:
+    out: CreateDirectConnectGatewayRequest = {}  # type: ignore[typeddict-item]
+    if data.get("directConnectGatewayName") is not None:
+        out["direct_connect_gateway_name"] = data["directConnectGatewayName"]
+    else:
+        out["direct_connect_gateway_name"] = ""
+    if data.get("tags") is not None:
+        import capo_direct_connect.types.tag_list
+
+        out["tags"] = capo_direct_connect.types.tag_list.deserialize_cbor(data["tags"])
+    if data.get("amazonSideAsn") is not None:
+        out["amazon_side_asn"] = data["amazonSideAsn"]
+    return out

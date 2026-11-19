@@ -43,3 +43,27 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteProvisionedProductPlanInput:
     if data.get("IgnoreErrors") is not None:
         out["ignore_errors"] = data["IgnoreErrors"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteProvisionedProductPlanInput) -> dict:
+    out: dict = {}
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    out["PlanId"] = value["plan_id"]
+    if "ignore_errors" in value:
+        out["IgnoreErrors"] = value["ignore_errors"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteProvisionedProductPlanInput:
+    out: DeleteProvisionedProductPlanInput = {}  # type: ignore[typeddict-item]
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    if data.get("PlanId") is not None:
+        out["plan_id"] = data["PlanId"]
+    else:
+        out["plan_id"] = ""
+    if data.get("IgnoreErrors") is not None:
+        out["ignore_errors"] = data["IgnoreErrors"]
+    return out

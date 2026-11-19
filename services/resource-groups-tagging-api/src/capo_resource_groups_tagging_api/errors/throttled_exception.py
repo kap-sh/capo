@@ -32,6 +32,21 @@ def deserialize_aws_json_1_1(data: dict) -> ThrottledException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ThrottledException_) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["Message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ThrottledException_:
+    out: ThrottledException_ = {}  # type: ignore[typeddict-item]
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    return out
+
+
 class ThrottledException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.resourcegroupstaggingapi#ThrottledException``."""
 
@@ -59,3 +74,9 @@ class ThrottledException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ThrottledException":
         return cls(deserialize_aws_json_1_1(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "ThrottledException":
+        return cls(deserialize_cbor(data), message, response=response)

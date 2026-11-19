@@ -66,3 +66,44 @@ def deserialize_aws_json_1_1(data: dict) -> ServiceLifecycle:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ServiceLifecycle) -> dict:
+    out: dict = {}
+    if "service" in value:
+        out["service"] = value["service"]
+    if "version" in value:
+        out["version"] = value["version"]
+    if "title" in value:
+        out["title"] = value["title"]
+    if "recommended_version" in value:
+        out["recommendedVersion"] = value["recommended_version"]
+    if "lifecycle_events" in value:
+        import capo_health.types.lifecycle_event_list
+
+        out["lifecycleEvents"] = capo_health.types.lifecycle_event_list.serialize_cbor(
+            value["lifecycle_events"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ServiceLifecycle:
+    out: ServiceLifecycle = {}  # type: ignore[typeddict-item]
+    if data.get("service") is not None:
+        out["service"] = data["service"]
+    if data.get("version") is not None:
+        out["version"] = data["version"]
+    if data.get("title") is not None:
+        out["title"] = data["title"]
+    if data.get("recommendedVersion") is not None:
+        out["recommended_version"] = data["recommendedVersion"]
+    if data.get("lifecycleEvents") is not None:
+        import capo_health.types.lifecycle_event_list
+
+        out["lifecycle_events"] = (
+            capo_health.types.lifecycle_event_list.deserialize_cbor(
+                data["lifecycleEvents"]
+            )
+        )
+    return out

@@ -51,3 +51,31 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateConnectionRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateConnectionRequest) -> dict:
+    out: dict = {}
+    out["identifier"] = value["identifier"]
+    if "description" in value:
+        out["description"] = value["description"]
+    if "bandwidth" in value:
+        out["bandwidth"] = value["bandwidth"]
+    if "client_token" in value:
+        out["clientToken"] = value["client_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateConnectionRequest:
+    out: UpdateConnectionRequest = {}  # type: ignore[typeddict-item]
+    if data.get("identifier") is not None:
+        out["identifier"] = data["identifier"]
+    else:
+        out["identifier"] = ""
+    if data.get("description") is not None:
+        out["description"] = data["description"]
+    if data.get("bandwidth") is not None:
+        out["bandwidth"] = data["bandwidth"]
+    if data.get("clientToken") is not None:
+        out["client_token"] = data["clientToken"]
+    return out

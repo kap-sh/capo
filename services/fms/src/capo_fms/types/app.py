@@ -43,3 +43,29 @@ def deserialize_aws_json_1_1(data: dict) -> App:
     else:
         out["port"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: App) -> dict:
+    out: dict = {}
+    out["AppName"] = value["app_name"]
+    out["Protocol"] = value["protocol"]
+    out["Port"] = value["port"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> App:
+    out: App = {}  # type: ignore[typeddict-item]
+    if data.get("AppName") is not None:
+        out["app_name"] = data["AppName"]
+    else:
+        out["app_name"] = ""
+    if data.get("Protocol") is not None:
+        out["protocol"] = data["Protocol"]
+    else:
+        out["protocol"] = ""
+    if data.get("Port") is not None:
+        out["port"] = data["Port"]
+    else:
+        out["port"] = 0
+    return out

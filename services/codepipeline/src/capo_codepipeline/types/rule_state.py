@@ -79,3 +79,54 @@ def deserialize_aws_json_1_1(data: dict) -> RuleState:
     if data.get("revisionUrl") is not None:
         out["revision_url"] = data["revisionUrl"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RuleState) -> dict:
+    out: dict = {}
+    if "rule_name" in value:
+        out["ruleName"] = value["rule_name"]
+    if "current_revision" in value:
+        import capo_codepipeline.types.rule_revision
+
+        out["currentRevision"] = capo_codepipeline.types.rule_revision.serialize_cbor(
+            value["current_revision"]
+        )
+    if "latest_execution" in value:
+        import capo_codepipeline.types.rule_execution
+
+        out["latestExecution"] = capo_codepipeline.types.rule_execution.serialize_cbor(
+            value["latest_execution"]
+        )
+    if "entity_url" in value:
+        out["entityUrl"] = value["entity_url"]
+    if "revision_url" in value:
+        out["revisionUrl"] = value["revision_url"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RuleState:
+    out: RuleState = {}  # type: ignore[typeddict-item]
+    if data.get("ruleName") is not None:
+        out["rule_name"] = data["ruleName"]
+    if data.get("currentRevision") is not None:
+        import capo_codepipeline.types.rule_revision
+
+        out["current_revision"] = (
+            capo_codepipeline.types.rule_revision.deserialize_cbor(
+                data["currentRevision"]
+            )
+        )
+    if data.get("latestExecution") is not None:
+        import capo_codepipeline.types.rule_execution
+
+        out["latest_execution"] = (
+            capo_codepipeline.types.rule_execution.deserialize_cbor(
+                data["latestExecution"]
+            )
+        )
+    if data.get("entityUrl") is not None:
+        out["entity_url"] = data["entityUrl"]
+    if data.get("revisionUrl") is not None:
+        out["revision_url"] = data["revisionUrl"]
+    return out

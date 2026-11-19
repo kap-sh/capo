@@ -49,3 +49,35 @@ def deserialize_aws_json_1_1(data: dict) -> AccountEntityAggregate:
             data["statuses"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AccountEntityAggregate) -> dict:
+    out: dict = {}
+    if "account_id" in value:
+        out["accountId"] = value["account_id"]
+    out["count"] = value.get("count", 0)
+    if "statuses" in value:
+        import capo_health.types.entity_statuses
+
+        out["statuses"] = capo_health.types.entity_statuses.serialize_cbor(
+            value["statuses"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AccountEntityAggregate:
+    out: AccountEntityAggregate = {}  # type: ignore[typeddict-item]
+    if data.get("accountId") is not None:
+        out["account_id"] = data["accountId"]
+    if data.get("count") is not None:
+        out["count"] = data["count"]
+    else:
+        out["count"] = 0
+    if data.get("statuses") is not None:
+        import capo_health.types.entity_statuses
+
+        out["statuses"] = capo_health.types.entity_statuses.deserialize_cbor(
+            data["statuses"]
+        )
+    return out

@@ -41,3 +41,30 @@ def deserialize_aws_json_1_0(data: dict) -> ExportSummary:
             data["Status"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExportSummary) -> dict:
+    out: dict = {}
+    if "export_id" in value:
+        out["ExportId"] = value["export_id"]
+    if "status" in value:
+        import capo_mailmanager.types.export_status
+
+        out["Status"] = capo_mailmanager.types.export_status.serialize_cbor(
+            value["status"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ExportSummary:
+    out: ExportSummary = {}  # type: ignore[typeddict-item]
+    if data.get("ExportId") is not None:
+        out["export_id"] = data["ExportId"]
+    if data.get("Status") is not None:
+        import capo_mailmanager.types.export_status
+
+        out["status"] = capo_mailmanager.types.export_status.deserialize_cbor(
+            data["Status"]
+        )
+    return out

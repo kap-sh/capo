@@ -18,3 +18,16 @@ def serialize_aws_json_1_1(value: CertificateRegisteredDateTime) -> float:
 
 def deserialize_aws_json_1_1(data: float) -> CertificateRegisteredDateTime:
     return datetime.datetime.fromtimestamp(float(data), tz=datetime.timezone.utc)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(
+    value: CertificateRegisteredDateTime,
+) -> CertificateRegisteredDateTime:
+    return value
+
+
+def deserialize_cbor(
+    data: CertificateRegisteredDateTime,
+) -> CertificateRegisteredDateTime:
+    return data

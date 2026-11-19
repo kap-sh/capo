@@ -16,3 +16,12 @@ def serialize_aws_json_1_0(value: RDSSavingsEstimationModeSource) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> RDSSavingsEstimationModeSource:
     return cast(RDSSavingsEstimationModeSource, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RDSSavingsEstimationModeSource) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> RDSSavingsEstimationModeSource:
+    return cast(RDSSavingsEstimationModeSource, data)

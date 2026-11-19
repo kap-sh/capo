@@ -42,6 +42,33 @@ def deserialize_aws_json_1_1(data: dict) -> StartMatchBackfillOutput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartMatchBackfillOutput) -> dict:
+    out: dict = {}
+    if "matchmaking_ticket" in value:
+        import capo_gamelift.types.matchmaking_ticket
+
+        out["MatchmakingTicket"] = (
+            capo_gamelift.types.matchmaking_ticket.serialize_cbor(
+                value["matchmaking_ticket"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartMatchBackfillOutput:
+    out: StartMatchBackfillOutput = {}  # type: ignore[typeddict-item]
+    if data.get("MatchmakingTicket") is not None:
+        import capo_gamelift.types.matchmaking_ticket
+
+        out["matchmaking_ticket"] = (
+            capo_gamelift.types.matchmaking_ticket.deserialize_cbor(
+                data["MatchmakingTicket"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: StartMatchBackfillOutput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "matchmaking_ticket" in value:

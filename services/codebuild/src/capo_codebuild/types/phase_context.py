@@ -32,3 +32,22 @@ def deserialize_aws_json_1_1(data: dict) -> PhaseContext:
     if data.get("message") is not None:
         out["message"] = data["message"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PhaseContext) -> dict:
+    out: dict = {}
+    if "status_code" in value:
+        out["statusCode"] = value["status_code"]
+    if "message" in value:
+        out["message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> PhaseContext:
+    out: PhaseContext = {}  # type: ignore[typeddict-item]
+    if data.get("statusCode") is not None:
+        out["status_code"] = data["statusCode"]
+    if data.get("message") is not None:
+        out["message"] = data["message"]
+    return out

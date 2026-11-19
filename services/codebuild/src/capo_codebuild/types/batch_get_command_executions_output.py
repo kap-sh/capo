@@ -63,6 +63,49 @@ def deserialize_aws_json_1_1(data: dict) -> BatchGetCommandExecutionsOutput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchGetCommandExecutionsOutput) -> dict:
+    out: dict = {}
+    if "command_executions" in value:
+        import capo_codebuild.types.command_executions
+
+        out["commandExecutions"] = (
+            capo_codebuild.types.command_executions.serialize_cbor(
+                value["command_executions"]
+            )
+        )
+    if "command_executions_not_found" in value:
+        import capo_codebuild.types.command_execution_ids
+
+        out["commandExecutionsNotFound"] = (
+            capo_codebuild.types.command_execution_ids.serialize_cbor(
+                value["command_executions_not_found"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BatchGetCommandExecutionsOutput:
+    out: BatchGetCommandExecutionsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("commandExecutions") is not None:
+        import capo_codebuild.types.command_executions
+
+        out["command_executions"] = (
+            capo_codebuild.types.command_executions.deserialize_cbor(
+                data["commandExecutions"]
+            )
+        )
+    if data.get("commandExecutionsNotFound") is not None:
+        import capo_codebuild.types.command_execution_ids
+
+        out["command_executions_not_found"] = (
+            capo_codebuild.types.command_execution_ids.deserialize_cbor(
+                data["commandExecutionsNotFound"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: BatchGetCommandExecutionsOutput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "command_executions" in value:

@@ -34,3 +34,23 @@ def deserialize_aws_json_1_1(data: dict) -> ProjectBadge:
     if data.get("badgeRequestUrl") is not None:
         out["badge_request_url"] = data["badgeRequestUrl"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ProjectBadge) -> dict:
+    out: dict = {}
+    out["badgeEnabled"] = value.get("badge_enabled", False)
+    if "badge_request_url" in value:
+        out["badgeRequestUrl"] = value["badge_request_url"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ProjectBadge:
+    out: ProjectBadge = {}  # type: ignore[typeddict-item]
+    if data.get("badgeEnabled") is not None:
+        out["badge_enabled"] = data["badgeEnabled"]
+    else:
+        out["badge_enabled"] = False
+    if data.get("badgeRequestUrl") is not None:
+        out["badge_request_url"] = data["badgeRequestUrl"]
+    return out

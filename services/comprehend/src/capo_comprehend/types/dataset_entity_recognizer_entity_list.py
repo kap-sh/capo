@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> DatasetEntityRecognizerEntityList:
     else:
         out["s3_uri"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DatasetEntityRecognizerEntityList) -> dict:
+    out: dict = {}
+    out["S3Uri"] = value["s3_uri"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DatasetEntityRecognizerEntityList:
+    out: DatasetEntityRecognizerEntityList = {}  # type: ignore[typeddict-item]
+    if data.get("S3Uri") is not None:
+        out["s3_uri"] = data["S3Uri"]
+    else:
+        out["s3_uri"] = ""
+    return out

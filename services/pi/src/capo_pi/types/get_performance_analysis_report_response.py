@@ -36,6 +36,29 @@ def deserialize_aws_json_1_1(data: dict) -> GetPerformanceAnalysisReportResponse
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetPerformanceAnalysisReportResponse) -> dict:
+    out: dict = {}
+    if "analysis_report" in value:
+        import capo_pi.types.analysis_report
+
+        out["AnalysisReport"] = capo_pi.types.analysis_report.serialize_cbor(
+            value["analysis_report"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetPerformanceAnalysisReportResponse:
+    out: GetPerformanceAnalysisReportResponse = {}  # type: ignore[typeddict-item]
+    if data.get("AnalysisReport") is not None:
+        import capo_pi.types.analysis_report
+
+        out["analysis_report"] = capo_pi.types.analysis_report.deserialize_cbor(
+            data["AnalysisReport"]
+        )
+    return out
+
+
 def redact_sensitive(value: GetPerformanceAnalysisReportResponse) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "analysis_report" in value:

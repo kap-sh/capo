@@ -55,3 +55,30 @@ def deserialize_aws_json_1_1(data: dict) -> ToxicLabels:
     if data.get("Toxicity") is not None:
         out["toxicity"] = float(data["Toxicity"])
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ToxicLabels) -> dict:
+    out: dict = {}
+    if "labels" in value:
+        import capo_comprehend.types.list_of_toxic_content
+
+        out["Labels"] = capo_comprehend.types.list_of_toxic_content.serialize_cbor(
+            value["labels"]
+        )
+    if "toxicity" in value:
+        out["Toxicity"] = value["toxicity"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ToxicLabels:
+    out: ToxicLabels = {}  # type: ignore[typeddict-item]
+    if data.get("Labels") is not None:
+        import capo_comprehend.types.list_of_toxic_content
+
+        out["labels"] = capo_comprehend.types.list_of_toxic_content.deserialize_cbor(
+            data["Labels"]
+        )
+    if data.get("Toxicity") is not None:
+        out["toxicity"] = float(data["Toxicity"])
+    return out

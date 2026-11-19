@@ -101,3 +101,59 @@ def deserialize_aws_json_1_0(data: dict) -> ListFlowOperationsRequest:
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListFlowOperationsRequest) -> dict:
+    out: dict = {}
+    out["FirewallArn"] = value["firewall_arn"]
+    if "availability_zone" in value:
+        out["AvailabilityZone"] = value["availability_zone"]
+    if "availability_zone_id" in value:
+        out["AvailabilityZoneId"] = value["availability_zone_id"]
+    if "vpc_endpoint_association_arn" in value:
+        out["VpcEndpointAssociationArn"] = value["vpc_endpoint_association_arn"]
+    if "vpc_endpoint_id" in value:
+        out["VpcEndpointId"] = value["vpc_endpoint_id"]
+    if "flow_operation_type" in value:
+        import capo_network_firewall.types.flow_operation_type
+
+        out["FlowOperationType"] = (
+            capo_network_firewall.types.flow_operation_type.serialize_cbor(
+                value["flow_operation_type"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListFlowOperationsRequest:
+    out: ListFlowOperationsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("FirewallArn") is not None:
+        out["firewall_arn"] = data["FirewallArn"]
+    else:
+        out["firewall_arn"] = ""
+    if data.get("AvailabilityZone") is not None:
+        out["availability_zone"] = data["AvailabilityZone"]
+    if data.get("AvailabilityZoneId") is not None:
+        out["availability_zone_id"] = data["AvailabilityZoneId"]
+    if data.get("VpcEndpointAssociationArn") is not None:
+        out["vpc_endpoint_association_arn"] = data["VpcEndpointAssociationArn"]
+    if data.get("VpcEndpointId") is not None:
+        out["vpc_endpoint_id"] = data["VpcEndpointId"]
+    if data.get("FlowOperationType") is not None:
+        import capo_network_firewall.types.flow_operation_type
+
+        out["flow_operation_type"] = (
+            capo_network_firewall.types.flow_operation_type.deserialize_cbor(
+                data["FlowOperationType"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    return out

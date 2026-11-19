@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeTaskExecutionRequest:
     else:
         out["task_execution_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeTaskExecutionRequest) -> dict:
+    out: dict = {}
+    out["TaskExecutionArn"] = value["task_execution_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeTaskExecutionRequest:
+    out: DescribeTaskExecutionRequest = {}  # type: ignore[typeddict-item]
+    if data.get("TaskExecutionArn") is not None:
+        out["task_execution_arn"] = data["TaskExecutionArn"]
+    else:
+        out["task_execution_arn"] = ""
+    return out

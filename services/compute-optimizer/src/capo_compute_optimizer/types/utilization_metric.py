@@ -71,3 +71,45 @@ def deserialize_aws_json_1_0(data: dict) -> UtilizationMetric:
     else:
         out["value"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UtilizationMetric) -> dict:
+    out: dict = {}
+    if "name" in value:
+        import capo_compute_optimizer.types.metric_name
+
+        out["name"] = capo_compute_optimizer.types.metric_name.serialize_cbor(
+            value["name"]
+        )
+    if "statistic" in value:
+        import capo_compute_optimizer.types.metric_statistic
+
+        out["statistic"] = capo_compute_optimizer.types.metric_statistic.serialize_cbor(
+            value["statistic"]
+        )
+    out["value"] = value.get("value", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> UtilizationMetric:
+    out: UtilizationMetric = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        import capo_compute_optimizer.types.metric_name
+
+        out["name"] = capo_compute_optimizer.types.metric_name.deserialize_cbor(
+            data["name"]
+        )
+    if data.get("statistic") is not None:
+        import capo_compute_optimizer.types.metric_statistic
+
+        out["statistic"] = (
+            capo_compute_optimizer.types.metric_statistic.deserialize_cbor(
+                data["statistic"]
+            )
+        )
+    if data.get("value") is not None:
+        out["value"] = float(data["value"])
+    else:
+        out["value"] = 0
+    return out

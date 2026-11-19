@@ -61,3 +61,42 @@ def deserialize_aws_json_1_0(data: dict) -> ListConnectionsInput:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListConnectionsInput) -> dict:
+    out: dict = {}
+    if "provider_type_filter" in value:
+        import capo_codeconnections.types.provider_type
+
+        out["ProviderTypeFilter"] = (
+            capo_codeconnections.types.provider_type.serialize_cbor(
+                value["provider_type_filter"]
+            )
+        )
+    if "host_arn_filter" in value:
+        out["HostArnFilter"] = value["host_arn_filter"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListConnectionsInput:
+    out: ListConnectionsInput = {}  # type: ignore[typeddict-item]
+    if data.get("ProviderTypeFilter") is not None:
+        import capo_codeconnections.types.provider_type
+
+        out["provider_type_filter"] = (
+            capo_codeconnections.types.provider_type.deserialize_cbor(
+                data["ProviderTypeFilter"]
+            )
+        )
+    if data.get("HostArnFilter") is not None:
+        out["host_arn_filter"] = data["HostArnFilter"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

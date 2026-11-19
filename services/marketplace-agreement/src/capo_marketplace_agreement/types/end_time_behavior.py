@@ -86,3 +86,68 @@ def deserialize_aws_json_1_0(data: dict) -> EndTimeBehavior:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EndTimeBehavior) -> dict:
+    out: dict = {}
+    import capo_marketplace_agreement.types.end_time_behavior_type
+
+    out["type"] = (
+        capo_marketplace_agreement.types.end_time_behavior_type.serialize_cbor(
+            value["type"]
+        )
+    )
+    if "reason_code" in value:
+        import capo_marketplace_agreement.types.end_time_behavior_reason_code
+
+        out["reasonCode"] = (
+            capo_marketplace_agreement.types.end_time_behavior_reason_code.serialize_cbor(
+                value["reason_code"]
+            )
+        )
+    if "renewal_summary" in value:
+        import capo_marketplace_agreement.types.renewal_summary
+
+        out["renewalSummary"] = (
+            capo_marketplace_agreement.types.renewal_summary.serialize_cbor(
+                value["renewal_summary"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> EndTimeBehavior:
+    out: EndTimeBehavior = {}  # type: ignore[typeddict-item]
+    if data.get("type") is not None:
+        import capo_marketplace_agreement.types.end_time_behavior_type
+
+        out["type"] = (
+            capo_marketplace_agreement.types.end_time_behavior_type.deserialize_cbor(
+                data["type"]
+            )
+        )
+    else:
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_marketplace_agreement.types.end_time_behavior_type.EndTimeBehaviorType",
+            "",
+        )
+    if data.get("reasonCode") is not None:
+        import capo_marketplace_agreement.types.end_time_behavior_reason_code
+
+        out["reason_code"] = (
+            capo_marketplace_agreement.types.end_time_behavior_reason_code.deserialize_cbor(
+                data["reasonCode"]
+            )
+        )
+    if data.get("renewalSummary") is not None:
+        import capo_marketplace_agreement.types.renewal_summary
+
+        out["renewal_summary"] = (
+            capo_marketplace_agreement.types.renewal_summary.deserialize_cbor(
+                data["renewalSummary"]
+            )
+        )
+    return out

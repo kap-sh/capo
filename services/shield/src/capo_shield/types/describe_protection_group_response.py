@@ -41,3 +41,29 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeProtectionGroupResponse:
             "DescribeProtectionGroupResponse.protection_group required"
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeProtectionGroupResponse) -> dict:
+    out: dict = {}
+    import capo_shield.types.protection_group
+
+    out["ProtectionGroup"] = capo_shield.types.protection_group.serialize_cbor(
+        value["protection_group"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeProtectionGroupResponse:
+    out: DescribeProtectionGroupResponse = {}  # type: ignore[typeddict-item]
+    if data.get("ProtectionGroup") is not None:
+        import capo_shield.types.protection_group
+
+        out["protection_group"] = capo_shield.types.protection_group.deserialize_cbor(
+            data["ProtectionGroup"]
+        )
+    else:
+        raise DeserializationError(
+            "DescribeProtectionGroupResponse.protection_group required"
+        )
+    return out

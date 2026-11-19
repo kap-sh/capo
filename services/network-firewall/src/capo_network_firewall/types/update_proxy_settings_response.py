@@ -61,3 +61,42 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateProxySettingsResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateProxySettingsResponse) -> dict:
+    out: dict = {}
+    if "firewall_arn" in value:
+        out["FirewallArn"] = value["firewall_arn"]
+    if "firewall_name" in value:
+        out["FirewallName"] = value["firewall_name"]
+    if "update_token" in value:
+        out["UpdateToken"] = value["update_token"]
+    if "proxy_settings" in value:
+        import capo_network_firewall.types.proxy_settings
+
+        out["ProxySettings"] = (
+            capo_network_firewall.types.proxy_settings.serialize_cbor(
+                value["proxy_settings"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateProxySettingsResponse:
+    out: UpdateProxySettingsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("FirewallArn") is not None:
+        out["firewall_arn"] = data["FirewallArn"]
+    if data.get("FirewallName") is not None:
+        out["firewall_name"] = data["FirewallName"]
+    if data.get("UpdateToken") is not None:
+        out["update_token"] = data["UpdateToken"]
+    if data.get("ProxySettings") is not None:
+        import capo_network_firewall.types.proxy_settings
+
+        out["proxy_settings"] = (
+            capo_network_firewall.types.proxy_settings.deserialize_cbor(
+                data["ProxySettings"]
+            )
+        )
+    return out

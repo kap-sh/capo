@@ -62,3 +62,43 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeClientAuthenticationSettings
     if data.get("Limit") is not None:
         out["limit"] = data["Limit"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeClientAuthenticationSettingsRequest) -> dict:
+    out: dict = {}
+    out["DirectoryId"] = value["directory_id"]
+    if "type" in value:
+        import capo_directory_service.types.client_authentication_type
+
+        out["Type"] = (
+            capo_directory_service.types.client_authentication_type.serialize_cbor(
+                value["type"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "limit" in value:
+        out["Limit"] = value["limit"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeClientAuthenticationSettingsRequest:
+    out: DescribeClientAuthenticationSettingsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    if data.get("Type") is not None:
+        import capo_directory_service.types.client_authentication_type
+
+        out["type"] = (
+            capo_directory_service.types.client_authentication_type.deserialize_cbor(
+                data["Type"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("Limit") is not None:
+        out["limit"] = data["Limit"]
+    return out

@@ -54,3 +54,33 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeLogPatternRequest:
     if data.get("AccountId") is not None:
         out["account_id"] = data["AccountId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeLogPatternRequest) -> dict:
+    out: dict = {}
+    out["ResourceGroupName"] = value["resource_group_name"]
+    out["PatternSetName"] = value["pattern_set_name"]
+    out["PatternName"] = value["pattern_name"]
+    if "account_id" in value:
+        out["AccountId"] = value["account_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeLogPatternRequest:
+    out: DescribeLogPatternRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceGroupName") is not None:
+        out["resource_group_name"] = data["ResourceGroupName"]
+    else:
+        out["resource_group_name"] = ""
+    if data.get("PatternSetName") is not None:
+        out["pattern_set_name"] = data["PatternSetName"]
+    else:
+        out["pattern_set_name"] = ""
+    if data.get("PatternName") is not None:
+        out["pattern_name"] = data["PatternName"]
+    else:
+        out["pattern_name"] = ""
+    if data.get("AccountId") is not None:
+        out["account_id"] = data["AccountId"]
+    return out

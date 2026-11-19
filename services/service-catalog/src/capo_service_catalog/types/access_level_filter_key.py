@@ -16,3 +16,12 @@ def serialize_aws_json_1_1(value: AccessLevelFilterKey) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> AccessLevelFilterKey:
     return cast(AccessLevelFilterKey, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AccessLevelFilterKey) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> AccessLevelFilterKey:
+    return cast(AccessLevelFilterKey, data)

@@ -57,6 +57,38 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateLocationFsxOntapRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateLocationFsxOntapRequest) -> dict:
+    out: dict = {}
+    out["LocationArn"] = value["location_arn"]
+    if "protocol" in value:
+        import capo_datasync.types.fsx_update_protocol
+
+        out["Protocol"] = capo_datasync.types.fsx_update_protocol.serialize_cbor(
+            value["protocol"]
+        )
+    if "subdirectory" in value:
+        out["Subdirectory"] = value["subdirectory"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateLocationFsxOntapRequest:
+    out: UpdateLocationFsxOntapRequest = {}  # type: ignore[typeddict-item]
+    if data.get("LocationArn") is not None:
+        out["location_arn"] = data["LocationArn"]
+    else:
+        out["location_arn"] = ""
+    if data.get("Protocol") is not None:
+        import capo_datasync.types.fsx_update_protocol
+
+        out["protocol"] = capo_datasync.types.fsx_update_protocol.deserialize_cbor(
+            data["Protocol"]
+        )
+    if data.get("Subdirectory") is not None:
+        out["subdirectory"] = data["Subdirectory"]
+    return out
+
+
 def redact_sensitive(value: UpdateLocationFsxOntapRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "protocol" in value:

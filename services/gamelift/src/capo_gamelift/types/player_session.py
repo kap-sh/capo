@@ -138,6 +138,89 @@ def deserialize_aws_json_1_1(data: dict) -> PlayerSession:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PlayerSession) -> dict:
+    out: dict = {}
+    if "player_session_id" in value:
+        out["PlayerSessionId"] = value["player_session_id"]
+    if "player_id" in value:
+        out["PlayerId"] = value["player_id"]
+    if "game_session_id" in value:
+        out["GameSessionId"] = value["game_session_id"]
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "fleet_arn" in value:
+        out["FleetArn"] = value["fleet_arn"]
+    if "creation_time" in value:
+        import capo_gamelift.types.timestamp
+
+        out["CreationTime"] = capo_gamelift.types.timestamp.serialize_cbor(
+            value["creation_time"]
+        )
+    if "termination_time" in value:
+        import capo_gamelift.types.timestamp
+
+        out["TerminationTime"] = capo_gamelift.types.timestamp.serialize_cbor(
+            value["termination_time"]
+        )
+    if "status" in value:
+        import capo_gamelift.types.player_session_status
+
+        out["Status"] = capo_gamelift.types.player_session_status.serialize_cbor(
+            value["status"]
+        )
+    if "ip_address" in value:
+        out["IpAddress"] = value["ip_address"]
+    if "dns_name" in value:
+        out["DnsName"] = value["dns_name"]
+    if "port" in value:
+        out["Port"] = value["port"]
+    if "player_data" in value:
+        out["PlayerData"] = value["player_data"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> PlayerSession:
+    out: PlayerSession = {}  # type: ignore[typeddict-item]
+    if data.get("PlayerSessionId") is not None:
+        out["player_session_id"] = data["PlayerSessionId"]
+    if data.get("PlayerId") is not None:
+        out["player_id"] = data["PlayerId"]
+    if data.get("GameSessionId") is not None:
+        out["game_session_id"] = data["GameSessionId"]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("FleetArn") is not None:
+        out["fleet_arn"] = data["FleetArn"]
+    if data.get("CreationTime") is not None:
+        import capo_gamelift.types.timestamp
+
+        out["creation_time"] = capo_gamelift.types.timestamp.deserialize_cbor(
+            data["CreationTime"]
+        )
+    if data.get("TerminationTime") is not None:
+        import capo_gamelift.types.timestamp
+
+        out["termination_time"] = capo_gamelift.types.timestamp.deserialize_cbor(
+            data["TerminationTime"]
+        )
+    if data.get("Status") is not None:
+        import capo_gamelift.types.player_session_status
+
+        out["status"] = capo_gamelift.types.player_session_status.deserialize_cbor(
+            data["Status"]
+        )
+    if data.get("IpAddress") is not None:
+        out["ip_address"] = data["IpAddress"]
+    if data.get("DnsName") is not None:
+        out["dns_name"] = data["DnsName"]
+    if data.get("Port") is not None:
+        out["port"] = data["Port"]
+    if data.get("PlayerData") is not None:
+        out["player_data"] = data["PlayerData"]
+    return out
+
+
 def redact_sensitive(value: PlayerSession) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "player_id" in value:

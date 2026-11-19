@@ -292,6 +292,201 @@ def deserialize_aws_json_1_0(data: dict) -> InstanceNetworkInterfaceSpecificatio
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InstanceNetworkInterfaceSpecification) -> dict:
+    out: dict = {}
+    if "associate_carrier_ip_address" in value:
+        out["AssociateCarrierIpAddress"] = value["associate_carrier_ip_address"]
+    if "associate_public_ip_address" in value:
+        out["AssociatePublicIpAddress"] = value["associate_public_ip_address"]
+    if "connection_tracking_specification" in value:
+        import capo_workspaces_instances.types.connection_tracking_specification_request
+
+        out["ConnectionTrackingSpecification"] = (
+            capo_workspaces_instances.types.connection_tracking_specification_request.serialize_cbor(
+                value["connection_tracking_specification"]
+            )
+        )
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "device_index" in value:
+        out["DeviceIndex"] = value["device_index"]
+    if "ena_srd_specification" in value:
+        import capo_workspaces_instances.types.ena_srd_specification_request
+
+        out["EnaSrdSpecification"] = (
+            capo_workspaces_instances.types.ena_srd_specification_request.serialize_cbor(
+                value["ena_srd_specification"]
+            )
+        )
+    if "interface_type" in value:
+        import capo_workspaces_instances.types.interface_type_enum
+
+        out["InterfaceType"] = (
+            capo_workspaces_instances.types.interface_type_enum.serialize_cbor(
+                value["interface_type"]
+            )
+        )
+    if "ipv4_prefixes" in value:
+        import capo_workspaces_instances.types.ipv4_prefixes
+
+        out["Ipv4Prefixes"] = (
+            capo_workspaces_instances.types.ipv4_prefixes.serialize_cbor(
+                value["ipv4_prefixes"]
+            )
+        )
+    if "ipv4_prefix_count" in value:
+        out["Ipv4PrefixCount"] = value["ipv4_prefix_count"]
+    if "ipv6_address_count" in value:
+        out["Ipv6AddressCount"] = value["ipv6_address_count"]
+    if "ipv6_addresses" in value:
+        import capo_workspaces_instances.types.ipv6_addresses
+
+        out["Ipv6Addresses"] = (
+            capo_workspaces_instances.types.ipv6_addresses.serialize_cbor(
+                value["ipv6_addresses"]
+            )
+        )
+    if "ipv6_prefixes" in value:
+        import capo_workspaces_instances.types.ipv6_prefixes
+
+        out["Ipv6Prefixes"] = (
+            capo_workspaces_instances.types.ipv6_prefixes.serialize_cbor(
+                value["ipv6_prefixes"]
+            )
+        )
+    if "ipv6_prefix_count" in value:
+        out["Ipv6PrefixCount"] = value["ipv6_prefix_count"]
+    if "network_card_index" in value:
+        out["NetworkCardIndex"] = value["network_card_index"]
+    if "network_interface_id" in value:
+        out["NetworkInterfaceId"] = value["network_interface_id"]
+    if "primary_ipv6" in value:
+        out["PrimaryIpv6"] = value["primary_ipv6"]
+    if "private_ip_address" in value:
+        out["PrivateIpAddress"] = value["private_ip_address"]
+    if "private_ip_addresses" in value:
+        import capo_workspaces_instances.types.private_ip_addresses
+
+        out["PrivateIpAddresses"] = (
+            capo_workspaces_instances.types.private_ip_addresses.serialize_cbor(
+                value["private_ip_addresses"]
+            )
+        )
+    if "secondary_private_ip_address_count" in value:
+        out["SecondaryPrivateIpAddressCount"] = value[
+            "secondary_private_ip_address_count"
+        ]
+    if "groups" in value:
+        import capo_workspaces_instances.types.security_group_ids
+
+        out["Groups"] = (
+            capo_workspaces_instances.types.security_group_ids.serialize_cbor(
+                value["groups"]
+            )
+        )
+    if "subnet_id" in value:
+        out["SubnetId"] = value["subnet_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> InstanceNetworkInterfaceSpecification:
+    out: InstanceNetworkInterfaceSpecification = {}  # type: ignore[typeddict-item]
+    if data.get("AssociateCarrierIpAddress") is not None:
+        out["associate_carrier_ip_address"] = data["AssociateCarrierIpAddress"]
+    if data.get("AssociatePublicIpAddress") is not None:
+        out["associate_public_ip_address"] = data["AssociatePublicIpAddress"]
+    if data.get("ConnectionTrackingSpecification") is not None:
+        import capo_workspaces_instances.types.connection_tracking_specification_request
+
+        out["connection_tracking_specification"] = (
+            capo_workspaces_instances.types.connection_tracking_specification_request.deserialize_cbor(
+                data["ConnectionTrackingSpecification"]
+            )
+        )
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("DeviceIndex") is not None:
+        out["device_index"] = data["DeviceIndex"]
+    if data.get("EnaSrdSpecification") is not None:
+        import capo_workspaces_instances.types.ena_srd_specification_request
+
+        out["ena_srd_specification"] = (
+            capo_workspaces_instances.types.ena_srd_specification_request.deserialize_cbor(
+                data["EnaSrdSpecification"]
+            )
+        )
+    if data.get("InterfaceType") is not None:
+        import capo_workspaces_instances.types.interface_type_enum
+
+        out["interface_type"] = (
+            capo_workspaces_instances.types.interface_type_enum.deserialize_cbor(
+                data["InterfaceType"]
+            )
+        )
+    if data.get("Ipv4Prefixes") is not None:
+        import capo_workspaces_instances.types.ipv4_prefixes
+
+        out["ipv4_prefixes"] = (
+            capo_workspaces_instances.types.ipv4_prefixes.deserialize_cbor(
+                data["Ipv4Prefixes"]
+            )
+        )
+    if data.get("Ipv4PrefixCount") is not None:
+        out["ipv4_prefix_count"] = data["Ipv4PrefixCount"]
+    if data.get("Ipv6AddressCount") is not None:
+        out["ipv6_address_count"] = data["Ipv6AddressCount"]
+    if data.get("Ipv6Addresses") is not None:
+        import capo_workspaces_instances.types.ipv6_addresses
+
+        out["ipv6_addresses"] = (
+            capo_workspaces_instances.types.ipv6_addresses.deserialize_cbor(
+                data["Ipv6Addresses"]
+            )
+        )
+    if data.get("Ipv6Prefixes") is not None:
+        import capo_workspaces_instances.types.ipv6_prefixes
+
+        out["ipv6_prefixes"] = (
+            capo_workspaces_instances.types.ipv6_prefixes.deserialize_cbor(
+                data["Ipv6Prefixes"]
+            )
+        )
+    if data.get("Ipv6PrefixCount") is not None:
+        out["ipv6_prefix_count"] = data["Ipv6PrefixCount"]
+    if data.get("NetworkCardIndex") is not None:
+        out["network_card_index"] = data["NetworkCardIndex"]
+    if data.get("NetworkInterfaceId") is not None:
+        out["network_interface_id"] = data["NetworkInterfaceId"]
+    if data.get("PrimaryIpv6") is not None:
+        out["primary_ipv6"] = data["PrimaryIpv6"]
+    if data.get("PrivateIpAddress") is not None:
+        out["private_ip_address"] = data["PrivateIpAddress"]
+    if data.get("PrivateIpAddresses") is not None:
+        import capo_workspaces_instances.types.private_ip_addresses
+
+        out["private_ip_addresses"] = (
+            capo_workspaces_instances.types.private_ip_addresses.deserialize_cbor(
+                data["PrivateIpAddresses"]
+            )
+        )
+    if data.get("SecondaryPrivateIpAddressCount") is not None:
+        out["secondary_private_ip_address_count"] = data[
+            "SecondaryPrivateIpAddressCount"
+        ]
+    if data.get("Groups") is not None:
+        import capo_workspaces_instances.types.security_group_ids
+
+        out["groups"] = (
+            capo_workspaces_instances.types.security_group_ids.deserialize_cbor(
+                data["Groups"]
+            )
+        )
+    if data.get("SubnetId") is not None:
+        out["subnet_id"] = data["SubnetId"]
+    return out
+
+
 def redact_sensitive(value: InstanceNetworkInterfaceSpecification) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "ipv6_addresses" in value:

@@ -48,3 +48,31 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateSubnetChangeProtectionRequest:
     else:
         out["subnet_change_protection"] = False
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateSubnetChangeProtectionRequest) -> dict:
+    out: dict = {}
+    if "update_token" in value:
+        out["UpdateToken"] = value["update_token"]
+    if "firewall_arn" in value:
+        out["FirewallArn"] = value["firewall_arn"]
+    if "firewall_name" in value:
+        out["FirewallName"] = value["firewall_name"]
+    out["SubnetChangeProtection"] = value["subnet_change_protection"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateSubnetChangeProtectionRequest:
+    out: UpdateSubnetChangeProtectionRequest = {}  # type: ignore[typeddict-item]
+    if data.get("UpdateToken") is not None:
+        out["update_token"] = data["UpdateToken"]
+    if data.get("FirewallArn") is not None:
+        out["firewall_arn"] = data["FirewallArn"]
+    if data.get("FirewallName") is not None:
+        out["firewall_name"] = data["FirewallName"]
+    if data.get("SubnetChangeProtection") is not None:
+        out["subnet_change_protection"] = data["SubnetChangeProtection"]
+    else:
+        out["subnet_change_protection"] = False
+    return out

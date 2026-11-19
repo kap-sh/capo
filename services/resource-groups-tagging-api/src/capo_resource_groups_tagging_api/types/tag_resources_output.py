@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> TagResourcesOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TagResourcesOutput) -> dict:
+    out: dict = {}
+    if "failed_resources_map" in value:
+        import capo_resource_groups_tagging_api.types.failed_resources_map
+
+        out["FailedResourcesMap"] = (
+            capo_resource_groups_tagging_api.types.failed_resources_map.serialize_cbor(
+                value["failed_resources_map"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TagResourcesOutput:
+    out: TagResourcesOutput = {}  # type: ignore[typeddict-item]
+    if data.get("FailedResourcesMap") is not None:
+        import capo_resource_groups_tagging_api.types.failed_resources_map
+
+        out["failed_resources_map"] = (
+            capo_resource_groups_tagging_api.types.failed_resources_map.deserialize_cbor(
+                data["FailedResourcesMap"]
+            )
+        )
+    return out

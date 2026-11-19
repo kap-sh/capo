@@ -34,3 +34,23 @@ def deserialize_aws_json_1_0(data: dict) -> CdcSpecificationSummary:
     if data.get("viewType") is not None:
         out["view_type"] = data["viewType"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CdcSpecificationSummary) -> dict:
+    out: dict = {}
+    out["status"] = value["status"]
+    if "view_type" in value:
+        out["viewType"] = value["view_type"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CdcSpecificationSummary:
+    out: CdcSpecificationSummary = {}  # type: ignore[typeddict-item]
+    if data.get("status") is not None:
+        out["status"] = data["status"]
+    else:
+        out["status"] = ""
+    if data.get("viewType") is not None:
+        out["view_type"] = data["viewType"]
+    return out

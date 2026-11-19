@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> ServiceLifecycleFilter:
     if data.get("service") is not None:
         out["service"] = data["service"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ServiceLifecycleFilter) -> dict:
+    out: dict = {}
+    if "service" in value:
+        out["service"] = value["service"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ServiceLifecycleFilter:
+    out: ServiceLifecycleFilter = {}  # type: ignore[typeddict-item]
+    if data.get("service") is not None:
+        out["service"] = data["service"]
+    return out

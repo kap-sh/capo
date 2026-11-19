@@ -16,3 +16,12 @@ def serialize_aws_json_1_1(value: CustomImageProtocol) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> CustomImageProtocol:
     return cast(CustomImageProtocol, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CustomImageProtocol) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> CustomImageProtocol:
+    return cast(CustomImageProtocol, data)

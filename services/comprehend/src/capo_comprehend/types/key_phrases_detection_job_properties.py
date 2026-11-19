@@ -181,3 +181,128 @@ def deserialize_aws_json_1_1(data: dict) -> KeyPhrasesDetectionJobProperties:
             data["VpcConfig"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: KeyPhrasesDetectionJobProperties) -> dict:
+    out: dict = {}
+    if "job_id" in value:
+        out["JobId"] = value["job_id"]
+    if "job_arn" in value:
+        out["JobArn"] = value["job_arn"]
+    if "job_name" in value:
+        out["JobName"] = value["job_name"]
+    if "job_status" in value:
+        import capo_comprehend.types.job_status
+
+        out["JobStatus"] = capo_comprehend.types.job_status.serialize_cbor(
+            value["job_status"]
+        )
+    if "message" in value:
+        out["Message"] = value["message"]
+    if "submit_time" in value:
+        import capo_comprehend.types.timestamp
+
+        out["SubmitTime"] = capo_comprehend.types.timestamp.serialize_cbor(
+            value["submit_time"]
+        )
+    if "end_time" in value:
+        import capo_comprehend.types.timestamp
+
+        out["EndTime"] = capo_comprehend.types.timestamp.serialize_cbor(
+            value["end_time"]
+        )
+    if "input_data_config" in value:
+        import capo_comprehend.types.input_data_config
+
+        out["InputDataConfig"] = capo_comprehend.types.input_data_config.serialize_cbor(
+            value["input_data_config"]
+        )
+    if "output_data_config" in value:
+        import capo_comprehend.types.output_data_config
+
+        out["OutputDataConfig"] = (
+            capo_comprehend.types.output_data_config.serialize_cbor(
+                value["output_data_config"]
+            )
+        )
+    if "language_code" in value:
+        import capo_comprehend.types.language_code
+
+        out["LanguageCode"] = capo_comprehend.types.language_code.serialize_cbor(
+            value["language_code"]
+        )
+    if "data_access_role_arn" in value:
+        out["DataAccessRoleArn"] = value["data_access_role_arn"]
+    if "volume_kms_key_id" in value:
+        out["VolumeKmsKeyId"] = value["volume_kms_key_id"]
+    if "vpc_config" in value:
+        import capo_comprehend.types.vpc_config
+
+        out["VpcConfig"] = capo_comprehend.types.vpc_config.serialize_cbor(
+            value["vpc_config"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> KeyPhrasesDetectionJobProperties:
+    out: KeyPhrasesDetectionJobProperties = {}  # type: ignore[typeddict-item]
+    if data.get("JobId") is not None:
+        out["job_id"] = data["JobId"]
+    if data.get("JobArn") is not None:
+        out["job_arn"] = data["JobArn"]
+    if data.get("JobName") is not None:
+        out["job_name"] = data["JobName"]
+    if data.get("JobStatus") is not None:
+        import capo_comprehend.types.job_status
+
+        out["job_status"] = capo_comprehend.types.job_status.deserialize_cbor(
+            data["JobStatus"]
+        )
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    if data.get("SubmitTime") is not None:
+        import capo_comprehend.types.timestamp
+
+        out["submit_time"] = capo_comprehend.types.timestamp.deserialize_cbor(
+            data["SubmitTime"]
+        )
+    if data.get("EndTime") is not None:
+        import capo_comprehend.types.timestamp
+
+        out["end_time"] = capo_comprehend.types.timestamp.deserialize_cbor(
+            data["EndTime"]
+        )
+    if data.get("InputDataConfig") is not None:
+        import capo_comprehend.types.input_data_config
+
+        out["input_data_config"] = (
+            capo_comprehend.types.input_data_config.deserialize_cbor(
+                data["InputDataConfig"]
+            )
+        )
+    if data.get("OutputDataConfig") is not None:
+        import capo_comprehend.types.output_data_config
+
+        out["output_data_config"] = (
+            capo_comprehend.types.output_data_config.deserialize_cbor(
+                data["OutputDataConfig"]
+            )
+        )
+    if data.get("LanguageCode") is not None:
+        import capo_comprehend.types.language_code
+
+        out["language_code"] = capo_comprehend.types.language_code.deserialize_cbor(
+            data["LanguageCode"]
+        )
+    if data.get("DataAccessRoleArn") is not None:
+        out["data_access_role_arn"] = data["DataAccessRoleArn"]
+    if data.get("VolumeKmsKeyId") is not None:
+        out["volume_kms_key_id"] = data["VolumeKmsKeyId"]
+    if data.get("VpcConfig") is not None:
+        import capo_comprehend.types.vpc_config
+
+        out["vpc_config"] = capo_comprehend.types.vpc_config.deserialize_cbor(
+            data["VpcConfig"]
+        )
+    return out

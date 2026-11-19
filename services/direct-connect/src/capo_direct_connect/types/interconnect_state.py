@@ -20,3 +20,12 @@ def serialize_aws_json_1_1(value: InterconnectState) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> InterconnectState:
     return cast(InterconnectState, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InterconnectState) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> InterconnectState:
+    return cast(InterconnectState, data)

@@ -41,3 +41,30 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeEventTypesResponse:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeEventTypesResponse) -> dict:
+    out: dict = {}
+    if "event_types" in value:
+        import capo_health.types.event_type_list
+
+        out["eventTypes"] = capo_health.types.event_type_list.serialize_cbor(
+            value["event_types"]
+        )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeEventTypesResponse:
+    out: DescribeEventTypesResponse = {}  # type: ignore[typeddict-item]
+    if data.get("eventTypes") is not None:
+        import capo_health.types.event_type_list
+
+        out["event_types"] = capo_health.types.event_type_list.deserialize_cbor(
+            data["eventTypes"]
+        )
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

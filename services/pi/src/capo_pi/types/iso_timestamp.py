@@ -18,3 +18,12 @@ def serialize_aws_json_1_1(value: ISOTimestamp) -> float:
 
 def deserialize_aws_json_1_1(data: float) -> ISOTimestamp:
     return datetime.datetime.fromtimestamp(float(data), tz=datetime.timezone.utc)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ISOTimestamp) -> ISOTimestamp:
+    return value
+
+
+def deserialize_cbor(data: ISOTimestamp) -> ISOTimestamp:
+    return data

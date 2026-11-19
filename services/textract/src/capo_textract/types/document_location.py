@@ -34,3 +34,26 @@ def deserialize_aws_json_1_1(data: dict) -> DocumentLocation:
             data["S3Object"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DocumentLocation) -> dict:
+    out: dict = {}
+    if "s3_object" in value:
+        import capo_textract.types.s3_object
+
+        out["S3Object"] = capo_textract.types.s3_object.serialize_cbor(
+            value["s3_object"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DocumentLocation:
+    out: DocumentLocation = {}  # type: ignore[typeddict-item]
+    if data.get("S3Object") is not None:
+        import capo_textract.types.s3_object
+
+        out["s3_object"] = capo_textract.types.s3_object.deserialize_cbor(
+            data["S3Object"]
+        )
+    return out

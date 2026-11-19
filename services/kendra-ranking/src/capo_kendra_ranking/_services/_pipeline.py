@@ -13,6 +13,7 @@ from typing import (
     Awaitable,
     Callable,
     Generic,
+    Literal,
     TypeVar,
     cast,
 )
@@ -216,6 +217,7 @@ class OperationOptions:
     endpoint: str | None = None
     retry_max_attempts: int | None = None
     retry_mode: str | None = None
+    protocol: Literal["awsJson1_0", "rpcv2Cbor"] = "awsJson1_0"
     credentials_provider: IdentityProvider[Credentials] | None = None
     anonymous: bool | None = None
 
@@ -230,6 +232,7 @@ class AsyncOperationOptions:
     endpoint: str | None = None
     retry_max_attempts: int | None = None
     retry_mode: str | None = None
+    protocol: Literal["awsJson1_0", "rpcv2Cbor"] = "awsJson1_0"
     credentials_provider: IdentityProvider[Credentials] | None = None
     anonymous: bool | None = None
 

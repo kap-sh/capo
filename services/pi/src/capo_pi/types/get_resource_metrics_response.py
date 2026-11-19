@@ -85,3 +85,58 @@ def deserialize_aws_json_1_1(data: dict) -> GetResourceMetricsResponse:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetResourceMetricsResponse) -> dict:
+    out: dict = {}
+    if "aligned_start_time" in value:
+        import capo_pi.types.iso_timestamp
+
+        out["AlignedStartTime"] = capo_pi.types.iso_timestamp.serialize_cbor(
+            value["aligned_start_time"]
+        )
+    if "aligned_end_time" in value:
+        import capo_pi.types.iso_timestamp
+
+        out["AlignedEndTime"] = capo_pi.types.iso_timestamp.serialize_cbor(
+            value["aligned_end_time"]
+        )
+    if "identifier" in value:
+        out["Identifier"] = value["identifier"]
+    if "metric_list" in value:
+        import capo_pi.types.metric_key_data_points_list
+
+        out["MetricList"] = capo_pi.types.metric_key_data_points_list.serialize_cbor(
+            value["metric_list"]
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetResourceMetricsResponse:
+    out: GetResourceMetricsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("AlignedStartTime") is not None:
+        import capo_pi.types.iso_timestamp
+
+        out["aligned_start_time"] = capo_pi.types.iso_timestamp.deserialize_cbor(
+            data["AlignedStartTime"]
+        )
+    if data.get("AlignedEndTime") is not None:
+        import capo_pi.types.iso_timestamp
+
+        out["aligned_end_time"] = capo_pi.types.iso_timestamp.deserialize_cbor(
+            data["AlignedEndTime"]
+        )
+    if data.get("Identifier") is not None:
+        out["identifier"] = data["Identifier"]
+    if data.get("MetricList") is not None:
+        import capo_pi.types.metric_key_data_points_list
+
+        out["metric_list"] = capo_pi.types.metric_key_data_points_list.deserialize_cbor(
+            data["MetricList"]
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

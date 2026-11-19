@@ -87,3 +87,34 @@ def deserialize_query(el: Element) -> EntityMetricData:
             child_metric_data
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EntityMetricData) -> dict:
+    out: dict = {}
+    if "entity" in value:
+        import capo_cloudwatch.types.entity
+
+        out["Entity"] = capo_cloudwatch.types.entity.serialize_cbor(value["entity"])
+    if "metric_data" in value:
+        import capo_cloudwatch.types.metric_data
+
+        out["MetricData"] = capo_cloudwatch.types.metric_data.serialize_cbor(
+            value["metric_data"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> EntityMetricData:
+    out: EntityMetricData = {}  # type: ignore[typeddict-item]
+    if data.get("Entity") is not None:
+        import capo_cloudwatch.types.entity
+
+        out["entity"] = capo_cloudwatch.types.entity.deserialize_cbor(data["Entity"])
+    if data.get("MetricData") is not None:
+        import capo_cloudwatch.types.metric_data
+
+        out["metric_data"] = capo_cloudwatch.types.metric_data.deserialize_cbor(
+            data["MetricData"]
+        )
+    return out

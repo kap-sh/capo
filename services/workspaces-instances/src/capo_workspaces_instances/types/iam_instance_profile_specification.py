@@ -33,3 +33,22 @@ def deserialize_aws_json_1_0(data: dict) -> IamInstanceProfileSpecification:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IamInstanceProfileSpecification) -> dict:
+    out: dict = {}
+    if "arn" in value:
+        out["Arn"] = value["arn"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> IamInstanceProfileSpecification:
+    out: IamInstanceProfileSpecification = {}  # type: ignore[typeddict-item]
+    if data.get("Arn") is not None:
+        out["arn"] = data["Arn"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    return out

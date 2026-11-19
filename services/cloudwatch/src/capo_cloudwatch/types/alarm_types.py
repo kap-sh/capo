@@ -74,3 +74,24 @@ def deserialize_aws_json_1_0(data: list) -> AlarmTypes:
             continue
         out.append(capo_cloudwatch.types.alarm_type.deserialize_aws_json_1_0(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AlarmTypes) -> list:
+    import capo_cloudwatch.types.alarm_type
+
+    out: list = []
+    for item in value:
+        out.append(capo_cloudwatch.types.alarm_type.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> AlarmTypes:
+    import capo_cloudwatch.types.alarm_type
+
+    out: AlarmTypes = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_cloudwatch.types.alarm_type.deserialize_cbor(item))
+    return out

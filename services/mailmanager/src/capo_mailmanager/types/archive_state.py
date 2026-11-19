@@ -15,3 +15,12 @@ def serialize_aws_json_1_0(value: ArchiveState) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> ArchiveState:
     return cast(ArchiveState, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ArchiveState) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ArchiveState:
+    return cast(ArchiveState, data)

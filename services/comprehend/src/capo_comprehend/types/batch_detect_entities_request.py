@@ -65,6 +65,49 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDetectEntitiesRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchDetectEntitiesRequest) -> dict:
+    out: dict = {}
+    import capo_comprehend.types.customer_input_string_list
+
+    out["TextList"] = capo_comprehend.types.customer_input_string_list.serialize_cbor(
+        value["text_list"]
+    )
+    import capo_comprehend.types.language_code
+
+    out["LanguageCode"] = capo_comprehend.types.language_code.serialize_cbor(
+        value["language_code"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BatchDetectEntitiesRequest:
+    out: BatchDetectEntitiesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("TextList") is not None:
+        import capo_comprehend.types.customer_input_string_list
+
+        out["text_list"] = (
+            capo_comprehend.types.customer_input_string_list.deserialize_cbor(
+                data["TextList"]
+            )
+        )
+    else:
+        out["text_list"] = []
+    if data.get("LanguageCode") is not None:
+        import capo_comprehend.types.language_code
+
+        out["language_code"] = capo_comprehend.types.language_code.deserialize_cbor(
+            data["LanguageCode"]
+        )
+    else:
+        import typing
+
+        out["language_code"] = typing.cast(
+            "capo_comprehend.types.language_code.LanguageCode", ""
+        )
+    return out
+
+
 def redact_sensitive(value: BatchDetectEntitiesRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "text_list" in value:

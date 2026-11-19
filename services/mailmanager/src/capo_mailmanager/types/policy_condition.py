@@ -149,3 +149,103 @@ def deserialize_aws_json_1_0(data: dict) -> PolicyCondition:
         if name is not None:
             return {"$unknown": {"name": name}}
         raise DeserializationError("PolicyCondition: no recognized variant key")
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PolicyCondition) -> dict:
+    if "$unknown" in value:
+        raise SerializationError(
+            f"PolicyCondition: cannot serialize unknown variant {value['$unknown']['name']!r}"
+        )
+    elif "StringExpression" in value:
+        import capo_mailmanager.types.ingress_string_expression
+
+        return {
+            "StringExpression": capo_mailmanager.types.ingress_string_expression.serialize_cbor(
+                value["StringExpression"]
+            )
+        }
+    elif "IpExpression" in value:
+        import capo_mailmanager.types.ingress_ipv4_expression
+
+        return {
+            "IpExpression": capo_mailmanager.types.ingress_ipv4_expression.serialize_cbor(
+                value["IpExpression"]
+            )
+        }
+    elif "Ipv6Expression" in value:
+        import capo_mailmanager.types.ingress_ipv6_expression
+
+        return {
+            "Ipv6Expression": capo_mailmanager.types.ingress_ipv6_expression.serialize_cbor(
+                value["Ipv6Expression"]
+            )
+        }
+    elif "TlsExpression" in value:
+        import capo_mailmanager.types.ingress_tls_protocol_expression
+
+        return {
+            "TlsExpression": capo_mailmanager.types.ingress_tls_protocol_expression.serialize_cbor(
+                value["TlsExpression"]
+            )
+        }
+    elif "BooleanExpression" in value:
+        import capo_mailmanager.types.ingress_boolean_expression
+
+        return {
+            "BooleanExpression": capo_mailmanager.types.ingress_boolean_expression.serialize_cbor(
+                value["BooleanExpression"]
+            )
+        }
+    else:
+        raise SerializationError("PolicyCondition: no variant present")
+
+
+def deserialize_cbor(data: dict) -> PolicyCondition:
+    if data.get("StringExpression") is not None:
+        import capo_mailmanager.types.ingress_string_expression
+
+        return {
+            "StringExpression": capo_mailmanager.types.ingress_string_expression.deserialize_cbor(
+                data["StringExpression"]
+            )
+        }
+    elif data.get("IpExpression") is not None:
+        import capo_mailmanager.types.ingress_ipv4_expression
+
+        return {
+            "IpExpression": capo_mailmanager.types.ingress_ipv4_expression.deserialize_cbor(
+                data["IpExpression"]
+            )
+        }
+    elif data.get("Ipv6Expression") is not None:
+        import capo_mailmanager.types.ingress_ipv6_expression
+
+        return {
+            "Ipv6Expression": capo_mailmanager.types.ingress_ipv6_expression.deserialize_cbor(
+                data["Ipv6Expression"]
+            )
+        }
+    elif data.get("TlsExpression") is not None:
+        import capo_mailmanager.types.ingress_tls_protocol_expression
+
+        return {
+            "TlsExpression": capo_mailmanager.types.ingress_tls_protocol_expression.deserialize_cbor(
+                data["TlsExpression"]
+            )
+        }
+    elif data.get("BooleanExpression") is not None:
+        import capo_mailmanager.types.ingress_boolean_expression
+
+        return {
+            "BooleanExpression": capo_mailmanager.types.ingress_boolean_expression.deserialize_cbor(
+                data["BooleanExpression"]
+            )
+        }
+    else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return {"$unknown": {"name": name}}
+        raise DeserializationError("PolicyCondition: no recognized variant key")

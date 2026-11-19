@@ -106,3 +106,68 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLocationEfsRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateLocationEfsRequest) -> dict:
+    out: dict = {}
+    if "subdirectory" in value:
+        out["Subdirectory"] = value["subdirectory"]
+    out["EfsFilesystemArn"] = value["efs_filesystem_arn"]
+    import capo_datasync.types.ec2_config
+
+    out["Ec2Config"] = capo_datasync.types.ec2_config.serialize_cbor(
+        value["ec2_config"]
+    )
+    if "tags" in value:
+        import capo_datasync.types.input_tag_list
+
+        out["Tags"] = capo_datasync.types.input_tag_list.serialize_cbor(value["tags"])
+    if "access_point_arn" in value:
+        out["AccessPointArn"] = value["access_point_arn"]
+    if "file_system_access_role_arn" in value:
+        out["FileSystemAccessRoleArn"] = value["file_system_access_role_arn"]
+    if "in_transit_encryption" in value:
+        import capo_datasync.types.efs_in_transit_encryption
+
+        out["InTransitEncryption"] = (
+            capo_datasync.types.efs_in_transit_encryption.serialize_cbor(
+                value["in_transit_encryption"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateLocationEfsRequest:
+    out: CreateLocationEfsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Subdirectory") is not None:
+        out["subdirectory"] = data["Subdirectory"]
+    if data.get("EfsFilesystemArn") is not None:
+        out["efs_filesystem_arn"] = data["EfsFilesystemArn"]
+    else:
+        out["efs_filesystem_arn"] = ""
+    if data.get("Ec2Config") is not None:
+        import capo_datasync.types.ec2_config
+
+        out["ec2_config"] = capo_datasync.types.ec2_config.deserialize_cbor(
+            data["Ec2Config"]
+        )
+    else:
+        raise DeserializationError("CreateLocationEfsRequest.ec2_config required")
+    if data.get("Tags") is not None:
+        import capo_datasync.types.input_tag_list
+
+        out["tags"] = capo_datasync.types.input_tag_list.deserialize_cbor(data["Tags"])
+    if data.get("AccessPointArn") is not None:
+        out["access_point_arn"] = data["AccessPointArn"]
+    if data.get("FileSystemAccessRoleArn") is not None:
+        out["file_system_access_role_arn"] = data["FileSystemAccessRoleArn"]
+    if data.get("InTransitEncryption") is not None:
+        import capo_datasync.types.efs_in_transit_encryption
+
+        out["in_transit_encryption"] = (
+            capo_datasync.types.efs_in_transit_encryption.deserialize_cbor(
+                data["InTransitEncryption"]
+            )
+        )
+    return out

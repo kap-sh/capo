@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: UserNameListInput) -> list:
 
 def deserialize_aws_json_1_1(data: list) -> UserNameListInput:
     return [item for item in data if item is not None]
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UserNameListInput) -> list:
+    return list(value)
+
+
+def deserialize_cbor(data: list) -> UserNameListInput:
+    return [item for item in data if item is not None]

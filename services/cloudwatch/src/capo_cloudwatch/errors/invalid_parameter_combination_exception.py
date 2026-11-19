@@ -53,6 +53,21 @@ def deserialize_query(el: Element) -> InvalidParameterCombinationException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InvalidParameterCombinationException_) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> InvalidParameterCombinationException_:
+    out: InvalidParameterCombinationException_ = {}  # type: ignore[typeddict-item]
+    if data.get("message") is not None:
+        out["message"] = data["message"]
+    return out
+
+
 class InvalidParameterCombinationException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.cloudwatch#InvalidParameterCombinationException``."""
 
@@ -86,3 +101,9 @@ class InvalidParameterCombinationException(ServiceError):
         cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidParameterCombinationException":
         return cls(deserialize_query(el), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "InvalidParameterCombinationException":
+        return cls(deserialize_cbor(data), message, response=response)

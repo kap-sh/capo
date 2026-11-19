@@ -92,3 +92,66 @@ def deserialize_aws_json_1_1(data: dict) -> LogsLocation:
             data["s3Logs"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LogsLocation) -> dict:
+    out: dict = {}
+    if "group_name" in value:
+        out["groupName"] = value["group_name"]
+    if "stream_name" in value:
+        out["streamName"] = value["stream_name"]
+    if "deep_link" in value:
+        out["deepLink"] = value["deep_link"]
+    if "s3_deep_link" in value:
+        out["s3DeepLink"] = value["s3_deep_link"]
+    if "cloud_watch_logs_arn" in value:
+        out["cloudWatchLogsArn"] = value["cloud_watch_logs_arn"]
+    if "s3_logs_arn" in value:
+        out["s3LogsArn"] = value["s3_logs_arn"]
+    if "cloud_watch_logs" in value:
+        import capo_codebuild.types.cloud_watch_logs_config
+
+        out["cloudWatchLogs"] = (
+            capo_codebuild.types.cloud_watch_logs_config.serialize_cbor(
+                value["cloud_watch_logs"]
+            )
+        )
+    if "s3_logs" in value:
+        import capo_codebuild.types.s3_logs_config
+
+        out["s3Logs"] = capo_codebuild.types.s3_logs_config.serialize_cbor(
+            value["s3_logs"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> LogsLocation:
+    out: LogsLocation = {}  # type: ignore[typeddict-item]
+    if data.get("groupName") is not None:
+        out["group_name"] = data["groupName"]
+    if data.get("streamName") is not None:
+        out["stream_name"] = data["streamName"]
+    if data.get("deepLink") is not None:
+        out["deep_link"] = data["deepLink"]
+    if data.get("s3DeepLink") is not None:
+        out["s3_deep_link"] = data["s3DeepLink"]
+    if data.get("cloudWatchLogsArn") is not None:
+        out["cloud_watch_logs_arn"] = data["cloudWatchLogsArn"]
+    if data.get("s3LogsArn") is not None:
+        out["s3_logs_arn"] = data["s3LogsArn"]
+    if data.get("cloudWatchLogs") is not None:
+        import capo_codebuild.types.cloud_watch_logs_config
+
+        out["cloud_watch_logs"] = (
+            capo_codebuild.types.cloud_watch_logs_config.deserialize_cbor(
+                data["cloudWatchLogs"]
+            )
+        )
+    if data.get("s3Logs") is not None:
+        import capo_codebuild.types.s3_logs_config
+
+        out["s3_logs"] = capo_codebuild.types.s3_logs_config.deserialize_cbor(
+            data["s3Logs"]
+        )
+    return out

@@ -84,3 +84,61 @@ def deserialize_aws_json_1_1(data: dict) -> TranslateTextResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TranslateTextResponse) -> dict:
+    out: dict = {}
+    out["TranslatedText"] = value["translated_text"]
+    out["SourceLanguageCode"] = value["source_language_code"]
+    out["TargetLanguageCode"] = value["target_language_code"]
+    if "applied_terminologies" in value:
+        import capo_translate.types.applied_terminology_list
+
+        out["AppliedTerminologies"] = (
+            capo_translate.types.applied_terminology_list.serialize_cbor(
+                value["applied_terminologies"]
+            )
+        )
+    if "applied_settings" in value:
+        import capo_translate.types.translation_settings
+
+        out["AppliedSettings"] = (
+            capo_translate.types.translation_settings.serialize_cbor(
+                value["applied_settings"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TranslateTextResponse:
+    out: TranslateTextResponse = {}  # type: ignore[typeddict-item]
+    if data.get("TranslatedText") is not None:
+        out["translated_text"] = data["TranslatedText"]
+    else:
+        out["translated_text"] = ""
+    if data.get("SourceLanguageCode") is not None:
+        out["source_language_code"] = data["SourceLanguageCode"]
+    else:
+        out["source_language_code"] = ""
+    if data.get("TargetLanguageCode") is not None:
+        out["target_language_code"] = data["TargetLanguageCode"]
+    else:
+        out["target_language_code"] = ""
+    if data.get("AppliedTerminologies") is not None:
+        import capo_translate.types.applied_terminology_list
+
+        out["applied_terminologies"] = (
+            capo_translate.types.applied_terminology_list.deserialize_cbor(
+                data["AppliedTerminologies"]
+            )
+        )
+    if data.get("AppliedSettings") is not None:
+        import capo_translate.types.translation_settings
+
+        out["applied_settings"] = (
+            capo_translate.types.translation_settings.deserialize_cbor(
+                data["AppliedSettings"]
+            )
+        )
+    return out

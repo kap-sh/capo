@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> GetServiceAttributesRequest:
     else:
         out["service_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetServiceAttributesRequest) -> dict:
+    out: dict = {}
+    out["ServiceId"] = value["service_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetServiceAttributesRequest:
+    out: GetServiceAttributesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ServiceId") is not None:
+        out["service_id"] = data["ServiceId"]
+    else:
+        out["service_id"] = ""
+    return out

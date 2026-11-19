@@ -159,3 +159,70 @@ def deserialize_query(el: Element) -> StartOTelEnrichmentOutput:
             child_updated_at
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartOTelEnrichmentOutput) -> dict:
+    out: dict = {}
+    if "include_filters" in value:
+        import capo_cloudwatch.types.o_tel_enrichment_metric_selector_list
+
+        out["IncludeFilters"] = (
+            capo_cloudwatch.types.o_tel_enrichment_metric_selector_list.serialize_cbor(
+                value["include_filters"]
+            )
+        )
+    if "exclude_filters" in value:
+        import capo_cloudwatch.types.o_tel_enrichment_metric_selector_list
+
+        out["ExcludeFilters"] = (
+            capo_cloudwatch.types.o_tel_enrichment_metric_selector_list.serialize_cbor(
+                value["exclude_filters"]
+            )
+        )
+    if "created_at" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["CreatedAt"] = capo_cloudwatch.types.timestamp.serialize_cbor(
+            value["created_at"]
+        )
+    if "updated_at" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["UpdatedAt"] = capo_cloudwatch.types.timestamp.serialize_cbor(
+            value["updated_at"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartOTelEnrichmentOutput:
+    out: StartOTelEnrichmentOutput = {}  # type: ignore[typeddict-item]
+    if data.get("IncludeFilters") is not None:
+        import capo_cloudwatch.types.o_tel_enrichment_metric_selector_list
+
+        out["include_filters"] = (
+            capo_cloudwatch.types.o_tel_enrichment_metric_selector_list.deserialize_cbor(
+                data["IncludeFilters"]
+            )
+        )
+    if data.get("ExcludeFilters") is not None:
+        import capo_cloudwatch.types.o_tel_enrichment_metric_selector_list
+
+        out["exclude_filters"] = (
+            capo_cloudwatch.types.o_tel_enrichment_metric_selector_list.deserialize_cbor(
+                data["ExcludeFilters"]
+            )
+        )
+    if data.get("CreatedAt") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["created_at"] = capo_cloudwatch.types.timestamp.deserialize_cbor(
+            data["CreatedAt"]
+        )
+    if data.get("UpdatedAt") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["updated_at"] = capo_cloudwatch.types.timestamp.deserialize_cbor(
+            data["UpdatedAt"]
+        )
+    return out

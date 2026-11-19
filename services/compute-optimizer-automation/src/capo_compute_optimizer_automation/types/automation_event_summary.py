@@ -88,3 +88,66 @@ def deserialize_aws_json_1_0(data: dict) -> AutomationEventSummary:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AutomationEventSummary) -> dict:
+    out: dict = {}
+    if "key" in value:
+        out["key"] = value["key"]
+    if "dimensions" in value:
+        import capo_compute_optimizer_automation.types.summary_dimensions
+
+        out["dimensions"] = (
+            capo_compute_optimizer_automation.types.summary_dimensions.serialize_cbor(
+                value["dimensions"]
+            )
+        )
+    if "time_period" in value:
+        import capo_compute_optimizer_automation.types.time_period
+
+        out["timePeriod"] = (
+            capo_compute_optimizer_automation.types.time_period.serialize_cbor(
+                value["time_period"]
+            )
+        )
+    if "total" in value:
+        import capo_compute_optimizer_automation.types.summary_totals
+
+        out["total"] = (
+            capo_compute_optimizer_automation.types.summary_totals.serialize_cbor(
+                value["total"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AutomationEventSummary:
+    out: AutomationEventSummary = {}  # type: ignore[typeddict-item]
+    if data.get("key") is not None:
+        out["key"] = data["key"]
+    if data.get("dimensions") is not None:
+        import capo_compute_optimizer_automation.types.summary_dimensions
+
+        out["dimensions"] = (
+            capo_compute_optimizer_automation.types.summary_dimensions.deserialize_cbor(
+                data["dimensions"]
+            )
+        )
+    if data.get("timePeriod") is not None:
+        import capo_compute_optimizer_automation.types.time_period
+
+        out["time_period"] = (
+            capo_compute_optimizer_automation.types.time_period.deserialize_cbor(
+                data["timePeriod"]
+            )
+        )
+    if data.get("total") is not None:
+        import capo_compute_optimizer_automation.types.summary_totals
+
+        out["total"] = (
+            capo_compute_optimizer_automation.types.summary_totals.deserialize_cbor(
+                data["total"]
+            )
+        )
+    return out

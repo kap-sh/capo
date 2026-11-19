@@ -45,3 +45,27 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateConnectionRequest:
     if data.get("encryptionMode") is not None:
         out["encryption_mode"] = data["encryptionMode"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateConnectionRequest) -> dict:
+    out: dict = {}
+    out["connectionId"] = value["connection_id"]
+    if "connection_name" in value:
+        out["connectionName"] = value["connection_name"]
+    if "encryption_mode" in value:
+        out["encryptionMode"] = value["encryption_mode"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateConnectionRequest:
+    out: UpdateConnectionRequest = {}  # type: ignore[typeddict-item]
+    if data.get("connectionId") is not None:
+        out["connection_id"] = data["connectionId"]
+    else:
+        out["connection_id"] = ""
+    if data.get("connectionName") is not None:
+        out["connection_name"] = data["connectionName"]
+    if data.get("encryptionMode") is not None:
+        out["encryption_mode"] = data["encryptionMode"]
+    return out

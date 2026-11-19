@@ -37,3 +37,28 @@ def deserialize_aws_json_1_0(data: list) -> RepositorySyncEventList:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RepositorySyncEventList) -> list:
+    import capo_codeconnections.types.repository_sync_event
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_codeconnections.types.repository_sync_event.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> RepositorySyncEventList:
+    import capo_codeconnections.types.repository_sync_event
+
+    out: RepositorySyncEventList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_codeconnections.types.repository_sync_event.deserialize_cbor(item)
+        )
+    return out

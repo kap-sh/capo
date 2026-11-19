@@ -72,3 +72,50 @@ def deserialize_aws_json_1_1(data: dict) -> PipelineContext:
     if data.get("pipelineExecutionId") is not None:
         out["pipeline_execution_id"] = data["pipelineExecutionId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PipelineContext) -> dict:
+    out: dict = {}
+    if "pipeline_name" in value:
+        out["pipelineName"] = value["pipeline_name"]
+    if "stage" in value:
+        import capo_codepipeline.types.stage_context
+
+        out["stage"] = capo_codepipeline.types.stage_context.serialize_cbor(
+            value["stage"]
+        )
+    if "action" in value:
+        import capo_codepipeline.types.action_context
+
+        out["action"] = capo_codepipeline.types.action_context.serialize_cbor(
+            value["action"]
+        )
+    if "pipeline_arn" in value:
+        out["pipelineArn"] = value["pipeline_arn"]
+    if "pipeline_execution_id" in value:
+        out["pipelineExecutionId"] = value["pipeline_execution_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> PipelineContext:
+    out: PipelineContext = {}  # type: ignore[typeddict-item]
+    if data.get("pipelineName") is not None:
+        out["pipeline_name"] = data["pipelineName"]
+    if data.get("stage") is not None:
+        import capo_codepipeline.types.stage_context
+
+        out["stage"] = capo_codepipeline.types.stage_context.deserialize_cbor(
+            data["stage"]
+        )
+    if data.get("action") is not None:
+        import capo_codepipeline.types.action_context
+
+        out["action"] = capo_codepipeline.types.action_context.deserialize_cbor(
+            data["action"]
+        )
+    if data.get("pipelineArn") is not None:
+        out["pipeline_arn"] = data["pipelineArn"]
+    if data.get("pipelineExecutionId") is not None:
+        out["pipeline_execution_id"] = data["pipelineExecutionId"]
+    return out

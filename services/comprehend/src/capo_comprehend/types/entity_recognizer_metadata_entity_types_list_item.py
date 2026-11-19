@@ -54,3 +54,38 @@ def deserialize_aws_json_1_1(data: dict) -> EntityRecognizerMetadataEntityTypesL
     if data.get("NumberOfTrainMentions") is not None:
         out["number_of_train_mentions"] = data["NumberOfTrainMentions"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EntityRecognizerMetadataEntityTypesListItem) -> dict:
+    out: dict = {}
+    if "type" in value:
+        out["Type"] = value["type"]
+    if "evaluation_metrics" in value:
+        import capo_comprehend.types.entity_types_evaluation_metrics
+
+        out["EvaluationMetrics"] = (
+            capo_comprehend.types.entity_types_evaluation_metrics.serialize_cbor(
+                value["evaluation_metrics"]
+            )
+        )
+    if "number_of_train_mentions" in value:
+        out["NumberOfTrainMentions"] = value["number_of_train_mentions"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> EntityRecognizerMetadataEntityTypesListItem:
+    out: EntityRecognizerMetadataEntityTypesListItem = {}  # type: ignore[typeddict-item]
+    if data.get("Type") is not None:
+        out["type"] = data["Type"]
+    if data.get("EvaluationMetrics") is not None:
+        import capo_comprehend.types.entity_types_evaluation_metrics
+
+        out["evaluation_metrics"] = (
+            capo_comprehend.types.entity_types_evaluation_metrics.deserialize_cbor(
+                data["EvaluationMetrics"]
+            )
+        )
+    if data.get("NumberOfTrainMentions") is not None:
+        out["number_of_train_mentions"] = data["NumberOfTrainMentions"]
+    return out

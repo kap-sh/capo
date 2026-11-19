@@ -39,3 +39,29 @@ def deserialize_aws_json_1_1(data: dict) -> ProtectionLimits:
     else:
         out["protected_resource_type_limits"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ProtectionLimits) -> dict:
+    out: dict = {}
+    import capo_shield.types.limits
+
+    out["ProtectedResourceTypeLimits"] = capo_shield.types.limits.serialize_cbor(
+        value["protected_resource_type_limits"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ProtectionLimits:
+    out: ProtectionLimits = {}  # type: ignore[typeddict-item]
+    if data.get("ProtectedResourceTypeLimits") is not None:
+        import capo_shield.types.limits
+
+        out["protected_resource_type_limits"] = (
+            capo_shield.types.limits.deserialize_cbor(
+                data["ProtectedResourceTypeLimits"]
+            )
+        )
+    else:
+        out["protected_resource_type_limits"] = []
+    return out

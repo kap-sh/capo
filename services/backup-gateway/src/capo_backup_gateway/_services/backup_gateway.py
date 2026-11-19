@@ -119,6 +119,7 @@ class BackupGatewayClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[Interceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_0", "rpcv2Cbor"]
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -135,6 +136,7 @@ class BackupGatewayClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -150,6 +152,7 @@ class BackupGatewayClient:
         operation_interceptors: Iterable[Interceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_0", "rpcv2Cbor"] = "awsJson1_0",
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -186,6 +189,7 @@ class BackupGatewayClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -224,6 +228,9 @@ class BackupGatewayClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_0")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -261,13 +268,24 @@ class BackupGatewayClient:
         ) -> OperationResponse[
             "capo_backup_gateway.types.list_tags_for_resource_output.ListTagsForResourceOutput"
         ]:
-            import capo_backup_gateway._operations.backup_on_premises_v20210101.list_tags_for_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.list_tags_for_resource
 
-            output, http_response = (
-                capo_backup_gateway._operations.backup_on_premises_v20210101.list_tags_for_resource.list_tags_for_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.list_tags_for_resource
+
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -311,13 +329,24 @@ class BackupGatewayClient:
         ) -> OperationResponse[
             "capo_backup_gateway.types.tag_resource_output.TagResourceOutput"
         ]:
-            import capo_backup_gateway._operations.backup_on_premises_v20210101.tag_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.tag_resource
 
-            output, http_response = (
-                capo_backup_gateway._operations.backup_on_premises_v20210101.tag_resource.tag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.tag_resource
+
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -362,13 +391,24 @@ class BackupGatewayClient:
         ) -> OperationResponse[
             "capo_backup_gateway.types.untag_resource_output.UntagResourceOutput"
         ]:
-            import capo_backup_gateway._operations.backup_on_premises_v20210101.untag_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.untag_resource
 
-            output, http_response = (
-                capo_backup_gateway._operations.backup_on_premises_v20210101.untag_resource.untag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.untag_resource
+
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -416,13 +456,24 @@ class BackupGatewayClient:
         ) -> OperationResponse[
             "capo_backup_gateway.types.create_gateway_output.CreateGatewayOutput"
         ]:
-            import capo_backup_gateway._operations.backup_on_premises_v20210101.create_gateway
+            if req.options.protocol == "awsJson1_0":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.create_gateway
 
-            output, http_response = (
-                capo_backup_gateway._operations.backup_on_premises_v20210101.create_gateway.create_gateway(
-                    req.options, req.input
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.create_gateway.create_gateway(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.create_gateway
+
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.create_gateway.create_gateway(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -468,13 +519,24 @@ class BackupGatewayClient:
         ) -> OperationResponse[
             "capo_backup_gateway.types.get_gateway_output.GetGatewayOutput"
         ]:
-            import capo_backup_gateway._operations.backup_on_premises_v20210101.get_gateway
+            if req.options.protocol == "awsJson1_0":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.get_gateway
 
-            output, http_response = (
-                capo_backup_gateway._operations.backup_on_premises_v20210101.get_gateway.get_gateway(
-                    req.options, req.input
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.get_gateway.get_gateway(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.get_gateway
+
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.get_gateway.get_gateway(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -519,13 +581,24 @@ class BackupGatewayClient:
         ) -> OperationResponse[
             "capo_backup_gateway.types.update_gateway_information_output.UpdateGatewayInformationOutput"
         ]:
-            import capo_backup_gateway._operations.backup_on_premises_v20210101.update_gateway_information
+            if req.options.protocol == "awsJson1_0":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.update_gateway_information
 
-            output, http_response = (
-                capo_backup_gateway._operations.backup_on_premises_v20210101.update_gateway_information.update_gateway_information(
-                    req.options, req.input
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.update_gateway_information.update_gateway_information(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.update_gateway_information
+
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.update_gateway_information.update_gateway_information(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -569,13 +642,24 @@ class BackupGatewayClient:
         ) -> OperationResponse[
             "capo_backup_gateway.types.delete_gateway_output.DeleteGatewayOutput"
         ]:
-            import capo_backup_gateway._operations.backup_on_premises_v20210101.delete_gateway
+            if req.options.protocol == "awsJson1_0":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.delete_gateway
 
-            output, http_response = (
-                capo_backup_gateway._operations.backup_on_premises_v20210101.delete_gateway.delete_gateway(
-                    req.options, req.input
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.delete_gateway.delete_gateway(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.delete_gateway
+
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.delete_gateway.delete_gateway(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -620,13 +704,24 @@ class BackupGatewayClient:
         ) -> OperationResponse[
             "capo_backup_gateway.types.list_gateways_output.ListGatewaysOutput"
         ]:
-            import capo_backup_gateway._operations.backup_on_premises_v20210101.list_gateways
+            if req.options.protocol == "awsJson1_0":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.list_gateways
 
-            output, http_response = (
-                capo_backup_gateway._operations.backup_on_premises_v20210101.list_gateways.list_gateways(
-                    req.options, req.input
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.list_gateways.list_gateways(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.list_gateways
+
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.list_gateways.list_gateways(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -672,13 +767,24 @@ class BackupGatewayClient:
         ) -> OperationResponse[
             "capo_backup_gateway.types.associate_gateway_to_server_output.AssociateGatewayToServerOutput"
         ]:
-            import capo_backup_gateway._operations.backup_on_premises_v20210101.associate_gateway_to_server
+            if req.options.protocol == "awsJson1_0":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.associate_gateway_to_server
 
-            output, http_response = (
-                capo_backup_gateway._operations.backup_on_premises_v20210101.associate_gateway_to_server.associate_gateway_to_server(
-                    req.options, req.input
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.associate_gateway_to_server.associate_gateway_to_server(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.associate_gateway_to_server
+
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.associate_gateway_to_server.associate_gateway_to_server(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -722,13 +828,24 @@ class BackupGatewayClient:
         ) -> OperationResponse[
             "capo_backup_gateway.types.disassociate_gateway_from_server_output.DisassociateGatewayFromServerOutput"
         ]:
-            import capo_backup_gateway._operations.backup_on_premises_v20210101.disassociate_gateway_from_server
+            if req.options.protocol == "awsJson1_0":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.disassociate_gateway_from_server
 
-            output, http_response = (
-                capo_backup_gateway._operations.backup_on_premises_v20210101.disassociate_gateway_from_server.disassociate_gateway_from_server(
-                    req.options, req.input
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.disassociate_gateway_from_server.disassociate_gateway_from_server(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.disassociate_gateway_from_server
+
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.disassociate_gateway_from_server.disassociate_gateway_from_server(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -781,13 +898,24 @@ class BackupGatewayClient:
         ) -> OperationResponse[
             "capo_backup_gateway.types.put_maintenance_start_time_output.PutMaintenanceStartTimeOutput"
         ]:
-            import capo_backup_gateway._operations.backup_on_premises_v20210101.put_maintenance_start_time
+            if req.options.protocol == "awsJson1_0":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.put_maintenance_start_time
 
-            output, http_response = (
-                capo_backup_gateway._operations.backup_on_premises_v20210101.put_maintenance_start_time.put_maintenance_start_time(
-                    req.options, req.input
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.put_maintenance_start_time.put_maintenance_start_time(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.put_maintenance_start_time
+
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.put_maintenance_start_time.put_maintenance_start_time(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -842,13 +970,24 @@ class BackupGatewayClient:
         ) -> OperationResponse[
             "capo_backup_gateway.types.test_hypervisor_configuration_output.TestHypervisorConfigurationOutput"
         ]:
-            import capo_backup_gateway._operations.backup_on_premises_v20210101.test_hypervisor_configuration
+            if req.options.protocol == "awsJson1_0":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.test_hypervisor_configuration
 
-            output, http_response = (
-                capo_backup_gateway._operations.backup_on_premises_v20210101.test_hypervisor_configuration.test_hypervisor_configuration(
-                    req.options, req.input
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.test_hypervisor_configuration.test_hypervisor_configuration(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.test_hypervisor_configuration
+
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.test_hypervisor_configuration.test_hypervisor_configuration(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -905,13 +1044,24 @@ class BackupGatewayClient:
         ) -> OperationResponse[
             "capo_backup_gateway.types.update_gateway_software_now_output.UpdateGatewaySoftwareNowOutput"
         ]:
-            import capo_backup_gateway._operations.backup_on_premises_v20210101.update_gateway_software_now
+            if req.options.protocol == "awsJson1_0":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.update_gateway_software_now
 
-            output, http_response = (
-                capo_backup_gateway._operations.backup_on_premises_v20210101.update_gateway_software_now.update_gateway_software_now(
-                    req.options, req.input
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.update_gateway_software_now.update_gateway_software_now(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.update_gateway_software_now
+
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.update_gateway_software_now.update_gateway_software_now(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -955,13 +1105,24 @@ class BackupGatewayClient:
         ) -> OperationResponse[
             "capo_backup_gateway.types.put_bandwidth_rate_limit_schedule_output.PutBandwidthRateLimitScheduleOutput"
         ]:
-            import capo_backup_gateway._operations.backup_on_premises_v20210101.put_bandwidth_rate_limit_schedule
+            if req.options.protocol == "awsJson1_0":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.put_bandwidth_rate_limit_schedule
 
-            output, http_response = (
-                capo_backup_gateway._operations.backup_on_premises_v20210101.put_bandwidth_rate_limit_schedule.put_bandwidth_rate_limit_schedule(
-                    req.options, req.input
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.put_bandwidth_rate_limit_schedule.put_bandwidth_rate_limit_schedule(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.put_bandwidth_rate_limit_schedule
+
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.put_bandwidth_rate_limit_schedule.put_bandwidth_rate_limit_schedule(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1004,13 +1165,24 @@ class BackupGatewayClient:
         ) -> OperationResponse[
             "capo_backup_gateway.types.get_bandwidth_rate_limit_schedule_output.GetBandwidthRateLimitScheduleOutput"
         ]:
-            import capo_backup_gateway._operations.backup_on_premises_v20210101.get_bandwidth_rate_limit_schedule
+            if req.options.protocol == "awsJson1_0":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.get_bandwidth_rate_limit_schedule
 
-            output, http_response = (
-                capo_backup_gateway._operations.backup_on_premises_v20210101.get_bandwidth_rate_limit_schedule.get_bandwidth_rate_limit_schedule(
-                    req.options, req.input
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.get_bandwidth_rate_limit_schedule.get_bandwidth_rate_limit_schedule(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.get_bandwidth_rate_limit_schedule
+
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.get_bandwidth_rate_limit_schedule.get_bandwidth_rate_limit_schedule(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1063,13 +1235,24 @@ class BackupGatewayClient:
         ) -> OperationResponse[
             "capo_backup_gateway.types.import_hypervisor_configuration_output.ImportHypervisorConfigurationOutput"
         ]:
-            import capo_backup_gateway._operations.backup_on_premises_v20210101.import_hypervisor_configuration
+            if req.options.protocol == "awsJson1_0":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.import_hypervisor_configuration
 
-            output, http_response = (
-                capo_backup_gateway._operations.backup_on_premises_v20210101.import_hypervisor_configuration.import_hypervisor_configuration(
-                    req.options, req.input
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.import_hypervisor_configuration.import_hypervisor_configuration(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.import_hypervisor_configuration
+
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.import_hypervisor_configuration.import_hypervisor_configuration(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -1132,13 +1315,24 @@ class BackupGatewayClient:
         ) -> OperationResponse[
             "capo_backup_gateway.types.get_hypervisor_output.GetHypervisorOutput"
         ]:
-            import capo_backup_gateway._operations.backup_on_premises_v20210101.get_hypervisor
+            if req.options.protocol == "awsJson1_0":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.get_hypervisor
 
-            output, http_response = (
-                capo_backup_gateway._operations.backup_on_premises_v20210101.get_hypervisor.get_hypervisor(
-                    req.options, req.input
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.get_hypervisor.get_hypervisor(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.get_hypervisor
+
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.get_hypervisor.get_hypervisor(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1194,13 +1388,24 @@ class BackupGatewayClient:
         ) -> OperationResponse[
             "capo_backup_gateway.types.update_hypervisor_output.UpdateHypervisorOutput"
         ]:
-            import capo_backup_gateway._operations.backup_on_premises_v20210101.update_hypervisor
+            if req.options.protocol == "awsJson1_0":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.update_hypervisor
 
-            output, http_response = (
-                capo_backup_gateway._operations.backup_on_premises_v20210101.update_hypervisor.update_hypervisor(
-                    req.options, req.input
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.update_hypervisor.update_hypervisor(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.update_hypervisor
+
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.update_hypervisor.update_hypervisor(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -1264,13 +1469,24 @@ class BackupGatewayClient:
         ) -> OperationResponse[
             "capo_backup_gateway.types.delete_hypervisor_output.DeleteHypervisorOutput"
         ]:
-            import capo_backup_gateway._operations.backup_on_premises_v20210101.delete_hypervisor
+            if req.options.protocol == "awsJson1_0":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.delete_hypervisor
 
-            output, http_response = (
-                capo_backup_gateway._operations.backup_on_premises_v20210101.delete_hypervisor.delete_hypervisor(
-                    req.options, req.input
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.delete_hypervisor.delete_hypervisor(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.delete_hypervisor
+
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.delete_hypervisor.delete_hypervisor(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1315,13 +1531,24 @@ class BackupGatewayClient:
         ) -> OperationResponse[
             "capo_backup_gateway.types.list_hypervisors_output.ListHypervisorsOutput"
         ]:
-            import capo_backup_gateway._operations.backup_on_premises_v20210101.list_hypervisors
+            if req.options.protocol == "awsJson1_0":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.list_hypervisors
 
-            output, http_response = (
-                capo_backup_gateway._operations.backup_on_premises_v20210101.list_hypervisors.list_hypervisors(
-                    req.options, req.input
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.list_hypervisors.list_hypervisors(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.list_hypervisors
+
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.list_hypervisors.list_hypervisors(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1366,13 +1593,24 @@ class BackupGatewayClient:
         ) -> OperationResponse[
             "capo_backup_gateway.types.start_virtual_machines_metadata_sync_output.StartVirtualMachinesMetadataSyncOutput"
         ]:
-            import capo_backup_gateway._operations.backup_on_premises_v20210101.start_virtual_machines_metadata_sync
+            if req.options.protocol == "awsJson1_0":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.start_virtual_machines_metadata_sync
 
-            output, http_response = (
-                capo_backup_gateway._operations.backup_on_premises_v20210101.start_virtual_machines_metadata_sync.start_virtual_machines_metadata_sync(
-                    req.options, req.input
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.start_virtual_machines_metadata_sync.start_virtual_machines_metadata_sync(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.start_virtual_machines_metadata_sync
+
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.start_virtual_machines_metadata_sync.start_virtual_machines_metadata_sync(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1420,13 +1658,24 @@ class BackupGatewayClient:
         ) -> OperationResponse[
             "capo_backup_gateway.types.put_hypervisor_property_mappings_output.PutHypervisorPropertyMappingsOutput"
         ]:
-            import capo_backup_gateway._operations.backup_on_premises_v20210101.put_hypervisor_property_mappings
+            if req.options.protocol == "awsJson1_0":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.put_hypervisor_property_mappings
 
-            output, http_response = (
-                capo_backup_gateway._operations.backup_on_premises_v20210101.put_hypervisor_property_mappings.put_hypervisor_property_mappings(
-                    req.options, req.input
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.put_hypervisor_property_mappings.put_hypervisor_property_mappings(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.put_hypervisor_property_mappings
+
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.put_hypervisor_property_mappings.put_hypervisor_property_mappings(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1470,13 +1719,24 @@ class BackupGatewayClient:
         ) -> OperationResponse[
             "capo_backup_gateway.types.get_hypervisor_property_mappings_output.GetHypervisorPropertyMappingsOutput"
         ]:
-            import capo_backup_gateway._operations.backup_on_premises_v20210101.get_hypervisor_property_mappings
+            if req.options.protocol == "awsJson1_0":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.get_hypervisor_property_mappings
 
-            output, http_response = (
-                capo_backup_gateway._operations.backup_on_premises_v20210101.get_hypervisor_property_mappings.get_hypervisor_property_mappings(
-                    req.options, req.input
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.get_hypervisor_property_mappings.get_hypervisor_property_mappings(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.get_hypervisor_property_mappings
+
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.get_hypervisor_property_mappings.get_hypervisor_property_mappings(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1518,13 +1778,24 @@ class BackupGatewayClient:
         ) -> OperationResponse[
             "capo_backup_gateway.types.get_virtual_machine_output.GetVirtualMachineOutput"
         ]:
-            import capo_backup_gateway._operations.backup_on_premises_v20210101.get_virtual_machine
+            if req.options.protocol == "awsJson1_0":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.get_virtual_machine
 
-            output, http_response = (
-                capo_backup_gateway._operations.backup_on_premises_v20210101.get_virtual_machine.get_virtual_machine(
-                    req.options, req.input
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.get_virtual_machine.get_virtual_machine(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.get_virtual_machine
+
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.get_virtual_machine.get_virtual_machine(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1573,13 +1844,24 @@ class BackupGatewayClient:
         ) -> OperationResponse[
             "capo_backup_gateway.types.list_virtual_machines_output.ListVirtualMachinesOutput"
         ]:
-            import capo_backup_gateway._operations.backup_on_premises_v20210101.list_virtual_machines
+            if req.options.protocol == "awsJson1_0":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.list_virtual_machines
 
-            output, http_response = (
-                capo_backup_gateway._operations.backup_on_premises_v20210101.list_virtual_machines.list_virtual_machines(
-                    req.options, req.input
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.list_virtual_machines.list_virtual_machines(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.list_virtual_machines
+
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.list_virtual_machines.list_virtual_machines(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

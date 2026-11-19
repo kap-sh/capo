@@ -33,3 +33,22 @@ def deserialize_aws_json_1_1(data: dict) -> StopFleetActionsOutput:
     if data.get("FleetArn") is not None:
         out["fleet_arn"] = data["FleetArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StopFleetActionsOutput) -> dict:
+    out: dict = {}
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "fleet_arn" in value:
+        out["FleetArn"] = value["fleet_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StopFleetActionsOutput:
+    out: StopFleetActionsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("FleetArn") is not None:
+        out["fleet_arn"] = data["FleetArn"]
+    return out

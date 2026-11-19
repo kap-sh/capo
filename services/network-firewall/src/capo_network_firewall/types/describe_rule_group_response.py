@@ -114,3 +114,80 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeRuleGroupResponse:
             "DescribeRuleGroupResponse.rule_group_response required"
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeRuleGroupResponse) -> dict:
+    out: dict = {}
+    out["UpdateToken"] = value["update_token"]
+    if "rule_group" in value:
+        import capo_network_firewall.types.rule_group
+
+        out["RuleGroup"] = capo_network_firewall.types.rule_group.serialize_cbor(
+            value["rule_group"]
+        )
+    if "firewall_rule_group" in value:
+        import capo_network_firewall.types.firewall_rule_group
+
+        out["FirewallRuleGroup"] = (
+            capo_network_firewall.types.firewall_rule_group.serialize_cbor(
+                value["firewall_rule_group"]
+            )
+        )
+    if "ips_rule_group" in value:
+        import capo_network_firewall.types.ips_rule_group
+
+        out["IpsRuleGroup"] = capo_network_firewall.types.ips_rule_group.serialize_cbor(
+            value["ips_rule_group"]
+        )
+    import capo_network_firewall.types.rule_group_response
+
+    out["RuleGroupResponse"] = (
+        capo_network_firewall.types.rule_group_response.serialize_cbor(
+            value["rule_group_response"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeRuleGroupResponse:
+    out: DescribeRuleGroupResponse = {}  # type: ignore[typeddict-item]
+    if data.get("UpdateToken") is not None:
+        out["update_token"] = data["UpdateToken"]
+    else:
+        out["update_token"] = ""
+    if data.get("RuleGroup") is not None:
+        import capo_network_firewall.types.rule_group
+
+        out["rule_group"] = capo_network_firewall.types.rule_group.deserialize_cbor(
+            data["RuleGroup"]
+        )
+    if data.get("FirewallRuleGroup") is not None:
+        import capo_network_firewall.types.firewall_rule_group
+
+        out["firewall_rule_group"] = (
+            capo_network_firewall.types.firewall_rule_group.deserialize_cbor(
+                data["FirewallRuleGroup"]
+            )
+        )
+    if data.get("IpsRuleGroup") is not None:
+        import capo_network_firewall.types.ips_rule_group
+
+        out["ips_rule_group"] = (
+            capo_network_firewall.types.ips_rule_group.deserialize_cbor(
+                data["IpsRuleGroup"]
+            )
+        )
+    if data.get("RuleGroupResponse") is not None:
+        import capo_network_firewall.types.rule_group_response
+
+        out["rule_group_response"] = (
+            capo_network_firewall.types.rule_group_response.deserialize_cbor(
+                data["RuleGroupResponse"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "DescribeRuleGroupResponse.rule_group_response required"
+        )
+    return out

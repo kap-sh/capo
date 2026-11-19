@@ -29,3 +29,19 @@ def deserialize_aws_json_1_0(data: dict) -> GetAgreementRequestInput:
     else:
         out["agreement_request_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetAgreementRequestInput) -> dict:
+    out: dict = {}
+    out["agreementRequestId"] = value["agreement_request_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetAgreementRequestInput:
+    out: GetAgreementRequestInput = {}  # type: ignore[typeddict-item]
+    if data.get("agreementRequestId") is not None:
+        out["agreement_request_id"] = data["agreementRequestId"]
+    else:
+        out["agreement_request_id"] = ""
+    return out

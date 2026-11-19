@@ -102,3 +102,70 @@ def deserialize_aws_json_1_1(data: dict) -> ResourceSet:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResourceSet) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["Id"] = value["id"]
+    out["Name"] = value["name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "update_token" in value:
+        out["UpdateToken"] = value["update_token"]
+    import capo_fms.types.resource_type_list
+
+    out["ResourceTypeList"] = capo_fms.types.resource_type_list.serialize_cbor(
+        value["resource_type_list"]
+    )
+    if "last_update_time" in value:
+        import capo_fms.types.time_stamp
+
+        out["LastUpdateTime"] = capo_fms.types.time_stamp.serialize_cbor(
+            value["last_update_time"]
+        )
+    if "resource_set_status" in value:
+        import capo_fms.types.resource_set_status
+
+        out["ResourceSetStatus"] = capo_fms.types.resource_set_status.serialize_cbor(
+            value["resource_set_status"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ResourceSet:
+    out: ResourceSet = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    else:
+        out["name"] = ""
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("UpdateToken") is not None:
+        out["update_token"] = data["UpdateToken"]
+    if data.get("ResourceTypeList") is not None:
+        import capo_fms.types.resource_type_list
+
+        out["resource_type_list"] = capo_fms.types.resource_type_list.deserialize_cbor(
+            data["ResourceTypeList"]
+        )
+    else:
+        out["resource_type_list"] = []
+    if data.get("LastUpdateTime") is not None:
+        import capo_fms.types.time_stamp
+
+        out["last_update_time"] = capo_fms.types.time_stamp.deserialize_cbor(
+            data["LastUpdateTime"]
+        )
+    if data.get("ResourceSetStatus") is not None:
+        import capo_fms.types.resource_set_status
+
+        out["resource_set_status"] = (
+            capo_fms.types.resource_set_status.deserialize_cbor(
+                data["ResourceSetStatus"]
+            )
+        )
+    return out

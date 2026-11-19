@@ -63,3 +63,42 @@ def deserialize_aws_json_1_1(data: dict) -> ConnectionAliasAssociation:
     if data.get("ConnectionIdentifier") is not None:
         out["connection_identifier"] = data["ConnectionIdentifier"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ConnectionAliasAssociation) -> dict:
+    out: dict = {}
+    if "association_status" in value:
+        import capo_workspaces.types.association_status
+
+        out["AssociationStatus"] = (
+            capo_workspaces.types.association_status.serialize_cbor(
+                value["association_status"]
+            )
+        )
+    if "associated_account_id" in value:
+        out["AssociatedAccountId"] = value["associated_account_id"]
+    if "resource_id" in value:
+        out["ResourceId"] = value["resource_id"]
+    if "connection_identifier" in value:
+        out["ConnectionIdentifier"] = value["connection_identifier"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ConnectionAliasAssociation:
+    out: ConnectionAliasAssociation = {}  # type: ignore[typeddict-item]
+    if data.get("AssociationStatus") is not None:
+        import capo_workspaces.types.association_status
+
+        out["association_status"] = (
+            capo_workspaces.types.association_status.deserialize_cbor(
+                data["AssociationStatus"]
+            )
+        )
+    if data.get("AssociatedAccountId") is not None:
+        out["associated_account_id"] = data["AssociatedAccountId"]
+    if data.get("ResourceId") is not None:
+        out["resource_id"] = data["ResourceId"]
+    if data.get("ConnectionIdentifier") is not None:
+        out["connection_identifier"] = data["ConnectionIdentifier"]
+    return out

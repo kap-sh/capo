@@ -32,3 +32,22 @@ def deserialize_aws_json_1_1(data: dict) -> KeyRange:
     if data.get("EndMarker") is not None:
         out["end_marker"] = data["EndMarker"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: KeyRange) -> dict:
+    out: dict = {}
+    if "begin_marker" in value:
+        out["BeginMarker"] = value["begin_marker"]
+    if "end_marker" in value:
+        out["EndMarker"] = value["end_marker"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> KeyRange:
+    out: KeyRange = {}  # type: ignore[typeddict-item]
+    if data.get("BeginMarker") is not None:
+        out["begin_marker"] = data["BeginMarker"]
+    if data.get("EndMarker") is not None:
+        out["end_marker"] = data["EndMarker"]
+    return out

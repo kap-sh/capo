@@ -106,3 +106,74 @@ def deserialize_aws_json_1_1(data: dict) -> TaskExecutionResultDetail:
     if data.get("ErrorDetail") is not None:
         out["error_detail"] = data["ErrorDetail"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TaskExecutionResultDetail) -> dict:
+    out: dict = {}
+    if "prepare_duration" in value:
+        out["PrepareDuration"] = value["prepare_duration"]
+    if "prepare_status" in value:
+        import capo_datasync.types.phase_status
+
+        out["PrepareStatus"] = capo_datasync.types.phase_status.serialize_cbor(
+            value["prepare_status"]
+        )
+    if "total_duration" in value:
+        out["TotalDuration"] = value["total_duration"]
+    if "transfer_duration" in value:
+        out["TransferDuration"] = value["transfer_duration"]
+    if "transfer_status" in value:
+        import capo_datasync.types.phase_status
+
+        out["TransferStatus"] = capo_datasync.types.phase_status.serialize_cbor(
+            value["transfer_status"]
+        )
+    if "verify_duration" in value:
+        out["VerifyDuration"] = value["verify_duration"]
+    if "verify_status" in value:
+        import capo_datasync.types.phase_status
+
+        out["VerifyStatus"] = capo_datasync.types.phase_status.serialize_cbor(
+            value["verify_status"]
+        )
+    if "error_code" in value:
+        out["ErrorCode"] = value["error_code"]
+    if "error_detail" in value:
+        out["ErrorDetail"] = value["error_detail"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> TaskExecutionResultDetail:
+    out: TaskExecutionResultDetail = {}  # type: ignore[typeddict-item]
+    if data.get("PrepareDuration") is not None:
+        out["prepare_duration"] = data["PrepareDuration"]
+    if data.get("PrepareStatus") is not None:
+        import capo_datasync.types.phase_status
+
+        out["prepare_status"] = capo_datasync.types.phase_status.deserialize_cbor(
+            data["PrepareStatus"]
+        )
+    if data.get("TotalDuration") is not None:
+        out["total_duration"] = data["TotalDuration"]
+    if data.get("TransferDuration") is not None:
+        out["transfer_duration"] = data["TransferDuration"]
+    if data.get("TransferStatus") is not None:
+        import capo_datasync.types.phase_status
+
+        out["transfer_status"] = capo_datasync.types.phase_status.deserialize_cbor(
+            data["TransferStatus"]
+        )
+    if data.get("VerifyDuration") is not None:
+        out["verify_duration"] = data["VerifyDuration"]
+    if data.get("VerifyStatus") is not None:
+        import capo_datasync.types.phase_status
+
+        out["verify_status"] = capo_datasync.types.phase_status.deserialize_cbor(
+            data["VerifyStatus"]
+        )
+    if data.get("ErrorCode") is not None:
+        out["error_code"] = data["ErrorCode"]
+    if data.get("ErrorDetail") is not None:
+        out["error_detail"] = data["ErrorDetail"]
+    return out

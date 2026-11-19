@@ -27,3 +27,24 @@ def deserialize_aws_json_1_1(data: list) -> ListOfClasses:
             continue
         out.append(capo_comprehend.types.document_class.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListOfClasses) -> list:
+    import capo_comprehend.types.document_class
+
+    out: list = []
+    for item in value:
+        out.append(capo_comprehend.types.document_class.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> ListOfClasses:
+    import capo_comprehend.types.document_class
+
+    out: ListOfClasses = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_comprehend.types.document_class.deserialize_cbor(item))
+    return out

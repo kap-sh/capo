@@ -55,3 +55,42 @@ def deserialize_aws_json_1_0(data: dict) -> TagSpecification:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TagSpecification) -> dict:
+    out: dict = {}
+    if "resource_type" in value:
+        import capo_workspaces_instances.types.resource_type_enum
+
+        out["ResourceType"] = (
+            capo_workspaces_instances.types.resource_type_enum.serialize_cbor(
+                value["resource_type"]
+            )
+        )
+    if "tags" in value:
+        import capo_workspaces_instances.types.tag_list
+
+        out["Tags"] = capo_workspaces_instances.types.tag_list.serialize_cbor(
+            value["tags"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TagSpecification:
+    out: TagSpecification = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceType") is not None:
+        import capo_workspaces_instances.types.resource_type_enum
+
+        out["resource_type"] = (
+            capo_workspaces_instances.types.resource_type_enum.deserialize_cbor(
+                data["ResourceType"]
+            )
+        )
+    if data.get("Tags") is not None:
+        import capo_workspaces_instances.types.tag_list
+
+        out["tags"] = capo_workspaces_instances.types.tag_list.deserialize_cbor(
+            data["Tags"]
+        )
+    return out

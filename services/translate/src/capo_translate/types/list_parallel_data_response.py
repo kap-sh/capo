@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> ListParallelDataResponse:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListParallelDataResponse) -> dict:
+    out: dict = {}
+    if "parallel_data_properties_list" in value:
+        import capo_translate.types.parallel_data_properties_list
+
+        out["ParallelDataPropertiesList"] = (
+            capo_translate.types.parallel_data_properties_list.serialize_cbor(
+                value["parallel_data_properties_list"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListParallelDataResponse:
+    out: ListParallelDataResponse = {}  # type: ignore[typeddict-item]
+    if data.get("ParallelDataPropertiesList") is not None:
+        import capo_translate.types.parallel_data_properties_list
+
+        out["parallel_data_properties_list"] = (
+            capo_translate.types.parallel_data_properties_list.deserialize_cbor(
+                data["ParallelDataPropertiesList"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

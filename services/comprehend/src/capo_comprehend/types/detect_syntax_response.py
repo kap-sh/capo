@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> DetectSyntaxResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DetectSyntaxResponse) -> dict:
+    out: dict = {}
+    if "syntax_tokens" in value:
+        import capo_comprehend.types.list_of_syntax_tokens
+
+        out["SyntaxTokens"] = (
+            capo_comprehend.types.list_of_syntax_tokens.serialize_cbor(
+                value["syntax_tokens"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DetectSyntaxResponse:
+    out: DetectSyntaxResponse = {}  # type: ignore[typeddict-item]
+    if data.get("SyntaxTokens") is not None:
+        import capo_comprehend.types.list_of_syntax_tokens
+
+        out["syntax_tokens"] = (
+            capo_comprehend.types.list_of_syntax_tokens.deserialize_cbor(
+                data["SyntaxTokens"]
+            )
+        )
+    return out

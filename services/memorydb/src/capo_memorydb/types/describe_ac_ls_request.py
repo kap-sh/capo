@@ -39,3 +39,26 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeACLsRequest:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeACLsRequest) -> dict:
+    out: dict = {}
+    if "acl_name" in value:
+        out["ACLName"] = value["acl_name"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeACLsRequest:
+    out: DescribeACLsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ACLName") is not None:
+        out["acl_name"] = data["ACLName"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

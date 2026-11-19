@@ -42,3 +42,26 @@ def deserialize_aws_json_1_1(data: dict) -> ListPricesRequest:
     if data.get("MaxItems") is not None:
         out["max_items"] = data["MaxItems"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListPricesRequest) -> dict:
+    out: dict = {}
+    if "tld" in value:
+        out["Tld"] = value["tld"]
+    if "marker" in value:
+        out["Marker"] = value["marker"]
+    if "max_items" in value:
+        out["MaxItems"] = value["max_items"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListPricesRequest:
+    out: ListPricesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Tld") is not None:
+        out["tld"] = data["Tld"]
+    if data.get("Marker") is not None:
+        out["marker"] = data["Marker"]
+    if data.get("MaxItems") is not None:
+        out["max_items"] = data["MaxItems"]
+    return out

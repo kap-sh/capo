@@ -37,3 +37,22 @@ def deserialize_aws_json_1_1(data: dict) -> WebhookAuthConfiguration:
     if data.get("SecretToken") is not None:
         out["secret_token"] = data["SecretToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: WebhookAuthConfiguration) -> dict:
+    out: dict = {}
+    if "allowed_ip_range" in value:
+        out["AllowedIPRange"] = value["allowed_ip_range"]
+    if "secret_token" in value:
+        out["SecretToken"] = value["secret_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> WebhookAuthConfiguration:
+    out: WebhookAuthConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("AllowedIPRange") is not None:
+        out["allowed_ip_range"] = data["AllowedIPRange"]
+    if data.get("SecretToken") is not None:
+        out["secret_token"] = data["SecretToken"]
+    return out

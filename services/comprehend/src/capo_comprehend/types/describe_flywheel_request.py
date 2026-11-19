@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeFlywheelRequest:
     else:
         out["flywheel_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeFlywheelRequest) -> dict:
+    out: dict = {}
+    out["FlywheelArn"] = value["flywheel_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeFlywheelRequest:
+    out: DescribeFlywheelRequest = {}  # type: ignore[typeddict-item]
+    if data.get("FlywheelArn") is not None:
+        out["flywheel_arn"] = data["FlywheelArn"]
+    else:
+        out["flywheel_arn"] = ""
+    return out

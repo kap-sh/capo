@@ -37,3 +37,24 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteDeploymentGroupInput:
     else:
         out["deployment_group_name"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteDeploymentGroupInput) -> dict:
+    out: dict = {}
+    out["applicationName"] = value["application_name"]
+    out["deploymentGroupName"] = value["deployment_group_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteDeploymentGroupInput:
+    out: DeleteDeploymentGroupInput = {}  # type: ignore[typeddict-item]
+    if data.get("applicationName") is not None:
+        out["application_name"] = data["applicationName"]
+    else:
+        out["application_name"] = ""
+    if data.get("deploymentGroupName") is not None:
+        out["deployment_group_name"] = data["deploymentGroupName"]
+    else:
+        out["deployment_group_name"] = ""
+    return out

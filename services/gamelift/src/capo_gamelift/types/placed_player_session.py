@@ -37,6 +37,25 @@ def deserialize_aws_json_1_1(data: dict) -> PlacedPlayerSession:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PlacedPlayerSession) -> dict:
+    out: dict = {}
+    if "player_id" in value:
+        out["PlayerId"] = value["player_id"]
+    if "player_session_id" in value:
+        out["PlayerSessionId"] = value["player_session_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> PlacedPlayerSession:
+    out: PlacedPlayerSession = {}  # type: ignore[typeddict-item]
+    if data.get("PlayerId") is not None:
+        out["player_id"] = data["PlayerId"]
+    if data.get("PlayerSessionId") is not None:
+        out["player_session_id"] = data["PlayerSessionId"]
+    return out
+
+
 def redact_sensitive(value: PlacedPlayerSession) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "player_id" in value:

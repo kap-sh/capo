@@ -176,3 +176,122 @@ def deserialize_aws_json_1_0(data: dict) -> InstanceRecommendationOption:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InstanceRecommendationOption) -> dict:
+    out: dict = {}
+    if "instance_type" in value:
+        out["instanceType"] = value["instance_type"]
+    if "instance_gpu_info" in value:
+        import capo_compute_optimizer.types.gpu_info
+
+        out["instanceGpuInfo"] = capo_compute_optimizer.types.gpu_info.serialize_cbor(
+            value["instance_gpu_info"]
+        )
+    if "projected_utilization_metrics" in value:
+        import capo_compute_optimizer.types.projected_utilization_metrics
+
+        out["projectedUtilizationMetrics"] = (
+            capo_compute_optimizer.types.projected_utilization_metrics.serialize_cbor(
+                value["projected_utilization_metrics"]
+            )
+        )
+    if "platform_differences" in value:
+        import capo_compute_optimizer.types.platform_differences
+
+        out["platformDifferences"] = (
+            capo_compute_optimizer.types.platform_differences.serialize_cbor(
+                value["platform_differences"]
+            )
+        )
+    out["performanceRisk"] = value.get("performance_risk", 0)
+    out["rank"] = value.get("rank", 0)
+    if "savings_opportunity" in value:
+        import capo_compute_optimizer.types.savings_opportunity
+
+        out["savingsOpportunity"] = (
+            capo_compute_optimizer.types.savings_opportunity.serialize_cbor(
+                value["savings_opportunity"]
+            )
+        )
+    if "savings_opportunity_after_discounts" in value:
+        import capo_compute_optimizer.types.instance_savings_opportunity_after_discounts
+
+        out["savingsOpportunityAfterDiscounts"] = (
+            capo_compute_optimizer.types.instance_savings_opportunity_after_discounts.serialize_cbor(
+                value["savings_opportunity_after_discounts"]
+            )
+        )
+    if "migration_effort" in value:
+        import capo_compute_optimizer.types.migration_effort
+
+        out["migrationEffort"] = (
+            capo_compute_optimizer.types.migration_effort.serialize_cbor(
+                value["migration_effort"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> InstanceRecommendationOption:
+    out: InstanceRecommendationOption = {}  # type: ignore[typeddict-item]
+    if data.get("instanceType") is not None:
+        out["instance_type"] = data["instanceType"]
+    if data.get("instanceGpuInfo") is not None:
+        import capo_compute_optimizer.types.gpu_info
+
+        out["instance_gpu_info"] = (
+            capo_compute_optimizer.types.gpu_info.deserialize_cbor(
+                data["instanceGpuInfo"]
+            )
+        )
+    if data.get("projectedUtilizationMetrics") is not None:
+        import capo_compute_optimizer.types.projected_utilization_metrics
+
+        out["projected_utilization_metrics"] = (
+            capo_compute_optimizer.types.projected_utilization_metrics.deserialize_cbor(
+                data["projectedUtilizationMetrics"]
+            )
+        )
+    if data.get("platformDifferences") is not None:
+        import capo_compute_optimizer.types.platform_differences
+
+        out["platform_differences"] = (
+            capo_compute_optimizer.types.platform_differences.deserialize_cbor(
+                data["platformDifferences"]
+            )
+        )
+    if data.get("performanceRisk") is not None:
+        out["performance_risk"] = float(data["performanceRisk"])
+    else:
+        out["performance_risk"] = 0
+    if data.get("rank") is not None:
+        out["rank"] = data["rank"]
+    else:
+        out["rank"] = 0
+    if data.get("savingsOpportunity") is not None:
+        import capo_compute_optimizer.types.savings_opportunity
+
+        out["savings_opportunity"] = (
+            capo_compute_optimizer.types.savings_opportunity.deserialize_cbor(
+                data["savingsOpportunity"]
+            )
+        )
+    if data.get("savingsOpportunityAfterDiscounts") is not None:
+        import capo_compute_optimizer.types.instance_savings_opportunity_after_discounts
+
+        out["savings_opportunity_after_discounts"] = (
+            capo_compute_optimizer.types.instance_savings_opportunity_after_discounts.deserialize_cbor(
+                data["savingsOpportunityAfterDiscounts"]
+            )
+        )
+    if data.get("migrationEffort") is not None:
+        import capo_compute_optimizer.types.migration_effort
+
+        out["migration_effort"] = (
+            capo_compute_optimizer.types.migration_effort.deserialize_cbor(
+                data["migrationEffort"]
+            )
+        )
+    return out

@@ -48,3 +48,26 @@ def deserialize_aws_json_1_1(
     if data.get("virtualGatewayId") is not None:
         out["virtual_gateway_id"] = data["virtualGatewayId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteDirectConnectGatewayAssociationRequest) -> dict:
+    out: dict = {}
+    if "association_id" in value:
+        out["associationId"] = value["association_id"]
+    if "direct_connect_gateway_id" in value:
+        out["directConnectGatewayId"] = value["direct_connect_gateway_id"]
+    if "virtual_gateway_id" in value:
+        out["virtualGatewayId"] = value["virtual_gateway_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteDirectConnectGatewayAssociationRequest:
+    out: DeleteDirectConnectGatewayAssociationRequest = {}  # type: ignore[typeddict-item]
+    if data.get("associationId") is not None:
+        out["association_id"] = data["associationId"]
+    if data.get("directConnectGatewayId") is not None:
+        out["direct_connect_gateway_id"] = data["directConnectGatewayId"]
+    if data.get("virtualGatewayId") is not None:
+        out["virtual_gateway_id"] = data["virtualGatewayId"]
+    return out

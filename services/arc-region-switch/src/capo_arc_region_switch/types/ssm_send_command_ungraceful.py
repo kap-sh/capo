@@ -40,3 +40,30 @@ def deserialize_aws_json_1_0(data: dict) -> SsmSendCommandUngraceful:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SsmSendCommandUngraceful) -> dict:
+    out: dict = {}
+    if "behavior" in value:
+        import capo_arc_region_switch.types.ssm_send_command_ungraceful_behavior
+
+        out["behavior"] = (
+            capo_arc_region_switch.types.ssm_send_command_ungraceful_behavior.serialize_cbor(
+                value["behavior"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> SsmSendCommandUngraceful:
+    out: SsmSendCommandUngraceful = {}  # type: ignore[typeddict-item]
+    if data.get("behavior") is not None:
+        import capo_arc_region_switch.types.ssm_send_command_ungraceful_behavior
+
+        out["behavior"] = (
+            capo_arc_region_switch.types.ssm_send_command_ungraceful_behavior.deserialize_cbor(
+                data["behavior"]
+            )
+        )
+    return out

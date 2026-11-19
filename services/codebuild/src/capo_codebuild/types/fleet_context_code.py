@@ -18,3 +18,12 @@ def serialize_aws_json_1_1(value: FleetContextCode) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> FleetContextCode:
     return cast(FleetContextCode, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FleetContextCode) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> FleetContextCode:
+    return cast(FleetContextCode, data)

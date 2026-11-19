@@ -69,3 +69,26 @@ def deserialize_query(el: Element) -> GetDashboardOutput:
     if child_dashboard_name is not None:
         out["dashboard_name"] = str(child_dashboard_name.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetDashboardOutput) -> dict:
+    out: dict = {}
+    if "dashboard_arn" in value:
+        out["DashboardArn"] = value["dashboard_arn"]
+    if "dashboard_body" in value:
+        out["DashboardBody"] = value["dashboard_body"]
+    if "dashboard_name" in value:
+        out["DashboardName"] = value["dashboard_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetDashboardOutput:
+    out: GetDashboardOutput = {}  # type: ignore[typeddict-item]
+    if data.get("DashboardArn") is not None:
+        out["dashboard_arn"] = data["DashboardArn"]
+    if data.get("DashboardBody") is not None:
+        out["dashboard_body"] = data["DashboardBody"]
+    if data.get("DashboardName") is not None:
+        out["dashboard_name"] = data["DashboardName"]
+    return out

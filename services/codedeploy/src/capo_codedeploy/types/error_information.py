@@ -41,3 +41,26 @@ def deserialize_aws_json_1_1(data: dict) -> ErrorInformation:
     if data.get("message") is not None:
         out["message"] = data["message"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ErrorInformation) -> dict:
+    out: dict = {}
+    if "code" in value:
+        import capo_codedeploy.types.error_code
+
+        out["code"] = capo_codedeploy.types.error_code.serialize_cbor(value["code"])
+    if "message" in value:
+        out["message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ErrorInformation:
+    out: ErrorInformation = {}  # type: ignore[typeddict-item]
+    if data.get("code") is not None:
+        import capo_codedeploy.types.error_code
+
+        out["code"] = capo_codedeploy.types.error_code.deserialize_cbor(data["code"])
+    if data.get("message") is not None:
+        out["message"] = data["message"]
+    return out

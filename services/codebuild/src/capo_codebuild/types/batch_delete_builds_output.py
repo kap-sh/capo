@@ -55,3 +55,42 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDeleteBuildsOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchDeleteBuildsOutput) -> dict:
+    out: dict = {}
+    if "builds_deleted" in value:
+        import capo_codebuild.types.build_ids
+
+        out["buildsDeleted"] = capo_codebuild.types.build_ids.serialize_cbor(
+            value["builds_deleted"]
+        )
+    if "builds_not_deleted" in value:
+        import capo_codebuild.types.builds_not_deleted
+
+        out["buildsNotDeleted"] = (
+            capo_codebuild.types.builds_not_deleted.serialize_cbor(
+                value["builds_not_deleted"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BatchDeleteBuildsOutput:
+    out: BatchDeleteBuildsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("buildsDeleted") is not None:
+        import capo_codebuild.types.build_ids
+
+        out["builds_deleted"] = capo_codebuild.types.build_ids.deserialize_cbor(
+            data["buildsDeleted"]
+        )
+    if data.get("buildsNotDeleted") is not None:
+        import capo_codebuild.types.builds_not_deleted
+
+        out["builds_not_deleted"] = (
+            capo_codebuild.types.builds_not_deleted.deserialize_cbor(
+                data["buildsNotDeleted"]
+            )
+        )
+    return out

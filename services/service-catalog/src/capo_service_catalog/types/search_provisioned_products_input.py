@@ -110,3 +110,74 @@ def deserialize_aws_json_1_1(data: dict) -> SearchProvisionedProductsInput:
     if data.get("PageToken") is not None:
         out["page_token"] = data["PageToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SearchProvisionedProductsInput) -> dict:
+    out: dict = {}
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    if "access_level_filter" in value:
+        import capo_service_catalog.types.access_level_filter
+
+        out["AccessLevelFilter"] = (
+            capo_service_catalog.types.access_level_filter.serialize_cbor(
+                value["access_level_filter"]
+            )
+        )
+    if "filters" in value:
+        import capo_service_catalog.types.provisioned_product_filters
+
+        out["Filters"] = (
+            capo_service_catalog.types.provisioned_product_filters.serialize_cbor(
+                value["filters"]
+            )
+        )
+    if "sort_by" in value:
+        out["SortBy"] = value["sort_by"]
+    if "sort_order" in value:
+        import capo_service_catalog.types.sort_order
+
+        out["SortOrder"] = capo_service_catalog.types.sort_order.serialize_cbor(
+            value["sort_order"]
+        )
+    if "page_size" in value:
+        out["PageSize"] = value["page_size"]
+    if "page_token" in value:
+        out["PageToken"] = value["page_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> SearchProvisionedProductsInput:
+    out: SearchProvisionedProductsInput = {}  # type: ignore[typeddict-item]
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    if data.get("AccessLevelFilter") is not None:
+        import capo_service_catalog.types.access_level_filter
+
+        out["access_level_filter"] = (
+            capo_service_catalog.types.access_level_filter.deserialize_cbor(
+                data["AccessLevelFilter"]
+            )
+        )
+    if data.get("Filters") is not None:
+        import capo_service_catalog.types.provisioned_product_filters
+
+        out["filters"] = (
+            capo_service_catalog.types.provisioned_product_filters.deserialize_cbor(
+                data["Filters"]
+            )
+        )
+    if data.get("SortBy") is not None:
+        out["sort_by"] = data["SortBy"]
+    if data.get("SortOrder") is not None:
+        import capo_service_catalog.types.sort_order
+
+        out["sort_order"] = capo_service_catalog.types.sort_order.deserialize_cbor(
+            data["SortOrder"]
+        )
+    if data.get("PageSize") is not None:
+        out["page_size"] = data["PageSize"]
+    if data.get("PageToken") is not None:
+        out["page_token"] = data["PageToken"]
+    return out

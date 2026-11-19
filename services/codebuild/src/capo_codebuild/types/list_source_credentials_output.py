@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> ListSourceCredentialsOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListSourceCredentialsOutput) -> dict:
+    out: dict = {}
+    if "source_credentials_infos" in value:
+        import capo_codebuild.types.source_credentials_infos
+
+        out["sourceCredentialsInfos"] = (
+            capo_codebuild.types.source_credentials_infos.serialize_cbor(
+                value["source_credentials_infos"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListSourceCredentialsOutput:
+    out: ListSourceCredentialsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("sourceCredentialsInfos") is not None:
+        import capo_codebuild.types.source_credentials_infos
+
+        out["source_credentials_infos"] = (
+            capo_codebuild.types.source_credentials_infos.deserialize_cbor(
+                data["sourceCredentialsInfos"]
+            )
+        )
+    return out

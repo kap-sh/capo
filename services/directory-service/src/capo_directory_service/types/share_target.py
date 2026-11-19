@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> ShareTarget:
             "capo_directory_service.types.target_type.TargetType", ""
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ShareTarget) -> dict:
+    out: dict = {}
+    out["Id"] = value["id"]
+    import capo_directory_service.types.target_type
+
+    out["Type"] = capo_directory_service.types.target_type.serialize_cbor(value["type"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> ShareTarget:
+    out: ShareTarget = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    else:
+        out["id"] = ""
+    if data.get("Type") is not None:
+        import capo_directory_service.types.target_type
+
+        out["type"] = capo_directory_service.types.target_type.deserialize_cbor(
+            data["Type"]
+        )
+    else:
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_directory_service.types.target_type.TargetType", ""
+        )
+    return out

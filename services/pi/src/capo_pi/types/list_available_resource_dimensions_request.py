@@ -96,3 +96,69 @@ def deserialize_aws_json_1_1(data: dict) -> ListAvailableResourceDimensionsReque
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListAvailableResourceDimensionsRequest) -> dict:
+    out: dict = {}
+    import capo_pi.types.service_type
+
+    out["ServiceType"] = capo_pi.types.service_type.serialize_cbor(
+        value["service_type"]
+    )
+    out["Identifier"] = value["identifier"]
+    import capo_pi.types.dimensions_metric_list
+
+    out["Metrics"] = capo_pi.types.dimensions_metric_list.serialize_cbor(
+        value["metrics"]
+    )
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "authorized_actions" in value:
+        import capo_pi.types.authorized_actions_list
+
+        out["AuthorizedActions"] = capo_pi.types.authorized_actions_list.serialize_cbor(
+            value["authorized_actions"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListAvailableResourceDimensionsRequest:
+    out: ListAvailableResourceDimensionsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ServiceType") is not None:
+        import capo_pi.types.service_type
+
+        out["service_type"] = capo_pi.types.service_type.deserialize_cbor(
+            data["ServiceType"]
+        )
+    else:
+        import typing
+
+        out["service_type"] = typing.cast("capo_pi.types.service_type.ServiceType", "")
+    if data.get("Identifier") is not None:
+        out["identifier"] = data["Identifier"]
+    else:
+        out["identifier"] = ""
+    if data.get("Metrics") is not None:
+        import capo_pi.types.dimensions_metric_list
+
+        out["metrics"] = capo_pi.types.dimensions_metric_list.deserialize_cbor(
+            data["Metrics"]
+        )
+    else:
+        out["metrics"] = []
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("AuthorizedActions") is not None:
+        import capo_pi.types.authorized_actions_list
+
+        out["authorized_actions"] = (
+            capo_pi.types.authorized_actions_list.deserialize_cbor(
+                data["AuthorizedActions"]
+            )
+        )
+    return out

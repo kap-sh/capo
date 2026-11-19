@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteACLRequest:
     else:
         out["acl_name"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteACLRequest) -> dict:
+    out: dict = {}
+    out["ACLName"] = value["acl_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteACLRequest:
+    out: DeleteACLRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ACLName") is not None:
+        out["acl_name"] = data["ACLName"]
+    else:
+        out["acl_name"] = ""
+    return out

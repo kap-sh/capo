@@ -38,6 +38,25 @@ def deserialize_aws_json_1_1(data: dict) -> TLDInMaintenance_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TLDInMaintenance_) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["message"] = value["message"]
+    if "tld" in value:
+        out["tld"] = value["tld"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> TLDInMaintenance_:
+    out: TLDInMaintenance_ = {}  # type: ignore[typeddict-item]
+    if data.get("message") is not None:
+        out["message"] = data["message"]
+    if data.get("tld") is not None:
+        out["tld"] = data["tld"]
+    return out
+
+
 class TLDInMaintenance(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.route53domains#TLDInMaintenance``."""
 
@@ -65,3 +84,9 @@ class TLDInMaintenance(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "TLDInMaintenance":
         return cls(deserialize_aws_json_1_1(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "TLDInMaintenance":
+        return cls(deserialize_cbor(data), message, response=response)

@@ -41,3 +41,27 @@ def deserialize_aws_json_1_1(data: dict) -> ListTagsRequest:
     else:
         out["certificate_authority_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListTagsRequest) -> dict:
+    out: dict = {}
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    out["CertificateAuthorityArn"] = value["certificate_authority_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListTagsRequest:
+    out: ListTagsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("CertificateAuthorityArn") is not None:
+        out["certificate_authority_arn"] = data["CertificateAuthorityArn"]
+    else:
+        out["certificate_authority_arn"] = ""
+    return out

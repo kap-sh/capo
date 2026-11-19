@@ -113,3 +113,82 @@ def deserialize_aws_json_1_1(data: dict) -> RuleExecutionInput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RuleExecutionInput) -> dict:
+    out: dict = {}
+    if "rule_type_id" in value:
+        import capo_codepipeline.types.rule_type_id
+
+        out["ruleTypeId"] = capo_codepipeline.types.rule_type_id.serialize_cbor(
+            value["rule_type_id"]
+        )
+    if "configuration" in value:
+        import capo_codepipeline.types.rule_configuration_map
+
+        out["configuration"] = (
+            capo_codepipeline.types.rule_configuration_map.serialize_cbor(
+                value["configuration"]
+            )
+        )
+    if "resolved_configuration" in value:
+        import capo_codepipeline.types.resolved_rule_configuration_map
+
+        out["resolvedConfiguration"] = (
+            capo_codepipeline.types.resolved_rule_configuration_map.serialize_cbor(
+                value["resolved_configuration"]
+            )
+        )
+    if "role_arn" in value:
+        out["roleArn"] = value["role_arn"]
+    if "region" in value:
+        out["region"] = value["region"]
+    if "input_artifacts" in value:
+        import capo_codepipeline.types.artifact_detail_list
+
+        out["inputArtifacts"] = (
+            capo_codepipeline.types.artifact_detail_list.serialize_cbor(
+                value["input_artifacts"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RuleExecutionInput:
+    out: RuleExecutionInput = {}  # type: ignore[typeddict-item]
+    if data.get("ruleTypeId") is not None:
+        import capo_codepipeline.types.rule_type_id
+
+        out["rule_type_id"] = capo_codepipeline.types.rule_type_id.deserialize_cbor(
+            data["ruleTypeId"]
+        )
+    if data.get("configuration") is not None:
+        import capo_codepipeline.types.rule_configuration_map
+
+        out["configuration"] = (
+            capo_codepipeline.types.rule_configuration_map.deserialize_cbor(
+                data["configuration"]
+            )
+        )
+    if data.get("resolvedConfiguration") is not None:
+        import capo_codepipeline.types.resolved_rule_configuration_map
+
+        out["resolved_configuration"] = (
+            capo_codepipeline.types.resolved_rule_configuration_map.deserialize_cbor(
+                data["resolvedConfiguration"]
+            )
+        )
+    if data.get("roleArn") is not None:
+        out["role_arn"] = data["roleArn"]
+    if data.get("region") is not None:
+        out["region"] = data["region"]
+    if data.get("inputArtifacts") is not None:
+        import capo_codepipeline.types.artifact_detail_list
+
+        out["input_artifacts"] = (
+            capo_codepipeline.types.artifact_detail_list.deserialize_cbor(
+                data["inputArtifacts"]
+            )
+        )
+    return out

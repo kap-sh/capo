@@ -39,3 +39,31 @@ def deserialize_aws_json_1_1(data: dict) -> ToxicityDetectionSettings:
     else:
         out["toxicity_categories"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ToxicityDetectionSettings) -> dict:
+    out: dict = {}
+    import capo_transcribe.types.toxicity_categories
+
+    out["ToxicityCategories"] = (
+        capo_transcribe.types.toxicity_categories.serialize_cbor(
+            value["toxicity_categories"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ToxicityDetectionSettings:
+    out: ToxicityDetectionSettings = {}  # type: ignore[typeddict-item]
+    if data.get("ToxicityCategories") is not None:
+        import capo_transcribe.types.toxicity_categories
+
+        out["toxicity_categories"] = (
+            capo_transcribe.types.toxicity_categories.deserialize_cbor(
+                data["ToxicityCategories"]
+            )
+        )
+    else:
+        out["toxicity_categories"] = []
+    return out

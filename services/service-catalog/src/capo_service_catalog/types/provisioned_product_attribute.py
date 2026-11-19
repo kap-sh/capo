@@ -202,3 +202,118 @@ def deserialize_aws_json_1_1(data: dict) -> ProvisionedProductAttribute:
     if data.get("UserArnSession") is not None:
         out["user_arn_session"] = data["UserArnSession"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ProvisionedProductAttribute) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "arn" in value:
+        out["Arn"] = value["arn"]
+    if "type" in value:
+        out["Type"] = value["type"]
+    if "id" in value:
+        out["Id"] = value["id"]
+    if "status" in value:
+        import capo_service_catalog.types.provisioned_product_status
+
+        out["Status"] = (
+            capo_service_catalog.types.provisioned_product_status.serialize_cbor(
+                value["status"]
+            )
+        )
+    if "status_message" in value:
+        out["StatusMessage"] = value["status_message"]
+    if "created_time" in value:
+        import capo_service_catalog.types.created_time
+
+        out["CreatedTime"] = capo_service_catalog.types.created_time.serialize_cbor(
+            value["created_time"]
+        )
+    if "idempotency_token" in value:
+        out["IdempotencyToken"] = value["idempotency_token"]
+    if "last_record_id" in value:
+        out["LastRecordId"] = value["last_record_id"]
+    if "last_provisioning_record_id" in value:
+        out["LastProvisioningRecordId"] = value["last_provisioning_record_id"]
+    if "last_successful_provisioning_record_id" in value:
+        out["LastSuccessfulProvisioningRecordId"] = value[
+            "last_successful_provisioning_record_id"
+        ]
+    if "tags" in value:
+        import capo_service_catalog.types.tags
+
+        out["Tags"] = capo_service_catalog.types.tags.serialize_cbor(value["tags"])
+    if "physical_id" in value:
+        out["PhysicalId"] = value["physical_id"]
+    if "product_id" in value:
+        out["ProductId"] = value["product_id"]
+    if "product_name" in value:
+        out["ProductName"] = value["product_name"]
+    if "provisioning_artifact_id" in value:
+        out["ProvisioningArtifactId"] = value["provisioning_artifact_id"]
+    if "provisioning_artifact_name" in value:
+        out["ProvisioningArtifactName"] = value["provisioning_artifact_name"]
+    if "user_arn" in value:
+        out["UserArn"] = value["user_arn"]
+    if "user_arn_session" in value:
+        out["UserArnSession"] = value["user_arn_session"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ProvisionedProductAttribute:
+    out: ProvisionedProductAttribute = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Arn") is not None:
+        out["arn"] = data["Arn"]
+    if data.get("Type") is not None:
+        out["type"] = data["Type"]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    if data.get("Status") is not None:
+        import capo_service_catalog.types.provisioned_product_status
+
+        out["status"] = (
+            capo_service_catalog.types.provisioned_product_status.deserialize_cbor(
+                data["Status"]
+            )
+        )
+    if data.get("StatusMessage") is not None:
+        out["status_message"] = data["StatusMessage"]
+    if data.get("CreatedTime") is not None:
+        import capo_service_catalog.types.created_time
+
+        out["created_time"] = capo_service_catalog.types.created_time.deserialize_cbor(
+            data["CreatedTime"]
+        )
+    if data.get("IdempotencyToken") is not None:
+        out["idempotency_token"] = data["IdempotencyToken"]
+    if data.get("LastRecordId") is not None:
+        out["last_record_id"] = data["LastRecordId"]
+    if data.get("LastProvisioningRecordId") is not None:
+        out["last_provisioning_record_id"] = data["LastProvisioningRecordId"]
+    if data.get("LastSuccessfulProvisioningRecordId") is not None:
+        out["last_successful_provisioning_record_id"] = data[
+            "LastSuccessfulProvisioningRecordId"
+        ]
+    if data.get("Tags") is not None:
+        import capo_service_catalog.types.tags
+
+        out["tags"] = capo_service_catalog.types.tags.deserialize_cbor(data["Tags"])
+    if data.get("PhysicalId") is not None:
+        out["physical_id"] = data["PhysicalId"]
+    if data.get("ProductId") is not None:
+        out["product_id"] = data["ProductId"]
+    if data.get("ProductName") is not None:
+        out["product_name"] = data["ProductName"]
+    if data.get("ProvisioningArtifactId") is not None:
+        out["provisioning_artifact_id"] = data["ProvisioningArtifactId"]
+    if data.get("ProvisioningArtifactName") is not None:
+        out["provisioning_artifact_name"] = data["ProvisioningArtifactName"]
+    if data.get("UserArn") is not None:
+        out["user_arn"] = data["UserArn"]
+    if data.get("UserArnSession") is not None:
+        out["user_arn_session"] = data["UserArnSession"]
+    return out

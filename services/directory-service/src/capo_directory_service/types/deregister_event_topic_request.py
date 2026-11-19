@@ -35,3 +35,24 @@ def deserialize_aws_json_1_1(data: dict) -> DeregisterEventTopicRequest:
     else:
         out["topic_name"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeregisterEventTopicRequest) -> dict:
+    out: dict = {}
+    out["DirectoryId"] = value["directory_id"]
+    out["TopicName"] = value["topic_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeregisterEventTopicRequest:
+    out: DeregisterEventTopicRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    if data.get("TopicName") is not None:
+        out["topic_name"] = data["TopicName"]
+    else:
+        out["topic_name"] = ""
+    return out

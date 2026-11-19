@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: FleetProxyRuleType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> FleetProxyRuleType:
     return cast(FleetProxyRuleType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FleetProxyRuleType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> FleetProxyRuleType:
+    return cast(FleetProxyRuleType, data)

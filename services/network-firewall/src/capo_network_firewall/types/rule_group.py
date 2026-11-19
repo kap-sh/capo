@@ -104,3 +104,75 @@ def deserialize_aws_json_1_0(data: dict) -> RuleGroup:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RuleGroup) -> dict:
+    out: dict = {}
+    if "rule_variables" in value:
+        import capo_network_firewall.types.rule_variables
+
+        out["RuleVariables"] = (
+            capo_network_firewall.types.rule_variables.serialize_cbor(
+                value["rule_variables"]
+            )
+        )
+    if "reference_sets" in value:
+        import capo_network_firewall.types.reference_sets
+
+        out["ReferenceSets"] = (
+            capo_network_firewall.types.reference_sets.serialize_cbor(
+                value["reference_sets"]
+            )
+        )
+    import capo_network_firewall.types.rules_source
+
+    out["RulesSource"] = capo_network_firewall.types.rules_source.serialize_cbor(
+        value["rules_source"]
+    )
+    if "stateful_rule_options" in value:
+        import capo_network_firewall.types.stateful_rule_options
+
+        out["StatefulRuleOptions"] = (
+            capo_network_firewall.types.stateful_rule_options.serialize_cbor(
+                value["stateful_rule_options"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RuleGroup:
+    out: RuleGroup = {}  # type: ignore[typeddict-item]
+    if data.get("RuleVariables") is not None:
+        import capo_network_firewall.types.rule_variables
+
+        out["rule_variables"] = (
+            capo_network_firewall.types.rule_variables.deserialize_cbor(
+                data["RuleVariables"]
+            )
+        )
+    if data.get("ReferenceSets") is not None:
+        import capo_network_firewall.types.reference_sets
+
+        out["reference_sets"] = (
+            capo_network_firewall.types.reference_sets.deserialize_cbor(
+                data["ReferenceSets"]
+            )
+        )
+    if data.get("RulesSource") is not None:
+        import capo_network_firewall.types.rules_source
+
+        out["rules_source"] = capo_network_firewall.types.rules_source.deserialize_cbor(
+            data["RulesSource"]
+        )
+    else:
+        raise DeserializationError("RuleGroup.rules_source required")
+    if data.get("StatefulRuleOptions") is not None:
+        import capo_network_firewall.types.stateful_rule_options
+
+        out["stateful_rule_options"] = (
+            capo_network_firewall.types.stateful_rule_options.deserialize_cbor(
+                data["StatefulRuleOptions"]
+            )
+        )
+    return out

@@ -16,3 +16,12 @@ def serialize_aws_json_1_1(value: GameServerGroupDeleteOption) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> GameServerGroupDeleteOption:
     return cast(GameServerGroupDeleteOption, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GameServerGroupDeleteOption) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> GameServerGroupDeleteOption:
+    return cast(GameServerGroupDeleteOption, data)

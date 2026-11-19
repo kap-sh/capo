@@ -32,3 +32,22 @@ def deserialize_aws_json_1_1(data: dict) -> PipelineRollbackMetadata:
             "rollbackTargetPipelineExecutionId"
         ]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PipelineRollbackMetadata) -> dict:
+    out: dict = {}
+    if "rollback_target_pipeline_execution_id" in value:
+        out["rollbackTargetPipelineExecutionId"] = value[
+            "rollback_target_pipeline_execution_id"
+        ]
+    return out
+
+
+def deserialize_cbor(data: dict) -> PipelineRollbackMetadata:
+    out: PipelineRollbackMetadata = {}  # type: ignore[typeddict-item]
+    if data.get("rollbackTargetPipelineExecutionId") is not None:
+        out["rollback_target_pipeline_execution_id"] = data[
+            "rollbackTargetPipelineExecutionId"
+        ]
+    return out

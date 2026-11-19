@@ -28,3 +28,18 @@ def deserialize_aws_json_1_1(data: dict) -> CreateEntityRecognizerResponse:
     if data.get("EntityRecognizerArn") is not None:
         out["entity_recognizer_arn"] = data["EntityRecognizerArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateEntityRecognizerResponse) -> dict:
+    out: dict = {}
+    if "entity_recognizer_arn" in value:
+        out["EntityRecognizerArn"] = value["entity_recognizer_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateEntityRecognizerResponse:
+    out: CreateEntityRecognizerResponse = {}  # type: ignore[typeddict-item]
+    if data.get("EntityRecognizerArn") is not None:
+        out["entity_recognizer_arn"] = data["EntityRecognizerArn"]
+    return out

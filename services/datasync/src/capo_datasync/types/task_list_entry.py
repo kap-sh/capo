@@ -63,3 +63,42 @@ def deserialize_aws_json_1_1(data: dict) -> TaskListEntry:
             data["TaskMode"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TaskListEntry) -> dict:
+    out: dict = {}
+    if "task_arn" in value:
+        out["TaskArn"] = value["task_arn"]
+    if "status" in value:
+        import capo_datasync.types.task_status
+
+        out["Status"] = capo_datasync.types.task_status.serialize_cbor(value["status"])
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "task_mode" in value:
+        import capo_datasync.types.task_mode
+
+        out["TaskMode"] = capo_datasync.types.task_mode.serialize_cbor(
+            value["task_mode"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TaskListEntry:
+    out: TaskListEntry = {}  # type: ignore[typeddict-item]
+    if data.get("TaskArn") is not None:
+        out["task_arn"] = data["TaskArn"]
+    if data.get("Status") is not None:
+        import capo_datasync.types.task_status
+
+        out["status"] = capo_datasync.types.task_status.deserialize_cbor(data["Status"])
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("TaskMode") is not None:
+        import capo_datasync.types.task_mode
+
+        out["task_mode"] = capo_datasync.types.task_mode.deserialize_cbor(
+            data["TaskMode"]
+        )
+    return out

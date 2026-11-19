@@ -65,3 +65,38 @@ def deserialize_aws_json_1_1(data: dict) -> S3OnDeviceServiceConfiguration:
     if data.get("FaultTolerance") is not None:
         out["fault_tolerance"] = data["FaultTolerance"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: S3OnDeviceServiceConfiguration) -> dict:
+    out: dict = {}
+    if "storage_limit" in value:
+        out["StorageLimit"] = value["storage_limit"]
+    if "storage_unit" in value:
+        import capo_snowball.types.storage_unit
+
+        out["StorageUnit"] = capo_snowball.types.storage_unit.serialize_cbor(
+            value["storage_unit"]
+        )
+    if "service_size" in value:
+        out["ServiceSize"] = value["service_size"]
+    if "fault_tolerance" in value:
+        out["FaultTolerance"] = value["fault_tolerance"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> S3OnDeviceServiceConfiguration:
+    out: S3OnDeviceServiceConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("StorageLimit") is not None:
+        out["storage_limit"] = float(data["StorageLimit"])
+    if data.get("StorageUnit") is not None:
+        import capo_snowball.types.storage_unit
+
+        out["storage_unit"] = capo_snowball.types.storage_unit.deserialize_cbor(
+            data["StorageUnit"]
+        )
+    if data.get("ServiceSize") is not None:
+        out["service_size"] = data["ServiceSize"]
+    if data.get("FaultTolerance") is not None:
+        out["fault_tolerance"] = data["FaultTolerance"]
+    return out

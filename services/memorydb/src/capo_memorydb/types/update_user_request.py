@@ -55,3 +55,39 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateUserRequest:
     if data.get("AccessString") is not None:
         out["access_string"] = data["AccessString"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateUserRequest) -> dict:
+    out: dict = {}
+    out["UserName"] = value["user_name"]
+    if "authentication_mode" in value:
+        import capo_memorydb.types.authentication_mode
+
+        out["AuthenticationMode"] = (
+            capo_memorydb.types.authentication_mode.serialize_cbor(
+                value["authentication_mode"]
+            )
+        )
+    if "access_string" in value:
+        out["AccessString"] = value["access_string"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateUserRequest:
+    out: UpdateUserRequest = {}  # type: ignore[typeddict-item]
+    if data.get("UserName") is not None:
+        out["user_name"] = data["UserName"]
+    else:
+        out["user_name"] = ""
+    if data.get("AuthenticationMode") is not None:
+        import capo_memorydb.types.authentication_mode
+
+        out["authentication_mode"] = (
+            capo_memorydb.types.authentication_mode.deserialize_cbor(
+                data["AuthenticationMode"]
+            )
+        )
+    if data.get("AccessString") is not None:
+        out["access_string"] = data["AccessString"]
+    return out

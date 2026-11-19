@@ -81,3 +81,58 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeAccountResult:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeAccountResult) -> dict:
+    out: dict = {}
+    if "dedicated_tenancy_support" in value:
+        import capo_workspaces.types.dedicated_tenancy_support_result_enum
+
+        out["DedicatedTenancySupport"] = (
+            capo_workspaces.types.dedicated_tenancy_support_result_enum.serialize_cbor(
+                value["dedicated_tenancy_support"]
+            )
+        )
+    if "dedicated_tenancy_management_cidr_range" in value:
+        out["DedicatedTenancyManagementCidrRange"] = value[
+            "dedicated_tenancy_management_cidr_range"
+        ]
+    if "dedicated_tenancy_account_type" in value:
+        import capo_workspaces.types.dedicated_tenancy_account_type
+
+        out["DedicatedTenancyAccountType"] = (
+            capo_workspaces.types.dedicated_tenancy_account_type.serialize_cbor(
+                value["dedicated_tenancy_account_type"]
+            )
+        )
+    if "message" in value:
+        out["Message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeAccountResult:
+    out: DescribeAccountResult = {}  # type: ignore[typeddict-item]
+    if data.get("DedicatedTenancySupport") is not None:
+        import capo_workspaces.types.dedicated_tenancy_support_result_enum
+
+        out["dedicated_tenancy_support"] = (
+            capo_workspaces.types.dedicated_tenancy_support_result_enum.deserialize_cbor(
+                data["DedicatedTenancySupport"]
+            )
+        )
+    if data.get("DedicatedTenancyManagementCidrRange") is not None:
+        out["dedicated_tenancy_management_cidr_range"] = data[
+            "DedicatedTenancyManagementCidrRange"
+        ]
+    if data.get("DedicatedTenancyAccountType") is not None:
+        import capo_workspaces.types.dedicated_tenancy_account_type
+
+        out["dedicated_tenancy_account_type"] = (
+            capo_workspaces.types.dedicated_tenancy_account_type.deserialize_cbor(
+                data["DedicatedTenancyAccountType"]
+            )
+        )
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    return out

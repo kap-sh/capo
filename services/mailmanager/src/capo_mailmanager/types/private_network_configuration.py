@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> PrivateNetworkConfiguration:
     else:
         out["vpc_endpoint_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PrivateNetworkConfiguration) -> dict:
+    out: dict = {}
+    out["VpcEndpointId"] = value["vpc_endpoint_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> PrivateNetworkConfiguration:
+    out: PrivateNetworkConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("VpcEndpointId") is not None:
+        out["vpc_endpoint_id"] = data["VpcEndpointId"]
+    else:
+        out["vpc_endpoint_id"] = ""
+    return out

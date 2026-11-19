@@ -68,3 +68,50 @@ def deserialize_aws_json_1_0(data: dict) -> GetAutoScalingGroupRecommendationsRe
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetAutoScalingGroupRecommendationsResponse) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    if "auto_scaling_group_recommendations" in value:
+        import capo_compute_optimizer.types.auto_scaling_group_recommendations
+
+        out["autoScalingGroupRecommendations"] = (
+            capo_compute_optimizer.types.auto_scaling_group_recommendations.serialize_cbor(
+                value["auto_scaling_group_recommendations"]
+            )
+        )
+    if "errors" in value:
+        import capo_compute_optimizer.types.get_recommendation_errors
+
+        out["errors"] = (
+            capo_compute_optimizer.types.get_recommendation_errors.serialize_cbor(
+                value["errors"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetAutoScalingGroupRecommendationsResponse:
+    out: GetAutoScalingGroupRecommendationsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    if data.get("autoScalingGroupRecommendations") is not None:
+        import capo_compute_optimizer.types.auto_scaling_group_recommendations
+
+        out["auto_scaling_group_recommendations"] = (
+            capo_compute_optimizer.types.auto_scaling_group_recommendations.deserialize_cbor(
+                data["autoScalingGroupRecommendations"]
+            )
+        )
+    if data.get("errors") is not None:
+        import capo_compute_optimizer.types.get_recommendation_errors
+
+        out["errors"] = (
+            capo_compute_optimizer.types.get_recommendation_errors.deserialize_cbor(
+                data["errors"]
+            )
+        )
+    return out

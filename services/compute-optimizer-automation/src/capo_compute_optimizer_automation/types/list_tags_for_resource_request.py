@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> ListTagsForResourceRequest:
     else:
         out["resource_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListTagsForResourceRequest) -> dict:
+    out: dict = {}
+    out["resourceArn"] = value["resource_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListTagsForResourceRequest:
+    out: ListTagsForResourceRequest = {}  # type: ignore[typeddict-item]
+    if data.get("resourceArn") is not None:
+        out["resource_arn"] = data["resourceArn"]
+    else:
+        out["resource_arn"] = ""
+    return out

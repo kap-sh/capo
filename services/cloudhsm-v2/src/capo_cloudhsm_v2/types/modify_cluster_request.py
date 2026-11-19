@@ -55,3 +55,39 @@ def deserialize_aws_json_1_1(data: dict) -> ModifyClusterRequest:
     else:
         out["cluster_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ModifyClusterRequest) -> dict:
+    out: dict = {}
+    if "hsm_type" in value:
+        out["HsmType"] = value["hsm_type"]
+    if "backup_retention_policy" in value:
+        import capo_cloudhsm_v2.types.backup_retention_policy
+
+        out["BackupRetentionPolicy"] = (
+            capo_cloudhsm_v2.types.backup_retention_policy.serialize_cbor(
+                value["backup_retention_policy"]
+            )
+        )
+    out["ClusterId"] = value["cluster_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ModifyClusterRequest:
+    out: ModifyClusterRequest = {}  # type: ignore[typeddict-item]
+    if data.get("HsmType") is not None:
+        out["hsm_type"] = data["HsmType"]
+    if data.get("BackupRetentionPolicy") is not None:
+        import capo_cloudhsm_v2.types.backup_retention_policy
+
+        out["backup_retention_policy"] = (
+            capo_cloudhsm_v2.types.backup_retention_policy.deserialize_cbor(
+                data["BackupRetentionPolicy"]
+            )
+        )
+    if data.get("ClusterId") is not None:
+        out["cluster_id"] = data["ClusterId"]
+    else:
+        out["cluster_id"] = ""
+    return out

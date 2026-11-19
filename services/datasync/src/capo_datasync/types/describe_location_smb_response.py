@@ -206,3 +206,144 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeLocationSmbResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeLocationSmbResponse) -> dict:
+    out: dict = {}
+    if "location_arn" in value:
+        out["LocationArn"] = value["location_arn"]
+    if "location_uri" in value:
+        out["LocationUri"] = value["location_uri"]
+    if "agent_arns" in value:
+        import capo_datasync.types.agent_arn_list
+
+        out["AgentArns"] = capo_datasync.types.agent_arn_list.serialize_cbor(
+            value["agent_arns"]
+        )
+    if "user" in value:
+        out["User"] = value["user"]
+    if "domain" in value:
+        out["Domain"] = value["domain"]
+    if "mount_options" in value:
+        import capo_datasync.types.smb_mount_options
+
+        out["MountOptions"] = capo_datasync.types.smb_mount_options.serialize_cbor(
+            value["mount_options"]
+        )
+    if "creation_time" in value:
+        import capo_datasync.types.time
+
+        out["CreationTime"] = capo_datasync.types.time.serialize_cbor(
+            value["creation_time"]
+        )
+    if "dns_ip_addresses" in value:
+        import capo_datasync.types.dns_ip_list
+
+        out["DnsIpAddresses"] = capo_datasync.types.dns_ip_list.serialize_cbor(
+            value["dns_ip_addresses"]
+        )
+    if "kerberos_principal" in value:
+        out["KerberosPrincipal"] = value["kerberos_principal"]
+    if "authentication_type" in value:
+        import capo_datasync.types.smb_authentication_type
+
+        out["AuthenticationType"] = (
+            capo_datasync.types.smb_authentication_type.serialize_cbor(
+                value["authentication_type"]
+            )
+        )
+    if "managed_secret_config" in value:
+        import capo_datasync.types.managed_secret_config
+
+        out["ManagedSecretConfig"] = (
+            capo_datasync.types.managed_secret_config.serialize_cbor(
+                value["managed_secret_config"]
+            )
+        )
+    if "cmk_secret_config" in value:
+        import capo_datasync.types.cmk_secret_config
+
+        out["CmkSecretConfig"] = capo_datasync.types.cmk_secret_config.serialize_cbor(
+            value["cmk_secret_config"]
+        )
+    if "custom_secret_config" in value:
+        import capo_datasync.types.custom_secret_config
+
+        out["CustomSecretConfig"] = (
+            capo_datasync.types.custom_secret_config.serialize_cbor(
+                value["custom_secret_config"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeLocationSmbResponse:
+    out: DescribeLocationSmbResponse = {}  # type: ignore[typeddict-item]
+    if data.get("LocationArn") is not None:
+        out["location_arn"] = data["LocationArn"]
+    if data.get("LocationUri") is not None:
+        out["location_uri"] = data["LocationUri"]
+    if data.get("AgentArns") is not None:
+        import capo_datasync.types.agent_arn_list
+
+        out["agent_arns"] = capo_datasync.types.agent_arn_list.deserialize_cbor(
+            data["AgentArns"]
+        )
+    if data.get("User") is not None:
+        out["user"] = data["User"]
+    if data.get("Domain") is not None:
+        out["domain"] = data["Domain"]
+    if data.get("MountOptions") is not None:
+        import capo_datasync.types.smb_mount_options
+
+        out["mount_options"] = capo_datasync.types.smb_mount_options.deserialize_cbor(
+            data["MountOptions"]
+        )
+    if data.get("CreationTime") is not None:
+        import capo_datasync.types.time
+
+        out["creation_time"] = capo_datasync.types.time.deserialize_cbor(
+            data["CreationTime"]
+        )
+    if data.get("DnsIpAddresses") is not None:
+        import capo_datasync.types.dns_ip_list
+
+        out["dns_ip_addresses"] = capo_datasync.types.dns_ip_list.deserialize_cbor(
+            data["DnsIpAddresses"]
+        )
+    if data.get("KerberosPrincipal") is not None:
+        out["kerberos_principal"] = data["KerberosPrincipal"]
+    if data.get("AuthenticationType") is not None:
+        import capo_datasync.types.smb_authentication_type
+
+        out["authentication_type"] = (
+            capo_datasync.types.smb_authentication_type.deserialize_cbor(
+                data["AuthenticationType"]
+            )
+        )
+    if data.get("ManagedSecretConfig") is not None:
+        import capo_datasync.types.managed_secret_config
+
+        out["managed_secret_config"] = (
+            capo_datasync.types.managed_secret_config.deserialize_cbor(
+                data["ManagedSecretConfig"]
+            )
+        )
+    if data.get("CmkSecretConfig") is not None:
+        import capo_datasync.types.cmk_secret_config
+
+        out["cmk_secret_config"] = (
+            capo_datasync.types.cmk_secret_config.deserialize_cbor(
+                data["CmkSecretConfig"]
+            )
+        )
+    if data.get("CustomSecretConfig") is not None:
+        import capo_datasync.types.custom_secret_config
+
+        out["custom_secret_config"] = (
+            capo_datasync.types.custom_secret_config.deserialize_cbor(
+                data["CustomSecretConfig"]
+            )
+        )
+    return out

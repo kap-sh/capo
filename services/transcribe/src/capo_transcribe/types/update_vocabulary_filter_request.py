@@ -81,3 +81,51 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateVocabularyFilterRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateVocabularyFilterRequest) -> dict:
+    out: dict = {}
+    out["VocabularyFilterName"] = value["vocabulary_filter_name"]
+    if "words" in value:
+        import capo_transcribe.types.words
+
+        out["Words"] = capo_transcribe.types.words.serialize_cbor(value["words"])
+    if "vocabulary_filter_file_uri" in value:
+        out["VocabularyFilterFileUri"] = value["vocabulary_filter_file_uri"]
+    if "data_access_role_arn" in value:
+        out["DataAccessRoleArn"] = value["data_access_role_arn"]
+    if "encryption_configuration" in value:
+        import capo_transcribe.types.encryption_configuration
+
+        out["EncryptionConfiguration"] = (
+            capo_transcribe.types.encryption_configuration.serialize_cbor(
+                value["encryption_configuration"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateVocabularyFilterRequest:
+    out: UpdateVocabularyFilterRequest = {}  # type: ignore[typeddict-item]
+    if data.get("VocabularyFilterName") is not None:
+        out["vocabulary_filter_name"] = data["VocabularyFilterName"]
+    else:
+        out["vocabulary_filter_name"] = ""
+    if data.get("Words") is not None:
+        import capo_transcribe.types.words
+
+        out["words"] = capo_transcribe.types.words.deserialize_cbor(data["Words"])
+    if data.get("VocabularyFilterFileUri") is not None:
+        out["vocabulary_filter_file_uri"] = data["VocabularyFilterFileUri"]
+    if data.get("DataAccessRoleArn") is not None:
+        out["data_access_role_arn"] = data["DataAccessRoleArn"]
+    if data.get("EncryptionConfiguration") is not None:
+        import capo_transcribe.types.encryption_configuration
+
+        out["encryption_configuration"] = (
+            capo_transcribe.types.encryption_configuration.deserialize_cbor(
+                data["EncryptionConfiguration"]
+            )
+        )
+    return out

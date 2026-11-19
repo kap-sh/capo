@@ -37,3 +37,22 @@ def deserialize_aws_json_1_1(data: dict) -> ContainerAttribute:
     if data.get("ContainerRuntimeId") is not None:
         out["container_runtime_id"] = data["ContainerRuntimeId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ContainerAttribute) -> dict:
+    out: dict = {}
+    if "container_name" in value:
+        out["ContainerName"] = value["container_name"]
+    if "container_runtime_id" in value:
+        out["ContainerRuntimeId"] = value["container_runtime_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ContainerAttribute:
+    out: ContainerAttribute = {}  # type: ignore[typeddict-item]
+    if data.get("ContainerName") is not None:
+        out["container_name"] = data["ContainerName"]
+    if data.get("ContainerRuntimeId") is not None:
+        out["container_runtime_id"] = data["ContainerRuntimeId"]
+    return out

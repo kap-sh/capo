@@ -51,3 +51,40 @@ def deserialize_aws_json_1_1(data: dict) -> ApplicationSettingsRequest:
     if data.get("SettingsGroup") is not None:
         out["settings_group"] = data["SettingsGroup"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ApplicationSettingsRequest) -> dict:
+    out: dict = {}
+    import capo_workspaces.types.application_settings_status_enum
+
+    out["Status"] = (
+        capo_workspaces.types.application_settings_status_enum.serialize_cbor(
+            value["status"]
+        )
+    )
+    if "settings_group" in value:
+        out["SettingsGroup"] = value["settings_group"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ApplicationSettingsRequest:
+    out: ApplicationSettingsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Status") is not None:
+        import capo_workspaces.types.application_settings_status_enum
+
+        out["status"] = (
+            capo_workspaces.types.application_settings_status_enum.deserialize_cbor(
+                data["Status"]
+            )
+        )
+    else:
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_workspaces.types.application_settings_status_enum.ApplicationSettingsStatusEnum",
+            "",
+        )
+    if data.get("SettingsGroup") is not None:
+        out["settings_group"] = data["SettingsGroup"]
+    return out

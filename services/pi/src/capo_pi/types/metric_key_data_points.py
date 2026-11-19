@@ -53,3 +53,38 @@ def deserialize_aws_json_1_1(data: dict) -> MetricKeyDataPoints:
             data["DataPoints"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MetricKeyDataPoints) -> dict:
+    out: dict = {}
+    if "key" in value:
+        import capo_pi.types.response_resource_metric_key
+
+        out["Key"] = capo_pi.types.response_resource_metric_key.serialize_cbor(
+            value["key"]
+        )
+    if "data_points" in value:
+        import capo_pi.types.data_points_list
+
+        out["DataPoints"] = capo_pi.types.data_points_list.serialize_cbor(
+            value["data_points"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> MetricKeyDataPoints:
+    out: MetricKeyDataPoints = {}  # type: ignore[typeddict-item]
+    if data.get("Key") is not None:
+        import capo_pi.types.response_resource_metric_key
+
+        out["key"] = capo_pi.types.response_resource_metric_key.deserialize_cbor(
+            data["Key"]
+        )
+    if data.get("DataPoints") is not None:
+        import capo_pi.types.data_points_list
+
+        out["data_points"] = capo_pi.types.data_points_list.deserialize_cbor(
+            data["DataPoints"]
+        )
+    return out

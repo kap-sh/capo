@@ -96,3 +96,63 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAgentRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateAgentRequest) -> dict:
+    out: dict = {}
+    out["ActivationKey"] = value["activation_key"]
+    if "agent_name" in value:
+        out["AgentName"] = value["agent_name"]
+    if "tags" in value:
+        import capo_datasync.types.input_tag_list
+
+        out["Tags"] = capo_datasync.types.input_tag_list.serialize_cbor(value["tags"])
+    if "vpc_endpoint_id" in value:
+        out["VpcEndpointId"] = value["vpc_endpoint_id"]
+    if "subnet_arns" in value:
+        import capo_datasync.types.pl_subnet_arn_list
+
+        out["SubnetArns"] = capo_datasync.types.pl_subnet_arn_list.serialize_cbor(
+            value["subnet_arns"]
+        )
+    if "security_group_arns" in value:
+        import capo_datasync.types.pl_security_group_arn_list
+
+        out["SecurityGroupArns"] = (
+            capo_datasync.types.pl_security_group_arn_list.serialize_cbor(
+                value["security_group_arns"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateAgentRequest:
+    out: CreateAgentRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ActivationKey") is not None:
+        out["activation_key"] = data["ActivationKey"]
+    else:
+        out["activation_key"] = ""
+    if data.get("AgentName") is not None:
+        out["agent_name"] = data["AgentName"]
+    if data.get("Tags") is not None:
+        import capo_datasync.types.input_tag_list
+
+        out["tags"] = capo_datasync.types.input_tag_list.deserialize_cbor(data["Tags"])
+    if data.get("VpcEndpointId") is not None:
+        out["vpc_endpoint_id"] = data["VpcEndpointId"]
+    if data.get("SubnetArns") is not None:
+        import capo_datasync.types.pl_subnet_arn_list
+
+        out["subnet_arns"] = capo_datasync.types.pl_subnet_arn_list.deserialize_cbor(
+            data["SubnetArns"]
+        )
+    if data.get("SecurityGroupArns") is not None:
+        import capo_datasync.types.pl_security_group_arn_list
+
+        out["security_group_arns"] = (
+            capo_datasync.types.pl_security_group_arn_list.deserialize_cbor(
+                data["SecurityGroupArns"]
+            )
+        )
+    return out

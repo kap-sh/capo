@@ -50,3 +50,36 @@ def deserialize_aws_json_1_1(data: dict) -> CopyBackupToRegionRequest:
             data["TagList"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CopyBackupToRegionRequest) -> dict:
+    out: dict = {}
+    out["DestinationRegion"] = value["destination_region"]
+    out["BackupId"] = value["backup_id"]
+    if "tag_list" in value:
+        import capo_cloudhsm_v2.types.tag_list
+
+        out["TagList"] = capo_cloudhsm_v2.types.tag_list.serialize_cbor(
+            value["tag_list"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CopyBackupToRegionRequest:
+    out: CopyBackupToRegionRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DestinationRegion") is not None:
+        out["destination_region"] = data["DestinationRegion"]
+    else:
+        out["destination_region"] = ""
+    if data.get("BackupId") is not None:
+        out["backup_id"] = data["BackupId"]
+    else:
+        out["backup_id"] = ""
+    if data.get("TagList") is not None:
+        import capo_cloudhsm_v2.types.tag_list
+
+        out["tag_list"] = capo_cloudhsm_v2.types.tag_list.deserialize_cbor(
+            data["TagList"]
+        )
+    return out

@@ -41,3 +41,32 @@ def deserialize_aws_json_1_1(
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeAffectedEntitiesForOrganizationFailedSet) -> list:
+    import capo_health.types.organization_affected_entities_error_item
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_health.types.organization_affected_entities_error_item.serialize_cbor(
+                item
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> DescribeAffectedEntitiesForOrganizationFailedSet:
+    import capo_health.types.organization_affected_entities_error_item
+
+    out: DescribeAffectedEntitiesForOrganizationFailedSet = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_health.types.organization_affected_entities_error_item.deserialize_cbor(
+                item
+            )
+        )
+    return out

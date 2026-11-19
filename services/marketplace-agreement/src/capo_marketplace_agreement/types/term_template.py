@@ -54,3 +54,39 @@ def deserialize_aws_json_1_0(data: dict) -> TermTemplate:
         if name is not None:
             return {"$unknown": {"name": name}}
         raise DeserializationError("TermTemplate: no recognized variant key")
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TermTemplate) -> dict:
+    if "$unknown" in value:
+        raise SerializationError(
+            f"TermTemplate: cannot serialize unknown variant {value['$unknown']['name']!r}"
+        )
+    elif "paymentScheduleTermTemplate" in value:
+        import capo_marketplace_agreement.types.payment_schedule_term_template
+
+        return {
+            "paymentScheduleTermTemplate": capo_marketplace_agreement.types.payment_schedule_term_template.serialize_cbor(
+                value["paymentScheduleTermTemplate"]
+            )
+        }
+    else:
+        raise SerializationError("TermTemplate: no variant present")
+
+
+def deserialize_cbor(data: dict) -> TermTemplate:
+    if data.get("paymentScheduleTermTemplate") is not None:
+        import capo_marketplace_agreement.types.payment_schedule_term_template
+
+        return {
+            "paymentScheduleTermTemplate": capo_marketplace_agreement.types.payment_schedule_term_template.deserialize_cbor(
+                data["paymentScheduleTermTemplate"]
+            )
+        }
+    else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return {"$unknown": {"name": name}}
+        raise DeserializationError("TermTemplate: no recognized variant key")

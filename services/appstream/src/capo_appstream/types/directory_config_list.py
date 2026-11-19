@@ -31,6 +31,27 @@ def deserialize_aws_json_1_1(data: list) -> DirectoryConfigList:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DirectoryConfigList) -> list:
+    import capo_appstream.types.directory_config
+
+    out: list = []
+    for item in value:
+        out.append(capo_appstream.types.directory_config.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> DirectoryConfigList:
+    import capo_appstream.types.directory_config
+
+    out: DirectoryConfigList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_appstream.types.directory_config.deserialize_cbor(item))
+    return out
+
+
 def redact_sensitive(value: DirectoryConfigList) -> list[Any]:
     import capo_appstream.types.directory_config
 

@@ -69,3 +69,50 @@ def deserialize_aws_json_1_1(data: dict) -> RelatedWorkspaceProperties:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RelatedWorkspaceProperties) -> dict:
+    out: dict = {}
+    if "workspace_id" in value:
+        out["WorkspaceId"] = value["workspace_id"]
+    if "region" in value:
+        out["Region"] = value["region"]
+    if "state" in value:
+        import capo_workspaces.types.workspace_state
+
+        out["State"] = capo_workspaces.types.workspace_state.serialize_cbor(
+            value["state"]
+        )
+    if "type" in value:
+        import capo_workspaces.types.standby_workspace_relationship_type
+
+        out["Type"] = (
+            capo_workspaces.types.standby_workspace_relationship_type.serialize_cbor(
+                value["type"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RelatedWorkspaceProperties:
+    out: RelatedWorkspaceProperties = {}  # type: ignore[typeddict-item]
+    if data.get("WorkspaceId") is not None:
+        out["workspace_id"] = data["WorkspaceId"]
+    if data.get("Region") is not None:
+        out["region"] = data["Region"]
+    if data.get("State") is not None:
+        import capo_workspaces.types.workspace_state
+
+        out["state"] = capo_workspaces.types.workspace_state.deserialize_cbor(
+            data["State"]
+        )
+    if data.get("Type") is not None:
+        import capo_workspaces.types.standby_workspace_relationship_type
+
+        out["type"] = (
+            capo_workspaces.types.standby_workspace_relationship_type.deserialize_cbor(
+                data["Type"]
+            )
+        )
+    return out

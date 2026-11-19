@@ -37,3 +37,32 @@ def deserialize_aws_json_1_0(data: list) -> ReportOutputList:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ReportOutputList) -> list:
+    import capo_arc_region_switch.types.report_output_configuration
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_arc_region_switch.types.report_output_configuration.serialize_cbor(
+                item
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> ReportOutputList:
+    import capo_arc_region_switch.types.report_output_configuration
+
+    out: ReportOutputList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_arc_region_switch.types.report_output_configuration.deserialize_cbor(
+                item
+            )
+        )
+    return out

@@ -42,6 +42,33 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDisassociateUserStackRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchDisassociateUserStackRequest) -> dict:
+    out: dict = {}
+    if "user_stack_associations" in value:
+        import capo_appstream.types.user_stack_association_list
+
+        out["UserStackAssociations"] = (
+            capo_appstream.types.user_stack_association_list.serialize_cbor(
+                value["user_stack_associations"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BatchDisassociateUserStackRequest:
+    out: BatchDisassociateUserStackRequest = {}  # type: ignore[typeddict-item]
+    if data.get("UserStackAssociations") is not None:
+        import capo_appstream.types.user_stack_association_list
+
+        out["user_stack_associations"] = (
+            capo_appstream.types.user_stack_association_list.deserialize_cbor(
+                data["UserStackAssociations"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: BatchDisassociateUserStackRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "user_stack_associations" in value:

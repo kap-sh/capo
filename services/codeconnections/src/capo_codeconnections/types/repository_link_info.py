@@ -92,3 +92,62 @@ def deserialize_aws_json_1_0(data: dict) -> RepositoryLinkInfo:
     else:
         out["repository_name"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RepositoryLinkInfo) -> dict:
+    out: dict = {}
+    out["ConnectionArn"] = value["connection_arn"]
+    if "encryption_key_arn" in value:
+        out["EncryptionKeyArn"] = value["encryption_key_arn"]
+    out["OwnerId"] = value["owner_id"]
+    import capo_codeconnections.types.provider_type
+
+    out["ProviderType"] = capo_codeconnections.types.provider_type.serialize_cbor(
+        value["provider_type"]
+    )
+    out["RepositoryLinkArn"] = value["repository_link_arn"]
+    out["RepositoryLinkId"] = value["repository_link_id"]
+    out["RepositoryName"] = value["repository_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RepositoryLinkInfo:
+    out: RepositoryLinkInfo = {}  # type: ignore[typeddict-item]
+    if data.get("ConnectionArn") is not None:
+        out["connection_arn"] = data["ConnectionArn"]
+    else:
+        out["connection_arn"] = ""
+    if data.get("EncryptionKeyArn") is not None:
+        out["encryption_key_arn"] = data["EncryptionKeyArn"]
+    if data.get("OwnerId") is not None:
+        out["owner_id"] = data["OwnerId"]
+    else:
+        out["owner_id"] = ""
+    if data.get("ProviderType") is not None:
+        import capo_codeconnections.types.provider_type
+
+        out["provider_type"] = (
+            capo_codeconnections.types.provider_type.deserialize_cbor(
+                data["ProviderType"]
+            )
+        )
+    else:
+        import typing
+
+        out["provider_type"] = typing.cast(
+            "capo_codeconnections.types.provider_type.ProviderType", ""
+        )
+    if data.get("RepositoryLinkArn") is not None:
+        out["repository_link_arn"] = data["RepositoryLinkArn"]
+    else:
+        out["repository_link_arn"] = ""
+    if data.get("RepositoryLinkId") is not None:
+        out["repository_link_id"] = data["RepositoryLinkId"]
+    else:
+        out["repository_link_id"] = ""
+    if data.get("RepositoryName") is not None:
+        out["repository_name"] = data["RepositoryName"]
+    else:
+        out["repository_name"] = ""
+    return out

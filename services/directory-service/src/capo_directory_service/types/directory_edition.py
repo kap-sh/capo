@@ -16,3 +16,12 @@ def serialize_aws_json_1_1(value: DirectoryEdition) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> DirectoryEdition:
     return cast(DirectoryEdition, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DirectoryEdition) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> DirectoryEdition:
+    return cast(DirectoryEdition, data)

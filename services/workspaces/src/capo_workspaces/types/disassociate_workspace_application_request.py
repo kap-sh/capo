@@ -37,3 +37,24 @@ def deserialize_aws_json_1_1(data: dict) -> DisassociateWorkspaceApplicationRequ
     else:
         out["application_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DisassociateWorkspaceApplicationRequest) -> dict:
+    out: dict = {}
+    out["WorkspaceId"] = value["workspace_id"]
+    out["ApplicationId"] = value["application_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DisassociateWorkspaceApplicationRequest:
+    out: DisassociateWorkspaceApplicationRequest = {}  # type: ignore[typeddict-item]
+    if data.get("WorkspaceId") is not None:
+        out["workspace_id"] = data["WorkspaceId"]
+    else:
+        out["workspace_id"] = ""
+    if data.get("ApplicationId") is not None:
+        out["application_id"] = data["ApplicationId"]
+    else:
+        out["application_id"] = ""
+    return out

@@ -76,3 +76,20 @@ def deserialize_query_flat(parent: Element, tag: str) -> EntityKeyAttributesMap:
         value = str(value_element.text or "")
         out[key] = value
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(input_to_serialize: EntityKeyAttributesMap) -> dict:
+    out: dict = {}
+    for key, value in input_to_serialize.items():
+        out[key] = value
+    return out
+
+
+def deserialize_cbor(data: dict) -> EntityKeyAttributesMap:
+    out: EntityKeyAttributesMap = {}
+    for key, value in data.items():
+        if value is None:
+            continue
+        out[key] = value
+    return out

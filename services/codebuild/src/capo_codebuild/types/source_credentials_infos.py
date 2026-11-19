@@ -33,3 +33,24 @@ def deserialize_aws_json_1_1(data: list) -> SourceCredentialsInfos:
             capo_codebuild.types.source_credentials_info.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SourceCredentialsInfos) -> list:
+    import capo_codebuild.types.source_credentials_info
+
+    out: list = []
+    for item in value:
+        out.append(capo_codebuild.types.source_credentials_info.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> SourceCredentialsInfos:
+    import capo_codebuild.types.source_credentials_info
+
+    out: SourceCredentialsInfos = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_codebuild.types.source_credentials_info.deserialize_cbor(item))
+    return out

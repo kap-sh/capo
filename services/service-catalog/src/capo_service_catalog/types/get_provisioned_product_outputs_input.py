@@ -77,3 +77,46 @@ def deserialize_aws_json_1_1(data: dict) -> GetProvisionedProductOutputsInput:
     if data.get("PageToken") is not None:
         out["page_token"] = data["PageToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetProvisionedProductOutputsInput) -> dict:
+    out: dict = {}
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    if "provisioned_product_id" in value:
+        out["ProvisionedProductId"] = value["provisioned_product_id"]
+    if "provisioned_product_name" in value:
+        out["ProvisionedProductName"] = value["provisioned_product_name"]
+    if "output_keys" in value:
+        import capo_service_catalog.types.output_keys
+
+        out["OutputKeys"] = capo_service_catalog.types.output_keys.serialize_cbor(
+            value["output_keys"]
+        )
+    if "page_size" in value:
+        out["PageSize"] = value["page_size"]
+    if "page_token" in value:
+        out["PageToken"] = value["page_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetProvisionedProductOutputsInput:
+    out: GetProvisionedProductOutputsInput = {}  # type: ignore[typeddict-item]
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    if data.get("ProvisionedProductId") is not None:
+        out["provisioned_product_id"] = data["ProvisionedProductId"]
+    if data.get("ProvisionedProductName") is not None:
+        out["provisioned_product_name"] = data["ProvisionedProductName"]
+    if data.get("OutputKeys") is not None:
+        import capo_service_catalog.types.output_keys
+
+        out["output_keys"] = capo_service_catalog.types.output_keys.deserialize_cbor(
+            data["OutputKeys"]
+        )
+    if data.get("PageSize") is not None:
+        out["page_size"] = data["PageSize"]
+    if data.get("PageToken") is not None:
+        out["page_token"] = data["PageToken"]
+    return out

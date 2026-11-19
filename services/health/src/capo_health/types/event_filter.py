@@ -292,3 +292,206 @@ def deserialize_aws_json_1_1(data: dict) -> EventFilter:
             data["personas"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EventFilter) -> dict:
+    out: dict = {}
+    if "actionabilities" in value:
+        import capo_health.types.event_actionability_list
+
+        out["actionabilities"] = (
+            capo_health.types.event_actionability_list.serialize_cbor(
+                value["actionabilities"]
+            )
+        )
+    if "event_arns" in value:
+        import capo_health.types.event_arn_list
+
+        out["eventArns"] = capo_health.types.event_arn_list.serialize_cbor(
+            value["event_arns"]
+        )
+    if "event_type_codes" in value:
+        import capo_health.types.event_type_list2
+
+        out["eventTypeCodes"] = capo_health.types.event_type_list2.serialize_cbor(
+            value["event_type_codes"]
+        )
+    if "services" in value:
+        import capo_health.types.service_list
+
+        out["services"] = capo_health.types.service_list.serialize_cbor(
+            value["services"]
+        )
+    if "regions" in value:
+        import capo_health.types.region_list
+
+        out["regions"] = capo_health.types.region_list.serialize_cbor(value["regions"])
+    if "availability_zones" in value:
+        import capo_health.types.availability_zones
+
+        out["availabilityZones"] = capo_health.types.availability_zones.serialize_cbor(
+            value["availability_zones"]
+        )
+    if "start_times" in value:
+        import capo_health.types.date_time_range_list
+
+        out["startTimes"] = capo_health.types.date_time_range_list.serialize_cbor(
+            value["start_times"]
+        )
+    if "end_times" in value:
+        import capo_health.types.date_time_range_list
+
+        out["endTimes"] = capo_health.types.date_time_range_list.serialize_cbor(
+            value["end_times"]
+        )
+    if "last_updated_times" in value:
+        import capo_health.types.date_time_range_list
+
+        out["lastUpdatedTimes"] = capo_health.types.date_time_range_list.serialize_cbor(
+            value["last_updated_times"]
+        )
+    if "entity_arns" in value:
+        import capo_health.types.entity_arn_list
+
+        out["entityArns"] = capo_health.types.entity_arn_list.serialize_cbor(
+            value["entity_arns"]
+        )
+    if "entity_values" in value:
+        import capo_health.types.entity_value_list
+
+        out["entityValues"] = capo_health.types.entity_value_list.serialize_cbor(
+            value["entity_values"]
+        )
+    if "event_type_categories" in value:
+        import capo_health.types.event_type_category_list2
+
+        out["eventTypeCategories"] = (
+            capo_health.types.event_type_category_list2.serialize_cbor(
+                value["event_type_categories"]
+            )
+        )
+    if "tags" in value:
+        import capo_health.types.describe_events_tag_filter
+
+        out["tags"] = capo_health.types.describe_events_tag_filter.serialize_cbor(
+            value["tags"]
+        )
+    if "event_status_codes" in value:
+        import capo_health.types.event_status_code_list
+
+        out["eventStatusCodes"] = (
+            capo_health.types.event_status_code_list.serialize_cbor(
+                value["event_status_codes"]
+            )
+        )
+    if "personas" in value:
+        import capo_health.types.event_persona_list
+
+        out["personas"] = capo_health.types.event_persona_list.serialize_cbor(
+            value["personas"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> EventFilter:
+    out: EventFilter = {}  # type: ignore[typeddict-item]
+    if data.get("actionabilities") is not None:
+        import capo_health.types.event_actionability_list
+
+        out["actionabilities"] = (
+            capo_health.types.event_actionability_list.deserialize_cbor(
+                data["actionabilities"]
+            )
+        )
+    if data.get("eventArns") is not None:
+        import capo_health.types.event_arn_list
+
+        out["event_arns"] = capo_health.types.event_arn_list.deserialize_cbor(
+            data["eventArns"]
+        )
+    if data.get("eventTypeCodes") is not None:
+        import capo_health.types.event_type_list2
+
+        out["event_type_codes"] = capo_health.types.event_type_list2.deserialize_cbor(
+            data["eventTypeCodes"]
+        )
+    if data.get("services") is not None:
+        import capo_health.types.service_list
+
+        out["services"] = capo_health.types.service_list.deserialize_cbor(
+            data["services"]
+        )
+    if data.get("regions") is not None:
+        import capo_health.types.region_list
+
+        out["regions"] = capo_health.types.region_list.deserialize_cbor(data["regions"])
+    if data.get("availabilityZones") is not None:
+        import capo_health.types.availability_zones
+
+        out["availability_zones"] = (
+            capo_health.types.availability_zones.deserialize_cbor(
+                data["availabilityZones"]
+            )
+        )
+    if data.get("startTimes") is not None:
+        import capo_health.types.date_time_range_list
+
+        out["start_times"] = capo_health.types.date_time_range_list.deserialize_cbor(
+            data["startTimes"]
+        )
+    if data.get("endTimes") is not None:
+        import capo_health.types.date_time_range_list
+
+        out["end_times"] = capo_health.types.date_time_range_list.deserialize_cbor(
+            data["endTimes"]
+        )
+    if data.get("lastUpdatedTimes") is not None:
+        import capo_health.types.date_time_range_list
+
+        out["last_updated_times"] = (
+            capo_health.types.date_time_range_list.deserialize_cbor(
+                data["lastUpdatedTimes"]
+            )
+        )
+    if data.get("entityArns") is not None:
+        import capo_health.types.entity_arn_list
+
+        out["entity_arns"] = capo_health.types.entity_arn_list.deserialize_cbor(
+            data["entityArns"]
+        )
+    if data.get("entityValues") is not None:
+        import capo_health.types.entity_value_list
+
+        out["entity_values"] = capo_health.types.entity_value_list.deserialize_cbor(
+            data["entityValues"]
+        )
+    if data.get("eventTypeCategories") is not None:
+        import capo_health.types.event_type_category_list2
+
+        out["event_type_categories"] = (
+            capo_health.types.event_type_category_list2.deserialize_cbor(
+                data["eventTypeCategories"]
+            )
+        )
+    if data.get("tags") is not None:
+        import capo_health.types.describe_events_tag_filter
+
+        out["tags"] = capo_health.types.describe_events_tag_filter.deserialize_cbor(
+            data["tags"]
+        )
+    if data.get("eventStatusCodes") is not None:
+        import capo_health.types.event_status_code_list
+
+        out["event_status_codes"] = (
+            capo_health.types.event_status_code_list.deserialize_cbor(
+                data["eventStatusCodes"]
+            )
+        )
+    if data.get("personas") is not None:
+        import capo_health.types.event_persona_list
+
+        out["personas"] = capo_health.types.event_persona_list.deserialize_cbor(
+            data["personas"]
+        )
+    return out

@@ -260,3 +260,86 @@ def deserialize_query(el: Element) -> MetricDatum:
     if child_storage_resolution is not None:
         out["storage_resolution"] = int(child_storage_resolution.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MetricDatum) -> dict:
+    out: dict = {}
+    if "metric_name" in value:
+        out["MetricName"] = value["metric_name"]
+    if "dimensions" in value:
+        import capo_cloudwatch.types.dimensions
+
+        out["Dimensions"] = capo_cloudwatch.types.dimensions.serialize_cbor(
+            value["dimensions"]
+        )
+    if "timestamp" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["Timestamp"] = capo_cloudwatch.types.timestamp.serialize_cbor(
+            value["timestamp"]
+        )
+    if "value" in value:
+        out["Value"] = value["value"]
+    if "statistic_values" in value:
+        import capo_cloudwatch.types.statistic_set
+
+        out["StatisticValues"] = capo_cloudwatch.types.statistic_set.serialize_cbor(
+            value["statistic_values"]
+        )
+    if "values" in value:
+        import capo_cloudwatch.types.values
+
+        out["Values"] = capo_cloudwatch.types.values.serialize_cbor(value["values"])
+    if "counts" in value:
+        import capo_cloudwatch.types.counts
+
+        out["Counts"] = capo_cloudwatch.types.counts.serialize_cbor(value["counts"])
+    if "unit" in value:
+        import capo_cloudwatch.types.standard_unit
+
+        out["Unit"] = capo_cloudwatch.types.standard_unit.serialize_cbor(value["unit"])
+    if "storage_resolution" in value:
+        out["StorageResolution"] = value["storage_resolution"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> MetricDatum:
+    out: MetricDatum = {}  # type: ignore[typeddict-item]
+    if data.get("MetricName") is not None:
+        out["metric_name"] = data["MetricName"]
+    if data.get("Dimensions") is not None:
+        import capo_cloudwatch.types.dimensions
+
+        out["dimensions"] = capo_cloudwatch.types.dimensions.deserialize_cbor(
+            data["Dimensions"]
+        )
+    if data.get("Timestamp") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["timestamp"] = capo_cloudwatch.types.timestamp.deserialize_cbor(
+            data["Timestamp"]
+        )
+    if data.get("Value") is not None:
+        out["value"] = float(data["Value"])
+    if data.get("StatisticValues") is not None:
+        import capo_cloudwatch.types.statistic_set
+
+        out["statistic_values"] = capo_cloudwatch.types.statistic_set.deserialize_cbor(
+            data["StatisticValues"]
+        )
+    if data.get("Values") is not None:
+        import capo_cloudwatch.types.values
+
+        out["values"] = capo_cloudwatch.types.values.deserialize_cbor(data["Values"])
+    if data.get("Counts") is not None:
+        import capo_cloudwatch.types.counts
+
+        out["counts"] = capo_cloudwatch.types.counts.deserialize_cbor(data["Counts"])
+    if data.get("Unit") is not None:
+        import capo_cloudwatch.types.standard_unit
+
+        out["unit"] = capo_cloudwatch.types.standard_unit.deserialize_cbor(data["Unit"])
+    if data.get("StorageResolution") is not None:
+        out["storage_resolution"] = data["StorageResolution"]
+    return out

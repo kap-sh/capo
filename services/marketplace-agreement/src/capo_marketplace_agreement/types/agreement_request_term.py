@@ -329,3 +329,231 @@ def deserialize_aws_json_1_0(data: dict) -> AgreementRequestTerm:
         if name is not None:
             return {"$unknown": {"name": name}}
         raise DeserializationError("AgreementRequestTerm: no recognized variant key")
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AgreementRequestTerm) -> dict:
+    if "$unknown" in value:
+        raise SerializationError(
+            f"AgreementRequestTerm: cannot serialize unknown variant {value['$unknown']['name']!r}"
+        )
+    elif "legalTerm" in value:
+        import capo_marketplace_agreement.types.legal_term
+
+        return {
+            "legalTerm": capo_marketplace_agreement.types.legal_term.serialize_cbor(
+                value["legalTerm"]
+            )
+        }
+    elif "supportTerm" in value:
+        import capo_marketplace_agreement.types.support_term
+
+        return {
+            "supportTerm": capo_marketplace_agreement.types.support_term.serialize_cbor(
+                value["supportTerm"]
+            )
+        }
+    elif "renewalTerm" in value:
+        import capo_marketplace_agreement.types.renewal_term
+
+        return {
+            "renewalTerm": capo_marketplace_agreement.types.renewal_term.serialize_cbor(
+                value["renewalTerm"]
+            )
+        }
+    elif "usageBasedPricingTerm" in value:
+        import capo_marketplace_agreement.types.usage_based_pricing_term
+
+        return {
+            "usageBasedPricingTerm": capo_marketplace_agreement.types.usage_based_pricing_term.serialize_cbor(
+                value["usageBasedPricingTerm"]
+            )
+        }
+    elif "configurableUpfrontPricingTerm" in value:
+        import capo_marketplace_agreement.types.configurable_upfront_pricing_term
+
+        return {
+            "configurableUpfrontPricingTerm": capo_marketplace_agreement.types.configurable_upfront_pricing_term.serialize_cbor(
+                value["configurableUpfrontPricingTerm"]
+            )
+        }
+    elif "byolPricingTerm" in value:
+        import capo_marketplace_agreement.types.byol_pricing_term
+
+        return {
+            "byolPricingTerm": capo_marketplace_agreement.types.byol_pricing_term.serialize_cbor(
+                value["byolPricingTerm"]
+            )
+        }
+    elif "recurringPaymentTerm" in value:
+        import capo_marketplace_agreement.types.recurring_payment_term
+
+        return {
+            "recurringPaymentTerm": capo_marketplace_agreement.types.recurring_payment_term.serialize_cbor(
+                value["recurringPaymentTerm"]
+            )
+        }
+    elif "validityTerm" in value:
+        import capo_marketplace_agreement.types.validity_term
+
+        return {
+            "validityTerm": capo_marketplace_agreement.types.validity_term.serialize_cbor(
+                value["validityTerm"]
+            )
+        }
+    elif "paymentScheduleTerm" in value:
+        import capo_marketplace_agreement.types.payment_schedule_term
+
+        return {
+            "paymentScheduleTerm": capo_marketplace_agreement.types.payment_schedule_term.serialize_cbor(
+                value["paymentScheduleTerm"]
+            )
+        }
+    elif "freeTrialPricingTerm" in value:
+        import capo_marketplace_agreement.types.free_trial_pricing_term
+
+        return {
+            "freeTrialPricingTerm": capo_marketplace_agreement.types.free_trial_pricing_term.serialize_cbor(
+                value["freeTrialPricingTerm"]
+            )
+        }
+    elif "fixedUpfrontPricingTerm" in value:
+        import capo_marketplace_agreement.types.fixed_upfront_pricing_term
+
+        return {
+            "fixedUpfrontPricingTerm": capo_marketplace_agreement.types.fixed_upfront_pricing_term.serialize_cbor(
+                value["fixedUpfrontPricingTerm"]
+            )
+        }
+    elif "variablePaymentTerm" in value:
+        import capo_marketplace_agreement.types.variable_payment_term
+
+        return {
+            "variablePaymentTerm": capo_marketplace_agreement.types.variable_payment_term.serialize_cbor(
+                value["variablePaymentTerm"]
+            )
+        }
+    elif "netPaymentTerm" in value:
+        import capo_marketplace_agreement.types.net_payment_term
+
+        return {
+            "netPaymentTerm": capo_marketplace_agreement.types.net_payment_term.serialize_cbor(
+                value["netPaymentTerm"]
+            )
+        }
+    else:
+        raise SerializationError("AgreementRequestTerm: no variant present")
+
+
+def deserialize_cbor(data: dict) -> AgreementRequestTerm:
+    if data.get("legalTerm") is not None:
+        import capo_marketplace_agreement.types.legal_term
+
+        return {
+            "legalTerm": capo_marketplace_agreement.types.legal_term.deserialize_cbor(
+                data["legalTerm"]
+            )
+        }
+    elif data.get("supportTerm") is not None:
+        import capo_marketplace_agreement.types.support_term
+
+        return {
+            "supportTerm": capo_marketplace_agreement.types.support_term.deserialize_cbor(
+                data["supportTerm"]
+            )
+        }
+    elif data.get("renewalTerm") is not None:
+        import capo_marketplace_agreement.types.renewal_term
+
+        return {
+            "renewalTerm": capo_marketplace_agreement.types.renewal_term.deserialize_cbor(
+                data["renewalTerm"]
+            )
+        }
+    elif data.get("usageBasedPricingTerm") is not None:
+        import capo_marketplace_agreement.types.usage_based_pricing_term
+
+        return {
+            "usageBasedPricingTerm": capo_marketplace_agreement.types.usage_based_pricing_term.deserialize_cbor(
+                data["usageBasedPricingTerm"]
+            )
+        }
+    elif data.get("configurableUpfrontPricingTerm") is not None:
+        import capo_marketplace_agreement.types.configurable_upfront_pricing_term
+
+        return {
+            "configurableUpfrontPricingTerm": capo_marketplace_agreement.types.configurable_upfront_pricing_term.deserialize_cbor(
+                data["configurableUpfrontPricingTerm"]
+            )
+        }
+    elif data.get("byolPricingTerm") is not None:
+        import capo_marketplace_agreement.types.byol_pricing_term
+
+        return {
+            "byolPricingTerm": capo_marketplace_agreement.types.byol_pricing_term.deserialize_cbor(
+                data["byolPricingTerm"]
+            )
+        }
+    elif data.get("recurringPaymentTerm") is not None:
+        import capo_marketplace_agreement.types.recurring_payment_term
+
+        return {
+            "recurringPaymentTerm": capo_marketplace_agreement.types.recurring_payment_term.deserialize_cbor(
+                data["recurringPaymentTerm"]
+            )
+        }
+    elif data.get("validityTerm") is not None:
+        import capo_marketplace_agreement.types.validity_term
+
+        return {
+            "validityTerm": capo_marketplace_agreement.types.validity_term.deserialize_cbor(
+                data["validityTerm"]
+            )
+        }
+    elif data.get("paymentScheduleTerm") is not None:
+        import capo_marketplace_agreement.types.payment_schedule_term
+
+        return {
+            "paymentScheduleTerm": capo_marketplace_agreement.types.payment_schedule_term.deserialize_cbor(
+                data["paymentScheduleTerm"]
+            )
+        }
+    elif data.get("freeTrialPricingTerm") is not None:
+        import capo_marketplace_agreement.types.free_trial_pricing_term
+
+        return {
+            "freeTrialPricingTerm": capo_marketplace_agreement.types.free_trial_pricing_term.deserialize_cbor(
+                data["freeTrialPricingTerm"]
+            )
+        }
+    elif data.get("fixedUpfrontPricingTerm") is not None:
+        import capo_marketplace_agreement.types.fixed_upfront_pricing_term
+
+        return {
+            "fixedUpfrontPricingTerm": capo_marketplace_agreement.types.fixed_upfront_pricing_term.deserialize_cbor(
+                data["fixedUpfrontPricingTerm"]
+            )
+        }
+    elif data.get("variablePaymentTerm") is not None:
+        import capo_marketplace_agreement.types.variable_payment_term
+
+        return {
+            "variablePaymentTerm": capo_marketplace_agreement.types.variable_payment_term.deserialize_cbor(
+                data["variablePaymentTerm"]
+            )
+        }
+    elif data.get("netPaymentTerm") is not None:
+        import capo_marketplace_agreement.types.net_payment_term
+
+        return {
+            "netPaymentTerm": capo_marketplace_agreement.types.net_payment_term.deserialize_cbor(
+                data["netPaymentTerm"]
+            )
+        }
+    else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return {"$unknown": {"name": name}}
+        raise DeserializationError("AgreementRequestTerm: no recognized variant key")

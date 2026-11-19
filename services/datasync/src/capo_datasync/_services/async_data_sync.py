@@ -235,6 +235,7 @@ class AsyncDataSyncClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[AsyncInterceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_1", "rpcv2Cbor"]
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -251,6 +252,7 @@ class AsyncDataSyncClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -266,6 +268,7 @@ class AsyncDataSyncClient:
         operation_interceptors: Iterable[AsyncInterceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_1", "rpcv2Cbor"] = "awsJson1_1",
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -302,6 +305,7 @@ class AsyncDataSyncClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -335,6 +339,9 @@ class AsyncDataSyncClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_1")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -372,14 +379,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.cancel_task_execution_response.CancelTaskExecutionResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.cancel_task_execution
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.cancel_task_execution
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.cancel_task_execution.async_cancel_task_execution(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.cancel_task_execution.async_cancel_task_execution(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.cancel_task_execution
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.cancel_task_execution.async_cancel_task_execution(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -435,14 +454,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.create_agent_response.CreateAgentResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.create_agent
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.create_agent
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.create_agent.async_create_agent(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.create_agent.async_create_agent(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.create_agent
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.create_agent.async_create_agent(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -524,14 +555,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.create_location_azure_blob_response.CreateLocationAzureBlobResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.create_location_azure_blob
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.create_location_azure_blob
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.create_location_azure_blob.async_create_location_azure_blob(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.create_location_azure_blob.async_create_location_azure_blob(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.create_location_azure_blob
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.create_location_azure_blob.async_create_location_azure_blob(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -622,14 +665,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.create_location_efs_response.CreateLocationEfsResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.create_location_efs
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.create_location_efs
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.create_location_efs.async_create_location_efs(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.create_location_efs.async_create_location_efs(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.create_location_efs
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.create_location_efs.async_create_location_efs(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -688,14 +743,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.create_location_fsx_lustre_response.CreateLocationFsxLustreResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.create_location_fsx_lustre
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.create_location_fsx_lustre
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.create_location_fsx_lustre.async_create_location_fsx_lustre(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.create_location_fsx_lustre.async_create_location_fsx_lustre(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.create_location_fsx_lustre
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.create_location_fsx_lustre.async_create_location_fsx_lustre(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -749,14 +816,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.create_location_fsx_ontap_response.CreateLocationFsxOntapResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.create_location_fsx_ontap
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.create_location_fsx_ontap
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.create_location_fsx_ontap.async_create_location_fsx_ontap(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.create_location_fsx_ontap.async_create_location_fsx_ontap(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.create_location_fsx_ontap
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.create_location_fsx_ontap.async_create_location_fsx_ontap(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -824,14 +903,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.create_location_fsx_open_zfs_response.CreateLocationFsxOpenZfsResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.create_location_fsx_open_zfs
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.create_location_fsx_open_zfs
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.create_location_fsx_open_zfs.async_create_location_fsx_open_zfs(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.create_location_fsx_open_zfs.async_create_location_fsx_open_zfs(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.create_location_fsx_open_zfs
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.create_location_fsx_open_zfs.async_create_location_fsx_open_zfs(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -909,14 +1000,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.create_location_fsx_windows_response.CreateLocationFsxWindowsResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.create_location_fsx_windows
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.create_location_fsx_windows
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.create_location_fsx_windows.async_create_location_fsx_windows(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.create_location_fsx_windows.async_create_location_fsx_windows(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.create_location_fsx_windows
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.create_location_fsx_windows.async_create_location_fsx_windows(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -1028,14 +1131,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.create_location_hdfs_response.CreateLocationHdfsResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.create_location_hdfs
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.create_location_hdfs
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.create_location_hdfs.async_create_location_hdfs(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.create_location_hdfs.async_create_location_hdfs(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.create_location_hdfs
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.create_location_hdfs.async_create_location_hdfs(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1111,14 +1226,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.create_location_nfs_response.CreateLocationNfsResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.create_location_nfs
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.create_location_nfs
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.create_location_nfs.async_create_location_nfs(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.create_location_nfs.async_create_location_nfs(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.create_location_nfs
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.create_location_nfs.async_create_location_nfs(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1206,14 +1333,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.create_location_object_storage_response.CreateLocationObjectStorageResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.create_location_object_storage
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.create_location_object_storage
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.create_location_object_storage.async_create_location_object_storage(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.create_location_object_storage.async_create_location_object_storage(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.create_location_object_storage
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.create_location_object_storage.async_create_location_object_storage(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -1299,14 +1438,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.create_location_s3_response.CreateLocationS3Response"
         ]:
-            import capo_datasync._operations.fmrs_service.create_location_s3
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.create_location_s3
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.create_location_s3.async_create_location_s3(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.create_location_s3.async_create_location_s3(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.create_location_s3
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.create_location_s3.async_create_location_s3(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1397,14 +1548,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.create_location_smb_response.CreateLocationSmbResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.create_location_smb
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.create_location_smb
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.create_location_smb.async_create_location_smb(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.create_location_smb.async_create_location_smb(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.create_location_smb
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.create_location_smb.async_create_location_smb(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -1508,14 +1671,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.create_task_response.CreateTaskResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.create_task
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.create_task
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.create_task.async_create_task(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.create_task.async_create_task(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.create_task
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.create_task.async_create_task(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1576,14 +1751,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.delete_agent_response.DeleteAgentResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.delete_agent
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.delete_agent
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.delete_agent.async_delete_agent(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.delete_agent.async_delete_agent(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.delete_agent
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.delete_agent.async_delete_agent(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1623,14 +1810,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.delete_location_response.DeleteLocationResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.delete_location
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.delete_location
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.delete_location.async_delete_location(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.delete_location.async_delete_location(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.delete_location
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.delete_location.async_delete_location(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1670,14 +1869,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.delete_task_response.DeleteTaskResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.delete_task
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.delete_task
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.delete_task.async_delete_task(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.delete_task.async_delete_task(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.delete_task
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.delete_task.async_delete_task(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1717,14 +1928,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.describe_agent_response.DescribeAgentResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.describe_agent
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.describe_agent
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.describe_agent.async_describe_agent(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.describe_agent.async_describe_agent(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.describe_agent
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.describe_agent.async_describe_agent(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1764,14 +1987,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.describe_location_azure_blob_response.DescribeLocationAzureBlobResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.describe_location_azure_blob
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.describe_location_azure_blob
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.describe_location_azure_blob.async_describe_location_azure_blob(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.describe_location_azure_blob.async_describe_location_azure_blob(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.describe_location_azure_blob
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.describe_location_azure_blob.async_describe_location_azure_blob(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1813,14 +2048,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.describe_location_efs_response.DescribeLocationEfsResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.describe_location_efs
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.describe_location_efs
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.describe_location_efs.async_describe_location_efs(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.describe_location_efs.async_describe_location_efs(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.describe_location_efs
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.describe_location_efs.async_describe_location_efs(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1860,14 +2107,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.describe_location_fsx_lustre_response.DescribeLocationFsxLustreResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.describe_location_fsx_lustre
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.describe_location_fsx_lustre
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.describe_location_fsx_lustre.async_describe_location_fsx_lustre(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.describe_location_fsx_lustre.async_describe_location_fsx_lustre(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.describe_location_fsx_lustre
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.describe_location_fsx_lustre.async_describe_location_fsx_lustre(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1907,14 +2166,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.describe_location_fsx_ontap_response.DescribeLocationFsxOntapResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.describe_location_fsx_ontap
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.describe_location_fsx_ontap
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.describe_location_fsx_ontap.async_describe_location_fsx_ontap(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.describe_location_fsx_ontap.async_describe_location_fsx_ontap(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.describe_location_fsx_ontap
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.describe_location_fsx_ontap.async_describe_location_fsx_ontap(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -1964,14 +2235,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.describe_location_fsx_open_zfs_response.DescribeLocationFsxOpenZfsResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.describe_location_fsx_open_zfs
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.describe_location_fsx_open_zfs
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.describe_location_fsx_open_zfs.async_describe_location_fsx_open_zfs(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.describe_location_fsx_open_zfs.async_describe_location_fsx_open_zfs(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.describe_location_fsx_open_zfs
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.describe_location_fsx_open_zfs.async_describe_location_fsx_open_zfs(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -2023,14 +2306,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.describe_location_fsx_windows_response.DescribeLocationFsxWindowsResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.describe_location_fsx_windows
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.describe_location_fsx_windows
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.describe_location_fsx_windows.async_describe_location_fsx_windows(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.describe_location_fsx_windows.async_describe_location_fsx_windows(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.describe_location_fsx_windows
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.describe_location_fsx_windows.async_describe_location_fsx_windows(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2070,14 +2365,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.describe_location_hdfs_response.DescribeLocationHdfsResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.describe_location_hdfs
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.describe_location_hdfs
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.describe_location_hdfs.async_describe_location_hdfs(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.describe_location_hdfs.async_describe_location_hdfs(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.describe_location_hdfs
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.describe_location_hdfs.async_describe_location_hdfs(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2119,14 +2426,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.describe_location_nfs_response.DescribeLocationNfsResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.describe_location_nfs
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.describe_location_nfs
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.describe_location_nfs.async_describe_location_nfs(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.describe_location_nfs.async_describe_location_nfs(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.describe_location_nfs
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.describe_location_nfs.async_describe_location_nfs(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2166,14 +2485,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.describe_location_object_storage_response.DescribeLocationObjectStorageResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.describe_location_object_storage
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.describe_location_object_storage
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.describe_location_object_storage.async_describe_location_object_storage(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.describe_location_object_storage.async_describe_location_object_storage(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.describe_location_object_storage
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.describe_location_object_storage.async_describe_location_object_storage(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2213,14 +2544,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.describe_location_s3_response.DescribeLocationS3Response"
         ]:
-            import capo_datasync._operations.fmrs_service.describe_location_s3
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.describe_location_s3
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.describe_location_s3.async_describe_location_s3(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.describe_location_s3.async_describe_location_s3(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.describe_location_s3
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.describe_location_s3.async_describe_location_s3(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2262,14 +2605,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.describe_location_smb_response.DescribeLocationSmbResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.describe_location_smb
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.describe_location_smb
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.describe_location_smb.async_describe_location_smb(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.describe_location_smb.async_describe_location_smb(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.describe_location_smb
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.describe_location_smb.async_describe_location_smb(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2309,14 +2664,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.describe_task_response.DescribeTaskResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.describe_task
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.describe_task
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.describe_task.async_describe_task(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.describe_task.async_describe_task(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.describe_task
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.describe_task.async_describe_task(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2356,14 +2723,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.describe_task_execution_response.DescribeTaskExecutionResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.describe_task_execution
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.describe_task_execution
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.describe_task_execution.async_describe_task_execution(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.describe_task_execution.async_describe_task_execution(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.describe_task_execution
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.describe_task_execution.async_describe_task_execution(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2405,14 +2784,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.list_agents_response.ListAgentsResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.list_agents
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.list_agents
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.list_agents.async_list_agents(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.list_agents.async_list_agents(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.list_agents
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.list_agents.async_list_agents(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2481,14 +2872,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.list_locations_response.ListLocationsResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.list_locations
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.list_locations
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.list_locations.async_list_locations(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.list_locations.async_list_locations(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.list_locations
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.list_locations.async_list_locations(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2561,14 +2964,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.list_tags_for_resource_response.ListTagsForResourceResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.list_tags_for_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.list_tags_for_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.list_tags_for_resource.async_list_tags_for_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.list_tags_for_resource.async_list_tags_for_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.list_tags_for_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.list_tags_for_resource.async_list_tags_for_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2639,14 +3054,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.list_task_executions_response.ListTaskExecutionsResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.list_task_executions
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.list_task_executions
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.list_task_executions.async_list_task_executions(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.list_task_executions.async_list_task_executions(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.list_task_executions
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.list_task_executions.async_list_task_executions(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2717,14 +3144,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.list_tasks_response.ListTasksResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.list_tasks
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.list_tasks
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.list_tasks.async_list_tasks(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.list_tasks.async_list_tasks(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.list_tasks
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.list_tasks.async_list_tasks(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2806,14 +3245,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.start_task_execution_response.StartTaskExecutionResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.start_task_execution
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.start_task_execution
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.start_task_execution.async_start_task_execution(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.start_task_execution.async_start_task_execution(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.start_task_execution
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.start_task_execution.async_start_task_execution(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2867,14 +3318,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.tag_resource_response.TagResourceResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.tag_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.tag_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.tag_resource.async_tag_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.tag_resource.async_tag_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.tag_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.tag_resource.async_tag_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2917,14 +3380,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.untag_resource_response.UntagResourceResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.untag_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.untag_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.untag_resource.async_untag_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.untag_resource.async_untag_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.untag_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.untag_resource.async_untag_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2967,14 +3442,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.update_agent_response.UpdateAgentResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.update_agent
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.update_agent
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.update_agent.async_update_agent(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.update_agent.async_update_agent(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.update_agent
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.update_agent.async_update_agent(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3048,14 +3535,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.update_location_azure_blob_response.UpdateLocationAzureBlobResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.update_location_azure_blob
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.update_location_azure_blob
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.update_location_azure_blob.async_update_location_azure_blob(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.update_location_azure_blob.async_update_location_azure_blob(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.update_location_azure_blob
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.update_location_azure_blob.async_update_location_azure_blob(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -3141,14 +3640,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.update_location_efs_response.UpdateLocationEfsResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.update_location_efs
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.update_location_efs
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.update_location_efs.async_update_location_efs(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.update_location_efs.async_update_location_efs(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.update_location_efs
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.update_location_efs.async_update_location_efs(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3200,14 +3711,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.update_location_fsx_lustre_response.UpdateLocationFsxLustreResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.update_location_fsx_lustre
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.update_location_fsx_lustre
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.update_location_fsx_lustre.async_update_location_fsx_lustre(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.update_location_fsx_lustre.async_update_location_fsx_lustre(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.update_location_fsx_lustre
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.update_location_fsx_lustre.async_update_location_fsx_lustre(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3257,14 +3780,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.update_location_fsx_ontap_response.UpdateLocationFsxOntapResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.update_location_fsx_ontap
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.update_location_fsx_ontap
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.update_location_fsx_ontap.async_update_location_fsx_ontap(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.update_location_fsx_ontap.async_update_location_fsx_ontap(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.update_location_fsx_ontap
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.update_location_fsx_ontap.async_update_location_fsx_ontap(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -3325,14 +3860,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.update_location_fsx_open_zfs_response.UpdateLocationFsxOpenZfsResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.update_location_fsx_open_zfs
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.update_location_fsx_open_zfs
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.update_location_fsx_open_zfs.async_update_location_fsx_open_zfs(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.update_location_fsx_open_zfs.async_update_location_fsx_open_zfs(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.update_location_fsx_open_zfs
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.update_location_fsx_open_zfs.async_update_location_fsx_open_zfs(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -3406,14 +3953,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.update_location_fsx_windows_response.UpdateLocationFsxWindowsResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.update_location_fsx_windows
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.update_location_fsx_windows
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.update_location_fsx_windows.async_update_location_fsx_windows(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.update_location_fsx_windows.async_update_location_fsx_windows(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.update_location_fsx_windows
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.update_location_fsx_windows.async_update_location_fsx_windows(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -3527,14 +4086,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.update_location_hdfs_response.UpdateLocationHdfsResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.update_location_hdfs
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.update_location_hdfs
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.update_location_hdfs.async_update_location_hdfs(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.update_location_hdfs.async_update_location_hdfs(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.update_location_hdfs
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.update_location_hdfs.async_update_location_hdfs(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3616,14 +4187,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.update_location_nfs_response.UpdateLocationNfsResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.update_location_nfs
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.update_location_nfs
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.update_location_nfs.async_update_location_nfs(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.update_location_nfs.async_update_location_nfs(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.update_location_nfs
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.update_location_nfs.async_update_location_nfs(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3713,14 +4296,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.update_location_object_storage_response.UpdateLocationObjectStorageResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.update_location_object_storage
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.update_location_object_storage
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.update_location_object_storage.async_update_location_object_storage(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.update_location_object_storage.async_update_location_object_storage(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.update_location_object_storage
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.update_location_object_storage.async_update_location_object_storage(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -3801,14 +4396,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.update_location_s3_response.UpdateLocationS3Response"
         ]:
-            import capo_datasync._operations.fmrs_service.update_location_s3
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.update_location_s3
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.update_location_s3.async_update_location_s3(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.update_location_s3.async_update_location_s3(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.update_location_s3
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.update_location_s3.async_update_location_s3(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3899,14 +4506,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.update_location_smb_response.UpdateLocationSmbResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.update_location_smb
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.update_location_smb
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.update_location_smb.async_update_location_smb(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.update_location_smb.async_update_location_smb(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.update_location_smb
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.update_location_smb.async_update_location_smb(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -4005,14 +4624,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.update_task_response.UpdateTaskResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.update_task
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.update_task
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.update_task.async_update_task(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.update_task.async_update_task(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.update_task
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.update_task.async_update_task(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4071,14 +4702,26 @@ class AsyncDataSyncClient:
         ) -> AsyncOperationResponse[
             "capo_datasync.types.update_task_execution_response.UpdateTaskExecutionResponse"
         ]:
-            import capo_datasync._operations.fmrs_service.update_task_execution
+            if req.options.protocol == "awsJson1_1":
+                import capo_datasync._operations.fmrs_service.aws_json1_1.update_task_execution
 
-            (
-                output,
-                http_response,
-            ) = await capo_datasync._operations.fmrs_service.update_task_execution.async_update_task_execution(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.aws_json1_1.update_task_execution.async_update_task_execution(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_datasync._operations.fmrs_service.rpcv2_cbor.update_task_execution
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_datasync._operations.fmrs_service.rpcv2_cbor.update_task_execution.async_update_task_execution(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

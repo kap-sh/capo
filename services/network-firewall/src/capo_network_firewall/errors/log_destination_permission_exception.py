@@ -30,6 +30,21 @@ def deserialize_aws_json_1_0(data: dict) -> LogDestinationPermissionException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LogDestinationPermissionException_) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["Message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> LogDestinationPermissionException_:
+    out: LogDestinationPermissionException_ = {}  # type: ignore[typeddict-item]
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    return out
+
+
 class LogDestinationPermissionException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.networkfirewall#LogDestinationPermissionException``."""
 
@@ -57,3 +72,9 @@ class LogDestinationPermissionException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "LogDestinationPermissionException":
         return cls(deserialize_aws_json_1_0(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "LogDestinationPermissionException":
+        return cls(deserialize_cbor(data), message, response=response)

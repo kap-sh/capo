@@ -77,3 +77,54 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateConditionalForwarderRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateConditionalForwarderRequest) -> dict:
+    out: dict = {}
+    out["DirectoryId"] = value["directory_id"]
+    out["RemoteDomainName"] = value["remote_domain_name"]
+    if "dns_ip_addrs" in value:
+        import capo_directory_service.types.dns_ip_addrs
+
+        out["DnsIpAddrs"] = capo_directory_service.types.dns_ip_addrs.serialize_cbor(
+            value["dns_ip_addrs"]
+        )
+    if "dns_ipv6_addrs" in value:
+        import capo_directory_service.types.dns_ipv6_addrs
+
+        out["DnsIpv6Addrs"] = (
+            capo_directory_service.types.dns_ipv6_addrs.serialize_cbor(
+                value["dns_ipv6_addrs"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateConditionalForwarderRequest:
+    out: UpdateConditionalForwarderRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    if data.get("RemoteDomainName") is not None:
+        out["remote_domain_name"] = data["RemoteDomainName"]
+    else:
+        out["remote_domain_name"] = ""
+    if data.get("DnsIpAddrs") is not None:
+        import capo_directory_service.types.dns_ip_addrs
+
+        out["dns_ip_addrs"] = (
+            capo_directory_service.types.dns_ip_addrs.deserialize_cbor(
+                data["DnsIpAddrs"]
+            )
+        )
+    if data.get("DnsIpv6Addrs") is not None:
+        import capo_directory_service.types.dns_ipv6_addrs
+
+        out["dns_ipv6_addrs"] = (
+            capo_directory_service.types.dns_ipv6_addrs.deserialize_cbor(
+                data["DnsIpv6Addrs"]
+            )
+        )
+    return out

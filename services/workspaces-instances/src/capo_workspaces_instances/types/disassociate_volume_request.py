@@ -65,3 +65,44 @@ def deserialize_aws_json_1_0(data: dict) -> DisassociateVolumeRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DisassociateVolumeRequest) -> dict:
+    out: dict = {}
+    out["WorkspaceInstanceId"] = value["workspace_instance_id"]
+    out["VolumeId"] = value["volume_id"]
+    if "device" in value:
+        out["Device"] = value["device"]
+    if "disassociate_mode" in value:
+        import capo_workspaces_instances.types.disassociate_mode_enum
+
+        out["DisassociateMode"] = (
+            capo_workspaces_instances.types.disassociate_mode_enum.serialize_cbor(
+                value["disassociate_mode"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DisassociateVolumeRequest:
+    out: DisassociateVolumeRequest = {}  # type: ignore[typeddict-item]
+    if data.get("WorkspaceInstanceId") is not None:
+        out["workspace_instance_id"] = data["WorkspaceInstanceId"]
+    else:
+        out["workspace_instance_id"] = ""
+    if data.get("VolumeId") is not None:
+        out["volume_id"] = data["VolumeId"]
+    else:
+        out["volume_id"] = ""
+    if data.get("Device") is not None:
+        out["device"] = data["Device"]
+    if data.get("DisassociateMode") is not None:
+        import capo_workspaces_instances.types.disassociate_mode_enum
+
+        out["disassociate_mode"] = (
+            capo_workspaces_instances.types.disassociate_mode_enum.deserialize_cbor(
+                data["DisassociateMode"]
+            )
+        )
+    return out

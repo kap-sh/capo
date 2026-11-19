@@ -38,3 +38,12 @@ def serialize_query(
 
 def deserialize_query(el: Element) -> StatusCode:
     return from_query_text(el.text or "")
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StatusCode) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> StatusCode:
+    return cast(StatusCode, data)

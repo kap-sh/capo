@@ -41,3 +41,26 @@ def deserialize_aws_json_1_1(data: dict) -> SplitDocument:
             data["Pages"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SplitDocument) -> dict:
+    out: dict = {}
+    if "index" in value:
+        out["Index"] = value["index"]
+    if "pages" in value:
+        import capo_textract.types.page_list
+
+        out["Pages"] = capo_textract.types.page_list.serialize_cbor(value["pages"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> SplitDocument:
+    out: SplitDocument = {}  # type: ignore[typeddict-item]
+    if data.get("Index") is not None:
+        out["index"] = data["Index"]
+    if data.get("Pages") is not None:
+        import capo_textract.types.page_list
+
+        out["pages"] = capo_textract.types.page_list.deserialize_cbor(data["Pages"])
+    return out

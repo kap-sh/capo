@@ -53,3 +53,39 @@ def deserialize_aws_json_1_1(data: dict) -> DeletePerformanceAnalysisReportReque
     else:
         out["analysis_report_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeletePerformanceAnalysisReportRequest) -> dict:
+    out: dict = {}
+    import capo_pi.types.service_type
+
+    out["ServiceType"] = capo_pi.types.service_type.serialize_cbor(
+        value["service_type"]
+    )
+    out["Identifier"] = value["identifier"]
+    out["AnalysisReportId"] = value["analysis_report_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeletePerformanceAnalysisReportRequest:
+    out: DeletePerformanceAnalysisReportRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ServiceType") is not None:
+        import capo_pi.types.service_type
+
+        out["service_type"] = capo_pi.types.service_type.deserialize_cbor(
+            data["ServiceType"]
+        )
+    else:
+        import typing
+
+        out["service_type"] = typing.cast("capo_pi.types.service_type.ServiceType", "")
+    if data.get("Identifier") is not None:
+        out["identifier"] = data["Identifier"]
+    else:
+        out["identifier"] = ""
+    if data.get("AnalysisReportId") is not None:
+        out["analysis_report_id"] = data["AnalysisReportId"]
+    else:
+        out["analysis_report_id"] = ""
+    return out

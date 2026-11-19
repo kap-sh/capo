@@ -100,3 +100,74 @@ def deserialize_aws_json_1_0(data: dict) -> StartArchiveSearchRequest:
     else:
         out["max_results"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartArchiveSearchRequest) -> dict:
+    out: dict = {}
+    out["ArchiveId"] = value["archive_id"]
+    if "filters" in value:
+        import capo_mailmanager.types.archive_filters
+
+        out["Filters"] = capo_mailmanager.types.archive_filters.serialize_cbor(
+            value["filters"]
+        )
+    import capo_mailmanager.types._prelude.timestamp
+
+    out["FromTimestamp"] = capo_mailmanager.types._prelude.timestamp.serialize_cbor(
+        value["from_timestamp"]
+    )
+    import capo_mailmanager.types._prelude.timestamp
+
+    out["ToTimestamp"] = capo_mailmanager.types._prelude.timestamp.serialize_cbor(
+        value["to_timestamp"]
+    )
+    out["MaxResults"] = value["max_results"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartArchiveSearchRequest:
+    out: StartArchiveSearchRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ArchiveId") is not None:
+        out["archive_id"] = data["ArchiveId"]
+    else:
+        out["archive_id"] = ""
+    if data.get("Filters") is not None:
+        import capo_mailmanager.types.archive_filters
+
+        out["filters"] = capo_mailmanager.types.archive_filters.deserialize_cbor(
+            data["Filters"]
+        )
+    if data.get("FromTimestamp") is not None:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["from_timestamp"] = (
+            capo_mailmanager.types._prelude.timestamp.deserialize_cbor(
+                data["FromTimestamp"]
+            )
+        )
+    else:
+        import datetime
+
+        out["from_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
+    if data.get("ToTimestamp") is not None:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["to_timestamp"] = (
+            capo_mailmanager.types._prelude.timestamp.deserialize_cbor(
+                data["ToTimestamp"]
+            )
+        )
+    else:
+        import datetime
+
+        out["to_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    else:
+        out["max_results"] = 0
+    return out

@@ -91,3 +91,65 @@ def deserialize_aws_json_1_0(data: dict) -> InvokeLambdaAction:
     if data.get("RetryTimeMinutes") is not None:
         out["retry_time_minutes"] = data["RetryTimeMinutes"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InvokeLambdaAction) -> dict:
+    out: dict = {}
+    if "action_failure_policy" in value:
+        import capo_mailmanager.types.action_failure_policy
+
+        out["ActionFailurePolicy"] = (
+            capo_mailmanager.types.action_failure_policy.serialize_cbor(
+                value["action_failure_policy"]
+            )
+        )
+    out["FunctionArn"] = value["function_arn"]
+    import capo_mailmanager.types.lambda_invocation_type
+
+    out["InvocationType"] = (
+        capo_mailmanager.types.lambda_invocation_type.serialize_cbor(
+            value["invocation_type"]
+        )
+    )
+    out["RoleArn"] = value["role_arn"]
+    if "retry_time_minutes" in value:
+        out["RetryTimeMinutes"] = value["retry_time_minutes"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> InvokeLambdaAction:
+    out: InvokeLambdaAction = {}  # type: ignore[typeddict-item]
+    if data.get("ActionFailurePolicy") is not None:
+        import capo_mailmanager.types.action_failure_policy
+
+        out["action_failure_policy"] = (
+            capo_mailmanager.types.action_failure_policy.deserialize_cbor(
+                data["ActionFailurePolicy"]
+            )
+        )
+    if data.get("FunctionArn") is not None:
+        out["function_arn"] = data["FunctionArn"]
+    else:
+        out["function_arn"] = ""
+    if data.get("InvocationType") is not None:
+        import capo_mailmanager.types.lambda_invocation_type
+
+        out["invocation_type"] = (
+            capo_mailmanager.types.lambda_invocation_type.deserialize_cbor(
+                data["InvocationType"]
+            )
+        )
+    else:
+        import typing
+
+        out["invocation_type"] = typing.cast(
+            "capo_mailmanager.types.lambda_invocation_type.LambdaInvocationType", ""
+        )
+    if data.get("RoleArn") is not None:
+        out["role_arn"] = data["RoleArn"]
+    else:
+        out["role_arn"] = ""
+    if data.get("RetryTimeMinutes") is not None:
+        out["retry_time_minutes"] = data["RetryTimeMinutes"]
+    return out

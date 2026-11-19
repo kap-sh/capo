@@ -30,6 +30,21 @@ def deserialize_aws_json_1_1(data: dict) -> NotReadyException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: NotReadyException_) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["Message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> NotReadyException_:
+    out: NotReadyException_ = {}  # type: ignore[typeddict-item]
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    return out
+
+
 class NotReadyException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.gamelift#NotReadyException``."""
 
@@ -57,3 +72,9 @@ class NotReadyException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "NotReadyException":
         return cls(deserialize_aws_json_1_1(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "NotReadyException":
+        return cls(deserialize_cbor(data), message, response=response)

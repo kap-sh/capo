@@ -35,3 +35,24 @@ def deserialize_aws_json_1_0(data: dict) -> IngressAnalysis:
     else:
         out["result_field"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IngressAnalysis) -> dict:
+    out: dict = {}
+    out["Analyzer"] = value["analyzer"]
+    out["ResultField"] = value["result_field"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> IngressAnalysis:
+    out: IngressAnalysis = {}  # type: ignore[typeddict-item]
+    if data.get("Analyzer") is not None:
+        out["analyzer"] = data["Analyzer"]
+    else:
+        out["analyzer"] = ""
+    if data.get("ResultField") is not None:
+        out["result_field"] = data["ResultField"]
+    else:
+        out["result_field"] = ""
+    return out

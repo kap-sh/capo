@@ -139,6 +139,94 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLocationFsxWindowsRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateLocationFsxWindowsRequest) -> dict:
+    out: dict = {}
+    if "subdirectory" in value:
+        out["Subdirectory"] = value["subdirectory"]
+    out["FsxFilesystemArn"] = value["fsx_filesystem_arn"]
+    import capo_datasync.types.ec2_security_group_arn_list
+
+    out["SecurityGroupArns"] = (
+        capo_datasync.types.ec2_security_group_arn_list.serialize_cbor(
+            value["security_group_arns"]
+        )
+    )
+    if "tags" in value:
+        import capo_datasync.types.input_tag_list
+
+        out["Tags"] = capo_datasync.types.input_tag_list.serialize_cbor(value["tags"])
+    out["User"] = value["user"]
+    if "domain" in value:
+        out["Domain"] = value["domain"]
+    if "password" in value:
+        out["Password"] = value["password"]
+    if "cmk_secret_config" in value:
+        import capo_datasync.types.cmk_secret_config
+
+        out["CmkSecretConfig"] = capo_datasync.types.cmk_secret_config.serialize_cbor(
+            value["cmk_secret_config"]
+        )
+    if "custom_secret_config" in value:
+        import capo_datasync.types.custom_secret_config
+
+        out["CustomSecretConfig"] = (
+            capo_datasync.types.custom_secret_config.serialize_cbor(
+                value["custom_secret_config"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateLocationFsxWindowsRequest:
+    out: CreateLocationFsxWindowsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Subdirectory") is not None:
+        out["subdirectory"] = data["Subdirectory"]
+    if data.get("FsxFilesystemArn") is not None:
+        out["fsx_filesystem_arn"] = data["FsxFilesystemArn"]
+    else:
+        out["fsx_filesystem_arn"] = ""
+    if data.get("SecurityGroupArns") is not None:
+        import capo_datasync.types.ec2_security_group_arn_list
+
+        out["security_group_arns"] = (
+            capo_datasync.types.ec2_security_group_arn_list.deserialize_cbor(
+                data["SecurityGroupArns"]
+            )
+        )
+    else:
+        out["security_group_arns"] = []
+    if data.get("Tags") is not None:
+        import capo_datasync.types.input_tag_list
+
+        out["tags"] = capo_datasync.types.input_tag_list.deserialize_cbor(data["Tags"])
+    if data.get("User") is not None:
+        out["user"] = data["User"]
+    else:
+        out["user"] = ""
+    if data.get("Domain") is not None:
+        out["domain"] = data["Domain"]
+    if data.get("Password") is not None:
+        out["password"] = data["Password"]
+    if data.get("CmkSecretConfig") is not None:
+        import capo_datasync.types.cmk_secret_config
+
+        out["cmk_secret_config"] = (
+            capo_datasync.types.cmk_secret_config.deserialize_cbor(
+                data["CmkSecretConfig"]
+            )
+        )
+    if data.get("CustomSecretConfig") is not None:
+        import capo_datasync.types.custom_secret_config
+
+        out["custom_secret_config"] = (
+            capo_datasync.types.custom_secret_config.deserialize_cbor(
+                data["CustomSecretConfig"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: CreateLocationFsxWindowsRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "password" in value:

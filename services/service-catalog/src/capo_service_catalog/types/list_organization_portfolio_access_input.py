@@ -76,3 +76,52 @@ def deserialize_aws_json_1_1(data: dict) -> ListOrganizationPortfolioAccessInput
     if data.get("PageSize") is not None:
         out["page_size"] = data["PageSize"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListOrganizationPortfolioAccessInput) -> dict:
+    out: dict = {}
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    out["PortfolioId"] = value["portfolio_id"]
+    import capo_service_catalog.types.organization_node_type
+
+    out["OrganizationNodeType"] = (
+        capo_service_catalog.types.organization_node_type.serialize_cbor(
+            value["organization_node_type"]
+        )
+    )
+    if "page_token" in value:
+        out["PageToken"] = value["page_token"]
+    if "page_size" in value:
+        out["PageSize"] = value["page_size"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListOrganizationPortfolioAccessInput:
+    out: ListOrganizationPortfolioAccessInput = {}  # type: ignore[typeddict-item]
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    if data.get("PortfolioId") is not None:
+        out["portfolio_id"] = data["PortfolioId"]
+    else:
+        out["portfolio_id"] = ""
+    if data.get("OrganizationNodeType") is not None:
+        import capo_service_catalog.types.organization_node_type
+
+        out["organization_node_type"] = (
+            capo_service_catalog.types.organization_node_type.deserialize_cbor(
+                data["OrganizationNodeType"]
+            )
+        )
+    else:
+        import typing
+
+        out["organization_node_type"] = typing.cast(
+            "capo_service_catalog.types.organization_node_type.OrganizationNodeType", ""
+        )
+    if data.get("PageToken") is not None:
+        out["page_token"] = data["PageToken"]
+    if data.get("PageSize") is not None:
+        out["page_size"] = data["PageSize"]
+    return out

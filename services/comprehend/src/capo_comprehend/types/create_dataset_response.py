@@ -28,3 +28,18 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDatasetResponse:
     if data.get("DatasetArn") is not None:
         out["dataset_arn"] = data["DatasetArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateDatasetResponse) -> dict:
+    out: dict = {}
+    if "dataset_arn" in value:
+        out["DatasetArn"] = value["dataset_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateDatasetResponse:
+    out: CreateDatasetResponse = {}  # type: ignore[typeddict-item]
+    if data.get("DatasetArn") is not None:
+        out["dataset_arn"] = data["DatasetArn"]
+    return out

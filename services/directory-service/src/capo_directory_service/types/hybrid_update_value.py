@@ -59,3 +59,42 @@ def deserialize_aws_json_1_1(data: dict) -> HybridUpdateValue:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: HybridUpdateValue) -> dict:
+    out: dict = {}
+    if "instance_ids" in value:
+        import capo_directory_service.types.assessment_instance_ids
+
+        out["InstanceIds"] = (
+            capo_directory_service.types.assessment_instance_ids.serialize_cbor(
+                value["instance_ids"]
+            )
+        )
+    if "dns_ips" in value:
+        import capo_directory_service.types.customer_dns_ips
+
+        out["DnsIps"] = capo_directory_service.types.customer_dns_ips.serialize_cbor(
+            value["dns_ips"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> HybridUpdateValue:
+    out: HybridUpdateValue = {}  # type: ignore[typeddict-item]
+    if data.get("InstanceIds") is not None:
+        import capo_directory_service.types.assessment_instance_ids
+
+        out["instance_ids"] = (
+            capo_directory_service.types.assessment_instance_ids.deserialize_cbor(
+                data["InstanceIds"]
+            )
+        )
+    if data.get("DnsIps") is not None:
+        import capo_directory_service.types.customer_dns_ips
+
+        out["dns_ips"] = capo_directory_service.types.customer_dns_ips.deserialize_cbor(
+            data["DnsIps"]
+        )
+    return out

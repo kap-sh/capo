@@ -68,3 +68,47 @@ def deserialize_aws_json_1_1(data: dict) -> CreateProvisioningArtifactInput:
     else:
         out["idempotency_token"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateProvisioningArtifactInput) -> dict:
+    out: dict = {}
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    out["ProductId"] = value["product_id"]
+    import capo_service_catalog.types.provisioning_artifact_properties
+
+    out["Parameters"] = (
+        capo_service_catalog.types.provisioning_artifact_properties.serialize_cbor(
+            value["parameters"]
+        )
+    )
+    out["IdempotencyToken"] = value["idempotency_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateProvisioningArtifactInput:
+    out: CreateProvisioningArtifactInput = {}  # type: ignore[typeddict-item]
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    if data.get("ProductId") is not None:
+        out["product_id"] = data["ProductId"]
+    else:
+        out["product_id"] = ""
+    if data.get("Parameters") is not None:
+        import capo_service_catalog.types.provisioning_artifact_properties
+
+        out["parameters"] = (
+            capo_service_catalog.types.provisioning_artifact_properties.deserialize_cbor(
+                data["Parameters"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "CreateProvisioningArtifactInput.parameters required"
+        )
+    if data.get("IdempotencyToken") is not None:
+        out["idempotency_token"] = data["IdempotencyToken"]
+    else:
+        out["idempotency_token"] = ""
+    return out

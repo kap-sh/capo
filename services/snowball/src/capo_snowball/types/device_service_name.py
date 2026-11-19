@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: DeviceServiceName) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> DeviceServiceName:
     return cast(DeviceServiceName, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeviceServiceName) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> DeviceServiceName:
+    return cast(DeviceServiceName, data)

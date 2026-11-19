@@ -33,3 +33,24 @@ def deserialize_aws_json_1_1(data: dict) -> ModifyClusterResponse:
             data["Cluster"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ModifyClusterResponse) -> dict:
+    out: dict = {}
+    if "cluster" in value:
+        import capo_cloudhsm_v2.types.cluster
+
+        out["Cluster"] = capo_cloudhsm_v2.types.cluster.serialize_cbor(value["cluster"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> ModifyClusterResponse:
+    out: ModifyClusterResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Cluster") is not None:
+        import capo_cloudhsm_v2.types.cluster
+
+        out["cluster"] = capo_cloudhsm_v2.types.cluster.deserialize_cbor(
+            data["Cluster"]
+        )
+    return out

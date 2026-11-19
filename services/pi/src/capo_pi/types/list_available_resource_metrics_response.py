@@ -47,3 +47,30 @@ def deserialize_aws_json_1_1(data: dict) -> ListAvailableResourceMetricsResponse
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListAvailableResourceMetricsResponse) -> dict:
+    out: dict = {}
+    if "metrics" in value:
+        import capo_pi.types.response_resource_metric_list
+
+        out["Metrics"] = capo_pi.types.response_resource_metric_list.serialize_cbor(
+            value["metrics"]
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListAvailableResourceMetricsResponse:
+    out: ListAvailableResourceMetricsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Metrics") is not None:
+        import capo_pi.types.response_resource_metric_list
+
+        out["metrics"] = capo_pi.types.response_resource_metric_list.deserialize_cbor(
+            data["Metrics"]
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

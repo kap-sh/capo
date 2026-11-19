@@ -31,3 +31,19 @@ def deserialize_aws_json_1_1(
     else:
         out["resource_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DisableApplicationLayerAutomaticResponseRequest) -> dict:
+    out: dict = {}
+    out["ResourceArn"] = value["resource_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DisableApplicationLayerAutomaticResponseRequest:
+    out: DisableApplicationLayerAutomaticResponseRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceArn") is not None:
+        out["resource_arn"] = data["ResourceArn"]
+    else:
+        out["resource_arn"] = ""
+    return out

@@ -90,13 +90,24 @@ class TrafficPolicyResource:
         ) -> OperationResponse[
             "capo_mailmanager.types.create_traffic_policy_response.CreateTrafficPolicyResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.create_traffic_policy
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.create_traffic_policy
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.create_traffic_policy.create_traffic_policy(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.create_traffic_policy.create_traffic_policy(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.create_traffic_policy
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.create_traffic_policy.create_traffic_policy(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(
@@ -150,13 +161,24 @@ class TrafficPolicyResource:
         ) -> OperationResponse[
             "capo_mailmanager.types.get_traffic_policy_response.GetTrafficPolicyResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.get_traffic_policy
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_traffic_policy
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.get_traffic_policy.get_traffic_policy(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_traffic_policy.get_traffic_policy(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_traffic_policy
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_traffic_policy.get_traffic_policy(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(
@@ -224,13 +246,24 @@ class TrafficPolicyResource:
         ) -> OperationResponse[
             "capo_mailmanager.types.update_traffic_policy_response.UpdateTrafficPolicyResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.update_traffic_policy
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.update_traffic_policy
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.update_traffic_policy.update_traffic_policy(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.update_traffic_policy.update_traffic_policy(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.update_traffic_policy
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.update_traffic_policy.update_traffic_policy(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(
@@ -284,13 +317,24 @@ class TrafficPolicyResource:
         ) -> OperationResponse[
             "capo_mailmanager.types.delete_traffic_policy_response.DeleteTrafficPolicyResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.delete_traffic_policy
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.delete_traffic_policy
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.delete_traffic_policy.delete_traffic_policy(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.delete_traffic_policy.delete_traffic_policy(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.delete_traffic_policy
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.delete_traffic_policy.delete_traffic_policy(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(
@@ -344,13 +388,24 @@ class TrafficPolicyResource:
         ) -> OperationResponse[
             "capo_mailmanager.types.list_traffic_policies_response.ListTrafficPoliciesResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.list_traffic_policies
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_traffic_policies
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.list_traffic_policies.list_traffic_policies(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_traffic_policies.list_traffic_policies(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_traffic_policies
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_traffic_policies.list_traffic_policies(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(
@@ -417,14 +472,26 @@ class AsyncTrafficPolicyResource:
         ) -> AsyncOperationResponse[
             "capo_mailmanager.types.create_traffic_policy_response.CreateTrafficPolicyResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.create_traffic_policy
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.create_traffic_policy
 
-            (
-                output,
-                http_response,
-            ) = await capo_mailmanager._operations.mail_manager_svc.create_traffic_policy.async_create_traffic_policy(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_mailmanager._operations.mail_manager_svc.aws_json1_0.create_traffic_policy.async_create_traffic_policy(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.create_traffic_policy
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.create_traffic_policy.async_create_traffic_policy(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(
@@ -478,14 +545,26 @@ class AsyncTrafficPolicyResource:
         ) -> AsyncOperationResponse[
             "capo_mailmanager.types.get_traffic_policy_response.GetTrafficPolicyResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.get_traffic_policy
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_traffic_policy
 
-            (
-                output,
-                http_response,
-            ) = await capo_mailmanager._operations.mail_manager_svc.get_traffic_policy.async_get_traffic_policy(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_traffic_policy.async_get_traffic_policy(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_traffic_policy
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_traffic_policy.async_get_traffic_policy(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(
@@ -553,14 +632,26 @@ class AsyncTrafficPolicyResource:
         ) -> AsyncOperationResponse[
             "capo_mailmanager.types.update_traffic_policy_response.UpdateTrafficPolicyResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.update_traffic_policy
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.update_traffic_policy
 
-            (
-                output,
-                http_response,
-            ) = await capo_mailmanager._operations.mail_manager_svc.update_traffic_policy.async_update_traffic_policy(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_mailmanager._operations.mail_manager_svc.aws_json1_0.update_traffic_policy.async_update_traffic_policy(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.update_traffic_policy
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.update_traffic_policy.async_update_traffic_policy(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(
@@ -614,14 +705,26 @@ class AsyncTrafficPolicyResource:
         ) -> AsyncOperationResponse[
             "capo_mailmanager.types.delete_traffic_policy_response.DeleteTrafficPolicyResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.delete_traffic_policy
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.delete_traffic_policy
 
-            (
-                output,
-                http_response,
-            ) = await capo_mailmanager._operations.mail_manager_svc.delete_traffic_policy.async_delete_traffic_policy(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_mailmanager._operations.mail_manager_svc.aws_json1_0.delete_traffic_policy.async_delete_traffic_policy(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.delete_traffic_policy
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.delete_traffic_policy.async_delete_traffic_policy(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(
@@ -675,14 +778,26 @@ class AsyncTrafficPolicyResource:
         ) -> AsyncOperationResponse[
             "capo_mailmanager.types.list_traffic_policies_response.ListTrafficPoliciesResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.list_traffic_policies
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_traffic_policies
 
-            (
-                output,
-                http_response,
-            ) = await capo_mailmanager._operations.mail_manager_svc.list_traffic_policies.async_list_traffic_policies(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_traffic_policies.async_list_traffic_policies(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_traffic_policies
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_traffic_policies.async_list_traffic_policies(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(

@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: GameServerIpProtocolSupported) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> GameServerIpProtocolSupported:
     return cast(GameServerIpProtocolSupported, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GameServerIpProtocolSupported) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> GameServerIpProtocolSupported:
+    return cast(GameServerIpProtocolSupported, data)

@@ -144,3 +144,50 @@ def deserialize_query(el: Element) -> InsightRuleContributor:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InsightRuleContributor) -> dict:
+    out: dict = {}
+    if "keys" in value:
+        import capo_cloudwatch.types.insight_rule_contributor_keys
+
+        out["Keys"] = (
+            capo_cloudwatch.types.insight_rule_contributor_keys.serialize_cbor(
+                value["keys"]
+            )
+        )
+    if "approximate_aggregate_value" in value:
+        out["ApproximateAggregateValue"] = value["approximate_aggregate_value"]
+    if "datapoints" in value:
+        import capo_cloudwatch.types.insight_rule_contributor_datapoints
+
+        out["Datapoints"] = (
+            capo_cloudwatch.types.insight_rule_contributor_datapoints.serialize_cbor(
+                value["datapoints"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> InsightRuleContributor:
+    out: InsightRuleContributor = {}  # type: ignore[typeddict-item]
+    if data.get("Keys") is not None:
+        import capo_cloudwatch.types.insight_rule_contributor_keys
+
+        out["keys"] = (
+            capo_cloudwatch.types.insight_rule_contributor_keys.deserialize_cbor(
+                data["Keys"]
+            )
+        )
+    if data.get("ApproximateAggregateValue") is not None:
+        out["approximate_aggregate_value"] = float(data["ApproximateAggregateValue"])
+    if data.get("Datapoints") is not None:
+        import capo_cloudwatch.types.insight_rule_contributor_datapoints
+
+        out["datapoints"] = (
+            capo_cloudwatch.types.insight_rule_contributor_datapoints.deserialize_cbor(
+                data["Datapoints"]
+            )
+        )
+    return out

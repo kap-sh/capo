@@ -50,6 +50,31 @@ def deserialize_aws_json_1_0(data: dict) -> BuyerAgreementApprovalRejectionInput
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BuyerAgreementApprovalRejectionInput) -> dict:
+    out: dict = {}
+    out["agreementApprovalId"] = value["agreement_approval_id"]
+    out["note"] = value["note"]
+    if "approver_outcome_id_to_override" in value:
+        out["approverOutcomeIdToOverride"] = value["approver_outcome_id_to_override"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> BuyerAgreementApprovalRejectionInput:
+    out: BuyerAgreementApprovalRejectionInput = {}  # type: ignore[typeddict-item]
+    if data.get("agreementApprovalId") is not None:
+        out["agreement_approval_id"] = data["agreementApprovalId"]
+    else:
+        out["agreement_approval_id"] = ""
+    if data.get("note") is not None:
+        out["note"] = data["note"]
+    else:
+        out["note"] = ""
+    if data.get("approverOutcomeIdToOverride") is not None:
+        out["approver_outcome_id_to_override"] = data["approverOutcomeIdToOverride"]
+    return out
+
+
 def redact_sensitive(value: BuyerAgreementApprovalRejectionInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "note" in value:

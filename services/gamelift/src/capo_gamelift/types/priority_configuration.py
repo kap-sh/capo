@@ -57,3 +57,38 @@ def deserialize_aws_json_1_1(data: dict) -> PriorityConfiguration:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PriorityConfiguration) -> dict:
+    out: dict = {}
+    if "priority_order" in value:
+        import capo_gamelift.types.priority_type_list
+
+        out["PriorityOrder"] = capo_gamelift.types.priority_type_list.serialize_cbor(
+            value["priority_order"]
+        )
+    if "location_order" in value:
+        import capo_gamelift.types.location_list
+
+        out["LocationOrder"] = capo_gamelift.types.location_list.serialize_cbor(
+            value["location_order"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PriorityConfiguration:
+    out: PriorityConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("PriorityOrder") is not None:
+        import capo_gamelift.types.priority_type_list
+
+        out["priority_order"] = capo_gamelift.types.priority_type_list.deserialize_cbor(
+            data["PriorityOrder"]
+        )
+    if data.get("LocationOrder") is not None:
+        import capo_gamelift.types.location_list
+
+        out["location_order"] = capo_gamelift.types.location_list.deserialize_cbor(
+            data["LocationOrder"]
+        )
+    return out

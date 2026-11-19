@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: TaskFilterName) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> TaskFilterName:
     return cast(TaskFilterName, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TaskFilterName) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> TaskFilterName:
+    return cast(TaskFilterName, data)

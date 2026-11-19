@@ -62,3 +62,43 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeSharedDirectoriesRequest:
     if data.get("Limit") is not None:
         out["limit"] = data["Limit"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeSharedDirectoriesRequest) -> dict:
+    out: dict = {}
+    out["OwnerDirectoryId"] = value["owner_directory_id"]
+    if "shared_directory_ids" in value:
+        import capo_directory_service.types.directory_ids
+
+        out["SharedDirectoryIds"] = (
+            capo_directory_service.types.directory_ids.serialize_cbor(
+                value["shared_directory_ids"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "limit" in value:
+        out["Limit"] = value["limit"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeSharedDirectoriesRequest:
+    out: DescribeSharedDirectoriesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("OwnerDirectoryId") is not None:
+        out["owner_directory_id"] = data["OwnerDirectoryId"]
+    else:
+        out["owner_directory_id"] = ""
+    if data.get("SharedDirectoryIds") is not None:
+        import capo_directory_service.types.directory_ids
+
+        out["shared_directory_ids"] = (
+            capo_directory_service.types.directory_ids.deserialize_cbor(
+                data["SharedDirectoryIds"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("Limit") is not None:
+        out["limit"] = data["Limit"]
+    return out

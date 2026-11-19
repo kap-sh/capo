@@ -71,3 +71,50 @@ def deserialize_aws_json_1_0(data: dict) -> AccountEnrollmentStatus:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AccountEnrollmentStatus) -> dict:
+    out: dict = {}
+    if "account_id" in value:
+        out["accountId"] = value["account_id"]
+    if "status" in value:
+        import capo_compute_optimizer.types.status
+
+        out["status"] = capo_compute_optimizer.types.status.serialize_cbor(
+            value["status"]
+        )
+    if "status_reason" in value:
+        out["statusReason"] = value["status_reason"]
+    if "last_updated_timestamp" in value:
+        import capo_compute_optimizer.types.last_updated_timestamp
+
+        out["lastUpdatedTimestamp"] = (
+            capo_compute_optimizer.types.last_updated_timestamp.serialize_cbor(
+                value["last_updated_timestamp"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AccountEnrollmentStatus:
+    out: AccountEnrollmentStatus = {}  # type: ignore[typeddict-item]
+    if data.get("accountId") is not None:
+        out["account_id"] = data["accountId"]
+    if data.get("status") is not None:
+        import capo_compute_optimizer.types.status
+
+        out["status"] = capo_compute_optimizer.types.status.deserialize_cbor(
+            data["status"]
+        )
+    if data.get("statusReason") is not None:
+        out["status_reason"] = data["statusReason"]
+    if data.get("lastUpdatedTimestamp") is not None:
+        import capo_compute_optimizer.types.last_updated_timestamp
+
+        out["last_updated_timestamp"] = (
+            capo_compute_optimizer.types.last_updated_timestamp.deserialize_cbor(
+                data["lastUpdatedTimestamp"]
+            )
+        )
+    return out

@@ -17,3 +17,12 @@ def serialize_aws_json_1_0(value: ResourceTypeEnum) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> ResourceTypeEnum:
     return cast(ResourceTypeEnum, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResourceTypeEnum) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ResourceTypeEnum:
+    return cast(ResourceTypeEnum, data)

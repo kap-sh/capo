@@ -61,3 +61,46 @@ def deserialize_aws_json_1_1(data: dict) -> HybridSettingsDescription:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: HybridSettingsDescription) -> dict:
+    out: dict = {}
+    if "self_managed_dns_ip_addrs" in value:
+        import capo_directory_service.types.ip_addrs
+
+        out["SelfManagedDnsIpAddrs"] = (
+            capo_directory_service.types.ip_addrs.serialize_cbor(
+                value["self_managed_dns_ip_addrs"]
+            )
+        )
+    if "self_managed_instance_ids" in value:
+        import capo_directory_service.types.assessment_instance_ids
+
+        out["SelfManagedInstanceIds"] = (
+            capo_directory_service.types.assessment_instance_ids.serialize_cbor(
+                value["self_managed_instance_ids"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> HybridSettingsDescription:
+    out: HybridSettingsDescription = {}  # type: ignore[typeddict-item]
+    if data.get("SelfManagedDnsIpAddrs") is not None:
+        import capo_directory_service.types.ip_addrs
+
+        out["self_managed_dns_ip_addrs"] = (
+            capo_directory_service.types.ip_addrs.deserialize_cbor(
+                data["SelfManagedDnsIpAddrs"]
+            )
+        )
+    if data.get("SelfManagedInstanceIds") is not None:
+        import capo_directory_service.types.assessment_instance_ids
+
+        out["self_managed_instance_ids"] = (
+            capo_directory_service.types.assessment_instance_ids.deserialize_cbor(
+                data["SelfManagedInstanceIds"]
+            )
+        )
+    return out

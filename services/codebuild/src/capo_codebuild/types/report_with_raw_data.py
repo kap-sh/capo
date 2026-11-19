@@ -33,3 +33,22 @@ def deserialize_aws_json_1_1(data: dict) -> ReportWithRawData:
     if data.get("data") is not None:
         out["data"] = data["data"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ReportWithRawData) -> dict:
+    out: dict = {}
+    if "report_arn" in value:
+        out["reportArn"] = value["report_arn"]
+    if "data" in value:
+        out["data"] = value["data"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ReportWithRawData:
+    out: ReportWithRawData = {}  # type: ignore[typeddict-item]
+    if data.get("reportArn") is not None:
+        out["report_arn"] = data["reportArn"]
+    if data.get("data") is not None:
+        out["data"] = data["data"]
+    return out

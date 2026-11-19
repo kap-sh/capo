@@ -60,6 +60,44 @@ def deserialize_aws_json_1_0(data: dict) -> AgreementApprovalPlanInput:
         )
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AgreementApprovalPlanInput) -> dict:
+    if "$unknown" in value:
+        raise SerializationError(
+            f"AgreementApprovalPlanInput: cannot serialize unknown variant {value['$unknown']['name']!r}"
+        )
+    elif "buyerAgreementApprovalPlanInput" in value:
+        import capo_marketplace_agreement.types.buyer_agreement_approval_plan_input
+
+        return {
+            "buyerAgreementApprovalPlanInput": capo_marketplace_agreement.types.buyer_agreement_approval_plan_input.serialize_cbor(
+                value["buyerAgreementApprovalPlanInput"]
+            )
+        }
+    else:
+        raise SerializationError("AgreementApprovalPlanInput: no variant present")
+
+
+def deserialize_cbor(data: dict) -> AgreementApprovalPlanInput:
+    if data.get("buyerAgreementApprovalPlanInput") is not None:
+        import capo_marketplace_agreement.types.buyer_agreement_approval_plan_input
+
+        return {
+            "buyerAgreementApprovalPlanInput": capo_marketplace_agreement.types.buyer_agreement_approval_plan_input.deserialize_cbor(
+                data["buyerAgreementApprovalPlanInput"]
+            )
+        }
+    else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return {"$unknown": {"name": name}}
+        raise DeserializationError(
+            "AgreementApprovalPlanInput: no recognized variant key"
+        )
+
+
 def redact_sensitive(value: AgreementApprovalPlanInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "buyerAgreementApprovalPlanInput" in value:

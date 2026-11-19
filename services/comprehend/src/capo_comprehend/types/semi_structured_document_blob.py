@@ -13,3 +13,12 @@ def serialize_aws_json_1_1(value: SemiStructuredDocumentBlob) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> SemiStructuredDocumentBlob:
     return base64.b64decode(data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SemiStructuredDocumentBlob) -> SemiStructuredDocumentBlob:
+    return value
+
+
+def deserialize_cbor(data: SemiStructuredDocumentBlob) -> SemiStructuredDocumentBlob:
+    return data

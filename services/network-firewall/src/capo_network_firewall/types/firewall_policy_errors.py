@@ -37,3 +37,28 @@ def deserialize_aws_json_1_0(data: list) -> FirewallPolicyErrors:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FirewallPolicyErrors) -> list:
+    import capo_network_firewall.types.firewall_policy_error
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_network_firewall.types.firewall_policy_error.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> FirewallPolicyErrors:
+    import capo_network_firewall.types.firewall_policy_error
+
+    out: FirewallPolicyErrors = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_network_firewall.types.firewall_policy_error.deserialize_cbor(item)
+        )
+    return out

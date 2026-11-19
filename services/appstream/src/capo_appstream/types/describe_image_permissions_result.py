@@ -54,3 +54,38 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeImagePermissionsResult:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeImagePermissionsResult) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "shared_image_permissions_list" in value:
+        import capo_appstream.types.shared_image_permissions_list
+
+        out["SharedImagePermissionsList"] = (
+            capo_appstream.types.shared_image_permissions_list.serialize_cbor(
+                value["shared_image_permissions_list"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeImagePermissionsResult:
+    out: DescribeImagePermissionsResult = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("SharedImagePermissionsList") is not None:
+        import capo_appstream.types.shared_image_permissions_list
+
+        out["shared_image_permissions_list"] = (
+            capo_appstream.types.shared_image_permissions_list.deserialize_cbor(
+                data["SharedImagePermissionsList"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

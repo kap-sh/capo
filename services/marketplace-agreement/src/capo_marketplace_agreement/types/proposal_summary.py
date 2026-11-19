@@ -54,3 +54,34 @@ def deserialize_aws_json_1_0(data: dict) -> ProposalSummary:
     if data.get("offerSetId") is not None:
         out["offer_set_id"] = data["offerSetId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ProposalSummary) -> dict:
+    out: dict = {}
+    if "resources" in value:
+        import capo_marketplace_agreement.types.resources
+
+        out["resources"] = capo_marketplace_agreement.types.resources.serialize_cbor(
+            value["resources"]
+        )
+    if "offer_id" in value:
+        out["offerId"] = value["offer_id"]
+    if "offer_set_id" in value:
+        out["offerSetId"] = value["offer_set_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ProposalSummary:
+    out: ProposalSummary = {}  # type: ignore[typeddict-item]
+    if data.get("resources") is not None:
+        import capo_marketplace_agreement.types.resources
+
+        out["resources"] = capo_marketplace_agreement.types.resources.deserialize_cbor(
+            data["resources"]
+        )
+    if data.get("offerId") is not None:
+        out["offer_id"] = data["offerId"]
+    if data.get("offerSetId") is not None:
+        out["offer_set_id"] = data["offerSetId"]
+    return out

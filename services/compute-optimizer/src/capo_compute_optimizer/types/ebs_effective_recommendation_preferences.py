@@ -61,3 +61,46 @@ def deserialize_aws_json_1_0(data: dict) -> EBSEffectiveRecommendationPreference
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EBSEffectiveRecommendationPreferences) -> dict:
+    out: dict = {}
+    if "savings_estimation_mode" in value:
+        import capo_compute_optimizer.types.ebs_savings_estimation_mode
+
+        out["savingsEstimationMode"] = (
+            capo_compute_optimizer.types.ebs_savings_estimation_mode.serialize_cbor(
+                value["savings_estimation_mode"]
+            )
+        )
+    if "look_back_period" in value:
+        import capo_compute_optimizer.types.look_back_period_preference
+
+        out["lookBackPeriod"] = (
+            capo_compute_optimizer.types.look_back_period_preference.serialize_cbor(
+                value["look_back_period"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> EBSEffectiveRecommendationPreferences:
+    out: EBSEffectiveRecommendationPreferences = {}  # type: ignore[typeddict-item]
+    if data.get("savingsEstimationMode") is not None:
+        import capo_compute_optimizer.types.ebs_savings_estimation_mode
+
+        out["savings_estimation_mode"] = (
+            capo_compute_optimizer.types.ebs_savings_estimation_mode.deserialize_cbor(
+                data["savingsEstimationMode"]
+            )
+        )
+    if data.get("lookBackPeriod") is not None:
+        import capo_compute_optimizer.types.look_back_period_preference
+
+        out["look_back_period"] = (
+            capo_compute_optimizer.types.look_back_period_preference.deserialize_cbor(
+                data["lookBackPeriod"]
+            )
+        )
+    return out

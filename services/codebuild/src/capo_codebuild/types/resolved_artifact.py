@@ -47,3 +47,30 @@ def deserialize_aws_json_1_1(data: dict) -> ResolvedArtifact:
     if data.get("identifier") is not None:
         out["identifier"] = data["identifier"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResolvedArtifact) -> dict:
+    out: dict = {}
+    if "type" in value:
+        import capo_codebuild.types.artifacts_type
+
+        out["type"] = capo_codebuild.types.artifacts_type.serialize_cbor(value["type"])
+    if "location" in value:
+        out["location"] = value["location"]
+    if "identifier" in value:
+        out["identifier"] = value["identifier"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ResolvedArtifact:
+    out: ResolvedArtifact = {}  # type: ignore[typeddict-item]
+    if data.get("type") is not None:
+        import capo_codebuild.types.artifacts_type
+
+        out["type"] = capo_codebuild.types.artifacts_type.deserialize_cbor(data["type"])
+    if data.get("location") is not None:
+        out["location"] = data["location"]
+    if data.get("identifier") is not None:
+        out["identifier"] = data["identifier"]
+    return out

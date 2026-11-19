@@ -55,3 +55,41 @@ def deserialize_aws_json_1_0(data: dict) -> AttachPointDescriptor:
     else:
         out["name"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AttachPointDescriptor) -> dict:
+    out: dict = {}
+    import capo_interconnect.types.attach_point_type
+
+    out["type"] = capo_interconnect.types.attach_point_type.serialize_cbor(
+        value["type"]
+    )
+    out["identifier"] = value["identifier"]
+    out["name"] = value["name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AttachPointDescriptor:
+    out: AttachPointDescriptor = {}  # type: ignore[typeddict-item]
+    if data.get("type") is not None:
+        import capo_interconnect.types.attach_point_type
+
+        out["type"] = capo_interconnect.types.attach_point_type.deserialize_cbor(
+            data["type"]
+        )
+    else:
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_interconnect.types.attach_point_type.AttachPointType", ""
+        )
+    if data.get("identifier") is not None:
+        out["identifier"] = data["identifier"]
+    else:
+        out["identifier"] = ""
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    else:
+        out["name"] = ""
+    return out

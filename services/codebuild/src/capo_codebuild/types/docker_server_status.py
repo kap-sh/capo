@@ -32,3 +32,22 @@ def deserialize_aws_json_1_1(data: dict) -> DockerServerStatus:
     if data.get("message") is not None:
         out["message"] = data["message"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DockerServerStatus) -> dict:
+    out: dict = {}
+    if "status" in value:
+        out["status"] = value["status"]
+    if "message" in value:
+        out["message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DockerServerStatus:
+    out: DockerServerStatus = {}  # type: ignore[typeddict-item]
+    if data.get("status") is not None:
+        out["status"] = data["status"]
+    if data.get("message") is not None:
+        out["message"] = data["message"]
+    return out

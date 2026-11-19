@@ -45,3 +45,30 @@ def deserialize_aws_json_1_1(data: dict) -> AutoRetryConfig:
     if data.get("previousAutoRetry") is not None:
         out["previous_auto_retry"] = data["previousAutoRetry"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AutoRetryConfig) -> dict:
+    out: dict = {}
+    if "auto_retry_limit" in value:
+        out["autoRetryLimit"] = value["auto_retry_limit"]
+    if "auto_retry_number" in value:
+        out["autoRetryNumber"] = value["auto_retry_number"]
+    if "next_auto_retry" in value:
+        out["nextAutoRetry"] = value["next_auto_retry"]
+    if "previous_auto_retry" in value:
+        out["previousAutoRetry"] = value["previous_auto_retry"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AutoRetryConfig:
+    out: AutoRetryConfig = {}  # type: ignore[typeddict-item]
+    if data.get("autoRetryLimit") is not None:
+        out["auto_retry_limit"] = data["autoRetryLimit"]
+    if data.get("autoRetryNumber") is not None:
+        out["auto_retry_number"] = data["autoRetryNumber"]
+    if data.get("nextAutoRetry") is not None:
+        out["next_auto_retry"] = data["nextAutoRetry"]
+    if data.get("previousAutoRetry") is not None:
+        out["previous_auto_retry"] = data["previousAutoRetry"]
+    return out

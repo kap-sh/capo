@@ -17,3 +17,12 @@ def serialize_aws_json_1_1(value: RevisionLocationType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> RevisionLocationType:
     return cast(RevisionLocationType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RevisionLocationType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> RevisionLocationType:
+    return cast(RevisionLocationType, data)

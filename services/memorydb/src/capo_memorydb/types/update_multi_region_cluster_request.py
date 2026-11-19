@@ -92,3 +92,65 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateMultiRegionClusterRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateMultiRegionClusterRequest) -> dict:
+    out: dict = {}
+    out["MultiRegionClusterName"] = value["multi_region_cluster_name"]
+    if "node_type" in value:
+        out["NodeType"] = value["node_type"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "engine_version" in value:
+        out["EngineVersion"] = value["engine_version"]
+    if "shard_configuration" in value:
+        import capo_memorydb.types.shard_configuration_request
+
+        out["ShardConfiguration"] = (
+            capo_memorydb.types.shard_configuration_request.serialize_cbor(
+                value["shard_configuration"]
+            )
+        )
+    if "multi_region_parameter_group_name" in value:
+        out["MultiRegionParameterGroupName"] = value[
+            "multi_region_parameter_group_name"
+        ]
+    if "update_strategy" in value:
+        import capo_memorydb.types.update_strategy
+
+        out["UpdateStrategy"] = capo_memorydb.types.update_strategy.serialize_cbor(
+            value["update_strategy"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateMultiRegionClusterRequest:
+    out: UpdateMultiRegionClusterRequest = {}  # type: ignore[typeddict-item]
+    if data.get("MultiRegionClusterName") is not None:
+        out["multi_region_cluster_name"] = data["MultiRegionClusterName"]
+    else:
+        out["multi_region_cluster_name"] = ""
+    if data.get("NodeType") is not None:
+        out["node_type"] = data["NodeType"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("EngineVersion") is not None:
+        out["engine_version"] = data["EngineVersion"]
+    if data.get("ShardConfiguration") is not None:
+        import capo_memorydb.types.shard_configuration_request
+
+        out["shard_configuration"] = (
+            capo_memorydb.types.shard_configuration_request.deserialize_cbor(
+                data["ShardConfiguration"]
+            )
+        )
+    if data.get("MultiRegionParameterGroupName") is not None:
+        out["multi_region_parameter_group_name"] = data["MultiRegionParameterGroupName"]
+    if data.get("UpdateStrategy") is not None:
+        import capo_memorydb.types.update_strategy
+
+        out["update_strategy"] = capo_memorydb.types.update_strategy.deserialize_cbor(
+            data["UpdateStrategy"]
+        )
+    return out

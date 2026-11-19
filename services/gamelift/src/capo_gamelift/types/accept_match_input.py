@@ -70,6 +70,49 @@ def deserialize_aws_json_1_1(data: dict) -> AcceptMatchInput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AcceptMatchInput) -> dict:
+    out: dict = {}
+    if "ticket_id" in value:
+        out["TicketId"] = value["ticket_id"]
+    if "player_ids" in value:
+        import capo_gamelift.types.player_ids_for_accept_match
+
+        out["PlayerIds"] = (
+            capo_gamelift.types.player_ids_for_accept_match.serialize_cbor(
+                value["player_ids"]
+            )
+        )
+    if "acceptance_type" in value:
+        import capo_gamelift.types.acceptance_type
+
+        out["AcceptanceType"] = capo_gamelift.types.acceptance_type.serialize_cbor(
+            value["acceptance_type"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AcceptMatchInput:
+    out: AcceptMatchInput = {}  # type: ignore[typeddict-item]
+    if data.get("TicketId") is not None:
+        out["ticket_id"] = data["TicketId"]
+    if data.get("PlayerIds") is not None:
+        import capo_gamelift.types.player_ids_for_accept_match
+
+        out["player_ids"] = (
+            capo_gamelift.types.player_ids_for_accept_match.deserialize_cbor(
+                data["PlayerIds"]
+            )
+        )
+    if data.get("AcceptanceType") is not None:
+        import capo_gamelift.types.acceptance_type
+
+        out["acceptance_type"] = capo_gamelift.types.acceptance_type.deserialize_cbor(
+            data["AcceptanceType"]
+        )
+    return out
+
+
 def redact_sensitive(value: AcceptMatchInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "player_ids" in value:

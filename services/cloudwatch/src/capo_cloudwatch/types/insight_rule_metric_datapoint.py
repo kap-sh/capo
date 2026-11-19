@@ -300,3 +300,54 @@ def deserialize_query(el: Element) -> InsightRuleMetricDatapoint:
     if child_maximum is not None:
         out["maximum"] = float(child_maximum.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InsightRuleMetricDatapoint) -> dict:
+    out: dict = {}
+    if "timestamp" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["Timestamp"] = capo_cloudwatch.types.timestamp.serialize_cbor(
+            value["timestamp"]
+        )
+    if "unique_contributors" in value:
+        out["UniqueContributors"] = value["unique_contributors"]
+    if "max_contributor_value" in value:
+        out["MaxContributorValue"] = value["max_contributor_value"]
+    if "sample_count" in value:
+        out["SampleCount"] = value["sample_count"]
+    if "average" in value:
+        out["Average"] = value["average"]
+    if "sum" in value:
+        out["Sum"] = value["sum"]
+    if "minimum" in value:
+        out["Minimum"] = value["minimum"]
+    if "maximum" in value:
+        out["Maximum"] = value["maximum"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> InsightRuleMetricDatapoint:
+    out: InsightRuleMetricDatapoint = {}  # type: ignore[typeddict-item]
+    if data.get("Timestamp") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["timestamp"] = capo_cloudwatch.types.timestamp.deserialize_cbor(
+            data["Timestamp"]
+        )
+    if data.get("UniqueContributors") is not None:
+        out["unique_contributors"] = float(data["UniqueContributors"])
+    if data.get("MaxContributorValue") is not None:
+        out["max_contributor_value"] = float(data["MaxContributorValue"])
+    if data.get("SampleCount") is not None:
+        out["sample_count"] = float(data["SampleCount"])
+    if data.get("Average") is not None:
+        out["average"] = float(data["Average"])
+    if data.get("Sum") is not None:
+        out["sum"] = float(data["Sum"])
+    if data.get("Minimum") is not None:
+        out["minimum"] = float(data["Minimum"])
+    if data.get("Maximum") is not None:
+        out["maximum"] = float(data["Maximum"])
+    return out

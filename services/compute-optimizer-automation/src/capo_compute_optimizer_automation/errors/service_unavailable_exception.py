@@ -25,6 +25,21 @@ def deserialize_aws_json_1_0(data: dict) -> ServiceUnavailableException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ServiceUnavailableException_) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ServiceUnavailableException_:
+    out: ServiceUnavailableException_ = {}  # type: ignore[typeddict-item]
+    if data.get("message") is not None:
+        out["message"] = data["message"]
+    return out
+
+
 class ServiceUnavailableException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.computeoptimizerautomation#ServiceUnavailableException``."""
 
@@ -52,3 +67,9 @@ class ServiceUnavailableException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ServiceUnavailableException":
         return cls(deserialize_aws_json_1_0(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "ServiceUnavailableException":
+        return cls(deserialize_cbor(data), message, response=response)

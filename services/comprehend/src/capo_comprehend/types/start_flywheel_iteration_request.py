@@ -36,3 +36,23 @@ def deserialize_aws_json_1_1(data: dict) -> StartFlywheelIterationRequest:
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartFlywheelIterationRequest) -> dict:
+    out: dict = {}
+    out["FlywheelArn"] = value["flywheel_arn"]
+    if "client_request_token" in value:
+        out["ClientRequestToken"] = value["client_request_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartFlywheelIterationRequest:
+    out: StartFlywheelIterationRequest = {}  # type: ignore[typeddict-item]
+    if data.get("FlywheelArn") is not None:
+        out["flywheel_arn"] = data["FlywheelArn"]
+    else:
+        out["flywheel_arn"] = ""
+    if data.get("ClientRequestToken") is not None:
+        out["client_request_token"] = data["ClientRequestToken"]
+    return out

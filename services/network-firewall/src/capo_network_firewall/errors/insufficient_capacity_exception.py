@@ -30,6 +30,21 @@ def deserialize_aws_json_1_0(data: dict) -> InsufficientCapacityException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InsufficientCapacityException_) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["Message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> InsufficientCapacityException_:
+    out: InsufficientCapacityException_ = {}  # type: ignore[typeddict-item]
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    return out
+
+
 class InsufficientCapacityException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.networkfirewall#InsufficientCapacityException``."""
 
@@ -57,3 +72,9 @@ class InsufficientCapacityException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InsufficientCapacityException":
         return cls(deserialize_aws_json_1_0(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "InsufficientCapacityException":
+        return cls(deserialize_cbor(data), message, response=response)

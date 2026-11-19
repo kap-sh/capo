@@ -22,3 +22,12 @@ def serialize_aws_json_1_0(value: InferredWorkloadType) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> InferredWorkloadType:
     return cast(InferredWorkloadType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InferredWorkloadType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> InferredWorkloadType:
+    return cast(InferredWorkloadType, data)

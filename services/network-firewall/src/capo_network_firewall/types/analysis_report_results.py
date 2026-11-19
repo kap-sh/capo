@@ -37,3 +37,30 @@ def deserialize_aws_json_1_0(data: list) -> AnalysisReportResults:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AnalysisReportResults) -> list:
+    import capo_network_firewall.types.analysis_type_report_result
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_network_firewall.types.analysis_type_report_result.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> AnalysisReportResults:
+    import capo_network_firewall.types.analysis_type_report_result
+
+    out: AnalysisReportResults = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_network_firewall.types.analysis_type_report_result.deserialize_cbor(
+                item
+            )
+        )
+    return out

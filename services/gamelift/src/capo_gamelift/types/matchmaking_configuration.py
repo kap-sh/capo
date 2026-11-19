@@ -217,6 +217,131 @@ def deserialize_aws_json_1_1(data: dict) -> MatchmakingConfiguration:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MatchmakingConfiguration) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "configuration_arn" in value:
+        out["ConfigurationArn"] = value["configuration_arn"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "game_session_queue_arns" in value:
+        import capo_gamelift.types.queue_arns_list
+
+        out["GameSessionQueueArns"] = (
+            capo_gamelift.types.queue_arns_list.serialize_cbor(
+                value["game_session_queue_arns"]
+            )
+        )
+    if "request_timeout_seconds" in value:
+        out["RequestTimeoutSeconds"] = value["request_timeout_seconds"]
+    if "acceptance_timeout_seconds" in value:
+        out["AcceptanceTimeoutSeconds"] = value["acceptance_timeout_seconds"]
+    if "acceptance_required" in value:
+        out["AcceptanceRequired"] = value["acceptance_required"]
+    if "rule_set_name" in value:
+        out["RuleSetName"] = value["rule_set_name"]
+    if "rule_set_arn" in value:
+        out["RuleSetArn"] = value["rule_set_arn"]
+    if "notification_target" in value:
+        out["NotificationTarget"] = value["notification_target"]
+    if "additional_player_count" in value:
+        out["AdditionalPlayerCount"] = value["additional_player_count"]
+    if "custom_event_data" in value:
+        out["CustomEventData"] = value["custom_event_data"]
+    if "creation_time" in value:
+        import capo_gamelift.types.timestamp
+
+        out["CreationTime"] = capo_gamelift.types.timestamp.serialize_cbor(
+            value["creation_time"]
+        )
+    if "game_properties" in value:
+        import capo_gamelift.types.game_property_list
+
+        out["GameProperties"] = capo_gamelift.types.game_property_list.serialize_cbor(
+            value["game_properties"]
+        )
+    if "game_session_data" in value:
+        out["GameSessionData"] = value["game_session_data"]
+    if "backfill_mode" in value:
+        import capo_gamelift.types.backfill_mode
+
+        out["BackfillMode"] = capo_gamelift.types.backfill_mode.serialize_cbor(
+            value["backfill_mode"]
+        )
+    if "flex_match_mode" in value:
+        import capo_gamelift.types.flex_match_mode
+
+        out["FlexMatchMode"] = capo_gamelift.types.flex_match_mode.serialize_cbor(
+            value["flex_match_mode"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> MatchmakingConfiguration:
+    out: MatchmakingConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("ConfigurationArn") is not None:
+        out["configuration_arn"] = data["ConfigurationArn"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("GameSessionQueueArns") is not None:
+        import capo_gamelift.types.queue_arns_list
+
+        out["game_session_queue_arns"] = (
+            capo_gamelift.types.queue_arns_list.deserialize_cbor(
+                data["GameSessionQueueArns"]
+            )
+        )
+    if data.get("RequestTimeoutSeconds") is not None:
+        out["request_timeout_seconds"] = data["RequestTimeoutSeconds"]
+    if data.get("AcceptanceTimeoutSeconds") is not None:
+        out["acceptance_timeout_seconds"] = data["AcceptanceTimeoutSeconds"]
+    if data.get("AcceptanceRequired") is not None:
+        out["acceptance_required"] = data["AcceptanceRequired"]
+    if data.get("RuleSetName") is not None:
+        out["rule_set_name"] = data["RuleSetName"]
+    if data.get("RuleSetArn") is not None:
+        out["rule_set_arn"] = data["RuleSetArn"]
+    if data.get("NotificationTarget") is not None:
+        out["notification_target"] = data["NotificationTarget"]
+    if data.get("AdditionalPlayerCount") is not None:
+        out["additional_player_count"] = data["AdditionalPlayerCount"]
+    if data.get("CustomEventData") is not None:
+        out["custom_event_data"] = data["CustomEventData"]
+    if data.get("CreationTime") is not None:
+        import capo_gamelift.types.timestamp
+
+        out["creation_time"] = capo_gamelift.types.timestamp.deserialize_cbor(
+            data["CreationTime"]
+        )
+    if data.get("GameProperties") is not None:
+        import capo_gamelift.types.game_property_list
+
+        out["game_properties"] = (
+            capo_gamelift.types.game_property_list.deserialize_cbor(
+                data["GameProperties"]
+            )
+        )
+    if data.get("GameSessionData") is not None:
+        out["game_session_data"] = data["GameSessionData"]
+    if data.get("BackfillMode") is not None:
+        import capo_gamelift.types.backfill_mode
+
+        out["backfill_mode"] = capo_gamelift.types.backfill_mode.deserialize_cbor(
+            data["BackfillMode"]
+        )
+    if data.get("FlexMatchMode") is not None:
+        import capo_gamelift.types.flex_match_mode
+
+        out["flex_match_mode"] = capo_gamelift.types.flex_match_mode.deserialize_cbor(
+            data["FlexMatchMode"]
+        )
+    return out
+
+
 def redact_sensitive(value: MatchmakingConfiguration) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "custom_event_data" in value:

@@ -67,3 +67,42 @@ def deserialize_aws_json_1_1(data: dict) -> GameServerInstance:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GameServerInstance) -> dict:
+    out: dict = {}
+    if "game_server_group_name" in value:
+        out["GameServerGroupName"] = value["game_server_group_name"]
+    if "game_server_group_arn" in value:
+        out["GameServerGroupArn"] = value["game_server_group_arn"]
+    if "instance_id" in value:
+        out["InstanceId"] = value["instance_id"]
+    if "instance_status" in value:
+        import capo_gamelift.types.game_server_instance_status
+
+        out["InstanceStatus"] = (
+            capo_gamelift.types.game_server_instance_status.serialize_cbor(
+                value["instance_status"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GameServerInstance:
+    out: GameServerInstance = {}  # type: ignore[typeddict-item]
+    if data.get("GameServerGroupName") is not None:
+        out["game_server_group_name"] = data["GameServerGroupName"]
+    if data.get("GameServerGroupArn") is not None:
+        out["game_server_group_arn"] = data["GameServerGroupArn"]
+    if data.get("InstanceId") is not None:
+        out["instance_id"] = data["InstanceId"]
+    if data.get("InstanceStatus") is not None:
+        import capo_gamelift.types.game_server_instance_status
+
+        out["instance_status"] = (
+            capo_gamelift.types.game_server_instance_status.deserialize_cbor(
+                data["InstanceStatus"]
+            )
+        )
+    return out

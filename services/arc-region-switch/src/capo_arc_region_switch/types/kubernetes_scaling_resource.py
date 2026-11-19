@@ -40,3 +40,28 @@ def deserialize_aws_json_1_0(data: dict) -> KubernetesScalingResource:
     if data.get("hpaName") is not None:
         out["hpa_name"] = data["hpaName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: KubernetesScalingResource) -> dict:
+    out: dict = {}
+    out["namespace"] = value["namespace"]
+    out["name"] = value["name"]
+    if "hpa_name" in value:
+        out["hpaName"] = value["hpa_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> KubernetesScalingResource:
+    out: KubernetesScalingResource = {}  # type: ignore[typeddict-item]
+    if data.get("namespace") is not None:
+        out["namespace"] = data["namespace"]
+    else:
+        out["namespace"] = ""
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    else:
+        out["name"] = ""
+    if data.get("hpaName") is not None:
+        out["hpa_name"] = data["hpaName"]
+    return out

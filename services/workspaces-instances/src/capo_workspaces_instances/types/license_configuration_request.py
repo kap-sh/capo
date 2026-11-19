@@ -26,3 +26,18 @@ def deserialize_aws_json_1_0(data: dict) -> LicenseConfigurationRequest:
     if data.get("LicenseConfigurationArn") is not None:
         out["license_configuration_arn"] = data["LicenseConfigurationArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LicenseConfigurationRequest) -> dict:
+    out: dict = {}
+    if "license_configuration_arn" in value:
+        out["LicenseConfigurationArn"] = value["license_configuration_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> LicenseConfigurationRequest:
+    out: LicenseConfigurationRequest = {}  # type: ignore[typeddict-item]
+    if data.get("LicenseConfigurationArn") is not None:
+        out["license_configuration_arn"] = data["LicenseConfigurationArn"]
+    return out

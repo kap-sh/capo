@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDetectDominantLanguageItemResul
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchDetectDominantLanguageItemResult) -> dict:
+    out: dict = {}
+    if "index" in value:
+        out["Index"] = value["index"]
+    if "languages" in value:
+        import capo_comprehend.types.list_of_dominant_languages
+
+        out["Languages"] = (
+            capo_comprehend.types.list_of_dominant_languages.serialize_cbor(
+                value["languages"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BatchDetectDominantLanguageItemResult:
+    out: BatchDetectDominantLanguageItemResult = {}  # type: ignore[typeddict-item]
+    if data.get("Index") is not None:
+        out["index"] = data["Index"]
+    if data.get("Languages") is not None:
+        import capo_comprehend.types.list_of_dominant_languages
+
+        out["languages"] = (
+            capo_comprehend.types.list_of_dominant_languages.deserialize_cbor(
+                data["Languages"]
+            )
+        )
+    return out

@@ -50,3 +50,24 @@ def deserialize_aws_json_1_1(data: dict) -> Point:
     else:
         out["y"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Point) -> dict:
+    out: dict = {}
+    out["X"] = value.get("x", 0)
+    out["Y"] = value.get("y", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> Point:
+    out: Point = {}  # type: ignore[typeddict-item]
+    if data.get("X") is not None:
+        out["x"] = float(data["X"])
+    else:
+        out["x"] = 0
+    if data.get("Y") is not None:
+        out["y"] = float(data["Y"])
+    else:
+        out["y"] = 0
+    return out

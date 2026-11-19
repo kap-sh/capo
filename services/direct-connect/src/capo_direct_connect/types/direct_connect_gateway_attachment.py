@@ -106,3 +106,66 @@ def deserialize_aws_json_1_1(data: dict) -> DirectConnectGatewayAttachment:
     if data.get("stateChangeError") is not None:
         out["state_change_error"] = data["stateChangeError"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DirectConnectGatewayAttachment) -> dict:
+    out: dict = {}
+    if "direct_connect_gateway_id" in value:
+        out["directConnectGatewayId"] = value["direct_connect_gateway_id"]
+    if "virtual_interface_id" in value:
+        out["virtualInterfaceId"] = value["virtual_interface_id"]
+    if "virtual_interface_region" in value:
+        out["virtualInterfaceRegion"] = value["virtual_interface_region"]
+    if "virtual_interface_owner_account" in value:
+        out["virtualInterfaceOwnerAccount"] = value["virtual_interface_owner_account"]
+    if "attachment_state" in value:
+        import capo_direct_connect.types.direct_connect_gateway_attachment_state
+
+        out["attachmentState"] = (
+            capo_direct_connect.types.direct_connect_gateway_attachment_state.serialize_cbor(
+                value["attachment_state"]
+            )
+        )
+    if "attachment_type" in value:
+        import capo_direct_connect.types.direct_connect_gateway_attachment_type
+
+        out["attachmentType"] = (
+            capo_direct_connect.types.direct_connect_gateway_attachment_type.serialize_cbor(
+                value["attachment_type"]
+            )
+        )
+    if "state_change_error" in value:
+        out["stateChangeError"] = value["state_change_error"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DirectConnectGatewayAttachment:
+    out: DirectConnectGatewayAttachment = {}  # type: ignore[typeddict-item]
+    if data.get("directConnectGatewayId") is not None:
+        out["direct_connect_gateway_id"] = data["directConnectGatewayId"]
+    if data.get("virtualInterfaceId") is not None:
+        out["virtual_interface_id"] = data["virtualInterfaceId"]
+    if data.get("virtualInterfaceRegion") is not None:
+        out["virtual_interface_region"] = data["virtualInterfaceRegion"]
+    if data.get("virtualInterfaceOwnerAccount") is not None:
+        out["virtual_interface_owner_account"] = data["virtualInterfaceOwnerAccount"]
+    if data.get("attachmentState") is not None:
+        import capo_direct_connect.types.direct_connect_gateway_attachment_state
+
+        out["attachment_state"] = (
+            capo_direct_connect.types.direct_connect_gateway_attachment_state.deserialize_cbor(
+                data["attachmentState"]
+            )
+        )
+    if data.get("attachmentType") is not None:
+        import capo_direct_connect.types.direct_connect_gateway_attachment_type
+
+        out["attachment_type"] = (
+            capo_direct_connect.types.direct_connect_gateway_attachment_type.deserialize_cbor(
+                data["attachmentType"]
+            )
+        )
+    if data.get("stateChangeError") is not None:
+        out["state_change_error"] = data["stateChangeError"]
+    return out

@@ -87,3 +87,58 @@ def deserialize_aws_json_1_1(data: dict) -> CreateMultiRegionClusterRequest:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateMultiRegionClusterRequest) -> dict:
+    out: dict = {}
+    out["MultiRegionClusterNameSuffix"] = value["multi_region_cluster_name_suffix"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "engine" in value:
+        out["Engine"] = value["engine"]
+    if "engine_version" in value:
+        out["EngineVersion"] = value["engine_version"]
+    out["NodeType"] = value["node_type"]
+    if "multi_region_parameter_group_name" in value:
+        out["MultiRegionParameterGroupName"] = value[
+            "multi_region_parameter_group_name"
+        ]
+    if "num_shards" in value:
+        out["NumShards"] = value["num_shards"]
+    if "tls_enabled" in value:
+        out["TLSEnabled"] = value["tls_enabled"]
+    if "tags" in value:
+        import capo_memorydb.types.tag_list
+
+        out["Tags"] = capo_memorydb.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateMultiRegionClusterRequest:
+    out: CreateMultiRegionClusterRequest = {}  # type: ignore[typeddict-item]
+    if data.get("MultiRegionClusterNameSuffix") is not None:
+        out["multi_region_cluster_name_suffix"] = data["MultiRegionClusterNameSuffix"]
+    else:
+        out["multi_region_cluster_name_suffix"] = ""
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("Engine") is not None:
+        out["engine"] = data["Engine"]
+    if data.get("EngineVersion") is not None:
+        out["engine_version"] = data["EngineVersion"]
+    if data.get("NodeType") is not None:
+        out["node_type"] = data["NodeType"]
+    else:
+        out["node_type"] = ""
+    if data.get("MultiRegionParameterGroupName") is not None:
+        out["multi_region_parameter_group_name"] = data["MultiRegionParameterGroupName"]
+    if data.get("NumShards") is not None:
+        out["num_shards"] = data["NumShards"]
+    if data.get("TLSEnabled") is not None:
+        out["tls_enabled"] = data["TLSEnabled"]
+    if data.get("Tags") is not None:
+        import capo_memorydb.types.tag_list
+
+        out["tags"] = capo_memorydb.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

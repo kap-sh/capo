@@ -37,3 +37,32 @@ def deserialize_aws_json_1_0(data: list) -> LicenseSpecifications:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LicenseSpecifications) -> list:
+    import capo_workspaces_instances.types.license_configuration_request
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_workspaces_instances.types.license_configuration_request.serialize_cbor(
+                item
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> LicenseSpecifications:
+    import capo_workspaces_instances.types.license_configuration_request
+
+    out: LicenseSpecifications = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_workspaces_instances.types.license_configuration_request.deserialize_cbor(
+                item
+            )
+        )
+    return out

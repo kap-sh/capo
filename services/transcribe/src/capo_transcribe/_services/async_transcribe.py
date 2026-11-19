@@ -174,6 +174,7 @@ class AsyncTranscribeClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[AsyncInterceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_1", "rpcv2Cbor"]
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -190,6 +191,7 @@ class AsyncTranscribeClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -205,6 +207,7 @@ class AsyncTranscribeClient:
         operation_interceptors: Iterable[AsyncInterceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_1", "rpcv2Cbor"] = "awsJson1_1",
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -241,6 +244,7 @@ class AsyncTranscribeClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -274,6 +278,9 @@ class AsyncTranscribeClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_1")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -317,14 +324,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.create_call_analytics_category_response.CreateCallAnalyticsCategoryResponse"
         ]:
-            import capo_transcribe._operations.transcribe.create_call_analytics_category
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.create_call_analytics_category
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.create_call_analytics_category.async_create_call_analytics_category(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.create_call_analytics_category.async_create_call_analytics_category(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.create_call_analytics_category
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.create_call_analytics_category.async_create_call_analytics_category(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -383,14 +402,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.create_language_model_response.CreateLanguageModelResponse"
         ]:
-            import capo_transcribe._operations.transcribe.create_language_model
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.create_language_model
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.create_language_model.async_create_language_model(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.create_language_model.async_create_language_model(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.create_language_model
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.create_language_model.async_create_language_model(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -445,14 +476,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.create_medical_vocabulary_response.CreateMedicalVocabularyResponse"
         ]:
-            import capo_transcribe._operations.transcribe.create_medical_vocabulary
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.create_medical_vocabulary
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.create_medical_vocabulary.async_create_medical_vocabulary(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.create_medical_vocabulary.async_create_medical_vocabulary(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.create_medical_vocabulary
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.create_medical_vocabulary.async_create_medical_vocabulary(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -514,14 +557,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.create_vocabulary_response.CreateVocabularyResponse"
         ]:
-            import capo_transcribe._operations.transcribe.create_vocabulary
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.create_vocabulary
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.create_vocabulary.async_create_vocabulary(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.create_vocabulary.async_create_vocabulary(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.create_vocabulary
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.create_vocabulary.async_create_vocabulary(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -590,14 +645,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.create_vocabulary_filter_response.CreateVocabularyFilterResponse"
         ]:
-            import capo_transcribe._operations.transcribe.create_vocabulary_filter
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.create_vocabulary_filter
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.create_vocabulary_filter.async_create_vocabulary_filter(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.create_vocabulary_filter.async_create_vocabulary_filter(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.create_vocabulary_filter
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.create_vocabulary_filter.async_create_vocabulary_filter(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -650,14 +717,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.delete_call_analytics_category_response.DeleteCallAnalyticsCategoryResponse"
         ]:
-            import capo_transcribe._operations.transcribe.delete_call_analytics_category
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.delete_call_analytics_category
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.delete_call_analytics_category.async_delete_call_analytics_category(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.delete_call_analytics_category.async_delete_call_analytics_category(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.delete_call_analytics_category
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.delete_call_analytics_category.async_delete_call_analytics_category(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -698,14 +777,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.delete_call_analytics_job_response.DeleteCallAnalyticsJobResponse"
         ]:
-            import capo_transcribe._operations.transcribe.delete_call_analytics_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.delete_call_analytics_job
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.delete_call_analytics_job.async_delete_call_analytics_job(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.delete_call_analytics_job.async_delete_call_analytics_job(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.delete_call_analytics_job
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.delete_call_analytics_job.async_delete_call_analytics_job(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -744,14 +835,26 @@ class AsyncTranscribeClient:
         async def _handler(
             req: "AsyncOperationRequest[capo_transcribe.types.delete_language_model_request.DeleteLanguageModelRequest]",
         ) -> AsyncOperationResponse[None]:
-            import capo_transcribe._operations.transcribe.delete_language_model
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.delete_language_model
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.delete_language_model.async_delete_language_model(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.delete_language_model.async_delete_language_model(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.delete_language_model
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.delete_language_model.async_delete_language_model(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -790,14 +893,26 @@ class AsyncTranscribeClient:
         async def _handler(
             req: "AsyncOperationRequest[capo_transcribe.types.delete_medical_scribe_job_request.DeleteMedicalScribeJobRequest]",
         ) -> AsyncOperationResponse[None]:
-            import capo_transcribe._operations.transcribe.delete_medical_scribe_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.delete_medical_scribe_job
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.delete_medical_scribe_job.async_delete_medical_scribe_job(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.delete_medical_scribe_job.async_delete_medical_scribe_job(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.delete_medical_scribe_job
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.delete_medical_scribe_job.async_delete_medical_scribe_job(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -836,14 +951,26 @@ class AsyncTranscribeClient:
         async def _handler(
             req: "AsyncOperationRequest[capo_transcribe.types.delete_medical_transcription_job_request.DeleteMedicalTranscriptionJobRequest]",
         ) -> AsyncOperationResponse[None]:
-            import capo_transcribe._operations.transcribe.delete_medical_transcription_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.delete_medical_transcription_job
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.delete_medical_transcription_job.async_delete_medical_transcription_job(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.delete_medical_transcription_job.async_delete_medical_transcription_job(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.delete_medical_transcription_job
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.delete_medical_transcription_job.async_delete_medical_transcription_job(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -883,14 +1010,26 @@ class AsyncTranscribeClient:
         async def _handler(
             req: "AsyncOperationRequest[capo_transcribe.types.delete_medical_vocabulary_request.DeleteMedicalVocabularyRequest]",
         ) -> AsyncOperationResponse[None]:
-            import capo_transcribe._operations.transcribe.delete_medical_vocabulary
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.delete_medical_vocabulary
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.delete_medical_vocabulary.async_delete_medical_vocabulary(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.delete_medical_vocabulary.async_delete_medical_vocabulary(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.delete_medical_vocabulary
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.delete_medical_vocabulary.async_delete_medical_vocabulary(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -929,14 +1068,26 @@ class AsyncTranscribeClient:
         async def _handler(
             req: "AsyncOperationRequest[capo_transcribe.types.delete_transcription_job_request.DeleteTranscriptionJobRequest]",
         ) -> AsyncOperationResponse[None]:
-            import capo_transcribe._operations.transcribe.delete_transcription_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.delete_transcription_job
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.delete_transcription_job.async_delete_transcription_job(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.delete_transcription_job.async_delete_transcription_job(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.delete_transcription_job
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.delete_transcription_job.async_delete_transcription_job(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -976,14 +1127,26 @@ class AsyncTranscribeClient:
         async def _handler(
             req: "AsyncOperationRequest[capo_transcribe.types.delete_vocabulary_request.DeleteVocabularyRequest]",
         ) -> AsyncOperationResponse[None]:
-            import capo_transcribe._operations.transcribe.delete_vocabulary
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.delete_vocabulary
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.delete_vocabulary.async_delete_vocabulary(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.delete_vocabulary.async_delete_vocabulary(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.delete_vocabulary
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.delete_vocabulary.async_delete_vocabulary(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1023,14 +1186,26 @@ class AsyncTranscribeClient:
         async def _handler(
             req: "AsyncOperationRequest[capo_transcribe.types.delete_vocabulary_filter_request.DeleteVocabularyFilterRequest]",
         ) -> AsyncOperationResponse[None]:
-            import capo_transcribe._operations.transcribe.delete_vocabulary_filter
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.delete_vocabulary_filter
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.delete_vocabulary_filter.async_delete_vocabulary_filter(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.delete_vocabulary_filter.async_delete_vocabulary_filter(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.delete_vocabulary_filter
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.delete_vocabulary_filter.async_delete_vocabulary_filter(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1072,14 +1247,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.describe_language_model_response.DescribeLanguageModelResponse"
         ]:
-            import capo_transcribe._operations.transcribe.describe_language_model
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.describe_language_model
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.describe_language_model.async_describe_language_model(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.describe_language_model.async_describe_language_model(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.describe_language_model
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.describe_language_model.async_describe_language_model(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1121,14 +1308,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.get_call_analytics_category_response.GetCallAnalyticsCategoryResponse"
         ]:
-            import capo_transcribe._operations.transcribe.get_call_analytics_category
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.get_call_analytics_category
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.get_call_analytics_category.async_get_call_analytics_category(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.get_call_analytics_category.async_get_call_analytics_category(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.get_call_analytics_category
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.get_call_analytics_category.async_get_call_analytics_category(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1170,14 +1369,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.get_call_analytics_job_response.GetCallAnalyticsJobResponse"
         ]:
-            import capo_transcribe._operations.transcribe.get_call_analytics_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.get_call_analytics_job
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.get_call_analytics_job.async_get_call_analytics_job(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.get_call_analytics_job.async_get_call_analytics_job(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.get_call_analytics_job
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.get_call_analytics_job.async_get_call_analytics_job(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1219,14 +1430,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.get_medical_scribe_job_response.GetMedicalScribeJobResponse"
         ]:
-            import capo_transcribe._operations.transcribe.get_medical_scribe_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.get_medical_scribe_job
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.get_medical_scribe_job.async_get_medical_scribe_job(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.get_medical_scribe_job.async_get_medical_scribe_job(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.get_medical_scribe_job
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.get_medical_scribe_job.async_get_medical_scribe_job(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1268,14 +1491,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.get_medical_transcription_job_response.GetMedicalTranscriptionJobResponse"
         ]:
-            import capo_transcribe._operations.transcribe.get_medical_transcription_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.get_medical_transcription_job
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.get_medical_transcription_job.async_get_medical_transcription_job(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.get_medical_transcription_job.async_get_medical_transcription_job(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.get_medical_transcription_job
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.get_medical_transcription_job.async_get_medical_transcription_job(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1317,14 +1552,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.get_medical_vocabulary_response.GetMedicalVocabularyResponse"
         ]:
-            import capo_transcribe._operations.transcribe.get_medical_vocabulary
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.get_medical_vocabulary
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.get_medical_vocabulary.async_get_medical_vocabulary(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.get_medical_vocabulary.async_get_medical_vocabulary(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.get_medical_vocabulary
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.get_medical_vocabulary.async_get_medical_vocabulary(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1366,14 +1613,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.get_transcription_job_response.GetTranscriptionJobResponse"
         ]:
-            import capo_transcribe._operations.transcribe.get_transcription_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.get_transcription_job
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.get_transcription_job.async_get_transcription_job(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.get_transcription_job.async_get_transcription_job(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.get_transcription_job
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.get_transcription_job.async_get_transcription_job(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1415,14 +1674,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.get_vocabulary_response.GetVocabularyResponse"
         ]:
-            import capo_transcribe._operations.transcribe.get_vocabulary
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.get_vocabulary
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.get_vocabulary.async_get_vocabulary(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.get_vocabulary.async_get_vocabulary(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.get_vocabulary
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.get_vocabulary.async_get_vocabulary(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1464,14 +1735,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.get_vocabulary_filter_response.GetVocabularyFilterResponse"
         ]:
-            import capo_transcribe._operations.transcribe.get_vocabulary_filter
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.get_vocabulary_filter
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.get_vocabulary_filter.async_get_vocabulary_filter(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.get_vocabulary_filter.async_get_vocabulary_filter(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.get_vocabulary_filter
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.get_vocabulary_filter.async_get_vocabulary_filter(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1514,14 +1797,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.list_call_analytics_categories_response.ListCallAnalyticsCategoriesResponse"
         ]:
-            import capo_transcribe._operations.transcribe.list_call_analytics_categories
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.list_call_analytics_categories
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.list_call_analytics_categories.async_list_call_analytics_categories(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.list_call_analytics_categories.async_list_call_analytics_categories(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.list_call_analytics_categories
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.list_call_analytics_categories.async_list_call_analytics_categories(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1593,14 +1888,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.list_call_analytics_jobs_response.ListCallAnalyticsJobsResponse"
         ]:
-            import capo_transcribe._operations.transcribe.list_call_analytics_jobs
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.list_call_analytics_jobs
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.list_call_analytics_jobs.async_list_call_analytics_jobs(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.list_call_analytics_jobs.async_list_call_analytics_jobs(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.list_call_analytics_jobs
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.list_call_analytics_jobs.async_list_call_analytics_jobs(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1684,14 +1991,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.list_language_models_response.ListLanguageModelsResponse"
         ]:
-            import capo_transcribe._operations.transcribe.list_language_models
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.list_language_models
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.list_language_models.async_list_language_models(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.list_language_models.async_list_language_models(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.list_language_models
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.list_language_models.async_list_language_models(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1773,14 +2092,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.list_medical_scribe_jobs_response.ListMedicalScribeJobsResponse"
         ]:
-            import capo_transcribe._operations.transcribe.list_medical_scribe_jobs
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.list_medical_scribe_jobs
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.list_medical_scribe_jobs.async_list_medical_scribe_jobs(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.list_medical_scribe_jobs.async_list_medical_scribe_jobs(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.list_medical_scribe_jobs
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.list_medical_scribe_jobs.async_list_medical_scribe_jobs(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1864,14 +2195,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.list_medical_transcription_jobs_response.ListMedicalTranscriptionJobsResponse"
         ]:
-            import capo_transcribe._operations.transcribe.list_medical_transcription_jobs
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.list_medical_transcription_jobs
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.list_medical_transcription_jobs.async_list_medical_transcription_jobs(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.list_medical_transcription_jobs.async_list_medical_transcription_jobs(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.list_medical_transcription_jobs
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.list_medical_transcription_jobs.async_list_medical_transcription_jobs(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1955,14 +2298,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.list_medical_vocabularies_response.ListMedicalVocabulariesResponse"
         ]:
-            import capo_transcribe._operations.transcribe.list_medical_vocabularies
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.list_medical_vocabularies
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.list_medical_vocabularies.async_list_medical_vocabularies(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.list_medical_vocabularies.async_list_medical_vocabularies(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.list_medical_vocabularies
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.list_medical_vocabularies.async_list_medical_vocabularies(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2037,14 +2392,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.list_tags_for_resource_response.ListTagsForResourceResponse"
         ]:
-            import capo_transcribe._operations.transcribe.list_tags_for_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.list_tags_for_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.list_tags_for_resource.async_list_tags_for_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.list_tags_for_resource.async_list_tags_for_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.list_tags_for_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.list_tags_for_resource.async_list_tags_for_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2095,14 +2462,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.list_transcription_jobs_response.ListTranscriptionJobsResponse"
         ]:
-            import capo_transcribe._operations.transcribe.list_transcription_jobs
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.list_transcription_jobs
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.list_transcription_jobs.async_list_transcription_jobs(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.list_transcription_jobs.async_list_transcription_jobs(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.list_transcription_jobs
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.list_transcription_jobs.async_list_transcription_jobs(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2186,14 +2565,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.list_vocabularies_response.ListVocabulariesResponse"
         ]:
-            import capo_transcribe._operations.transcribe.list_vocabularies
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.list_vocabularies
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.list_vocabularies.async_list_vocabularies(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.list_vocabularies.async_list_vocabularies(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.list_vocabularies
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.list_vocabularies.async_list_vocabularies(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2273,14 +2664,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.list_vocabulary_filters_response.ListVocabularyFiltersResponse"
         ]:
-            import capo_transcribe._operations.transcribe.list_vocabulary_filters
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.list_vocabulary_filters
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.list_vocabulary_filters.async_list_vocabulary_filters(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.list_vocabulary_filters.async_list_vocabulary_filters(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.list_vocabulary_filters
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.list_vocabulary_filters.async_list_vocabulary_filters(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2371,14 +2774,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.start_call_analytics_job_response.StartCallAnalyticsJobResponse"
         ]:
-            import capo_transcribe._operations.transcribe.start_call_analytics_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.start_call_analytics_job
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.start_call_analytics_job.async_start_call_analytics_job(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.start_call_analytics_job.async_start_call_analytics_job(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.start_call_analytics_job
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.start_call_analytics_job.async_start_call_analytics_job(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2458,14 +2873,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.start_medical_scribe_job_response.StartMedicalScribeJobResponse"
         ]:
-            import capo_transcribe._operations.transcribe.start_medical_scribe_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.start_medical_scribe_job
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.start_medical_scribe_job.async_start_medical_scribe_job(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.start_medical_scribe_job.async_start_medical_scribe_job(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.start_medical_scribe_job
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.start_medical_scribe_job.async_start_medical_scribe_job(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -2568,14 +2995,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.start_medical_transcription_job_response.StartMedicalTranscriptionJobResponse"
         ]:
-            import capo_transcribe._operations.transcribe.start_medical_transcription_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.start_medical_transcription_job
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.start_medical_transcription_job.async_start_medical_transcription_job(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.start_medical_transcription_job.async_start_medical_transcription_job(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.start_medical_transcription_job
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.start_medical_transcription_job.async_start_medical_transcription_job(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2700,14 +3139,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.start_transcription_job_response.StartTranscriptionJobResponse"
         ]:
-            import capo_transcribe._operations.transcribe.start_transcription_job
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.start_transcription_job
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.start_transcription_job.async_start_transcription_job(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.start_transcription_job.async_start_transcription_job(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.start_transcription_job
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.start_transcription_job.async_start_transcription_job(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2789,14 +3240,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.tag_resource_response.TagResourceResponse"
         ]:
-            import capo_transcribe._operations.transcribe.tag_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.tag_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.tag_resource.async_tag_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.tag_resource.async_tag_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.tag_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.tag_resource.async_tag_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2842,14 +3305,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.untag_resource_response.UntagResourceResponse"
         ]:
-            import capo_transcribe._operations.transcribe.untag_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.untag_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.untag_resource.async_untag_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.untag_resource.async_untag_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.untag_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.untag_resource.async_untag_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2897,14 +3372,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.update_call_analytics_category_response.UpdateCallAnalyticsCategoryResponse"
         ]:
-            import capo_transcribe._operations.transcribe.update_call_analytics_category
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.update_call_analytics_category
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.update_call_analytics_category.async_update_call_analytics_category(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.update_call_analytics_category.async_update_call_analytics_category(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.update_call_analytics_category
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.update_call_analytics_category.async_update_call_analytics_category(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2958,14 +3445,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.update_language_model_response.UpdateLanguageModelResponse"
         ]:
-            import capo_transcribe._operations.transcribe.update_language_model
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.update_language_model
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.update_language_model.async_update_language_model(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.update_language_model.async_update_language_model(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.update_language_model
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.update_language_model.async_update_language_model(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3016,14 +3515,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.update_medical_vocabulary_response.UpdateMedicalVocabularyResponse"
         ]:
-            import capo_transcribe._operations.transcribe.update_medical_vocabulary
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.update_medical_vocabulary
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.update_medical_vocabulary.async_update_medical_vocabulary(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.update_medical_vocabulary.async_update_medical_vocabulary(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.update_medical_vocabulary
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.update_medical_vocabulary.async_update_medical_vocabulary(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3082,14 +3593,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.update_vocabulary_response.UpdateVocabularyResponse"
         ]:
-            import capo_transcribe._operations.transcribe.update_vocabulary
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.update_vocabulary
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.update_vocabulary.async_update_vocabulary(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.update_vocabulary.async_update_vocabulary(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.update_vocabulary
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.update_vocabulary.async_update_vocabulary(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3153,14 +3676,26 @@ class AsyncTranscribeClient:
         ) -> AsyncOperationResponse[
             "capo_transcribe.types.update_vocabulary_filter_response.UpdateVocabularyFilterResponse"
         ]:
-            import capo_transcribe._operations.transcribe.update_vocabulary_filter
+            if req.options.protocol == "awsJson1_1":
+                import capo_transcribe._operations.transcribe.aws_json1_1.update_vocabulary_filter
 
-            (
-                output,
-                http_response,
-            ) = await capo_transcribe._operations.transcribe.update_vocabulary_filter.async_update_vocabulary_filter(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.aws_json1_1.update_vocabulary_filter.async_update_vocabulary_filter(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_transcribe._operations.transcribe.rpcv2_cbor.update_vocabulary_filter
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_transcribe._operations.transcribe.rpcv2_cbor.update_vocabulary_filter.async_update_vocabulary_filter(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

@@ -47,3 +47,32 @@ def deserialize_aws_json_1_1(data: dict) -> CreateClusterResult:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateClusterResult) -> dict:
+    out: dict = {}
+    if "cluster_id" in value:
+        out["ClusterId"] = value["cluster_id"]
+    if "job_list_entries" in value:
+        import capo_snowball.types.job_list_entry_list
+
+        out["JobListEntries"] = capo_snowball.types.job_list_entry_list.serialize_cbor(
+            value["job_list_entries"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateClusterResult:
+    out: CreateClusterResult = {}  # type: ignore[typeddict-item]
+    if data.get("ClusterId") is not None:
+        out["cluster_id"] = data["ClusterId"]
+    if data.get("JobListEntries") is not None:
+        import capo_snowball.types.job_list_entry_list
+
+        out["job_list_entries"] = (
+            capo_snowball.types.job_list_entry_list.deserialize_cbor(
+                data["JobListEntries"]
+            )
+        )
+    return out

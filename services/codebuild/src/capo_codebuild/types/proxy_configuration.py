@@ -61,3 +61,46 @@ def deserialize_aws_json_1_1(data: dict) -> ProxyConfiguration:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ProxyConfiguration) -> dict:
+    out: dict = {}
+    if "default_behavior" in value:
+        import capo_codebuild.types.fleet_proxy_rule_behavior
+
+        out["defaultBehavior"] = (
+            capo_codebuild.types.fleet_proxy_rule_behavior.serialize_cbor(
+                value["default_behavior"]
+            )
+        )
+    if "ordered_proxy_rules" in value:
+        import capo_codebuild.types.fleet_proxy_rules
+
+        out["orderedProxyRules"] = (
+            capo_codebuild.types.fleet_proxy_rules.serialize_cbor(
+                value["ordered_proxy_rules"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ProxyConfiguration:
+    out: ProxyConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("defaultBehavior") is not None:
+        import capo_codebuild.types.fleet_proxy_rule_behavior
+
+        out["default_behavior"] = (
+            capo_codebuild.types.fleet_proxy_rule_behavior.deserialize_cbor(
+                data["defaultBehavior"]
+            )
+        )
+    if data.get("orderedProxyRules") is not None:
+        import capo_codebuild.types.fleet_proxy_rules
+
+        out["ordered_proxy_rules"] = (
+            capo_codebuild.types.fleet_proxy_rules.deserialize_cbor(
+                data["orderedProxyRules"]
+            )
+        )
+    return out

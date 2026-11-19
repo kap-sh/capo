@@ -180,6 +180,129 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateGameSessionQueueInput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateGameSessionQueueInput) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "timeout_in_seconds" in value:
+        out["TimeoutInSeconds"] = value["timeout_in_seconds"]
+    if "player_latency_policies" in value:
+        import capo_gamelift.types.player_latency_policy_list
+
+        out["PlayerLatencyPolicies"] = (
+            capo_gamelift.types.player_latency_policy_list.serialize_cbor(
+                value["player_latency_policies"]
+            )
+        )
+    if "destinations" in value:
+        import capo_gamelift.types.game_session_queue_destination_list
+
+        out["Destinations"] = (
+            capo_gamelift.types.game_session_queue_destination_list.serialize_cbor(
+                value["destinations"]
+            )
+        )
+    if "filter_configuration" in value:
+        import capo_gamelift.types.filter_configuration
+
+        out["FilterConfiguration"] = (
+            capo_gamelift.types.filter_configuration.serialize_cbor(
+                value["filter_configuration"]
+            )
+        )
+    if "priority_configuration" in value:
+        import capo_gamelift.types.priority_configuration
+
+        out["PriorityConfiguration"] = (
+            capo_gamelift.types.priority_configuration.serialize_cbor(
+                value["priority_configuration"]
+            )
+        )
+    if "custom_event_data" in value:
+        out["CustomEventData"] = value["custom_event_data"]
+    if "notification_target" in value:
+        out["NotificationTarget"] = value["notification_target"]
+    if "add_log_delivery_destinations" in value:
+        import capo_gamelift.types.log_delivery_destination_list
+
+        out["AddLogDeliveryDestinations"] = (
+            capo_gamelift.types.log_delivery_destination_list.serialize_cbor(
+                value["add_log_delivery_destinations"]
+            )
+        )
+    if "remove_log_delivery_destinations" in value:
+        import capo_gamelift.types.log_delivery_destination_list
+
+        out["RemoveLogDeliveryDestinations"] = (
+            capo_gamelift.types.log_delivery_destination_list.serialize_cbor(
+                value["remove_log_delivery_destinations"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateGameSessionQueueInput:
+    out: UpdateGameSessionQueueInput = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("TimeoutInSeconds") is not None:
+        out["timeout_in_seconds"] = data["TimeoutInSeconds"]
+    if data.get("PlayerLatencyPolicies") is not None:
+        import capo_gamelift.types.player_latency_policy_list
+
+        out["player_latency_policies"] = (
+            capo_gamelift.types.player_latency_policy_list.deserialize_cbor(
+                data["PlayerLatencyPolicies"]
+            )
+        )
+    if data.get("Destinations") is not None:
+        import capo_gamelift.types.game_session_queue_destination_list
+
+        out["destinations"] = (
+            capo_gamelift.types.game_session_queue_destination_list.deserialize_cbor(
+                data["Destinations"]
+            )
+        )
+    if data.get("FilterConfiguration") is not None:
+        import capo_gamelift.types.filter_configuration
+
+        out["filter_configuration"] = (
+            capo_gamelift.types.filter_configuration.deserialize_cbor(
+                data["FilterConfiguration"]
+            )
+        )
+    if data.get("PriorityConfiguration") is not None:
+        import capo_gamelift.types.priority_configuration
+
+        out["priority_configuration"] = (
+            capo_gamelift.types.priority_configuration.deserialize_cbor(
+                data["PriorityConfiguration"]
+            )
+        )
+    if data.get("CustomEventData") is not None:
+        out["custom_event_data"] = data["CustomEventData"]
+    if data.get("NotificationTarget") is not None:
+        out["notification_target"] = data["NotificationTarget"]
+    if data.get("AddLogDeliveryDestinations") is not None:
+        import capo_gamelift.types.log_delivery_destination_list
+
+        out["add_log_delivery_destinations"] = (
+            capo_gamelift.types.log_delivery_destination_list.deserialize_cbor(
+                data["AddLogDeliveryDestinations"]
+            )
+        )
+    if data.get("RemoveLogDeliveryDestinations") is not None:
+        import capo_gamelift.types.log_delivery_destination_list
+
+        out["remove_log_delivery_destinations"] = (
+            capo_gamelift.types.log_delivery_destination_list.deserialize_cbor(
+                data["RemoveLogDeliveryDestinations"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: UpdateGameSessionQueueInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "custom_event_data" in value:

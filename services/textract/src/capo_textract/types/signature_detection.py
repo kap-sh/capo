@@ -48,3 +48,28 @@ def deserialize_aws_json_1_1(data: dict) -> SignatureDetection:
             data["Geometry"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SignatureDetection) -> dict:
+    out: dict = {}
+    if "confidence" in value:
+        out["Confidence"] = value["confidence"]
+    if "geometry" in value:
+        import capo_textract.types.geometry
+
+        out["Geometry"] = capo_textract.types.geometry.serialize_cbor(value["geometry"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> SignatureDetection:
+    out: SignatureDetection = {}  # type: ignore[typeddict-item]
+    if data.get("Confidence") is not None:
+        out["confidence"] = float(data["Confidence"])
+    if data.get("Geometry") is not None:
+        import capo_textract.types.geometry
+
+        out["geometry"] = capo_textract.types.geometry.deserialize_cbor(
+            data["Geometry"]
+        )
+    return out

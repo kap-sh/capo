@@ -54,3 +54,39 @@ def deserialize_aws_json_1_1(data: dict) -> CloudWatchLogsConfig:
     if data.get("streamName") is not None:
         out["stream_name"] = data["streamName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CloudWatchLogsConfig) -> dict:
+    out: dict = {}
+    import capo_codebuild.types.logs_config_status_type
+
+    out["status"] = capo_codebuild.types.logs_config_status_type.serialize_cbor(
+        value["status"]
+    )
+    if "group_name" in value:
+        out["groupName"] = value["group_name"]
+    if "stream_name" in value:
+        out["streamName"] = value["stream_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CloudWatchLogsConfig:
+    out: CloudWatchLogsConfig = {}  # type: ignore[typeddict-item]
+    if data.get("status") is not None:
+        import capo_codebuild.types.logs_config_status_type
+
+        out["status"] = capo_codebuild.types.logs_config_status_type.deserialize_cbor(
+            data["status"]
+        )
+    else:
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_codebuild.types.logs_config_status_type.LogsConfigStatusType", ""
+        )
+    if data.get("groupName") is not None:
+        out["group_name"] = data["groupName"]
+    if data.get("streamName") is not None:
+        out["stream_name"] = data["streamName"]
+    return out

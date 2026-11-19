@@ -40,3 +40,26 @@ def deserialize_aws_json_1_0(data: dict) -> RuleGroupMetadata:
     if data.get("VendorName") is not None:
         out["vendor_name"] = data["VendorName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RuleGroupMetadata) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "arn" in value:
+        out["Arn"] = value["arn"]
+    if "vendor_name" in value:
+        out["VendorName"] = value["vendor_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RuleGroupMetadata:
+    out: RuleGroupMetadata = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Arn") is not None:
+        out["arn"] = data["Arn"]
+    if data.get("VendorName") is not None:
+        out["vendor_name"] = data["VendorName"]
+    return out

@@ -35,3 +35,24 @@ def deserialize_aws_json_1_0(data: dict) -> CreateRescoreExecutionPlanResponse:
     else:
         out["arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateRescoreExecutionPlanResponse) -> dict:
+    out: dict = {}
+    out["Id"] = value["id"]
+    out["Arn"] = value["arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateRescoreExecutionPlanResponse:
+    out: CreateRescoreExecutionPlanResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    else:
+        out["id"] = ""
+    if data.get("Arn") is not None:
+        out["arn"] = data["Arn"]
+    else:
+        out["arn"] = ""
+    return out

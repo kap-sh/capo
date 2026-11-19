@@ -62,3 +62,42 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDetectSentimentItemResult:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchDetectSentimentItemResult) -> dict:
+    out: dict = {}
+    if "index" in value:
+        out["Index"] = value["index"]
+    if "sentiment" in value:
+        import capo_comprehend.types.sentiment_type
+
+        out["Sentiment"] = capo_comprehend.types.sentiment_type.serialize_cbor(
+            value["sentiment"]
+        )
+    if "sentiment_score" in value:
+        import capo_comprehend.types.sentiment_score
+
+        out["SentimentScore"] = capo_comprehend.types.sentiment_score.serialize_cbor(
+            value["sentiment_score"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BatchDetectSentimentItemResult:
+    out: BatchDetectSentimentItemResult = {}  # type: ignore[typeddict-item]
+    if data.get("Index") is not None:
+        out["index"] = data["Index"]
+    if data.get("Sentiment") is not None:
+        import capo_comprehend.types.sentiment_type
+
+        out["sentiment"] = capo_comprehend.types.sentiment_type.deserialize_cbor(
+            data["Sentiment"]
+        )
+    if data.get("SentimentScore") is not None:
+        import capo_comprehend.types.sentiment_score
+
+        out["sentiment_score"] = capo_comprehend.types.sentiment_score.deserialize_cbor(
+            data["SentimentScore"]
+        )
+    return out

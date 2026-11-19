@@ -66,3 +66,46 @@ def deserialize_aws_json_1_1(data: dict) -> BatchRestrictions:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchRestrictions) -> dict:
+    out: dict = {}
+    if "maximum_builds_allowed" in value:
+        out["maximumBuildsAllowed"] = value["maximum_builds_allowed"]
+    if "compute_types_allowed" in value:
+        import capo_codebuild.types.compute_types_allowed
+
+        out["computeTypesAllowed"] = (
+            capo_codebuild.types.compute_types_allowed.serialize_cbor(
+                value["compute_types_allowed"]
+            )
+        )
+    if "fleets_allowed" in value:
+        import capo_codebuild.types.fleets_allowed
+
+        out["fleetsAllowed"] = capo_codebuild.types.fleets_allowed.serialize_cbor(
+            value["fleets_allowed"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BatchRestrictions:
+    out: BatchRestrictions = {}  # type: ignore[typeddict-item]
+    if data.get("maximumBuildsAllowed") is not None:
+        out["maximum_builds_allowed"] = data["maximumBuildsAllowed"]
+    if data.get("computeTypesAllowed") is not None:
+        import capo_codebuild.types.compute_types_allowed
+
+        out["compute_types_allowed"] = (
+            capo_codebuild.types.compute_types_allowed.deserialize_cbor(
+                data["computeTypesAllowed"]
+            )
+        )
+    if data.get("fleetsAllowed") is not None:
+        import capo_codebuild.types.fleets_allowed
+
+        out["fleets_allowed"] = capo_codebuild.types.fleets_allowed.deserialize_cbor(
+            data["fleetsAllowed"]
+        )
+    return out

@@ -40,3 +40,30 @@ def deserialize_aws_json_1_0(data: dict) -> PaymentScheduleTermTemplate:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PaymentScheduleTermTemplate) -> dict:
+    out: dict = {}
+    if "schedule" in value:
+        import capo_marketplace_agreement.types.payment_schedule_entry_list
+
+        out["schedule"] = (
+            capo_marketplace_agreement.types.payment_schedule_entry_list.serialize_cbor(
+                value["schedule"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PaymentScheduleTermTemplate:
+    out: PaymentScheduleTermTemplate = {}  # type: ignore[typeddict-item]
+    if data.get("schedule") is not None:
+        import capo_marketplace_agreement.types.payment_schedule_entry_list
+
+        out["schedule"] = (
+            capo_marketplace_agreement.types.payment_schedule_entry_list.deserialize_cbor(
+                data["schedule"]
+            )
+        )
+    return out

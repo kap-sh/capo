@@ -191,3 +191,74 @@ def deserialize_query(el: Element) -> DeleteAnomalyDetectorInput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteAnomalyDetectorInput) -> dict:
+    out: dict = {}
+    if "anomaly_detector_id" in value:
+        out["AnomalyDetectorId"] = value["anomaly_detector_id"]
+    if "namespace" in value:
+        out["Namespace"] = value["namespace"]
+    if "metric_name" in value:
+        out["MetricName"] = value["metric_name"]
+    if "dimensions" in value:
+        import capo_cloudwatch.types.dimensions
+
+        out["Dimensions"] = capo_cloudwatch.types.dimensions.serialize_cbor(
+            value["dimensions"]
+        )
+    if "stat" in value:
+        out["Stat"] = value["stat"]
+    if "single_metric_anomaly_detector" in value:
+        import capo_cloudwatch.types.single_metric_anomaly_detector
+
+        out["SingleMetricAnomalyDetector"] = (
+            capo_cloudwatch.types.single_metric_anomaly_detector.serialize_cbor(
+                value["single_metric_anomaly_detector"]
+            )
+        )
+    if "metric_math_anomaly_detector" in value:
+        import capo_cloudwatch.types.metric_math_anomaly_detector
+
+        out["MetricMathAnomalyDetector"] = (
+            capo_cloudwatch.types.metric_math_anomaly_detector.serialize_cbor(
+                value["metric_math_anomaly_detector"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteAnomalyDetectorInput:
+    out: DeleteAnomalyDetectorInput = {}  # type: ignore[typeddict-item]
+    if data.get("AnomalyDetectorId") is not None:
+        out["anomaly_detector_id"] = data["AnomalyDetectorId"]
+    if data.get("Namespace") is not None:
+        out["namespace"] = data["Namespace"]
+    if data.get("MetricName") is not None:
+        out["metric_name"] = data["MetricName"]
+    if data.get("Dimensions") is not None:
+        import capo_cloudwatch.types.dimensions
+
+        out["dimensions"] = capo_cloudwatch.types.dimensions.deserialize_cbor(
+            data["Dimensions"]
+        )
+    if data.get("Stat") is not None:
+        out["stat"] = data["Stat"]
+    if data.get("SingleMetricAnomalyDetector") is not None:
+        import capo_cloudwatch.types.single_metric_anomaly_detector
+
+        out["single_metric_anomaly_detector"] = (
+            capo_cloudwatch.types.single_metric_anomaly_detector.deserialize_cbor(
+                data["SingleMetricAnomalyDetector"]
+            )
+        )
+    if data.get("MetricMathAnomalyDetector") is not None:
+        import capo_cloudwatch.types.metric_math_anomaly_detector
+
+        out["metric_math_anomaly_detector"] = (
+            capo_cloudwatch.types.metric_math_anomaly_detector.deserialize_cbor(
+                data["MetricMathAnomalyDetector"]
+            )
+        )
+    return out

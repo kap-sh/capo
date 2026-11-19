@@ -48,3 +48,35 @@ def deserialize_aws_json_1_0(data: dict) -> ContainerMonitoringConfiguration:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ContainerMonitoringConfiguration) -> dict:
+    out: dict = {}
+    out["ClusterArn"] = value["cluster_arn"]
+    if "attribute_filters" in value:
+        import capo_network_firewall.types.container_attributes
+
+        out["AttributeFilters"] = (
+            capo_network_firewall.types.container_attributes.serialize_cbor(
+                value["attribute_filters"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ContainerMonitoringConfiguration:
+    out: ContainerMonitoringConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("ClusterArn") is not None:
+        out["cluster_arn"] = data["ClusterArn"]
+    else:
+        out["cluster_arn"] = ""
+    if data.get("AttributeFilters") is not None:
+        import capo_network_firewall.types.container_attributes
+
+        out["attribute_filters"] = (
+            capo_network_firewall.types.container_attributes.deserialize_cbor(
+                data["AttributeFilters"]
+            )
+        )
+    return out

@@ -45,6 +45,30 @@ def deserialize_aws_json_1_1(data: dict) -> EnableSsoRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EnableSsoRequest) -> dict:
+    out: dict = {}
+    out["DirectoryId"] = value["directory_id"]
+    if "user_name" in value:
+        out["UserName"] = value["user_name"]
+    if "password" in value:
+        out["Password"] = value["password"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> EnableSsoRequest:
+    out: EnableSsoRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    if data.get("UserName") is not None:
+        out["user_name"] = data["UserName"]
+    if data.get("Password") is not None:
+        out["password"] = data["Password"]
+    return out
+
+
 def redact_sensitive(value: EnableSsoRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "password" in value:

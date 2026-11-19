@@ -88,3 +88,48 @@ def deserialize_aws_json_1_1(data: dict) -> CreateEndpointRequest:
     if data.get("FlywheelArn") is not None:
         out["flywheel_arn"] = data["FlywheelArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateEndpointRequest) -> dict:
+    out: dict = {}
+    out["EndpointName"] = value["endpoint_name"]
+    if "model_arn" in value:
+        out["ModelArn"] = value["model_arn"]
+    out["DesiredInferenceUnits"] = value["desired_inference_units"]
+    if "client_request_token" in value:
+        out["ClientRequestToken"] = value["client_request_token"]
+    if "tags" in value:
+        import capo_comprehend.types.tag_list
+
+        out["Tags"] = capo_comprehend.types.tag_list.serialize_cbor(value["tags"])
+    if "data_access_role_arn" in value:
+        out["DataAccessRoleArn"] = value["data_access_role_arn"]
+    if "flywheel_arn" in value:
+        out["FlywheelArn"] = value["flywheel_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateEndpointRequest:
+    out: CreateEndpointRequest = {}  # type: ignore[typeddict-item]
+    if data.get("EndpointName") is not None:
+        out["endpoint_name"] = data["EndpointName"]
+    else:
+        out["endpoint_name"] = ""
+    if data.get("ModelArn") is not None:
+        out["model_arn"] = data["ModelArn"]
+    if data.get("DesiredInferenceUnits") is not None:
+        out["desired_inference_units"] = data["DesiredInferenceUnits"]
+    else:
+        out["desired_inference_units"] = 0
+    if data.get("ClientRequestToken") is not None:
+        out["client_request_token"] = data["ClientRequestToken"]
+    if data.get("Tags") is not None:
+        import capo_comprehend.types.tag_list
+
+        out["tags"] = capo_comprehend.types.tag_list.deserialize_cbor(data["Tags"])
+    if data.get("DataAccessRoleArn") is not None:
+        out["data_access_role_arn"] = data["DataAccessRoleArn"]
+    if data.get("FlywheelArn") is not None:
+        out["flywheel_arn"] = data["FlywheelArn"]
+    return out

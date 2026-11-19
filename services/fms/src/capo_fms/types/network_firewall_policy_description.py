@@ -163,3 +163,126 @@ def deserialize_aws_json_1_1(data: dict) -> NetworkFirewallPolicyDescription:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: NetworkFirewallPolicyDescription) -> dict:
+    out: dict = {}
+    if "stateless_rule_groups" in value:
+        import capo_fms.types.stateless_rule_group_list
+
+        out["StatelessRuleGroups"] = (
+            capo_fms.types.stateless_rule_group_list.serialize_cbor(
+                value["stateless_rule_groups"]
+            )
+        )
+    if "stateless_default_actions" in value:
+        import capo_fms.types.network_firewall_action_list
+
+        out["StatelessDefaultActions"] = (
+            capo_fms.types.network_firewall_action_list.serialize_cbor(
+                value["stateless_default_actions"]
+            )
+        )
+    if "stateless_fragment_default_actions" in value:
+        import capo_fms.types.network_firewall_action_list
+
+        out["StatelessFragmentDefaultActions"] = (
+            capo_fms.types.network_firewall_action_list.serialize_cbor(
+                value["stateless_fragment_default_actions"]
+            )
+        )
+    if "stateless_custom_actions" in value:
+        import capo_fms.types.network_firewall_action_list
+
+        out["StatelessCustomActions"] = (
+            capo_fms.types.network_firewall_action_list.serialize_cbor(
+                value["stateless_custom_actions"]
+            )
+        )
+    if "stateful_rule_groups" in value:
+        import capo_fms.types.stateful_rule_group_list
+
+        out["StatefulRuleGroups"] = (
+            capo_fms.types.stateful_rule_group_list.serialize_cbor(
+                value["stateful_rule_groups"]
+            )
+        )
+    if "stateful_default_actions" in value:
+        import capo_fms.types.network_firewall_action_list
+
+        out["StatefulDefaultActions"] = (
+            capo_fms.types.network_firewall_action_list.serialize_cbor(
+                value["stateful_default_actions"]
+            )
+        )
+    if "stateful_engine_options" in value:
+        import capo_fms.types.stateful_engine_options
+
+        out["StatefulEngineOptions"] = (
+            capo_fms.types.stateful_engine_options.serialize_cbor(
+                value["stateful_engine_options"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> NetworkFirewallPolicyDescription:
+    out: NetworkFirewallPolicyDescription = {}  # type: ignore[typeddict-item]
+    if data.get("StatelessRuleGroups") is not None:
+        import capo_fms.types.stateless_rule_group_list
+
+        out["stateless_rule_groups"] = (
+            capo_fms.types.stateless_rule_group_list.deserialize_cbor(
+                data["StatelessRuleGroups"]
+            )
+        )
+    if data.get("StatelessDefaultActions") is not None:
+        import capo_fms.types.network_firewall_action_list
+
+        out["stateless_default_actions"] = (
+            capo_fms.types.network_firewall_action_list.deserialize_cbor(
+                data["StatelessDefaultActions"]
+            )
+        )
+    if data.get("StatelessFragmentDefaultActions") is not None:
+        import capo_fms.types.network_firewall_action_list
+
+        out["stateless_fragment_default_actions"] = (
+            capo_fms.types.network_firewall_action_list.deserialize_cbor(
+                data["StatelessFragmentDefaultActions"]
+            )
+        )
+    if data.get("StatelessCustomActions") is not None:
+        import capo_fms.types.network_firewall_action_list
+
+        out["stateless_custom_actions"] = (
+            capo_fms.types.network_firewall_action_list.deserialize_cbor(
+                data["StatelessCustomActions"]
+            )
+        )
+    if data.get("StatefulRuleGroups") is not None:
+        import capo_fms.types.stateful_rule_group_list
+
+        out["stateful_rule_groups"] = (
+            capo_fms.types.stateful_rule_group_list.deserialize_cbor(
+                data["StatefulRuleGroups"]
+            )
+        )
+    if data.get("StatefulDefaultActions") is not None:
+        import capo_fms.types.network_firewall_action_list
+
+        out["stateful_default_actions"] = (
+            capo_fms.types.network_firewall_action_list.deserialize_cbor(
+                data["StatefulDefaultActions"]
+            )
+        )
+    if data.get("StatefulEngineOptions") is not None:
+        import capo_fms.types.stateful_engine_options
+
+        out["stateful_engine_options"] = (
+            capo_fms.types.stateful_engine_options.deserialize_cbor(
+                data["StatefulEngineOptions"]
+            )
+        )
+    return out

@@ -33,3 +33,24 @@ def deserialize_aws_json_1_1(data: list) -> SNOMEDCTTraitList:
             capo_comprehendmedical.types.snomedct_trait.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SNOMEDCTTraitList) -> list:
+    import capo_comprehendmedical.types.snomedct_trait
+
+    out: list = []
+    for item in value:
+        out.append(capo_comprehendmedical.types.snomedct_trait.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> SNOMEDCTTraitList:
+    import capo_comprehendmedical.types.snomedct_trait
+
+    out: SNOMEDCTTraitList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_comprehendmedical.types.snomedct_trait.deserialize_cbor(item))
+    return out

@@ -52,3 +52,33 @@ def deserialize_aws_json_1_0(data: dict) -> AgreementApprovalResource:
     if data.get("deployedOnAws") is not None:
         out["deployed_on_aws"] = data["deployedOnAws"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AgreementApprovalResource) -> dict:
+    out: dict = {}
+    out["id"] = value["id"]
+    out["type"] = value["type"]
+    out["name"] = value["name"]
+    if "deployed_on_aws" in value:
+        out["deployedOnAws"] = value["deployed_on_aws"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AgreementApprovalResource:
+    out: AgreementApprovalResource = {}  # type: ignore[typeddict-item]
+    if data.get("id") is not None:
+        out["id"] = data["id"]
+    else:
+        out["id"] = ""
+    if data.get("type") is not None:
+        out["type"] = data["type"]
+    else:
+        out["type"] = ""
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    else:
+        out["name"] = ""
+    if data.get("deployedOnAws") is not None:
+        out["deployed_on_aws"] = data["deployedOnAws"]
+    return out

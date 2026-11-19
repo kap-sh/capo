@@ -55,3 +55,39 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeTestCasesInput:
             data["filter"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeTestCasesInput) -> dict:
+    out: dict = {}
+    out["reportArn"] = value["report_arn"]
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    if "filter" in value:
+        import capo_codebuild.types.test_case_filter
+
+        out["filter"] = capo_codebuild.types.test_case_filter.serialize_cbor(
+            value["filter"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeTestCasesInput:
+    out: DescribeTestCasesInput = {}  # type: ignore[typeddict-item]
+    if data.get("reportArn") is not None:
+        out["report_arn"] = data["reportArn"]
+    else:
+        out["report_arn"] = ""
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    if data.get("filter") is not None:
+        import capo_codebuild.types.test_case_filter
+
+        out["filter"] = capo_codebuild.types.test_case_filter.deserialize_cbor(
+            data["filter"]
+        )
+    return out

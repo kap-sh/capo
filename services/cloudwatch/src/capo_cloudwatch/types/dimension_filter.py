@@ -57,3 +57,22 @@ def deserialize_query(el: Element) -> DimensionFilter:
     if child_value is not None:
         out["value"] = str(child_value.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DimensionFilter) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "value" in value:
+        out["Value"] = value["value"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DimensionFilter:
+    out: DimensionFilter = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Value") is not None:
+        out["value"] = data["Value"]
+    return out

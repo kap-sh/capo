@@ -55,3 +55,38 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeLoggingConfigurationResponse
     if data.get("EnableMonitoringDashboard") is not None:
         out["enable_monitoring_dashboard"] = data["EnableMonitoringDashboard"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeLoggingConfigurationResponse) -> dict:
+    out: dict = {}
+    if "firewall_arn" in value:
+        out["FirewallArn"] = value["firewall_arn"]
+    if "logging_configuration" in value:
+        import capo_network_firewall.types.logging_configuration
+
+        out["LoggingConfiguration"] = (
+            capo_network_firewall.types.logging_configuration.serialize_cbor(
+                value["logging_configuration"]
+            )
+        )
+    if "enable_monitoring_dashboard" in value:
+        out["EnableMonitoringDashboard"] = value["enable_monitoring_dashboard"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeLoggingConfigurationResponse:
+    out: DescribeLoggingConfigurationResponse = {}  # type: ignore[typeddict-item]
+    if data.get("FirewallArn") is not None:
+        out["firewall_arn"] = data["FirewallArn"]
+    if data.get("LoggingConfiguration") is not None:
+        import capo_network_firewall.types.logging_configuration
+
+        out["logging_configuration"] = (
+            capo_network_firewall.types.logging_configuration.deserialize_cbor(
+                data["LoggingConfiguration"]
+            )
+        )
+    if data.get("EnableMonitoringDashboard") is not None:
+        out["enable_monitoring_dashboard"] = data["EnableMonitoringDashboard"]
+    return out

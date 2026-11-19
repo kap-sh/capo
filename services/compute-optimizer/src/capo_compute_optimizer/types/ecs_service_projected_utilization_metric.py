@@ -93,3 +93,56 @@ def deserialize_aws_json_1_0(data: dict) -> ECSServiceProjectedUtilizationMetric
     else:
         out["upper_bound_value"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ECSServiceProjectedUtilizationMetric) -> dict:
+    out: dict = {}
+    if "name" in value:
+        import capo_compute_optimizer.types.ecs_service_metric_name
+
+        out["name"] = (
+            capo_compute_optimizer.types.ecs_service_metric_name.serialize_cbor(
+                value["name"]
+            )
+        )
+    if "statistic" in value:
+        import capo_compute_optimizer.types.ecs_service_metric_statistic
+
+        out["statistic"] = (
+            capo_compute_optimizer.types.ecs_service_metric_statistic.serialize_cbor(
+                value["statistic"]
+            )
+        )
+    out["lowerBoundValue"] = value.get("lower_bound_value", 0)
+    out["upperBoundValue"] = value.get("upper_bound_value", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> ECSServiceProjectedUtilizationMetric:
+    out: ECSServiceProjectedUtilizationMetric = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        import capo_compute_optimizer.types.ecs_service_metric_name
+
+        out["name"] = (
+            capo_compute_optimizer.types.ecs_service_metric_name.deserialize_cbor(
+                data["name"]
+            )
+        )
+    if data.get("statistic") is not None:
+        import capo_compute_optimizer.types.ecs_service_metric_statistic
+
+        out["statistic"] = (
+            capo_compute_optimizer.types.ecs_service_metric_statistic.deserialize_cbor(
+                data["statistic"]
+            )
+        )
+    if data.get("lowerBoundValue") is not None:
+        out["lower_bound_value"] = float(data["lowerBoundValue"])
+    else:
+        out["lower_bound_value"] = 0
+    if data.get("upperBoundValue") is not None:
+        out["upper_bound_value"] = float(data["upperBoundValue"])
+    else:
+        out["upper_bound_value"] = 0
+    return out

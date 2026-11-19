@@ -47,3 +47,30 @@ def deserialize_aws_json_1_0(data: dict) -> ListRuleGroupsResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListRuleGroupsResponse) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "rule_groups" in value:
+        import capo_network_firewall.types.rule_groups
+
+        out["RuleGroups"] = capo_network_firewall.types.rule_groups.serialize_cbor(
+            value["rule_groups"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListRuleGroupsResponse:
+    out: ListRuleGroupsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("RuleGroups") is not None:
+        import capo_network_firewall.types.rule_groups
+
+        out["rule_groups"] = capo_network_firewall.types.rule_groups.deserialize_cbor(
+            data["RuleGroups"]
+        )
+    return out

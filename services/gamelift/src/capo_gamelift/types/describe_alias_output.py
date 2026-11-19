@@ -30,3 +30,22 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeAliasOutput:
 
         out["alias"] = capo_gamelift.types.alias.deserialize_aws_json_1_1(data["Alias"])
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeAliasOutput) -> dict:
+    out: dict = {}
+    if "alias" in value:
+        import capo_gamelift.types.alias
+
+        out["Alias"] = capo_gamelift.types.alias.serialize_cbor(value["alias"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeAliasOutput:
+    out: DescribeAliasOutput = {}  # type: ignore[typeddict-item]
+    if data.get("Alias") is not None:
+        import capo_gamelift.types.alias
+
+        out["alias"] = capo_gamelift.types.alias.deserialize_cbor(data["Alias"])
+    return out

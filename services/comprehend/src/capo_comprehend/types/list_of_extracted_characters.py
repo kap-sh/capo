@@ -37,3 +37,28 @@ def deserialize_aws_json_1_1(data: list) -> ListOfExtractedCharacters:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListOfExtractedCharacters) -> list:
+    import capo_comprehend.types.extracted_characters_list_item
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_comprehend.types.extracted_characters_list_item.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> ListOfExtractedCharacters:
+    import capo_comprehend.types.extracted_characters_list_item
+
+    out: ListOfExtractedCharacters = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_comprehend.types.extracted_characters_list_item.deserialize_cbor(item)
+        )
+    return out

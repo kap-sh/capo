@@ -35,3 +35,24 @@ def deserialize_aws_json_1_1(data: dict) -> DisassociateTagOptionFromResourceInp
     else:
         out["tag_option_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DisassociateTagOptionFromResourceInput) -> dict:
+    out: dict = {}
+    out["ResourceId"] = value["resource_id"]
+    out["TagOptionId"] = value["tag_option_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DisassociateTagOptionFromResourceInput:
+    out: DisassociateTagOptionFromResourceInput = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceId") is not None:
+        out["resource_id"] = data["ResourceId"]
+    else:
+        out["resource_id"] = ""
+    if data.get("TagOptionId") is not None:
+        out["tag_option_id"] = data["TagOptionId"]
+    else:
+        out["tag_option_id"] = ""
+    return out

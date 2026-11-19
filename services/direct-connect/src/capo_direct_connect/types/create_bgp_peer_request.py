@@ -47,3 +47,30 @@ def deserialize_aws_json_1_1(data: dict) -> CreateBGPPeerRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateBGPPeerRequest) -> dict:
+    out: dict = {}
+    if "virtual_interface_id" in value:
+        out["virtualInterfaceId"] = value["virtual_interface_id"]
+    if "new_bgp_peer" in value:
+        import capo_direct_connect.types.new_bgp_peer
+
+        out["newBGPPeer"] = capo_direct_connect.types.new_bgp_peer.serialize_cbor(
+            value["new_bgp_peer"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateBGPPeerRequest:
+    out: CreateBGPPeerRequest = {}  # type: ignore[typeddict-item]
+    if data.get("virtualInterfaceId") is not None:
+        out["virtual_interface_id"] = data["virtualInterfaceId"]
+    if data.get("newBGPPeer") is not None:
+        import capo_direct_connect.types.new_bgp_peer
+
+        out["new_bgp_peer"] = capo_direct_connect.types.new_bgp_peer.deserialize_cbor(
+            data["newBGPPeer"]
+        )
+    return out

@@ -79,3 +79,54 @@ def deserialize_aws_json_1_1(data: dict) -> ActionTypeExecutor:
     if data.get("jobTimeout") is not None:
         out["job_timeout"] = data["jobTimeout"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ActionTypeExecutor) -> dict:
+    out: dict = {}
+    import capo_codepipeline.types.executor_configuration
+
+    out["configuration"] = (
+        capo_codepipeline.types.executor_configuration.serialize_cbor(
+            value["configuration"]
+        )
+    )
+    import capo_codepipeline.types.executor_type
+
+    out["type"] = capo_codepipeline.types.executor_type.serialize_cbor(value["type"])
+    if "policy_statements_template" in value:
+        out["policyStatementsTemplate"] = value["policy_statements_template"]
+    if "job_timeout" in value:
+        out["jobTimeout"] = value["job_timeout"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ActionTypeExecutor:
+    out: ActionTypeExecutor = {}  # type: ignore[typeddict-item]
+    if data.get("configuration") is not None:
+        import capo_codepipeline.types.executor_configuration
+
+        out["configuration"] = (
+            capo_codepipeline.types.executor_configuration.deserialize_cbor(
+                data["configuration"]
+            )
+        )
+    else:
+        raise DeserializationError("ActionTypeExecutor.configuration required")
+    if data.get("type") is not None:
+        import capo_codepipeline.types.executor_type
+
+        out["type"] = capo_codepipeline.types.executor_type.deserialize_cbor(
+            data["type"]
+        )
+    else:
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_codepipeline.types.executor_type.ExecutorType", ""
+        )
+    if data.get("policyStatementsTemplate") is not None:
+        out["policy_statements_template"] = data["policyStatementsTemplate"]
+    if data.get("jobTimeout") is not None:
+        out["job_timeout"] = data["jobTimeout"]
+    return out

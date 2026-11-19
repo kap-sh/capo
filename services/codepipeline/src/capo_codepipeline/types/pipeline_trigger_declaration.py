@@ -68,3 +68,53 @@ def deserialize_aws_json_1_1(data: dict) -> PipelineTriggerDeclaration:
             "PipelineTriggerDeclaration.git_configuration required"
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PipelineTriggerDeclaration) -> dict:
+    out: dict = {}
+    import capo_codepipeline.types.pipeline_trigger_provider_type
+
+    out["providerType"] = (
+        capo_codepipeline.types.pipeline_trigger_provider_type.serialize_cbor(
+            value["provider_type"]
+        )
+    )
+    import capo_codepipeline.types.git_configuration
+
+    out["gitConfiguration"] = capo_codepipeline.types.git_configuration.serialize_cbor(
+        value["git_configuration"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PipelineTriggerDeclaration:
+    out: PipelineTriggerDeclaration = {}  # type: ignore[typeddict-item]
+    if data.get("providerType") is not None:
+        import capo_codepipeline.types.pipeline_trigger_provider_type
+
+        out["provider_type"] = (
+            capo_codepipeline.types.pipeline_trigger_provider_type.deserialize_cbor(
+                data["providerType"]
+            )
+        )
+    else:
+        import typing
+
+        out["provider_type"] = typing.cast(
+            "capo_codepipeline.types.pipeline_trigger_provider_type.PipelineTriggerProviderType",
+            "",
+        )
+    if data.get("gitConfiguration") is not None:
+        import capo_codepipeline.types.git_configuration
+
+        out["git_configuration"] = (
+            capo_codepipeline.types.git_configuration.deserialize_cbor(
+                data["gitConfiguration"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "PipelineTriggerDeclaration.git_configuration required"
+        )
+    return out

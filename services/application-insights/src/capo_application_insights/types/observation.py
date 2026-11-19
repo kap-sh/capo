@@ -458,3 +458,238 @@ def deserialize_aws_json_1_1(data: dict) -> Observation:
     if data.get("XRayNodeType") is not None:
         out["x_ray_node_type"] = data["XRayNodeType"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Observation) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["Id"] = value["id"]
+    if "start_time" in value:
+        import capo_application_insights.types.start_time
+
+        out["StartTime"] = capo_application_insights.types.start_time.serialize_cbor(
+            value["start_time"]
+        )
+    if "end_time" in value:
+        import capo_application_insights.types.end_time
+
+        out["EndTime"] = capo_application_insights.types.end_time.serialize_cbor(
+            value["end_time"]
+        )
+    if "source_type" in value:
+        out["SourceType"] = value["source_type"]
+    if "source_arn" in value:
+        out["SourceARN"] = value["source_arn"]
+    if "log_group" in value:
+        out["LogGroup"] = value["log_group"]
+    if "line_time" in value:
+        import capo_application_insights.types.line_time
+
+        out["LineTime"] = capo_application_insights.types.line_time.serialize_cbor(
+            value["line_time"]
+        )
+    if "log_text" in value:
+        out["LogText"] = value["log_text"]
+    if "log_filter" in value:
+        import capo_application_insights.types.log_filter
+
+        out["LogFilter"] = capo_application_insights.types.log_filter.serialize_cbor(
+            value["log_filter"]
+        )
+    if "metric_namespace" in value:
+        out["MetricNamespace"] = value["metric_namespace"]
+    if "metric_name" in value:
+        out["MetricName"] = value["metric_name"]
+    if "unit" in value:
+        out["Unit"] = value["unit"]
+    if "value" in value:
+        out["Value"] = value["value"]
+    if "cloud_watch_event_id" in value:
+        out["CloudWatchEventId"] = value["cloud_watch_event_id"]
+    if "cloud_watch_event_source" in value:
+        import capo_application_insights.types.cloud_watch_event_source
+
+        out["CloudWatchEventSource"] = (
+            capo_application_insights.types.cloud_watch_event_source.serialize_cbor(
+                value["cloud_watch_event_source"]
+            )
+        )
+    if "cloud_watch_event_detail_type" in value:
+        out["CloudWatchEventDetailType"] = value["cloud_watch_event_detail_type"]
+    if "health_event_arn" in value:
+        out["HealthEventArn"] = value["health_event_arn"]
+    if "health_service" in value:
+        out["HealthService"] = value["health_service"]
+    if "health_event_type_code" in value:
+        out["HealthEventTypeCode"] = value["health_event_type_code"]
+    if "health_event_type_category" in value:
+        out["HealthEventTypeCategory"] = value["health_event_type_category"]
+    if "health_event_description" in value:
+        out["HealthEventDescription"] = value["health_event_description"]
+    if "code_deploy_deployment_id" in value:
+        out["CodeDeployDeploymentId"] = value["code_deploy_deployment_id"]
+    if "code_deploy_deployment_group" in value:
+        out["CodeDeployDeploymentGroup"] = value["code_deploy_deployment_group"]
+    if "code_deploy_state" in value:
+        out["CodeDeployState"] = value["code_deploy_state"]
+    if "code_deploy_application" in value:
+        out["CodeDeployApplication"] = value["code_deploy_application"]
+    if "code_deploy_instance_group_id" in value:
+        out["CodeDeployInstanceGroupId"] = value["code_deploy_instance_group_id"]
+    if "ec2_state" in value:
+        out["Ec2State"] = value["ec2_state"]
+    if "rds_event_categories" in value:
+        out["RdsEventCategories"] = value["rds_event_categories"]
+    if "rds_event_message" in value:
+        out["RdsEventMessage"] = value["rds_event_message"]
+    if "s3_event_name" in value:
+        out["S3EventName"] = value["s3_event_name"]
+    if "states_execution_arn" in value:
+        out["StatesExecutionArn"] = value["states_execution_arn"]
+    if "states_arn" in value:
+        out["StatesArn"] = value["states_arn"]
+    if "states_status" in value:
+        out["StatesStatus"] = value["states_status"]
+    if "states_input" in value:
+        out["StatesInput"] = value["states_input"]
+    if "ebs_event" in value:
+        out["EbsEvent"] = value["ebs_event"]
+    if "ebs_result" in value:
+        out["EbsResult"] = value["ebs_result"]
+    if "ebs_cause" in value:
+        out["EbsCause"] = value["ebs_cause"]
+    if "ebs_request_id" in value:
+        out["EbsRequestId"] = value["ebs_request_id"]
+    if "x_ray_fault_percent" in value:
+        out["XRayFaultPercent"] = value["x_ray_fault_percent"]
+    if "x_ray_throttle_percent" in value:
+        out["XRayThrottlePercent"] = value["x_ray_throttle_percent"]
+    if "x_ray_error_percent" in value:
+        out["XRayErrorPercent"] = value["x_ray_error_percent"]
+    if "x_ray_request_count" in value:
+        out["XRayRequestCount"] = value["x_ray_request_count"]
+    if "x_ray_request_average_latency" in value:
+        out["XRayRequestAverageLatency"] = value["x_ray_request_average_latency"]
+    if "x_ray_node_name" in value:
+        out["XRayNodeName"] = value["x_ray_node_name"]
+    if "x_ray_node_type" in value:
+        out["XRayNodeType"] = value["x_ray_node_type"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Observation:
+    out: Observation = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    if data.get("StartTime") is not None:
+        import capo_application_insights.types.start_time
+
+        out["start_time"] = capo_application_insights.types.start_time.deserialize_cbor(
+            data["StartTime"]
+        )
+    if data.get("EndTime") is not None:
+        import capo_application_insights.types.end_time
+
+        out["end_time"] = capo_application_insights.types.end_time.deserialize_cbor(
+            data["EndTime"]
+        )
+    if data.get("SourceType") is not None:
+        out["source_type"] = data["SourceType"]
+    if data.get("SourceARN") is not None:
+        out["source_arn"] = data["SourceARN"]
+    if data.get("LogGroup") is not None:
+        out["log_group"] = data["LogGroup"]
+    if data.get("LineTime") is not None:
+        import capo_application_insights.types.line_time
+
+        out["line_time"] = capo_application_insights.types.line_time.deserialize_cbor(
+            data["LineTime"]
+        )
+    if data.get("LogText") is not None:
+        out["log_text"] = data["LogText"]
+    if data.get("LogFilter") is not None:
+        import capo_application_insights.types.log_filter
+
+        out["log_filter"] = capo_application_insights.types.log_filter.deserialize_cbor(
+            data["LogFilter"]
+        )
+    if data.get("MetricNamespace") is not None:
+        out["metric_namespace"] = data["MetricNamespace"]
+    if data.get("MetricName") is not None:
+        out["metric_name"] = data["MetricName"]
+    if data.get("Unit") is not None:
+        out["unit"] = data["Unit"]
+    if data.get("Value") is not None:
+        out["value"] = float(data["Value"])
+    if data.get("CloudWatchEventId") is not None:
+        out["cloud_watch_event_id"] = data["CloudWatchEventId"]
+    if data.get("CloudWatchEventSource") is not None:
+        import capo_application_insights.types.cloud_watch_event_source
+
+        out["cloud_watch_event_source"] = (
+            capo_application_insights.types.cloud_watch_event_source.deserialize_cbor(
+                data["CloudWatchEventSource"]
+            )
+        )
+    if data.get("CloudWatchEventDetailType") is not None:
+        out["cloud_watch_event_detail_type"] = data["CloudWatchEventDetailType"]
+    if data.get("HealthEventArn") is not None:
+        out["health_event_arn"] = data["HealthEventArn"]
+    if data.get("HealthService") is not None:
+        out["health_service"] = data["HealthService"]
+    if data.get("HealthEventTypeCode") is not None:
+        out["health_event_type_code"] = data["HealthEventTypeCode"]
+    if data.get("HealthEventTypeCategory") is not None:
+        out["health_event_type_category"] = data["HealthEventTypeCategory"]
+    if data.get("HealthEventDescription") is not None:
+        out["health_event_description"] = data["HealthEventDescription"]
+    if data.get("CodeDeployDeploymentId") is not None:
+        out["code_deploy_deployment_id"] = data["CodeDeployDeploymentId"]
+    if data.get("CodeDeployDeploymentGroup") is not None:
+        out["code_deploy_deployment_group"] = data["CodeDeployDeploymentGroup"]
+    if data.get("CodeDeployState") is not None:
+        out["code_deploy_state"] = data["CodeDeployState"]
+    if data.get("CodeDeployApplication") is not None:
+        out["code_deploy_application"] = data["CodeDeployApplication"]
+    if data.get("CodeDeployInstanceGroupId") is not None:
+        out["code_deploy_instance_group_id"] = data["CodeDeployInstanceGroupId"]
+    if data.get("Ec2State") is not None:
+        out["ec2_state"] = data["Ec2State"]
+    if data.get("RdsEventCategories") is not None:
+        out["rds_event_categories"] = data["RdsEventCategories"]
+    if data.get("RdsEventMessage") is not None:
+        out["rds_event_message"] = data["RdsEventMessage"]
+    if data.get("S3EventName") is not None:
+        out["s3_event_name"] = data["S3EventName"]
+    if data.get("StatesExecutionArn") is not None:
+        out["states_execution_arn"] = data["StatesExecutionArn"]
+    if data.get("StatesArn") is not None:
+        out["states_arn"] = data["StatesArn"]
+    if data.get("StatesStatus") is not None:
+        out["states_status"] = data["StatesStatus"]
+    if data.get("StatesInput") is not None:
+        out["states_input"] = data["StatesInput"]
+    if data.get("EbsEvent") is not None:
+        out["ebs_event"] = data["EbsEvent"]
+    if data.get("EbsResult") is not None:
+        out["ebs_result"] = data["EbsResult"]
+    if data.get("EbsCause") is not None:
+        out["ebs_cause"] = data["EbsCause"]
+    if data.get("EbsRequestId") is not None:
+        out["ebs_request_id"] = data["EbsRequestId"]
+    if data.get("XRayFaultPercent") is not None:
+        out["x_ray_fault_percent"] = data["XRayFaultPercent"]
+    if data.get("XRayThrottlePercent") is not None:
+        out["x_ray_throttle_percent"] = data["XRayThrottlePercent"]
+    if data.get("XRayErrorPercent") is not None:
+        out["x_ray_error_percent"] = data["XRayErrorPercent"]
+    if data.get("XRayRequestCount") is not None:
+        out["x_ray_request_count"] = data["XRayRequestCount"]
+    if data.get("XRayRequestAverageLatency") is not None:
+        out["x_ray_request_average_latency"] = data["XRayRequestAverageLatency"]
+    if data.get("XRayNodeName") is not None:
+        out["x_ray_node_name"] = data["XRayNodeName"]
+    if data.get("XRayNodeType") is not None:
+        out["x_ray_node_type"] = data["XRayNodeType"]
+    return out

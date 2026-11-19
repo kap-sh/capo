@@ -51,3 +51,38 @@ def deserialize_aws_json_1_1(data: dict) -> AsPathSegment:
             data["path"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AsPathSegment) -> dict:
+    out: dict = {}
+    if "path_type" in value:
+        import capo_direct_connect.types.as_path_type
+
+        out["pathType"] = capo_direct_connect.types.as_path_type.serialize_cbor(
+            value["path_type"]
+        )
+    if "path" in value:
+        import capo_direct_connect.types.as_path_list
+
+        out["path"] = capo_direct_connect.types.as_path_list.serialize_cbor(
+            value["path"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AsPathSegment:
+    out: AsPathSegment = {}  # type: ignore[typeddict-item]
+    if data.get("pathType") is not None:
+        import capo_direct_connect.types.as_path_type
+
+        out["path_type"] = capo_direct_connect.types.as_path_type.deserialize_cbor(
+            data["pathType"]
+        )
+    if data.get("path") is not None:
+        import capo_direct_connect.types.as_path_list
+
+        out["path"] = capo_direct_connect.types.as_path_list.deserialize_cbor(
+            data["path"]
+        )
+    return out

@@ -65,3 +65,26 @@ def deserialize_query(el: Element) -> DescribeAlarmsForMetricOutput:
             child_metric_alarms
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeAlarmsForMetricOutput) -> dict:
+    out: dict = {}
+    if "metric_alarms" in value:
+        import capo_cloudwatch.types.metric_alarms
+
+        out["MetricAlarms"] = capo_cloudwatch.types.metric_alarms.serialize_cbor(
+            value["metric_alarms"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeAlarmsForMetricOutput:
+    out: DescribeAlarmsForMetricOutput = {}  # type: ignore[typeddict-item]
+    if data.get("MetricAlarms") is not None:
+        import capo_cloudwatch.types.metric_alarms
+
+        out["metric_alarms"] = capo_cloudwatch.types.metric_alarms.deserialize_cbor(
+            data["MetricAlarms"]
+        )
+    return out

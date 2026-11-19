@@ -37,3 +37,27 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeClientPropertiesRequest:
     else:
         out["resource_ids"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeClientPropertiesRequest) -> dict:
+    out: dict = {}
+    import capo_workspaces.types.resource_id_list
+
+    out["ResourceIds"] = capo_workspaces.types.resource_id_list.serialize_cbor(
+        value["resource_ids"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeClientPropertiesRequest:
+    out: DescribeClientPropertiesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceIds") is not None:
+        import capo_workspaces.types.resource_id_list
+
+        out["resource_ids"] = capo_workspaces.types.resource_id_list.deserialize_cbor(
+            data["ResourceIds"]
+        )
+    else:
+        out["resource_ids"] = []
+    return out

@@ -51,3 +51,35 @@ def deserialize_aws_json_1_1(data: dict) -> DimensionGroup:
     if data.get("Limit") is not None:
         out["limit"] = data["Limit"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DimensionGroup) -> dict:
+    out: dict = {}
+    out["Group"] = value["group"]
+    if "dimensions" in value:
+        import capo_pi.types.sanitized_string_list
+
+        out["Dimensions"] = capo_pi.types.sanitized_string_list.serialize_cbor(
+            value["dimensions"]
+        )
+    if "limit" in value:
+        out["Limit"] = value["limit"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DimensionGroup:
+    out: DimensionGroup = {}  # type: ignore[typeddict-item]
+    if data.get("Group") is not None:
+        out["group"] = data["Group"]
+    else:
+        out["group"] = ""
+    if data.get("Dimensions") is not None:
+        import capo_pi.types.sanitized_string_list
+
+        out["dimensions"] = capo_pi.types.sanitized_string_list.deserialize_cbor(
+            data["Dimensions"]
+        )
+    if data.get("Limit") is not None:
+        out["limit"] = data["Limit"]
+    return out

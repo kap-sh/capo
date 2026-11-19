@@ -41,3 +41,12 @@ def serialize_query(
 
 def deserialize_query(el: Element) -> datetime.datetime:
     return from_query_text(el.text or "")
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: datetime.datetime) -> datetime.datetime:
+    return value
+
+
+def deserialize_cbor(data: datetime.datetime) -> datetime.datetime:
+    return data

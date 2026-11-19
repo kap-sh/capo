@@ -107,13 +107,24 @@ class RegionSwitchPlan:
         ) -> OperationResponse[
             "capo_arc_region_switch.types.create_plan_response.CreatePlanResponse"
         ]:
-            import capo_arc_region_switch._operations.arc_region_switch.create_plan
+            if req.options.protocol == "awsJson1_0":
+                import capo_arc_region_switch._operations.arc_region_switch.aws_json1_0.create_plan
 
-            output, http_response = (
-                capo_arc_region_switch._operations.arc_region_switch.create_plan.create_plan(
-                    req.options, req.input
+                output, http_response = (
+                    capo_arc_region_switch._operations.arc_region_switch.aws_json1_0.create_plan.create_plan(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_arc_region_switch._operations.arc_region_switch.rpcv2_cbor.create_plan
+
+                output, http_response = (
+                    capo_arc_region_switch._operations.arc_region_switch.rpcv2_cbor.create_plan.create_plan(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -193,13 +204,24 @@ class RegionSwitchPlan:
         ) -> OperationResponse[
             "capo_arc_region_switch.types.get_plan_response.GetPlanResponse"
         ]:
-            import capo_arc_region_switch._operations.arc_region_switch.get_plan
+            if req.options.protocol == "awsJson1_0":
+                import capo_arc_region_switch._operations.arc_region_switch.aws_json1_0.get_plan
 
-            output, http_response = (
-                capo_arc_region_switch._operations.arc_region_switch.get_plan.get_plan(
-                    req.options, req.input
+                output, http_response = (
+                    capo_arc_region_switch._operations.arc_region_switch.aws_json1_0.get_plan.get_plan(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_arc_region_switch._operations.arc_region_switch.rpcv2_cbor.get_plan
+
+                output, http_response = (
+                    capo_arc_region_switch._operations.arc_region_switch.rpcv2_cbor.get_plan.get_plan(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -270,13 +292,24 @@ class RegionSwitchPlan:
         ) -> OperationResponse[
             "capo_arc_region_switch.types.update_plan_response.UpdatePlanResponse"
         ]:
-            import capo_arc_region_switch._operations.arc_region_switch.update_plan
+            if req.options.protocol == "awsJson1_0":
+                import capo_arc_region_switch._operations.arc_region_switch.aws_json1_0.update_plan
 
-            output, http_response = (
-                capo_arc_region_switch._operations.arc_region_switch.update_plan.update_plan(
-                    req.options, req.input
+                output, http_response = (
+                    capo_arc_region_switch._operations.arc_region_switch.aws_json1_0.update_plan.update_plan(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_arc_region_switch._operations.arc_region_switch.rpcv2_cbor.update_plan
+
+                output, http_response = (
+                    capo_arc_region_switch._operations.arc_region_switch.rpcv2_cbor.update_plan.update_plan(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -351,13 +384,24 @@ class RegionSwitchPlan:
         ) -> OperationResponse[
             "capo_arc_region_switch.types.delete_plan_response.DeletePlanResponse"
         ]:
-            import capo_arc_region_switch._operations.arc_region_switch.delete_plan
+            if req.options.protocol == "awsJson1_0":
+                import capo_arc_region_switch._operations.arc_region_switch.aws_json1_0.delete_plan
 
-            output, http_response = (
-                capo_arc_region_switch._operations.arc_region_switch.delete_plan.delete_plan(
-                    req.options, req.input
+                output, http_response = (
+                    capo_arc_region_switch._operations.arc_region_switch.aws_json1_0.delete_plan.delete_plan(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_arc_region_switch._operations.arc_region_switch.rpcv2_cbor.delete_plan
+
+                output, http_response = (
+                    capo_arc_region_switch._operations.arc_region_switch.rpcv2_cbor.delete_plan.delete_plan(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(
@@ -401,13 +445,24 @@ class RegionSwitchPlan:
         ) -> OperationResponse[
             "capo_arc_region_switch.types.list_plans_response.ListPlansResponse"
         ]:
-            import capo_arc_region_switch._operations.arc_region_switch.list_plans
+            if req.options.protocol == "awsJson1_0":
+                import capo_arc_region_switch._operations.arc_region_switch.aws_json1_0.list_plans
 
-            output, http_response = (
-                capo_arc_region_switch._operations.arc_region_switch.list_plans.list_plans(
-                    req.options, req.input
+                output, http_response = (
+                    capo_arc_region_switch._operations.arc_region_switch.aws_json1_0.list_plans.list_plans(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_arc_region_switch._operations.arc_region_switch.rpcv2_cbor.list_plans
+
+                output, http_response = (
+                    capo_arc_region_switch._operations.arc_region_switch.rpcv2_cbor.list_plans.list_plans(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(
@@ -449,13 +504,24 @@ class RegionSwitchPlan:
         ) -> OperationResponse[
             "capo_arc_region_switch.types.list_tags_for_resource_response.ListTagsForResourceResponse"
         ]:
-            import capo_arc_region_switch._operations.arc_region_switch.list_tags_for_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_arc_region_switch._operations.arc_region_switch.aws_json1_0.list_tags_for_resource
 
-            output, http_response = (
-                capo_arc_region_switch._operations.arc_region_switch.list_tags_for_resource.list_tags_for_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_arc_region_switch._operations.arc_region_switch.aws_json1_0.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_arc_region_switch._operations.arc_region_switch.rpcv2_cbor.list_tags_for_resource
+
+                output, http_response = (
+                    capo_arc_region_switch._operations.arc_region_switch.rpcv2_cbor.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(
@@ -497,13 +563,24 @@ class RegionSwitchPlan:
         ) -> OperationResponse[
             "capo_arc_region_switch.types.tag_resource_response.TagResourceResponse"
         ]:
-            import capo_arc_region_switch._operations.arc_region_switch.tag_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_arc_region_switch._operations.arc_region_switch.aws_json1_0.tag_resource
 
-            output, http_response = (
-                capo_arc_region_switch._operations.arc_region_switch.tag_resource.tag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_arc_region_switch._operations.arc_region_switch.aws_json1_0.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_arc_region_switch._operations.arc_region_switch.rpcv2_cbor.tag_resource
+
+                output, http_response = (
+                    capo_arc_region_switch._operations.arc_region_switch.rpcv2_cbor.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(
@@ -546,13 +623,24 @@ class RegionSwitchPlan:
         ) -> OperationResponse[
             "capo_arc_region_switch.types.untag_resource_response.UntagResourceResponse"
         ]:
-            import capo_arc_region_switch._operations.arc_region_switch.untag_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_arc_region_switch._operations.arc_region_switch.aws_json1_0.untag_resource
 
-            output, http_response = (
-                capo_arc_region_switch._operations.arc_region_switch.untag_resource.untag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_arc_region_switch._operations.arc_region_switch.aws_json1_0.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_arc_region_switch._operations.arc_region_switch.rpcv2_cbor.untag_resource
+
+                output, http_response = (
+                    capo_arc_region_switch._operations.arc_region_switch.rpcv2_cbor.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(
@@ -625,14 +713,26 @@ class AsyncRegionSwitchPlan:
         ) -> AsyncOperationResponse[
             "capo_arc_region_switch.types.create_plan_response.CreatePlanResponse"
         ]:
-            import capo_arc_region_switch._operations.arc_region_switch.create_plan
+            if req.options.protocol == "awsJson1_0":
+                import capo_arc_region_switch._operations.arc_region_switch.aws_json1_0.create_plan
 
-            (
-                output,
-                http_response,
-            ) = await capo_arc_region_switch._operations.arc_region_switch.create_plan.async_create_plan(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_arc_region_switch._operations.arc_region_switch.aws_json1_0.create_plan.async_create_plan(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_arc_region_switch._operations.arc_region_switch.rpcv2_cbor.create_plan
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_arc_region_switch._operations.arc_region_switch.rpcv2_cbor.create_plan.async_create_plan(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -712,14 +812,26 @@ class AsyncRegionSwitchPlan:
         ) -> AsyncOperationResponse[
             "capo_arc_region_switch.types.get_plan_response.GetPlanResponse"
         ]:
-            import capo_arc_region_switch._operations.arc_region_switch.get_plan
+            if req.options.protocol == "awsJson1_0":
+                import capo_arc_region_switch._operations.arc_region_switch.aws_json1_0.get_plan
 
-            (
-                output,
-                http_response,
-            ) = await capo_arc_region_switch._operations.arc_region_switch.get_plan.async_get_plan(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_arc_region_switch._operations.arc_region_switch.aws_json1_0.get_plan.async_get_plan(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_arc_region_switch._operations.arc_region_switch.rpcv2_cbor.get_plan
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_arc_region_switch._operations.arc_region_switch.rpcv2_cbor.get_plan.async_get_plan(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -790,14 +902,26 @@ class AsyncRegionSwitchPlan:
         ) -> AsyncOperationResponse[
             "capo_arc_region_switch.types.update_plan_response.UpdatePlanResponse"
         ]:
-            import capo_arc_region_switch._operations.arc_region_switch.update_plan
+            if req.options.protocol == "awsJson1_0":
+                import capo_arc_region_switch._operations.arc_region_switch.aws_json1_0.update_plan
 
-            (
-                output,
-                http_response,
-            ) = await capo_arc_region_switch._operations.arc_region_switch.update_plan.async_update_plan(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_arc_region_switch._operations.arc_region_switch.aws_json1_0.update_plan.async_update_plan(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_arc_region_switch._operations.arc_region_switch.rpcv2_cbor.update_plan
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_arc_region_switch._operations.arc_region_switch.rpcv2_cbor.update_plan.async_update_plan(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -872,14 +996,26 @@ class AsyncRegionSwitchPlan:
         ) -> AsyncOperationResponse[
             "capo_arc_region_switch.types.delete_plan_response.DeletePlanResponse"
         ]:
-            import capo_arc_region_switch._operations.arc_region_switch.delete_plan
+            if req.options.protocol == "awsJson1_0":
+                import capo_arc_region_switch._operations.arc_region_switch.aws_json1_0.delete_plan
 
-            (
-                output,
-                http_response,
-            ) = await capo_arc_region_switch._operations.arc_region_switch.delete_plan.async_delete_plan(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_arc_region_switch._operations.arc_region_switch.aws_json1_0.delete_plan.async_delete_plan(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_arc_region_switch._operations.arc_region_switch.rpcv2_cbor.delete_plan
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_arc_region_switch._operations.arc_region_switch.rpcv2_cbor.delete_plan.async_delete_plan(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(
@@ -923,14 +1059,26 @@ class AsyncRegionSwitchPlan:
         ) -> AsyncOperationResponse[
             "capo_arc_region_switch.types.list_plans_response.ListPlansResponse"
         ]:
-            import capo_arc_region_switch._operations.arc_region_switch.list_plans
+            if req.options.protocol == "awsJson1_0":
+                import capo_arc_region_switch._operations.arc_region_switch.aws_json1_0.list_plans
 
-            (
-                output,
-                http_response,
-            ) = await capo_arc_region_switch._operations.arc_region_switch.list_plans.async_list_plans(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_arc_region_switch._operations.arc_region_switch.aws_json1_0.list_plans.async_list_plans(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_arc_region_switch._operations.arc_region_switch.rpcv2_cbor.list_plans
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_arc_region_switch._operations.arc_region_switch.rpcv2_cbor.list_plans.async_list_plans(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(
@@ -972,14 +1120,26 @@ class AsyncRegionSwitchPlan:
         ) -> AsyncOperationResponse[
             "capo_arc_region_switch.types.list_tags_for_resource_response.ListTagsForResourceResponse"
         ]:
-            import capo_arc_region_switch._operations.arc_region_switch.list_tags_for_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_arc_region_switch._operations.arc_region_switch.aws_json1_0.list_tags_for_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_arc_region_switch._operations.arc_region_switch.list_tags_for_resource.async_list_tags_for_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_arc_region_switch._operations.arc_region_switch.aws_json1_0.list_tags_for_resource.async_list_tags_for_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_arc_region_switch._operations.arc_region_switch.rpcv2_cbor.list_tags_for_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_arc_region_switch._operations.arc_region_switch.rpcv2_cbor.list_tags_for_resource.async_list_tags_for_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(
@@ -1021,14 +1181,26 @@ class AsyncRegionSwitchPlan:
         ) -> AsyncOperationResponse[
             "capo_arc_region_switch.types.tag_resource_response.TagResourceResponse"
         ]:
-            import capo_arc_region_switch._operations.arc_region_switch.tag_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_arc_region_switch._operations.arc_region_switch.aws_json1_0.tag_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_arc_region_switch._operations.arc_region_switch.tag_resource.async_tag_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_arc_region_switch._operations.arc_region_switch.aws_json1_0.tag_resource.async_tag_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_arc_region_switch._operations.arc_region_switch.rpcv2_cbor.tag_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_arc_region_switch._operations.arc_region_switch.rpcv2_cbor.tag_resource.async_tag_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(
@@ -1071,14 +1243,26 @@ class AsyncRegionSwitchPlan:
         ) -> AsyncOperationResponse[
             "capo_arc_region_switch.types.untag_resource_response.UntagResourceResponse"
         ]:
-            import capo_arc_region_switch._operations.arc_region_switch.untag_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_arc_region_switch._operations.arc_region_switch.aws_json1_0.untag_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_arc_region_switch._operations.arc_region_switch.untag_resource.async_untag_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_arc_region_switch._operations.arc_region_switch.aws_json1_0.untag_resource.async_untag_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_arc_region_switch._operations.arc_region_switch.rpcv2_cbor.untag_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_arc_region_switch._operations.arc_region_switch.rpcv2_cbor.untag_resource.async_untag_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(

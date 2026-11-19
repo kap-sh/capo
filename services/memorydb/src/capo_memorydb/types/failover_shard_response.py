@@ -34,3 +34,22 @@ def deserialize_aws_json_1_1(data: dict) -> FailoverShardResponse:
             data["Cluster"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FailoverShardResponse) -> dict:
+    out: dict = {}
+    if "cluster" in value:
+        import capo_memorydb.types.cluster
+
+        out["Cluster"] = capo_memorydb.types.cluster.serialize_cbor(value["cluster"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> FailoverShardResponse:
+    out: FailoverShardResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Cluster") is not None:
+        import capo_memorydb.types.cluster
+
+        out["cluster"] = capo_memorydb.types.cluster.deserialize_cbor(data["Cluster"])
+    return out

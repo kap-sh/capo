@@ -65,3 +65,44 @@ def deserialize_aws_json_1_1(data: dict) -> PutActionRevisionInput:
     else:
         raise DeserializationError("PutActionRevisionInput.action_revision required")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PutActionRevisionInput) -> dict:
+    out: dict = {}
+    out["pipelineName"] = value["pipeline_name"]
+    out["stageName"] = value["stage_name"]
+    out["actionName"] = value["action_name"]
+    import capo_codepipeline.types.action_revision
+
+    out["actionRevision"] = capo_codepipeline.types.action_revision.serialize_cbor(
+        value["action_revision"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PutActionRevisionInput:
+    out: PutActionRevisionInput = {}  # type: ignore[typeddict-item]
+    if data.get("pipelineName") is not None:
+        out["pipeline_name"] = data["pipelineName"]
+    else:
+        out["pipeline_name"] = ""
+    if data.get("stageName") is not None:
+        out["stage_name"] = data["stageName"]
+    else:
+        out["stage_name"] = ""
+    if data.get("actionName") is not None:
+        out["action_name"] = data["actionName"]
+    else:
+        out["action_name"] = ""
+    if data.get("actionRevision") is not None:
+        import capo_codepipeline.types.action_revision
+
+        out["action_revision"] = (
+            capo_codepipeline.types.action_revision.deserialize_cbor(
+                data["actionRevision"]
+            )
+        )
+    else:
+        raise DeserializationError("PutActionRevisionInput.action_revision required")
+    return out

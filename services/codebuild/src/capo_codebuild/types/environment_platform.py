@@ -55,3 +55,38 @@ def deserialize_aws_json_1_1(data: dict) -> EnvironmentPlatform:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EnvironmentPlatform) -> dict:
+    out: dict = {}
+    if "platform" in value:
+        import capo_codebuild.types.platform_type
+
+        out["platform"] = capo_codebuild.types.platform_type.serialize_cbor(
+            value["platform"]
+        )
+    if "languages" in value:
+        import capo_codebuild.types.environment_languages
+
+        out["languages"] = capo_codebuild.types.environment_languages.serialize_cbor(
+            value["languages"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> EnvironmentPlatform:
+    out: EnvironmentPlatform = {}  # type: ignore[typeddict-item]
+    if data.get("platform") is not None:
+        import capo_codebuild.types.platform_type
+
+        out["platform"] = capo_codebuild.types.platform_type.deserialize_cbor(
+            data["platform"]
+        )
+    if data.get("languages") is not None:
+        import capo_codebuild.types.environment_languages
+
+        out["languages"] = capo_codebuild.types.environment_languages.deserialize_cbor(
+            data["languages"]
+        )
+    return out

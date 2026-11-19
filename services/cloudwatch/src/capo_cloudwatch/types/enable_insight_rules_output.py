@@ -61,3 +61,26 @@ def deserialize_query(el: Element) -> EnableInsightRulesOutput:
             child_failures
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EnableInsightRulesOutput) -> dict:
+    out: dict = {}
+    if "failures" in value:
+        import capo_cloudwatch.types.batch_failures
+
+        out["Failures"] = capo_cloudwatch.types.batch_failures.serialize_cbor(
+            value["failures"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> EnableInsightRulesOutput:
+    out: EnableInsightRulesOutput = {}  # type: ignore[typeddict-item]
+    if data.get("Failures") is not None:
+        import capo_cloudwatch.types.batch_failures
+
+        out["failures"] = capo_cloudwatch.types.batch_failures.deserialize_cbor(
+            data["Failures"]
+        )
+    return out

@@ -30,3 +30,24 @@ def deserialize_aws_json_1_1(data: dict) -> Filters:
 
         out[key] = capo_cloudhsm_v2.types.strings.deserialize_aws_json_1_1(value)
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(input_to_serialize: Filters) -> dict:
+    out: dict = {}
+    for key, value in input_to_serialize.items():
+        import capo_cloudhsm_v2.types.strings
+
+        out[key] = capo_cloudhsm_v2.types.strings.serialize_cbor(value)
+    return out
+
+
+def deserialize_cbor(data: dict) -> Filters:
+    out: Filters = {}
+    for key, value in data.items():
+        if value is None:
+            continue
+        import capo_cloudhsm_v2.types.strings
+
+        out[key] = capo_cloudhsm_v2.types.strings.deserialize_cbor(value)
+    return out

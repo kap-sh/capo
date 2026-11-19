@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> GetActionTypeOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetActionTypeOutput) -> dict:
+    out: dict = {}
+    if "action_type" in value:
+        import capo_codepipeline.types.action_type_declaration
+
+        out["actionType"] = (
+            capo_codepipeline.types.action_type_declaration.serialize_cbor(
+                value["action_type"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetActionTypeOutput:
+    out: GetActionTypeOutput = {}  # type: ignore[typeddict-item]
+    if data.get("actionType") is not None:
+        import capo_codepipeline.types.action_type_declaration
+
+        out["action_type"] = (
+            capo_codepipeline.types.action_type_declaration.deserialize_cbor(
+                data["actionType"]
+            )
+        )
+    return out

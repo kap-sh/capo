@@ -60,3 +60,45 @@ def deserialize_aws_json_1_0(data: dict) -> StatelessRulesAndCustomActions:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StatelessRulesAndCustomActions) -> dict:
+    out: dict = {}
+    import capo_network_firewall.types.stateless_rules
+
+    out["StatelessRules"] = capo_network_firewall.types.stateless_rules.serialize_cbor(
+        value["stateless_rules"]
+    )
+    if "custom_actions" in value:
+        import capo_network_firewall.types.custom_actions
+
+        out["CustomActions"] = (
+            capo_network_firewall.types.custom_actions.serialize_cbor(
+                value["custom_actions"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StatelessRulesAndCustomActions:
+    out: StatelessRulesAndCustomActions = {}  # type: ignore[typeddict-item]
+    if data.get("StatelessRules") is not None:
+        import capo_network_firewall.types.stateless_rules
+
+        out["stateless_rules"] = (
+            capo_network_firewall.types.stateless_rules.deserialize_cbor(
+                data["StatelessRules"]
+            )
+        )
+    else:
+        out["stateless_rules"] = []
+    if data.get("CustomActions") is not None:
+        import capo_network_firewall.types.custom_actions
+
+        out["custom_actions"] = (
+            capo_network_firewall.types.custom_actions.deserialize_cbor(
+                data["CustomActions"]
+            )
+        )
+    return out

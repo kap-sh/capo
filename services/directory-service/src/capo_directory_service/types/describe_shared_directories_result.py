@@ -49,6 +49,37 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeSharedDirectoriesResult:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeSharedDirectoriesResult) -> dict:
+    out: dict = {}
+    if "shared_directories" in value:
+        import capo_directory_service.types.shared_directories
+
+        out["SharedDirectories"] = (
+            capo_directory_service.types.shared_directories.serialize_cbor(
+                value["shared_directories"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeSharedDirectoriesResult:
+    out: DescribeSharedDirectoriesResult = {}  # type: ignore[typeddict-item]
+    if data.get("SharedDirectories") is not None:
+        import capo_directory_service.types.shared_directories
+
+        out["shared_directories"] = (
+            capo_directory_service.types.shared_directories.deserialize_cbor(
+                data["SharedDirectories"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out
+
+
 def redact_sensitive(value: DescribeSharedDirectoriesResult) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "shared_directories" in value:

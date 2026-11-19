@@ -121,3 +121,87 @@ def deserialize_aws_json_1_1(data: dict) -> Rule:
         if name is not None:
             return {"$unknown": {"name": name}}
         raise DeserializationError("Rule: no recognized variant key")
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Rule) -> dict:
+    if "$unknown" in value:
+        raise SerializationError(
+            f"Rule: cannot serialize unknown variant {value['$unknown']['name']!r}"
+        )
+    elif "NonTalkTimeFilter" in value:
+        import capo_transcribe.types.non_talk_time_filter
+
+        return {
+            "NonTalkTimeFilter": capo_transcribe.types.non_talk_time_filter.serialize_cbor(
+                value["NonTalkTimeFilter"]
+            )
+        }
+    elif "InterruptionFilter" in value:
+        import capo_transcribe.types.interruption_filter
+
+        return {
+            "InterruptionFilter": capo_transcribe.types.interruption_filter.serialize_cbor(
+                value["InterruptionFilter"]
+            )
+        }
+    elif "TranscriptFilter" in value:
+        import capo_transcribe.types.transcript_filter
+
+        return {
+            "TranscriptFilter": capo_transcribe.types.transcript_filter.serialize_cbor(
+                value["TranscriptFilter"]
+            )
+        }
+    elif "SentimentFilter" in value:
+        import capo_transcribe.types.sentiment_filter
+
+        return {
+            "SentimentFilter": capo_transcribe.types.sentiment_filter.serialize_cbor(
+                value["SentimentFilter"]
+            )
+        }
+    else:
+        raise SerializationError("Rule: no variant present")
+
+
+def deserialize_cbor(data: dict) -> Rule:
+    if data.get("NonTalkTimeFilter") is not None:
+        import capo_transcribe.types.non_talk_time_filter
+
+        return {
+            "NonTalkTimeFilter": capo_transcribe.types.non_talk_time_filter.deserialize_cbor(
+                data["NonTalkTimeFilter"]
+            )
+        }
+    elif data.get("InterruptionFilter") is not None:
+        import capo_transcribe.types.interruption_filter
+
+        return {
+            "InterruptionFilter": capo_transcribe.types.interruption_filter.deserialize_cbor(
+                data["InterruptionFilter"]
+            )
+        }
+    elif data.get("TranscriptFilter") is not None:
+        import capo_transcribe.types.transcript_filter
+
+        return {
+            "TranscriptFilter": capo_transcribe.types.transcript_filter.deserialize_cbor(
+                data["TranscriptFilter"]
+            )
+        }
+    elif data.get("SentimentFilter") is not None:
+        import capo_transcribe.types.sentiment_filter
+
+        return {
+            "SentimentFilter": capo_transcribe.types.sentiment_filter.deserialize_cbor(
+                data["SentimentFilter"]
+            )
+        }
+    else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return {"$unknown": {"name": name}}
+        raise DeserializationError("Rule: no recognized variant key")

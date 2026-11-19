@@ -62,3 +62,36 @@ def deserialize_aws_json_1_1(data: dict) -> PriceWithCurrency:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PriceWithCurrency) -> dict:
+    out: dict = {}
+    out["Price"] = value.get("price", 0)
+    out["Currency"] = value["currency"]
+    if "price_type" in value:
+        import capo_route_53_domains.types.price_type
+
+        out["PriceType"] = capo_route_53_domains.types.price_type.serialize_cbor(
+            value["price_type"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PriceWithCurrency:
+    out: PriceWithCurrency = {}  # type: ignore[typeddict-item]
+    if data.get("Price") is not None:
+        out["price"] = float(data["Price"])
+    else:
+        out["price"] = 0
+    if data.get("Currency") is not None:
+        out["currency"] = data["Currency"]
+    else:
+        out["currency"] = ""
+    if data.get("PriceType") is not None:
+        import capo_route_53_domains.types.price_type
+
+        out["price_type"] = capo_route_53_domains.types.price_type.deserialize_cbor(
+            data["PriceType"]
+        )
+    return out

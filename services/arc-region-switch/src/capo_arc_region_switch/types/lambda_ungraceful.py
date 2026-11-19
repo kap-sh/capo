@@ -39,3 +39,31 @@ def deserialize_aws_json_1_0(data: dict) -> LambdaUngraceful:
     else:
         out["behavior"] = "skip"
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LambdaUngraceful) -> dict:
+    out: dict = {}
+    import capo_arc_region_switch.types.lambda_ungraceful_behavior
+
+    out["behavior"] = (
+        capo_arc_region_switch.types.lambda_ungraceful_behavior.serialize_cbor(
+            value.get("behavior", "skip")
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> LambdaUngraceful:
+    out: LambdaUngraceful = {}  # type: ignore[typeddict-item]
+    if data.get("behavior") is not None:
+        import capo_arc_region_switch.types.lambda_ungraceful_behavior
+
+        out["behavior"] = (
+            capo_arc_region_switch.types.lambda_ungraceful_behavior.deserialize_cbor(
+                data["behavior"]
+            )
+        )
+    else:
+        out["behavior"] = "skip"
+    return out

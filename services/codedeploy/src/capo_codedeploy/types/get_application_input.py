@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> GetApplicationInput:
     else:
         out["application_name"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetApplicationInput) -> dict:
+    out: dict = {}
+    out["applicationName"] = value["application_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetApplicationInput:
+    out: GetApplicationInput = {}  # type: ignore[typeddict-item]
+    if data.get("applicationName") is not None:
+        out["application_name"] = data["applicationName"]
+    else:
+        out["application_name"] = ""
+    return out

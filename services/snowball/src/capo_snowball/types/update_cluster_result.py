@@ -16,3 +16,14 @@ def serialize_aws_json_1_1(value: UpdateClusterResult) -> dict:
 def deserialize_aws_json_1_1(data: dict) -> UpdateClusterResult:
     out: UpdateClusterResult = {}  # type: ignore[typeddict-item]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateClusterResult) -> dict:
+    out: dict = {}
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateClusterResult:
+    out: UpdateClusterResult = {}  # type: ignore[typeddict-item]
+    return out

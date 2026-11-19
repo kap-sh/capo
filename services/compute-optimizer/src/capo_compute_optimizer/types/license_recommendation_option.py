@@ -98,3 +98,69 @@ def deserialize_aws_json_1_0(data: dict) -> LicenseRecommendationOption:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LicenseRecommendationOption) -> dict:
+    out: dict = {}
+    out["rank"] = value.get("rank", 0)
+    if "operating_system" in value:
+        out["operatingSystem"] = value["operating_system"]
+    if "license_edition" in value:
+        import capo_compute_optimizer.types.license_edition
+
+        out["licenseEdition"] = (
+            capo_compute_optimizer.types.license_edition.serialize_cbor(
+                value["license_edition"]
+            )
+        )
+    if "license_model" in value:
+        import capo_compute_optimizer.types.license_model
+
+        out["licenseModel"] = capo_compute_optimizer.types.license_model.serialize_cbor(
+            value["license_model"]
+        )
+    if "savings_opportunity" in value:
+        import capo_compute_optimizer.types.savings_opportunity
+
+        out["savingsOpportunity"] = (
+            capo_compute_optimizer.types.savings_opportunity.serialize_cbor(
+                value["savings_opportunity"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> LicenseRecommendationOption:
+    out: LicenseRecommendationOption = {}  # type: ignore[typeddict-item]
+    if data.get("rank") is not None:
+        out["rank"] = data["rank"]
+    else:
+        out["rank"] = 0
+    if data.get("operatingSystem") is not None:
+        out["operating_system"] = data["operatingSystem"]
+    if data.get("licenseEdition") is not None:
+        import capo_compute_optimizer.types.license_edition
+
+        out["license_edition"] = (
+            capo_compute_optimizer.types.license_edition.deserialize_cbor(
+                data["licenseEdition"]
+            )
+        )
+    if data.get("licenseModel") is not None:
+        import capo_compute_optimizer.types.license_model
+
+        out["license_model"] = (
+            capo_compute_optimizer.types.license_model.deserialize_cbor(
+                data["licenseModel"]
+            )
+        )
+    if data.get("savingsOpportunity") is not None:
+        import capo_compute_optimizer.types.savings_opportunity
+
+        out["savings_opportunity"] = (
+            capo_compute_optimizer.types.savings_opportunity.deserialize_cbor(
+                data["savingsOpportunity"]
+            )
+        )
+    return out

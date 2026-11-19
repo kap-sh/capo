@@ -27,3 +27,24 @@ def deserialize_aws_json_1_1(data: list) -> DocumentGroupList:
             continue
         out.append(capo_textract.types.document_group.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DocumentGroupList) -> list:
+    import capo_textract.types.document_group
+
+    out: list = []
+    for item in value:
+        out.append(capo_textract.types.document_group.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> DocumentGroupList:
+    import capo_textract.types.document_group
+
+    out: DocumentGroupList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_textract.types.document_group.deserialize_cbor(item))
+    return out

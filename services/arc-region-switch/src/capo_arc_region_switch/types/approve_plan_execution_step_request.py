@@ -74,3 +74,50 @@ def deserialize_aws_json_1_0(data: dict) -> ApprovePlanExecutionStepRequest:
     if data.get("comment") is not None:
         out["comment"] = data["comment"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ApprovePlanExecutionStepRequest) -> dict:
+    out: dict = {}
+    out["planArn"] = value["plan_arn"]
+    out["executionId"] = value["execution_id"]
+    out["stepName"] = value["step_name"]
+    import capo_arc_region_switch.types.approval
+
+    out["approval"] = capo_arc_region_switch.types.approval.serialize_cbor(
+        value["approval"]
+    )
+    if "comment" in value:
+        out["comment"] = value["comment"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ApprovePlanExecutionStepRequest:
+    out: ApprovePlanExecutionStepRequest = {}  # type: ignore[typeddict-item]
+    if data.get("planArn") is not None:
+        out["plan_arn"] = data["planArn"]
+    else:
+        out["plan_arn"] = ""
+    if data.get("executionId") is not None:
+        out["execution_id"] = data["executionId"]
+    else:
+        out["execution_id"] = ""
+    if data.get("stepName") is not None:
+        out["step_name"] = data["stepName"]
+    else:
+        out["step_name"] = ""
+    if data.get("approval") is not None:
+        import capo_arc_region_switch.types.approval
+
+        out["approval"] = capo_arc_region_switch.types.approval.deserialize_cbor(
+            data["approval"]
+        )
+    else:
+        import typing
+
+        out["approval"] = typing.cast(
+            "capo_arc_region_switch.types.approval.Approval", ""
+        )
+    if data.get("comment") is not None:
+        out["comment"] = data["comment"]
+    return out

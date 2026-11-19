@@ -34,3 +34,22 @@ def deserialize_aws_json_1_0(data: dict) -> GpuInfo:
             data["gpus"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GpuInfo) -> dict:
+    out: dict = {}
+    if "gpus" in value:
+        import capo_compute_optimizer.types.gpus
+
+        out["gpus"] = capo_compute_optimizer.types.gpus.serialize_cbor(value["gpus"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> GpuInfo:
+    out: GpuInfo = {}  # type: ignore[typeddict-item]
+    if data.get("gpus") is not None:
+        import capo_compute_optimizer.types.gpus
+
+        out["gpus"] = capo_compute_optimizer.types.gpus.deserialize_cbor(data["gpus"])
+    return out

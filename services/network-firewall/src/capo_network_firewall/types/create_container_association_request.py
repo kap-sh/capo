@@ -96,3 +96,70 @@ def deserialize_aws_json_1_0(data: dict) -> CreateContainerAssociationRequest:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateContainerAssociationRequest) -> dict:
+    out: dict = {}
+    out["ContainerAssociationName"] = value["container_association_name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    import capo_network_firewall.types.container_monitoring_type
+
+    out["Type"] = capo_network_firewall.types.container_monitoring_type.serialize_cbor(
+        value["type"]
+    )
+    import capo_network_firewall.types.container_monitoring_configurations
+
+    out["ContainerMonitoringConfigurations"] = (
+        capo_network_firewall.types.container_monitoring_configurations.serialize_cbor(
+            value["container_monitoring_configurations"]
+        )
+    )
+    if "tags" in value:
+        import capo_network_firewall.types.tag_list
+
+        out["Tags"] = capo_network_firewall.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateContainerAssociationRequest:
+    out: CreateContainerAssociationRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ContainerAssociationName") is not None:
+        out["container_association_name"] = data["ContainerAssociationName"]
+    else:
+        out["container_association_name"] = ""
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("Type") is not None:
+        import capo_network_firewall.types.container_monitoring_type
+
+        out["type"] = (
+            capo_network_firewall.types.container_monitoring_type.deserialize_cbor(
+                data["Type"]
+            )
+        )
+    else:
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_network_firewall.types.container_monitoring_type.ContainerMonitoringType",
+            "",
+        )
+    if data.get("ContainerMonitoringConfigurations") is not None:
+        import capo_network_firewall.types.container_monitoring_configurations
+
+        out["container_monitoring_configurations"] = (
+            capo_network_firewall.types.container_monitoring_configurations.deserialize_cbor(
+                data["ContainerMonitoringConfigurations"]
+            )
+        )
+    else:
+        out["container_monitoring_configurations"] = []
+    if data.get("Tags") is not None:
+        import capo_network_firewall.types.tag_list
+
+        out["tags"] = capo_network_firewall.types.tag_list.deserialize_cbor(
+            data["Tags"]
+        )
+    return out

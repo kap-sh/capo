@@ -34,3 +34,26 @@ def deserialize_aws_json_1_1(data: dict) -> NfsMountOptions:
             data["Version"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: NfsMountOptions) -> dict:
+    out: dict = {}
+    if "version" in value:
+        import capo_datasync.types.nfs_version
+
+        out["Version"] = capo_datasync.types.nfs_version.serialize_cbor(
+            value["version"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> NfsMountOptions:
+    out: NfsMountOptions = {}  # type: ignore[typeddict-item]
+    if data.get("Version") is not None:
+        import capo_datasync.types.nfs_version
+
+        out["version"] = capo_datasync.types.nfs_version.deserialize_cbor(
+            data["Version"]
+        )
+    return out

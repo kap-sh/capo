@@ -38,6 +38,25 @@ def deserialize_aws_json_1_1(data: dict) -> OperationNotSupportedException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: OperationNotSupportedException_) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["message"] = value["message"]
+    if "reason" in value:
+        out["reason"] = value["reason"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> OperationNotSupportedException_:
+    out: OperationNotSupportedException_ = {}  # type: ignore[typeddict-item]
+    if data.get("message") is not None:
+        out["message"] = data["message"]
+    if data.get("reason") is not None:
+        out["reason"] = data["reason"]
+    return out
+
+
 class OperationNotSupportedException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.workspaces#OperationNotSupportedException``."""
 
@@ -65,3 +84,9 @@ class OperationNotSupportedException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "OperationNotSupportedException":
         return cls(deserialize_aws_json_1_1(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "OperationNotSupportedException":
+        return cls(deserialize_cbor(data), message, response=response)

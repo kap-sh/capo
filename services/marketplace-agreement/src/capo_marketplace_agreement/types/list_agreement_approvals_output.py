@@ -46,3 +46,35 @@ def deserialize_aws_json_1_0(data: dict) -> ListAgreementApprovalsOutput:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListAgreementApprovalsOutput) -> dict:
+    out: dict = {}
+    import capo_marketplace_agreement.types.agreement_approval_summaries
+
+    out["items"] = (
+        capo_marketplace_agreement.types.agreement_approval_summaries.serialize_cbor(
+            value["items"]
+        )
+    )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListAgreementApprovalsOutput:
+    out: ListAgreementApprovalsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("items") is not None:
+        import capo_marketplace_agreement.types.agreement_approval_summaries
+
+        out["items"] = (
+            capo_marketplace_agreement.types.agreement_approval_summaries.deserialize_cbor(
+                data["items"]
+            )
+        )
+    else:
+        out["items"] = []
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

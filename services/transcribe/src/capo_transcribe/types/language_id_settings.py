@@ -42,3 +42,26 @@ def deserialize_aws_json_1_1(data: dict) -> LanguageIdSettings:
     if data.get("LanguageModelName") is not None:
         out["language_model_name"] = data["LanguageModelName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LanguageIdSettings) -> dict:
+    out: dict = {}
+    if "vocabulary_name" in value:
+        out["VocabularyName"] = value["vocabulary_name"]
+    if "vocabulary_filter_name" in value:
+        out["VocabularyFilterName"] = value["vocabulary_filter_name"]
+    if "language_model_name" in value:
+        out["LanguageModelName"] = value["language_model_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> LanguageIdSettings:
+    out: LanguageIdSettings = {}  # type: ignore[typeddict-item]
+    if data.get("VocabularyName") is not None:
+        out["vocabulary_name"] = data["VocabularyName"]
+    if data.get("VocabularyFilterName") is not None:
+        out["vocabulary_filter_name"] = data["VocabularyFilterName"]
+    if data.get("LanguageModelName") is not None:
+        out["language_model_name"] = data["LanguageModelName"]
+    return out

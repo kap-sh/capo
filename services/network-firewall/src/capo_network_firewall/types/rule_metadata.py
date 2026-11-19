@@ -35,3 +35,22 @@ def deserialize_aws_json_1_0(data: dict) -> RuleMetadata:
     if data.get("RuleDescription") is not None:
         out["rule_description"] = data["RuleDescription"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RuleMetadata) -> dict:
+    out: dict = {}
+    if "rule_enabled" in value:
+        out["RuleEnabled"] = value["rule_enabled"]
+    if "rule_description" in value:
+        out["RuleDescription"] = value["rule_description"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RuleMetadata:
+    out: RuleMetadata = {}  # type: ignore[typeddict-item]
+    if data.get("RuleEnabled") is not None:
+        out["rule_enabled"] = data["RuleEnabled"]
+    if data.get("RuleDescription") is not None:
+        out["rule_description"] = data["RuleDescription"]
+    return out

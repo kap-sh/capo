@@ -256,3 +256,184 @@ def deserialize_aws_json_1_1(data: dict) -> CertificateAuthority:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CertificateAuthority) -> dict:
+    out: dict = {}
+    if "arn" in value:
+        out["Arn"] = value["arn"]
+    if "owner_account" in value:
+        out["OwnerAccount"] = value["owner_account"]
+    if "created_at" in value:
+        import capo_acm_pca.types.t_stamp
+
+        out["CreatedAt"] = capo_acm_pca.types.t_stamp.serialize_cbor(
+            value["created_at"]
+        )
+    if "last_state_change_at" in value:
+        import capo_acm_pca.types.t_stamp
+
+        out["LastStateChangeAt"] = capo_acm_pca.types.t_stamp.serialize_cbor(
+            value["last_state_change_at"]
+        )
+    if "type" in value:
+        import capo_acm_pca.types.certificate_authority_type
+
+        out["Type"] = capo_acm_pca.types.certificate_authority_type.serialize_cbor(
+            value["type"]
+        )
+    if "serial" in value:
+        out["Serial"] = value["serial"]
+    if "status" in value:
+        import capo_acm_pca.types.certificate_authority_status
+
+        out["Status"] = capo_acm_pca.types.certificate_authority_status.serialize_cbor(
+            value["status"]
+        )
+    if "not_before" in value:
+        import capo_acm_pca.types.t_stamp
+
+        out["NotBefore"] = capo_acm_pca.types.t_stamp.serialize_cbor(
+            value["not_before"]
+        )
+    if "not_after" in value:
+        import capo_acm_pca.types.t_stamp
+
+        out["NotAfter"] = capo_acm_pca.types.t_stamp.serialize_cbor(value["not_after"])
+    if "failure_reason" in value:
+        import capo_acm_pca.types.failure_reason
+
+        out["FailureReason"] = capo_acm_pca.types.failure_reason.serialize_cbor(
+            value["failure_reason"]
+        )
+    if "certificate_authority_configuration" in value:
+        import capo_acm_pca.types.certificate_authority_configuration
+
+        out["CertificateAuthorityConfiguration"] = (
+            capo_acm_pca.types.certificate_authority_configuration.serialize_cbor(
+                value["certificate_authority_configuration"]
+            )
+        )
+    if "revocation_configuration" in value:
+        import capo_acm_pca.types.revocation_configuration
+
+        out["RevocationConfiguration"] = (
+            capo_acm_pca.types.revocation_configuration.serialize_cbor(
+                value["revocation_configuration"]
+            )
+        )
+    if "restorable_until" in value:
+        import capo_acm_pca.types.t_stamp
+
+        out["RestorableUntil"] = capo_acm_pca.types.t_stamp.serialize_cbor(
+            value["restorable_until"]
+        )
+    if "key_storage_security_standard" in value:
+        import capo_acm_pca.types.key_storage_security_standard
+
+        out["KeyStorageSecurityStandard"] = (
+            capo_acm_pca.types.key_storage_security_standard.serialize_cbor(
+                value["key_storage_security_standard"]
+            )
+        )
+    if "usage_mode" in value:
+        import capo_acm_pca.types.certificate_authority_usage_mode
+
+        out["UsageMode"] = (
+            capo_acm_pca.types.certificate_authority_usage_mode.serialize_cbor(
+                value["usage_mode"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CertificateAuthority:
+    out: CertificateAuthority = {}  # type: ignore[typeddict-item]
+    if data.get("Arn") is not None:
+        out["arn"] = data["Arn"]
+    if data.get("OwnerAccount") is not None:
+        out["owner_account"] = data["OwnerAccount"]
+    if data.get("CreatedAt") is not None:
+        import capo_acm_pca.types.t_stamp
+
+        out["created_at"] = capo_acm_pca.types.t_stamp.deserialize_cbor(
+            data["CreatedAt"]
+        )
+    if data.get("LastStateChangeAt") is not None:
+        import capo_acm_pca.types.t_stamp
+
+        out["last_state_change_at"] = capo_acm_pca.types.t_stamp.deserialize_cbor(
+            data["LastStateChangeAt"]
+        )
+    if data.get("Type") is not None:
+        import capo_acm_pca.types.certificate_authority_type
+
+        out["type"] = capo_acm_pca.types.certificate_authority_type.deserialize_cbor(
+            data["Type"]
+        )
+    if data.get("Serial") is not None:
+        out["serial"] = data["Serial"]
+    if data.get("Status") is not None:
+        import capo_acm_pca.types.certificate_authority_status
+
+        out["status"] = (
+            capo_acm_pca.types.certificate_authority_status.deserialize_cbor(
+                data["Status"]
+            )
+        )
+    if data.get("NotBefore") is not None:
+        import capo_acm_pca.types.t_stamp
+
+        out["not_before"] = capo_acm_pca.types.t_stamp.deserialize_cbor(
+            data["NotBefore"]
+        )
+    if data.get("NotAfter") is not None:
+        import capo_acm_pca.types.t_stamp
+
+        out["not_after"] = capo_acm_pca.types.t_stamp.deserialize_cbor(data["NotAfter"])
+    if data.get("FailureReason") is not None:
+        import capo_acm_pca.types.failure_reason
+
+        out["failure_reason"] = capo_acm_pca.types.failure_reason.deserialize_cbor(
+            data["FailureReason"]
+        )
+    if data.get("CertificateAuthorityConfiguration") is not None:
+        import capo_acm_pca.types.certificate_authority_configuration
+
+        out["certificate_authority_configuration"] = (
+            capo_acm_pca.types.certificate_authority_configuration.deserialize_cbor(
+                data["CertificateAuthorityConfiguration"]
+            )
+        )
+    if data.get("RevocationConfiguration") is not None:
+        import capo_acm_pca.types.revocation_configuration
+
+        out["revocation_configuration"] = (
+            capo_acm_pca.types.revocation_configuration.deserialize_cbor(
+                data["RevocationConfiguration"]
+            )
+        )
+    if data.get("RestorableUntil") is not None:
+        import capo_acm_pca.types.t_stamp
+
+        out["restorable_until"] = capo_acm_pca.types.t_stamp.deserialize_cbor(
+            data["RestorableUntil"]
+        )
+    if data.get("KeyStorageSecurityStandard") is not None:
+        import capo_acm_pca.types.key_storage_security_standard
+
+        out["key_storage_security_standard"] = (
+            capo_acm_pca.types.key_storage_security_standard.deserialize_cbor(
+                data["KeyStorageSecurityStandard"]
+            )
+        )
+    if data.get("UsageMode") is not None:
+        import capo_acm_pca.types.certificate_authority_usage_mode
+
+        out["usage_mode"] = (
+            capo_acm_pca.types.certificate_authority_usage_mode.deserialize_cbor(
+                data["UsageMode"]
+            )
+        )
+    return out

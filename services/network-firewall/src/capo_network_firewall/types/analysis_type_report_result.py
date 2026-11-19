@@ -111,3 +111,76 @@ def deserialize_aws_json_1_0(data: dict) -> AnalysisTypeReportResult:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AnalysisTypeReportResult) -> dict:
+    out: dict = {}
+    if "protocol" in value:
+        out["Protocol"] = value["protocol"]
+    if "first_accessed" in value:
+        import capo_network_firewall.types.first_accessed
+
+        out["FirstAccessed"] = (
+            capo_network_firewall.types.first_accessed.serialize_cbor(
+                value["first_accessed"]
+            )
+        )
+    if "last_accessed" in value:
+        import capo_network_firewall.types.last_accessed
+
+        out["LastAccessed"] = capo_network_firewall.types.last_accessed.serialize_cbor(
+            value["last_accessed"]
+        )
+    if "domain" in value:
+        out["Domain"] = value["domain"]
+    if "hits" in value:
+        import capo_network_firewall.types.hits
+
+        out["Hits"] = capo_network_firewall.types.hits.serialize_cbor(value["hits"])
+    if "unique_sources" in value:
+        import capo_network_firewall.types.unique_sources
+
+        out["UniqueSources"] = (
+            capo_network_firewall.types.unique_sources.serialize_cbor(
+                value["unique_sources"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AnalysisTypeReportResult:
+    out: AnalysisTypeReportResult = {}  # type: ignore[typeddict-item]
+    if data.get("Protocol") is not None:
+        out["protocol"] = data["Protocol"]
+    if data.get("FirstAccessed") is not None:
+        import capo_network_firewall.types.first_accessed
+
+        out["first_accessed"] = (
+            capo_network_firewall.types.first_accessed.deserialize_cbor(
+                data["FirstAccessed"]
+            )
+        )
+    if data.get("LastAccessed") is not None:
+        import capo_network_firewall.types.last_accessed
+
+        out["last_accessed"] = (
+            capo_network_firewall.types.last_accessed.deserialize_cbor(
+                data["LastAccessed"]
+            )
+        )
+    if data.get("Domain") is not None:
+        out["domain"] = data["Domain"]
+    if data.get("Hits") is not None:
+        import capo_network_firewall.types.hits
+
+        out["hits"] = capo_network_firewall.types.hits.deserialize_cbor(data["Hits"])
+    if data.get("UniqueSources") is not None:
+        import capo_network_firewall.types.unique_sources
+
+        out["unique_sources"] = (
+            capo_network_firewall.types.unique_sources.deserialize_cbor(
+                data["UniqueSources"]
+            )
+        )
+    return out

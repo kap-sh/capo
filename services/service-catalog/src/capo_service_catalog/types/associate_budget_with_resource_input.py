@@ -35,3 +35,24 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateBudgetWithResourceInput:
     else:
         out["resource_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AssociateBudgetWithResourceInput) -> dict:
+    out: dict = {}
+    out["BudgetName"] = value["budget_name"]
+    out["ResourceId"] = value["resource_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AssociateBudgetWithResourceInput:
+    out: AssociateBudgetWithResourceInput = {}  # type: ignore[typeddict-item]
+    if data.get("BudgetName") is not None:
+        out["budget_name"] = data["BudgetName"]
+    else:
+        out["budget_name"] = ""
+    if data.get("ResourceId") is not None:
+        out["resource_id"] = data["ResourceId"]
+    else:
+        out["resource_id"] = ""
+    return out

@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> CopyImageResponse:
     if data.get("DestinationImageName") is not None:
         out["destination_image_name"] = data["DestinationImageName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CopyImageResponse) -> dict:
+    out: dict = {}
+    if "destination_image_name" in value:
+        out["DestinationImageName"] = value["destination_image_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CopyImageResponse:
+    out: CopyImageResponse = {}  # type: ignore[typeddict-item]
+    if data.get("DestinationImageName") is not None:
+        out["destination_image_name"] = data["DestinationImageName"]
+    return out

@@ -20,3 +20,12 @@ def serialize_aws_json_1_1(value: SoftwareDeploymentStatus) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> SoftwareDeploymentStatus:
     return cast(SoftwareDeploymentStatus, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SoftwareDeploymentStatus) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> SoftwareDeploymentStatus:
+    return cast(SoftwareDeploymentStatus, data)

@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> RestoreTableResponse:
     else:
         out["restored_table_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RestoreTableResponse) -> dict:
+    out: dict = {}
+    out["restoredTableARN"] = value["restored_table_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RestoreTableResponse:
+    out: RestoreTableResponse = {}  # type: ignore[typeddict-item]
+    if data.get("restoredTableARN") is not None:
+        out["restored_table_arn"] = data["restoredTableARN"]
+    else:
+        out["restored_table_arn"] = ""
+    return out

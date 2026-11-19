@@ -48,3 +48,33 @@ def deserialize_aws_json_1_1(data: dict) -> PolicyTypeScope:
     else:
         out["all_policy_types_enabled"] = False
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PolicyTypeScope) -> dict:
+    out: dict = {}
+    if "policy_types" in value:
+        import capo_fms.types.security_service_type_list
+
+        out["PolicyTypes"] = capo_fms.types.security_service_type_list.serialize_cbor(
+            value["policy_types"]
+        )
+    out["AllPolicyTypesEnabled"] = value.get("all_policy_types_enabled", False)
+    return out
+
+
+def deserialize_cbor(data: dict) -> PolicyTypeScope:
+    out: PolicyTypeScope = {}  # type: ignore[typeddict-item]
+    if data.get("PolicyTypes") is not None:
+        import capo_fms.types.security_service_type_list
+
+        out["policy_types"] = (
+            capo_fms.types.security_service_type_list.deserialize_cbor(
+                data["PolicyTypes"]
+            )
+        )
+    if data.get("AllPolicyTypesEnabled") is not None:
+        out["all_policy_types_enabled"] = data["AllPolicyTypesEnabled"]
+    else:
+        out["all_policy_types_enabled"] = False
+    return out

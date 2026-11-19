@@ -16,3 +16,12 @@ def serialize_aws_json_1_0(value: InterfaceTypeEnum) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> InterfaceTypeEnum:
     return cast(InterfaceTypeEnum, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InterfaceTypeEnum) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> InterfaceTypeEnum:
+    return cast(InterfaceTypeEnum, data)

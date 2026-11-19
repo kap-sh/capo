@@ -30,3 +30,22 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteACLResponse:
 
         out["acl"] = capo_memorydb.types.acl.deserialize_aws_json_1_1(data["ACL"])
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteACLResponse) -> dict:
+    out: dict = {}
+    if "acl" in value:
+        import capo_memorydb.types.acl
+
+        out["ACL"] = capo_memorydb.types.acl.serialize_cbor(value["acl"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteACLResponse:
+    out: DeleteACLResponse = {}  # type: ignore[typeddict-item]
+    if data.get("ACL") is not None:
+        import capo_memorydb.types.acl
+
+        out["acl"] = capo_memorydb.types.acl.deserialize_cbor(data["ACL"])
+    return out

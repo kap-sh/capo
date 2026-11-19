@@ -45,6 +45,29 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeFleetEventsOutput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeFleetEventsOutput) -> dict:
+    out: dict = {}
+    if "events" in value:
+        import capo_gamelift.types.event_list
+
+        out["Events"] = capo_gamelift.types.event_list.serialize_cbor(value["events"])
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeFleetEventsOutput:
+    out: DescribeFleetEventsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("Events") is not None:
+        import capo_gamelift.types.event_list
+
+        out["events"] = capo_gamelift.types.event_list.deserialize_cbor(data["Events"])
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out
+
+
 def redact_sensitive(value: DescribeFleetEventsOutput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "events" in value:

@@ -36,3 +36,23 @@ def deserialize_aws_json_1_0(data: dict) -> RollbackAutomationEventRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RollbackAutomationEventRequest) -> dict:
+    out: dict = {}
+    out["eventId"] = value["event_id"]
+    if "client_token" in value:
+        out["clientToken"] = value["client_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RollbackAutomationEventRequest:
+    out: RollbackAutomationEventRequest = {}  # type: ignore[typeddict-item]
+    if data.get("eventId") is not None:
+        out["event_id"] = data["eventId"]
+    else:
+        out["event_id"] = ""
+    if data.get("clientToken") is not None:
+        out["client_token"] = data["clientToken"]
+    return out

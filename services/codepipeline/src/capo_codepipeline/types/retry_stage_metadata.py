@@ -57,3 +57,38 @@ def deserialize_aws_json_1_1(data: dict) -> RetryStageMetadata:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RetryStageMetadata) -> dict:
+    out: dict = {}
+    if "auto_stage_retry_attempt" in value:
+        out["autoStageRetryAttempt"] = value["auto_stage_retry_attempt"]
+    if "manual_stage_retry_attempt" in value:
+        out["manualStageRetryAttempt"] = value["manual_stage_retry_attempt"]
+    if "latest_retry_trigger" in value:
+        import capo_codepipeline.types.retry_trigger
+
+        out["latestRetryTrigger"] = (
+            capo_codepipeline.types.retry_trigger.serialize_cbor(
+                value["latest_retry_trigger"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RetryStageMetadata:
+    out: RetryStageMetadata = {}  # type: ignore[typeddict-item]
+    if data.get("autoStageRetryAttempt") is not None:
+        out["auto_stage_retry_attempt"] = data["autoStageRetryAttempt"]
+    if data.get("manualStageRetryAttempt") is not None:
+        out["manual_stage_retry_attempt"] = data["manualStageRetryAttempt"]
+    if data.get("latestRetryTrigger") is not None:
+        import capo_codepipeline.types.retry_trigger
+
+        out["latest_retry_trigger"] = (
+            capo_codepipeline.types.retry_trigger.deserialize_cbor(
+                data["latestRetryTrigger"]
+            )
+        )
+    return out

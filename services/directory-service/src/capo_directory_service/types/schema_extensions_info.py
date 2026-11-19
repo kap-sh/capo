@@ -37,3 +37,28 @@ def deserialize_aws_json_1_1(data: list) -> SchemaExtensionsInfo:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SchemaExtensionsInfo) -> list:
+    import capo_directory_service.types.schema_extension_info
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_directory_service.types.schema_extension_info.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> SchemaExtensionsInfo:
+    import capo_directory_service.types.schema_extension_info
+
+    out: SchemaExtensionsInfo = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_directory_service.types.schema_extension_info.deserialize_cbor(item)
+        )
+    return out

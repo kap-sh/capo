@@ -59,6 +59,43 @@ def deserialize_aws_json_1_1(data: dict) -> RequestUploadCredentialsOutput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RequestUploadCredentialsOutput) -> dict:
+    out: dict = {}
+    if "upload_credentials" in value:
+        import capo_gamelift.types.aws_credentials
+
+        out["UploadCredentials"] = capo_gamelift.types.aws_credentials.serialize_cbor(
+            value["upload_credentials"]
+        )
+    if "storage_location" in value:
+        import capo_gamelift.types.s3_location
+
+        out["StorageLocation"] = capo_gamelift.types.s3_location.serialize_cbor(
+            value["storage_location"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RequestUploadCredentialsOutput:
+    out: RequestUploadCredentialsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("UploadCredentials") is not None:
+        import capo_gamelift.types.aws_credentials
+
+        out["upload_credentials"] = (
+            capo_gamelift.types.aws_credentials.deserialize_cbor(
+                data["UploadCredentials"]
+            )
+        )
+    if data.get("StorageLocation") is not None:
+        import capo_gamelift.types.s3_location
+
+        out["storage_location"] = capo_gamelift.types.s3_location.deserialize_cbor(
+            data["StorageLocation"]
+        )
+    return out
+
+
 def redact_sensitive(value: RequestUploadCredentialsOutput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "upload_credentials" in value:

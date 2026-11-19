@@ -58,3 +58,38 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeEngineVersionsRequest:
     if data.get("DefaultOnly") is not None:
         out["default_only"] = data["DefaultOnly"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeEngineVersionsRequest) -> dict:
+    out: dict = {}
+    if "engine" in value:
+        out["Engine"] = value["engine"]
+    if "engine_version" in value:
+        out["EngineVersion"] = value["engine_version"]
+    if "parameter_group_family" in value:
+        out["ParameterGroupFamily"] = value["parameter_group_family"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "default_only" in value:
+        out["DefaultOnly"] = value["default_only"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeEngineVersionsRequest:
+    out: DescribeEngineVersionsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Engine") is not None:
+        out["engine"] = data["Engine"]
+    if data.get("EngineVersion") is not None:
+        out["engine_version"] = data["EngineVersion"]
+    if data.get("ParameterGroupFamily") is not None:
+        out["parameter_group_family"] = data["ParameterGroupFamily"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("DefaultOnly") is not None:
+        out["default_only"] = data["DefaultOnly"]
+    return out

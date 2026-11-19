@@ -37,3 +37,32 @@ def deserialize_aws_json_1_0(data: list) -> BatchCreateBillingAdjustmentErrorLis
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchCreateBillingAdjustmentErrorList) -> list:
+    import capo_marketplace_agreement.types.batch_create_billing_adjustment_error
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_marketplace_agreement.types.batch_create_billing_adjustment_error.serialize_cbor(
+                item
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> BatchCreateBillingAdjustmentErrorList:
+    import capo_marketplace_agreement.types.batch_create_billing_adjustment_error
+
+    out: BatchCreateBillingAdjustmentErrorList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_marketplace_agreement.types.batch_create_billing_adjustment_error.deserialize_cbor(
+                item
+            )
+        )
+    return out

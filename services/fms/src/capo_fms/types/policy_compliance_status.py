@@ -97,3 +97,66 @@ def deserialize_aws_json_1_1(data: dict) -> PolicyComplianceStatus:
             data["IssueInfoMap"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PolicyComplianceStatus) -> dict:
+    out: dict = {}
+    if "policy_owner" in value:
+        out["PolicyOwner"] = value["policy_owner"]
+    if "policy_id" in value:
+        out["PolicyId"] = value["policy_id"]
+    if "policy_name" in value:
+        out["PolicyName"] = value["policy_name"]
+    if "member_account" in value:
+        out["MemberAccount"] = value["member_account"]
+    if "evaluation_results" in value:
+        import capo_fms.types.evaluation_results
+
+        out["EvaluationResults"] = capo_fms.types.evaluation_results.serialize_cbor(
+            value["evaluation_results"]
+        )
+    if "last_updated" in value:
+        import capo_fms.types.time_stamp
+
+        out["LastUpdated"] = capo_fms.types.time_stamp.serialize_cbor(
+            value["last_updated"]
+        )
+    if "issue_info_map" in value:
+        import capo_fms.types.issue_info_map
+
+        out["IssueInfoMap"] = capo_fms.types.issue_info_map.serialize_cbor(
+            value["issue_info_map"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PolicyComplianceStatus:
+    out: PolicyComplianceStatus = {}  # type: ignore[typeddict-item]
+    if data.get("PolicyOwner") is not None:
+        out["policy_owner"] = data["PolicyOwner"]
+    if data.get("PolicyId") is not None:
+        out["policy_id"] = data["PolicyId"]
+    if data.get("PolicyName") is not None:
+        out["policy_name"] = data["PolicyName"]
+    if data.get("MemberAccount") is not None:
+        out["member_account"] = data["MemberAccount"]
+    if data.get("EvaluationResults") is not None:
+        import capo_fms.types.evaluation_results
+
+        out["evaluation_results"] = capo_fms.types.evaluation_results.deserialize_cbor(
+            data["EvaluationResults"]
+        )
+    if data.get("LastUpdated") is not None:
+        import capo_fms.types.time_stamp
+
+        out["last_updated"] = capo_fms.types.time_stamp.deserialize_cbor(
+            data["LastUpdated"]
+        )
+    if data.get("IssueInfoMap") is not None:
+        import capo_fms.types.issue_info_map
+
+        out["issue_info_map"] = capo_fms.types.issue_info_map.deserialize_cbor(
+            data["IssueInfoMap"]
+        )
+    return out

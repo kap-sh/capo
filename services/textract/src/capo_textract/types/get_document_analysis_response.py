@@ -106,3 +106,70 @@ def deserialize_aws_json_1_1(data: dict) -> GetDocumentAnalysisResponse:
     if data.get("AnalyzeDocumentModelVersion") is not None:
         out["analyze_document_model_version"] = data["AnalyzeDocumentModelVersion"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetDocumentAnalysisResponse) -> dict:
+    out: dict = {}
+    if "document_metadata" in value:
+        import capo_textract.types.document_metadata
+
+        out["DocumentMetadata"] = capo_textract.types.document_metadata.serialize_cbor(
+            value["document_metadata"]
+        )
+    if "job_status" in value:
+        import capo_textract.types.job_status
+
+        out["JobStatus"] = capo_textract.types.job_status.serialize_cbor(
+            value["job_status"]
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "blocks" in value:
+        import capo_textract.types.block_list
+
+        out["Blocks"] = capo_textract.types.block_list.serialize_cbor(value["blocks"])
+    if "warnings" in value:
+        import capo_textract.types.warnings
+
+        out["Warnings"] = capo_textract.types.warnings.serialize_cbor(value["warnings"])
+    if "status_message" in value:
+        out["StatusMessage"] = value["status_message"]
+    if "analyze_document_model_version" in value:
+        out["AnalyzeDocumentModelVersion"] = value["analyze_document_model_version"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetDocumentAnalysisResponse:
+    out: GetDocumentAnalysisResponse = {}  # type: ignore[typeddict-item]
+    if data.get("DocumentMetadata") is not None:
+        import capo_textract.types.document_metadata
+
+        out["document_metadata"] = (
+            capo_textract.types.document_metadata.deserialize_cbor(
+                data["DocumentMetadata"]
+            )
+        )
+    if data.get("JobStatus") is not None:
+        import capo_textract.types.job_status
+
+        out["job_status"] = capo_textract.types.job_status.deserialize_cbor(
+            data["JobStatus"]
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("Blocks") is not None:
+        import capo_textract.types.block_list
+
+        out["blocks"] = capo_textract.types.block_list.deserialize_cbor(data["Blocks"])
+    if data.get("Warnings") is not None:
+        import capo_textract.types.warnings
+
+        out["warnings"] = capo_textract.types.warnings.deserialize_cbor(
+            data["Warnings"]
+        )
+    if data.get("StatusMessage") is not None:
+        out["status_message"] = data["StatusMessage"]
+    if data.get("AnalyzeDocumentModelVersion") is not None:
+        out["analyze_document_model_version"] = data["AnalyzeDocumentModelVersion"]
+    return out

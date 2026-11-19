@@ -101,3 +101,68 @@ def deserialize_aws_json_1_1(data: dict) -> ACL:
     if data.get("ARN") is not None:
         out["arn"] = data["ARN"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ACL) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "status" in value:
+        out["Status"] = value["status"]
+    if "user_names" in value:
+        import capo_memorydb.types.user_name_list
+
+        out["UserNames"] = capo_memorydb.types.user_name_list.serialize_cbor(
+            value["user_names"]
+        )
+    if "minimum_engine_version" in value:
+        out["MinimumEngineVersion"] = value["minimum_engine_version"]
+    if "pending_changes" in value:
+        import capo_memorydb.types.acl_pending_changes
+
+        out["PendingChanges"] = capo_memorydb.types.acl_pending_changes.serialize_cbor(
+            value["pending_changes"]
+        )
+    if "clusters" in value:
+        import capo_memorydb.types.acl_cluster_name_list
+
+        out["Clusters"] = capo_memorydb.types.acl_cluster_name_list.serialize_cbor(
+            value["clusters"]
+        )
+    if "arn" in value:
+        out["ARN"] = value["arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ACL:
+    out: ACL = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Status") is not None:
+        out["status"] = data["Status"]
+    if data.get("UserNames") is not None:
+        import capo_memorydb.types.user_name_list
+
+        out["user_names"] = capo_memorydb.types.user_name_list.deserialize_cbor(
+            data["UserNames"]
+        )
+    if data.get("MinimumEngineVersion") is not None:
+        out["minimum_engine_version"] = data["MinimumEngineVersion"]
+    if data.get("PendingChanges") is not None:
+        import capo_memorydb.types.acl_pending_changes
+
+        out["pending_changes"] = (
+            capo_memorydb.types.acl_pending_changes.deserialize_cbor(
+                data["PendingChanges"]
+            )
+        )
+    if data.get("Clusters") is not None:
+        import capo_memorydb.types.acl_cluster_name_list
+
+        out["clusters"] = capo_memorydb.types.acl_cluster_name_list.deserialize_cbor(
+            data["Clusters"]
+        )
+    if data.get("ARN") is not None:
+        out["arn"] = data["ARN"]
+    return out

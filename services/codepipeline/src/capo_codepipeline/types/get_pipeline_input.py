@@ -34,3 +34,23 @@ def deserialize_aws_json_1_1(data: dict) -> GetPipelineInput:
     if data.get("version") is not None:
         out["version"] = data["version"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetPipelineInput) -> dict:
+    out: dict = {}
+    out["name"] = value["name"]
+    if "version" in value:
+        out["version"] = value["version"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetPipelineInput:
+    out: GetPipelineInput = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    else:
+        out["name"] = ""
+    if data.get("version") is not None:
+        out["version"] = data["version"]
+    return out

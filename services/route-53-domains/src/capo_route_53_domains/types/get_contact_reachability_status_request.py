@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> GetContactReachabilityStatusRequest:
     if data.get("domainName") is not None:
         out["domain_name"] = data["domainName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetContactReachabilityStatusRequest) -> dict:
+    out: dict = {}
+    if "domain_name" in value:
+        out["domainName"] = value["domain_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetContactReachabilityStatusRequest:
+    out: GetContactReachabilityStatusRequest = {}  # type: ignore[typeddict-item]
+    if data.get("domainName") is not None:
+        out["domain_name"] = data["domainName"]
+    return out

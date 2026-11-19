@@ -84,3 +84,58 @@ def deserialize_aws_json_1_0(data: dict) -> ServiceConfiguration:
     if data.get("taskDefinitionArn") is not None:
         out["task_definition_arn"] = data["taskDefinitionArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ServiceConfiguration) -> dict:
+    out: dict = {}
+    if "memory" in value:
+        out["memory"] = value["memory"]
+    if "cpu" in value:
+        out["cpu"] = value["cpu"]
+    if "container_configurations" in value:
+        import capo_compute_optimizer.types.container_configurations
+
+        out["containerConfigurations"] = (
+            capo_compute_optimizer.types.container_configurations.serialize_cbor(
+                value["container_configurations"]
+            )
+        )
+    if "auto_scaling_configuration" in value:
+        import capo_compute_optimizer.types.auto_scaling_configuration
+
+        out["autoScalingConfiguration"] = (
+            capo_compute_optimizer.types.auto_scaling_configuration.serialize_cbor(
+                value["auto_scaling_configuration"]
+            )
+        )
+    if "task_definition_arn" in value:
+        out["taskDefinitionArn"] = value["task_definition_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ServiceConfiguration:
+    out: ServiceConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("memory") is not None:
+        out["memory"] = data["memory"]
+    if data.get("cpu") is not None:
+        out["cpu"] = data["cpu"]
+    if data.get("containerConfigurations") is not None:
+        import capo_compute_optimizer.types.container_configurations
+
+        out["container_configurations"] = (
+            capo_compute_optimizer.types.container_configurations.deserialize_cbor(
+                data["containerConfigurations"]
+            )
+        )
+    if data.get("autoScalingConfiguration") is not None:
+        import capo_compute_optimizer.types.auto_scaling_configuration
+
+        out["auto_scaling_configuration"] = (
+            capo_compute_optimizer.types.auto_scaling_configuration.deserialize_cbor(
+                data["autoScalingConfiguration"]
+            )
+        )
+    if data.get("taskDefinitionArn") is not None:
+        out["task_definition_arn"] = data["taskDefinitionArn"]
+    return out

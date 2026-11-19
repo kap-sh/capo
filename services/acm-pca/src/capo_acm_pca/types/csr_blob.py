@@ -13,3 +13,12 @@ def serialize_aws_json_1_1(value: CsrBlob) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> CsrBlob:
     return base64.b64decode(data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CsrBlob) -> CsrBlob:
+    return value
+
+
+def deserialize_cbor(data: CsrBlob) -> CsrBlob:
+    return data

@@ -93,3 +93,62 @@ def deserialize_aws_json_1_1(data: dict) -> InstanceInfo:
             data["tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InstanceInfo) -> dict:
+    out: dict = {}
+    if "instance_name" in value:
+        out["instanceName"] = value["instance_name"]
+    if "iam_session_arn" in value:
+        out["iamSessionArn"] = value["iam_session_arn"]
+    if "iam_user_arn" in value:
+        out["iamUserArn"] = value["iam_user_arn"]
+    if "instance_arn" in value:
+        out["instanceArn"] = value["instance_arn"]
+    if "register_time" in value:
+        import capo_codedeploy.types.timestamp
+
+        out["registerTime"] = capo_codedeploy.types.timestamp.serialize_cbor(
+            value["register_time"]
+        )
+    if "deregister_time" in value:
+        import capo_codedeploy.types.timestamp
+
+        out["deregisterTime"] = capo_codedeploy.types.timestamp.serialize_cbor(
+            value["deregister_time"]
+        )
+    if "tags" in value:
+        import capo_codedeploy.types.tag_list
+
+        out["tags"] = capo_codedeploy.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> InstanceInfo:
+    out: InstanceInfo = {}  # type: ignore[typeddict-item]
+    if data.get("instanceName") is not None:
+        out["instance_name"] = data["instanceName"]
+    if data.get("iamSessionArn") is not None:
+        out["iam_session_arn"] = data["iamSessionArn"]
+    if data.get("iamUserArn") is not None:
+        out["iam_user_arn"] = data["iamUserArn"]
+    if data.get("instanceArn") is not None:
+        out["instance_arn"] = data["instanceArn"]
+    if data.get("registerTime") is not None:
+        import capo_codedeploy.types.timestamp
+
+        out["register_time"] = capo_codedeploy.types.timestamp.deserialize_cbor(
+            data["registerTime"]
+        )
+    if data.get("deregisterTime") is not None:
+        import capo_codedeploy.types.timestamp
+
+        out["deregister_time"] = capo_codedeploy.types.timestamp.deserialize_cbor(
+            data["deregisterTime"]
+        )
+    if data.get("tags") is not None:
+        import capo_codedeploy.types.tag_list
+
+        out["tags"] = capo_codedeploy.types.tag_list.deserialize_cbor(data["tags"])
+    return out

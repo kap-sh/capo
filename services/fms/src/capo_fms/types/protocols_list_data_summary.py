@@ -55,3 +55,38 @@ def deserialize_aws_json_1_1(data: dict) -> ProtocolsListDataSummary:
             data["ProtocolsList"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ProtocolsListDataSummary) -> dict:
+    out: dict = {}
+    if "list_arn" in value:
+        out["ListArn"] = value["list_arn"]
+    if "list_id" in value:
+        out["ListId"] = value["list_id"]
+    if "list_name" in value:
+        out["ListName"] = value["list_name"]
+    if "protocols_list" in value:
+        import capo_fms.types.protocols_list
+
+        out["ProtocolsList"] = capo_fms.types.protocols_list.serialize_cbor(
+            value["protocols_list"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ProtocolsListDataSummary:
+    out: ProtocolsListDataSummary = {}  # type: ignore[typeddict-item]
+    if data.get("ListArn") is not None:
+        out["list_arn"] = data["ListArn"]
+    if data.get("ListId") is not None:
+        out["list_id"] = data["ListId"]
+    if data.get("ListName") is not None:
+        out["list_name"] = data["ListName"]
+    if data.get("ProtocolsList") is not None:
+        import capo_fms.types.protocols_list
+
+        out["protocols_list"] = capo_fms.types.protocols_list.deserialize_cbor(
+            data["ProtocolsList"]
+        )
+    return out

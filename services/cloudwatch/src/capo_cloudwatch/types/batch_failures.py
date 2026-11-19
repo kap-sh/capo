@@ -76,3 +76,24 @@ def deserialize_aws_json_1_0(data: list) -> BatchFailures:
             continue
         out.append(capo_cloudwatch.types.partial_failure.deserialize_aws_json_1_0(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchFailures) -> list:
+    import capo_cloudwatch.types.partial_failure
+
+    out: list = []
+    for item in value:
+        out.append(capo_cloudwatch.types.partial_failure.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> BatchFailures:
+    import capo_cloudwatch.types.partial_failure
+
+    out: BatchFailures = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_cloudwatch.types.partial_failure.deserialize_cbor(item))
+    return out

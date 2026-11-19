@@ -27,3 +27,24 @@ def deserialize_aws_json_1_1(data: list) -> FilterGroup:
             continue
         out.append(capo_codebuild.types.webhook_filter.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FilterGroup) -> list:
+    import capo_codebuild.types.webhook_filter
+
+    out: list = []
+    for item in value:
+        out.append(capo_codebuild.types.webhook_filter.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> FilterGroup:
+    import capo_codebuild.types.webhook_filter
+
+    out: FilterGroup = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_codebuild.types.webhook_filter.deserialize_cbor(item))
+    return out

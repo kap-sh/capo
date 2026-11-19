@@ -34,3 +34,22 @@ def deserialize_aws_json_1_1(data: dict) -> RestoreBackupResponse:
             data["Backup"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RestoreBackupResponse) -> dict:
+    out: dict = {}
+    if "backup" in value:
+        import capo_cloudhsm_v2.types.backup
+
+        out["Backup"] = capo_cloudhsm_v2.types.backup.serialize_cbor(value["backup"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> RestoreBackupResponse:
+    out: RestoreBackupResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Backup") is not None:
+        import capo_cloudhsm_v2.types.backup
+
+        out["backup"] = capo_cloudhsm_v2.types.backup.deserialize_cbor(data["Backup"])
+    return out

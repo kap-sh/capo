@@ -60,3 +60,42 @@ def deserialize_aws_json_1_1(data: dict) -> ListAliasesInput:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListAliasesInput) -> dict:
+    out: dict = {}
+    if "routing_strategy_type" in value:
+        import capo_gamelift.types.routing_strategy_type
+
+        out["RoutingStrategyType"] = (
+            capo_gamelift.types.routing_strategy_type.serialize_cbor(
+                value["routing_strategy_type"]
+            )
+        )
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "limit" in value:
+        out["Limit"] = value["limit"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListAliasesInput:
+    out: ListAliasesInput = {}  # type: ignore[typeddict-item]
+    if data.get("RoutingStrategyType") is not None:
+        import capo_gamelift.types.routing_strategy_type
+
+        out["routing_strategy_type"] = (
+            capo_gamelift.types.routing_strategy_type.deserialize_cbor(
+                data["RoutingStrategyType"]
+            )
+        )
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Limit") is not None:
+        out["limit"] = data["Limit"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

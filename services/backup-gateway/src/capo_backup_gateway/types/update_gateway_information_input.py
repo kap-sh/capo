@@ -34,3 +34,23 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateGatewayInformationInput:
     if data.get("GatewayDisplayName") is not None:
         out["gateway_display_name"] = data["GatewayDisplayName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateGatewayInformationInput) -> dict:
+    out: dict = {}
+    out["GatewayArn"] = value["gateway_arn"]
+    if "gateway_display_name" in value:
+        out["GatewayDisplayName"] = value["gateway_display_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateGatewayInformationInput:
+    out: UpdateGatewayInformationInput = {}  # type: ignore[typeddict-item]
+    if data.get("GatewayArn") is not None:
+        out["gateway_arn"] = data["GatewayArn"]
+    else:
+        out["gateway_arn"] = ""
+    if data.get("GatewayDisplayName") is not None:
+        out["gateway_display_name"] = data["GatewayDisplayName"]
+    return out

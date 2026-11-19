@@ -55,3 +55,39 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeInterconnectLoaRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeInterconnectLoaRequest) -> dict:
+    out: dict = {}
+    out["interconnectId"] = value["interconnect_id"]
+    if "provider_name" in value:
+        out["providerName"] = value["provider_name"]
+    if "loa_content_type" in value:
+        import capo_direct_connect.types.loa_content_type
+
+        out["loaContentType"] = (
+            capo_direct_connect.types.loa_content_type.serialize_cbor(
+                value["loa_content_type"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeInterconnectLoaRequest:
+    out: DescribeInterconnectLoaRequest = {}  # type: ignore[typeddict-item]
+    if data.get("interconnectId") is not None:
+        out["interconnect_id"] = data["interconnectId"]
+    else:
+        out["interconnect_id"] = ""
+    if data.get("providerName") is not None:
+        out["provider_name"] = data["providerName"]
+    if data.get("loaContentType") is not None:
+        import capo_direct_connect.types.loa_content_type
+
+        out["loa_content_type"] = (
+            capo_direct_connect.types.loa_content_type.deserialize_cbor(
+                data["loaContentType"]
+            )
+        )
+    return out

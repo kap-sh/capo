@@ -57,3 +57,22 @@ def deserialize_query(el: Element) -> MessageData:
     if child_value is not None:
         out["value"] = str(child_value.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MessageData) -> dict:
+    out: dict = {}
+    if "code" in value:
+        out["Code"] = value["code"]
+    if "value" in value:
+        out["Value"] = value["value"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> MessageData:
+    out: MessageData = {}  # type: ignore[typeddict-item]
+    if data.get("Code") is not None:
+        out["code"] = data["Code"]
+    if data.get("Value") is not None:
+        out["value"] = data["Value"]
+    return out

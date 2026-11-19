@@ -47,3 +47,34 @@ def deserialize_aws_json_1_0(data: dict) -> GetRecommendationPreferencesResponse
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetRecommendationPreferencesResponse) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    if "recommendation_preferences_details" in value:
+        import capo_compute_optimizer.types.recommendation_preferences_details
+
+        out["recommendationPreferencesDetails"] = (
+            capo_compute_optimizer.types.recommendation_preferences_details.serialize_cbor(
+                value["recommendation_preferences_details"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetRecommendationPreferencesResponse:
+    out: GetRecommendationPreferencesResponse = {}  # type: ignore[typeddict-item]
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    if data.get("recommendationPreferencesDetails") is not None:
+        import capo_compute_optimizer.types.recommendation_preferences_details
+
+        out["recommendation_preferences_details"] = (
+            capo_compute_optimizer.types.recommendation_preferences_details.deserialize_cbor(
+                data["recommendationPreferencesDetails"]
+            )
+        )
+    return out

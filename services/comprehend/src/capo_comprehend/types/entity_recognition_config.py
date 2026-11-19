@@ -37,3 +37,27 @@ def deserialize_aws_json_1_1(data: dict) -> EntityRecognitionConfig:
     else:
         out["entity_types"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EntityRecognitionConfig) -> dict:
+    out: dict = {}
+    import capo_comprehend.types.entity_types_list
+
+    out["EntityTypes"] = capo_comprehend.types.entity_types_list.serialize_cbor(
+        value["entity_types"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> EntityRecognitionConfig:
+    out: EntityRecognitionConfig = {}  # type: ignore[typeddict-item]
+    if data.get("EntityTypes") is not None:
+        import capo_comprehend.types.entity_types_list
+
+        out["entity_types"] = capo_comprehend.types.entity_types_list.deserialize_cbor(
+            data["EntityTypes"]
+        )
+    else:
+        out["entity_types"] = []
+    return out

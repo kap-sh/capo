@@ -41,3 +41,31 @@ def deserialize_aws_json_1_0(data: dict) -> ContextSet:
     else:
         out["definition"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ContextSet) -> dict:
+    out: dict = {}
+    import capo_network_firewall.types.context_definition_list
+
+    out["Definition"] = (
+        capo_network_firewall.types.context_definition_list.serialize_cbor(
+            value["definition"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ContextSet:
+    out: ContextSet = {}  # type: ignore[typeddict-item]
+    if data.get("Definition") is not None:
+        import capo_network_firewall.types.context_definition_list
+
+        out["definition"] = (
+            capo_network_firewall.types.context_definition_list.deserialize_cbor(
+                data["Definition"]
+            )
+        )
+    else:
+        out["definition"] = []
+    return out

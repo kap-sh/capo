@@ -33,3 +33,12 @@ def serialize_aws_json_1_0(value: InstanceRecommendationFindingReasonCode) -> st
 
 def deserialize_aws_json_1_0(data: str) -> InstanceRecommendationFindingReasonCode:
     return cast(InstanceRecommendationFindingReasonCode, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InstanceRecommendationFindingReasonCode) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> InstanceRecommendationFindingReasonCode:
+    return cast(InstanceRecommendationFindingReasonCode, data)

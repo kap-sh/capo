@@ -123,3 +123,94 @@ def deserialize_aws_json_1_1(data: dict) -> ClassifyDocumentResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ClassifyDocumentResponse) -> dict:
+    out: dict = {}
+    if "classes" in value:
+        import capo_comprehend.types.list_of_classes
+
+        out["Classes"] = capo_comprehend.types.list_of_classes.serialize_cbor(
+            value["classes"]
+        )
+    if "labels" in value:
+        import capo_comprehend.types.list_of_labels
+
+        out["Labels"] = capo_comprehend.types.list_of_labels.serialize_cbor(
+            value["labels"]
+        )
+    if "document_metadata" in value:
+        import capo_comprehend.types.document_metadata
+
+        out["DocumentMetadata"] = (
+            capo_comprehend.types.document_metadata.serialize_cbor(
+                value["document_metadata"]
+            )
+        )
+    if "document_type" in value:
+        import capo_comprehend.types.list_of_document_type
+
+        out["DocumentType"] = (
+            capo_comprehend.types.list_of_document_type.serialize_cbor(
+                value["document_type"]
+            )
+        )
+    if "errors" in value:
+        import capo_comprehend.types.list_of_errors
+
+        out["Errors"] = capo_comprehend.types.list_of_errors.serialize_cbor(
+            value["errors"]
+        )
+    if "warnings" in value:
+        import capo_comprehend.types.list_of_warnings
+
+        out["Warnings"] = capo_comprehend.types.list_of_warnings.serialize_cbor(
+            value["warnings"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ClassifyDocumentResponse:
+    out: ClassifyDocumentResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Classes") is not None:
+        import capo_comprehend.types.list_of_classes
+
+        out["classes"] = capo_comprehend.types.list_of_classes.deserialize_cbor(
+            data["Classes"]
+        )
+    if data.get("Labels") is not None:
+        import capo_comprehend.types.list_of_labels
+
+        out["labels"] = capo_comprehend.types.list_of_labels.deserialize_cbor(
+            data["Labels"]
+        )
+    if data.get("DocumentMetadata") is not None:
+        import capo_comprehend.types.document_metadata
+
+        out["document_metadata"] = (
+            capo_comprehend.types.document_metadata.deserialize_cbor(
+                data["DocumentMetadata"]
+            )
+        )
+    if data.get("DocumentType") is not None:
+        import capo_comprehend.types.list_of_document_type
+
+        out["document_type"] = (
+            capo_comprehend.types.list_of_document_type.deserialize_cbor(
+                data["DocumentType"]
+            )
+        )
+    if data.get("Errors") is not None:
+        import capo_comprehend.types.list_of_errors
+
+        out["errors"] = capo_comprehend.types.list_of_errors.deserialize_cbor(
+            data["Errors"]
+        )
+    if data.get("Warnings") is not None:
+        import capo_comprehend.types.list_of_warnings
+
+        out["warnings"] = capo_comprehend.types.list_of_warnings.deserialize_cbor(
+            data["Warnings"]
+        )
+    return out

@@ -16,3 +16,12 @@ def serialize_aws_json_1_1(value: ConnectionAliasState) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> ConnectionAliasState:
     return cast(ConnectionAliasState, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ConnectionAliasState) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ConnectionAliasState:
+    return cast(ConnectionAliasState, data)

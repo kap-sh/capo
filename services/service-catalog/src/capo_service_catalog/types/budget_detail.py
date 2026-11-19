@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> BudgetDetail:
     if data.get("BudgetName") is not None:
         out["budget_name"] = data["BudgetName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BudgetDetail) -> dict:
+    out: dict = {}
+    if "budget_name" in value:
+        out["BudgetName"] = value["budget_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> BudgetDetail:
+    out: BudgetDetail = {}  # type: ignore[typeddict-item]
+    if data.get("BudgetName") is not None:
+        out["budget_name"] = data["BudgetName"]
+    return out

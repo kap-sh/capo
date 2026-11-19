@@ -56,3 +56,38 @@ def deserialize_aws_json_1_1(data: dict) -> ListLanguagesRequest:
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListLanguagesRequest) -> dict:
+    out: dict = {}
+    if "display_language_code" in value:
+        import capo_translate.types.display_language_code
+
+        out["DisplayLanguageCode"] = (
+            capo_translate.types.display_language_code.serialize_cbor(
+                value["display_language_code"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListLanguagesRequest:
+    out: ListLanguagesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DisplayLanguageCode") is not None:
+        import capo_translate.types.display_language_code
+
+        out["display_language_code"] = (
+            capo_translate.types.display_language_code.deserialize_cbor(
+                data["DisplayLanguageCode"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    return out

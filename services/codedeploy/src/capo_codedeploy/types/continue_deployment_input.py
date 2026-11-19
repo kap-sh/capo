@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> ContinueDeploymentInput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ContinueDeploymentInput) -> dict:
+    out: dict = {}
+    if "deployment_id" in value:
+        out["deploymentId"] = value["deployment_id"]
+    if "deployment_wait_type" in value:
+        import capo_codedeploy.types.deployment_wait_type
+
+        out["deploymentWaitType"] = (
+            capo_codedeploy.types.deployment_wait_type.serialize_cbor(
+                value["deployment_wait_type"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ContinueDeploymentInput:
+    out: ContinueDeploymentInput = {}  # type: ignore[typeddict-item]
+    if data.get("deploymentId") is not None:
+        out["deployment_id"] = data["deploymentId"]
+    if data.get("deploymentWaitType") is not None:
+        import capo_codedeploy.types.deployment_wait_type
+
+        out["deployment_wait_type"] = (
+            capo_codedeploy.types.deployment_wait_type.deserialize_cbor(
+                data["deploymentWaitType"]
+            )
+        )
+    return out

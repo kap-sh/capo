@@ -32,3 +32,22 @@ def deserialize_aws_json_1_1(data: dict) -> Shipment:
     if data.get("TrackingNumber") is not None:
         out["tracking_number"] = data["TrackingNumber"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Shipment) -> dict:
+    out: dict = {}
+    if "status" in value:
+        out["Status"] = value["status"]
+    if "tracking_number" in value:
+        out["TrackingNumber"] = value["tracking_number"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Shipment:
+    out: Shipment = {}  # type: ignore[typeddict-item]
+    if data.get("Status") is not None:
+        out["status"] = data["Status"]
+    if data.get("TrackingNumber") is not None:
+        out["tracking_number"] = data["TrackingNumber"]
+    return out

@@ -63,3 +63,44 @@ def deserialize_aws_json_1_0(data: dict) -> AssociatedAlarm:
             "capo_arc_region_switch.types.alarm_type.AlarmType", ""
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AssociatedAlarm) -> dict:
+    out: dict = {}
+    if "cross_account_role" in value:
+        out["crossAccountRole"] = value["cross_account_role"]
+    if "external_id" in value:
+        out["externalId"] = value["external_id"]
+    out["resourceIdentifier"] = value["resource_identifier"]
+    import capo_arc_region_switch.types.alarm_type
+
+    out["alarmType"] = capo_arc_region_switch.types.alarm_type.serialize_cbor(
+        value["alarm_type"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AssociatedAlarm:
+    out: AssociatedAlarm = {}  # type: ignore[typeddict-item]
+    if data.get("crossAccountRole") is not None:
+        out["cross_account_role"] = data["crossAccountRole"]
+    if data.get("externalId") is not None:
+        out["external_id"] = data["externalId"]
+    if data.get("resourceIdentifier") is not None:
+        out["resource_identifier"] = data["resourceIdentifier"]
+    else:
+        out["resource_identifier"] = ""
+    if data.get("alarmType") is not None:
+        import capo_arc_region_switch.types.alarm_type
+
+        out["alarm_type"] = capo_arc_region_switch.types.alarm_type.deserialize_cbor(
+            data["alarmType"]
+        )
+    else:
+        import typing
+
+        out["alarm_type"] = typing.cast(
+            "capo_arc_region_switch.types.alarm_type.AlarmType", ""
+        )
+    return out

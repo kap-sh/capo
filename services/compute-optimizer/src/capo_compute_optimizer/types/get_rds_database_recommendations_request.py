@@ -114,3 +114,80 @@ def deserialize_aws_json_1_0(data: dict) -> GetRDSDatabaseRecommendationsRequest
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetRDSDatabaseRecommendationsRequest) -> dict:
+    out: dict = {}
+    if "resource_arns" in value:
+        import capo_compute_optimizer.types.resource_arns
+
+        out["resourceArns"] = capo_compute_optimizer.types.resource_arns.serialize_cbor(
+            value["resource_arns"]
+        )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    if "filters" in value:
+        import capo_compute_optimizer.types.rdsdb_recommendation_filters
+
+        out["filters"] = (
+            capo_compute_optimizer.types.rdsdb_recommendation_filters.serialize_cbor(
+                value["filters"]
+            )
+        )
+    if "account_ids" in value:
+        import capo_compute_optimizer.types.account_ids
+
+        out["accountIds"] = capo_compute_optimizer.types.account_ids.serialize_cbor(
+            value["account_ids"]
+        )
+    if "recommendation_preferences" in value:
+        import capo_compute_optimizer.types.recommendation_preferences
+
+        out["recommendationPreferences"] = (
+            capo_compute_optimizer.types.recommendation_preferences.serialize_cbor(
+                value["recommendation_preferences"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetRDSDatabaseRecommendationsRequest:
+    out: GetRDSDatabaseRecommendationsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("resourceArns") is not None:
+        import capo_compute_optimizer.types.resource_arns
+
+        out["resource_arns"] = (
+            capo_compute_optimizer.types.resource_arns.deserialize_cbor(
+                data["resourceArns"]
+            )
+        )
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    if data.get("filters") is not None:
+        import capo_compute_optimizer.types.rdsdb_recommendation_filters
+
+        out["filters"] = (
+            capo_compute_optimizer.types.rdsdb_recommendation_filters.deserialize_cbor(
+                data["filters"]
+            )
+        )
+    if data.get("accountIds") is not None:
+        import capo_compute_optimizer.types.account_ids
+
+        out["account_ids"] = capo_compute_optimizer.types.account_ids.deserialize_cbor(
+            data["accountIds"]
+        )
+    if data.get("recommendationPreferences") is not None:
+        import capo_compute_optimizer.types.recommendation_preferences
+
+        out["recommendation_preferences"] = (
+            capo_compute_optimizer.types.recommendation_preferences.deserialize_cbor(
+                data["recommendationPreferences"]
+            )
+        )
+    return out

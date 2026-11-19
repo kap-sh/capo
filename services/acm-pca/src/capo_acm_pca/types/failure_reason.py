@@ -16,3 +16,12 @@ def serialize_aws_json_1_1(value: FailureReason) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> FailureReason:
     return cast(FailureReason, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FailureReason) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> FailureReason:
+    return cast(FailureReason, data)

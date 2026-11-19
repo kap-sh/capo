@@ -174,3 +174,115 @@ def deserialize_aws_json_1_1(data: dict) -> Backup:
             data["Mode"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Backup) -> dict:
+    out: dict = {}
+    out["BackupId"] = value["backup_id"]
+    if "backup_arn" in value:
+        out["BackupArn"] = value["backup_arn"]
+    if "backup_state" in value:
+        import capo_cloudhsm_v2.types.backup_state
+
+        out["BackupState"] = capo_cloudhsm_v2.types.backup_state.serialize_cbor(
+            value["backup_state"]
+        )
+    if "cluster_id" in value:
+        out["ClusterId"] = value["cluster_id"]
+    if "create_timestamp" in value:
+        import capo_cloudhsm_v2.types.timestamp
+
+        out["CreateTimestamp"] = capo_cloudhsm_v2.types.timestamp.serialize_cbor(
+            value["create_timestamp"]
+        )
+    if "copy_timestamp" in value:
+        import capo_cloudhsm_v2.types.timestamp
+
+        out["CopyTimestamp"] = capo_cloudhsm_v2.types.timestamp.serialize_cbor(
+            value["copy_timestamp"]
+        )
+    if "never_expires" in value:
+        out["NeverExpires"] = value["never_expires"]
+    if "source_region" in value:
+        out["SourceRegion"] = value["source_region"]
+    if "source_backup" in value:
+        out["SourceBackup"] = value["source_backup"]
+    if "source_cluster" in value:
+        out["SourceCluster"] = value["source_cluster"]
+    if "delete_timestamp" in value:
+        import capo_cloudhsm_v2.types.timestamp
+
+        out["DeleteTimestamp"] = capo_cloudhsm_v2.types.timestamp.serialize_cbor(
+            value["delete_timestamp"]
+        )
+    if "tag_list" in value:
+        import capo_cloudhsm_v2.types.tag_list
+
+        out["TagList"] = capo_cloudhsm_v2.types.tag_list.serialize_cbor(
+            value["tag_list"]
+        )
+    if "hsm_type" in value:
+        out["HsmType"] = value["hsm_type"]
+    if "mode" in value:
+        import capo_cloudhsm_v2.types.cluster_mode
+
+        out["Mode"] = capo_cloudhsm_v2.types.cluster_mode.serialize_cbor(value["mode"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> Backup:
+    out: Backup = {}  # type: ignore[typeddict-item]
+    if data.get("BackupId") is not None:
+        out["backup_id"] = data["BackupId"]
+    else:
+        out["backup_id"] = ""
+    if data.get("BackupArn") is not None:
+        out["backup_arn"] = data["BackupArn"]
+    if data.get("BackupState") is not None:
+        import capo_cloudhsm_v2.types.backup_state
+
+        out["backup_state"] = capo_cloudhsm_v2.types.backup_state.deserialize_cbor(
+            data["BackupState"]
+        )
+    if data.get("ClusterId") is not None:
+        out["cluster_id"] = data["ClusterId"]
+    if data.get("CreateTimestamp") is not None:
+        import capo_cloudhsm_v2.types.timestamp
+
+        out["create_timestamp"] = capo_cloudhsm_v2.types.timestamp.deserialize_cbor(
+            data["CreateTimestamp"]
+        )
+    if data.get("CopyTimestamp") is not None:
+        import capo_cloudhsm_v2.types.timestamp
+
+        out["copy_timestamp"] = capo_cloudhsm_v2.types.timestamp.deserialize_cbor(
+            data["CopyTimestamp"]
+        )
+    if data.get("NeverExpires") is not None:
+        out["never_expires"] = data["NeverExpires"]
+    if data.get("SourceRegion") is not None:
+        out["source_region"] = data["SourceRegion"]
+    if data.get("SourceBackup") is not None:
+        out["source_backup"] = data["SourceBackup"]
+    if data.get("SourceCluster") is not None:
+        out["source_cluster"] = data["SourceCluster"]
+    if data.get("DeleteTimestamp") is not None:
+        import capo_cloudhsm_v2.types.timestamp
+
+        out["delete_timestamp"] = capo_cloudhsm_v2.types.timestamp.deserialize_cbor(
+            data["DeleteTimestamp"]
+        )
+    if data.get("TagList") is not None:
+        import capo_cloudhsm_v2.types.tag_list
+
+        out["tag_list"] = capo_cloudhsm_v2.types.tag_list.deserialize_cbor(
+            data["TagList"]
+        )
+    if data.get("HsmType") is not None:
+        out["hsm_type"] = data["HsmType"]
+    if data.get("Mode") is not None:
+        import capo_cloudhsm_v2.types.cluster_mode
+
+        out["mode"] = capo_cloudhsm_v2.types.cluster_mode.deserialize_cbor(data["Mode"])
+    return out

@@ -61,3 +61,41 @@ def deserialize_aws_json_1_1(data: dict) -> Notification:
     if data.get("DevicePickupSnsTopicARN") is not None:
         out["device_pickup_sns_topic_arn"] = data["DevicePickupSnsTopicARN"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Notification) -> dict:
+    out: dict = {}
+    if "sns_topic_arn" in value:
+        out["SnsTopicARN"] = value["sns_topic_arn"]
+    if "job_states_to_notify" in value:
+        import capo_snowball.types.job_state_list
+
+        out["JobStatesToNotify"] = capo_snowball.types.job_state_list.serialize_cbor(
+            value["job_states_to_notify"]
+        )
+    out["NotifyAll"] = value.get("notify_all", False)
+    if "device_pickup_sns_topic_arn" in value:
+        out["DevicePickupSnsTopicARN"] = value["device_pickup_sns_topic_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Notification:
+    out: Notification = {}  # type: ignore[typeddict-item]
+    if data.get("SnsTopicARN") is not None:
+        out["sns_topic_arn"] = data["SnsTopicARN"]
+    if data.get("JobStatesToNotify") is not None:
+        import capo_snowball.types.job_state_list
+
+        out["job_states_to_notify"] = (
+            capo_snowball.types.job_state_list.deserialize_cbor(
+                data["JobStatesToNotify"]
+            )
+        )
+    if data.get("NotifyAll") is not None:
+        out["notify_all"] = data["NotifyAll"]
+    else:
+        out["notify_all"] = False
+    if data.get("DevicePickupSnsTopicARN") is not None:
+        out["device_pickup_sns_topic_arn"] = data["DevicePickupSnsTopicARN"]
+    return out

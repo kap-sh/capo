@@ -47,3 +47,30 @@ def deserialize_aws_json_1_1(data: dict) -> RollbackInfo:
     if data.get("rollbackMessage") is not None:
         out["rollback_message"] = data["rollbackMessage"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RollbackInfo) -> dict:
+    out: dict = {}
+    if "rollback_deployment_id" in value:
+        out["rollbackDeploymentId"] = value["rollback_deployment_id"]
+    if "rollback_triggering_deployment_id" in value:
+        out["rollbackTriggeringDeploymentId"] = value[
+            "rollback_triggering_deployment_id"
+        ]
+    if "rollback_message" in value:
+        out["rollbackMessage"] = value["rollback_message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RollbackInfo:
+    out: RollbackInfo = {}  # type: ignore[typeddict-item]
+    if data.get("rollbackDeploymentId") is not None:
+        out["rollback_deployment_id"] = data["rollbackDeploymentId"]
+    if data.get("rollbackTriggeringDeploymentId") is not None:
+        out["rollback_triggering_deployment_id"] = data[
+            "rollbackTriggeringDeploymentId"
+        ]
+    if data.get("rollbackMessage") is not None:
+        out["rollback_message"] = data["rollbackMessage"]
+    return out

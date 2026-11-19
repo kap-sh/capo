@@ -45,3 +45,32 @@ def deserialize_aws_json_1_1(data: dict) -> DisassociateIpGroupsRequest:
     else:
         out["group_ids"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DisassociateIpGroupsRequest) -> dict:
+    out: dict = {}
+    out["DirectoryId"] = value["directory_id"]
+    import capo_workspaces.types.ip_group_id_list
+
+    out["GroupIds"] = capo_workspaces.types.ip_group_id_list.serialize_cbor(
+        value["group_ids"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DisassociateIpGroupsRequest:
+    out: DisassociateIpGroupsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    if data.get("GroupIds") is not None:
+        import capo_workspaces.types.ip_group_id_list
+
+        out["group_ids"] = capo_workspaces.types.ip_group_id_list.deserialize_cbor(
+            data["GroupIds"]
+        )
+    else:
+        out["group_ids"] = []
+    return out

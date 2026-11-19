@@ -64,3 +64,42 @@ def deserialize_aws_json_1_0(
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateFirewallEncryptionConfigurationResponse) -> dict:
+    out: dict = {}
+    if "firewall_arn" in value:
+        out["FirewallArn"] = value["firewall_arn"]
+    if "firewall_name" in value:
+        out["FirewallName"] = value["firewall_name"]
+    if "update_token" in value:
+        out["UpdateToken"] = value["update_token"]
+    if "encryption_configuration" in value:
+        import capo_network_firewall.types.encryption_configuration
+
+        out["EncryptionConfiguration"] = (
+            capo_network_firewall.types.encryption_configuration.serialize_cbor(
+                value["encryption_configuration"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateFirewallEncryptionConfigurationResponse:
+    out: UpdateFirewallEncryptionConfigurationResponse = {}  # type: ignore[typeddict-item]
+    if data.get("FirewallArn") is not None:
+        out["firewall_arn"] = data["FirewallArn"]
+    if data.get("FirewallName") is not None:
+        out["firewall_name"] = data["FirewallName"]
+    if data.get("UpdateToken") is not None:
+        out["update_token"] = data["UpdateToken"]
+    if data.get("EncryptionConfiguration") is not None:
+        import capo_network_firewall.types.encryption_configuration
+
+        out["encryption_configuration"] = (
+            capo_network_firewall.types.encryption_configuration.deserialize_cbor(
+                data["EncryptionConfiguration"]
+            )
+        )
+    return out

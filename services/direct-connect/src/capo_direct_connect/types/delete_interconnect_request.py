@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteInterconnectRequest:
     else:
         out["interconnect_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteInterconnectRequest) -> dict:
+    out: dict = {}
+    out["interconnectId"] = value["interconnect_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteInterconnectRequest:
+    out: DeleteInterconnectRequest = {}  # type: ignore[typeddict-item]
+    if data.get("interconnectId") is not None:
+        out["interconnect_id"] = data["interconnectId"]
+    else:
+        out["interconnect_id"] = ""
+    return out

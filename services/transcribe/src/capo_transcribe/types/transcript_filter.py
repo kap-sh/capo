@@ -133,3 +133,98 @@ def deserialize_aws_json_1_1(data: dict) -> TranscriptFilter:
     else:
         out["targets"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TranscriptFilter) -> dict:
+    out: dict = {}
+    import capo_transcribe.types.transcript_filter_type
+
+    out["TranscriptFilterType"] = (
+        capo_transcribe.types.transcript_filter_type.serialize_cbor(
+            value["transcript_filter_type"]
+        )
+    )
+    if "absolute_time_range" in value:
+        import capo_transcribe.types.absolute_time_range
+
+        out["AbsoluteTimeRange"] = (
+            capo_transcribe.types.absolute_time_range.serialize_cbor(
+                value["absolute_time_range"]
+            )
+        )
+    if "relative_time_range" in value:
+        import capo_transcribe.types.relative_time_range
+
+        out["RelativeTimeRange"] = (
+            capo_transcribe.types.relative_time_range.serialize_cbor(
+                value["relative_time_range"]
+            )
+        )
+    if "participant_role" in value:
+        import capo_transcribe.types.participant_role
+
+        out["ParticipantRole"] = capo_transcribe.types.participant_role.serialize_cbor(
+            value["participant_role"]
+        )
+    if "negate" in value:
+        out["Negate"] = value["negate"]
+    import capo_transcribe.types.string_target_list
+
+    out["Targets"] = capo_transcribe.types.string_target_list.serialize_cbor(
+        value["targets"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TranscriptFilter:
+    out: TranscriptFilter = {}  # type: ignore[typeddict-item]
+    if data.get("TranscriptFilterType") is not None:
+        import capo_transcribe.types.transcript_filter_type
+
+        out["transcript_filter_type"] = (
+            capo_transcribe.types.transcript_filter_type.deserialize_cbor(
+                data["TranscriptFilterType"]
+            )
+        )
+    else:
+        import typing
+
+        out["transcript_filter_type"] = typing.cast(
+            "capo_transcribe.types.transcript_filter_type.TranscriptFilterType", ""
+        )
+    if data.get("AbsoluteTimeRange") is not None:
+        import capo_transcribe.types.absolute_time_range
+
+        out["absolute_time_range"] = (
+            capo_transcribe.types.absolute_time_range.deserialize_cbor(
+                data["AbsoluteTimeRange"]
+            )
+        )
+    if data.get("RelativeTimeRange") is not None:
+        import capo_transcribe.types.relative_time_range
+
+        out["relative_time_range"] = (
+            capo_transcribe.types.relative_time_range.deserialize_cbor(
+                data["RelativeTimeRange"]
+            )
+        )
+    if data.get("ParticipantRole") is not None:
+        import capo_transcribe.types.participant_role
+
+        out["participant_role"] = (
+            capo_transcribe.types.participant_role.deserialize_cbor(
+                data["ParticipantRole"]
+            )
+        )
+    if data.get("Negate") is not None:
+        out["negate"] = data["Negate"]
+    if data.get("Targets") is not None:
+        import capo_transcribe.types.string_target_list
+
+        out["targets"] = capo_transcribe.types.string_target_list.deserialize_cbor(
+            data["Targets"]
+        )
+    else:
+        out["targets"] = []
+    return out

@@ -186,3 +186,138 @@ def deserialize_aws_json_1_0(data: dict) -> RestoreTableRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RestoreTableRequest) -> dict:
+    out: dict = {}
+    out["sourceKeyspaceName"] = value["source_keyspace_name"]
+    out["sourceTableName"] = value["source_table_name"]
+    out["targetKeyspaceName"] = value["target_keyspace_name"]
+    out["targetTableName"] = value["target_table_name"]
+    if "restore_timestamp" in value:
+        import capo_keyspaces.types.timestamp
+
+        out["restoreTimestamp"] = capo_keyspaces.types.timestamp.serialize_cbor(
+            value["restore_timestamp"]
+        )
+    if "capacity_specification_override" in value:
+        import capo_keyspaces.types.capacity_specification
+
+        out["capacitySpecificationOverride"] = (
+            capo_keyspaces.types.capacity_specification.serialize_cbor(
+                value["capacity_specification_override"]
+            )
+        )
+    if "encryption_specification_override" in value:
+        import capo_keyspaces.types.encryption_specification
+
+        out["encryptionSpecificationOverride"] = (
+            capo_keyspaces.types.encryption_specification.serialize_cbor(
+                value["encryption_specification_override"]
+            )
+        )
+    if "point_in_time_recovery_override" in value:
+        import capo_keyspaces.types.point_in_time_recovery
+
+        out["pointInTimeRecoveryOverride"] = (
+            capo_keyspaces.types.point_in_time_recovery.serialize_cbor(
+                value["point_in_time_recovery_override"]
+            )
+        )
+    if "tags_override" in value:
+        import capo_keyspaces.types.tag_list
+
+        out["tagsOverride"] = capo_keyspaces.types.tag_list.serialize_cbor(
+            value["tags_override"]
+        )
+    if "auto_scaling_specification" in value:
+        import capo_keyspaces.types.auto_scaling_specification
+
+        out["autoScalingSpecification"] = (
+            capo_keyspaces.types.auto_scaling_specification.serialize_cbor(
+                value["auto_scaling_specification"]
+            )
+        )
+    if "replica_specifications" in value:
+        import capo_keyspaces.types.replica_specification_list
+
+        out["replicaSpecifications"] = (
+            capo_keyspaces.types.replica_specification_list.serialize_cbor(
+                value["replica_specifications"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RestoreTableRequest:
+    out: RestoreTableRequest = {}  # type: ignore[typeddict-item]
+    if data.get("sourceKeyspaceName") is not None:
+        out["source_keyspace_name"] = data["sourceKeyspaceName"]
+    else:
+        out["source_keyspace_name"] = ""
+    if data.get("sourceTableName") is not None:
+        out["source_table_name"] = data["sourceTableName"]
+    else:
+        out["source_table_name"] = ""
+    if data.get("targetKeyspaceName") is not None:
+        out["target_keyspace_name"] = data["targetKeyspaceName"]
+    else:
+        out["target_keyspace_name"] = ""
+    if data.get("targetTableName") is not None:
+        out["target_table_name"] = data["targetTableName"]
+    else:
+        out["target_table_name"] = ""
+    if data.get("restoreTimestamp") is not None:
+        import capo_keyspaces.types.timestamp
+
+        out["restore_timestamp"] = capo_keyspaces.types.timestamp.deserialize_cbor(
+            data["restoreTimestamp"]
+        )
+    if data.get("capacitySpecificationOverride") is not None:
+        import capo_keyspaces.types.capacity_specification
+
+        out["capacity_specification_override"] = (
+            capo_keyspaces.types.capacity_specification.deserialize_cbor(
+                data["capacitySpecificationOverride"]
+            )
+        )
+    if data.get("encryptionSpecificationOverride") is not None:
+        import capo_keyspaces.types.encryption_specification
+
+        out["encryption_specification_override"] = (
+            capo_keyspaces.types.encryption_specification.deserialize_cbor(
+                data["encryptionSpecificationOverride"]
+            )
+        )
+    if data.get("pointInTimeRecoveryOverride") is not None:
+        import capo_keyspaces.types.point_in_time_recovery
+
+        out["point_in_time_recovery_override"] = (
+            capo_keyspaces.types.point_in_time_recovery.deserialize_cbor(
+                data["pointInTimeRecoveryOverride"]
+            )
+        )
+    if data.get("tagsOverride") is not None:
+        import capo_keyspaces.types.tag_list
+
+        out["tags_override"] = capo_keyspaces.types.tag_list.deserialize_cbor(
+            data["tagsOverride"]
+        )
+    if data.get("autoScalingSpecification") is not None:
+        import capo_keyspaces.types.auto_scaling_specification
+
+        out["auto_scaling_specification"] = (
+            capo_keyspaces.types.auto_scaling_specification.deserialize_cbor(
+                data["autoScalingSpecification"]
+            )
+        )
+    if data.get("replicaSpecifications") is not None:
+        import capo_keyspaces.types.replica_specification_list
+
+        out["replica_specifications"] = (
+            capo_keyspaces.types.replica_specification_list.deserialize_cbor(
+                data["replicaSpecifications"]
+            )
+        )
+    return out

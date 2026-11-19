@@ -33,3 +33,24 @@ def deserialize_aws_json_1_1(data: list) -> PolicyQualifierInfoList:
             capo_acm_pca.types.policy_qualifier_info.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PolicyQualifierInfoList) -> list:
+    import capo_acm_pca.types.policy_qualifier_info
+
+    out: list = []
+    for item in value:
+        out.append(capo_acm_pca.types.policy_qualifier_info.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> PolicyQualifierInfoList:
+    import capo_acm_pca.types.policy_qualifier_info
+
+    out: PolicyQualifierInfoList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_acm_pca.types.policy_qualifier_info.deserialize_cbor(item))
+    return out

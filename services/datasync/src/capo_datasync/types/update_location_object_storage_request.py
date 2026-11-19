@@ -190,6 +190,132 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateLocationObjectStorageRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateLocationObjectStorageRequest) -> dict:
+    out: dict = {}
+    out["LocationArn"] = value["location_arn"]
+    if "server_port" in value:
+        out["ServerPort"] = value["server_port"]
+    if "server_protocol" in value:
+        import capo_datasync.types.object_storage_server_protocol
+
+        out["ServerProtocol"] = (
+            capo_datasync.types.object_storage_server_protocol.serialize_cbor(
+                value["server_protocol"]
+            )
+        )
+    if "subdirectory" in value:
+        out["Subdirectory"] = value["subdirectory"]
+    if "server_hostname" in value:
+        out["ServerHostname"] = value["server_hostname"]
+    if "access_key" in value:
+        out["AccessKey"] = value["access_key"]
+    if "secret_key" in value:
+        out["SecretKey"] = value["secret_key"]
+    if "federated_identity" in value:
+        import capo_datasync.types.object_storage_federated_identity_config
+
+        out["FederatedIdentity"] = (
+            capo_datasync.types.object_storage_federated_identity_config.serialize_cbor(
+                value["federated_identity"]
+            )
+        )
+    if "agent_arns" in value:
+        import capo_datasync.types.agent_arn_list
+
+        out["AgentArns"] = capo_datasync.types.agent_arn_list.serialize_cbor(
+            value["agent_arns"]
+        )
+    if "server_certificate" in value:
+        import capo_datasync.types.object_storage_certificate
+
+        out["ServerCertificate"] = (
+            capo_datasync.types.object_storage_certificate.serialize_cbor(
+                value["server_certificate"]
+            )
+        )
+    if "cmk_secret_config" in value:
+        import capo_datasync.types.cmk_secret_config
+
+        out["CmkSecretConfig"] = capo_datasync.types.cmk_secret_config.serialize_cbor(
+            value["cmk_secret_config"]
+        )
+    if "custom_secret_config" in value:
+        import capo_datasync.types.custom_secret_config
+
+        out["CustomSecretConfig"] = (
+            capo_datasync.types.custom_secret_config.serialize_cbor(
+                value["custom_secret_config"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateLocationObjectStorageRequest:
+    out: UpdateLocationObjectStorageRequest = {}  # type: ignore[typeddict-item]
+    if data.get("LocationArn") is not None:
+        out["location_arn"] = data["LocationArn"]
+    else:
+        out["location_arn"] = ""
+    if data.get("ServerPort") is not None:
+        out["server_port"] = data["ServerPort"]
+    if data.get("ServerProtocol") is not None:
+        import capo_datasync.types.object_storage_server_protocol
+
+        out["server_protocol"] = (
+            capo_datasync.types.object_storage_server_protocol.deserialize_cbor(
+                data["ServerProtocol"]
+            )
+        )
+    if data.get("Subdirectory") is not None:
+        out["subdirectory"] = data["Subdirectory"]
+    if data.get("ServerHostname") is not None:
+        out["server_hostname"] = data["ServerHostname"]
+    if data.get("AccessKey") is not None:
+        out["access_key"] = data["AccessKey"]
+    if data.get("SecretKey") is not None:
+        out["secret_key"] = data["SecretKey"]
+    if data.get("FederatedIdentity") is not None:
+        import capo_datasync.types.object_storage_federated_identity_config
+
+        out["federated_identity"] = (
+            capo_datasync.types.object_storage_federated_identity_config.deserialize_cbor(
+                data["FederatedIdentity"]
+            )
+        )
+    if data.get("AgentArns") is not None:
+        import capo_datasync.types.agent_arn_list
+
+        out["agent_arns"] = capo_datasync.types.agent_arn_list.deserialize_cbor(
+            data["AgentArns"]
+        )
+    if data.get("ServerCertificate") is not None:
+        import capo_datasync.types.object_storage_certificate
+
+        out["server_certificate"] = (
+            capo_datasync.types.object_storage_certificate.deserialize_cbor(
+                data["ServerCertificate"]
+            )
+        )
+    if data.get("CmkSecretConfig") is not None:
+        import capo_datasync.types.cmk_secret_config
+
+        out["cmk_secret_config"] = (
+            capo_datasync.types.cmk_secret_config.deserialize_cbor(
+                data["CmkSecretConfig"]
+            )
+        )
+    if data.get("CustomSecretConfig") is not None:
+        import capo_datasync.types.custom_secret_config
+
+        out["custom_secret_config"] = (
+            capo_datasync.types.custom_secret_config.deserialize_cbor(
+                data["CustomSecretConfig"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: UpdateLocationObjectStorageRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "secret_key" in value:

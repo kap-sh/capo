@@ -61,3 +61,42 @@ def deserialize_aws_json_1_1(data: dict) -> RevocationConfiguration:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RevocationConfiguration) -> dict:
+    out: dict = {}
+    if "crl_configuration" in value:
+        import capo_acm_pca.types.crl_configuration
+
+        out["CrlConfiguration"] = capo_acm_pca.types.crl_configuration.serialize_cbor(
+            value["crl_configuration"]
+        )
+    if "ocsp_configuration" in value:
+        import capo_acm_pca.types.ocsp_configuration
+
+        out["OcspConfiguration"] = capo_acm_pca.types.ocsp_configuration.serialize_cbor(
+            value["ocsp_configuration"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RevocationConfiguration:
+    out: RevocationConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("CrlConfiguration") is not None:
+        import capo_acm_pca.types.crl_configuration
+
+        out["crl_configuration"] = (
+            capo_acm_pca.types.crl_configuration.deserialize_cbor(
+                data["CrlConfiguration"]
+            )
+        )
+    if data.get("OcspConfiguration") is not None:
+        import capo_acm_pca.types.ocsp_configuration
+
+        out["ocsp_configuration"] = (
+            capo_acm_pca.types.ocsp_configuration.deserialize_cbor(
+                data["OcspConfiguration"]
+            )
+        )
+    return out

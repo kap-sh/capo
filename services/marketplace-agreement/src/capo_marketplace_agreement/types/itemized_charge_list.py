@@ -37,3 +37,28 @@ def deserialize_aws_json_1_0(data: list) -> ItemizedChargeList:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ItemizedChargeList) -> list:
+    import capo_marketplace_agreement.types.itemized_charge
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_marketplace_agreement.types.itemized_charge.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> ItemizedChargeList:
+    import capo_marketplace_agreement.types.itemized_charge
+
+    out: ItemizedChargeList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_marketplace_agreement.types.itemized_charge.deserialize_cbor(item)
+        )
+    return out

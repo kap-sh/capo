@@ -76,3 +76,52 @@ def deserialize_aws_json_1_1(data: dict) -> ResourceSetSummary:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResourceSetSummary) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["Id"] = value["id"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "last_update_time" in value:
+        import capo_fms.types.time_stamp
+
+        out["LastUpdateTime"] = capo_fms.types.time_stamp.serialize_cbor(
+            value["last_update_time"]
+        )
+    if "resource_set_status" in value:
+        import capo_fms.types.resource_set_status
+
+        out["ResourceSetStatus"] = capo_fms.types.resource_set_status.serialize_cbor(
+            value["resource_set_status"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ResourceSetSummary:
+    out: ResourceSetSummary = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("LastUpdateTime") is not None:
+        import capo_fms.types.time_stamp
+
+        out["last_update_time"] = capo_fms.types.time_stamp.deserialize_cbor(
+            data["LastUpdateTime"]
+        )
+    if data.get("ResourceSetStatus") is not None:
+        import capo_fms.types.resource_set_status
+
+        out["resource_set_status"] = (
+            capo_fms.types.resource_set_status.deserialize_cbor(
+                data["ResourceSetStatus"]
+            )
+        )
+    return out

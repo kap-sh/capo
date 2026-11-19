@@ -47,3 +47,30 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeWorkspacesConnectionStatusRe
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeWorkspacesConnectionStatusRequest) -> dict:
+    out: dict = {}
+    if "workspace_ids" in value:
+        import capo_workspaces.types.workspace_id_list
+
+        out["WorkspaceIds"] = capo_workspaces.types.workspace_id_list.serialize_cbor(
+            value["workspace_ids"]
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeWorkspacesConnectionStatusRequest:
+    out: DescribeWorkspacesConnectionStatusRequest = {}  # type: ignore[typeddict-item]
+    if data.get("WorkspaceIds") is not None:
+        import capo_workspaces.types.workspace_id_list
+
+        out["workspace_ids"] = capo_workspaces.types.workspace_id_list.deserialize_cbor(
+            data["WorkspaceIds"]
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

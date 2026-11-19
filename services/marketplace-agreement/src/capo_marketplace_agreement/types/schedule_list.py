@@ -35,3 +35,26 @@ def deserialize_aws_json_1_0(data: list) -> ScheduleList:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ScheduleList) -> list:
+    import capo_marketplace_agreement.types.schedule_item
+
+    out: list = []
+    for item in value:
+        out.append(capo_marketplace_agreement.types.schedule_item.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> ScheduleList:
+    import capo_marketplace_agreement.types.schedule_item
+
+    out: ScheduleList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_marketplace_agreement.types.schedule_item.deserialize_cbor(item)
+        )
+    return out

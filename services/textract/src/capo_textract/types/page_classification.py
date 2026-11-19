@@ -52,3 +52,40 @@ def deserialize_aws_json_1_1(data: dict) -> PageClassification:
     else:
         out["page_number"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PageClassification) -> dict:
+    out: dict = {}
+    import capo_textract.types.prediction_list
+
+    out["PageType"] = capo_textract.types.prediction_list.serialize_cbor(
+        value["page_type"]
+    )
+    import capo_textract.types.prediction_list
+
+    out["PageNumber"] = capo_textract.types.prediction_list.serialize_cbor(
+        value["page_number"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PageClassification:
+    out: PageClassification = {}  # type: ignore[typeddict-item]
+    if data.get("PageType") is not None:
+        import capo_textract.types.prediction_list
+
+        out["page_type"] = capo_textract.types.prediction_list.deserialize_cbor(
+            data["PageType"]
+        )
+    else:
+        out["page_type"] = []
+    if data.get("PageNumber") is not None:
+        import capo_textract.types.prediction_list
+
+        out["page_number"] = capo_textract.types.prediction_list.deserialize_cbor(
+            data["PageNumber"]
+        )
+    else:
+        out["page_number"] = []
+    return out

@@ -29,3 +29,24 @@ def deserialize_aws_json_1_0(data: list) -> FlowFilters:
             capo_network_firewall.types.flow_filter.deserialize_aws_json_1_0(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FlowFilters) -> list:
+    import capo_network_firewall.types.flow_filter
+
+    out: list = []
+    for item in value:
+        out.append(capo_network_firewall.types.flow_filter.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> FlowFilters:
+    import capo_network_firewall.types.flow_filter
+
+    out: FlowFilters = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_network_firewall.types.flow_filter.deserialize_cbor(item))
+    return out

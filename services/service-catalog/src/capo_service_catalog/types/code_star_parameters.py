@@ -55,3 +55,34 @@ def deserialize_aws_json_1_1(data: dict) -> CodeStarParameters:
     else:
         out["artifact_path"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CodeStarParameters) -> dict:
+    out: dict = {}
+    out["ConnectionArn"] = value["connection_arn"]
+    out["Repository"] = value["repository"]
+    out["Branch"] = value["branch"]
+    out["ArtifactPath"] = value["artifact_path"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CodeStarParameters:
+    out: CodeStarParameters = {}  # type: ignore[typeddict-item]
+    if data.get("ConnectionArn") is not None:
+        out["connection_arn"] = data["ConnectionArn"]
+    else:
+        out["connection_arn"] = ""
+    if data.get("Repository") is not None:
+        out["repository"] = data["Repository"]
+    else:
+        out["repository"] = ""
+    if data.get("Branch") is not None:
+        out["branch"] = data["Branch"]
+    else:
+        out["branch"] = ""
+    if data.get("ArtifactPath") is not None:
+        out["artifact_path"] = data["ArtifactPath"]
+    else:
+        out["artifact_path"] = ""
+    return out

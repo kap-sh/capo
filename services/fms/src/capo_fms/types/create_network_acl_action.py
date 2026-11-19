@@ -45,3 +45,31 @@ def deserialize_aws_json_1_1(data: dict) -> CreateNetworkAclAction:
     else:
         out["fms_can_remediate"] = False
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateNetworkAclAction) -> dict:
+    out: dict = {}
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "vpc" in value:
+        import capo_fms.types.action_target
+
+        out["Vpc"] = capo_fms.types.action_target.serialize_cbor(value["vpc"])
+    out["FMSCanRemediate"] = value.get("fms_can_remediate", False)
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateNetworkAclAction:
+    out: CreateNetworkAclAction = {}  # type: ignore[typeddict-item]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("Vpc") is not None:
+        import capo_fms.types.action_target
+
+        out["vpc"] = capo_fms.types.action_target.deserialize_cbor(data["Vpc"])
+    if data.get("FMSCanRemediate") is not None:
+        out["fms_can_remediate"] = data["FMSCanRemediate"]
+    else:
+        out["fms_can_remediate"] = False
+    return out

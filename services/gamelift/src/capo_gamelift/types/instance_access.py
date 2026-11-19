@@ -84,6 +84,53 @@ def deserialize_aws_json_1_1(data: dict) -> InstanceAccess:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InstanceAccess) -> dict:
+    out: dict = {}
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "instance_id" in value:
+        out["InstanceId"] = value["instance_id"]
+    if "ip_address" in value:
+        out["IpAddress"] = value["ip_address"]
+    if "operating_system" in value:
+        import capo_gamelift.types.operating_system
+
+        out["OperatingSystem"] = capo_gamelift.types.operating_system.serialize_cbor(
+            value["operating_system"]
+        )
+    if "credentials" in value:
+        import capo_gamelift.types.instance_credentials
+
+        out["Credentials"] = capo_gamelift.types.instance_credentials.serialize_cbor(
+            value["credentials"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> InstanceAccess:
+    out: InstanceAccess = {}  # type: ignore[typeddict-item]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("InstanceId") is not None:
+        out["instance_id"] = data["InstanceId"]
+    if data.get("IpAddress") is not None:
+        out["ip_address"] = data["IpAddress"]
+    if data.get("OperatingSystem") is not None:
+        import capo_gamelift.types.operating_system
+
+        out["operating_system"] = capo_gamelift.types.operating_system.deserialize_cbor(
+            data["OperatingSystem"]
+        )
+    if data.get("Credentials") is not None:
+        import capo_gamelift.types.instance_credentials
+
+        out["credentials"] = capo_gamelift.types.instance_credentials.deserialize_cbor(
+            data["Credentials"]
+        )
+    return out
+
+
 def redact_sensitive(value: InstanceAccess) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "ip_address" in value:

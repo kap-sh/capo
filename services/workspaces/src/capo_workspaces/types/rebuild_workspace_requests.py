@@ -29,3 +29,24 @@ def deserialize_aws_json_1_1(data: list) -> RebuildWorkspaceRequests:
             continue
         out.append(capo_workspaces.types.rebuild_request.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RebuildWorkspaceRequests) -> list:
+    import capo_workspaces.types.rebuild_request
+
+    out: list = []
+    for item in value:
+        out.append(capo_workspaces.types.rebuild_request.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> RebuildWorkspaceRequests:
+    import capo_workspaces.types.rebuild_request
+
+    out: RebuildWorkspaceRequests = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_workspaces.types.rebuild_request.deserialize_cbor(item))
+    return out

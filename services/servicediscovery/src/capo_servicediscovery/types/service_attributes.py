@@ -56,3 +56,38 @@ def deserialize_aws_json_1_1(data: dict) -> ServiceAttributes:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ServiceAttributes) -> dict:
+    out: dict = {}
+    if "service_arn" in value:
+        out["ServiceArn"] = value["service_arn"]
+    if "resource_owner" in value:
+        out["ResourceOwner"] = value["resource_owner"]
+    if "attributes" in value:
+        import capo_servicediscovery.types.service_attributes_map
+
+        out["Attributes"] = (
+            capo_servicediscovery.types.service_attributes_map.serialize_cbor(
+                value["attributes"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ServiceAttributes:
+    out: ServiceAttributes = {}  # type: ignore[typeddict-item]
+    if data.get("ServiceArn") is not None:
+        out["service_arn"] = data["ServiceArn"]
+    if data.get("ResourceOwner") is not None:
+        out["resource_owner"] = data["ResourceOwner"]
+    if data.get("Attributes") is not None:
+        import capo_servicediscovery.types.service_attributes_map
+
+        out["attributes"] = (
+            capo_servicediscovery.types.service_attributes_map.deserialize_cbor(
+                data["Attributes"]
+            )
+        )
+    return out

@@ -61,3 +61,46 @@ def deserialize_aws_json_1_1(data: dict) -> ProvisioningArtifactPreferences:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ProvisioningArtifactPreferences) -> dict:
+    out: dict = {}
+    if "stack_set_accounts" in value:
+        import capo_service_catalog.types.stack_set_accounts
+
+        out["StackSetAccounts"] = (
+            capo_service_catalog.types.stack_set_accounts.serialize_cbor(
+                value["stack_set_accounts"]
+            )
+        )
+    if "stack_set_regions" in value:
+        import capo_service_catalog.types.stack_set_regions
+
+        out["StackSetRegions"] = (
+            capo_service_catalog.types.stack_set_regions.serialize_cbor(
+                value["stack_set_regions"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ProvisioningArtifactPreferences:
+    out: ProvisioningArtifactPreferences = {}  # type: ignore[typeddict-item]
+    if data.get("StackSetAccounts") is not None:
+        import capo_service_catalog.types.stack_set_accounts
+
+        out["stack_set_accounts"] = (
+            capo_service_catalog.types.stack_set_accounts.deserialize_cbor(
+                data["StackSetAccounts"]
+            )
+        )
+    if data.get("StackSetRegions") is not None:
+        import capo_service_catalog.types.stack_set_regions
+
+        out["stack_set_regions"] = (
+            capo_service_catalog.types.stack_set_regions.deserialize_cbor(
+                data["StackSetRegions"]
+            )
+        )
+    return out

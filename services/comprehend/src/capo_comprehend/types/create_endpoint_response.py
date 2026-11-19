@@ -37,3 +37,22 @@ def deserialize_aws_json_1_1(data: dict) -> CreateEndpointResponse:
     if data.get("ModelArn") is not None:
         out["model_arn"] = data["ModelArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateEndpointResponse) -> dict:
+    out: dict = {}
+    if "endpoint_arn" in value:
+        out["EndpointArn"] = value["endpoint_arn"]
+    if "model_arn" in value:
+        out["ModelArn"] = value["model_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateEndpointResponse:
+    out: CreateEndpointResponse = {}  # type: ignore[typeddict-item]
+    if data.get("EndpointArn") is not None:
+        out["endpoint_arn"] = data["EndpointArn"]
+    if data.get("ModelArn") is not None:
+        out["model_arn"] = data["ModelArn"]
+    return out

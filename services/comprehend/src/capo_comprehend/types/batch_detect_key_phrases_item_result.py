@@ -47,3 +47,30 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDetectKeyPhrasesItemResult:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchDetectKeyPhrasesItemResult) -> dict:
+    out: dict = {}
+    if "index" in value:
+        out["Index"] = value["index"]
+    if "key_phrases" in value:
+        import capo_comprehend.types.list_of_key_phrases
+
+        out["KeyPhrases"] = capo_comprehend.types.list_of_key_phrases.serialize_cbor(
+            value["key_phrases"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BatchDetectKeyPhrasesItemResult:
+    out: BatchDetectKeyPhrasesItemResult = {}  # type: ignore[typeddict-item]
+    if data.get("Index") is not None:
+        out["index"] = data["Index"]
+    if data.get("KeyPhrases") is not None:
+        import capo_comprehend.types.list_of_key_phrases
+
+        out["key_phrases"] = capo_comprehend.types.list_of_key_phrases.deserialize_cbor(
+            data["KeyPhrases"]
+        )
+    return out

@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: OutdatedInstancesStrategy) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> OutdatedInstancesStrategy:
     return cast(OutdatedInstancesStrategy, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: OutdatedInstancesStrategy) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> OutdatedInstancesStrategy:
+    return cast(OutdatedInstancesStrategy, data)

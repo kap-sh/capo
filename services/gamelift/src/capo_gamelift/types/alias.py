@@ -101,3 +101,66 @@ def deserialize_aws_json_1_1(data: dict) -> Alias:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Alias) -> dict:
+    out: dict = {}
+    if "alias_id" in value:
+        out["AliasId"] = value["alias_id"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "alias_arn" in value:
+        out["AliasArn"] = value["alias_arn"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "routing_strategy" in value:
+        import capo_gamelift.types.routing_strategy
+
+        out["RoutingStrategy"] = capo_gamelift.types.routing_strategy.serialize_cbor(
+            value["routing_strategy"]
+        )
+    if "creation_time" in value:
+        import capo_gamelift.types.timestamp
+
+        out["CreationTime"] = capo_gamelift.types.timestamp.serialize_cbor(
+            value["creation_time"]
+        )
+    if "last_updated_time" in value:
+        import capo_gamelift.types.timestamp
+
+        out["LastUpdatedTime"] = capo_gamelift.types.timestamp.serialize_cbor(
+            value["last_updated_time"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Alias:
+    out: Alias = {}  # type: ignore[typeddict-item]
+    if data.get("AliasId") is not None:
+        out["alias_id"] = data["AliasId"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("AliasArn") is not None:
+        out["alias_arn"] = data["AliasArn"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("RoutingStrategy") is not None:
+        import capo_gamelift.types.routing_strategy
+
+        out["routing_strategy"] = capo_gamelift.types.routing_strategy.deserialize_cbor(
+            data["RoutingStrategy"]
+        )
+    if data.get("CreationTime") is not None:
+        import capo_gamelift.types.timestamp
+
+        out["creation_time"] = capo_gamelift.types.timestamp.deserialize_cbor(
+            data["CreationTime"]
+        )
+    if data.get("LastUpdatedTime") is not None:
+        import capo_gamelift.types.timestamp
+
+        out["last_updated_time"] = capo_gamelift.types.timestamp.deserialize_cbor(
+            data["LastUpdatedTime"]
+        )
+    return out

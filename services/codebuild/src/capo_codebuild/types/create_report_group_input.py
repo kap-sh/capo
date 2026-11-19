@@ -80,3 +80,53 @@ def deserialize_aws_json_1_1(data: dict) -> CreateReportGroupInput:
             data["tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateReportGroupInput) -> dict:
+    out: dict = {}
+    out["name"] = value["name"]
+    import capo_codebuild.types.report_type
+
+    out["type"] = capo_codebuild.types.report_type.serialize_cbor(value["type"])
+    import capo_codebuild.types.report_export_config
+
+    out["exportConfig"] = capo_codebuild.types.report_export_config.serialize_cbor(
+        value["export_config"]
+    )
+    if "tags" in value:
+        import capo_codebuild.types.tag_list
+
+        out["tags"] = capo_codebuild.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateReportGroupInput:
+    out: CreateReportGroupInput = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    else:
+        out["name"] = ""
+    if data.get("type") is not None:
+        import capo_codebuild.types.report_type
+
+        out["type"] = capo_codebuild.types.report_type.deserialize_cbor(data["type"])
+    else:
+        import typing
+
+        out["type"] = typing.cast("capo_codebuild.types.report_type.ReportType", "")
+    if data.get("exportConfig") is not None:
+        import capo_codebuild.types.report_export_config
+
+        out["export_config"] = (
+            capo_codebuild.types.report_export_config.deserialize_cbor(
+                data["exportConfig"]
+            )
+        )
+    else:
+        raise DeserializationError("CreateReportGroupInput.export_config required")
+    if data.get("tags") is not None:
+        import capo_codebuild.types.tag_list
+
+        out["tags"] = capo_codebuild.types.tag_list.deserialize_cbor(data["tags"])
+    return out

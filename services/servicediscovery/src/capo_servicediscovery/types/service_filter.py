@@ -82,3 +82,58 @@ def deserialize_aws_json_1_1(data: dict) -> ServiceFilter:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ServiceFilter) -> dict:
+    out: dict = {}
+    import capo_servicediscovery.types.service_filter_name
+
+    out["Name"] = capo_servicediscovery.types.service_filter_name.serialize_cbor(
+        value["name"]
+    )
+    import capo_servicediscovery.types.filter_values
+
+    out["Values"] = capo_servicediscovery.types.filter_values.serialize_cbor(
+        value["values"]
+    )
+    if "condition" in value:
+        import capo_servicediscovery.types.filter_condition
+
+        out["Condition"] = capo_servicediscovery.types.filter_condition.serialize_cbor(
+            value["condition"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ServiceFilter:
+    out: ServiceFilter = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        import capo_servicediscovery.types.service_filter_name
+
+        out["name"] = capo_servicediscovery.types.service_filter_name.deserialize_cbor(
+            data["Name"]
+        )
+    else:
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_servicediscovery.types.service_filter_name.ServiceFilterName", ""
+        )
+    if data.get("Values") is not None:
+        import capo_servicediscovery.types.filter_values
+
+        out["values"] = capo_servicediscovery.types.filter_values.deserialize_cbor(
+            data["Values"]
+        )
+    else:
+        out["values"] = []
+    if data.get("Condition") is not None:
+        import capo_servicediscovery.types.filter_condition
+
+        out["condition"] = (
+            capo_servicediscovery.types.filter_condition.deserialize_cbor(
+                data["Condition"]
+            )
+        )
+    return out

@@ -36,3 +36,26 @@ def deserialize_aws_json_1_1(data: dict) -> CreateReportGroupOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateReportGroupOutput) -> dict:
+    out: dict = {}
+    if "report_group" in value:
+        import capo_codebuild.types.report_group
+
+        out["reportGroup"] = capo_codebuild.types.report_group.serialize_cbor(
+            value["report_group"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateReportGroupOutput:
+    out: CreateReportGroupOutput = {}  # type: ignore[typeddict-item]
+    if data.get("reportGroup") is not None:
+        import capo_codebuild.types.report_group
+
+        out["report_group"] = capo_codebuild.types.report_group.deserialize_cbor(
+            data["reportGroup"]
+        )
+    return out

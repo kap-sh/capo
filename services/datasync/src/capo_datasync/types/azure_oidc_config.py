@@ -34,3 +34,24 @@ def deserialize_aws_json_1_1(data: dict) -> AzureOidcConfig:
     else:
         out["client_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AzureOidcConfig) -> dict:
+    out: dict = {}
+    out["TenantId"] = value["tenant_id"]
+    out["ClientId"] = value["client_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AzureOidcConfig:
+    out: AzureOidcConfig = {}  # type: ignore[typeddict-item]
+    if data.get("TenantId") is not None:
+        out["tenant_id"] = data["TenantId"]
+    else:
+        out["tenant_id"] = ""
+    if data.get("ClientId") is not None:
+        out["client_id"] = data["ClientId"]
+    else:
+        out["client_id"] = ""
+    return out

@@ -44,3 +44,28 @@ def deserialize_aws_json_1_1(data: dict) -> CustomExtension:
     if data.get("Critical") is not None:
         out["critical"] = data["Critical"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CustomExtension) -> dict:
+    out: dict = {}
+    out["ObjectIdentifier"] = value["object_identifier"]
+    out["Value"] = value["value"]
+    if "critical" in value:
+        out["Critical"] = value["critical"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CustomExtension:
+    out: CustomExtension = {}  # type: ignore[typeddict-item]
+    if data.get("ObjectIdentifier") is not None:
+        out["object_identifier"] = data["ObjectIdentifier"]
+    else:
+        out["object_identifier"] = ""
+    if data.get("Value") is not None:
+        out["value"] = data["Value"]
+    else:
+        out["value"] = ""
+    if data.get("Critical") is not None:
+        out["critical"] = data["Critical"]
+    return out

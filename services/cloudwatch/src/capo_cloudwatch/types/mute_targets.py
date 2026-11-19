@@ -69,3 +69,30 @@ def deserialize_query(el: Element) -> MuteTargets:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MuteTargets) -> dict:
+    out: dict = {}
+    if "alarm_names" in value:
+        import capo_cloudwatch.types.mute_target_alarm_name_list
+
+        out["AlarmNames"] = (
+            capo_cloudwatch.types.mute_target_alarm_name_list.serialize_cbor(
+                value["alarm_names"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> MuteTargets:
+    out: MuteTargets = {}  # type: ignore[typeddict-item]
+    if data.get("AlarmNames") is not None:
+        import capo_cloudwatch.types.mute_target_alarm_name_list
+
+        out["alarm_names"] = (
+            capo_cloudwatch.types.mute_target_alarm_name_list.deserialize_cbor(
+                data["AlarmNames"]
+            )
+        )
+    return out

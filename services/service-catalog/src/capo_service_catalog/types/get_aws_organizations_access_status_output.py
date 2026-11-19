@@ -38,3 +38,28 @@ def deserialize_aws_json_1_1(data: dict) -> GetAWSOrganizationsAccessStatusOutpu
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetAWSOrganizationsAccessStatusOutput) -> dict:
+    out: dict = {}
+    if "access_status" in value:
+        import capo_service_catalog.types.access_status
+
+        out["AccessStatus"] = capo_service_catalog.types.access_status.serialize_cbor(
+            value["access_status"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetAWSOrganizationsAccessStatusOutput:
+    out: GetAWSOrganizationsAccessStatusOutput = {}  # type: ignore[typeddict-item]
+    if data.get("AccessStatus") is not None:
+        import capo_service_catalog.types.access_status
+
+        out["access_status"] = (
+            capo_service_catalog.types.access_status.deserialize_cbor(
+                data["AccessStatus"]
+            )
+        )
+    return out

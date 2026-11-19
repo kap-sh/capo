@@ -91,3 +91,69 @@ def deserialize_aws_json_1_0(data: dict) -> GetAddressListResponse:
             0, tz=datetime.timezone.utc
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetAddressListResponse) -> dict:
+    out: dict = {}
+    out["AddressListId"] = value["address_list_id"]
+    out["AddressListArn"] = value["address_list_arn"]
+    out["AddressListName"] = value["address_list_name"]
+    import capo_mailmanager.types._prelude.timestamp
+
+    out["CreatedTimestamp"] = capo_mailmanager.types._prelude.timestamp.serialize_cbor(
+        value["created_timestamp"]
+    )
+    import capo_mailmanager.types._prelude.timestamp
+
+    out["LastUpdatedTimestamp"] = (
+        capo_mailmanager.types._prelude.timestamp.serialize_cbor(
+            value["last_updated_timestamp"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetAddressListResponse:
+    out: GetAddressListResponse = {}  # type: ignore[typeddict-item]
+    if data.get("AddressListId") is not None:
+        out["address_list_id"] = data["AddressListId"]
+    else:
+        out["address_list_id"] = ""
+    if data.get("AddressListArn") is not None:
+        out["address_list_arn"] = data["AddressListArn"]
+    else:
+        out["address_list_arn"] = ""
+    if data.get("AddressListName") is not None:
+        out["address_list_name"] = data["AddressListName"]
+    else:
+        out["address_list_name"] = ""
+    if data.get("CreatedTimestamp") is not None:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["created_timestamp"] = (
+            capo_mailmanager.types._prelude.timestamp.deserialize_cbor(
+                data["CreatedTimestamp"]
+            )
+        )
+    else:
+        import datetime
+
+        out["created_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
+    if data.get("LastUpdatedTimestamp") is not None:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["last_updated_timestamp"] = (
+            capo_mailmanager.types._prelude.timestamp.deserialize_cbor(
+                data["LastUpdatedTimestamp"]
+            )
+        )
+    else:
+        import datetime
+
+        out["last_updated_timestamp"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
+    return out

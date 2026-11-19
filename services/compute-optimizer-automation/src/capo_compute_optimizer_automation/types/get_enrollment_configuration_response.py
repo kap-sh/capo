@@ -91,3 +91,72 @@ def deserialize_aws_json_1_0(data: dict) -> GetEnrollmentConfigurationResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetEnrollmentConfigurationResponse) -> dict:
+    out: dict = {}
+    import capo_compute_optimizer_automation.types.enrollment_status
+
+    out["status"] = (
+        capo_compute_optimizer_automation.types.enrollment_status.serialize_cbor(
+            value["status"]
+        )
+    )
+    if "status_reason" in value:
+        out["statusReason"] = value["status_reason"]
+    if "organization_rule_mode" in value:
+        import capo_compute_optimizer_automation.types.organization_rule_mode
+
+        out["organizationRuleMode"] = (
+            capo_compute_optimizer_automation.types.organization_rule_mode.serialize_cbor(
+                value["organization_rule_mode"]
+            )
+        )
+    if "last_updated_timestamp" in value:
+        import capo_compute_optimizer_automation.types._prelude.timestamp
+
+        out["lastUpdatedTimestamp"] = (
+            capo_compute_optimizer_automation.types._prelude.timestamp.serialize_cbor(
+                value["last_updated_timestamp"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetEnrollmentConfigurationResponse:
+    out: GetEnrollmentConfigurationResponse = {}  # type: ignore[typeddict-item]
+    if data.get("status") is not None:
+        import capo_compute_optimizer_automation.types.enrollment_status
+
+        out["status"] = (
+            capo_compute_optimizer_automation.types.enrollment_status.deserialize_cbor(
+                data["status"]
+            )
+        )
+    else:
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_compute_optimizer_automation.types.enrollment_status.EnrollmentStatus",
+            "",
+        )
+    if data.get("statusReason") is not None:
+        out["status_reason"] = data["statusReason"]
+    if data.get("organizationRuleMode") is not None:
+        import capo_compute_optimizer_automation.types.organization_rule_mode
+
+        out["organization_rule_mode"] = (
+            capo_compute_optimizer_automation.types.organization_rule_mode.deserialize_cbor(
+                data["organizationRuleMode"]
+            )
+        )
+    if data.get("lastUpdatedTimestamp") is not None:
+        import capo_compute_optimizer_automation.types._prelude.timestamp
+
+        out["last_updated_timestamp"] = (
+            capo_compute_optimizer_automation.types._prelude.timestamp.deserialize_cbor(
+                data["lastUpdatedTimestamp"]
+            )
+        )
+    return out

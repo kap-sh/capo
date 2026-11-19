@@ -79,3 +79,54 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateEntitlementRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateEntitlementRequest) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "stack_name" in value:
+        out["StackName"] = value["stack_name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "app_visibility" in value:
+        import capo_appstream.types.app_visibility
+
+        out["AppVisibility"] = capo_appstream.types.app_visibility.serialize_cbor(
+            value["app_visibility"]
+        )
+    if "attributes" in value:
+        import capo_appstream.types.entitlement_attribute_list
+
+        out["Attributes"] = (
+            capo_appstream.types.entitlement_attribute_list.serialize_cbor(
+                value["attributes"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateEntitlementRequest:
+    out: UpdateEntitlementRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("StackName") is not None:
+        out["stack_name"] = data["StackName"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("AppVisibility") is not None:
+        import capo_appstream.types.app_visibility
+
+        out["app_visibility"] = capo_appstream.types.app_visibility.deserialize_cbor(
+            data["AppVisibility"]
+        )
+    if data.get("Attributes") is not None:
+        import capo_appstream.types.entitlement_attribute_list
+
+        out["attributes"] = (
+            capo_appstream.types.entitlement_attribute_list.deserialize_cbor(
+                data["Attributes"]
+            )
+        )
+    return out

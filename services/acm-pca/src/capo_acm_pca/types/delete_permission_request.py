@@ -42,3 +42,28 @@ def deserialize_aws_json_1_1(data: dict) -> DeletePermissionRequest:
     if data.get("SourceAccount") is not None:
         out["source_account"] = data["SourceAccount"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeletePermissionRequest) -> dict:
+    out: dict = {}
+    out["CertificateAuthorityArn"] = value["certificate_authority_arn"]
+    out["Principal"] = value["principal"]
+    if "source_account" in value:
+        out["SourceAccount"] = value["source_account"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeletePermissionRequest:
+    out: DeletePermissionRequest = {}  # type: ignore[typeddict-item]
+    if data.get("CertificateAuthorityArn") is not None:
+        out["certificate_authority_arn"] = data["CertificateAuthorityArn"]
+    else:
+        out["certificate_authority_arn"] = ""
+    if data.get("Principal") is not None:
+        out["principal"] = data["Principal"]
+    else:
+        out["principal"] = ""
+    if data.get("SourceAccount") is not None:
+        out["source_account"] = data["SourceAccount"]
+    return out

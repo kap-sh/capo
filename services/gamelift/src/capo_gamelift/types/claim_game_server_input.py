@@ -65,6 +65,41 @@ def deserialize_aws_json_1_1(data: dict) -> ClaimGameServerInput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ClaimGameServerInput) -> dict:
+    out: dict = {}
+    if "game_server_group_name" in value:
+        out["GameServerGroupName"] = value["game_server_group_name"]
+    if "game_server_id" in value:
+        out["GameServerId"] = value["game_server_id"]
+    if "game_server_data" in value:
+        out["GameServerData"] = value["game_server_data"]
+    if "filter_option" in value:
+        import capo_gamelift.types.claim_filter_option
+
+        out["FilterOption"] = capo_gamelift.types.claim_filter_option.serialize_cbor(
+            value["filter_option"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ClaimGameServerInput:
+    out: ClaimGameServerInput = {}  # type: ignore[typeddict-item]
+    if data.get("GameServerGroupName") is not None:
+        out["game_server_group_name"] = data["GameServerGroupName"]
+    if data.get("GameServerId") is not None:
+        out["game_server_id"] = data["GameServerId"]
+    if data.get("GameServerData") is not None:
+        out["game_server_data"] = data["GameServerData"]
+    if data.get("FilterOption") is not None:
+        import capo_gamelift.types.claim_filter_option
+
+        out["filter_option"] = capo_gamelift.types.claim_filter_option.deserialize_cbor(
+            data["FilterOption"]
+        )
+    return out
+
+
 def redact_sensitive(value: ClaimGameServerInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "game_server_data" in value:

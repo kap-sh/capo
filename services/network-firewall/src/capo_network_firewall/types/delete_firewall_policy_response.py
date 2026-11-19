@@ -45,3 +45,33 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteFirewallPolicyResponse:
             "DeleteFirewallPolicyResponse.firewall_policy_response required"
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteFirewallPolicyResponse) -> dict:
+    out: dict = {}
+    import capo_network_firewall.types.firewall_policy_response
+
+    out["FirewallPolicyResponse"] = (
+        capo_network_firewall.types.firewall_policy_response.serialize_cbor(
+            value["firewall_policy_response"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteFirewallPolicyResponse:
+    out: DeleteFirewallPolicyResponse = {}  # type: ignore[typeddict-item]
+    if data.get("FirewallPolicyResponse") is not None:
+        import capo_network_firewall.types.firewall_policy_response
+
+        out["firewall_policy_response"] = (
+            capo_network_firewall.types.firewall_policy_response.deserialize_cbor(
+                data["FirewallPolicyResponse"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "DeleteFirewallPolicyResponse.firewall_policy_response required"
+        )
+    return out

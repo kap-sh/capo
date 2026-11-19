@@ -54,3 +54,36 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeDirectoriesRequest:
     if data.get("Limit") is not None:
         out["limit"] = data["Limit"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeDirectoriesRequest) -> dict:
+    out: dict = {}
+    if "directory_ids" in value:
+        import capo_directory_service.types.directory_ids
+
+        out["DirectoryIds"] = capo_directory_service.types.directory_ids.serialize_cbor(
+            value["directory_ids"]
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "limit" in value:
+        out["Limit"] = value["limit"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeDirectoriesRequest:
+    out: DescribeDirectoriesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryIds") is not None:
+        import capo_directory_service.types.directory_ids
+
+        out["directory_ids"] = (
+            capo_directory_service.types.directory_ids.deserialize_cbor(
+                data["DirectoryIds"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("Limit") is not None:
+        out["limit"] = data["Limit"]
+    return out

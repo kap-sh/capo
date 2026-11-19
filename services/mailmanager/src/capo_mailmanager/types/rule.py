@@ -77,6 +77,58 @@ def deserialize_aws_json_1_0(data: dict) -> Rule:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Rule) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "conditions" in value:
+        import capo_mailmanager.types.rule_conditions
+
+        out["Conditions"] = capo_mailmanager.types.rule_conditions.serialize_cbor(
+            value["conditions"]
+        )
+    if "unless" in value:
+        import capo_mailmanager.types.rule_conditions
+
+        out["Unless"] = capo_mailmanager.types.rule_conditions.serialize_cbor(
+            value["unless"]
+        )
+    import capo_mailmanager.types.rule_actions
+
+    out["Actions"] = capo_mailmanager.types.rule_actions.serialize_cbor(
+        value["actions"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Rule:
+    out: Rule = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Conditions") is not None:
+        import capo_mailmanager.types.rule_conditions
+
+        out["conditions"] = capo_mailmanager.types.rule_conditions.deserialize_cbor(
+            data["Conditions"]
+        )
+    if data.get("Unless") is not None:
+        import capo_mailmanager.types.rule_conditions
+
+        out["unless"] = capo_mailmanager.types.rule_conditions.deserialize_cbor(
+            data["Unless"]
+        )
+    if data.get("Actions") is not None:
+        import capo_mailmanager.types.rule_actions
+
+        out["actions"] = capo_mailmanager.types.rule_actions.deserialize_cbor(
+            data["Actions"]
+        )
+    else:
+        out["actions"] = []
+    return out
+
+
 def redact_sensitive(value: Rule) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "conditions" in value:

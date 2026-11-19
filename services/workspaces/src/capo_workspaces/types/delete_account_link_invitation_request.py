@@ -34,3 +34,23 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteAccountLinkInvitationRequest:
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteAccountLinkInvitationRequest) -> dict:
+    out: dict = {}
+    out["LinkId"] = value["link_id"]
+    if "client_token" in value:
+        out["ClientToken"] = value["client_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteAccountLinkInvitationRequest:
+    out: DeleteAccountLinkInvitationRequest = {}  # type: ignore[typeddict-item]
+    if data.get("LinkId") is not None:
+        out["link_id"] = data["LinkId"]
+    else:
+        out["link_id"] = ""
+    if data.get("ClientToken") is not None:
+        out["client_token"] = data["ClientToken"]
+    return out

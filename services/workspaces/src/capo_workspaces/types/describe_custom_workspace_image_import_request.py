@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeCustomWorkspaceImageImportRe
     else:
         out["image_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeCustomWorkspaceImageImportRequest) -> dict:
+    out: dict = {}
+    out["ImageId"] = value["image_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeCustomWorkspaceImageImportRequest:
+    out: DescribeCustomWorkspaceImageImportRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ImageId") is not None:
+        out["image_id"] = data["ImageId"]
+    else:
+        out["image_id"] = ""
+    return out

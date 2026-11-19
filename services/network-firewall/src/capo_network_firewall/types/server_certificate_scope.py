@@ -171,3 +171,124 @@ def deserialize_aws_json_1_0(data: dict) -> ServerCertificateScope:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ServerCertificateScope) -> dict:
+    out: dict = {}
+    if "sources" in value:
+        import capo_network_firewall.types.addresses
+
+        out["Sources"] = capo_network_firewall.types.addresses.serialize_cbor(
+            value["sources"]
+        )
+    if "destinations" in value:
+        import capo_network_firewall.types.addresses
+
+        out["Destinations"] = capo_network_firewall.types.addresses.serialize_cbor(
+            value["destinations"]
+        )
+    if "source_ports" in value:
+        import capo_network_firewall.types.port_ranges
+
+        out["SourcePorts"] = capo_network_firewall.types.port_ranges.serialize_cbor(
+            value["source_ports"]
+        )
+    if "destination_ports" in value:
+        import capo_network_firewall.types.port_ranges
+
+        out["DestinationPorts"] = (
+            capo_network_firewall.types.port_ranges.serialize_cbor(
+                value["destination_ports"]
+            )
+        )
+    if "protocols" in value:
+        import capo_network_firewall.types.protocol_numbers
+
+        out["Protocols"] = capo_network_firewall.types.protocol_numbers.serialize_cbor(
+            value["protocols"]
+        )
+    if "domain_match" in value:
+        import capo_network_firewall.types.domain_match
+
+        out["DomainMatch"] = capo_network_firewall.types.domain_match.serialize_cbor(
+            value["domain_match"]
+        )
+    if "decryption_action" in value:
+        import capo_network_firewall.types.decryption_action
+
+        out["DecryptionAction"] = (
+            capo_network_firewall.types.decryption_action.serialize_cbor(
+                value["decryption_action"]
+            )
+        )
+    if "deployment_mode" in value:
+        import capo_network_firewall.types.tls_inspection_scope_deployment_mode
+
+        out["DeploymentMode"] = (
+            capo_network_firewall.types.tls_inspection_scope_deployment_mode.serialize_cbor(
+                value["deployment_mode"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ServerCertificateScope:
+    out: ServerCertificateScope = {}  # type: ignore[typeddict-item]
+    if data.get("Sources") is not None:
+        import capo_network_firewall.types.addresses
+
+        out["sources"] = capo_network_firewall.types.addresses.deserialize_cbor(
+            data["Sources"]
+        )
+    if data.get("Destinations") is not None:
+        import capo_network_firewall.types.addresses
+
+        out["destinations"] = capo_network_firewall.types.addresses.deserialize_cbor(
+            data["Destinations"]
+        )
+    if data.get("SourcePorts") is not None:
+        import capo_network_firewall.types.port_ranges
+
+        out["source_ports"] = capo_network_firewall.types.port_ranges.deserialize_cbor(
+            data["SourcePorts"]
+        )
+    if data.get("DestinationPorts") is not None:
+        import capo_network_firewall.types.port_ranges
+
+        out["destination_ports"] = (
+            capo_network_firewall.types.port_ranges.deserialize_cbor(
+                data["DestinationPorts"]
+            )
+        )
+    if data.get("Protocols") is not None:
+        import capo_network_firewall.types.protocol_numbers
+
+        out["protocols"] = (
+            capo_network_firewall.types.protocol_numbers.deserialize_cbor(
+                data["Protocols"]
+            )
+        )
+    if data.get("DomainMatch") is not None:
+        import capo_network_firewall.types.domain_match
+
+        out["domain_match"] = capo_network_firewall.types.domain_match.deserialize_cbor(
+            data["DomainMatch"]
+        )
+    if data.get("DecryptionAction") is not None:
+        import capo_network_firewall.types.decryption_action
+
+        out["decryption_action"] = (
+            capo_network_firewall.types.decryption_action.deserialize_cbor(
+                data["DecryptionAction"]
+            )
+        )
+    if data.get("DeploymentMode") is not None:
+        import capo_network_firewall.types.tls_inspection_scope_deployment_mode
+
+        out["deployment_mode"] = (
+            capo_network_firewall.types.tls_inspection_scope_deployment_mode.deserialize_cbor(
+                data["DeploymentMode"]
+            )
+        )
+    return out

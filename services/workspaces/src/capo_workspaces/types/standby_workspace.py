@@ -80,3 +80,50 @@ def deserialize_aws_json_1_1(data: dict) -> StandbyWorkspace:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StandbyWorkspace) -> dict:
+    out: dict = {}
+    out["PrimaryWorkspaceId"] = value["primary_workspace_id"]
+    if "volume_encryption_key" in value:
+        out["VolumeEncryptionKey"] = value["volume_encryption_key"]
+    out["DirectoryId"] = value["directory_id"]
+    if "tags" in value:
+        import capo_workspaces.types.tag_list
+
+        out["Tags"] = capo_workspaces.types.tag_list.serialize_cbor(value["tags"])
+    if "data_replication" in value:
+        import capo_workspaces.types.data_replication
+
+        out["DataReplication"] = capo_workspaces.types.data_replication.serialize_cbor(
+            value["data_replication"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StandbyWorkspace:
+    out: StandbyWorkspace = {}  # type: ignore[typeddict-item]
+    if data.get("PrimaryWorkspaceId") is not None:
+        out["primary_workspace_id"] = data["PrimaryWorkspaceId"]
+    else:
+        out["primary_workspace_id"] = ""
+    if data.get("VolumeEncryptionKey") is not None:
+        out["volume_encryption_key"] = data["VolumeEncryptionKey"]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    if data.get("Tags") is not None:
+        import capo_workspaces.types.tag_list
+
+        out["tags"] = capo_workspaces.types.tag_list.deserialize_cbor(data["Tags"])
+    if data.get("DataReplication") is not None:
+        import capo_workspaces.types.data_replication
+
+        out["data_replication"] = (
+            capo_workspaces.types.data_replication.deserialize_cbor(
+                data["DataReplication"]
+            )
+        )
+    return out

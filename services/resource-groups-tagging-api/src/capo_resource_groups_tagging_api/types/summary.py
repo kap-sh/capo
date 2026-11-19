@@ -80,3 +80,51 @@ def deserialize_aws_json_1_1(data: dict) -> Summary:
     else:
         out["non_compliant_resources"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Summary) -> dict:
+    out: dict = {}
+    if "last_updated" in value:
+        out["LastUpdated"] = value["last_updated"]
+    if "target_id" in value:
+        out["TargetId"] = value["target_id"]
+    if "target_id_type" in value:
+        import capo_resource_groups_tagging_api.types.target_id_type
+
+        out["TargetIdType"] = (
+            capo_resource_groups_tagging_api.types.target_id_type.serialize_cbor(
+                value["target_id_type"]
+            )
+        )
+    if "region" in value:
+        out["Region"] = value["region"]
+    if "resource_type" in value:
+        out["ResourceType"] = value["resource_type"]
+    out["NonCompliantResources"] = value.get("non_compliant_resources", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> Summary:
+    out: Summary = {}  # type: ignore[typeddict-item]
+    if data.get("LastUpdated") is not None:
+        out["last_updated"] = data["LastUpdated"]
+    if data.get("TargetId") is not None:
+        out["target_id"] = data["TargetId"]
+    if data.get("TargetIdType") is not None:
+        import capo_resource_groups_tagging_api.types.target_id_type
+
+        out["target_id_type"] = (
+            capo_resource_groups_tagging_api.types.target_id_type.deserialize_cbor(
+                data["TargetIdType"]
+            )
+        )
+    if data.get("Region") is not None:
+        out["region"] = data["Region"]
+    if data.get("ResourceType") is not None:
+        out["resource_type"] = data["ResourceType"]
+    if data.get("NonCompliantResources") is not None:
+        out["non_compliant_resources"] = data["NonCompliantResources"]
+    else:
+        out["non_compliant_resources"] = 0
+    return out

@@ -35,3 +35,22 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteVpcPeeringConnectionInput:
     if data.get("VpcPeeringConnectionId") is not None:
         out["vpc_peering_connection_id"] = data["VpcPeeringConnectionId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteVpcPeeringConnectionInput) -> dict:
+    out: dict = {}
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "vpc_peering_connection_id" in value:
+        out["VpcPeeringConnectionId"] = value["vpc_peering_connection_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteVpcPeeringConnectionInput:
+    out: DeleteVpcPeeringConnectionInput = {}  # type: ignore[typeddict-item]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("VpcPeeringConnectionId") is not None:
+        out["vpc_peering_connection_id"] = data["VpcPeeringConnectionId"]
+    return out

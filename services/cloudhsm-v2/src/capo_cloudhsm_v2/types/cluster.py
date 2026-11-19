@@ -260,3 +260,178 @@ def deserialize_aws_json_1_1(data: dict) -> Cluster:
             data["Mode"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Cluster) -> dict:
+    out: dict = {}
+    if "backup_policy" in value:
+        import capo_cloudhsm_v2.types.backup_policy
+
+        out["BackupPolicy"] = capo_cloudhsm_v2.types.backup_policy.serialize_cbor(
+            value["backup_policy"]
+        )
+    if "backup_retention_policy" in value:
+        import capo_cloudhsm_v2.types.backup_retention_policy
+
+        out["BackupRetentionPolicy"] = (
+            capo_cloudhsm_v2.types.backup_retention_policy.serialize_cbor(
+                value["backup_retention_policy"]
+            )
+        )
+    if "cluster_id" in value:
+        out["ClusterId"] = value["cluster_id"]
+    if "create_timestamp" in value:
+        import capo_cloudhsm_v2.types.timestamp
+
+        out["CreateTimestamp"] = capo_cloudhsm_v2.types.timestamp.serialize_cbor(
+            value["create_timestamp"]
+        )
+    if "hsms" in value:
+        import capo_cloudhsm_v2.types.hsms
+
+        out["Hsms"] = capo_cloudhsm_v2.types.hsms.serialize_cbor(value["hsms"])
+    if "hsm_type" in value:
+        out["HsmType"] = value["hsm_type"]
+    if "hsm_type_rollback_expiration" in value:
+        import capo_cloudhsm_v2.types.timestamp
+
+        out["HsmTypeRollbackExpiration"] = (
+            capo_cloudhsm_v2.types.timestamp.serialize_cbor(
+                value["hsm_type_rollback_expiration"]
+            )
+        )
+    if "pre_co_password" in value:
+        out["PreCoPassword"] = value["pre_co_password"]
+    if "security_group" in value:
+        out["SecurityGroup"] = value["security_group"]
+    if "source_backup_id" in value:
+        out["SourceBackupId"] = value["source_backup_id"]
+    if "state" in value:
+        import capo_cloudhsm_v2.types.cluster_state
+
+        out["State"] = capo_cloudhsm_v2.types.cluster_state.serialize_cbor(
+            value["state"]
+        )
+    if "state_message" in value:
+        out["StateMessage"] = value["state_message"]
+    if "subnet_mapping" in value:
+        import capo_cloudhsm_v2.types.external_subnet_mapping
+
+        out["SubnetMapping"] = (
+            capo_cloudhsm_v2.types.external_subnet_mapping.serialize_cbor(
+                value["subnet_mapping"]
+            )
+        )
+    if "vpc_id" in value:
+        out["VpcId"] = value["vpc_id"]
+    if "network_type" in value:
+        import capo_cloudhsm_v2.types.network_type
+
+        out["NetworkType"] = capo_cloudhsm_v2.types.network_type.serialize_cbor(
+            value["network_type"]
+        )
+    if "certificates" in value:
+        import capo_cloudhsm_v2.types.certificates
+
+        out["Certificates"] = capo_cloudhsm_v2.types.certificates.serialize_cbor(
+            value["certificates"]
+        )
+    if "tag_list" in value:
+        import capo_cloudhsm_v2.types.tag_list
+
+        out["TagList"] = capo_cloudhsm_v2.types.tag_list.serialize_cbor(
+            value["tag_list"]
+        )
+    if "mode" in value:
+        import capo_cloudhsm_v2.types.cluster_mode
+
+        out["Mode"] = capo_cloudhsm_v2.types.cluster_mode.serialize_cbor(value["mode"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> Cluster:
+    out: Cluster = {}  # type: ignore[typeddict-item]
+    if data.get("BackupPolicy") is not None:
+        import capo_cloudhsm_v2.types.backup_policy
+
+        out["backup_policy"] = capo_cloudhsm_v2.types.backup_policy.deserialize_cbor(
+            data["BackupPolicy"]
+        )
+    if data.get("BackupRetentionPolicy") is not None:
+        import capo_cloudhsm_v2.types.backup_retention_policy
+
+        out["backup_retention_policy"] = (
+            capo_cloudhsm_v2.types.backup_retention_policy.deserialize_cbor(
+                data["BackupRetentionPolicy"]
+            )
+        )
+    if data.get("ClusterId") is not None:
+        out["cluster_id"] = data["ClusterId"]
+    if data.get("CreateTimestamp") is not None:
+        import capo_cloudhsm_v2.types.timestamp
+
+        out["create_timestamp"] = capo_cloudhsm_v2.types.timestamp.deserialize_cbor(
+            data["CreateTimestamp"]
+        )
+    if data.get("Hsms") is not None:
+        import capo_cloudhsm_v2.types.hsms
+
+        out["hsms"] = capo_cloudhsm_v2.types.hsms.deserialize_cbor(data["Hsms"])
+    if data.get("HsmType") is not None:
+        out["hsm_type"] = data["HsmType"]
+    if data.get("HsmTypeRollbackExpiration") is not None:
+        import capo_cloudhsm_v2.types.timestamp
+
+        out["hsm_type_rollback_expiration"] = (
+            capo_cloudhsm_v2.types.timestamp.deserialize_cbor(
+                data["HsmTypeRollbackExpiration"]
+            )
+        )
+    if data.get("PreCoPassword") is not None:
+        out["pre_co_password"] = data["PreCoPassword"]
+    if data.get("SecurityGroup") is not None:
+        out["security_group"] = data["SecurityGroup"]
+    if data.get("SourceBackupId") is not None:
+        out["source_backup_id"] = data["SourceBackupId"]
+    if data.get("State") is not None:
+        import capo_cloudhsm_v2.types.cluster_state
+
+        out["state"] = capo_cloudhsm_v2.types.cluster_state.deserialize_cbor(
+            data["State"]
+        )
+    if data.get("StateMessage") is not None:
+        out["state_message"] = data["StateMessage"]
+    if data.get("SubnetMapping") is not None:
+        import capo_cloudhsm_v2.types.external_subnet_mapping
+
+        out["subnet_mapping"] = (
+            capo_cloudhsm_v2.types.external_subnet_mapping.deserialize_cbor(
+                data["SubnetMapping"]
+            )
+        )
+    if data.get("VpcId") is not None:
+        out["vpc_id"] = data["VpcId"]
+    if data.get("NetworkType") is not None:
+        import capo_cloudhsm_v2.types.network_type
+
+        out["network_type"] = capo_cloudhsm_v2.types.network_type.deserialize_cbor(
+            data["NetworkType"]
+        )
+    if data.get("Certificates") is not None:
+        import capo_cloudhsm_v2.types.certificates
+
+        out["certificates"] = capo_cloudhsm_v2.types.certificates.deserialize_cbor(
+            data["Certificates"]
+        )
+    if data.get("TagList") is not None:
+        import capo_cloudhsm_v2.types.tag_list
+
+        out["tag_list"] = capo_cloudhsm_v2.types.tag_list.deserialize_cbor(
+            data["TagList"]
+        )
+    if data.get("Mode") is not None:
+        import capo_cloudhsm_v2.types.cluster_mode
+
+        out["mode"] = capo_cloudhsm_v2.types.cluster_mode.deserialize_cbor(data["Mode"])
+    return out

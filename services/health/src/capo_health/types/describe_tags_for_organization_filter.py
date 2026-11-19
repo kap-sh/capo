@@ -40,3 +40,28 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeTagsForOrganizationFilter:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeTagsForOrganizationFilter) -> dict:
+    out: dict = {}
+    if "tag_types" in value:
+        import capo_health.types.organization_tag_type_filter
+
+        out["tagTypes"] = capo_health.types.organization_tag_type_filter.serialize_cbor(
+            value["tag_types"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeTagsForOrganizationFilter:
+    out: DescribeTagsForOrganizationFilter = {}  # type: ignore[typeddict-item]
+    if data.get("tagTypes") is not None:
+        import capo_health.types.organization_tag_type_filter
+
+        out["tag_types"] = (
+            capo_health.types.organization_tag_type_filter.deserialize_cbor(
+                data["tagTypes"]
+            )
+        )
+    return out

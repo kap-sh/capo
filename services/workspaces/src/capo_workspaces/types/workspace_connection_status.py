@@ -88,3 +88,64 @@ def deserialize_aws_json_1_1(data: dict) -> WorkspaceConnectionStatus:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: WorkspaceConnectionStatus) -> dict:
+    out: dict = {}
+    if "workspace_id" in value:
+        out["WorkspaceId"] = value["workspace_id"]
+    if "connection_state" in value:
+        import capo_workspaces.types.connection_state
+
+        out["ConnectionState"] = capo_workspaces.types.connection_state.serialize_cbor(
+            value["connection_state"]
+        )
+    if "connection_state_check_timestamp" in value:
+        import capo_workspaces.types.timestamp
+
+        out["ConnectionStateCheckTimestamp"] = (
+            capo_workspaces.types.timestamp.serialize_cbor(
+                value["connection_state_check_timestamp"]
+            )
+        )
+    if "last_known_user_connection_timestamp" in value:
+        import capo_workspaces.types.timestamp
+
+        out["LastKnownUserConnectionTimestamp"] = (
+            capo_workspaces.types.timestamp.serialize_cbor(
+                value["last_known_user_connection_timestamp"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> WorkspaceConnectionStatus:
+    out: WorkspaceConnectionStatus = {}  # type: ignore[typeddict-item]
+    if data.get("WorkspaceId") is not None:
+        out["workspace_id"] = data["WorkspaceId"]
+    if data.get("ConnectionState") is not None:
+        import capo_workspaces.types.connection_state
+
+        out["connection_state"] = (
+            capo_workspaces.types.connection_state.deserialize_cbor(
+                data["ConnectionState"]
+            )
+        )
+    if data.get("ConnectionStateCheckTimestamp") is not None:
+        import capo_workspaces.types.timestamp
+
+        out["connection_state_check_timestamp"] = (
+            capo_workspaces.types.timestamp.deserialize_cbor(
+                data["ConnectionStateCheckTimestamp"]
+            )
+        )
+    if data.get("LastKnownUserConnectionTimestamp") is not None:
+        import capo_workspaces.types.timestamp
+
+        out["last_known_user_connection_timestamp"] = (
+            capo_workspaces.types.timestamp.deserialize_cbor(
+                data["LastKnownUserConnectionTimestamp"]
+            )
+        )
+    return out

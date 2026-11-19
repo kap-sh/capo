@@ -38,3 +38,26 @@ def deserialize_aws_json_1_1(data: dict) -> SSMSession:
     if data.get("streamUrl") is not None:
         out["stream_url"] = data["streamUrl"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SSMSession) -> dict:
+    out: dict = {}
+    if "session_id" in value:
+        out["sessionId"] = value["session_id"]
+    if "token_value" in value:
+        out["tokenValue"] = value["token_value"]
+    if "stream_url" in value:
+        out["streamUrl"] = value["stream_url"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> SSMSession:
+    out: SSMSession = {}  # type: ignore[typeddict-item]
+    if data.get("sessionId") is not None:
+        out["session_id"] = data["sessionId"]
+    if data.get("tokenValue") is not None:
+        out["token_value"] = data["tokenValue"]
+    if data.get("streamUrl") is not None:
+        out["stream_url"] = data["streamUrl"]
+    return out

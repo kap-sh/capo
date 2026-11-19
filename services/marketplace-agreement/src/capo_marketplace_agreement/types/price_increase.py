@@ -77,3 +77,55 @@ def deserialize_aws_json_1_0(data: dict) -> PriceIncrease:
         if name is not None:
             return {"$unknown": {"name": name}}
         raise DeserializationError("PriceIncrease: no recognized variant key")
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PriceIncrease) -> dict:
+    if "$unknown" in value:
+        raise SerializationError(
+            f"PriceIncrease: cannot serialize unknown variant {value['$unknown']['name']!r}"
+        )
+    elif "fixedPercentage" in value:
+        import capo_marketplace_agreement.types.fixed_percentage
+
+        return {
+            "fixedPercentage": capo_marketplace_agreement.types.fixed_percentage.serialize_cbor(
+                value["fixedPercentage"]
+            )
+        }
+    elif "percentageRange" in value:
+        import capo_marketplace_agreement.types.percentage_range
+
+        return {
+            "percentageRange": capo_marketplace_agreement.types.percentage_range.serialize_cbor(
+                value["percentageRange"]
+            )
+        }
+    else:
+        raise SerializationError("PriceIncrease: no variant present")
+
+
+def deserialize_cbor(data: dict) -> PriceIncrease:
+    if data.get("fixedPercentage") is not None:
+        import capo_marketplace_agreement.types.fixed_percentage
+
+        return {
+            "fixedPercentage": capo_marketplace_agreement.types.fixed_percentage.deserialize_cbor(
+                data["fixedPercentage"]
+            )
+        }
+    elif data.get("percentageRange") is not None:
+        import capo_marketplace_agreement.types.percentage_range
+
+        return {
+            "percentageRange": capo_marketplace_agreement.types.percentage_range.deserialize_cbor(
+                data["percentageRange"]
+            )
+        }
+    else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return {"$unknown": {"name": name}}
+        raise DeserializationError("PriceIncrease: no recognized variant key")

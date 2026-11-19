@@ -32,3 +32,22 @@ def deserialize_aws_json_1_1(data: dict) -> Term:
     if data.get("TargetText") is not None:
         out["target_text"] = data["TargetText"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Term) -> dict:
+    out: dict = {}
+    if "source_text" in value:
+        out["SourceText"] = value["source_text"]
+    if "target_text" in value:
+        out["TargetText"] = value["target_text"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Term:
+    out: Term = {}  # type: ignore[typeddict-item]
+    if data.get("SourceText") is not None:
+        out["source_text"] = data["SourceText"]
+    if data.get("TargetText") is not None:
+        out["target_text"] = data["TargetText"]
+    return out

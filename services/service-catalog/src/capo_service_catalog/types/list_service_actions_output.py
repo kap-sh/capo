@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> ListServiceActionsOutput:
     if data.get("NextPageToken") is not None:
         out["next_page_token"] = data["NextPageToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListServiceActionsOutput) -> dict:
+    out: dict = {}
+    if "service_action_summaries" in value:
+        import capo_service_catalog.types.service_action_summaries
+
+        out["ServiceActionSummaries"] = (
+            capo_service_catalog.types.service_action_summaries.serialize_cbor(
+                value["service_action_summaries"]
+            )
+        )
+    if "next_page_token" in value:
+        out["NextPageToken"] = value["next_page_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListServiceActionsOutput:
+    out: ListServiceActionsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("ServiceActionSummaries") is not None:
+        import capo_service_catalog.types.service_action_summaries
+
+        out["service_action_summaries"] = (
+            capo_service_catalog.types.service_action_summaries.deserialize_cbor(
+                data["ServiceActionSummaries"]
+            )
+        )
+    if data.get("NextPageToken") is not None:
+        out["next_page_token"] = data["NextPageToken"]
+    return out

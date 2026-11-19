@@ -27,3 +27,24 @@ def deserialize_aws_json_1_1(data: list) -> ListOfTextSegments:
             continue
         out.append(capo_comprehend.types.text_segment.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListOfTextSegments) -> list:
+    import capo_comprehend.types.text_segment
+
+    out: list = []
+    for item in value:
+        out.append(capo_comprehend.types.text_segment.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> ListOfTextSegments:
+    import capo_comprehend.types.text_segment
+
+    out: ListOfTextSegments = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_comprehend.types.text_segment.deserialize_cbor(item))
+    return out

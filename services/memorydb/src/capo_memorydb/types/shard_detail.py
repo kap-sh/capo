@@ -72,3 +72,46 @@ def deserialize_aws_json_1_1(data: dict) -> ShardDetail:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ShardDetail) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "configuration" in value:
+        import capo_memorydb.types.shard_configuration
+
+        out["Configuration"] = capo_memorydb.types.shard_configuration.serialize_cbor(
+            value["configuration"]
+        )
+    if "size" in value:
+        out["Size"] = value["size"]
+    if "snapshot_creation_time" in value:
+        import capo_memorydb.types.t_stamp
+
+        out["SnapshotCreationTime"] = capo_memorydb.types.t_stamp.serialize_cbor(
+            value["snapshot_creation_time"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ShardDetail:
+    out: ShardDetail = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Configuration") is not None:
+        import capo_memorydb.types.shard_configuration
+
+        out["configuration"] = capo_memorydb.types.shard_configuration.deserialize_cbor(
+            data["Configuration"]
+        )
+    if data.get("Size") is not None:
+        out["size"] = data["Size"]
+    if data.get("SnapshotCreationTime") is not None:
+        import capo_memorydb.types.t_stamp
+
+        out["snapshot_creation_time"] = capo_memorydb.types.t_stamp.deserialize_cbor(
+            data["SnapshotCreationTime"]
+        )
+    return out

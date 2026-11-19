@@ -21,6 +21,17 @@ def deserialize_aws_json_1_1(data: dict) -> IncompatibleApplicationsException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IncompatibleApplicationsException_) -> dict:
+    out: dict = {}
+    return out
+
+
+def deserialize_cbor(data: dict) -> IncompatibleApplicationsException_:
+    out: IncompatibleApplicationsException_ = {}  # type: ignore[typeddict-item]
+    return out
+
+
 class IncompatibleApplicationsException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.workspaces#IncompatibleApplicationsException``."""
 
@@ -48,3 +59,9 @@ class IncompatibleApplicationsException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "IncompatibleApplicationsException":
         return cls(deserialize_aws_json_1_1(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "IncompatibleApplicationsException":
+        return cls(deserialize_cbor(data), message, response=response)

@@ -128,3 +128,84 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLagRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateLagRequest) -> dict:
+    out: dict = {}
+    out["numberOfConnections"] = value["number_of_connections"]
+    out["location"] = value["location"]
+    out["connectionsBandwidth"] = value["connections_bandwidth"]
+    out["lagName"] = value["lag_name"]
+    if "connection_id" in value:
+        out["connectionId"] = value["connection_id"]
+    if "tags" in value:
+        import capo_direct_connect.types.tag_list
+
+        out["tags"] = capo_direct_connect.types.tag_list.serialize_cbor(value["tags"])
+    if "child_connection_tags" in value:
+        import capo_direct_connect.types.tag_list
+
+        out["childConnectionTags"] = capo_direct_connect.types.tag_list.serialize_cbor(
+            value["child_connection_tags"]
+        )
+    if "provider_name" in value:
+        out["providerName"] = value["provider_name"]
+    if "request_mac_sec" in value:
+        out["requestMACSec"] = value["request_mac_sec"]
+    if "billing_mode" in value:
+        import capo_direct_connect.types.request_billing_mode
+
+        out["billingMode"] = (
+            capo_direct_connect.types.request_billing_mode.serialize_cbor(
+                value["billing_mode"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateLagRequest:
+    out: CreateLagRequest = {}  # type: ignore[typeddict-item]
+    if data.get("numberOfConnections") is not None:
+        out["number_of_connections"] = data["numberOfConnections"]
+    else:
+        out["number_of_connections"] = 0
+    if data.get("location") is not None:
+        out["location"] = data["location"]
+    else:
+        out["location"] = ""
+    if data.get("connectionsBandwidth") is not None:
+        out["connections_bandwidth"] = data["connectionsBandwidth"]
+    else:
+        out["connections_bandwidth"] = ""
+    if data.get("lagName") is not None:
+        out["lag_name"] = data["lagName"]
+    else:
+        out["lag_name"] = ""
+    if data.get("connectionId") is not None:
+        out["connection_id"] = data["connectionId"]
+    if data.get("tags") is not None:
+        import capo_direct_connect.types.tag_list
+
+        out["tags"] = capo_direct_connect.types.tag_list.deserialize_cbor(data["tags"])
+    if data.get("childConnectionTags") is not None:
+        import capo_direct_connect.types.tag_list
+
+        out["child_connection_tags"] = (
+            capo_direct_connect.types.tag_list.deserialize_cbor(
+                data["childConnectionTags"]
+            )
+        )
+    if data.get("providerName") is not None:
+        out["provider_name"] = data["providerName"]
+    if data.get("requestMACSec") is not None:
+        out["request_mac_sec"] = data["requestMACSec"]
+    if data.get("billingMode") is not None:
+        import capo_direct_connect.types.request_billing_mode
+
+        out["billing_mode"] = (
+            capo_direct_connect.types.request_billing_mode.deserialize_cbor(
+                data["billingMode"]
+            )
+        )
+    return out

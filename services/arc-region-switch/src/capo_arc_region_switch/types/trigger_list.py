@@ -27,3 +27,24 @@ def deserialize_aws_json_1_0(data: list) -> TriggerList:
             continue
         out.append(capo_arc_region_switch.types.trigger.deserialize_aws_json_1_0(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TriggerList) -> list:
+    import capo_arc_region_switch.types.trigger
+
+    out: list = []
+    for item in value:
+        out.append(capo_arc_region_switch.types.trigger.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> TriggerList:
+    import capo_arc_region_switch.types.trigger
+
+    out: TriggerList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_arc_region_switch.types.trigger.deserialize_cbor(item))
+    return out

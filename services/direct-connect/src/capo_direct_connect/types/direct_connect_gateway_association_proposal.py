@@ -133,3 +133,94 @@ def deserialize_aws_json_1_1(data: dict) -> DirectConnectGatewayAssociationPropo
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DirectConnectGatewayAssociationProposal) -> dict:
+    out: dict = {}
+    if "proposal_id" in value:
+        out["proposalId"] = value["proposal_id"]
+    if "direct_connect_gateway_id" in value:
+        out["directConnectGatewayId"] = value["direct_connect_gateway_id"]
+    if "direct_connect_gateway_owner_account" in value:
+        out["directConnectGatewayOwnerAccount"] = value[
+            "direct_connect_gateway_owner_account"
+        ]
+    if "proposal_state" in value:
+        import capo_direct_connect.types.direct_connect_gateway_association_proposal_state
+
+        out["proposalState"] = (
+            capo_direct_connect.types.direct_connect_gateway_association_proposal_state.serialize_cbor(
+                value["proposal_state"]
+            )
+        )
+    if "associated_gateway" in value:
+        import capo_direct_connect.types.associated_gateway
+
+        out["associatedGateway"] = (
+            capo_direct_connect.types.associated_gateway.serialize_cbor(
+                value["associated_gateway"]
+            )
+        )
+    if "existing_allowed_prefixes_to_direct_connect_gateway" in value:
+        import capo_direct_connect.types.route_filter_prefix_list
+
+        out["existingAllowedPrefixesToDirectConnectGateway"] = (
+            capo_direct_connect.types.route_filter_prefix_list.serialize_cbor(
+                value["existing_allowed_prefixes_to_direct_connect_gateway"]
+            )
+        )
+    if "requested_allowed_prefixes_to_direct_connect_gateway" in value:
+        import capo_direct_connect.types.route_filter_prefix_list
+
+        out["requestedAllowedPrefixesToDirectConnectGateway"] = (
+            capo_direct_connect.types.route_filter_prefix_list.serialize_cbor(
+                value["requested_allowed_prefixes_to_direct_connect_gateway"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DirectConnectGatewayAssociationProposal:
+    out: DirectConnectGatewayAssociationProposal = {}  # type: ignore[typeddict-item]
+    if data.get("proposalId") is not None:
+        out["proposal_id"] = data["proposalId"]
+    if data.get("directConnectGatewayId") is not None:
+        out["direct_connect_gateway_id"] = data["directConnectGatewayId"]
+    if data.get("directConnectGatewayOwnerAccount") is not None:
+        out["direct_connect_gateway_owner_account"] = data[
+            "directConnectGatewayOwnerAccount"
+        ]
+    if data.get("proposalState") is not None:
+        import capo_direct_connect.types.direct_connect_gateway_association_proposal_state
+
+        out["proposal_state"] = (
+            capo_direct_connect.types.direct_connect_gateway_association_proposal_state.deserialize_cbor(
+                data["proposalState"]
+            )
+        )
+    if data.get("associatedGateway") is not None:
+        import capo_direct_connect.types.associated_gateway
+
+        out["associated_gateway"] = (
+            capo_direct_connect.types.associated_gateway.deserialize_cbor(
+                data["associatedGateway"]
+            )
+        )
+    if data.get("existingAllowedPrefixesToDirectConnectGateway") is not None:
+        import capo_direct_connect.types.route_filter_prefix_list
+
+        out["existing_allowed_prefixes_to_direct_connect_gateway"] = (
+            capo_direct_connect.types.route_filter_prefix_list.deserialize_cbor(
+                data["existingAllowedPrefixesToDirectConnectGateway"]
+            )
+        )
+    if data.get("requestedAllowedPrefixesToDirectConnectGateway") is not None:
+        import capo_direct_connect.types.route_filter_prefix_list
+
+        out["requested_allowed_prefixes_to_direct_connect_gateway"] = (
+            capo_direct_connect.types.route_filter_prefix_list.deserialize_cbor(
+                data["requestedAllowedPrefixesToDirectConnectGateway"]
+            )
+        )
+    return out

@@ -37,3 +37,32 @@ def deserialize_aws_json_1_1(data: list) -> PendingCreateStandbyWorkspacesReques
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PendingCreateStandbyWorkspacesRequestList) -> list:
+    import capo_workspaces.types.pending_create_standby_workspaces_request
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_workspaces.types.pending_create_standby_workspaces_request.serialize_cbor(
+                item
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> PendingCreateStandbyWorkspacesRequestList:
+    import capo_workspaces.types.pending_create_standby_workspaces_request
+
+    out: PendingCreateStandbyWorkspacesRequestList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_workspaces.types.pending_create_standby_workspaces_request.deserialize_cbor(
+                item
+            )
+        )
+    return out

@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> HttpProperties:
     if data.get("HttpName") is not None:
         out["http_name"] = data["HttpName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: HttpProperties) -> dict:
+    out: dict = {}
+    if "http_name" in value:
+        out["HttpName"] = value["http_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> HttpProperties:
+    out: HttpProperties = {}  # type: ignore[typeddict-item]
+    if data.get("HttpName") is not None:
+        out["http_name"] = data["HttpName"]
+    return out

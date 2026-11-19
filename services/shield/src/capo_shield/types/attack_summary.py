@@ -82,3 +82,62 @@ def deserialize_aws_json_1_1(data: dict) -> AttackSummary:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AttackSummary) -> dict:
+    out: dict = {}
+    if "attack_id" in value:
+        out["AttackId"] = value["attack_id"]
+    if "resource_arn" in value:
+        out["ResourceArn"] = value["resource_arn"]
+    if "start_time" in value:
+        import capo_shield.types.attack_timestamp
+
+        out["StartTime"] = capo_shield.types.attack_timestamp.serialize_cbor(
+            value["start_time"]
+        )
+    if "end_time" in value:
+        import capo_shield.types.attack_timestamp
+
+        out["EndTime"] = capo_shield.types.attack_timestamp.serialize_cbor(
+            value["end_time"]
+        )
+    if "attack_vectors" in value:
+        import capo_shield.types.attack_vector_description_list
+
+        out["AttackVectors"] = (
+            capo_shield.types.attack_vector_description_list.serialize_cbor(
+                value["attack_vectors"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AttackSummary:
+    out: AttackSummary = {}  # type: ignore[typeddict-item]
+    if data.get("AttackId") is not None:
+        out["attack_id"] = data["AttackId"]
+    if data.get("ResourceArn") is not None:
+        out["resource_arn"] = data["ResourceArn"]
+    if data.get("StartTime") is not None:
+        import capo_shield.types.attack_timestamp
+
+        out["start_time"] = capo_shield.types.attack_timestamp.deserialize_cbor(
+            data["StartTime"]
+        )
+    if data.get("EndTime") is not None:
+        import capo_shield.types.attack_timestamp
+
+        out["end_time"] = capo_shield.types.attack_timestamp.deserialize_cbor(
+            data["EndTime"]
+        )
+    if data.get("AttackVectors") is not None:
+        import capo_shield.types.attack_vector_description_list
+
+        out["attack_vectors"] = (
+            capo_shield.types.attack_vector_description_list.deserialize_cbor(
+                data["AttackVectors"]
+            )
+        )
+    return out

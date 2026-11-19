@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteThemeForStackRequest:
     if data.get("StackName") is not None:
         out["stack_name"] = data["StackName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteThemeForStackRequest) -> dict:
+    out: dict = {}
+    if "stack_name" in value:
+        out["StackName"] = value["stack_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteThemeForStackRequest:
+    out: DeleteThemeForStackRequest = {}  # type: ignore[typeddict-item]
+    if data.get("StackName") is not None:
+        out["stack_name"] = data["StackName"]
+    return out

@@ -29,3 +29,19 @@ def deserialize_aws_json_1_0(data: dict) -> Address:
     else:
         out["address_definition"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Address) -> dict:
+    out: dict = {}
+    out["AddressDefinition"] = value["address_definition"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Address:
+    out: Address = {}  # type: ignore[typeddict-item]
+    if data.get("AddressDefinition") is not None:
+        out["address_definition"] = data["AddressDefinition"]
+    else:
+        out["address_definition"] = ""
+    return out

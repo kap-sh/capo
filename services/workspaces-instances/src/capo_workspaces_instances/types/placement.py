@@ -92,3 +92,54 @@ def deserialize_aws_json_1_0(data: dict) -> Placement:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Placement) -> dict:
+    out: dict = {}
+    if "affinity" in value:
+        out["Affinity"] = value["affinity"]
+    if "availability_zone" in value:
+        out["AvailabilityZone"] = value["availability_zone"]
+    if "group_id" in value:
+        out["GroupId"] = value["group_id"]
+    if "group_name" in value:
+        out["GroupName"] = value["group_name"]
+    if "host_id" in value:
+        out["HostId"] = value["host_id"]
+    if "host_resource_group_arn" in value:
+        out["HostResourceGroupArn"] = value["host_resource_group_arn"]
+    if "partition_number" in value:
+        out["PartitionNumber"] = value["partition_number"]
+    if "tenancy" in value:
+        import capo_workspaces_instances.types.tenancy_enum
+
+        out["Tenancy"] = capo_workspaces_instances.types.tenancy_enum.serialize_cbor(
+            value["tenancy"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Placement:
+    out: Placement = {}  # type: ignore[typeddict-item]
+    if data.get("Affinity") is not None:
+        out["affinity"] = data["Affinity"]
+    if data.get("AvailabilityZone") is not None:
+        out["availability_zone"] = data["AvailabilityZone"]
+    if data.get("GroupId") is not None:
+        out["group_id"] = data["GroupId"]
+    if data.get("GroupName") is not None:
+        out["group_name"] = data["GroupName"]
+    if data.get("HostId") is not None:
+        out["host_id"] = data["HostId"]
+    if data.get("HostResourceGroupArn") is not None:
+        out["host_resource_group_arn"] = data["HostResourceGroupArn"]
+    if data.get("PartitionNumber") is not None:
+        out["partition_number"] = data["PartitionNumber"]
+    if data.get("Tenancy") is not None:
+        import capo_workspaces_instances.types.tenancy_enum
+
+        out["tenancy"] = capo_workspaces_instances.types.tenancy_enum.deserialize_cbor(
+            data["Tenancy"]
+        )
+    return out

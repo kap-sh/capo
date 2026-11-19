@@ -81,6 +81,52 @@ def deserialize_aws_json_1_0(data: dict) -> IngressPointConfiguration:
         )
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IngressPointConfiguration) -> dict:
+    if "$unknown" in value:
+        raise SerializationError(
+            f"IngressPointConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
+        )
+    elif "SmtpPassword" in value:
+        return {"SmtpPassword": value["SmtpPassword"]}
+    elif "SecretArn" in value:
+        return {"SecretArn": value["SecretArn"]}
+    elif "TlsAuthConfiguration" in value:
+        import capo_mailmanager.types.tls_auth_configuration
+
+        return {
+            "TlsAuthConfiguration": capo_mailmanager.types.tls_auth_configuration.serialize_cbor(
+                value["TlsAuthConfiguration"]
+            )
+        }
+    else:
+        raise SerializationError("IngressPointConfiguration: no variant present")
+
+
+def deserialize_cbor(data: dict) -> IngressPointConfiguration:
+    if data.get("SmtpPassword") is not None:
+        return {"SmtpPassword": data["SmtpPassword"]}
+    elif data.get("SecretArn") is not None:
+        return {"SecretArn": data["SecretArn"]}
+    elif data.get("TlsAuthConfiguration") is not None:
+        import capo_mailmanager.types.tls_auth_configuration
+
+        return {
+            "TlsAuthConfiguration": capo_mailmanager.types.tls_auth_configuration.deserialize_cbor(
+                data["TlsAuthConfiguration"]
+            )
+        }
+    else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return {"$unknown": {"name": name}}
+        raise DeserializationError(
+            "IngressPointConfiguration: no recognized variant key"
+        )
+
+
 def redact_sensitive(value: IngressPointConfiguration) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "SmtpPassword" in value:

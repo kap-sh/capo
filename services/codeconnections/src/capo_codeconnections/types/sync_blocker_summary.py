@@ -56,3 +56,39 @@ def deserialize_aws_json_1_0(data: dict) -> SyncBlockerSummary:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SyncBlockerSummary) -> dict:
+    out: dict = {}
+    out["ResourceName"] = value["resource_name"]
+    if "parent_resource_name" in value:
+        out["ParentResourceName"] = value["parent_resource_name"]
+    if "latest_blockers" in value:
+        import capo_codeconnections.types.latest_sync_blocker_list
+
+        out["LatestBlockers"] = (
+            capo_codeconnections.types.latest_sync_blocker_list.serialize_cbor(
+                value["latest_blockers"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> SyncBlockerSummary:
+    out: SyncBlockerSummary = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceName") is not None:
+        out["resource_name"] = data["ResourceName"]
+    else:
+        out["resource_name"] = ""
+    if data.get("ParentResourceName") is not None:
+        out["parent_resource_name"] = data["ParentResourceName"]
+    if data.get("LatestBlockers") is not None:
+        import capo_codeconnections.types.latest_sync_blocker_list
+
+        out["latest_blockers"] = (
+            capo_codeconnections.types.latest_sync_blocker_list.deserialize_cbor(
+                data["LatestBlockers"]
+            )
+        )
+    return out

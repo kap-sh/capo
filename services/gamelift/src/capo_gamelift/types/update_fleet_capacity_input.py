@@ -75,3 +75,50 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateFleetCapacityInput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateFleetCapacityInput) -> dict:
+    out: dict = {}
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "desired_instances" in value:
+        out["DesiredInstances"] = value["desired_instances"]
+    if "min_size" in value:
+        out["MinSize"] = value["min_size"]
+    if "max_size" in value:
+        out["MaxSize"] = value["max_size"]
+    if "location" in value:
+        out["Location"] = value["location"]
+    if "managed_capacity_configuration" in value:
+        import capo_gamelift.types.managed_capacity_configuration
+
+        out["ManagedCapacityConfiguration"] = (
+            capo_gamelift.types.managed_capacity_configuration.serialize_cbor(
+                value["managed_capacity_configuration"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateFleetCapacityInput:
+    out: UpdateFleetCapacityInput = {}  # type: ignore[typeddict-item]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("DesiredInstances") is not None:
+        out["desired_instances"] = data["DesiredInstances"]
+    if data.get("MinSize") is not None:
+        out["min_size"] = data["MinSize"]
+    if data.get("MaxSize") is not None:
+        out["max_size"] = data["MaxSize"]
+    if data.get("Location") is not None:
+        out["location"] = data["Location"]
+    if data.get("ManagedCapacityConfiguration") is not None:
+        import capo_gamelift.types.managed_capacity_configuration
+
+        out["managed_capacity_configuration"] = (
+            capo_gamelift.types.managed_capacity_configuration.deserialize_cbor(
+                data["ManagedCapacityConfiguration"]
+            )
+        )
+    return out

@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> DeploymentDetails:
     if data.get("LatestDeploymentId") is not None:
         out["latest_deployment_id"] = data["LatestDeploymentId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeploymentDetails) -> dict:
+    out: dict = {}
+    if "latest_deployment_id" in value:
+        out["LatestDeploymentId"] = value["latest_deployment_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeploymentDetails:
+    out: DeploymentDetails = {}  # type: ignore[typeddict-item]
+    if data.get("LatestDeploymentId") is not None:
+        out["latest_deployment_id"] = data["LatestDeploymentId"]
+    return out

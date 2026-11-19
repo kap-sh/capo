@@ -56,3 +56,38 @@ def deserialize_aws_json_1_0(data: dict) -> ContainerRecommendation:
     if data.get("cpu") is not None:
         out["cpu"] = data["cpu"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ContainerRecommendation) -> dict:
+    out: dict = {}
+    if "container_name" in value:
+        out["containerName"] = value["container_name"]
+    if "memory_size_configuration" in value:
+        import capo_compute_optimizer.types.memory_size_configuration
+
+        out["memorySizeConfiguration"] = (
+            capo_compute_optimizer.types.memory_size_configuration.serialize_cbor(
+                value["memory_size_configuration"]
+            )
+        )
+    if "cpu" in value:
+        out["cpu"] = value["cpu"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ContainerRecommendation:
+    out: ContainerRecommendation = {}  # type: ignore[typeddict-item]
+    if data.get("containerName") is not None:
+        out["container_name"] = data["containerName"]
+    if data.get("memorySizeConfiguration") is not None:
+        import capo_compute_optimizer.types.memory_size_configuration
+
+        out["memory_size_configuration"] = (
+            capo_compute_optimizer.types.memory_size_configuration.deserialize_cbor(
+                data["memorySizeConfiguration"]
+            )
+        )
+    if data.get("cpu") is not None:
+        out["cpu"] = data["cpu"]
+    return out

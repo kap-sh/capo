@@ -68,3 +68,48 @@ def deserialize_aws_json_1_1(data: dict) -> Node:
             data["Endpoint"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Node) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "status" in value:
+        out["Status"] = value["status"]
+    if "availability_zone" in value:
+        out["AvailabilityZone"] = value["availability_zone"]
+    if "create_time" in value:
+        import capo_memorydb.types.t_stamp
+
+        out["CreateTime"] = capo_memorydb.types.t_stamp.serialize_cbor(
+            value["create_time"]
+        )
+    if "endpoint" in value:
+        import capo_memorydb.types.endpoint
+
+        out["Endpoint"] = capo_memorydb.types.endpoint.serialize_cbor(value["endpoint"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> Node:
+    out: Node = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Status") is not None:
+        out["status"] = data["Status"]
+    if data.get("AvailabilityZone") is not None:
+        out["availability_zone"] = data["AvailabilityZone"]
+    if data.get("CreateTime") is not None:
+        import capo_memorydb.types.t_stamp
+
+        out["create_time"] = capo_memorydb.types.t_stamp.deserialize_cbor(
+            data["CreateTime"]
+        )
+    if data.get("Endpoint") is not None:
+        import capo_memorydb.types.endpoint
+
+        out["endpoint"] = capo_memorydb.types.endpoint.deserialize_cbor(
+            data["Endpoint"]
+        )
+    return out

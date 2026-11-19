@@ -167,3 +167,62 @@ def deserialize_query(el: Element) -> DescribeAlarmsForMetricInput:
 
         out["unit"] = capo_cloudwatch.types.standard_unit.deserialize_query(child_unit)
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeAlarmsForMetricInput) -> dict:
+    out: dict = {}
+    if "metric_name" in value:
+        out["MetricName"] = value["metric_name"]
+    if "namespace" in value:
+        out["Namespace"] = value["namespace"]
+    if "statistic" in value:
+        import capo_cloudwatch.types.statistic
+
+        out["Statistic"] = capo_cloudwatch.types.statistic.serialize_cbor(
+            value["statistic"]
+        )
+    if "extended_statistic" in value:
+        out["ExtendedStatistic"] = value["extended_statistic"]
+    if "dimensions" in value:
+        import capo_cloudwatch.types.dimensions
+
+        out["Dimensions"] = capo_cloudwatch.types.dimensions.serialize_cbor(
+            value["dimensions"]
+        )
+    if "period" in value:
+        out["Period"] = value["period"]
+    if "unit" in value:
+        import capo_cloudwatch.types.standard_unit
+
+        out["Unit"] = capo_cloudwatch.types.standard_unit.serialize_cbor(value["unit"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeAlarmsForMetricInput:
+    out: DescribeAlarmsForMetricInput = {}  # type: ignore[typeddict-item]
+    if data.get("MetricName") is not None:
+        out["metric_name"] = data["MetricName"]
+    if data.get("Namespace") is not None:
+        out["namespace"] = data["Namespace"]
+    if data.get("Statistic") is not None:
+        import capo_cloudwatch.types.statistic
+
+        out["statistic"] = capo_cloudwatch.types.statistic.deserialize_cbor(
+            data["Statistic"]
+        )
+    if data.get("ExtendedStatistic") is not None:
+        out["extended_statistic"] = data["ExtendedStatistic"]
+    if data.get("Dimensions") is not None:
+        import capo_cloudwatch.types.dimensions
+
+        out["dimensions"] = capo_cloudwatch.types.dimensions.deserialize_cbor(
+            data["Dimensions"]
+        )
+    if data.get("Period") is not None:
+        out["period"] = data["Period"]
+    if data.get("Unit") is not None:
+        import capo_cloudwatch.types.standard_unit
+
+        out["unit"] = capo_cloudwatch.types.standard_unit.deserialize_cbor(data["Unit"])
+    return out

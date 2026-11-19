@@ -41,3 +41,31 @@ def deserialize_aws_json_1_1(data: dict) -> StartWorkspacesRequest:
     else:
         out["start_workspace_requests"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartWorkspacesRequest) -> dict:
+    out: dict = {}
+    import capo_workspaces.types.start_workspace_requests
+
+    out["StartWorkspaceRequests"] = (
+        capo_workspaces.types.start_workspace_requests.serialize_cbor(
+            value["start_workspace_requests"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartWorkspacesRequest:
+    out: StartWorkspacesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("StartWorkspaceRequests") is not None:
+        import capo_workspaces.types.start_workspace_requests
+
+        out["start_workspace_requests"] = (
+            capo_workspaces.types.start_workspace_requests.deserialize_cbor(
+                data["StartWorkspaceRequests"]
+            )
+        )
+    else:
+        out["start_workspace_requests"] = []
+    return out

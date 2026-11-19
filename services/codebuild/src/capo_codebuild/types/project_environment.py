@@ -214,3 +214,157 @@ def deserialize_aws_json_1_1(data: dict) -> ProjectEnvironment:
             data["hostKernel"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ProjectEnvironment) -> dict:
+    out: dict = {}
+    import capo_codebuild.types.environment_type
+
+    out["type"] = capo_codebuild.types.environment_type.serialize_cbor(value["type"])
+    out["image"] = value["image"]
+    import capo_codebuild.types.compute_type
+
+    out["computeType"] = capo_codebuild.types.compute_type.serialize_cbor(
+        value["compute_type"]
+    )
+    if "compute_configuration" in value:
+        import capo_codebuild.types.compute_configuration
+
+        out["computeConfiguration"] = (
+            capo_codebuild.types.compute_configuration.serialize_cbor(
+                value["compute_configuration"]
+            )
+        )
+    if "fleet" in value:
+        import capo_codebuild.types.project_fleet
+
+        out["fleet"] = capo_codebuild.types.project_fleet.serialize_cbor(value["fleet"])
+    if "environment_variables" in value:
+        import capo_codebuild.types.environment_variables
+
+        out["environmentVariables"] = (
+            capo_codebuild.types.environment_variables.serialize_cbor(
+                value["environment_variables"]
+            )
+        )
+    if "privileged_mode" in value:
+        out["privilegedMode"] = value["privileged_mode"]
+    if "certificate" in value:
+        out["certificate"] = value["certificate"]
+    if "registry_credential" in value:
+        import capo_codebuild.types.registry_credential
+
+        out["registryCredential"] = (
+            capo_codebuild.types.registry_credential.serialize_cbor(
+                value["registry_credential"]
+            )
+        )
+    if "image_pull_credentials_type" in value:
+        import capo_codebuild.types.image_pull_credentials_type
+
+        out["imagePullCredentialsType"] = (
+            capo_codebuild.types.image_pull_credentials_type.serialize_cbor(
+                value["image_pull_credentials_type"]
+            )
+        )
+    if "docker_server" in value:
+        import capo_codebuild.types.docker_server
+
+        out["dockerServer"] = capo_codebuild.types.docker_server.serialize_cbor(
+            value["docker_server"]
+        )
+    if "host_kernel" in value:
+        import capo_codebuild.types.host_kernel
+
+        out["hostKernel"] = capo_codebuild.types.host_kernel.serialize_cbor(
+            value["host_kernel"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ProjectEnvironment:
+    out: ProjectEnvironment = {}  # type: ignore[typeddict-item]
+    if data.get("type") is not None:
+        import capo_codebuild.types.environment_type
+
+        out["type"] = capo_codebuild.types.environment_type.deserialize_cbor(
+            data["type"]
+        )
+    else:
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_codebuild.types.environment_type.EnvironmentType", ""
+        )
+    if data.get("image") is not None:
+        out["image"] = data["image"]
+    else:
+        out["image"] = ""
+    if data.get("computeType") is not None:
+        import capo_codebuild.types.compute_type
+
+        out["compute_type"] = capo_codebuild.types.compute_type.deserialize_cbor(
+            data["computeType"]
+        )
+    else:
+        import typing
+
+        out["compute_type"] = typing.cast(
+            "capo_codebuild.types.compute_type.ComputeType", ""
+        )
+    if data.get("computeConfiguration") is not None:
+        import capo_codebuild.types.compute_configuration
+
+        out["compute_configuration"] = (
+            capo_codebuild.types.compute_configuration.deserialize_cbor(
+                data["computeConfiguration"]
+            )
+        )
+    if data.get("fleet") is not None:
+        import capo_codebuild.types.project_fleet
+
+        out["fleet"] = capo_codebuild.types.project_fleet.deserialize_cbor(
+            data["fleet"]
+        )
+    if data.get("environmentVariables") is not None:
+        import capo_codebuild.types.environment_variables
+
+        out["environment_variables"] = (
+            capo_codebuild.types.environment_variables.deserialize_cbor(
+                data["environmentVariables"]
+            )
+        )
+    if data.get("privilegedMode") is not None:
+        out["privileged_mode"] = data["privilegedMode"]
+    if data.get("certificate") is not None:
+        out["certificate"] = data["certificate"]
+    if data.get("registryCredential") is not None:
+        import capo_codebuild.types.registry_credential
+
+        out["registry_credential"] = (
+            capo_codebuild.types.registry_credential.deserialize_cbor(
+                data["registryCredential"]
+            )
+        )
+    if data.get("imagePullCredentialsType") is not None:
+        import capo_codebuild.types.image_pull_credentials_type
+
+        out["image_pull_credentials_type"] = (
+            capo_codebuild.types.image_pull_credentials_type.deserialize_cbor(
+                data["imagePullCredentialsType"]
+            )
+        )
+    if data.get("dockerServer") is not None:
+        import capo_codebuild.types.docker_server
+
+        out["docker_server"] = capo_codebuild.types.docker_server.deserialize_cbor(
+            data["dockerServer"]
+        )
+    if data.get("hostKernel") is not None:
+        import capo_codebuild.types.host_kernel
+
+        out["host_kernel"] = capo_codebuild.types.host_kernel.deserialize_cbor(
+            data["hostKernel"]
+        )
+    return out

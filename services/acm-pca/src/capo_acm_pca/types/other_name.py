@@ -35,3 +35,24 @@ def deserialize_aws_json_1_1(data: dict) -> OtherName:
     else:
         out["value"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: OtherName) -> dict:
+    out: dict = {}
+    out["TypeId"] = value["type_id"]
+    out["Value"] = value["value"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> OtherName:
+    out: OtherName = {}  # type: ignore[typeddict-item]
+    if data.get("TypeId") is not None:
+        out["type_id"] = data["TypeId"]
+    else:
+        out["type_id"] = ""
+    if data.get("Value") is not None:
+        out["value"] = data["Value"]
+    else:
+        out["value"] = ""
+    return out

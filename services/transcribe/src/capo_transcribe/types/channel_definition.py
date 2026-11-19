@@ -48,3 +48,33 @@ def deserialize_aws_json_1_1(data: dict) -> ChannelDefinition:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ChannelDefinition) -> dict:
+    out: dict = {}
+    out["ChannelId"] = value.get("channel_id", 0)
+    if "participant_role" in value:
+        import capo_transcribe.types.participant_role
+
+        out["ParticipantRole"] = capo_transcribe.types.participant_role.serialize_cbor(
+            value["participant_role"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ChannelDefinition:
+    out: ChannelDefinition = {}  # type: ignore[typeddict-item]
+    if data.get("ChannelId") is not None:
+        out["channel_id"] = data["ChannelId"]
+    else:
+        out["channel_id"] = 0
+    if data.get("ParticipantRole") is not None:
+        import capo_transcribe.types.participant_role
+
+        out["participant_role"] = (
+            capo_transcribe.types.participant_role.deserialize_cbor(
+                data["ParticipantRole"]
+            )
+        )
+    return out

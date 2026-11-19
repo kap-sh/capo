@@ -66,3 +66,44 @@ def deserialize_aws_json_1_1(data: dict) -> CreateSubnetGroupRequest:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateSubnetGroupRequest) -> dict:
+    out: dict = {}
+    out["SubnetGroupName"] = value["subnet_group_name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    import capo_memorydb.types.subnet_identifier_list
+
+    out["SubnetIds"] = capo_memorydb.types.subnet_identifier_list.serialize_cbor(
+        value["subnet_ids"]
+    )
+    if "tags" in value:
+        import capo_memorydb.types.tag_list
+
+        out["Tags"] = capo_memorydb.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateSubnetGroupRequest:
+    out: CreateSubnetGroupRequest = {}  # type: ignore[typeddict-item]
+    if data.get("SubnetGroupName") is not None:
+        out["subnet_group_name"] = data["SubnetGroupName"]
+    else:
+        out["subnet_group_name"] = ""
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("SubnetIds") is not None:
+        import capo_memorydb.types.subnet_identifier_list
+
+        out["subnet_ids"] = capo_memorydb.types.subnet_identifier_list.deserialize_cbor(
+            data["SubnetIds"]
+        )
+    else:
+        out["subnet_ids"] = []
+    if data.get("Tags") is not None:
+        import capo_memorydb.types.tag_list
+
+        out["tags"] = capo_memorydb.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

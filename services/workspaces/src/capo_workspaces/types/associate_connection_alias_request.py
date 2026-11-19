@@ -35,3 +35,24 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateConnectionAliasRequest:
     else:
         out["resource_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AssociateConnectionAliasRequest) -> dict:
+    out: dict = {}
+    out["AliasId"] = value["alias_id"]
+    out["ResourceId"] = value["resource_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AssociateConnectionAliasRequest:
+    out: AssociateConnectionAliasRequest = {}  # type: ignore[typeddict-item]
+    if data.get("AliasId") is not None:
+        out["alias_id"] = data["AliasId"]
+    else:
+        out["alias_id"] = ""
+    if data.get("ResourceId") is not None:
+        out["resource_id"] = data["ResourceId"]
+    else:
+        out["resource_id"] = ""
+    return out

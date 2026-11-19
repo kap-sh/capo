@@ -39,3 +39,30 @@ def deserialize_aws_json_1_0(data: dict) -> EbsVolumeConfiguration:
     if data.get("throughput") is not None:
         out["throughput"] = data["throughput"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EbsVolumeConfiguration) -> dict:
+    out: dict = {}
+    if "type" in value:
+        out["type"] = value["type"]
+    if "size_in_gib" in value:
+        out["sizeInGib"] = value["size_in_gib"]
+    if "iops" in value:
+        out["iops"] = value["iops"]
+    if "throughput" in value:
+        out["throughput"] = value["throughput"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> EbsVolumeConfiguration:
+    out: EbsVolumeConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("type") is not None:
+        out["type"] = data["type"]
+    if data.get("sizeInGib") is not None:
+        out["size_in_gib"] = data["sizeInGib"]
+    if data.get("iops") is not None:
+        out["iops"] = data["iops"]
+    if data.get("throughput") is not None:
+        out["throughput"] = data["throughput"]
+    return out

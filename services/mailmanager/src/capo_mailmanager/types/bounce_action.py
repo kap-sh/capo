@@ -89,6 +89,62 @@ def deserialize_aws_json_1_0(data: dict) -> BounceAction:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BounceAction) -> dict:
+    out: dict = {}
+    if "action_failure_policy" in value:
+        import capo_mailmanager.types.action_failure_policy
+
+        out["ActionFailurePolicy"] = (
+            capo_mailmanager.types.action_failure_policy.serialize_cbor(
+                value["action_failure_policy"]
+            )
+        )
+    out["RoleArn"] = value["role_arn"]
+    out["Sender"] = value["sender"]
+    out["StatusCode"] = value["status_code"]
+    out["SmtpReplyCode"] = value["smtp_reply_code"]
+    out["DiagnosticMessage"] = value["diagnostic_message"]
+    if "message" in value:
+        out["Message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> BounceAction:
+    out: BounceAction = {}  # type: ignore[typeddict-item]
+    if data.get("ActionFailurePolicy") is not None:
+        import capo_mailmanager.types.action_failure_policy
+
+        out["action_failure_policy"] = (
+            capo_mailmanager.types.action_failure_policy.deserialize_cbor(
+                data["ActionFailurePolicy"]
+            )
+        )
+    if data.get("RoleArn") is not None:
+        out["role_arn"] = data["RoleArn"]
+    else:
+        out["role_arn"] = ""
+    if data.get("Sender") is not None:
+        out["sender"] = data["Sender"]
+    else:
+        out["sender"] = ""
+    if data.get("StatusCode") is not None:
+        out["status_code"] = data["StatusCode"]
+    else:
+        out["status_code"] = ""
+    if data.get("SmtpReplyCode") is not None:
+        out["smtp_reply_code"] = data["SmtpReplyCode"]
+    else:
+        out["smtp_reply_code"] = ""
+    if data.get("DiagnosticMessage") is not None:
+        out["diagnostic_message"] = data["DiagnosticMessage"]
+    else:
+        out["diagnostic_message"] = ""
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    return out
+
+
 def redact_sensitive(value: BounceAction) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "sender" in value:

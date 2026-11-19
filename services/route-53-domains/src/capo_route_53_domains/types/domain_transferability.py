@@ -37,3 +37,26 @@ def deserialize_aws_json_1_1(data: dict) -> DomainTransferability:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DomainTransferability) -> dict:
+    out: dict = {}
+    if "transferable" in value:
+        import capo_route_53_domains.types.transferable
+
+        out["Transferable"] = capo_route_53_domains.types.transferable.serialize_cbor(
+            value["transferable"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DomainTransferability:
+    out: DomainTransferability = {}  # type: ignore[typeddict-item]
+    if data.get("Transferable") is not None:
+        import capo_route_53_domains.types.transferable
+
+        out["transferable"] = capo_route_53_domains.types.transferable.deserialize_cbor(
+            data["Transferable"]
+        )
+    return out

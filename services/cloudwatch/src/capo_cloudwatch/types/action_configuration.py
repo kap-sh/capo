@@ -69,3 +69,30 @@ def deserialize_query(el: Element) -> ActionConfiguration:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ActionConfiguration) -> dict:
+    out: dict = {}
+    if "alarm_tags_propagation" in value:
+        import capo_cloudwatch.types.alarm_tags_propagation
+
+        out["AlarmTagsPropagation"] = (
+            capo_cloudwatch.types.alarm_tags_propagation.serialize_cbor(
+                value["alarm_tags_propagation"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ActionConfiguration:
+    out: ActionConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("AlarmTagsPropagation") is not None:
+        import capo_cloudwatch.types.alarm_tags_propagation
+
+        out["alarm_tags_propagation"] = (
+            capo_cloudwatch.types.alarm_tags_propagation.deserialize_cbor(
+                data["AlarmTagsPropagation"]
+            )
+        )
+    return out

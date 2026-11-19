@@ -33,3 +33,24 @@ def deserialize_aws_json_1_1(data: list) -> StackInstances:
             capo_service_catalog.types.stack_instance.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StackInstances) -> list:
+    import capo_service_catalog.types.stack_instance
+
+    out: list = []
+    for item in value:
+        out.append(capo_service_catalog.types.stack_instance.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> StackInstances:
+    import capo_service_catalog.types.stack_instance
+
+    out: StackInstances = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_service_catalog.types.stack_instance.deserialize_cbor(item))
+    return out

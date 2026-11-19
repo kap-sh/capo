@@ -53,3 +53,40 @@ def deserialize_aws_json_1_1(data: dict) -> ModifyEndpointEncryptionModeRequest:
             "capo_workspaces.types.endpoint_encryption_mode.EndpointEncryptionMode", ""
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ModifyEndpointEncryptionModeRequest) -> dict:
+    out: dict = {}
+    out["DirectoryId"] = value["directory_id"]
+    import capo_workspaces.types.endpoint_encryption_mode
+
+    out["EndpointEncryptionMode"] = (
+        capo_workspaces.types.endpoint_encryption_mode.serialize_cbor(
+            value["endpoint_encryption_mode"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ModifyEndpointEncryptionModeRequest:
+    out: ModifyEndpointEncryptionModeRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    if data.get("EndpointEncryptionMode") is not None:
+        import capo_workspaces.types.endpoint_encryption_mode
+
+        out["endpoint_encryption_mode"] = (
+            capo_workspaces.types.endpoint_encryption_mode.deserialize_cbor(
+                data["EndpointEncryptionMode"]
+            )
+        )
+    else:
+        import typing
+
+        out["endpoint_encryption_mode"] = typing.cast(
+            "capo_workspaces.types.endpoint_encryption_mode.EndpointEncryptionMode", ""
+        )
+    return out

@@ -42,3 +42,28 @@ def deserialize_aws_json_1_1(data: dict) -> ReportDestinationS3:
     else:
         out["bucket_access_role_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ReportDestinationS3) -> dict:
+    out: dict = {}
+    if "subdirectory" in value:
+        out["Subdirectory"] = value["subdirectory"]
+    out["S3BucketArn"] = value["s3_bucket_arn"]
+    out["BucketAccessRoleArn"] = value["bucket_access_role_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ReportDestinationS3:
+    out: ReportDestinationS3 = {}  # type: ignore[typeddict-item]
+    if data.get("Subdirectory") is not None:
+        out["subdirectory"] = data["Subdirectory"]
+    if data.get("S3BucketArn") is not None:
+        out["s3_bucket_arn"] = data["S3BucketArn"]
+    else:
+        out["s3_bucket_arn"] = ""
+    if data.get("BucketAccessRoleArn") is not None:
+        out["bucket_access_role_arn"] = data["BucketAccessRoleArn"]
+    else:
+        out["bucket_access_role_arn"] = ""
+    return out

@@ -154,3 +154,114 @@ def deserialize_aws_json_1_0(data: dict) -> ListAgreementInvoiceLineItemsInput:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListAgreementInvoiceLineItemsInput) -> dict:
+    out: dict = {}
+    out["agreementId"] = value["agreement_id"]
+    import capo_marketplace_agreement.types.line_item_group_by
+
+    out["groupBy"] = capo_marketplace_agreement.types.line_item_group_by.serialize_cbor(
+        value["group_by"]
+    )
+    if "invoice_id" in value:
+        out["invoiceId"] = value["invoice_id"]
+    if "invoice_type" in value:
+        import capo_marketplace_agreement.types.invoice_type
+
+        out["invoiceType"] = (
+            capo_marketplace_agreement.types.invoice_type.serialize_cbor(
+                value["invoice_type"]
+            )
+        )
+    if "invoice_billing_period" in value:
+        import capo_marketplace_agreement.types.invoice_billing_period
+
+        out["invoiceBillingPeriod"] = (
+            capo_marketplace_agreement.types.invoice_billing_period.serialize_cbor(
+                value["invoice_billing_period"]
+            )
+        )
+    if "before_issued_time" in value:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["beforeIssuedTime"] = (
+            capo_marketplace_agreement.types.timestamp.serialize_cbor(
+                value["before_issued_time"]
+            )
+        )
+    if "after_issued_time" in value:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["afterIssuedTime"] = (
+            capo_marketplace_agreement.types.timestamp.serialize_cbor(
+                value["after_issued_time"]
+            )
+        )
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListAgreementInvoiceLineItemsInput:
+    out: ListAgreementInvoiceLineItemsInput = {}  # type: ignore[typeddict-item]
+    if data.get("agreementId") is not None:
+        out["agreement_id"] = data["agreementId"]
+    else:
+        out["agreement_id"] = ""
+    if data.get("groupBy") is not None:
+        import capo_marketplace_agreement.types.line_item_group_by
+
+        out["group_by"] = (
+            capo_marketplace_agreement.types.line_item_group_by.deserialize_cbor(
+                data["groupBy"]
+            )
+        )
+    else:
+        import typing
+
+        out["group_by"] = typing.cast(
+            "capo_marketplace_agreement.types.line_item_group_by.LineItemGroupBy", ""
+        )
+    if data.get("invoiceId") is not None:
+        out["invoice_id"] = data["invoiceId"]
+    if data.get("invoiceType") is not None:
+        import capo_marketplace_agreement.types.invoice_type
+
+        out["invoice_type"] = (
+            capo_marketplace_agreement.types.invoice_type.deserialize_cbor(
+                data["invoiceType"]
+            )
+        )
+    if data.get("invoiceBillingPeriod") is not None:
+        import capo_marketplace_agreement.types.invoice_billing_period
+
+        out["invoice_billing_period"] = (
+            capo_marketplace_agreement.types.invoice_billing_period.deserialize_cbor(
+                data["invoiceBillingPeriod"]
+            )
+        )
+    if data.get("beforeIssuedTime") is not None:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["before_issued_time"] = (
+            capo_marketplace_agreement.types.timestamp.deserialize_cbor(
+                data["beforeIssuedTime"]
+            )
+        )
+    if data.get("afterIssuedTime") is not None:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["after_issued_time"] = (
+            capo_marketplace_agreement.types.timestamp.deserialize_cbor(
+                data["afterIssuedTime"]
+            )
+        )
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

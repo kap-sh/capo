@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> GetArchiveMessageContentRequest:
     else:
         out["archived_message_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetArchiveMessageContentRequest) -> dict:
+    out: dict = {}
+    out["ArchivedMessageId"] = value["archived_message_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetArchiveMessageContentRequest:
+    out: GetArchiveMessageContentRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ArchivedMessageId") is not None:
+        out["archived_message_id"] = data["ArchivedMessageId"]
+    else:
+        out["archived_message_id"] = ""
+    return out

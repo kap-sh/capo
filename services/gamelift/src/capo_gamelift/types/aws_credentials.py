@@ -40,3 +40,26 @@ def deserialize_aws_json_1_1(data: dict) -> AwsCredentials:
     if data.get("SessionToken") is not None:
         out["session_token"] = data["SessionToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AwsCredentials) -> dict:
+    out: dict = {}
+    if "access_key_id" in value:
+        out["AccessKeyId"] = value["access_key_id"]
+    if "secret_access_key" in value:
+        out["SecretAccessKey"] = value["secret_access_key"]
+    if "session_token" in value:
+        out["SessionToken"] = value["session_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AwsCredentials:
+    out: AwsCredentials = {}  # type: ignore[typeddict-item]
+    if data.get("AccessKeyId") is not None:
+        out["access_key_id"] = data["AccessKeyId"]
+    if data.get("SecretAccessKey") is not None:
+        out["secret_access_key"] = data["SecretAccessKey"]
+    if data.get("SessionToken") is not None:
+        out["session_token"] = data["SessionToken"]
+    return out

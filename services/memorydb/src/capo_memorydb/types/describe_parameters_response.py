@@ -43,3 +43,30 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeParametersResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeParametersResponse) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "parameters" in value:
+        import capo_memorydb.types.parameters_list
+
+        out["Parameters"] = capo_memorydb.types.parameters_list.serialize_cbor(
+            value["parameters"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeParametersResponse:
+    out: DescribeParametersResponse = {}  # type: ignore[typeddict-item]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("Parameters") is not None:
+        import capo_memorydb.types.parameters_list
+
+        out["parameters"] = capo_memorydb.types.parameters_list.deserialize_cbor(
+            data["Parameters"]
+        )
+    return out

@@ -21,3 +21,18 @@ def deserialize_aws_json_1_0(data: dict) -> EC2ManagedInstance:
     if data.get("InstanceId") is not None:
         out["instance_id"] = data["InstanceId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EC2ManagedInstance) -> dict:
+    out: dict = {}
+    if "instance_id" in value:
+        out["InstanceId"] = value["instance_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> EC2ManagedInstance:
+    out: EC2ManagedInstance = {}  # type: ignore[typeddict-item]
+    if data.get("InstanceId") is not None:
+        out["instance_id"] = data["InstanceId"]
+    return out

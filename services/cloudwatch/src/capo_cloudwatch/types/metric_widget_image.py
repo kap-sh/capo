@@ -34,3 +34,12 @@ def serialize_query(
 
 def deserialize_query(el: Element) -> MetricWidgetImage:
     return from_query_text(el.text or "")
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MetricWidgetImage) -> MetricWidgetImage:
+    return value
+
+
+def deserialize_cbor(data: MetricWidgetImage) -> MetricWidgetImage:
+    return data

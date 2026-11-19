@@ -47,3 +47,32 @@ def deserialize_aws_json_1_1(data: dict) -> PossibleRemediationActions:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PossibleRemediationActions) -> dict:
+    out: dict = {}
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "actions" in value:
+        import capo_fms.types.possible_remediation_action_list
+
+        out["Actions"] = capo_fms.types.possible_remediation_action_list.serialize_cbor(
+            value["actions"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PossibleRemediationActions:
+    out: PossibleRemediationActions = {}  # type: ignore[typeddict-item]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("Actions") is not None:
+        import capo_fms.types.possible_remediation_action_list
+
+        out["actions"] = (
+            capo_fms.types.possible_remediation_action_list.deserialize_cbor(
+                data["Actions"]
+            )
+        )
+    return out

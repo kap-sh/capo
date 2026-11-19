@@ -70,3 +70,42 @@ def deserialize_aws_json_1_1(data: dict) -> DnssecKey:
     if data.get("Id") is not None:
         out["id"] = data["Id"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DnssecKey) -> dict:
+    out: dict = {}
+    if "algorithm" in value:
+        out["Algorithm"] = value["algorithm"]
+    if "flags" in value:
+        out["Flags"] = value["flags"]
+    if "public_key" in value:
+        out["PublicKey"] = value["public_key"]
+    if "digest_type" in value:
+        out["DigestType"] = value["digest_type"]
+    if "digest" in value:
+        out["Digest"] = value["digest"]
+    if "key_tag" in value:
+        out["KeyTag"] = value["key_tag"]
+    if "id" in value:
+        out["Id"] = value["id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DnssecKey:
+    out: DnssecKey = {}  # type: ignore[typeddict-item]
+    if data.get("Algorithm") is not None:
+        out["algorithm"] = data["Algorithm"]
+    if data.get("Flags") is not None:
+        out["flags"] = data["Flags"]
+    if data.get("PublicKey") is not None:
+        out["public_key"] = data["PublicKey"]
+    if data.get("DigestType") is not None:
+        out["digest_type"] = data["DigestType"]
+    if data.get("Digest") is not None:
+        out["digest"] = data["Digest"]
+    if data.get("KeyTag") is not None:
+        out["key_tag"] = data["KeyTag"]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    return out

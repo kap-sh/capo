@@ -59,3 +59,40 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeSnapshotsRequest:
     if data.get("Limit") is not None:
         out["limit"] = data["Limit"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeSnapshotsRequest) -> dict:
+    out: dict = {}
+    if "directory_id" in value:
+        out["DirectoryId"] = value["directory_id"]
+    if "snapshot_ids" in value:
+        import capo_directory_service.types.snapshot_ids
+
+        out["SnapshotIds"] = capo_directory_service.types.snapshot_ids.serialize_cbor(
+            value["snapshot_ids"]
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "limit" in value:
+        out["Limit"] = value["limit"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeSnapshotsRequest:
+    out: DescribeSnapshotsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    if data.get("SnapshotIds") is not None:
+        import capo_directory_service.types.snapshot_ids
+
+        out["snapshot_ids"] = (
+            capo_directory_service.types.snapshot_ids.deserialize_cbor(
+                data["SnapshotIds"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("Limit") is not None:
+        out["limit"] = data["Limit"]
+    return out

@@ -40,3 +40,30 @@ def deserialize_aws_json_1_0(data: dict) -> TLSInspectionConfiguration:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TLSInspectionConfiguration) -> dict:
+    out: dict = {}
+    if "server_certificate_configurations" in value:
+        import capo_network_firewall.types.server_certificate_configurations
+
+        out["ServerCertificateConfigurations"] = (
+            capo_network_firewall.types.server_certificate_configurations.serialize_cbor(
+                value["server_certificate_configurations"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TLSInspectionConfiguration:
+    out: TLSInspectionConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("ServerCertificateConfigurations") is not None:
+        import capo_network_firewall.types.server_certificate_configurations
+
+        out["server_certificate_configurations"] = (
+            capo_network_firewall.types.server_certificate_configurations.deserialize_cbor(
+                data["ServerCertificateConfigurations"]
+            )
+        )
+    return out

@@ -240,3 +240,167 @@ def deserialize_aws_json_1_0(data: dict) -> RuleGroupResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RuleGroupResponse) -> dict:
+    out: dict = {}
+    out["RuleGroupArn"] = value["rule_group_arn"]
+    out["RuleGroupName"] = value["rule_group_name"]
+    out["RuleGroupId"] = value["rule_group_id"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "type" in value:
+        import capo_network_firewall.types.rule_group_type
+
+        out["Type"] = capo_network_firewall.types.rule_group_type.serialize_cbor(
+            value["type"]
+        )
+    if "capacity" in value:
+        out["Capacity"] = value["capacity"]
+    if "rule_group_status" in value:
+        import capo_network_firewall.types.resource_status
+
+        out["RuleGroupStatus"] = (
+            capo_network_firewall.types.resource_status.serialize_cbor(
+                value["rule_group_status"]
+            )
+        )
+    if "tags" in value:
+        import capo_network_firewall.types.tag_list
+
+        out["Tags"] = capo_network_firewall.types.tag_list.serialize_cbor(value["tags"])
+    if "consumed_capacity" in value:
+        out["ConsumedCapacity"] = value["consumed_capacity"]
+    if "number_of_associations" in value:
+        out["NumberOfAssociations"] = value["number_of_associations"]
+    if "encryption_configuration" in value:
+        import capo_network_firewall.types.encryption_configuration
+
+        out["EncryptionConfiguration"] = (
+            capo_network_firewall.types.encryption_configuration.serialize_cbor(
+                value["encryption_configuration"]
+            )
+        )
+    if "source_metadata" in value:
+        import capo_network_firewall.types.source_metadata
+
+        out["SourceMetadata"] = (
+            capo_network_firewall.types.source_metadata.serialize_cbor(
+                value["source_metadata"]
+            )
+        )
+    if "sns_topic" in value:
+        out["SnsTopic"] = value["sns_topic"]
+    if "last_modified_time" in value:
+        import capo_network_firewall.types.last_update_time
+
+        out["LastModifiedTime"] = (
+            capo_network_firewall.types.last_update_time.serialize_cbor(
+                value["last_modified_time"]
+            )
+        )
+    if "analysis_results" in value:
+        import capo_network_firewall.types.analysis_result_list
+
+        out["AnalysisResults"] = (
+            capo_network_firewall.types.analysis_result_list.serialize_cbor(
+                value["analysis_results"]
+            )
+        )
+    if "summary_configuration" in value:
+        import capo_network_firewall.types.summary_configuration
+
+        out["SummaryConfiguration"] = (
+            capo_network_firewall.types.summary_configuration.serialize_cbor(
+                value["summary_configuration"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RuleGroupResponse:
+    out: RuleGroupResponse = {}  # type: ignore[typeddict-item]
+    if data.get("RuleGroupArn") is not None:
+        out["rule_group_arn"] = data["RuleGroupArn"]
+    else:
+        out["rule_group_arn"] = ""
+    if data.get("RuleGroupName") is not None:
+        out["rule_group_name"] = data["RuleGroupName"]
+    else:
+        out["rule_group_name"] = ""
+    if data.get("RuleGroupId") is not None:
+        out["rule_group_id"] = data["RuleGroupId"]
+    else:
+        out["rule_group_id"] = ""
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("Type") is not None:
+        import capo_network_firewall.types.rule_group_type
+
+        out["type"] = capo_network_firewall.types.rule_group_type.deserialize_cbor(
+            data["Type"]
+        )
+    if data.get("Capacity") is not None:
+        out["capacity"] = data["Capacity"]
+    if data.get("RuleGroupStatus") is not None:
+        import capo_network_firewall.types.resource_status
+
+        out["rule_group_status"] = (
+            capo_network_firewall.types.resource_status.deserialize_cbor(
+                data["RuleGroupStatus"]
+            )
+        )
+    if data.get("Tags") is not None:
+        import capo_network_firewall.types.tag_list
+
+        out["tags"] = capo_network_firewall.types.tag_list.deserialize_cbor(
+            data["Tags"]
+        )
+    if data.get("ConsumedCapacity") is not None:
+        out["consumed_capacity"] = data["ConsumedCapacity"]
+    if data.get("NumberOfAssociations") is not None:
+        out["number_of_associations"] = data["NumberOfAssociations"]
+    if data.get("EncryptionConfiguration") is not None:
+        import capo_network_firewall.types.encryption_configuration
+
+        out["encryption_configuration"] = (
+            capo_network_firewall.types.encryption_configuration.deserialize_cbor(
+                data["EncryptionConfiguration"]
+            )
+        )
+    if data.get("SourceMetadata") is not None:
+        import capo_network_firewall.types.source_metadata
+
+        out["source_metadata"] = (
+            capo_network_firewall.types.source_metadata.deserialize_cbor(
+                data["SourceMetadata"]
+            )
+        )
+    if data.get("SnsTopic") is not None:
+        out["sns_topic"] = data["SnsTopic"]
+    if data.get("LastModifiedTime") is not None:
+        import capo_network_firewall.types.last_update_time
+
+        out["last_modified_time"] = (
+            capo_network_firewall.types.last_update_time.deserialize_cbor(
+                data["LastModifiedTime"]
+            )
+        )
+    if data.get("AnalysisResults") is not None:
+        import capo_network_firewall.types.analysis_result_list
+
+        out["analysis_results"] = (
+            capo_network_firewall.types.analysis_result_list.deserialize_cbor(
+                data["AnalysisResults"]
+            )
+        )
+    if data.get("SummaryConfiguration") is not None:
+        import capo_network_firewall.types.summary_configuration
+
+        out["summary_configuration"] = (
+            capo_network_firewall.types.summary_configuration.deserialize_cbor(
+                data["SummaryConfiguration"]
+            )
+        )
+    return out

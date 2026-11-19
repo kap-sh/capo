@@ -92,3 +92,60 @@ def deserialize_aws_json_1_0(data: dict) -> SsmDocumentConfig:
     if data.get("documentVersion") is not None:
         out["document_version"] = data["documentVersion"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SsmDocumentConfig) -> dict:
+    out: dict = {}
+    if "cross_account_role" in value:
+        out["crossAccountRole"] = value["cross_account_role"]
+    if "external_id" in value:
+        out["externalId"] = value["external_id"]
+    out["documentArn"] = value["document_arn"]
+    import capo_arc_region_switch.types.ssm_target_list
+
+    out["targets"] = capo_arc_region_switch.types.ssm_target_list.serialize_cbor(
+        value["targets"]
+    )
+    if "parameters" in value:
+        import capo_arc_region_switch.types.ssm_document_parameters
+
+        out["parameters"] = (
+            capo_arc_region_switch.types.ssm_document_parameters.serialize_cbor(
+                value["parameters"]
+            )
+        )
+    if "document_version" in value:
+        out["documentVersion"] = value["document_version"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> SsmDocumentConfig:
+    out: SsmDocumentConfig = {}  # type: ignore[typeddict-item]
+    if data.get("crossAccountRole") is not None:
+        out["cross_account_role"] = data["crossAccountRole"]
+    if data.get("externalId") is not None:
+        out["external_id"] = data["externalId"]
+    if data.get("documentArn") is not None:
+        out["document_arn"] = data["documentArn"]
+    else:
+        out["document_arn"] = ""
+    if data.get("targets") is not None:
+        import capo_arc_region_switch.types.ssm_target_list
+
+        out["targets"] = capo_arc_region_switch.types.ssm_target_list.deserialize_cbor(
+            data["targets"]
+        )
+    else:
+        out["targets"] = []
+    if data.get("parameters") is not None:
+        import capo_arc_region_switch.types.ssm_document_parameters
+
+        out["parameters"] = (
+            capo_arc_region_switch.types.ssm_document_parameters.deserialize_cbor(
+                data["parameters"]
+            )
+        )
+    if data.get("documentVersion") is not None:
+        out["document_version"] = data["documentVersion"]
+    return out

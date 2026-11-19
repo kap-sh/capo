@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> ListLongTermPricingResult:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListLongTermPricingResult) -> dict:
+    out: dict = {}
+    if "long_term_pricing_entries" in value:
+        import capo_snowball.types.long_term_pricing_entry_list
+
+        out["LongTermPricingEntries"] = (
+            capo_snowball.types.long_term_pricing_entry_list.serialize_cbor(
+                value["long_term_pricing_entries"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListLongTermPricingResult:
+    out: ListLongTermPricingResult = {}  # type: ignore[typeddict-item]
+    if data.get("LongTermPricingEntries") is not None:
+        import capo_snowball.types.long_term_pricing_entry_list
+
+        out["long_term_pricing_entries"] = (
+            capo_snowball.types.long_term_pricing_entry_list.deserialize_cbor(
+                data["LongTermPricingEntries"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

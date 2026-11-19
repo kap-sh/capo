@@ -64,3 +64,53 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeWorkspaceDirectoriesFilter:
     else:
         out["values"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeWorkspaceDirectoriesFilter) -> dict:
+    out: dict = {}
+    import capo_workspaces.types.describe_workspace_directories_filter_name
+
+    out["Name"] = (
+        capo_workspaces.types.describe_workspace_directories_filter_name.serialize_cbor(
+            value["name"]
+        )
+    )
+    import capo_workspaces.types.describe_workspace_directories_filter_values
+
+    out["Values"] = (
+        capo_workspaces.types.describe_workspace_directories_filter_values.serialize_cbor(
+            value["values"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeWorkspaceDirectoriesFilter:
+    out: DescribeWorkspaceDirectoriesFilter = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        import capo_workspaces.types.describe_workspace_directories_filter_name
+
+        out["name"] = (
+            capo_workspaces.types.describe_workspace_directories_filter_name.deserialize_cbor(
+                data["Name"]
+            )
+        )
+    else:
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_workspaces.types.describe_workspace_directories_filter_name.DescribeWorkspaceDirectoriesFilterName",
+            "",
+        )
+    if data.get("Values") is not None:
+        import capo_workspaces.types.describe_workspace_directories_filter_values
+
+        out["values"] = (
+            capo_workspaces.types.describe_workspace_directories_filter_values.deserialize_cbor(
+                data["Values"]
+            )
+        )
+    else:
+        out["values"] = []
+    return out

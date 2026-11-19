@@ -95,3 +95,70 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeProductOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeProductOutput) -> dict:
+    out: dict = {}
+    if "product_view_summary" in value:
+        import capo_service_catalog.types.product_view_summary
+
+        out["ProductViewSummary"] = (
+            capo_service_catalog.types.product_view_summary.serialize_cbor(
+                value["product_view_summary"]
+            )
+        )
+    if "provisioning_artifacts" in value:
+        import capo_service_catalog.types.provisioning_artifacts
+
+        out["ProvisioningArtifacts"] = (
+            capo_service_catalog.types.provisioning_artifacts.serialize_cbor(
+                value["provisioning_artifacts"]
+            )
+        )
+    if "budgets" in value:
+        import capo_service_catalog.types.budgets
+
+        out["Budgets"] = capo_service_catalog.types.budgets.serialize_cbor(
+            value["budgets"]
+        )
+    if "launch_paths" in value:
+        import capo_service_catalog.types.launch_paths
+
+        out["LaunchPaths"] = capo_service_catalog.types.launch_paths.serialize_cbor(
+            value["launch_paths"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeProductOutput:
+    out: DescribeProductOutput = {}  # type: ignore[typeddict-item]
+    if data.get("ProductViewSummary") is not None:
+        import capo_service_catalog.types.product_view_summary
+
+        out["product_view_summary"] = (
+            capo_service_catalog.types.product_view_summary.deserialize_cbor(
+                data["ProductViewSummary"]
+            )
+        )
+    if data.get("ProvisioningArtifacts") is not None:
+        import capo_service_catalog.types.provisioning_artifacts
+
+        out["provisioning_artifacts"] = (
+            capo_service_catalog.types.provisioning_artifacts.deserialize_cbor(
+                data["ProvisioningArtifacts"]
+            )
+        )
+    if data.get("Budgets") is not None:
+        import capo_service_catalog.types.budgets
+
+        out["budgets"] = capo_service_catalog.types.budgets.deserialize_cbor(
+            data["Budgets"]
+        )
+    if data.get("LaunchPaths") is not None:
+        import capo_service_catalog.types.launch_paths
+
+        out["launch_paths"] = capo_service_catalog.types.launch_paths.deserialize_cbor(
+            data["LaunchPaths"]
+        )
+    return out

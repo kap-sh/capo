@@ -30,3 +30,12 @@ def serialize_aws_json_1_1(value: WorkspaceState) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> WorkspaceState:
     return cast(WorkspaceState, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: WorkspaceState) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> WorkspaceState:
+    return cast(WorkspaceState, data)

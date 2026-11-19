@@ -61,3 +61,46 @@ def deserialize_aws_json_1_1(data: dict) -> NamespaceProperties:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: NamespaceProperties) -> dict:
+    out: dict = {}
+    if "dns_properties" in value:
+        import capo_servicediscovery.types.dns_properties
+
+        out["DnsProperties"] = (
+            capo_servicediscovery.types.dns_properties.serialize_cbor(
+                value["dns_properties"]
+            )
+        )
+    if "http_properties" in value:
+        import capo_servicediscovery.types.http_properties
+
+        out["HttpProperties"] = (
+            capo_servicediscovery.types.http_properties.serialize_cbor(
+                value["http_properties"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> NamespaceProperties:
+    out: NamespaceProperties = {}  # type: ignore[typeddict-item]
+    if data.get("DnsProperties") is not None:
+        import capo_servicediscovery.types.dns_properties
+
+        out["dns_properties"] = (
+            capo_servicediscovery.types.dns_properties.deserialize_cbor(
+                data["DnsProperties"]
+            )
+        )
+    if data.get("HttpProperties") is not None:
+        import capo_servicediscovery.types.http_properties
+
+        out["http_properties"] = (
+            capo_servicediscovery.types.http_properties.deserialize_cbor(
+                data["HttpProperties"]
+            )
+        )
+    return out

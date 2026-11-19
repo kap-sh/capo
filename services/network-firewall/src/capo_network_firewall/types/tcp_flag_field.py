@@ -49,3 +49,31 @@ def deserialize_aws_json_1_0(data: dict) -> TCPFlagField:
             data["Masks"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TCPFlagField) -> dict:
+    out: dict = {}
+    import capo_network_firewall.types.flags
+
+    out["Flags"] = capo_network_firewall.types.flags.serialize_cbor(value["flags"])
+    if "masks" in value:
+        import capo_network_firewall.types.flags
+
+        out["Masks"] = capo_network_firewall.types.flags.serialize_cbor(value["masks"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> TCPFlagField:
+    out: TCPFlagField = {}  # type: ignore[typeddict-item]
+    if data.get("Flags") is not None:
+        import capo_network_firewall.types.flags
+
+        out["flags"] = capo_network_firewall.types.flags.deserialize_cbor(data["Flags"])
+    else:
+        out["flags"] = []
+    if data.get("Masks") is not None:
+        import capo_network_firewall.types.flags
+
+        out["masks"] = capo_network_firewall.types.flags.deserialize_cbor(data["Masks"])
+    return out

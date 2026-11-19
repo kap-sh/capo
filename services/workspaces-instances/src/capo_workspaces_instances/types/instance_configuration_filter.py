@@ -92,3 +92,76 @@ def deserialize_aws_json_1_0(data: dict) -> InstanceConfigurationFilter:
             "",
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InstanceConfigurationFilter) -> dict:
+    out: dict = {}
+    import capo_workspaces_instances.types.billing_mode
+
+    out["BillingMode"] = capo_workspaces_instances.types.billing_mode.serialize_cbor(
+        value["billing_mode"]
+    )
+    import capo_workspaces_instances.types.platform_type_enum
+
+    out["PlatformType"] = (
+        capo_workspaces_instances.types.platform_type_enum.serialize_cbor(
+            value["platform_type"]
+        )
+    )
+    import capo_workspaces_instances.types.instance_configuration_tenancy_enum
+
+    out["Tenancy"] = (
+        capo_workspaces_instances.types.instance_configuration_tenancy_enum.serialize_cbor(
+            value["tenancy"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> InstanceConfigurationFilter:
+    out: InstanceConfigurationFilter = {}  # type: ignore[typeddict-item]
+    if data.get("BillingMode") is not None:
+        import capo_workspaces_instances.types.billing_mode
+
+        out["billing_mode"] = (
+            capo_workspaces_instances.types.billing_mode.deserialize_cbor(
+                data["BillingMode"]
+            )
+        )
+    else:
+        import typing
+
+        out["billing_mode"] = typing.cast(
+            "capo_workspaces_instances.types.billing_mode.BillingMode", ""
+        )
+    if data.get("PlatformType") is not None:
+        import capo_workspaces_instances.types.platform_type_enum
+
+        out["platform_type"] = (
+            capo_workspaces_instances.types.platform_type_enum.deserialize_cbor(
+                data["PlatformType"]
+            )
+        )
+    else:
+        import typing
+
+        out["platform_type"] = typing.cast(
+            "capo_workspaces_instances.types.platform_type_enum.PlatformTypeEnum", ""
+        )
+    if data.get("Tenancy") is not None:
+        import capo_workspaces_instances.types.instance_configuration_tenancy_enum
+
+        out["tenancy"] = (
+            capo_workspaces_instances.types.instance_configuration_tenancy_enum.deserialize_cbor(
+                data["Tenancy"]
+            )
+        )
+    else:
+        import typing
+
+        out["tenancy"] = typing.cast(
+            "capo_workspaces_instances.types.instance_configuration_tenancy_enum.InstanceConfigurationTenancyEnum",
+            "",
+        )
+    return out

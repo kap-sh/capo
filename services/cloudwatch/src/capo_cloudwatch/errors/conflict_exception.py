@@ -48,6 +48,21 @@ def deserialize_query(el: Element) -> ConflictException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ConflictException_) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["Message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ConflictException_:
+    out: ConflictException_ = {}  # type: ignore[typeddict-item]
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    return out
+
+
 class ConflictException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.cloudwatch#ConflictException``."""
 
@@ -81,3 +96,9 @@ class ConflictException(ServiceError):
         cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "ConflictException":
         return cls(deserialize_query(el), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "ConflictException":
+        return cls(deserialize_cbor(data), message, response=response)

@@ -314,3 +314,222 @@ def deserialize_aws_json_1_1(data: dict) -> ImageBuilder:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ImageBuilder) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "arn" in value:
+        out["Arn"] = value["arn"]
+    if "image_arn" in value:
+        out["ImageArn"] = value["image_arn"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "display_name" in value:
+        out["DisplayName"] = value["display_name"]
+    if "vpc_config" in value:
+        import capo_appstream.types.vpc_config
+
+        out["VpcConfig"] = capo_appstream.types.vpc_config.serialize_cbor(
+            value["vpc_config"]
+        )
+    if "instance_type" in value:
+        out["InstanceType"] = value["instance_type"]
+    if "platform" in value:
+        import capo_appstream.types.platform_type
+
+        out["Platform"] = capo_appstream.types.platform_type.serialize_cbor(
+            value["platform"]
+        )
+    if "iam_role_arn" in value:
+        out["IamRoleArn"] = value["iam_role_arn"]
+    if "state" in value:
+        import capo_appstream.types.image_builder_state
+
+        out["State"] = capo_appstream.types.image_builder_state.serialize_cbor(
+            value["state"]
+        )
+    if "state_change_reason" in value:
+        import capo_appstream.types.image_builder_state_change_reason
+
+        out["StateChangeReason"] = (
+            capo_appstream.types.image_builder_state_change_reason.serialize_cbor(
+                value["state_change_reason"]
+            )
+        )
+    if "created_time" in value:
+        import capo_appstream.types.timestamp
+
+        out["CreatedTime"] = capo_appstream.types.timestamp.serialize_cbor(
+            value["created_time"]
+        )
+    if "enable_default_internet_access" in value:
+        out["EnableDefaultInternetAccess"] = value["enable_default_internet_access"]
+    if "domain_join_info" in value:
+        import capo_appstream.types.domain_join_info
+
+        out["DomainJoinInfo"] = capo_appstream.types.domain_join_info.serialize_cbor(
+            value["domain_join_info"]
+        )
+    if "network_access_configuration" in value:
+        import capo_appstream.types.network_access_configuration
+
+        out["NetworkAccessConfiguration"] = (
+            capo_appstream.types.network_access_configuration.serialize_cbor(
+                value["network_access_configuration"]
+            )
+        )
+    if "image_builder_errors" in value:
+        import capo_appstream.types.resource_errors
+
+        out["ImageBuilderErrors"] = capo_appstream.types.resource_errors.serialize_cbor(
+            value["image_builder_errors"]
+        )
+    if "appstream_agent_version" in value:
+        out["AppstreamAgentVersion"] = value["appstream_agent_version"]
+    if "access_endpoints" in value:
+        import capo_appstream.types.access_endpoint_list
+
+        out["AccessEndpoints"] = (
+            capo_appstream.types.access_endpoint_list.serialize_cbor(
+                value["access_endpoints"]
+            )
+        )
+    if "root_volume_config" in value:
+        import capo_appstream.types.volume_config
+
+        out["RootVolumeConfig"] = capo_appstream.types.volume_config.serialize_cbor(
+            value["root_volume_config"]
+        )
+    if "latest_appstream_agent_version" in value:
+        import capo_appstream.types.latest_appstream_agent_version
+
+        out["LatestAppstreamAgentVersion"] = (
+            capo_appstream.types.latest_appstream_agent_version.serialize_cbor(
+                value["latest_appstream_agent_version"]
+            )
+        )
+    if "disable_imdsv1" in value:
+        out["DisableIMDSV1"] = value["disable_imdsv1"]
+    if "agent_access_config" in value:
+        import capo_appstream.types.image_builder_agent_access_config
+
+        out["AgentAccessConfig"] = (
+            capo_appstream.types.image_builder_agent_access_config.serialize_cbor(
+                value["agent_access_config"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ImageBuilder:
+    out: ImageBuilder = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Arn") is not None:
+        out["arn"] = data["Arn"]
+    if data.get("ImageArn") is not None:
+        out["image_arn"] = data["ImageArn"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("DisplayName") is not None:
+        out["display_name"] = data["DisplayName"]
+    if data.get("VpcConfig") is not None:
+        import capo_appstream.types.vpc_config
+
+        out["vpc_config"] = capo_appstream.types.vpc_config.deserialize_cbor(
+            data["VpcConfig"]
+        )
+    if data.get("InstanceType") is not None:
+        out["instance_type"] = data["InstanceType"]
+    if data.get("Platform") is not None:
+        import capo_appstream.types.platform_type
+
+        out["platform"] = capo_appstream.types.platform_type.deserialize_cbor(
+            data["Platform"]
+        )
+    if data.get("IamRoleArn") is not None:
+        out["iam_role_arn"] = data["IamRoleArn"]
+    if data.get("State") is not None:
+        import capo_appstream.types.image_builder_state
+
+        out["state"] = capo_appstream.types.image_builder_state.deserialize_cbor(
+            data["State"]
+        )
+    if data.get("StateChangeReason") is not None:
+        import capo_appstream.types.image_builder_state_change_reason
+
+        out["state_change_reason"] = (
+            capo_appstream.types.image_builder_state_change_reason.deserialize_cbor(
+                data["StateChangeReason"]
+            )
+        )
+    if data.get("CreatedTime") is not None:
+        import capo_appstream.types.timestamp
+
+        out["created_time"] = capo_appstream.types.timestamp.deserialize_cbor(
+            data["CreatedTime"]
+        )
+    if data.get("EnableDefaultInternetAccess") is not None:
+        out["enable_default_internet_access"] = data["EnableDefaultInternetAccess"]
+    if data.get("DomainJoinInfo") is not None:
+        import capo_appstream.types.domain_join_info
+
+        out["domain_join_info"] = (
+            capo_appstream.types.domain_join_info.deserialize_cbor(
+                data["DomainJoinInfo"]
+            )
+        )
+    if data.get("NetworkAccessConfiguration") is not None:
+        import capo_appstream.types.network_access_configuration
+
+        out["network_access_configuration"] = (
+            capo_appstream.types.network_access_configuration.deserialize_cbor(
+                data["NetworkAccessConfiguration"]
+            )
+        )
+    if data.get("ImageBuilderErrors") is not None:
+        import capo_appstream.types.resource_errors
+
+        out["image_builder_errors"] = (
+            capo_appstream.types.resource_errors.deserialize_cbor(
+                data["ImageBuilderErrors"]
+            )
+        )
+    if data.get("AppstreamAgentVersion") is not None:
+        out["appstream_agent_version"] = data["AppstreamAgentVersion"]
+    if data.get("AccessEndpoints") is not None:
+        import capo_appstream.types.access_endpoint_list
+
+        out["access_endpoints"] = (
+            capo_appstream.types.access_endpoint_list.deserialize_cbor(
+                data["AccessEndpoints"]
+            )
+        )
+    if data.get("RootVolumeConfig") is not None:
+        import capo_appstream.types.volume_config
+
+        out["root_volume_config"] = capo_appstream.types.volume_config.deserialize_cbor(
+            data["RootVolumeConfig"]
+        )
+    if data.get("LatestAppstreamAgentVersion") is not None:
+        import capo_appstream.types.latest_appstream_agent_version
+
+        out["latest_appstream_agent_version"] = (
+            capo_appstream.types.latest_appstream_agent_version.deserialize_cbor(
+                data["LatestAppstreamAgentVersion"]
+            )
+        )
+    if data.get("DisableIMDSV1") is not None:
+        out["disable_imdsv1"] = data["DisableIMDSV1"]
+    if data.get("AgentAccessConfig") is not None:
+        import capo_appstream.types.image_builder_agent_access_config
+
+        out["agent_access_config"] = (
+            capo_appstream.types.image_builder_agent_access_config.deserialize_cbor(
+                data["AgentAccessConfig"]
+            )
+        )
+    return out

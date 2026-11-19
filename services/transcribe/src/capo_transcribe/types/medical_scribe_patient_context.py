@@ -36,6 +36,29 @@ def deserialize_aws_json_1_1(data: dict) -> MedicalScribePatientContext:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MedicalScribePatientContext) -> dict:
+    out: dict = {}
+    if "pronouns" in value:
+        import capo_transcribe.types.pronouns
+
+        out["Pronouns"] = capo_transcribe.types.pronouns.serialize_cbor(
+            value["pronouns"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> MedicalScribePatientContext:
+    out: MedicalScribePatientContext = {}  # type: ignore[typeddict-item]
+    if data.get("Pronouns") is not None:
+        import capo_transcribe.types.pronouns
+
+        out["pronouns"] = capo_transcribe.types.pronouns.deserialize_cbor(
+            data["Pronouns"]
+        )
+    return out
+
+
 def redact_sensitive(value: MedicalScribePatientContext) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "pronouns" in value:

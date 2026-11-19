@@ -41,3 +41,26 @@ def deserialize_aws_json_1_0(data: dict) -> CreateHostOutput:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateHostOutput) -> dict:
+    out: dict = {}
+    if "host_arn" in value:
+        out["HostArn"] = value["host_arn"]
+    if "tags" in value:
+        import capo_codeconnections.types.tag_list
+
+        out["Tags"] = capo_codeconnections.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateHostOutput:
+    out: CreateHostOutput = {}  # type: ignore[typeddict-item]
+    if data.get("HostArn") is not None:
+        out["host_arn"] = data["HostArn"]
+    if data.get("Tags") is not None:
+        import capo_codeconnections.types.tag_list
+
+        out["tags"] = capo_codeconnections.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

@@ -69,3 +69,50 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeLocationFsxLustreResponse:
             data["CreationTime"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeLocationFsxLustreResponse) -> dict:
+    out: dict = {}
+    if "location_arn" in value:
+        out["LocationArn"] = value["location_arn"]
+    if "location_uri" in value:
+        out["LocationUri"] = value["location_uri"]
+    if "security_group_arns" in value:
+        import capo_datasync.types.ec2_security_group_arn_list
+
+        out["SecurityGroupArns"] = (
+            capo_datasync.types.ec2_security_group_arn_list.serialize_cbor(
+                value["security_group_arns"]
+            )
+        )
+    if "creation_time" in value:
+        import capo_datasync.types.time
+
+        out["CreationTime"] = capo_datasync.types.time.serialize_cbor(
+            value["creation_time"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeLocationFsxLustreResponse:
+    out: DescribeLocationFsxLustreResponse = {}  # type: ignore[typeddict-item]
+    if data.get("LocationArn") is not None:
+        out["location_arn"] = data["LocationArn"]
+    if data.get("LocationUri") is not None:
+        out["location_uri"] = data["LocationUri"]
+    if data.get("SecurityGroupArns") is not None:
+        import capo_datasync.types.ec2_security_group_arn_list
+
+        out["security_group_arns"] = (
+            capo_datasync.types.ec2_security_group_arn_list.deserialize_cbor(
+                data["SecurityGroupArns"]
+            )
+        )
+    if data.get("CreationTime") is not None:
+        import capo_datasync.types.time
+
+        out["creation_time"] = capo_datasync.types.time.deserialize_cbor(
+            data["CreationTime"]
+        )
+    return out

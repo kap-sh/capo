@@ -35,3 +35,26 @@ def deserialize_aws_json_1_1(data: list) -> UsageReportSubscriptionList:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UsageReportSubscriptionList) -> list:
+    import capo_appstream.types.usage_report_subscription
+
+    out: list = []
+    for item in value:
+        out.append(capo_appstream.types.usage_report_subscription.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> UsageReportSubscriptionList:
+    import capo_appstream.types.usage_report_subscription
+
+    out: UsageReportSubscriptionList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_appstream.types.usage_report_subscription.deserialize_cbor(item)
+        )
+    return out

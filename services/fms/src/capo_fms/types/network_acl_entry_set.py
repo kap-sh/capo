@@ -67,3 +67,48 @@ def deserialize_aws_json_1_1(data: dict) -> NetworkAclEntrySet:
     else:
         out["force_remediate_for_last_entries"] = False
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: NetworkAclEntrySet) -> dict:
+    out: dict = {}
+    if "first_entries" in value:
+        import capo_fms.types.network_acl_entries
+
+        out["FirstEntries"] = capo_fms.types.network_acl_entries.serialize_cbor(
+            value["first_entries"]
+        )
+    out["ForceRemediateForFirstEntries"] = value["force_remediate_for_first_entries"]
+    if "last_entries" in value:
+        import capo_fms.types.network_acl_entries
+
+        out["LastEntries"] = capo_fms.types.network_acl_entries.serialize_cbor(
+            value["last_entries"]
+        )
+    out["ForceRemediateForLastEntries"] = value["force_remediate_for_last_entries"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> NetworkAclEntrySet:
+    out: NetworkAclEntrySet = {}  # type: ignore[typeddict-item]
+    if data.get("FirstEntries") is not None:
+        import capo_fms.types.network_acl_entries
+
+        out["first_entries"] = capo_fms.types.network_acl_entries.deserialize_cbor(
+            data["FirstEntries"]
+        )
+    if data.get("ForceRemediateForFirstEntries") is not None:
+        out["force_remediate_for_first_entries"] = data["ForceRemediateForFirstEntries"]
+    else:
+        out["force_remediate_for_first_entries"] = False
+    if data.get("LastEntries") is not None:
+        import capo_fms.types.network_acl_entries
+
+        out["last_entries"] = capo_fms.types.network_acl_entries.deserialize_cbor(
+            data["LastEntries"]
+        )
+    if data.get("ForceRemediateForLastEntries") is not None:
+        out["force_remediate_for_last_entries"] = data["ForceRemediateForLastEntries"]
+    else:
+        out["force_remediate_for_last_entries"] = False
+    return out

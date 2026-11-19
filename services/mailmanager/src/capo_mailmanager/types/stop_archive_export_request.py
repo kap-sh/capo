@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> StopArchiveExportRequest:
     else:
         out["export_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StopArchiveExportRequest) -> dict:
+    out: dict = {}
+    out["ExportId"] = value["export_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StopArchiveExportRequest:
+    out: StopArchiveExportRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ExportId") is not None:
+        out["export_id"] = data["ExportId"]
+    else:
+        out["export_id"] = ""
+    return out

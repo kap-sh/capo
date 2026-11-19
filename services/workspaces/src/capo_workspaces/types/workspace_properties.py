@@ -150,3 +150,102 @@ def deserialize_aws_json_1_1(data: dict) -> WorkspaceProperties:
     if data.get("NestedVirtualizationEnabled") is not None:
         out["nested_virtualization_enabled"] = data["NestedVirtualizationEnabled"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: WorkspaceProperties) -> dict:
+    out: dict = {}
+    if "running_mode" in value:
+        import capo_workspaces.types.running_mode
+
+        out["RunningMode"] = capo_workspaces.types.running_mode.serialize_cbor(
+            value["running_mode"]
+        )
+    if "running_mode_auto_stop_timeout_in_minutes" in value:
+        out["RunningModeAutoStopTimeoutInMinutes"] = value[
+            "running_mode_auto_stop_timeout_in_minutes"
+        ]
+    if "root_volume_size_gib" in value:
+        out["RootVolumeSizeGib"] = value["root_volume_size_gib"]
+    if "user_volume_size_gib" in value:
+        out["UserVolumeSizeGib"] = value["user_volume_size_gib"]
+    if "compute_type_name" in value:
+        import capo_workspaces.types.compute
+
+        out["ComputeTypeName"] = capo_workspaces.types.compute.serialize_cbor(
+            value["compute_type_name"]
+        )
+    if "protocols" in value:
+        import capo_workspaces.types.protocol_list
+
+        out["Protocols"] = capo_workspaces.types.protocol_list.serialize_cbor(
+            value["protocols"]
+        )
+    if "operating_system_name" in value:
+        import capo_workspaces.types.operating_system_name
+
+        out["OperatingSystemName"] = (
+            capo_workspaces.types.operating_system_name.serialize_cbor(
+                value["operating_system_name"]
+            )
+        )
+    if "global_accelerator" in value:
+        import capo_workspaces.types.global_accelerator_for_work_space
+
+        out["GlobalAccelerator"] = (
+            capo_workspaces.types.global_accelerator_for_work_space.serialize_cbor(
+                value["global_accelerator"]
+            )
+        )
+    if "nested_virtualization_enabled" in value:
+        out["NestedVirtualizationEnabled"] = value["nested_virtualization_enabled"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> WorkspaceProperties:
+    out: WorkspaceProperties = {}  # type: ignore[typeddict-item]
+    if data.get("RunningMode") is not None:
+        import capo_workspaces.types.running_mode
+
+        out["running_mode"] = capo_workspaces.types.running_mode.deserialize_cbor(
+            data["RunningMode"]
+        )
+    if data.get("RunningModeAutoStopTimeoutInMinutes") is not None:
+        out["running_mode_auto_stop_timeout_in_minutes"] = data[
+            "RunningModeAutoStopTimeoutInMinutes"
+        ]
+    if data.get("RootVolumeSizeGib") is not None:
+        out["root_volume_size_gib"] = data["RootVolumeSizeGib"]
+    if data.get("UserVolumeSizeGib") is not None:
+        out["user_volume_size_gib"] = data["UserVolumeSizeGib"]
+    if data.get("ComputeTypeName") is not None:
+        import capo_workspaces.types.compute
+
+        out["compute_type_name"] = capo_workspaces.types.compute.deserialize_cbor(
+            data["ComputeTypeName"]
+        )
+    if data.get("Protocols") is not None:
+        import capo_workspaces.types.protocol_list
+
+        out["protocols"] = capo_workspaces.types.protocol_list.deserialize_cbor(
+            data["Protocols"]
+        )
+    if data.get("OperatingSystemName") is not None:
+        import capo_workspaces.types.operating_system_name
+
+        out["operating_system_name"] = (
+            capo_workspaces.types.operating_system_name.deserialize_cbor(
+                data["OperatingSystemName"]
+            )
+        )
+    if data.get("GlobalAccelerator") is not None:
+        import capo_workspaces.types.global_accelerator_for_work_space
+
+        out["global_accelerator"] = (
+            capo_workspaces.types.global_accelerator_for_work_space.deserialize_cbor(
+                data["GlobalAccelerator"]
+            )
+        )
+    if data.get("NestedVirtualizationEnabled") is not None:
+        out["nested_virtualization_enabled"] = data["NestedVirtualizationEnabled"]
+    return out

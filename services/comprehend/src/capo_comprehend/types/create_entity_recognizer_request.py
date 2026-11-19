@@ -147,3 +147,100 @@ def deserialize_aws_json_1_1(data: dict) -> CreateEntityRecognizerRequest:
     if data.get("ModelPolicy") is not None:
         out["model_policy"] = data["ModelPolicy"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateEntityRecognizerRequest) -> dict:
+    out: dict = {}
+    out["RecognizerName"] = value["recognizer_name"]
+    if "version_name" in value:
+        out["VersionName"] = value["version_name"]
+    out["DataAccessRoleArn"] = value["data_access_role_arn"]
+    if "tags" in value:
+        import capo_comprehend.types.tag_list
+
+        out["Tags"] = capo_comprehend.types.tag_list.serialize_cbor(value["tags"])
+    import capo_comprehend.types.entity_recognizer_input_data_config
+
+    out["InputDataConfig"] = (
+        capo_comprehend.types.entity_recognizer_input_data_config.serialize_cbor(
+            value["input_data_config"]
+        )
+    )
+    if "client_request_token" in value:
+        out["ClientRequestToken"] = value["client_request_token"]
+    import capo_comprehend.types.language_code
+
+    out["LanguageCode"] = capo_comprehend.types.language_code.serialize_cbor(
+        value["language_code"]
+    )
+    if "volume_kms_key_id" in value:
+        out["VolumeKmsKeyId"] = value["volume_kms_key_id"]
+    if "vpc_config" in value:
+        import capo_comprehend.types.vpc_config
+
+        out["VpcConfig"] = capo_comprehend.types.vpc_config.serialize_cbor(
+            value["vpc_config"]
+        )
+    if "model_kms_key_id" in value:
+        out["ModelKmsKeyId"] = value["model_kms_key_id"]
+    if "model_policy" in value:
+        out["ModelPolicy"] = value["model_policy"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateEntityRecognizerRequest:
+    out: CreateEntityRecognizerRequest = {}  # type: ignore[typeddict-item]
+    if data.get("RecognizerName") is not None:
+        out["recognizer_name"] = data["RecognizerName"]
+    else:
+        out["recognizer_name"] = ""
+    if data.get("VersionName") is not None:
+        out["version_name"] = data["VersionName"]
+    if data.get("DataAccessRoleArn") is not None:
+        out["data_access_role_arn"] = data["DataAccessRoleArn"]
+    else:
+        out["data_access_role_arn"] = ""
+    if data.get("Tags") is not None:
+        import capo_comprehend.types.tag_list
+
+        out["tags"] = capo_comprehend.types.tag_list.deserialize_cbor(data["Tags"])
+    if data.get("InputDataConfig") is not None:
+        import capo_comprehend.types.entity_recognizer_input_data_config
+
+        out["input_data_config"] = (
+            capo_comprehend.types.entity_recognizer_input_data_config.deserialize_cbor(
+                data["InputDataConfig"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "CreateEntityRecognizerRequest.input_data_config required"
+        )
+    if data.get("ClientRequestToken") is not None:
+        out["client_request_token"] = data["ClientRequestToken"]
+    if data.get("LanguageCode") is not None:
+        import capo_comprehend.types.language_code
+
+        out["language_code"] = capo_comprehend.types.language_code.deserialize_cbor(
+            data["LanguageCode"]
+        )
+    else:
+        import typing
+
+        out["language_code"] = typing.cast(
+            "capo_comprehend.types.language_code.LanguageCode", ""
+        )
+    if data.get("VolumeKmsKeyId") is not None:
+        out["volume_kms_key_id"] = data["VolumeKmsKeyId"]
+    if data.get("VpcConfig") is not None:
+        import capo_comprehend.types.vpc_config
+
+        out["vpc_config"] = capo_comprehend.types.vpc_config.deserialize_cbor(
+            data["VpcConfig"]
+        )
+    if data.get("ModelKmsKeyId") is not None:
+        out["model_kms_key_id"] = data["ModelKmsKeyId"]
+    if data.get("ModelPolicy") is not None:
+        out["model_policy"] = data["ModelPolicy"]
+    return out

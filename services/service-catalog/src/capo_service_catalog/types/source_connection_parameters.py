@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> SourceConnectionParameters:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SourceConnectionParameters) -> dict:
+    out: dict = {}
+    if "code_star" in value:
+        import capo_service_catalog.types.code_star_parameters
+
+        out["CodeStar"] = (
+            capo_service_catalog.types.code_star_parameters.serialize_cbor(
+                value["code_star"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> SourceConnectionParameters:
+    out: SourceConnectionParameters = {}  # type: ignore[typeddict-item]
+    if data.get("CodeStar") is not None:
+        import capo_service_catalog.types.code_star_parameters
+
+        out["code_star"] = (
+            capo_service_catalog.types.code_star_parameters.deserialize_cbor(
+                data["CodeStar"]
+            )
+        )
+    return out

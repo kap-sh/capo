@@ -48,3 +48,34 @@ def deserialize_aws_json_1_1(data: dict) -> ListTasksRequest:
             data["Filters"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListTasksRequest) -> dict:
+    out: dict = {}
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "filters" in value:
+        import capo_datasync.types.task_filters
+
+        out["Filters"] = capo_datasync.types.task_filters.serialize_cbor(
+            value["filters"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListTasksRequest:
+    out: ListTasksRequest = {}  # type: ignore[typeddict-item]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("Filters") is not None:
+        import capo_datasync.types.task_filters
+
+        out["filters"] = capo_datasync.types.task_filters.deserialize_cbor(
+            data["Filters"]
+        )
+    return out

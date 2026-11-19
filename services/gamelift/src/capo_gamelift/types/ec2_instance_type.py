@@ -552,3 +552,12 @@ def serialize_aws_json_1_1(value: EC2InstanceType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> EC2InstanceType:
     return cast(EC2InstanceType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EC2InstanceType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> EC2InstanceType:
+    return cast(EC2InstanceType, data)

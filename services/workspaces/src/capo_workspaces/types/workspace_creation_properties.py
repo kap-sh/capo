@@ -71,3 +71,42 @@ def deserialize_aws_json_1_1(data: dict) -> WorkspaceCreationProperties:
     if data.get("InstanceIamRoleArn") is not None:
         out["instance_iam_role_arn"] = data["InstanceIamRoleArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: WorkspaceCreationProperties) -> dict:
+    out: dict = {}
+    if "enable_internet_access" in value:
+        out["EnableInternetAccess"] = value["enable_internet_access"]
+    if "default_ou" in value:
+        out["DefaultOu"] = value["default_ou"]
+    if "custom_security_group_id" in value:
+        out["CustomSecurityGroupId"] = value["custom_security_group_id"]
+    if "user_enabled_as_local_administrator" in value:
+        out["UserEnabledAsLocalAdministrator"] = value[
+            "user_enabled_as_local_administrator"
+        ]
+    if "enable_maintenance_mode" in value:
+        out["EnableMaintenanceMode"] = value["enable_maintenance_mode"]
+    if "instance_iam_role_arn" in value:
+        out["InstanceIamRoleArn"] = value["instance_iam_role_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> WorkspaceCreationProperties:
+    out: WorkspaceCreationProperties = {}  # type: ignore[typeddict-item]
+    if data.get("EnableInternetAccess") is not None:
+        out["enable_internet_access"] = data["EnableInternetAccess"]
+    if data.get("DefaultOu") is not None:
+        out["default_ou"] = data["DefaultOu"]
+    if data.get("CustomSecurityGroupId") is not None:
+        out["custom_security_group_id"] = data["CustomSecurityGroupId"]
+    if data.get("UserEnabledAsLocalAdministrator") is not None:
+        out["user_enabled_as_local_administrator"] = data[
+            "UserEnabledAsLocalAdministrator"
+        ]
+    if data.get("EnableMaintenanceMode") is not None:
+        out["enable_maintenance_mode"] = data["EnableMaintenanceMode"]
+    if data.get("InstanceIamRoleArn") is not None:
+        out["instance_iam_role_arn"] = data["InstanceIamRoleArn"]
+    return out

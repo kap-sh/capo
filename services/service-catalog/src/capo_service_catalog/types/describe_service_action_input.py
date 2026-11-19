@@ -36,3 +36,23 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeServiceActionInput:
     if data.get("AcceptLanguage") is not None:
         out["accept_language"] = data["AcceptLanguage"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeServiceActionInput) -> dict:
+    out: dict = {}
+    out["Id"] = value["id"]
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeServiceActionInput:
+    out: DescribeServiceActionInput = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    else:
+        out["id"] = ""
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    return out

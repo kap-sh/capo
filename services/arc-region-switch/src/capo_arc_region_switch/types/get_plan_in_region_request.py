@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> GetPlanInRegionRequest:
     else:
         out["arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetPlanInRegionRequest) -> dict:
+    out: dict = {}
+    out["arn"] = value["arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetPlanInRegionRequest:
+    out: GetPlanInRegionRequest = {}  # type: ignore[typeddict-item]
+    if data.get("arn") is not None:
+        out["arn"] = data["arn"]
+    else:
+        out["arn"] = ""
+    return out

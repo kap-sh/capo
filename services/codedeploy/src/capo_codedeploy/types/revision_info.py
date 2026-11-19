@@ -61,3 +61,46 @@ def deserialize_aws_json_1_1(data: dict) -> RevisionInfo:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RevisionInfo) -> dict:
+    out: dict = {}
+    if "revision_location" in value:
+        import capo_codedeploy.types.revision_location
+
+        out["revisionLocation"] = (
+            capo_codedeploy.types.revision_location.serialize_cbor(
+                value["revision_location"]
+            )
+        )
+    if "generic_revision_info" in value:
+        import capo_codedeploy.types.generic_revision_info
+
+        out["genericRevisionInfo"] = (
+            capo_codedeploy.types.generic_revision_info.serialize_cbor(
+                value["generic_revision_info"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RevisionInfo:
+    out: RevisionInfo = {}  # type: ignore[typeddict-item]
+    if data.get("revisionLocation") is not None:
+        import capo_codedeploy.types.revision_location
+
+        out["revision_location"] = (
+            capo_codedeploy.types.revision_location.deserialize_cbor(
+                data["revisionLocation"]
+            )
+        )
+    if data.get("genericRevisionInfo") is not None:
+        import capo_codedeploy.types.generic_revision_info
+
+        out["generic_revision_info"] = (
+            capo_codedeploy.types.generic_revision_info.deserialize_cbor(
+                data["genericRevisionInfo"]
+            )
+        )
+    return out

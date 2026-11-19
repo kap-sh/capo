@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> GetVocabularyRequest:
     else:
         out["vocabulary_name"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetVocabularyRequest) -> dict:
+    out: dict = {}
+    out["VocabularyName"] = value["vocabulary_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetVocabularyRequest:
+    out: GetVocabularyRequest = {}  # type: ignore[typeddict-item]
+    if data.get("VocabularyName") is not None:
+        out["vocabulary_name"] = data["VocabularyName"]
+    else:
+        out["vocabulary_name"] = ""
+    return out

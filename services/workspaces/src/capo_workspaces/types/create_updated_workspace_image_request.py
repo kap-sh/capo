@@ -60,3 +60,37 @@ def deserialize_aws_json_1_1(data: dict) -> CreateUpdatedWorkspaceImageRequest:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateUpdatedWorkspaceImageRequest) -> dict:
+    out: dict = {}
+    out["Name"] = value["name"]
+    out["Description"] = value["description"]
+    out["SourceImageId"] = value["source_image_id"]
+    if "tags" in value:
+        import capo_workspaces.types.tag_list
+
+        out["Tags"] = capo_workspaces.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateUpdatedWorkspaceImageRequest:
+    out: CreateUpdatedWorkspaceImageRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    else:
+        out["name"] = ""
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    else:
+        out["description"] = ""
+    if data.get("SourceImageId") is not None:
+        out["source_image_id"] = data["SourceImageId"]
+    else:
+        out["source_image_id"] = ""
+    if data.get("Tags") is not None:
+        import capo_workspaces.types.tag_list
+
+        out["tags"] = capo_workspaces.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

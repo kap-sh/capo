@@ -40,3 +40,28 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeGameServerGroupOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeGameServerGroupOutput) -> dict:
+    out: dict = {}
+    if "game_server_group" in value:
+        import capo_gamelift.types.game_server_group
+
+        out["GameServerGroup"] = capo_gamelift.types.game_server_group.serialize_cbor(
+            value["game_server_group"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeGameServerGroupOutput:
+    out: DescribeGameServerGroupOutput = {}  # type: ignore[typeddict-item]
+    if data.get("GameServerGroup") is not None:
+        import capo_gamelift.types.game_server_group
+
+        out["game_server_group"] = (
+            capo_gamelift.types.game_server_group.deserialize_cbor(
+                data["GameServerGroup"]
+            )
+        )
+    return out

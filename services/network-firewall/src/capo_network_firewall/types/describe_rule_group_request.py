@@ -82,3 +82,54 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeRuleGroupRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeRuleGroupRequest) -> dict:
+    out: dict = {}
+    if "rule_group_name" in value:
+        out["RuleGroupName"] = value["rule_group_name"]
+    if "rule_group_arn" in value:
+        out["RuleGroupArn"] = value["rule_group_arn"]
+    if "type" in value:
+        import capo_network_firewall.types.rule_group_type
+
+        out["Type"] = capo_network_firewall.types.rule_group_type.serialize_cbor(
+            value["type"]
+        )
+    if "analyze_rule_group" in value:
+        out["AnalyzeRuleGroup"] = value["analyze_rule_group"]
+    if "rule_output_format" in value:
+        import capo_network_firewall.types.rule_output_format
+
+        out["RuleOutputFormat"] = (
+            capo_network_firewall.types.rule_output_format.serialize_cbor(
+                value["rule_output_format"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeRuleGroupRequest:
+    out: DescribeRuleGroupRequest = {}  # type: ignore[typeddict-item]
+    if data.get("RuleGroupName") is not None:
+        out["rule_group_name"] = data["RuleGroupName"]
+    if data.get("RuleGroupArn") is not None:
+        out["rule_group_arn"] = data["RuleGroupArn"]
+    if data.get("Type") is not None:
+        import capo_network_firewall.types.rule_group_type
+
+        out["type"] = capo_network_firewall.types.rule_group_type.deserialize_cbor(
+            data["Type"]
+        )
+    if data.get("AnalyzeRuleGroup") is not None:
+        out["analyze_rule_group"] = data["AnalyzeRuleGroup"]
+    if data.get("RuleOutputFormat") is not None:
+        import capo_network_firewall.types.rule_output_format
+
+        out["rule_output_format"] = (
+            capo_network_firewall.types.rule_output_format.deserialize_cbor(
+                data["RuleOutputFormat"]
+            )
+        )
+    return out

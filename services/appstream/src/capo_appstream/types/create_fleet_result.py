@@ -32,3 +32,22 @@ def deserialize_aws_json_1_1(data: dict) -> CreateFleetResult:
             data["Fleet"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateFleetResult) -> dict:
+    out: dict = {}
+    if "fleet" in value:
+        import capo_appstream.types.fleet
+
+        out["Fleet"] = capo_appstream.types.fleet.serialize_cbor(value["fleet"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateFleetResult:
+    out: CreateFleetResult = {}  # type: ignore[typeddict-item]
+    if data.get("Fleet") is not None:
+        import capo_appstream.types.fleet
+
+        out["fleet"] = capo_appstream.types.fleet.deserialize_cbor(data["Fleet"])
+    return out

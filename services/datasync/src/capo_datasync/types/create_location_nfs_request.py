@@ -89,3 +89,57 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLocationNfsRequest:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateLocationNfsRequest) -> dict:
+    out: dict = {}
+    out["Subdirectory"] = value["subdirectory"]
+    out["ServerHostname"] = value["server_hostname"]
+    import capo_datasync.types.on_prem_config
+
+    out["OnPremConfig"] = capo_datasync.types.on_prem_config.serialize_cbor(
+        value["on_prem_config"]
+    )
+    if "mount_options" in value:
+        import capo_datasync.types.nfs_mount_options
+
+        out["MountOptions"] = capo_datasync.types.nfs_mount_options.serialize_cbor(
+            value["mount_options"]
+        )
+    if "tags" in value:
+        import capo_datasync.types.input_tag_list
+
+        out["Tags"] = capo_datasync.types.input_tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateLocationNfsRequest:
+    out: CreateLocationNfsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Subdirectory") is not None:
+        out["subdirectory"] = data["Subdirectory"]
+    else:
+        out["subdirectory"] = ""
+    if data.get("ServerHostname") is not None:
+        out["server_hostname"] = data["ServerHostname"]
+    else:
+        out["server_hostname"] = ""
+    if data.get("OnPremConfig") is not None:
+        import capo_datasync.types.on_prem_config
+
+        out["on_prem_config"] = capo_datasync.types.on_prem_config.deserialize_cbor(
+            data["OnPremConfig"]
+        )
+    else:
+        raise DeserializationError("CreateLocationNfsRequest.on_prem_config required")
+    if data.get("MountOptions") is not None:
+        import capo_datasync.types.nfs_mount_options
+
+        out["mount_options"] = capo_datasync.types.nfs_mount_options.deserialize_cbor(
+            data["MountOptions"]
+        )
+    if data.get("Tags") is not None:
+        import capo_datasync.types.input_tag_list
+
+        out["tags"] = capo_datasync.types.input_tag_list.deserialize_cbor(data["Tags"])
+    return out

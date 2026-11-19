@@ -284,3 +284,70 @@ def deserialize_query(el: Element) -> Datapoint:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Datapoint) -> dict:
+    out: dict = {}
+    if "timestamp" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["Timestamp"] = capo_cloudwatch.types.timestamp.serialize_cbor(
+            value["timestamp"]
+        )
+    if "sample_count" in value:
+        out["SampleCount"] = value["sample_count"]
+    if "average" in value:
+        out["Average"] = value["average"]
+    if "sum" in value:
+        out["Sum"] = value["sum"]
+    if "minimum" in value:
+        out["Minimum"] = value["minimum"]
+    if "maximum" in value:
+        out["Maximum"] = value["maximum"]
+    if "unit" in value:
+        import capo_cloudwatch.types.standard_unit
+
+        out["Unit"] = capo_cloudwatch.types.standard_unit.serialize_cbor(value["unit"])
+    if "extended_statistics" in value:
+        import capo_cloudwatch.types.datapoint_value_map
+
+        out["ExtendedStatistics"] = (
+            capo_cloudwatch.types.datapoint_value_map.serialize_cbor(
+                value["extended_statistics"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Datapoint:
+    out: Datapoint = {}  # type: ignore[typeddict-item]
+    if data.get("Timestamp") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["timestamp"] = capo_cloudwatch.types.timestamp.deserialize_cbor(
+            data["Timestamp"]
+        )
+    if data.get("SampleCount") is not None:
+        out["sample_count"] = float(data["SampleCount"])
+    if data.get("Average") is not None:
+        out["average"] = float(data["Average"])
+    if data.get("Sum") is not None:
+        out["sum"] = float(data["Sum"])
+    if data.get("Minimum") is not None:
+        out["minimum"] = float(data["Minimum"])
+    if data.get("Maximum") is not None:
+        out["maximum"] = float(data["Maximum"])
+    if data.get("Unit") is not None:
+        import capo_cloudwatch.types.standard_unit
+
+        out["unit"] = capo_cloudwatch.types.standard_unit.deserialize_cbor(data["Unit"])
+    if data.get("ExtendedStatistics") is not None:
+        import capo_cloudwatch.types.datapoint_value_map
+
+        out["extended_statistics"] = (
+            capo_cloudwatch.types.datapoint_value_map.deserialize_cbor(
+                data["ExtendedStatistics"]
+            )
+        )
+    return out

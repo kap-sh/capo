@@ -49,3 +49,34 @@ def deserialize_aws_json_1_1(data: dict) -> ListResiliencyGroupsResult:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListResiliencyGroupsResult) -> dict:
+    out: dict = {}
+    if "items" in value:
+        import capo_direct_connect.types.resiliency_group_summary_list
+
+        out["items"] = (
+            capo_direct_connect.types.resiliency_group_summary_list.serialize_cbor(
+                value["items"]
+            )
+        )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListResiliencyGroupsResult:
+    out: ListResiliencyGroupsResult = {}  # type: ignore[typeddict-item]
+    if data.get("items") is not None:
+        import capo_direct_connect.types.resiliency_group_summary_list
+
+        out["items"] = (
+            capo_direct_connect.types.resiliency_group_summary_list.deserialize_cbor(
+                data["items"]
+            )
+        )
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

@@ -52,3 +52,30 @@ def deserialize_aws_json_1_0(data: dict) -> Service:
     if data.get("serviceArn") is not None:
         out["service_arn"] = data["serviceArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Service) -> dict:
+    out: dict = {}
+    if "cross_account_role" in value:
+        out["crossAccountRole"] = value["cross_account_role"]
+    if "external_id" in value:
+        out["externalId"] = value["external_id"]
+    if "cluster_arn" in value:
+        out["clusterArn"] = value["cluster_arn"]
+    if "service_arn" in value:
+        out["serviceArn"] = value["service_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Service:
+    out: Service = {}  # type: ignore[typeddict-item]
+    if data.get("crossAccountRole") is not None:
+        out["cross_account_role"] = data["crossAccountRole"]
+    if data.get("externalId") is not None:
+        out["external_id"] = data["externalId"]
+    if data.get("clusterArn") is not None:
+        out["cluster_arn"] = data["clusterArn"]
+    if data.get("serviceArn") is not None:
+        out["service_arn"] = data["serviceArn"]
+    return out

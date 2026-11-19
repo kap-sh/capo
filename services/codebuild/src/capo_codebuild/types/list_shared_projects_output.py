@@ -41,3 +41,30 @@ def deserialize_aws_json_1_1(data: dict) -> ListSharedProjectsOutput:
             data["projects"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListSharedProjectsOutput) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    if "projects" in value:
+        import capo_codebuild.types.project_arns
+
+        out["projects"] = capo_codebuild.types.project_arns.serialize_cbor(
+            value["projects"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListSharedProjectsOutput:
+    out: ListSharedProjectsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    if data.get("projects") is not None:
+        import capo_codebuild.types.project_arns
+
+        out["projects"] = capo_codebuild.types.project_arns.deserialize_cbor(
+            data["projects"]
+        )
+    return out

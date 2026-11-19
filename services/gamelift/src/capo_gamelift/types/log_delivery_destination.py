@@ -49,3 +49,34 @@ def deserialize_aws_json_1_1(data: dict) -> LogDeliveryDestination:
     if data.get("DestinationArn") is not None:
         out["destination_arn"] = data["DestinationArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LogDeliveryDestination) -> dict:
+    out: dict = {}
+    if "log_destination" in value:
+        import capo_gamelift.types.log_delivery_destination_type
+
+        out["LogDestination"] = (
+            capo_gamelift.types.log_delivery_destination_type.serialize_cbor(
+                value["log_destination"]
+            )
+        )
+    if "destination_arn" in value:
+        out["DestinationArn"] = value["destination_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> LogDeliveryDestination:
+    out: LogDeliveryDestination = {}  # type: ignore[typeddict-item]
+    if data.get("LogDestination") is not None:
+        import capo_gamelift.types.log_delivery_destination_type
+
+        out["log_destination"] = (
+            capo_gamelift.types.log_delivery_destination_type.deserialize_cbor(
+                data["LogDestination"]
+            )
+        )
+    if data.get("DestinationArn") is not None:
+        out["destination_arn"] = data["DestinationArn"]
+    return out

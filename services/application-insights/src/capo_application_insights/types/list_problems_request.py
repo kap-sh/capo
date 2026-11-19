@@ -117,3 +117,70 @@ def deserialize_aws_json_1_1(data: dict) -> ListProblemsRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListProblemsRequest) -> dict:
+    out: dict = {}
+    if "account_id" in value:
+        out["AccountId"] = value["account_id"]
+    if "resource_group_name" in value:
+        out["ResourceGroupName"] = value["resource_group_name"]
+    if "start_time" in value:
+        import capo_application_insights.types.start_time
+
+        out["StartTime"] = capo_application_insights.types.start_time.serialize_cbor(
+            value["start_time"]
+        )
+    if "end_time" in value:
+        import capo_application_insights.types.end_time
+
+        out["EndTime"] = capo_application_insights.types.end_time.serialize_cbor(
+            value["end_time"]
+        )
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "component_name" in value:
+        out["ComponentName"] = value["component_name"]
+    if "visibility" in value:
+        import capo_application_insights.types.visibility
+
+        out["Visibility"] = capo_application_insights.types.visibility.serialize_cbor(
+            value["visibility"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListProblemsRequest:
+    out: ListProblemsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("AccountId") is not None:
+        out["account_id"] = data["AccountId"]
+    if data.get("ResourceGroupName") is not None:
+        out["resource_group_name"] = data["ResourceGroupName"]
+    if data.get("StartTime") is not None:
+        import capo_application_insights.types.start_time
+
+        out["start_time"] = capo_application_insights.types.start_time.deserialize_cbor(
+            data["StartTime"]
+        )
+    if data.get("EndTime") is not None:
+        import capo_application_insights.types.end_time
+
+        out["end_time"] = capo_application_insights.types.end_time.deserialize_cbor(
+            data["EndTime"]
+        )
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("ComponentName") is not None:
+        out["component_name"] = data["ComponentName"]
+    if data.get("Visibility") is not None:
+        import capo_application_insights.types.visibility
+
+        out["visibility"] = capo_application_insights.types.visibility.deserialize_cbor(
+            data["Visibility"]
+        )
+    return out

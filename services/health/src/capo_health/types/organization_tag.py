@@ -48,3 +48,34 @@ def deserialize_aws_json_1_1(data: dict) -> OrganizationTag:
             data["type"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: OrganizationTag) -> dict:
+    out: dict = {}
+    if "key" in value:
+        out["key"] = value["key"]
+    if "value" in value:
+        out["value"] = value["value"]
+    if "type" in value:
+        import capo_health.types.organization_tag_type
+
+        out["type"] = capo_health.types.organization_tag_type.serialize_cbor(
+            value["type"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> OrganizationTag:
+    out: OrganizationTag = {}  # type: ignore[typeddict-item]
+    if data.get("key") is not None:
+        out["key"] = data["key"]
+    if data.get("value") is not None:
+        out["value"] = data["value"]
+    if data.get("type") is not None:
+        import capo_health.types.organization_tag_type
+
+        out["type"] = capo_health.types.organization_tag_type.deserialize_cbor(
+            data["type"]
+        )
+    return out

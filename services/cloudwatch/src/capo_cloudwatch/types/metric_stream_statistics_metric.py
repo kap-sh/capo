@@ -57,3 +57,22 @@ def deserialize_query(el: Element) -> MetricStreamStatisticsMetric:
     if child_metric_name is not None:
         out["metric_name"] = str(child_metric_name.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MetricStreamStatisticsMetric) -> dict:
+    out: dict = {}
+    if "namespace" in value:
+        out["Namespace"] = value["namespace"]
+    if "metric_name" in value:
+        out["MetricName"] = value["metric_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> MetricStreamStatisticsMetric:
+    out: MetricStreamStatisticsMetric = {}  # type: ignore[typeddict-item]
+    if data.get("Namespace") is not None:
+        out["namespace"] = data["Namespace"]
+    if data.get("MetricName") is not None:
+        out["metric_name"] = data["MetricName"]
+    return out

@@ -168,3 +168,58 @@ def deserialize_query(el: Element) -> ListMetricsInput:
     if child_owning_account is not None:
         out["owning_account"] = str(child_owning_account.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListMetricsInput) -> dict:
+    out: dict = {}
+    if "namespace" in value:
+        out["Namespace"] = value["namespace"]
+    if "metric_name" in value:
+        out["MetricName"] = value["metric_name"]
+    if "dimensions" in value:
+        import capo_cloudwatch.types.dimension_filters
+
+        out["Dimensions"] = capo_cloudwatch.types.dimension_filters.serialize_cbor(
+            value["dimensions"]
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "recently_active" in value:
+        import capo_cloudwatch.types.recently_active
+
+        out["RecentlyActive"] = capo_cloudwatch.types.recently_active.serialize_cbor(
+            value["recently_active"]
+        )
+    if "include_linked_accounts" in value:
+        out["IncludeLinkedAccounts"] = value["include_linked_accounts"]
+    if "owning_account" in value:
+        out["OwningAccount"] = value["owning_account"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListMetricsInput:
+    out: ListMetricsInput = {}  # type: ignore[typeddict-item]
+    if data.get("Namespace") is not None:
+        out["namespace"] = data["Namespace"]
+    if data.get("MetricName") is not None:
+        out["metric_name"] = data["MetricName"]
+    if data.get("Dimensions") is not None:
+        import capo_cloudwatch.types.dimension_filters
+
+        out["dimensions"] = capo_cloudwatch.types.dimension_filters.deserialize_cbor(
+            data["Dimensions"]
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("RecentlyActive") is not None:
+        import capo_cloudwatch.types.recently_active
+
+        out["recently_active"] = capo_cloudwatch.types.recently_active.deserialize_cbor(
+            data["RecentlyActive"]
+        )
+    if data.get("IncludeLinkedAccounts") is not None:
+        out["include_linked_accounts"] = data["IncludeLinkedAccounts"]
+    if data.get("OwningAccount") is not None:
+        out["owning_account"] = data["OwningAccount"]
+    return out

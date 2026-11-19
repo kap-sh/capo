@@ -36,3 +36,29 @@ def deserialize_aws_json_1_0(data: dict) -> ValidationExceptionField:
     else:
         out["message"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ValidationExceptionField) -> dict:
+    out: dict = {}
+    out["Name"] = value["name"]
+    out["Reason"] = value["reason"]
+    out["Message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ValidationExceptionField:
+    out: ValidationExceptionField = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    else:
+        out["name"] = ""
+    if data.get("Reason") is not None:
+        out["reason"] = data["Reason"]
+    else:
+        out["reason"] = ""
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    else:
+        out["message"] = ""
+    return out

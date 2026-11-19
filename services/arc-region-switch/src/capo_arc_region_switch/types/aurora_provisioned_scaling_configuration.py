@@ -93,3 +93,66 @@ def deserialize_aws_json_1_0(data: dict) -> AuroraProvisionedScalingConfiguratio
     else:
         out["instance_arns"] = {}
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AuroraProvisionedScalingConfiguration) -> dict:
+    out: dict = {}
+    out["timeoutMinutes"] = value.get("timeout_minutes", 60)
+    if "cross_account_role" in value:
+        out["crossAccountRole"] = value["cross_account_role"]
+    if "external_id" in value:
+        out["externalId"] = value["external_id"]
+    out["globalClusterIdentifier"] = value["global_cluster_identifier"]
+    import capo_arc_region_switch.types.region_aurora_cluster_map
+
+    out["regionDatabaseClusterArns"] = (
+        capo_arc_region_switch.types.region_aurora_cluster_map.serialize_cbor(
+            value["region_database_cluster_arns"]
+        )
+    )
+    import capo_arc_region_switch.types.region_aurora_instance_arn_map
+
+    out["instanceArns"] = (
+        capo_arc_region_switch.types.region_aurora_instance_arn_map.serialize_cbor(
+            value["instance_arns"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AuroraProvisionedScalingConfiguration:
+    out: AuroraProvisionedScalingConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("timeoutMinutes") is not None:
+        out["timeout_minutes"] = data["timeoutMinutes"]
+    else:
+        out["timeout_minutes"] = 60
+    if data.get("crossAccountRole") is not None:
+        out["cross_account_role"] = data["crossAccountRole"]
+    if data.get("externalId") is not None:
+        out["external_id"] = data["externalId"]
+    if data.get("globalClusterIdentifier") is not None:
+        out["global_cluster_identifier"] = data["globalClusterIdentifier"]
+    else:
+        out["global_cluster_identifier"] = ""
+    if data.get("regionDatabaseClusterArns") is not None:
+        import capo_arc_region_switch.types.region_aurora_cluster_map
+
+        out["region_database_cluster_arns"] = (
+            capo_arc_region_switch.types.region_aurora_cluster_map.deserialize_cbor(
+                data["regionDatabaseClusterArns"]
+            )
+        )
+    else:
+        out["region_database_cluster_arns"] = {}
+    if data.get("instanceArns") is not None:
+        import capo_arc_region_switch.types.region_aurora_instance_arn_map
+
+        out["instance_arns"] = (
+            capo_arc_region_switch.types.region_aurora_instance_arn_map.deserialize_cbor(
+                data["instanceArns"]
+            )
+        )
+    else:
+        out["instance_arns"] = {}
+    return out

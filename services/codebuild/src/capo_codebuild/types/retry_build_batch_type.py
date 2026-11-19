@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: RetryBuildBatchType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> RetryBuildBatchType:
     return cast(RetryBuildBatchType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RetryBuildBatchType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> RetryBuildBatchType:
+    return cast(RetryBuildBatchType, data)

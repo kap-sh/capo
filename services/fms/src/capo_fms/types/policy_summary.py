@@ -108,3 +108,72 @@ def deserialize_aws_json_1_1(data: dict) -> PolicySummary:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PolicySummary) -> dict:
+    out: dict = {}
+    if "policy_arn" in value:
+        out["PolicyArn"] = value["policy_arn"]
+    if "policy_id" in value:
+        out["PolicyId"] = value["policy_id"]
+    if "policy_name" in value:
+        out["PolicyName"] = value["policy_name"]
+    if "resource_type" in value:
+        out["ResourceType"] = value["resource_type"]
+    if "security_service_type" in value:
+        import capo_fms.types.security_service_type
+
+        out["SecurityServiceType"] = (
+            capo_fms.types.security_service_type.serialize_cbor(
+                value["security_service_type"]
+            )
+        )
+    out["RemediationEnabled"] = value.get("remediation_enabled", False)
+    out["DeleteUnusedFMManagedResources"] = value.get(
+        "delete_unused_fm_managed_resources", False
+    )
+    if "policy_status" in value:
+        import capo_fms.types.customer_policy_status
+
+        out["PolicyStatus"] = capo_fms.types.customer_policy_status.serialize_cbor(
+            value["policy_status"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PolicySummary:
+    out: PolicySummary = {}  # type: ignore[typeddict-item]
+    if data.get("PolicyArn") is not None:
+        out["policy_arn"] = data["PolicyArn"]
+    if data.get("PolicyId") is not None:
+        out["policy_id"] = data["PolicyId"]
+    if data.get("PolicyName") is not None:
+        out["policy_name"] = data["PolicyName"]
+    if data.get("ResourceType") is not None:
+        out["resource_type"] = data["ResourceType"]
+    if data.get("SecurityServiceType") is not None:
+        import capo_fms.types.security_service_type
+
+        out["security_service_type"] = (
+            capo_fms.types.security_service_type.deserialize_cbor(
+                data["SecurityServiceType"]
+            )
+        )
+    if data.get("RemediationEnabled") is not None:
+        out["remediation_enabled"] = data["RemediationEnabled"]
+    else:
+        out["remediation_enabled"] = False
+    if data.get("DeleteUnusedFMManagedResources") is not None:
+        out["delete_unused_fm_managed_resources"] = data[
+            "DeleteUnusedFMManagedResources"
+        ]
+    else:
+        out["delete_unused_fm_managed_resources"] = False
+    if data.get("PolicyStatus") is not None:
+        import capo_fms.types.customer_policy_status
+
+        out["policy_status"] = capo_fms.types.customer_policy_status.deserialize_cbor(
+            data["PolicyStatus"]
+        )
+    return out

@@ -201,6 +201,129 @@ def deserialize_aws_json_1_1(data: dict) -> Compute:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Compute) -> dict:
+    out: dict = {}
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "fleet_arn" in value:
+        out["FleetArn"] = value["fleet_arn"]
+    if "compute_name" in value:
+        out["ComputeName"] = value["compute_name"]
+    if "compute_arn" in value:
+        out["ComputeArn"] = value["compute_arn"]
+    if "ip_address" in value:
+        out["IpAddress"] = value["ip_address"]
+    if "dns_name" in value:
+        out["DnsName"] = value["dns_name"]
+    if "compute_status" in value:
+        import capo_gamelift.types.compute_status
+
+        out["ComputeStatus"] = capo_gamelift.types.compute_status.serialize_cbor(
+            value["compute_status"]
+        )
+    if "location" in value:
+        out["Location"] = value["location"]
+    if "creation_time" in value:
+        import capo_gamelift.types.timestamp
+
+        out["CreationTime"] = capo_gamelift.types.timestamp.serialize_cbor(
+            value["creation_time"]
+        )
+    if "operating_system" in value:
+        import capo_gamelift.types.operating_system
+
+        out["OperatingSystem"] = capo_gamelift.types.operating_system.serialize_cbor(
+            value["operating_system"]
+        )
+    if "type" in value:
+        import capo_gamelift.types.ec2_instance_type
+
+        out["Type"] = capo_gamelift.types.ec2_instance_type.serialize_cbor(
+            value["type"]
+        )
+    if "game_lift_service_sdk_endpoint" in value:
+        out["GameLiftServiceSdkEndpoint"] = value["game_lift_service_sdk_endpoint"]
+    if "game_lift_agent_endpoint" in value:
+        out["GameLiftAgentEndpoint"] = value["game_lift_agent_endpoint"]
+    if "instance_id" in value:
+        out["InstanceId"] = value["instance_id"]
+    if "container_attributes" in value:
+        import capo_gamelift.types.container_attributes
+
+        out["ContainerAttributes"] = (
+            capo_gamelift.types.container_attributes.serialize_cbor(
+                value["container_attributes"]
+            )
+        )
+    if "game_server_container_group_definition_arn" in value:
+        out["GameServerContainerGroupDefinitionArn"] = value[
+            "game_server_container_group_definition_arn"
+        ]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Compute:
+    out: Compute = {}  # type: ignore[typeddict-item]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("FleetArn") is not None:
+        out["fleet_arn"] = data["FleetArn"]
+    if data.get("ComputeName") is not None:
+        out["compute_name"] = data["ComputeName"]
+    if data.get("ComputeArn") is not None:
+        out["compute_arn"] = data["ComputeArn"]
+    if data.get("IpAddress") is not None:
+        out["ip_address"] = data["IpAddress"]
+    if data.get("DnsName") is not None:
+        out["dns_name"] = data["DnsName"]
+    if data.get("ComputeStatus") is not None:
+        import capo_gamelift.types.compute_status
+
+        out["compute_status"] = capo_gamelift.types.compute_status.deserialize_cbor(
+            data["ComputeStatus"]
+        )
+    if data.get("Location") is not None:
+        out["location"] = data["Location"]
+    if data.get("CreationTime") is not None:
+        import capo_gamelift.types.timestamp
+
+        out["creation_time"] = capo_gamelift.types.timestamp.deserialize_cbor(
+            data["CreationTime"]
+        )
+    if data.get("OperatingSystem") is not None:
+        import capo_gamelift.types.operating_system
+
+        out["operating_system"] = capo_gamelift.types.operating_system.deserialize_cbor(
+            data["OperatingSystem"]
+        )
+    if data.get("Type") is not None:
+        import capo_gamelift.types.ec2_instance_type
+
+        out["type"] = capo_gamelift.types.ec2_instance_type.deserialize_cbor(
+            data["Type"]
+        )
+    if data.get("GameLiftServiceSdkEndpoint") is not None:
+        out["game_lift_service_sdk_endpoint"] = data["GameLiftServiceSdkEndpoint"]
+    if data.get("GameLiftAgentEndpoint") is not None:
+        out["game_lift_agent_endpoint"] = data["GameLiftAgentEndpoint"]
+    if data.get("InstanceId") is not None:
+        out["instance_id"] = data["InstanceId"]
+    if data.get("ContainerAttributes") is not None:
+        import capo_gamelift.types.container_attributes
+
+        out["container_attributes"] = (
+            capo_gamelift.types.container_attributes.deserialize_cbor(
+                data["ContainerAttributes"]
+            )
+        )
+    if data.get("GameServerContainerGroupDefinitionArn") is not None:
+        out["game_server_container_group_definition_arn"] = data[
+            "GameServerContainerGroupDefinitionArn"
+        ]
+    return out
+
+
 def redact_sensitive(value: Compute) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "ip_address" in value:

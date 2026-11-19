@@ -34,3 +34,24 @@ def deserialize_aws_json_1_1(data: dict) -> ProjectSourceVersion:
     else:
         out["source_version"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ProjectSourceVersion) -> dict:
+    out: dict = {}
+    out["sourceIdentifier"] = value["source_identifier"]
+    out["sourceVersion"] = value["source_version"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ProjectSourceVersion:
+    out: ProjectSourceVersion = {}  # type: ignore[typeddict-item]
+    if data.get("sourceIdentifier") is not None:
+        out["source_identifier"] = data["sourceIdentifier"]
+    else:
+        out["source_identifier"] = ""
+    if data.get("sourceVersion") is not None:
+        out["source_version"] = data["sourceVersion"]
+    else:
+        out["source_version"] = ""
+    return out

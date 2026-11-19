@@ -36,3 +36,26 @@ def deserialize_aws_json_1_0(data: dict) -> CapacityUsageSummary:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CapacityUsageSummary) -> dict:
+    out: dict = {}
+    if "cid_rs" in value:
+        import capo_network_firewall.types.cidr_summary
+
+        out["CIDRs"] = capo_network_firewall.types.cidr_summary.serialize_cbor(
+            value["cid_rs"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CapacityUsageSummary:
+    out: CapacityUsageSummary = {}  # type: ignore[typeddict-item]
+    if data.get("CIDRs") is not None:
+        import capo_network_firewall.types.cidr_summary
+
+        out["cid_rs"] = capo_network_firewall.types.cidr_summary.deserialize_cbor(
+            data["CIDRs"]
+        )
+    return out

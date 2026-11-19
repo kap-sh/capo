@@ -21,3 +21,12 @@ def serialize_aws_json_1_1(value: S3StorageClass) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> S3StorageClass:
     return cast(S3StorageClass, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: S3StorageClass) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> S3StorageClass:
+    return cast(S3StorageClass, data)

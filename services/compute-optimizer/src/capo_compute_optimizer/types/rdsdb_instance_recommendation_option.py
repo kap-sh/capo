@@ -114,3 +114,76 @@ def deserialize_aws_json_1_0(data: dict) -> RDSDBInstanceRecommendationOption:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RDSDBInstanceRecommendationOption) -> dict:
+    out: dict = {}
+    if "db_instance_class" in value:
+        out["dbInstanceClass"] = value["db_instance_class"]
+    if "projected_utilization_metrics" in value:
+        import capo_compute_optimizer.types.rdsdb_projected_utilization_metrics
+
+        out["projectedUtilizationMetrics"] = (
+            capo_compute_optimizer.types.rdsdb_projected_utilization_metrics.serialize_cbor(
+                value["projected_utilization_metrics"]
+            )
+        )
+    out["performanceRisk"] = value.get("performance_risk", 0)
+    out["rank"] = value.get("rank", 0)
+    if "savings_opportunity" in value:
+        import capo_compute_optimizer.types.savings_opportunity
+
+        out["savingsOpportunity"] = (
+            capo_compute_optimizer.types.savings_opportunity.serialize_cbor(
+                value["savings_opportunity"]
+            )
+        )
+    if "savings_opportunity_after_discounts" in value:
+        import capo_compute_optimizer.types.rds_instance_savings_opportunity_after_discounts
+
+        out["savingsOpportunityAfterDiscounts"] = (
+            capo_compute_optimizer.types.rds_instance_savings_opportunity_after_discounts.serialize_cbor(
+                value["savings_opportunity_after_discounts"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RDSDBInstanceRecommendationOption:
+    out: RDSDBInstanceRecommendationOption = {}  # type: ignore[typeddict-item]
+    if data.get("dbInstanceClass") is not None:
+        out["db_instance_class"] = data["dbInstanceClass"]
+    if data.get("projectedUtilizationMetrics") is not None:
+        import capo_compute_optimizer.types.rdsdb_projected_utilization_metrics
+
+        out["projected_utilization_metrics"] = (
+            capo_compute_optimizer.types.rdsdb_projected_utilization_metrics.deserialize_cbor(
+                data["projectedUtilizationMetrics"]
+            )
+        )
+    if data.get("performanceRisk") is not None:
+        out["performance_risk"] = float(data["performanceRisk"])
+    else:
+        out["performance_risk"] = 0
+    if data.get("rank") is not None:
+        out["rank"] = data["rank"]
+    else:
+        out["rank"] = 0
+    if data.get("savingsOpportunity") is not None:
+        import capo_compute_optimizer.types.savings_opportunity
+
+        out["savings_opportunity"] = (
+            capo_compute_optimizer.types.savings_opportunity.deserialize_cbor(
+                data["savingsOpportunity"]
+            )
+        )
+    if data.get("savingsOpportunityAfterDiscounts") is not None:
+        import capo_compute_optimizer.types.rds_instance_savings_opportunity_after_discounts
+
+        out["savings_opportunity_after_discounts"] = (
+            capo_compute_optimizer.types.rds_instance_savings_opportunity_after_discounts.deserialize_cbor(
+                data["savingsOpportunityAfterDiscounts"]
+            )
+        )
+    return out

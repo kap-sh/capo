@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> DeletePortfolioShareOutput:
     if data.get("PortfolioShareToken") is not None:
         out["portfolio_share_token"] = data["PortfolioShareToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeletePortfolioShareOutput) -> dict:
+    out: dict = {}
+    if "portfolio_share_token" in value:
+        out["PortfolioShareToken"] = value["portfolio_share_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeletePortfolioShareOutput:
+    out: DeletePortfolioShareOutput = {}  # type: ignore[typeddict-item]
+    if data.get("PortfolioShareToken") is not None:
+        out["portfolio_share_token"] = data["PortfolioShareToken"]
+    return out

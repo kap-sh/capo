@@ -100,3 +100,70 @@ def deserialize_aws_json_1_1(data: dict) -> PipelineSummary:
             data["updated"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PipelineSummary) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["name"] = value["name"]
+    if "version" in value:
+        out["version"] = value["version"]
+    if "pipeline_type" in value:
+        import capo_codepipeline.types.pipeline_type
+
+        out["pipelineType"] = capo_codepipeline.types.pipeline_type.serialize_cbor(
+            value["pipeline_type"]
+        )
+    if "execution_mode" in value:
+        import capo_codepipeline.types.execution_mode
+
+        out["executionMode"] = capo_codepipeline.types.execution_mode.serialize_cbor(
+            value["execution_mode"]
+        )
+    if "created" in value:
+        import capo_codepipeline.types.timestamp
+
+        out["created"] = capo_codepipeline.types.timestamp.serialize_cbor(
+            value["created"]
+        )
+    if "updated" in value:
+        import capo_codepipeline.types.timestamp
+
+        out["updated"] = capo_codepipeline.types.timestamp.serialize_cbor(
+            value["updated"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PipelineSummary:
+    out: PipelineSummary = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    if data.get("version") is not None:
+        out["version"] = data["version"]
+    if data.get("pipelineType") is not None:
+        import capo_codepipeline.types.pipeline_type
+
+        out["pipeline_type"] = capo_codepipeline.types.pipeline_type.deserialize_cbor(
+            data["pipelineType"]
+        )
+    if data.get("executionMode") is not None:
+        import capo_codepipeline.types.execution_mode
+
+        out["execution_mode"] = capo_codepipeline.types.execution_mode.deserialize_cbor(
+            data["executionMode"]
+        )
+    if data.get("created") is not None:
+        import capo_codepipeline.types.timestamp
+
+        out["created"] = capo_codepipeline.types.timestamp.deserialize_cbor(
+            data["created"]
+        )
+    if data.get("updated") is not None:
+        import capo_codepipeline.types.timestamp
+
+        out["updated"] = capo_codepipeline.types.timestamp.deserialize_cbor(
+            data["updated"]
+        )
+    return out

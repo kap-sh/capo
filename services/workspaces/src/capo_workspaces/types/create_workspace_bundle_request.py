@@ -112,3 +112,75 @@ def deserialize_aws_json_1_1(data: dict) -> CreateWorkspaceBundleRequest:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateWorkspaceBundleRequest) -> dict:
+    out: dict = {}
+    out["BundleName"] = value["bundle_name"]
+    out["BundleDescription"] = value["bundle_description"]
+    out["ImageId"] = value["image_id"]
+    import capo_workspaces.types.compute_type
+
+    out["ComputeType"] = capo_workspaces.types.compute_type.serialize_cbor(
+        value["compute_type"]
+    )
+    import capo_workspaces.types.user_storage
+
+    out["UserStorage"] = capo_workspaces.types.user_storage.serialize_cbor(
+        value["user_storage"]
+    )
+    if "root_storage" in value:
+        import capo_workspaces.types.root_storage
+
+        out["RootStorage"] = capo_workspaces.types.root_storage.serialize_cbor(
+            value["root_storage"]
+        )
+    if "tags" in value:
+        import capo_workspaces.types.tag_list
+
+        out["Tags"] = capo_workspaces.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateWorkspaceBundleRequest:
+    out: CreateWorkspaceBundleRequest = {}  # type: ignore[typeddict-item]
+    if data.get("BundleName") is not None:
+        out["bundle_name"] = data["BundleName"]
+    else:
+        out["bundle_name"] = ""
+    if data.get("BundleDescription") is not None:
+        out["bundle_description"] = data["BundleDescription"]
+    else:
+        out["bundle_description"] = ""
+    if data.get("ImageId") is not None:
+        out["image_id"] = data["ImageId"]
+    else:
+        out["image_id"] = ""
+    if data.get("ComputeType") is not None:
+        import capo_workspaces.types.compute_type
+
+        out["compute_type"] = capo_workspaces.types.compute_type.deserialize_cbor(
+            data["ComputeType"]
+        )
+    else:
+        raise DeserializationError("CreateWorkspaceBundleRequest.compute_type required")
+    if data.get("UserStorage") is not None:
+        import capo_workspaces.types.user_storage
+
+        out["user_storage"] = capo_workspaces.types.user_storage.deserialize_cbor(
+            data["UserStorage"]
+        )
+    else:
+        raise DeserializationError("CreateWorkspaceBundleRequest.user_storage required")
+    if data.get("RootStorage") is not None:
+        import capo_workspaces.types.root_storage
+
+        out["root_storage"] = capo_workspaces.types.root_storage.deserialize_cbor(
+            data["RootStorage"]
+        )
+    if data.get("Tags") is not None:
+        import capo_workspaces.types.tag_list
+
+        out["tags"] = capo_workspaces.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

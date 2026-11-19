@@ -80,3 +80,52 @@ def deserialize_aws_json_1_1(data: dict) -> Extraction:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Extraction) -> dict:
+    out: dict = {}
+    if "lending_document" in value:
+        import capo_textract.types.lending_document
+
+        out["LendingDocument"] = capo_textract.types.lending_document.serialize_cbor(
+            value["lending_document"]
+        )
+    if "expense_document" in value:
+        import capo_textract.types.expense_document
+
+        out["ExpenseDocument"] = capo_textract.types.expense_document.serialize_cbor(
+            value["expense_document"]
+        )
+    if "identity_document" in value:
+        import capo_textract.types.identity_document
+
+        out["IdentityDocument"] = capo_textract.types.identity_document.serialize_cbor(
+            value["identity_document"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Extraction:
+    out: Extraction = {}  # type: ignore[typeddict-item]
+    if data.get("LendingDocument") is not None:
+        import capo_textract.types.lending_document
+
+        out["lending_document"] = capo_textract.types.lending_document.deserialize_cbor(
+            data["LendingDocument"]
+        )
+    if data.get("ExpenseDocument") is not None:
+        import capo_textract.types.expense_document
+
+        out["expense_document"] = capo_textract.types.expense_document.deserialize_cbor(
+            data["ExpenseDocument"]
+        )
+    if data.get("IdentityDocument") is not None:
+        import capo_textract.types.identity_document
+
+        out["identity_document"] = (
+            capo_textract.types.identity_document.deserialize_cbor(
+                data["IdentityDocument"]
+            )
+        )
+    return out

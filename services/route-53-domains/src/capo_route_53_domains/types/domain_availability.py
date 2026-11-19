@@ -23,3 +23,12 @@ def serialize_aws_json_1_1(value: DomainAvailability) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> DomainAvailability:
     return cast(DomainAvailability, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DomainAvailability) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> DomainAvailability:
+    return cast(DomainAvailability, data)

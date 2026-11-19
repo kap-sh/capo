@@ -39,3 +39,24 @@ def deserialize_aws_json_1_1(
     else:
         out["id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DisassociateDelegationSignerFromDomainRequest) -> dict:
+    out: dict = {}
+    out["DomainName"] = value["domain_name"]
+    out["Id"] = value["id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DisassociateDelegationSignerFromDomainRequest:
+    out: DisassociateDelegationSignerFromDomainRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DomainName") is not None:
+        out["domain_name"] = data["DomainName"]
+    else:
+        out["domain_name"] = ""
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    else:
+        out["id"] = ""
+    return out

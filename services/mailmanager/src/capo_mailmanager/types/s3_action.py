@@ -70,3 +70,48 @@ def deserialize_aws_json_1_0(data: dict) -> S3Action:
     if data.get("S3SseKmsKeyId") is not None:
         out["s3_sse_kms_key_id"] = data["S3SseKmsKeyId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: S3Action) -> dict:
+    out: dict = {}
+    if "action_failure_policy" in value:
+        import capo_mailmanager.types.action_failure_policy
+
+        out["ActionFailurePolicy"] = (
+            capo_mailmanager.types.action_failure_policy.serialize_cbor(
+                value["action_failure_policy"]
+            )
+        )
+    out["RoleArn"] = value["role_arn"]
+    out["S3Bucket"] = value["s3_bucket"]
+    if "s3_prefix" in value:
+        out["S3Prefix"] = value["s3_prefix"]
+    if "s3_sse_kms_key_id" in value:
+        out["S3SseKmsKeyId"] = value["s3_sse_kms_key_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> S3Action:
+    out: S3Action = {}  # type: ignore[typeddict-item]
+    if data.get("ActionFailurePolicy") is not None:
+        import capo_mailmanager.types.action_failure_policy
+
+        out["action_failure_policy"] = (
+            capo_mailmanager.types.action_failure_policy.deserialize_cbor(
+                data["ActionFailurePolicy"]
+            )
+        )
+    if data.get("RoleArn") is not None:
+        out["role_arn"] = data["RoleArn"]
+    else:
+        out["role_arn"] = ""
+    if data.get("S3Bucket") is not None:
+        out["s3_bucket"] = data["S3Bucket"]
+    else:
+        out["s3_bucket"] = ""
+    if data.get("S3Prefix") is not None:
+        out["s3_prefix"] = data["S3Prefix"]
+    if data.get("S3SseKmsKeyId") is not None:
+        out["s3_sse_kms_key_id"] = data["S3SseKmsKeyId"]
+    return out

@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> AcceptSharedDirectoryRequest:
     else:
         out["shared_directory_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AcceptSharedDirectoryRequest) -> dict:
+    out: dict = {}
+    out["SharedDirectoryId"] = value["shared_directory_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AcceptSharedDirectoryRequest:
+    out: AcceptSharedDirectoryRequest = {}  # type: ignore[typeddict-item]
+    if data.get("SharedDirectoryId") is not None:
+        out["shared_directory_id"] = data["SharedDirectoryId"]
+    else:
+        out["shared_directory_id"] = ""
+    return out

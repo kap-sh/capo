@@ -83,3 +83,58 @@ def deserialize_aws_json_1_1(data: dict) -> GetPipelineStateOutput:
             data["updated"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetPipelineStateOutput) -> dict:
+    out: dict = {}
+    if "pipeline_name" in value:
+        out["pipelineName"] = value["pipeline_name"]
+    if "pipeline_version" in value:
+        out["pipelineVersion"] = value["pipeline_version"]
+    if "stage_states" in value:
+        import capo_codepipeline.types.stage_state_list
+
+        out["stageStates"] = capo_codepipeline.types.stage_state_list.serialize_cbor(
+            value["stage_states"]
+        )
+    if "created" in value:
+        import capo_codepipeline.types.timestamp
+
+        out["created"] = capo_codepipeline.types.timestamp.serialize_cbor(
+            value["created"]
+        )
+    if "updated" in value:
+        import capo_codepipeline.types.timestamp
+
+        out["updated"] = capo_codepipeline.types.timestamp.serialize_cbor(
+            value["updated"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetPipelineStateOutput:
+    out: GetPipelineStateOutput = {}  # type: ignore[typeddict-item]
+    if data.get("pipelineName") is not None:
+        out["pipeline_name"] = data["pipelineName"]
+    if data.get("pipelineVersion") is not None:
+        out["pipeline_version"] = data["pipelineVersion"]
+    if data.get("stageStates") is not None:
+        import capo_codepipeline.types.stage_state_list
+
+        out["stage_states"] = capo_codepipeline.types.stage_state_list.deserialize_cbor(
+            data["stageStates"]
+        )
+    if data.get("created") is not None:
+        import capo_codepipeline.types.timestamp
+
+        out["created"] = capo_codepipeline.types.timestamp.deserialize_cbor(
+            data["created"]
+        )
+    if data.get("updated") is not None:
+        import capo_codepipeline.types.timestamp
+
+        out["updated"] = capo_codepipeline.types.timestamp.deserialize_cbor(
+            data["updated"]
+        )
+    return out

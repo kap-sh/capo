@@ -37,3 +37,12 @@ def serialize_query(
 
 def deserialize_query(el: Element) -> QueryType:
     return from_query_text(el.text or "")
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: QueryType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> QueryType:
+    return cast(QueryType, data)

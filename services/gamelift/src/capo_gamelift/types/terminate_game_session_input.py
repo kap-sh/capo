@@ -47,3 +47,30 @@ def deserialize_aws_json_1_1(data: dict) -> TerminateGameSessionInput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TerminateGameSessionInput) -> dict:
+    out: dict = {}
+    if "game_session_id" in value:
+        out["GameSessionId"] = value["game_session_id"]
+    if "termination_mode" in value:
+        import capo_gamelift.types.termination_mode
+
+        out["TerminationMode"] = capo_gamelift.types.termination_mode.serialize_cbor(
+            value["termination_mode"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TerminateGameSessionInput:
+    out: TerminateGameSessionInput = {}  # type: ignore[typeddict-item]
+    if data.get("GameSessionId") is not None:
+        out["game_session_id"] = data["GameSessionId"]
+    if data.get("TerminationMode") is not None:
+        import capo_gamelift.types.termination_mode
+
+        out["termination_mode"] = capo_gamelift.types.termination_mode.deserialize_cbor(
+            data["TerminationMode"]
+        )
+    return out

@@ -61,3 +61,46 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeEventDetailsForOrganizationR
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeEventDetailsForOrganizationResponse) -> dict:
+    out: dict = {}
+    if "successful_set" in value:
+        import capo_health.types.describe_event_details_for_organization_successful_set
+
+        out["successfulSet"] = (
+            capo_health.types.describe_event_details_for_organization_successful_set.serialize_cbor(
+                value["successful_set"]
+            )
+        )
+    if "failed_set" in value:
+        import capo_health.types.describe_event_details_for_organization_failed_set
+
+        out["failedSet"] = (
+            capo_health.types.describe_event_details_for_organization_failed_set.serialize_cbor(
+                value["failed_set"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeEventDetailsForOrganizationResponse:
+    out: DescribeEventDetailsForOrganizationResponse = {}  # type: ignore[typeddict-item]
+    if data.get("successfulSet") is not None:
+        import capo_health.types.describe_event_details_for_organization_successful_set
+
+        out["successful_set"] = (
+            capo_health.types.describe_event_details_for_organization_successful_set.deserialize_cbor(
+                data["successfulSet"]
+            )
+        )
+    if data.get("failedSet") is not None:
+        import capo_health.types.describe_event_details_for_organization_failed_set
+
+        out["failed_set"] = (
+            capo_health.types.describe_event_details_for_organization_failed_set.deserialize_cbor(
+                data["failedSet"]
+            )
+        )
+    return out

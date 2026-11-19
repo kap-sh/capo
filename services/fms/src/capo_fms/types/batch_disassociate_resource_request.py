@@ -41,3 +41,28 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDisassociateResourceRequest:
     else:
         out["items"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchDisassociateResourceRequest) -> dict:
+    out: dict = {}
+    out["ResourceSetIdentifier"] = value["resource_set_identifier"]
+    import capo_fms.types.identifier_list
+
+    out["Items"] = capo_fms.types.identifier_list.serialize_cbor(value["items"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> BatchDisassociateResourceRequest:
+    out: BatchDisassociateResourceRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceSetIdentifier") is not None:
+        out["resource_set_identifier"] = data["ResourceSetIdentifier"]
+    else:
+        out["resource_set_identifier"] = ""
+    if data.get("Items") is not None:
+        import capo_fms.types.identifier_list
+
+        out["items"] = capo_fms.types.identifier_list.deserialize_cbor(data["Items"])
+    else:
+        out["items"] = []
+    return out

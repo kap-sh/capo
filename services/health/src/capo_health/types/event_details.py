@@ -68,3 +68,46 @@ def deserialize_aws_json_1_1(data: dict) -> EventDetails:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EventDetails) -> dict:
+    out: dict = {}
+    if "event" in value:
+        import capo_health.types.event
+
+        out["event"] = capo_health.types.event.serialize_cbor(value["event"])
+    if "event_description" in value:
+        import capo_health.types.event_description
+
+        out["eventDescription"] = capo_health.types.event_description.serialize_cbor(
+            value["event_description"]
+        )
+    if "event_metadata" in value:
+        import capo_health.types.event_metadata
+
+        out["eventMetadata"] = capo_health.types.event_metadata.serialize_cbor(
+            value["event_metadata"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> EventDetails:
+    out: EventDetails = {}  # type: ignore[typeddict-item]
+    if data.get("event") is not None:
+        import capo_health.types.event
+
+        out["event"] = capo_health.types.event.deserialize_cbor(data["event"])
+    if data.get("eventDescription") is not None:
+        import capo_health.types.event_description
+
+        out["event_description"] = capo_health.types.event_description.deserialize_cbor(
+            data["eventDescription"]
+        )
+    if data.get("eventMetadata") is not None:
+        import capo_health.types.event_metadata
+
+        out["event_metadata"] = capo_health.types.event_metadata.deserialize_cbor(
+            data["eventMetadata"]
+        )
+    return out

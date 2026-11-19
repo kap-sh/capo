@@ -72,6 +72,55 @@ def deserialize_aws_json_1_0(data: dict) -> StartAgreementApprovalsInput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartAgreementApprovalsInput) -> dict:
+    out: dict = {}
+    out["agreementRequestId"] = value["agreement_request_id"]
+    import capo_marketplace_agreement.types.agreement_approval_plan_inputs
+
+    out["planInputs"] = (
+        capo_marketplace_agreement.types.agreement_approval_plan_inputs.serialize_cbor(
+            value["plan_inputs"]
+        )
+    )
+    if "purchase_orders" in value:
+        import capo_marketplace_agreement.types.agreement_approval_purchase_orders
+
+        out["purchaseOrders"] = (
+            capo_marketplace_agreement.types.agreement_approval_purchase_orders.serialize_cbor(
+                value["purchase_orders"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartAgreementApprovalsInput:
+    out: StartAgreementApprovalsInput = {}  # type: ignore[typeddict-item]
+    if data.get("agreementRequestId") is not None:
+        out["agreement_request_id"] = data["agreementRequestId"]
+    else:
+        out["agreement_request_id"] = ""
+    if data.get("planInputs") is not None:
+        import capo_marketplace_agreement.types.agreement_approval_plan_inputs
+
+        out["plan_inputs"] = (
+            capo_marketplace_agreement.types.agreement_approval_plan_inputs.deserialize_cbor(
+                data["planInputs"]
+            )
+        )
+    else:
+        out["plan_inputs"] = []
+    if data.get("purchaseOrders") is not None:
+        import capo_marketplace_agreement.types.agreement_approval_purchase_orders
+
+        out["purchase_orders"] = (
+            capo_marketplace_agreement.types.agreement_approval_purchase_orders.deserialize_cbor(
+                data["purchaseOrders"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: StartAgreementApprovalsInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "plan_inputs" in value:

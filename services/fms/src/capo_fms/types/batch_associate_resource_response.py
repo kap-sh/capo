@@ -43,3 +43,32 @@ def deserialize_aws_json_1_1(data: dict) -> BatchAssociateResourceResponse:
     else:
         out["failed_items"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchAssociateResourceResponse) -> dict:
+    out: dict = {}
+    out["ResourceSetIdentifier"] = value["resource_set_identifier"]
+    import capo_fms.types.failed_item_list
+
+    out["FailedItems"] = capo_fms.types.failed_item_list.serialize_cbor(
+        value["failed_items"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BatchAssociateResourceResponse:
+    out: BatchAssociateResourceResponse = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceSetIdentifier") is not None:
+        out["resource_set_identifier"] = data["ResourceSetIdentifier"]
+    else:
+        out["resource_set_identifier"] = ""
+    if data.get("FailedItems") is not None:
+        import capo_fms.types.failed_item_list
+
+        out["failed_items"] = capo_fms.types.failed_item_list.deserialize_cbor(
+            data["FailedItems"]
+        )
+    else:
+        out["failed_items"] = []
+    return out

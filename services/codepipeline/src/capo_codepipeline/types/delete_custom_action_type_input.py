@@ -57,3 +57,41 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteCustomActionTypeInput:
     else:
         out["version"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteCustomActionTypeInput) -> dict:
+    out: dict = {}
+    import capo_codepipeline.types.action_category
+
+    out["category"] = capo_codepipeline.types.action_category.serialize_cbor(
+        value["category"]
+    )
+    out["provider"] = value["provider"]
+    out["version"] = value["version"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteCustomActionTypeInput:
+    out: DeleteCustomActionTypeInput = {}  # type: ignore[typeddict-item]
+    if data.get("category") is not None:
+        import capo_codepipeline.types.action_category
+
+        out["category"] = capo_codepipeline.types.action_category.deserialize_cbor(
+            data["category"]
+        )
+    else:
+        import typing
+
+        out["category"] = typing.cast(
+            "capo_codepipeline.types.action_category.ActionCategory", ""
+        )
+    if data.get("provider") is not None:
+        out["provider"] = data["provider"]
+    else:
+        out["provider"] = ""
+    if data.get("version") is not None:
+        out["version"] = data["version"]
+    else:
+        out["version"] = ""
+    return out

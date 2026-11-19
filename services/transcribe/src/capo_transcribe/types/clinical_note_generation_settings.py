@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> ClinicalNoteGenerationSettings:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ClinicalNoteGenerationSettings) -> dict:
+    out: dict = {}
+    if "note_template" in value:
+        import capo_transcribe.types.medical_scribe_note_template
+
+        out["NoteTemplate"] = (
+            capo_transcribe.types.medical_scribe_note_template.serialize_cbor(
+                value["note_template"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ClinicalNoteGenerationSettings:
+    out: ClinicalNoteGenerationSettings = {}  # type: ignore[typeddict-item]
+    if data.get("NoteTemplate") is not None:
+        import capo_transcribe.types.medical_scribe_note_template
+
+        out["note_template"] = (
+            capo_transcribe.types.medical_scribe_note_template.deserialize_cbor(
+                data["NoteTemplate"]
+            )
+        )
+    return out

@@ -40,3 +40,27 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteTrustRequest:
             "DeleteAssociatedConditionalForwarder"
         ]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteTrustRequest) -> dict:
+    out: dict = {}
+    out["TrustId"] = value["trust_id"]
+    if "delete_associated_conditional_forwarder" in value:
+        out["DeleteAssociatedConditionalForwarder"] = value[
+            "delete_associated_conditional_forwarder"
+        ]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteTrustRequest:
+    out: DeleteTrustRequest = {}  # type: ignore[typeddict-item]
+    if data.get("TrustId") is not None:
+        out["trust_id"] = data["TrustId"]
+    else:
+        out["trust_id"] = ""
+    if data.get("DeleteAssociatedConditionalForwarder") is not None:
+        out["delete_associated_conditional_forwarder"] = data[
+            "DeleteAssociatedConditionalForwarder"
+        ]
+    return out

@@ -62,3 +62,41 @@ def deserialize_aws_json_1_1(data: dict) -> RegisterInstanceRequest:
     else:
         out["attributes"] = {}
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RegisterInstanceRequest) -> dict:
+    out: dict = {}
+    out["ServiceId"] = value["service_id"]
+    out["InstanceId"] = value["instance_id"]
+    if "creator_request_id" in value:
+        out["CreatorRequestId"] = value["creator_request_id"]
+    import capo_servicediscovery.types.attributes
+
+    out["Attributes"] = capo_servicediscovery.types.attributes.serialize_cbor(
+        value["attributes"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RegisterInstanceRequest:
+    out: RegisterInstanceRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ServiceId") is not None:
+        out["service_id"] = data["ServiceId"]
+    else:
+        out["service_id"] = ""
+    if data.get("InstanceId") is not None:
+        out["instance_id"] = data["InstanceId"]
+    else:
+        out["instance_id"] = ""
+    if data.get("CreatorRequestId") is not None:
+        out["creator_request_id"] = data["CreatorRequestId"]
+    if data.get("Attributes") is not None:
+        import capo_servicediscovery.types.attributes
+
+        out["attributes"] = capo_servicediscovery.types.attributes.deserialize_cbor(
+            data["Attributes"]
+        )
+    else:
+        out["attributes"] = {}
+    return out

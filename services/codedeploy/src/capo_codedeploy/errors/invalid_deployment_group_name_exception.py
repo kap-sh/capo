@@ -31,6 +31,21 @@ def deserialize_aws_json_1_1(data: dict) -> InvalidDeploymentGroupNameException_
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InvalidDeploymentGroupNameException_) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> InvalidDeploymentGroupNameException_:
+    out: InvalidDeploymentGroupNameException_ = {}  # type: ignore[typeddict-item]
+    if data.get("message") is not None:
+        out["message"] = data["message"]
+    return out
+
+
 class InvalidDeploymentGroupNameException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.codedeploy#InvalidDeploymentGroupNameException``."""
 
@@ -58,3 +73,9 @@ class InvalidDeploymentGroupNameException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidDeploymentGroupNameException":
         return cls(deserialize_aws_json_1_1(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "InvalidDeploymentGroupNameException":
+        return cls(deserialize_cbor(data), message, response=response)

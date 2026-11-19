@@ -65,3 +65,46 @@ def deserialize_aws_json_1_1(data: dict) -> SubscriptionLimits:
             "SubscriptionLimits.protection_group_limits required"
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SubscriptionLimits) -> dict:
+    out: dict = {}
+    import capo_shield.types.protection_limits
+
+    out["ProtectionLimits"] = capo_shield.types.protection_limits.serialize_cbor(
+        value["protection_limits"]
+    )
+    import capo_shield.types.protection_group_limits
+
+    out["ProtectionGroupLimits"] = (
+        capo_shield.types.protection_group_limits.serialize_cbor(
+            value["protection_group_limits"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> SubscriptionLimits:
+    out: SubscriptionLimits = {}  # type: ignore[typeddict-item]
+    if data.get("ProtectionLimits") is not None:
+        import capo_shield.types.protection_limits
+
+        out["protection_limits"] = capo_shield.types.protection_limits.deserialize_cbor(
+            data["ProtectionLimits"]
+        )
+    else:
+        raise DeserializationError("SubscriptionLimits.protection_limits required")
+    if data.get("ProtectionGroupLimits") is not None:
+        import capo_shield.types.protection_group_limits
+
+        out["protection_group_limits"] = (
+            capo_shield.types.protection_group_limits.deserialize_cbor(
+                data["ProtectionGroupLimits"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "SubscriptionLimits.protection_group_limits required"
+        )
+    return out

@@ -45,3 +45,32 @@ def deserialize_aws_json_1_0(data: dict) -> Sort:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Sort) -> dict:
+    out: dict = {}
+    if "sort_by" in value:
+        out["sortBy"] = value["sort_by"]
+    if "sort_order" in value:
+        import capo_marketplace_agreement.types.sort_order
+
+        out["sortOrder"] = capo_marketplace_agreement.types.sort_order.serialize_cbor(
+            value["sort_order"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Sort:
+    out: Sort = {}  # type: ignore[typeddict-item]
+    if data.get("sortBy") is not None:
+        out["sort_by"] = data["sortBy"]
+    if data.get("sortOrder") is not None:
+        import capo_marketplace_agreement.types.sort_order
+
+        out["sort_order"] = (
+            capo_marketplace_agreement.types.sort_order.deserialize_cbor(
+                data["sortOrder"]
+            )
+        )
+    return out

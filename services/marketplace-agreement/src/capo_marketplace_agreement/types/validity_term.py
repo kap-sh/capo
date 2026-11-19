@@ -85,3 +85,58 @@ def deserialize_aws_json_1_0(data: dict) -> ValidityTerm:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ValidityTerm) -> dict:
+    out: dict = {}
+    if "type" in value:
+        out["type"] = value["type"]
+    if "id" in value:
+        out["id"] = value["id"]
+    if "agreement_duration" in value:
+        out["agreementDuration"] = value["agreement_duration"]
+    if "agreement_start_date" in value:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["agreementStartDate"] = (
+            capo_marketplace_agreement.types.timestamp.serialize_cbor(
+                value["agreement_start_date"]
+            )
+        )
+    if "agreement_end_date" in value:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["agreementEndDate"] = (
+            capo_marketplace_agreement.types.timestamp.serialize_cbor(
+                value["agreement_end_date"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ValidityTerm:
+    out: ValidityTerm = {}  # type: ignore[typeddict-item]
+    if data.get("type") is not None:
+        out["type"] = data["type"]
+    if data.get("id") is not None:
+        out["id"] = data["id"]
+    if data.get("agreementDuration") is not None:
+        out["agreement_duration"] = data["agreementDuration"]
+    if data.get("agreementStartDate") is not None:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["agreement_start_date"] = (
+            capo_marketplace_agreement.types.timestamp.deserialize_cbor(
+                data["agreementStartDate"]
+            )
+        )
+    if data.get("agreementEndDate") is not None:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["agreement_end_date"] = (
+            capo_marketplace_agreement.types.timestamp.deserialize_cbor(
+                data["agreementEndDate"]
+            )
+        )
+    return out

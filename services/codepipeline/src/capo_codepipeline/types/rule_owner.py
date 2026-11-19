@@ -12,3 +12,12 @@ def serialize_aws_json_1_1(value: RuleOwner) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> RuleOwner:
     return cast(RuleOwner, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RuleOwner) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> RuleOwner:
+    return cast(RuleOwner, data)

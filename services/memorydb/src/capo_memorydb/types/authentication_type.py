@@ -16,3 +16,12 @@ def serialize_aws_json_1_1(value: AuthenticationType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> AuthenticationType:
     return cast(AuthenticationType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AuthenticationType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> AuthenticationType:
+    return cast(AuthenticationType, data)

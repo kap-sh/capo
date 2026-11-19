@@ -38,3 +38,26 @@ def deserialize_aws_json_1_1(data: dict) -> GetApplicationOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetApplicationOutput) -> dict:
+    out: dict = {}
+    if "application" in value:
+        import capo_codedeploy.types.application_info
+
+        out["application"] = capo_codedeploy.types.application_info.serialize_cbor(
+            value["application"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetApplicationOutput:
+    out: GetApplicationOutput = {}  # type: ignore[typeddict-item]
+    if data.get("application") is not None:
+        import capo_codedeploy.types.application_info
+
+        out["application"] = capo_codedeploy.types.application_info.deserialize_cbor(
+            data["application"]
+        )
+    return out

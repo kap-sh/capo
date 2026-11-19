@@ -56,3 +56,38 @@ def deserialize_aws_json_1_1(data: dict) -> LogSubscription:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LogSubscription) -> dict:
+    out: dict = {}
+    if "directory_id" in value:
+        out["DirectoryId"] = value["directory_id"]
+    if "log_group_name" in value:
+        out["LogGroupName"] = value["log_group_name"]
+    if "subscription_created_date_time" in value:
+        import capo_directory_service.types.subscription_created_date_time
+
+        out["SubscriptionCreatedDateTime"] = (
+            capo_directory_service.types.subscription_created_date_time.serialize_cbor(
+                value["subscription_created_date_time"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> LogSubscription:
+    out: LogSubscription = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    if data.get("LogGroupName") is not None:
+        out["log_group_name"] = data["LogGroupName"]
+    if data.get("SubscriptionCreatedDateTime") is not None:
+        import capo_directory_service.types.subscription_created_date_time
+
+        out["subscription_created_date_time"] = (
+            capo_directory_service.types.subscription_created_date_time.deserialize_cbor(
+                data["SubscriptionCreatedDateTime"]
+            )
+        )
+    return out

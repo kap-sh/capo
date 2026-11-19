@@ -105,3 +105,73 @@ def deserialize_aws_json_1_1(data: dict) -> ListApplicationRevisionsInput:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListApplicationRevisionsInput) -> dict:
+    out: dict = {}
+    out["applicationName"] = value["application_name"]
+    if "sort_by" in value:
+        import capo_codedeploy.types.application_revision_sort_by
+
+        out["sortBy"] = (
+            capo_codedeploy.types.application_revision_sort_by.serialize_cbor(
+                value["sort_by"]
+            )
+        )
+    if "sort_order" in value:
+        import capo_codedeploy.types.sort_order
+
+        out["sortOrder"] = capo_codedeploy.types.sort_order.serialize_cbor(
+            value["sort_order"]
+        )
+    if "s3_bucket" in value:
+        out["s3Bucket"] = value["s3_bucket"]
+    if "s3_key_prefix" in value:
+        out["s3KeyPrefix"] = value["s3_key_prefix"]
+    if "deployed" in value:
+        import capo_codedeploy.types.list_state_filter_action
+
+        out["deployed"] = capo_codedeploy.types.list_state_filter_action.serialize_cbor(
+            value["deployed"]
+        )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListApplicationRevisionsInput:
+    out: ListApplicationRevisionsInput = {}  # type: ignore[typeddict-item]
+    if data.get("applicationName") is not None:
+        out["application_name"] = data["applicationName"]
+    else:
+        out["application_name"] = ""
+    if data.get("sortBy") is not None:
+        import capo_codedeploy.types.application_revision_sort_by
+
+        out["sort_by"] = (
+            capo_codedeploy.types.application_revision_sort_by.deserialize_cbor(
+                data["sortBy"]
+            )
+        )
+    if data.get("sortOrder") is not None:
+        import capo_codedeploy.types.sort_order
+
+        out["sort_order"] = capo_codedeploy.types.sort_order.deserialize_cbor(
+            data["sortOrder"]
+        )
+    if data.get("s3Bucket") is not None:
+        out["s3_bucket"] = data["s3Bucket"]
+    if data.get("s3KeyPrefix") is not None:
+        out["s3_key_prefix"] = data["s3KeyPrefix"]
+    if data.get("deployed") is not None:
+        import capo_codedeploy.types.list_state_filter_action
+
+        out["deployed"] = (
+            capo_codedeploy.types.list_state_filter_action.deserialize_cbor(
+                data["deployed"]
+            )
+        )
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

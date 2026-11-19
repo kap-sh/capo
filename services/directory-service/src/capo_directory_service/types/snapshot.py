@@ -95,3 +95,62 @@ def deserialize_aws_json_1_1(data: dict) -> Snapshot:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Snapshot) -> dict:
+    out: dict = {}
+    if "directory_id" in value:
+        out["DirectoryId"] = value["directory_id"]
+    if "snapshot_id" in value:
+        out["SnapshotId"] = value["snapshot_id"]
+    if "type" in value:
+        import capo_directory_service.types.snapshot_type
+
+        out["Type"] = capo_directory_service.types.snapshot_type.serialize_cbor(
+            value["type"]
+        )
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "status" in value:
+        import capo_directory_service.types.snapshot_status
+
+        out["Status"] = capo_directory_service.types.snapshot_status.serialize_cbor(
+            value["status"]
+        )
+    if "start_time" in value:
+        import capo_directory_service.types.start_time
+
+        out["StartTime"] = capo_directory_service.types.start_time.serialize_cbor(
+            value["start_time"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Snapshot:
+    out: Snapshot = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    if data.get("SnapshotId") is not None:
+        out["snapshot_id"] = data["SnapshotId"]
+    if data.get("Type") is not None:
+        import capo_directory_service.types.snapshot_type
+
+        out["type"] = capo_directory_service.types.snapshot_type.deserialize_cbor(
+            data["Type"]
+        )
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Status") is not None:
+        import capo_directory_service.types.snapshot_status
+
+        out["status"] = capo_directory_service.types.snapshot_status.deserialize_cbor(
+            data["Status"]
+        )
+    if data.get("StartTime") is not None:
+        import capo_directory_service.types.start_time
+
+        out["start_time"] = capo_directory_service.types.start_time.deserialize_cbor(
+            data["StartTime"]
+        )
+    return out

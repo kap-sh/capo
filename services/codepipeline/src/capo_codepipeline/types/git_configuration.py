@@ -67,3 +67,47 @@ def deserialize_aws_json_1_1(data: dict) -> GitConfiguration:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GitConfiguration) -> dict:
+    out: dict = {}
+    out["sourceActionName"] = value["source_action_name"]
+    if "push" in value:
+        import capo_codepipeline.types.git_push_filter_list
+
+        out["push"] = capo_codepipeline.types.git_push_filter_list.serialize_cbor(
+            value["push"]
+        )
+    if "pull_request" in value:
+        import capo_codepipeline.types.git_pull_request_filter_list
+
+        out["pullRequest"] = (
+            capo_codepipeline.types.git_pull_request_filter_list.serialize_cbor(
+                value["pull_request"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GitConfiguration:
+    out: GitConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("sourceActionName") is not None:
+        out["source_action_name"] = data["sourceActionName"]
+    else:
+        out["source_action_name"] = ""
+    if data.get("push") is not None:
+        import capo_codepipeline.types.git_push_filter_list
+
+        out["push"] = capo_codepipeline.types.git_push_filter_list.deserialize_cbor(
+            data["push"]
+        )
+    if data.get("pullRequest") is not None:
+        import capo_codepipeline.types.git_pull_request_filter_list
+
+        out["pull_request"] = (
+            capo_codepipeline.types.git_pull_request_filter_list.deserialize_cbor(
+                data["pullRequest"]
+            )
+        )
+    return out

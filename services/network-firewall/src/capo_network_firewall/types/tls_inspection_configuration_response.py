@@ -184,3 +184,125 @@ def deserialize_aws_json_1_0(data: dict) -> TLSInspectionConfigurationResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TLSInspectionConfigurationResponse) -> dict:
+    out: dict = {}
+    out["TLSInspectionConfigurationArn"] = value["tls_inspection_configuration_arn"]
+    out["TLSInspectionConfigurationName"] = value["tls_inspection_configuration_name"]
+    out["TLSInspectionConfigurationId"] = value["tls_inspection_configuration_id"]
+    if "tls_inspection_configuration_status" in value:
+        import capo_network_firewall.types.resource_status
+
+        out["TLSInspectionConfigurationStatus"] = (
+            capo_network_firewall.types.resource_status.serialize_cbor(
+                value["tls_inspection_configuration_status"]
+            )
+        )
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "tags" in value:
+        import capo_network_firewall.types.tag_list
+
+        out["Tags"] = capo_network_firewall.types.tag_list.serialize_cbor(value["tags"])
+    if "last_modified_time" in value:
+        import capo_network_firewall.types.last_update_time
+
+        out["LastModifiedTime"] = (
+            capo_network_firewall.types.last_update_time.serialize_cbor(
+                value["last_modified_time"]
+            )
+        )
+    if "number_of_associations" in value:
+        out["NumberOfAssociations"] = value["number_of_associations"]
+    if "encryption_configuration" in value:
+        import capo_network_firewall.types.encryption_configuration
+
+        out["EncryptionConfiguration"] = (
+            capo_network_firewall.types.encryption_configuration.serialize_cbor(
+                value["encryption_configuration"]
+            )
+        )
+    if "certificates" in value:
+        import capo_network_firewall.types.certificates
+
+        out["Certificates"] = capo_network_firewall.types.certificates.serialize_cbor(
+            value["certificates"]
+        )
+    if "certificate_authority" in value:
+        import capo_network_firewall.types.tls_certificate_data
+
+        out["CertificateAuthority"] = (
+            capo_network_firewall.types.tls_certificate_data.serialize_cbor(
+                value["certificate_authority"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TLSInspectionConfigurationResponse:
+    out: TLSInspectionConfigurationResponse = {}  # type: ignore[typeddict-item]
+    if data.get("TLSInspectionConfigurationArn") is not None:
+        out["tls_inspection_configuration_arn"] = data["TLSInspectionConfigurationArn"]
+    else:
+        out["tls_inspection_configuration_arn"] = ""
+    if data.get("TLSInspectionConfigurationName") is not None:
+        out["tls_inspection_configuration_name"] = data[
+            "TLSInspectionConfigurationName"
+        ]
+    else:
+        out["tls_inspection_configuration_name"] = ""
+    if data.get("TLSInspectionConfigurationId") is not None:
+        out["tls_inspection_configuration_id"] = data["TLSInspectionConfigurationId"]
+    else:
+        out["tls_inspection_configuration_id"] = ""
+    if data.get("TLSInspectionConfigurationStatus") is not None:
+        import capo_network_firewall.types.resource_status
+
+        out["tls_inspection_configuration_status"] = (
+            capo_network_firewall.types.resource_status.deserialize_cbor(
+                data["TLSInspectionConfigurationStatus"]
+            )
+        )
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("Tags") is not None:
+        import capo_network_firewall.types.tag_list
+
+        out["tags"] = capo_network_firewall.types.tag_list.deserialize_cbor(
+            data["Tags"]
+        )
+    if data.get("LastModifiedTime") is not None:
+        import capo_network_firewall.types.last_update_time
+
+        out["last_modified_time"] = (
+            capo_network_firewall.types.last_update_time.deserialize_cbor(
+                data["LastModifiedTime"]
+            )
+        )
+    if data.get("NumberOfAssociations") is not None:
+        out["number_of_associations"] = data["NumberOfAssociations"]
+    if data.get("EncryptionConfiguration") is not None:
+        import capo_network_firewall.types.encryption_configuration
+
+        out["encryption_configuration"] = (
+            capo_network_firewall.types.encryption_configuration.deserialize_cbor(
+                data["EncryptionConfiguration"]
+            )
+        )
+    if data.get("Certificates") is not None:
+        import capo_network_firewall.types.certificates
+
+        out["certificates"] = capo_network_firewall.types.certificates.deserialize_cbor(
+            data["Certificates"]
+        )
+    if data.get("CertificateAuthority") is not None:
+        import capo_network_firewall.types.tls_certificate_data
+
+        out["certificate_authority"] = (
+            capo_network_firewall.types.tls_certificate_data.deserialize_cbor(
+                data["CertificateAuthority"]
+            )
+        )
+    return out

@@ -27,3 +27,24 @@ def deserialize_aws_json_1_1(data: list) -> Warnings:
             continue
         out.append(capo_textract.types.warning.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Warnings) -> list:
+    import capo_textract.types.warning
+
+    out: list = []
+    for item in value:
+        out.append(capo_textract.types.warning.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> Warnings:
+    import capo_textract.types.warning
+
+    out: Warnings = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_textract.types.warning.deserialize_cbor(item))
+    return out

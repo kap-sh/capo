@@ -65,3 +65,47 @@ def deserialize_aws_json_1_1(data: dict) -> InputDataConfig:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InputDataConfig) -> dict:
+    out: dict = {}
+    out["S3Uri"] = value["s3_uri"]
+    if "input_format" in value:
+        import capo_comprehend.types.input_format
+
+        out["InputFormat"] = capo_comprehend.types.input_format.serialize_cbor(
+            value["input_format"]
+        )
+    if "document_reader_config" in value:
+        import capo_comprehend.types.document_reader_config
+
+        out["DocumentReaderConfig"] = (
+            capo_comprehend.types.document_reader_config.serialize_cbor(
+                value["document_reader_config"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> InputDataConfig:
+    out: InputDataConfig = {}  # type: ignore[typeddict-item]
+    if data.get("S3Uri") is not None:
+        out["s3_uri"] = data["S3Uri"]
+    else:
+        out["s3_uri"] = ""
+    if data.get("InputFormat") is not None:
+        import capo_comprehend.types.input_format
+
+        out["input_format"] = capo_comprehend.types.input_format.deserialize_cbor(
+            data["InputFormat"]
+        )
+    if data.get("DocumentReaderConfig") is not None:
+        import capo_comprehend.types.document_reader_config
+
+        out["document_reader_config"] = (
+            capo_comprehend.types.document_reader_config.deserialize_cbor(
+                data["DocumentReaderConfig"]
+            )
+        )
+    return out

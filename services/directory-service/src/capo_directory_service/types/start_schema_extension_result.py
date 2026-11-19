@@ -28,3 +28,18 @@ def deserialize_aws_json_1_1(data: dict) -> StartSchemaExtensionResult:
     if data.get("SchemaExtensionId") is not None:
         out["schema_extension_id"] = data["SchemaExtensionId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartSchemaExtensionResult) -> dict:
+    out: dict = {}
+    if "schema_extension_id" in value:
+        out["SchemaExtensionId"] = value["schema_extension_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartSchemaExtensionResult:
+    out: StartSchemaExtensionResult = {}  # type: ignore[typeddict-item]
+    if data.get("SchemaExtensionId") is not None:
+        out["schema_extension_id"] = data["SchemaExtensionId"]
+    return out

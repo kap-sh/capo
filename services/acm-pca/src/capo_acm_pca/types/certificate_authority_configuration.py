@@ -100,3 +100,73 @@ def deserialize_aws_json_1_1(data: dict) -> CertificateAuthorityConfiguration:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CertificateAuthorityConfiguration) -> dict:
+    out: dict = {}
+    import capo_acm_pca.types.key_algorithm
+
+    out["KeyAlgorithm"] = capo_acm_pca.types.key_algorithm.serialize_cbor(
+        value["key_algorithm"]
+    )
+    import capo_acm_pca.types.signing_algorithm
+
+    out["SigningAlgorithm"] = capo_acm_pca.types.signing_algorithm.serialize_cbor(
+        value["signing_algorithm"]
+    )
+    import capo_acm_pca.types.asn1_subject
+
+    out["Subject"] = capo_acm_pca.types.asn1_subject.serialize_cbor(value["subject"])
+    if "csr_extensions" in value:
+        import capo_acm_pca.types.csr_extensions
+
+        out["CsrExtensions"] = capo_acm_pca.types.csr_extensions.serialize_cbor(
+            value["csr_extensions"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CertificateAuthorityConfiguration:
+    out: CertificateAuthorityConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("KeyAlgorithm") is not None:
+        import capo_acm_pca.types.key_algorithm
+
+        out["key_algorithm"] = capo_acm_pca.types.key_algorithm.deserialize_cbor(
+            data["KeyAlgorithm"]
+        )
+    else:
+        import typing
+
+        out["key_algorithm"] = typing.cast(
+            "capo_acm_pca.types.key_algorithm.KeyAlgorithm", ""
+        )
+    if data.get("SigningAlgorithm") is not None:
+        import capo_acm_pca.types.signing_algorithm
+
+        out["signing_algorithm"] = (
+            capo_acm_pca.types.signing_algorithm.deserialize_cbor(
+                data["SigningAlgorithm"]
+            )
+        )
+    else:
+        import typing
+
+        out["signing_algorithm"] = typing.cast(
+            "capo_acm_pca.types.signing_algorithm.SigningAlgorithm", ""
+        )
+    if data.get("Subject") is not None:
+        import capo_acm_pca.types.asn1_subject
+
+        out["subject"] = capo_acm_pca.types.asn1_subject.deserialize_cbor(
+            data["Subject"]
+        )
+    else:
+        raise DeserializationError("CertificateAuthorityConfiguration.subject required")
+    if data.get("CsrExtensions") is not None:
+        import capo_acm_pca.types.csr_extensions
+
+        out["csr_extensions"] = capo_acm_pca.types.csr_extensions.deserialize_cbor(
+            data["CsrExtensions"]
+        )
+    return out

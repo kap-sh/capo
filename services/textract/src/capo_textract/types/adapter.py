@@ -50,3 +50,32 @@ def deserialize_aws_json_1_1(data: dict) -> Adapter:
     else:
         out["version"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Adapter) -> dict:
+    out: dict = {}
+    out["AdapterId"] = value["adapter_id"]
+    if "pages" in value:
+        import capo_textract.types.adapter_pages
+
+        out["Pages"] = capo_textract.types.adapter_pages.serialize_cbor(value["pages"])
+    out["Version"] = value["version"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Adapter:
+    out: Adapter = {}  # type: ignore[typeddict-item]
+    if data.get("AdapterId") is not None:
+        out["adapter_id"] = data["AdapterId"]
+    else:
+        out["adapter_id"] = ""
+    if data.get("Pages") is not None:
+        import capo_textract.types.adapter_pages
+
+        out["pages"] = capo_textract.types.adapter_pages.deserialize_cbor(data["Pages"])
+    if data.get("Version") is not None:
+        out["version"] = data["Version"]
+    else:
+        out["version"] = ""
+    return out

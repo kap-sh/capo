@@ -33,3 +33,22 @@ def deserialize_aws_json_1_1(data: dict) -> CreateImageBuilderStreamingURLReques
     if data.get("Validity") is not None:
         out["validity"] = data["Validity"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateImageBuilderStreamingURLRequest) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "validity" in value:
+        out["Validity"] = value["validity"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateImageBuilderStreamingURLRequest:
+    out: CreateImageBuilderStreamingURLRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Validity") is not None:
+        out["validity"] = data["Validity"]
+    return out

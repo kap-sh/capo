@@ -31,3 +31,24 @@ def deserialize_aws_json_1_1(data: list) -> ApplicationsInfoList:
             capo_codedeploy.types.application_info.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ApplicationsInfoList) -> list:
+    import capo_codedeploy.types.application_info
+
+    out: list = []
+    for item in value:
+        out.append(capo_codedeploy.types.application_info.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> ApplicationsInfoList:
+    import capo_codedeploy.types.application_info
+
+    out: ApplicationsInfoList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_codedeploy.types.application_info.deserialize_cbor(item))
+    return out

@@ -35,3 +35,22 @@ def deserialize_aws_json_1_1(data: dict) -> FMSPolicyUpdateFirewallCreationConfi
     if data.get("FirewallCreationConfig") is not None:
         out["firewall_creation_config"] = data["FirewallCreationConfig"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FMSPolicyUpdateFirewallCreationConfigAction) -> dict:
+    out: dict = {}
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "firewall_creation_config" in value:
+        out["FirewallCreationConfig"] = value["firewall_creation_config"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> FMSPolicyUpdateFirewallCreationConfigAction:
+    out: FMSPolicyUpdateFirewallCreationConfigAction = {}  # type: ignore[typeddict-item]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("FirewallCreationConfig") is not None:
+        out["firewall_creation_config"] = data["FirewallCreationConfig"]
+    return out

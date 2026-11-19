@@ -35,3 +35,22 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeFleetLocationCapacityInput:
     if data.get("Location") is not None:
         out["location"] = data["Location"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeFleetLocationCapacityInput) -> dict:
+    out: dict = {}
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "location" in value:
+        out["Location"] = value["location"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeFleetLocationCapacityInput:
+    out: DescribeFleetLocationCapacityInput = {}  # type: ignore[typeddict-item]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("Location") is not None:
+        out["location"] = data["Location"]
+    return out

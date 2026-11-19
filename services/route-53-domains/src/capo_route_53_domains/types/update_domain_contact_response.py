@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDomainContactResponse:
     if data.get("OperationId") is not None:
         out["operation_id"] = data["OperationId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateDomainContactResponse) -> dict:
+    out: dict = {}
+    if "operation_id" in value:
+        out["OperationId"] = value["operation_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateDomainContactResponse:
+    out: UpdateDomainContactResponse = {}  # type: ignore[typeddict-item]
+    if data.get("OperationId") is not None:
+        out["operation_id"] = data["OperationId"]
+    return out

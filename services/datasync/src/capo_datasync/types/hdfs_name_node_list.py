@@ -27,3 +27,24 @@ def deserialize_aws_json_1_1(data: list) -> HdfsNameNodeList:
             continue
         out.append(capo_datasync.types.hdfs_name_node.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: HdfsNameNodeList) -> list:
+    import capo_datasync.types.hdfs_name_node
+
+    out: list = []
+    for item in value:
+        out.append(capo_datasync.types.hdfs_name_node.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> HdfsNameNodeList:
+    import capo_datasync.types.hdfs_name_node
+
+    out: HdfsNameNodeList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_datasync.types.hdfs_name_node.deserialize_cbor(item))
+    return out

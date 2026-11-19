@@ -40,3 +40,26 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeSoftwareAssociationsRequest:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeSoftwareAssociationsRequest) -> dict:
+    out: dict = {}
+    if "associated_resource" in value:
+        out["AssociatedResource"] = value["associated_resource"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeSoftwareAssociationsRequest:
+    out: DescribeSoftwareAssociationsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("AssociatedResource") is not None:
+        out["associated_resource"] = data["AssociatedResource"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

@@ -37,3 +37,32 @@ def deserialize_aws_json_1_1(data: list) -> ListOfDetectSentimentResult:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListOfDetectSentimentResult) -> list:
+    import capo_comprehend.types.batch_detect_sentiment_item_result
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_comprehend.types.batch_detect_sentiment_item_result.serialize_cbor(
+                item
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> ListOfDetectSentimentResult:
+    import capo_comprehend.types.batch_detect_sentiment_item_result
+
+    out: ListOfDetectSentimentResult = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_comprehend.types.batch_detect_sentiment_item_result.deserialize_cbor(
+                item
+            )
+        )
+    return out

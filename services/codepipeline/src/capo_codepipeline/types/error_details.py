@@ -33,3 +33,22 @@ def deserialize_aws_json_1_1(data: dict) -> ErrorDetails:
     if data.get("message") is not None:
         out["message"] = data["message"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ErrorDetails) -> dict:
+    out: dict = {}
+    if "code" in value:
+        out["code"] = value["code"]
+    if "message" in value:
+        out["message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ErrorDetails:
+    out: ErrorDetails = {}  # type: ignore[typeddict-item]
+    if data.get("code") is not None:
+        out["code"] = data["code"]
+    if data.get("message") is not None:
+        out["message"] = data["message"]
+    return out

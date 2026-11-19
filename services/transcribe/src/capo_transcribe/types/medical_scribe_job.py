@@ -232,3 +232,160 @@ def deserialize_aws_json_1_1(data: dict) -> MedicalScribeJob:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MedicalScribeJob) -> dict:
+    out: dict = {}
+    if "medical_scribe_job_name" in value:
+        out["MedicalScribeJobName"] = value["medical_scribe_job_name"]
+    if "medical_scribe_job_status" in value:
+        import capo_transcribe.types.medical_scribe_job_status
+
+        out["MedicalScribeJobStatus"] = (
+            capo_transcribe.types.medical_scribe_job_status.serialize_cbor(
+                value["medical_scribe_job_status"]
+            )
+        )
+    if "language_code" in value:
+        import capo_transcribe.types.medical_scribe_language_code
+
+        out["LanguageCode"] = (
+            capo_transcribe.types.medical_scribe_language_code.serialize_cbor(
+                value["language_code"]
+            )
+        )
+    if "media" in value:
+        import capo_transcribe.types.media
+
+        out["Media"] = capo_transcribe.types.media.serialize_cbor(value["media"])
+    if "medical_scribe_output" in value:
+        import capo_transcribe.types.medical_scribe_output
+
+        out["MedicalScribeOutput"] = (
+            capo_transcribe.types.medical_scribe_output.serialize_cbor(
+                value["medical_scribe_output"]
+            )
+        )
+    if "start_time" in value:
+        import capo_transcribe.types.date_time
+
+        out["StartTime"] = capo_transcribe.types.date_time.serialize_cbor(
+            value["start_time"]
+        )
+    if "creation_time" in value:
+        import capo_transcribe.types.date_time
+
+        out["CreationTime"] = capo_transcribe.types.date_time.serialize_cbor(
+            value["creation_time"]
+        )
+    if "completion_time" in value:
+        import capo_transcribe.types.date_time
+
+        out["CompletionTime"] = capo_transcribe.types.date_time.serialize_cbor(
+            value["completion_time"]
+        )
+    if "failure_reason" in value:
+        out["FailureReason"] = value["failure_reason"]
+    if "settings" in value:
+        import capo_transcribe.types.medical_scribe_settings
+
+        out["Settings"] = capo_transcribe.types.medical_scribe_settings.serialize_cbor(
+            value["settings"]
+        )
+    if "data_access_role_arn" in value:
+        out["DataAccessRoleArn"] = value["data_access_role_arn"]
+    if "channel_definitions" in value:
+        import capo_transcribe.types.medical_scribe_channel_definitions
+
+        out["ChannelDefinitions"] = (
+            capo_transcribe.types.medical_scribe_channel_definitions.serialize_cbor(
+                value["channel_definitions"]
+            )
+        )
+    if "medical_scribe_context_provided" in value:
+        out["MedicalScribeContextProvided"] = value["medical_scribe_context_provided"]
+    if "tags" in value:
+        import capo_transcribe.types.tag_list
+
+        out["Tags"] = capo_transcribe.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> MedicalScribeJob:
+    out: MedicalScribeJob = {}  # type: ignore[typeddict-item]
+    if data.get("MedicalScribeJobName") is not None:
+        out["medical_scribe_job_name"] = data["MedicalScribeJobName"]
+    if data.get("MedicalScribeJobStatus") is not None:
+        import capo_transcribe.types.medical_scribe_job_status
+
+        out["medical_scribe_job_status"] = (
+            capo_transcribe.types.medical_scribe_job_status.deserialize_cbor(
+                data["MedicalScribeJobStatus"]
+            )
+        )
+    if data.get("LanguageCode") is not None:
+        import capo_transcribe.types.medical_scribe_language_code
+
+        out["language_code"] = (
+            capo_transcribe.types.medical_scribe_language_code.deserialize_cbor(
+                data["LanguageCode"]
+            )
+        )
+    if data.get("Media") is not None:
+        import capo_transcribe.types.media
+
+        out["media"] = capo_transcribe.types.media.deserialize_cbor(data["Media"])
+    if data.get("MedicalScribeOutput") is not None:
+        import capo_transcribe.types.medical_scribe_output
+
+        out["medical_scribe_output"] = (
+            capo_transcribe.types.medical_scribe_output.deserialize_cbor(
+                data["MedicalScribeOutput"]
+            )
+        )
+    if data.get("StartTime") is not None:
+        import capo_transcribe.types.date_time
+
+        out["start_time"] = capo_transcribe.types.date_time.deserialize_cbor(
+            data["StartTime"]
+        )
+    if data.get("CreationTime") is not None:
+        import capo_transcribe.types.date_time
+
+        out["creation_time"] = capo_transcribe.types.date_time.deserialize_cbor(
+            data["CreationTime"]
+        )
+    if data.get("CompletionTime") is not None:
+        import capo_transcribe.types.date_time
+
+        out["completion_time"] = capo_transcribe.types.date_time.deserialize_cbor(
+            data["CompletionTime"]
+        )
+    if data.get("FailureReason") is not None:
+        out["failure_reason"] = data["FailureReason"]
+    if data.get("Settings") is not None:
+        import capo_transcribe.types.medical_scribe_settings
+
+        out["settings"] = (
+            capo_transcribe.types.medical_scribe_settings.deserialize_cbor(
+                data["Settings"]
+            )
+        )
+    if data.get("DataAccessRoleArn") is not None:
+        out["data_access_role_arn"] = data["DataAccessRoleArn"]
+    if data.get("ChannelDefinitions") is not None:
+        import capo_transcribe.types.medical_scribe_channel_definitions
+
+        out["channel_definitions"] = (
+            capo_transcribe.types.medical_scribe_channel_definitions.deserialize_cbor(
+                data["ChannelDefinitions"]
+            )
+        )
+    if data.get("MedicalScribeContextProvided") is not None:
+        out["medical_scribe_context_provided"] = data["MedicalScribeContextProvided"]
+    if data.get("Tags") is not None:
+        import capo_transcribe.types.tag_list
+
+        out["tags"] = capo_transcribe.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

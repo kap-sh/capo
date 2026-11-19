@@ -33,3 +33,24 @@ def deserialize_aws_json_1_1(data: list) -> CertificatesInfo:
             capo_directory_service.types.certificate_info.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CertificatesInfo) -> list:
+    import capo_directory_service.types.certificate_info
+
+    out: list = []
+    for item in value:
+        out.append(capo_directory_service.types.certificate_info.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> CertificatesInfo:
+    import capo_directory_service.types.certificate_info
+
+    out: CertificatesInfo = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_directory_service.types.certificate_info.deserialize_cbor(item))
+    return out

@@ -41,3 +41,30 @@ def deserialize_aws_json_1_1(data: dict) -> FilterRule:
     if data.get("Value") is not None:
         out["value"] = data["Value"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FilterRule) -> dict:
+    out: dict = {}
+    if "filter_type" in value:
+        import capo_datasync.types.filter_type
+
+        out["FilterType"] = capo_datasync.types.filter_type.serialize_cbor(
+            value["filter_type"]
+        )
+    if "value" in value:
+        out["Value"] = value["value"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> FilterRule:
+    out: FilterRule = {}  # type: ignore[typeddict-item]
+    if data.get("FilterType") is not None:
+        import capo_datasync.types.filter_type
+
+        out["filter_type"] = capo_datasync.types.filter_type.deserialize_cbor(
+            data["FilterType"]
+        )
+    if data.get("Value") is not None:
+        out["value"] = data["Value"]
+    return out

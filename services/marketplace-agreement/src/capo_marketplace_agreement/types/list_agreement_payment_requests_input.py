@@ -87,3 +87,55 @@ def deserialize_aws_json_1_0(data: dict) -> ListAgreementPaymentRequestsInput:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListAgreementPaymentRequestsInput) -> dict:
+    out: dict = {}
+    out["partyType"] = value["party_type"]
+    if "agreement_type" in value:
+        out["agreementType"] = value["agreement_type"]
+    if "catalog" in value:
+        out["catalog"] = value["catalog"]
+    if "agreement_id" in value:
+        out["agreementId"] = value["agreement_id"]
+    if "status" in value:
+        import capo_marketplace_agreement.types.payment_request_status
+
+        out["status"] = (
+            capo_marketplace_agreement.types.payment_request_status.serialize_cbor(
+                value["status"]
+            )
+        )
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListAgreementPaymentRequestsInput:
+    out: ListAgreementPaymentRequestsInput = {}  # type: ignore[typeddict-item]
+    if data.get("partyType") is not None:
+        out["party_type"] = data["partyType"]
+    else:
+        out["party_type"] = ""
+    if data.get("agreementType") is not None:
+        out["agreement_type"] = data["agreementType"]
+    if data.get("catalog") is not None:
+        out["catalog"] = data["catalog"]
+    if data.get("agreementId") is not None:
+        out["agreement_id"] = data["agreementId"]
+    if data.get("status") is not None:
+        import capo_marketplace_agreement.types.payment_request_status
+
+        out["status"] = (
+            capo_marketplace_agreement.types.payment_request_status.deserialize_cbor(
+                data["status"]
+            )
+        )
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

@@ -17,3 +17,12 @@ def serialize_aws_json_1_1(value: DescribeEventsTagValueList) -> list:
 
 def deserialize_aws_json_1_1(data: list) -> DescribeEventsTagValueList:
     return [item for item in data if item is not None]
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeEventsTagValueList) -> list:
+    return list(value)
+
+
+def deserialize_cbor(data: list) -> DescribeEventsTagValueList:
+    return [item for item in data if item is not None]

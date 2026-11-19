@@ -70,3 +70,50 @@ def deserialize_aws_json_1_0(data: dict) -> WorkspaceInstance:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: WorkspaceInstance) -> dict:
+    out: dict = {}
+    if "provision_state" in value:
+        import capo_workspaces_instances.types.provision_state_enum
+
+        out["ProvisionState"] = (
+            capo_workspaces_instances.types.provision_state_enum.serialize_cbor(
+                value["provision_state"]
+            )
+        )
+    if "workspace_instance_id" in value:
+        out["WorkspaceInstanceId"] = value["workspace_instance_id"]
+    if "ec2_managed_instance" in value:
+        import capo_workspaces_instances.types.ec2_managed_instance
+
+        out["EC2ManagedInstance"] = (
+            capo_workspaces_instances.types.ec2_managed_instance.serialize_cbor(
+                value["ec2_managed_instance"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> WorkspaceInstance:
+    out: WorkspaceInstance = {}  # type: ignore[typeddict-item]
+    if data.get("ProvisionState") is not None:
+        import capo_workspaces_instances.types.provision_state_enum
+
+        out["provision_state"] = (
+            capo_workspaces_instances.types.provision_state_enum.deserialize_cbor(
+                data["ProvisionState"]
+            )
+        )
+    if data.get("WorkspaceInstanceId") is not None:
+        out["workspace_instance_id"] = data["WorkspaceInstanceId"]
+    if data.get("EC2ManagedInstance") is not None:
+        import capo_workspaces_instances.types.ec2_managed_instance
+
+        out["ec2_managed_instance"] = (
+            capo_workspaces_instances.types.ec2_managed_instance.deserialize_cbor(
+                data["EC2ManagedInstance"]
+            )
+        )
+    return out

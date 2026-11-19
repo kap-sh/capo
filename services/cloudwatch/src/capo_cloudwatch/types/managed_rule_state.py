@@ -57,3 +57,22 @@ def deserialize_query(el: Element) -> ManagedRuleState:
     if child_state is not None:
         out["state"] = str(child_state.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ManagedRuleState) -> dict:
+    out: dict = {}
+    if "rule_name" in value:
+        out["RuleName"] = value["rule_name"]
+    if "state" in value:
+        out["State"] = value["state"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ManagedRuleState:
+    out: ManagedRuleState = {}  # type: ignore[typeddict-item]
+    if data.get("RuleName") is not None:
+        out["rule_name"] = data["RuleName"]
+    if data.get("State") is not None:
+        out["state"] = data["State"]
+    return out

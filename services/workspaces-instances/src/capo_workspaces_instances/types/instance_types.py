@@ -37,3 +37,28 @@ def deserialize_aws_json_1_0(data: list) -> InstanceTypes:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InstanceTypes) -> list:
+    import capo_workspaces_instances.types.instance_type_info
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_workspaces_instances.types.instance_type_info.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> InstanceTypes:
+    import capo_workspaces_instances.types.instance_type_info
+
+    out: InstanceTypes = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_workspaces_instances.types.instance_type_info.deserialize_cbor(item)
+        )
+    return out

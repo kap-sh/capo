@@ -40,3 +40,30 @@ def deserialize_aws_json_1_0(data: dict) -> ExternalMetricsPreference:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExternalMetricsPreference) -> dict:
+    out: dict = {}
+    if "source" in value:
+        import capo_compute_optimizer.types.external_metrics_source
+
+        out["source"] = (
+            capo_compute_optimizer.types.external_metrics_source.serialize_cbor(
+                value["source"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ExternalMetricsPreference:
+    out: ExternalMetricsPreference = {}  # type: ignore[typeddict-item]
+    if data.get("source") is not None:
+        import capo_compute_optimizer.types.external_metrics_source
+
+        out["source"] = (
+            capo_compute_optimizer.types.external_metrics_source.deserialize_cbor(
+                data["source"]
+            )
+        )
+    return out

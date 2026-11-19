@@ -39,3 +39,32 @@ def deserialize_aws_json_1_0(
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RDSDatabaseRecommendedOptionProjectedMetrics) -> list:
+    import capo_compute_optimizer.types.rds_database_recommended_option_projected_metric
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_compute_optimizer.types.rds_database_recommended_option_projected_metric.serialize_cbor(
+                item
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> RDSDatabaseRecommendedOptionProjectedMetrics:
+    import capo_compute_optimizer.types.rds_database_recommended_option_projected_metric
+
+    out: RDSDatabaseRecommendedOptionProjectedMetrics = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_compute_optimizer.types.rds_database_recommended_option_projected_metric.deserialize_cbor(
+                item
+            )
+        )
+    return out

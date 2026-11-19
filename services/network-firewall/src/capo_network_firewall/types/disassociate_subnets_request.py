@@ -58,3 +58,39 @@ def deserialize_aws_json_1_0(data: dict) -> DisassociateSubnetsRequest:
     else:
         out["subnet_ids"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DisassociateSubnetsRequest) -> dict:
+    out: dict = {}
+    if "update_token" in value:
+        out["UpdateToken"] = value["update_token"]
+    if "firewall_arn" in value:
+        out["FirewallArn"] = value["firewall_arn"]
+    if "firewall_name" in value:
+        out["FirewallName"] = value["firewall_name"]
+    import capo_network_firewall.types.az_subnets
+
+    out["SubnetIds"] = capo_network_firewall.types.az_subnets.serialize_cbor(
+        value["subnet_ids"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DisassociateSubnetsRequest:
+    out: DisassociateSubnetsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("UpdateToken") is not None:
+        out["update_token"] = data["UpdateToken"]
+    if data.get("FirewallArn") is not None:
+        out["firewall_arn"] = data["FirewallArn"]
+    if data.get("FirewallName") is not None:
+        out["firewall_name"] = data["FirewallName"]
+    if data.get("SubnetIds") is not None:
+        import capo_network_firewall.types.az_subnets
+
+        out["subnet_ids"] = capo_network_firewall.types.az_subnets.deserialize_cbor(
+            data["SubnetIds"]
+        )
+    else:
+        out["subnet_ids"] = []
+    return out

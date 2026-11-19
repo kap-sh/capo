@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> S3Config:
     else:
         out["bucket_access_role_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: S3Config) -> dict:
+    out: dict = {}
+    out["BucketAccessRoleArn"] = value["bucket_access_role_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> S3Config:
+    out: S3Config = {}  # type: ignore[typeddict-item]
+    if data.get("BucketAccessRoleArn") is not None:
+        out["bucket_access_role_arn"] = data["BucketAccessRoleArn"]
+    else:
+        out["bucket_access_role_arn"] = ""
+    return out

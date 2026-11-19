@@ -41,6 +41,34 @@ def deserialize_aws_json_1_0(data: dict) -> BatchCreateBillingAdjustmentRequestI
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchCreateBillingAdjustmentRequestInput) -> dict:
+    out: dict = {}
+    import capo_marketplace_agreement.types.batch_create_billing_adjustment_request_entry_list
+
+    out["billingAdjustmentRequestEntries"] = (
+        capo_marketplace_agreement.types.batch_create_billing_adjustment_request_entry_list.serialize_cbor(
+            value["billing_adjustment_request_entries"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BatchCreateBillingAdjustmentRequestInput:
+    out: BatchCreateBillingAdjustmentRequestInput = {}  # type: ignore[typeddict-item]
+    if data.get("billingAdjustmentRequestEntries") is not None:
+        import capo_marketplace_agreement.types.batch_create_billing_adjustment_request_entry_list
+
+        out["billing_adjustment_request_entries"] = (
+            capo_marketplace_agreement.types.batch_create_billing_adjustment_request_entry_list.deserialize_cbor(
+                data["billingAdjustmentRequestEntries"]
+            )
+        )
+    else:
+        out["billing_adjustment_request_entries"] = []
+    return out
+
+
 def redact_sensitive(value: BatchCreateBillingAdjustmentRequestInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "billing_adjustment_request_entries" in value:

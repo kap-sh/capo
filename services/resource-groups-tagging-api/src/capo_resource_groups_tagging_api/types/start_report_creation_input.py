@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> StartReportCreationInput:
     else:
         out["s3_bucket"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartReportCreationInput) -> dict:
+    out: dict = {}
+    out["S3Bucket"] = value["s3_bucket"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartReportCreationInput:
+    out: StartReportCreationInput = {}  # type: ignore[typeddict-item]
+    if data.get("S3Bucket") is not None:
+        out["s3_bucket"] = data["S3Bucket"]
+    else:
+        out["s3_bucket"] = ""
+    return out

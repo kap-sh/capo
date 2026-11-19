@@ -68,3 +68,50 @@ def deserialize_aws_json_1_0(data: dict) -> FirewallRulesSource:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FirewallRulesSource) -> dict:
+    out: dict = {}
+    if "rules_string" in value:
+        out["RulesString"] = value["rules_string"]
+    if "firewall_rules" in value:
+        import capo_network_firewall.types.firewall_rules
+
+        out["FirewallRules"] = (
+            capo_network_firewall.types.firewall_rules.serialize_cbor(
+                value["firewall_rules"]
+            )
+        )
+    if "rules_source_list" in value:
+        import capo_network_firewall.types.rules_source_list
+
+        out["RulesSourceList"] = (
+            capo_network_firewall.types.rules_source_list.serialize_cbor(
+                value["rules_source_list"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> FirewallRulesSource:
+    out: FirewallRulesSource = {}  # type: ignore[typeddict-item]
+    if data.get("RulesString") is not None:
+        out["rules_string"] = data["RulesString"]
+    if data.get("FirewallRules") is not None:
+        import capo_network_firewall.types.firewall_rules
+
+        out["firewall_rules"] = (
+            capo_network_firewall.types.firewall_rules.deserialize_cbor(
+                data["FirewallRules"]
+            )
+        )
+    if data.get("RulesSourceList") is not None:
+        import capo_network_firewall.types.rules_source_list
+
+        out["rules_source_list"] = (
+            capo_network_firewall.types.rules_source_list.deserialize_cbor(
+                data["RulesSourceList"]
+            )
+        )
+    return out

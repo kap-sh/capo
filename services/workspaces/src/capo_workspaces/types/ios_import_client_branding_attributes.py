@@ -103,3 +103,70 @@ def deserialize_aws_json_1_1(data: dict) -> IosImportClientBrandingAttributes:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IosImportClientBrandingAttributes) -> dict:
+    out: dict = {}
+    if "logo" in value:
+        import capo_workspaces.types.ios_logo
+
+        out["Logo"] = capo_workspaces.types.ios_logo.serialize_cbor(value["logo"])
+    if "logo2x" in value:
+        import capo_workspaces.types.ios2_x_logo
+
+        out["Logo2x"] = capo_workspaces.types.ios2_x_logo.serialize_cbor(
+            value["logo2x"]
+        )
+    if "logo3x" in value:
+        import capo_workspaces.types.ios3_x_logo
+
+        out["Logo3x"] = capo_workspaces.types.ios3_x_logo.serialize_cbor(
+            value["logo3x"]
+        )
+    if "support_email" in value:
+        out["SupportEmail"] = value["support_email"]
+    if "support_link" in value:
+        out["SupportLink"] = value["support_link"]
+    if "forgot_password_link" in value:
+        out["ForgotPasswordLink"] = value["forgot_password_link"]
+    if "login_message" in value:
+        import capo_workspaces.types.login_message
+
+        out["LoginMessage"] = capo_workspaces.types.login_message.serialize_cbor(
+            value["login_message"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> IosImportClientBrandingAttributes:
+    out: IosImportClientBrandingAttributes = {}  # type: ignore[typeddict-item]
+    if data.get("Logo") is not None:
+        import capo_workspaces.types.ios_logo
+
+        out["logo"] = capo_workspaces.types.ios_logo.deserialize_cbor(data["Logo"])
+    if data.get("Logo2x") is not None:
+        import capo_workspaces.types.ios2_x_logo
+
+        out["logo2x"] = capo_workspaces.types.ios2_x_logo.deserialize_cbor(
+            data["Logo2x"]
+        )
+    if data.get("Logo3x") is not None:
+        import capo_workspaces.types.ios3_x_logo
+
+        out["logo3x"] = capo_workspaces.types.ios3_x_logo.deserialize_cbor(
+            data["Logo3x"]
+        )
+    if data.get("SupportEmail") is not None:
+        out["support_email"] = data["SupportEmail"]
+    if data.get("SupportLink") is not None:
+        out["support_link"] = data["SupportLink"]
+    if data.get("ForgotPasswordLink") is not None:
+        out["forgot_password_link"] = data["ForgotPasswordLink"]
+    if data.get("LoginMessage") is not None:
+        import capo_workspaces.types.login_message
+
+        out["login_message"] = capo_workspaces.types.login_message.deserialize_cbor(
+            data["LoginMessage"]
+        )
+    return out

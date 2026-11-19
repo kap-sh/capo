@@ -40,3 +40,26 @@ def deserialize_aws_json_1_1(data: dict) -> ListCuratedEnvironmentImagesOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListCuratedEnvironmentImagesOutput) -> dict:
+    out: dict = {}
+    if "platforms" in value:
+        import capo_codebuild.types.environment_platforms
+
+        out["platforms"] = capo_codebuild.types.environment_platforms.serialize_cbor(
+            value["platforms"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListCuratedEnvironmentImagesOutput:
+    out: ListCuratedEnvironmentImagesOutput = {}  # type: ignore[typeddict-item]
+    if data.get("platforms") is not None:
+        import capo_codebuild.types.environment_platforms
+
+        out["platforms"] = capo_codebuild.types.environment_platforms.deserialize_cbor(
+            data["platforms"]
+        )
+    return out

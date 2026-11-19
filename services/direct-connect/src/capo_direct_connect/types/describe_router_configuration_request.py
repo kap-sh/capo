@@ -38,3 +38,23 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeRouterConfigurationRequest:
     if data.get("routerTypeIdentifier") is not None:
         out["router_type_identifier"] = data["routerTypeIdentifier"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeRouterConfigurationRequest) -> dict:
+    out: dict = {}
+    out["virtualInterfaceId"] = value["virtual_interface_id"]
+    if "router_type_identifier" in value:
+        out["routerTypeIdentifier"] = value["router_type_identifier"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeRouterConfigurationRequest:
+    out: DescribeRouterConfigurationRequest = {}  # type: ignore[typeddict-item]
+    if data.get("virtualInterfaceId") is not None:
+        out["virtual_interface_id"] = data["virtualInterfaceId"]
+    else:
+        out["virtual_interface_id"] = ""
+    if data.get("routerTypeIdentifier") is not None:
+        out["router_type_identifier"] = data["routerTypeIdentifier"]
+    return out

@@ -213,3 +213,143 @@ def deserialize_aws_json_1_1(data: dict) -> WorkspacesPool:
     else:
         out["running_mode"] = "AUTO_STOP"
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: WorkspacesPool) -> dict:
+    out: dict = {}
+    out["PoolId"] = value["pool_id"]
+    out["PoolArn"] = value["pool_arn"]
+    import capo_workspaces.types.capacity_status
+
+    out["CapacityStatus"] = capo_workspaces.types.capacity_status.serialize_cbor(
+        value["capacity_status"]
+    )
+    out["PoolName"] = value["pool_name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    import capo_workspaces.types.workspaces_pool_state
+
+    out["State"] = capo_workspaces.types.workspaces_pool_state.serialize_cbor(
+        value["state"]
+    )
+    import capo_workspaces.types.timestamp
+
+    out["CreatedAt"] = capo_workspaces.types.timestamp.serialize_cbor(
+        value["created_at"]
+    )
+    out["BundleId"] = value["bundle_id"]
+    out["DirectoryId"] = value["directory_id"]
+    if "errors" in value:
+        import capo_workspaces.types.workspaces_pool_errors
+
+        out["Errors"] = capo_workspaces.types.workspaces_pool_errors.serialize_cbor(
+            value["errors"]
+        )
+    if "application_settings" in value:
+        import capo_workspaces.types.application_settings_response
+
+        out["ApplicationSettings"] = (
+            capo_workspaces.types.application_settings_response.serialize_cbor(
+                value["application_settings"]
+            )
+        )
+    if "timeout_settings" in value:
+        import capo_workspaces.types.timeout_settings
+
+        out["TimeoutSettings"] = capo_workspaces.types.timeout_settings.serialize_cbor(
+            value["timeout_settings"]
+        )
+    import capo_workspaces.types.pools_running_mode
+
+    out["RunningMode"] = capo_workspaces.types.pools_running_mode.serialize_cbor(
+        value.get("running_mode", "AUTO_STOP")
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> WorkspacesPool:
+    out: WorkspacesPool = {}  # type: ignore[typeddict-item]
+    if data.get("PoolId") is not None:
+        out["pool_id"] = data["PoolId"]
+    else:
+        out["pool_id"] = ""
+    if data.get("PoolArn") is not None:
+        out["pool_arn"] = data["PoolArn"]
+    else:
+        out["pool_arn"] = ""
+    if data.get("CapacityStatus") is not None:
+        import capo_workspaces.types.capacity_status
+
+        out["capacity_status"] = capo_workspaces.types.capacity_status.deserialize_cbor(
+            data["CapacityStatus"]
+        )
+    else:
+        raise DeserializationError("WorkspacesPool.capacity_status required")
+    if data.get("PoolName") is not None:
+        out["pool_name"] = data["PoolName"]
+    else:
+        out["pool_name"] = ""
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("State") is not None:
+        import capo_workspaces.types.workspaces_pool_state
+
+        out["state"] = capo_workspaces.types.workspaces_pool_state.deserialize_cbor(
+            data["State"]
+        )
+    else:
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_workspaces.types.workspaces_pool_state.WorkspacesPoolState", ""
+        )
+    if data.get("CreatedAt") is not None:
+        import capo_workspaces.types.timestamp
+
+        out["created_at"] = capo_workspaces.types.timestamp.deserialize_cbor(
+            data["CreatedAt"]
+        )
+    else:
+        import datetime
+
+        out["created_at"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
+    if data.get("BundleId") is not None:
+        out["bundle_id"] = data["BundleId"]
+    else:
+        out["bundle_id"] = ""
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    if data.get("Errors") is not None:
+        import capo_workspaces.types.workspaces_pool_errors
+
+        out["errors"] = capo_workspaces.types.workspaces_pool_errors.deserialize_cbor(
+            data["Errors"]
+        )
+    if data.get("ApplicationSettings") is not None:
+        import capo_workspaces.types.application_settings_response
+
+        out["application_settings"] = (
+            capo_workspaces.types.application_settings_response.deserialize_cbor(
+                data["ApplicationSettings"]
+            )
+        )
+    if data.get("TimeoutSettings") is not None:
+        import capo_workspaces.types.timeout_settings
+
+        out["timeout_settings"] = (
+            capo_workspaces.types.timeout_settings.deserialize_cbor(
+                data["TimeoutSettings"]
+            )
+        )
+    if data.get("RunningMode") is not None:
+        import capo_workspaces.types.pools_running_mode
+
+        out["running_mode"] = capo_workspaces.types.pools_running_mode.deserialize_cbor(
+            data["RunningMode"]
+        )
+    else:
+        out["running_mode"] = "AUTO_STOP"
+    return out

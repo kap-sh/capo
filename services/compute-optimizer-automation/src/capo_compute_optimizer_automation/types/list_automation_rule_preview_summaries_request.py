@@ -117,3 +117,90 @@ def deserialize_aws_json_1_0(data: dict) -> ListAutomationRulePreviewSummariesRe
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListAutomationRulePreviewSummariesRequest) -> dict:
+    out: dict = {}
+    import capo_compute_optimizer_automation.types.rule_type
+
+    out["ruleType"] = capo_compute_optimizer_automation.types.rule_type.serialize_cbor(
+        value["rule_type"]
+    )
+    if "organization_scope" in value:
+        import capo_compute_optimizer_automation.types.organization_scope
+
+        out["organizationScope"] = (
+            capo_compute_optimizer_automation.types.organization_scope.serialize_cbor(
+                value["organization_scope"]
+            )
+        )
+    import capo_compute_optimizer_automation.types.recommended_action_type_list
+
+    out["recommendedActionTypes"] = (
+        capo_compute_optimizer_automation.types.recommended_action_type_list.serialize_cbor(
+            value["recommended_action_types"]
+        )
+    )
+    if "criteria" in value:
+        import capo_compute_optimizer_automation.types.criteria
+
+        out["criteria"] = (
+            capo_compute_optimizer_automation.types.criteria.serialize_cbor(
+                value["criteria"]
+            )
+        )
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListAutomationRulePreviewSummariesRequest:
+    out: ListAutomationRulePreviewSummariesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ruleType") is not None:
+        import capo_compute_optimizer_automation.types.rule_type
+
+        out["rule_type"] = (
+            capo_compute_optimizer_automation.types.rule_type.deserialize_cbor(
+                data["ruleType"]
+            )
+        )
+    else:
+        import typing
+
+        out["rule_type"] = typing.cast(
+            "capo_compute_optimizer_automation.types.rule_type.RuleType", ""
+        )
+    if data.get("organizationScope") is not None:
+        import capo_compute_optimizer_automation.types.organization_scope
+
+        out["organization_scope"] = (
+            capo_compute_optimizer_automation.types.organization_scope.deserialize_cbor(
+                data["organizationScope"]
+            )
+        )
+    if data.get("recommendedActionTypes") is not None:
+        import capo_compute_optimizer_automation.types.recommended_action_type_list
+
+        out["recommended_action_types"] = (
+            capo_compute_optimizer_automation.types.recommended_action_type_list.deserialize_cbor(
+                data["recommendedActionTypes"]
+            )
+        )
+    else:
+        out["recommended_action_types"] = []
+    if data.get("criteria") is not None:
+        import capo_compute_optimizer_automation.types.criteria
+
+        out["criteria"] = (
+            capo_compute_optimizer_automation.types.criteria.deserialize_cbor(
+                data["criteria"]
+            )
+        )
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

@@ -162,3 +162,30 @@ def deserialize_query(el: Element) -> StatisticSet:
     if child_maximum is not None:
         out["maximum"] = float(child_maximum.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StatisticSet) -> dict:
+    out: dict = {}
+    if "sample_count" in value:
+        out["SampleCount"] = value["sample_count"]
+    if "sum" in value:
+        out["Sum"] = value["sum"]
+    if "minimum" in value:
+        out["Minimum"] = value["minimum"]
+    if "maximum" in value:
+        out["Maximum"] = value["maximum"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StatisticSet:
+    out: StatisticSet = {}  # type: ignore[typeddict-item]
+    if data.get("SampleCount") is not None:
+        out["sample_count"] = float(data["SampleCount"])
+    if data.get("Sum") is not None:
+        out["sum"] = float(data["Sum"])
+    if data.get("Minimum") is not None:
+        out["minimum"] = float(data["Minimum"])
+    if data.get("Maximum") is not None:
+        out["maximum"] = float(data["Maximum"])
+    return out

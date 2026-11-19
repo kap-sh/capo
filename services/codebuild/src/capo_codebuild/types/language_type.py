@@ -23,3 +23,12 @@ def serialize_aws_json_1_1(value: LanguageType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> LanguageType:
     return cast(LanguageType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LanguageType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> LanguageType:
+    return cast(LanguageType, data)

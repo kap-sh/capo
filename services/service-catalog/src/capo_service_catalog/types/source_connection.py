@@ -56,3 +56,43 @@ def deserialize_aws_json_1_1(data: dict) -> SourceConnection:
     else:
         raise DeserializationError("SourceConnection.connection_parameters required")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SourceConnection) -> dict:
+    out: dict = {}
+    if "type" in value:
+        import capo_service_catalog.types.source_type
+
+        out["Type"] = capo_service_catalog.types.source_type.serialize_cbor(
+            value["type"]
+        )
+    import capo_service_catalog.types.source_connection_parameters
+
+    out["ConnectionParameters"] = (
+        capo_service_catalog.types.source_connection_parameters.serialize_cbor(
+            value["connection_parameters"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> SourceConnection:
+    out: SourceConnection = {}  # type: ignore[typeddict-item]
+    if data.get("Type") is not None:
+        import capo_service_catalog.types.source_type
+
+        out["type"] = capo_service_catalog.types.source_type.deserialize_cbor(
+            data["Type"]
+        )
+    if data.get("ConnectionParameters") is not None:
+        import capo_service_catalog.types.source_connection_parameters
+
+        out["connection_parameters"] = (
+            capo_service_catalog.types.source_connection_parameters.deserialize_cbor(
+                data["ConnectionParameters"]
+            )
+        )
+    else:
+        raise DeserializationError("SourceConnection.connection_parameters required")
+    return out

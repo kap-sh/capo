@@ -54,3 +54,39 @@ def deserialize_aws_json_1_0(data: dict) -> GetResourceSyncStatusInput:
             "",
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetResourceSyncStatusInput) -> dict:
+    out: dict = {}
+    out["ResourceName"] = value["resource_name"]
+    import capo_codeconnections.types.sync_configuration_type
+
+    out["SyncType"] = capo_codeconnections.types.sync_configuration_type.serialize_cbor(
+        value["sync_type"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetResourceSyncStatusInput:
+    out: GetResourceSyncStatusInput = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceName") is not None:
+        out["resource_name"] = data["ResourceName"]
+    else:
+        out["resource_name"] = ""
+    if data.get("SyncType") is not None:
+        import capo_codeconnections.types.sync_configuration_type
+
+        out["sync_type"] = (
+            capo_codeconnections.types.sync_configuration_type.deserialize_cbor(
+                data["SyncType"]
+            )
+        )
+    else:
+        import typing
+
+        out["sync_type"] = typing.cast(
+            "capo_codeconnections.types.sync_configuration_type.SyncConfigurationType",
+            "",
+        )
+    return out

@@ -119,3 +119,80 @@ def deserialize_aws_json_1_1(data: dict) -> ImageBuilderAgentAccessConfigForUpda
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ImageBuilderAgentAccessConfigForUpdate) -> dict:
+    out: dict = {}
+    if "settings" in value:
+        import capo_appstream.types.agent_access_setting_list
+
+        out["Settings"] = capo_appstream.types.agent_access_setting_list.serialize_cbor(
+            value["settings"]
+        )
+    if "s3_bucket_arn" in value:
+        out["S3BucketArn"] = value["s3_bucket_arn"]
+    if "screenshots_upload_enabled" in value:
+        out["ScreenshotsUploadEnabled"] = value["screenshots_upload_enabled"]
+    if "screen_resolution" in value:
+        import capo_appstream.types.screen_resolution
+
+        out["ScreenResolution"] = capo_appstream.types.screen_resolution.serialize_cbor(
+            value["screen_resolution"]
+        )
+    if "screen_image_format" in value:
+        import capo_appstream.types.screen_image_format
+
+        out["ScreenImageFormat"] = (
+            capo_appstream.types.screen_image_format.serialize_cbor(
+                value["screen_image_format"]
+            )
+        )
+    if "user_control_mode" in value:
+        import capo_appstream.types.user_control_mode
+
+        out["UserControlMode"] = capo_appstream.types.user_control_mode.serialize_cbor(
+            value["user_control_mode"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ImageBuilderAgentAccessConfigForUpdate:
+    out: ImageBuilderAgentAccessConfigForUpdate = {}  # type: ignore[typeddict-item]
+    if data.get("Settings") is not None:
+        import capo_appstream.types.agent_access_setting_list
+
+        out["settings"] = (
+            capo_appstream.types.agent_access_setting_list.deserialize_cbor(
+                data["Settings"]
+            )
+        )
+    if data.get("S3BucketArn") is not None:
+        out["s3_bucket_arn"] = data["S3BucketArn"]
+    if data.get("ScreenshotsUploadEnabled") is not None:
+        out["screenshots_upload_enabled"] = data["ScreenshotsUploadEnabled"]
+    if data.get("ScreenResolution") is not None:
+        import capo_appstream.types.screen_resolution
+
+        out["screen_resolution"] = (
+            capo_appstream.types.screen_resolution.deserialize_cbor(
+                data["ScreenResolution"]
+            )
+        )
+    if data.get("ScreenImageFormat") is not None:
+        import capo_appstream.types.screen_image_format
+
+        out["screen_image_format"] = (
+            capo_appstream.types.screen_image_format.deserialize_cbor(
+                data["ScreenImageFormat"]
+            )
+        )
+    if data.get("UserControlMode") is not None:
+        import capo_appstream.types.user_control_mode
+
+        out["user_control_mode"] = (
+            capo_appstream.types.user_control_mode.deserialize_cbor(
+                data["UserControlMode"]
+            )
+        )
+    return out

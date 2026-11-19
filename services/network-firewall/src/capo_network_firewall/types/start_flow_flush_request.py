@@ -89,3 +89,52 @@ def deserialize_aws_json_1_0(data: dict) -> StartFlowFlushRequest:
     else:
         out["flow_filters"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartFlowFlushRequest) -> dict:
+    out: dict = {}
+    out["FirewallArn"] = value["firewall_arn"]
+    if "availability_zone" in value:
+        out["AvailabilityZone"] = value["availability_zone"]
+    if "availability_zone_id" in value:
+        out["AvailabilityZoneId"] = value["availability_zone_id"]
+    if "vpc_endpoint_association_arn" in value:
+        out["VpcEndpointAssociationArn"] = value["vpc_endpoint_association_arn"]
+    if "vpc_endpoint_id" in value:
+        out["VpcEndpointId"] = value["vpc_endpoint_id"]
+    if "minimum_flow_age_in_seconds" in value:
+        out["MinimumFlowAgeInSeconds"] = value["minimum_flow_age_in_seconds"]
+    import capo_network_firewall.types.flow_filters
+
+    out["FlowFilters"] = capo_network_firewall.types.flow_filters.serialize_cbor(
+        value["flow_filters"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartFlowFlushRequest:
+    out: StartFlowFlushRequest = {}  # type: ignore[typeddict-item]
+    if data.get("FirewallArn") is not None:
+        out["firewall_arn"] = data["FirewallArn"]
+    else:
+        out["firewall_arn"] = ""
+    if data.get("AvailabilityZone") is not None:
+        out["availability_zone"] = data["AvailabilityZone"]
+    if data.get("AvailabilityZoneId") is not None:
+        out["availability_zone_id"] = data["AvailabilityZoneId"]
+    if data.get("VpcEndpointAssociationArn") is not None:
+        out["vpc_endpoint_association_arn"] = data["VpcEndpointAssociationArn"]
+    if data.get("VpcEndpointId") is not None:
+        out["vpc_endpoint_id"] = data["VpcEndpointId"]
+    if data.get("MinimumFlowAgeInSeconds") is not None:
+        out["minimum_flow_age_in_seconds"] = data["MinimumFlowAgeInSeconds"]
+    if data.get("FlowFilters") is not None:
+        import capo_network_firewall.types.flow_filters
+
+        out["flow_filters"] = capo_network_firewall.types.flow_filters.deserialize_cbor(
+            data["FlowFilters"]
+        )
+    else:
+        out["flow_filters"] = []
+    return out

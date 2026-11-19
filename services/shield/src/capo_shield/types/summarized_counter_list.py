@@ -29,3 +29,24 @@ def deserialize_aws_json_1_1(data: list) -> SummarizedCounterList:
             continue
         out.append(capo_shield.types.summarized_counter.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SummarizedCounterList) -> list:
+    import capo_shield.types.summarized_counter
+
+    out: list = []
+    for item in value:
+        out.append(capo_shield.types.summarized_counter.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> SummarizedCounterList:
+    import capo_shield.types.summarized_counter
+
+    out: SummarizedCounterList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_shield.types.summarized_counter.deserialize_cbor(item))
+    return out

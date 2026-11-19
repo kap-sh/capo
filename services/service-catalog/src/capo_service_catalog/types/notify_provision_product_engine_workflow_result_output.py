@@ -20,3 +20,14 @@ def deserialize_aws_json_1_1(
 ) -> NotifyProvisionProductEngineWorkflowResultOutput:
     out: NotifyProvisionProductEngineWorkflowResultOutput = {}  # type: ignore[typeddict-item]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: NotifyProvisionProductEngineWorkflowResultOutput) -> dict:
+    out: dict = {}
+    return out
+
+
+def deserialize_cbor(data: dict) -> NotifyProvisionProductEngineWorkflowResultOutput:
+    out: NotifyProvisionProductEngineWorkflowResultOutput = {}  # type: ignore[typeddict-item]
+    return out

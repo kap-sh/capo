@@ -18,3 +18,16 @@ def serialize_aws_json_1_1(value: ProvisioningArtifactCreatedTime) -> float:
 
 def deserialize_aws_json_1_1(data: float) -> ProvisioningArtifactCreatedTime:
     return datetime.datetime.fromtimestamp(float(data), tz=datetime.timezone.utc)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(
+    value: ProvisioningArtifactCreatedTime,
+) -> ProvisioningArtifactCreatedTime:
+    return value
+
+
+def deserialize_cbor(
+    data: ProvisioningArtifactCreatedTime,
+) -> ProvisioningArtifactCreatedTime:
+    return data

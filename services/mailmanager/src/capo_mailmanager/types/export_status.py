@@ -79,3 +79,62 @@ def deserialize_aws_json_1_0(data: dict) -> ExportStatus:
     if data.get("ErrorMessage") is not None:
         out["error_message"] = data["ErrorMessage"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExportStatus) -> dict:
+    out: dict = {}
+    if "submission_timestamp" in value:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["SubmissionTimestamp"] = (
+            capo_mailmanager.types._prelude.timestamp.serialize_cbor(
+                value["submission_timestamp"]
+            )
+        )
+    if "completion_timestamp" in value:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["CompletionTimestamp"] = (
+            capo_mailmanager.types._prelude.timestamp.serialize_cbor(
+                value["completion_timestamp"]
+            )
+        )
+    if "state" in value:
+        import capo_mailmanager.types.export_state
+
+        out["State"] = capo_mailmanager.types.export_state.serialize_cbor(
+            value["state"]
+        )
+    if "error_message" in value:
+        out["ErrorMessage"] = value["error_message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ExportStatus:
+    out: ExportStatus = {}  # type: ignore[typeddict-item]
+    if data.get("SubmissionTimestamp") is not None:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["submission_timestamp"] = (
+            capo_mailmanager.types._prelude.timestamp.deserialize_cbor(
+                data["SubmissionTimestamp"]
+            )
+        )
+    if data.get("CompletionTimestamp") is not None:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["completion_timestamp"] = (
+            capo_mailmanager.types._prelude.timestamp.deserialize_cbor(
+                data["CompletionTimestamp"]
+            )
+        )
+    if data.get("State") is not None:
+        import capo_mailmanager.types.export_state
+
+        out["state"] = capo_mailmanager.types.export_state.deserialize_cbor(
+            data["State"]
+        )
+    if data.get("ErrorMessage") is not None:
+        out["error_message"] = data["ErrorMessage"]
+    return out

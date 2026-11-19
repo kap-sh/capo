@@ -65,3 +65,42 @@ def deserialize_aws_json_1_1(data: dict) -> ListProblemsResponse:
     if data.get("AccountId") is not None:
         out["account_id"] = data["AccountId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListProblemsResponse) -> dict:
+    out: dict = {}
+    if "problem_list" in value:
+        import capo_application_insights.types.problem_list
+
+        out["ProblemList"] = (
+            capo_application_insights.types.problem_list.serialize_cbor(
+                value["problem_list"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "resource_group_name" in value:
+        out["ResourceGroupName"] = value["resource_group_name"]
+    if "account_id" in value:
+        out["AccountId"] = value["account_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListProblemsResponse:
+    out: ListProblemsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("ProblemList") is not None:
+        import capo_application_insights.types.problem_list
+
+        out["problem_list"] = (
+            capo_application_insights.types.problem_list.deserialize_cbor(
+                data["ProblemList"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("ResourceGroupName") is not None:
+        out["resource_group_name"] = data["ResourceGroupName"]
+    if data.get("AccountId") is not None:
+        out["account_id"] = data["AccountId"]
+    return out

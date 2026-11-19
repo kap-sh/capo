@@ -52,6 +52,33 @@ def deserialize_aws_json_1_1(data: dict) -> ServiceAlreadyExists_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ServiceAlreadyExists_) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["Message"] = value["message"]
+    if "creator_request_id" in value:
+        out["CreatorRequestId"] = value["creator_request_id"]
+    if "service_id" in value:
+        out["ServiceId"] = value["service_id"]
+    if "service_arn" in value:
+        out["ServiceArn"] = value["service_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ServiceAlreadyExists_:
+    out: ServiceAlreadyExists_ = {}  # type: ignore[typeddict-item]
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    if data.get("CreatorRequestId") is not None:
+        out["creator_request_id"] = data["CreatorRequestId"]
+    if data.get("ServiceId") is not None:
+        out["service_id"] = data["ServiceId"]
+    if data.get("ServiceArn") is not None:
+        out["service_arn"] = data["ServiceArn"]
+    return out
+
+
 class ServiceAlreadyExists(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.servicediscovery#ServiceAlreadyExists``."""
 
@@ -79,3 +106,9 @@ class ServiceAlreadyExists(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ServiceAlreadyExists":
         return cls(deserialize_aws_json_1_1(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "ServiceAlreadyExists":
+        return cls(deserialize_cbor(data), message, response=response)

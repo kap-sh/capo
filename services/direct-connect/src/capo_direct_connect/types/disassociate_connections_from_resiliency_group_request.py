@@ -64,3 +64,40 @@ def deserialize_aws_json_1_1(
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DisassociateConnectionsFromResiliencyGroupRequest) -> dict:
+    out: dict = {}
+    import capo_direct_connect.types.connection_identifier_list
+
+    out["connectionIdentifiers"] = (
+        capo_direct_connect.types.connection_identifier_list.serialize_cbor(
+            value["connection_identifiers"]
+        )
+    )
+    out["resiliencyGroupId"] = value["resiliency_group_id"]
+    if "client_token" in value:
+        out["clientToken"] = value["client_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DisassociateConnectionsFromResiliencyGroupRequest:
+    out: DisassociateConnectionsFromResiliencyGroupRequest = {}  # type: ignore[typeddict-item]
+    if data.get("connectionIdentifiers") is not None:
+        import capo_direct_connect.types.connection_identifier_list
+
+        out["connection_identifiers"] = (
+            capo_direct_connect.types.connection_identifier_list.deserialize_cbor(
+                data["connectionIdentifiers"]
+            )
+        )
+    else:
+        out["connection_identifiers"] = []
+    if data.get("resiliencyGroupId") is not None:
+        out["resiliency_group_id"] = data["resiliencyGroupId"]
+    else:
+        out["resiliency_group_id"] = ""
+    if data.get("clientToken") is not None:
+        out["client_token"] = data["clientToken"]
+    return out

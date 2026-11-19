@@ -167,6 +167,125 @@ def deserialize_aws_json_1_0(data: dict) -> Row:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Row) -> dict:
+    out: dict = {}
+    if "archived_message_id" in value:
+        out["ArchivedMessageId"] = value["archived_message_id"]
+    if "received_timestamp" in value:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["ReceivedTimestamp"] = (
+            capo_mailmanager.types._prelude.timestamp.serialize_cbor(
+                value["received_timestamp"]
+            )
+        )
+    if "date" in value:
+        out["Date"] = value["date"]
+    if "to" in value:
+        out["To"] = value["to"]
+    if "from" in value:
+        out["From"] = value["from"]
+    if "cc" in value:
+        out["Cc"] = value["cc"]
+    if "subject" in value:
+        out["Subject"] = value["subject"]
+    if "message_id" in value:
+        out["MessageId"] = value["message_id"]
+    if "has_attachments" in value:
+        out["HasAttachments"] = value["has_attachments"]
+    if "received_headers" in value:
+        import capo_mailmanager.types.email_received_headers_list
+
+        out["ReceivedHeaders"] = (
+            capo_mailmanager.types.email_received_headers_list.serialize_cbor(
+                value["received_headers"]
+            )
+        )
+    if "in_reply_to" in value:
+        out["InReplyTo"] = value["in_reply_to"]
+    if "x_mailer" in value:
+        out["XMailer"] = value["x_mailer"]
+    if "x_original_mailer" in value:
+        out["XOriginalMailer"] = value["x_original_mailer"]
+    if "x_priority" in value:
+        out["XPriority"] = value["x_priority"]
+    if "ingress_point_id" in value:
+        out["IngressPointId"] = value["ingress_point_id"]
+    if "sender_hostname" in value:
+        out["SenderHostname"] = value["sender_hostname"]
+    if "sender_ip_address" in value:
+        out["SenderIpAddress"] = value["sender_ip_address"]
+    if "envelope" in value:
+        import capo_mailmanager.types.envelope
+
+        out["Envelope"] = capo_mailmanager.types.envelope.serialize_cbor(
+            value["envelope"]
+        )
+    if "source_arn" in value:
+        out["SourceArn"] = value["source_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Row:
+    out: Row = {}  # type: ignore[typeddict-item]
+    if data.get("ArchivedMessageId") is not None:
+        out["archived_message_id"] = data["ArchivedMessageId"]
+    if data.get("ReceivedTimestamp") is not None:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["received_timestamp"] = (
+            capo_mailmanager.types._prelude.timestamp.deserialize_cbor(
+                data["ReceivedTimestamp"]
+            )
+        )
+    if data.get("Date") is not None:
+        out["date"] = data["Date"]
+    if data.get("To") is not None:
+        out["to"] = data["To"]
+    if data.get("From") is not None:
+        out["from"] = data["From"]
+    if data.get("Cc") is not None:
+        out["cc"] = data["Cc"]
+    if data.get("Subject") is not None:
+        out["subject"] = data["Subject"]
+    if data.get("MessageId") is not None:
+        out["message_id"] = data["MessageId"]
+    if data.get("HasAttachments") is not None:
+        out["has_attachments"] = data["HasAttachments"]
+    if data.get("ReceivedHeaders") is not None:
+        import capo_mailmanager.types.email_received_headers_list
+
+        out["received_headers"] = (
+            capo_mailmanager.types.email_received_headers_list.deserialize_cbor(
+                data["ReceivedHeaders"]
+            )
+        )
+    if data.get("InReplyTo") is not None:
+        out["in_reply_to"] = data["InReplyTo"]
+    if data.get("XMailer") is not None:
+        out["x_mailer"] = data["XMailer"]
+    if data.get("XOriginalMailer") is not None:
+        out["x_original_mailer"] = data["XOriginalMailer"]
+    if data.get("XPriority") is not None:
+        out["x_priority"] = data["XPriority"]
+    if data.get("IngressPointId") is not None:
+        out["ingress_point_id"] = data["IngressPointId"]
+    if data.get("SenderHostname") is not None:
+        out["sender_hostname"] = data["SenderHostname"]
+    if data.get("SenderIpAddress") is not None:
+        out["sender_ip_address"] = data["SenderIpAddress"]
+    if data.get("Envelope") is not None:
+        import capo_mailmanager.types.envelope
+
+        out["envelope"] = capo_mailmanager.types.envelope.deserialize_cbor(
+            data["Envelope"]
+        )
+    if data.get("SourceArn") is not None:
+        out["source_arn"] = data["SourceArn"]
+    return out
+
+
 def redact_sensitive(value: Row) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "sender_ip_address" in value:

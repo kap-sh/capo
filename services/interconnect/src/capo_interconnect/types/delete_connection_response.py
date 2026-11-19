@@ -39,6 +39,30 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteConnectionResponse:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteConnectionResponse) -> dict:
+    out: dict = {}
+    import capo_interconnect.types.connection
+
+    out["connection"] = capo_interconnect.types.connection.serialize_cbor(
+        value["connection"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteConnectionResponse:
+    out: DeleteConnectionResponse = {}  # type: ignore[typeddict-item]
+    if data.get("connection") is not None:
+        import capo_interconnect.types.connection
+
+        out["connection"] = capo_interconnect.types.connection.deserialize_cbor(
+            data["connection"]
+        )
+    else:
+        raise DeserializationError("DeleteConnectionResponse.connection required")
+    return out
+
+
 def redact_sensitive(value: DeleteConnectionResponse) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "connection" in value:

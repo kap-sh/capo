@@ -58,3 +58,34 @@ def deserialize_aws_json_1_0(data: dict) -> TargetTrackingScalingPolicyConfigura
     else:
         out["target_value"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TargetTrackingScalingPolicyConfiguration) -> dict:
+    out: dict = {}
+    out["disableScaleIn"] = value.get("disable_scale_in", False)
+    out["scaleInCooldown"] = value.get("scale_in_cooldown", 0)
+    out["scaleOutCooldown"] = value.get("scale_out_cooldown", 0)
+    out["targetValue"] = value.get("target_value", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> TargetTrackingScalingPolicyConfiguration:
+    out: TargetTrackingScalingPolicyConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("disableScaleIn") is not None:
+        out["disable_scale_in"] = data["disableScaleIn"]
+    else:
+        out["disable_scale_in"] = False
+    if data.get("scaleInCooldown") is not None:
+        out["scale_in_cooldown"] = data["scaleInCooldown"]
+    else:
+        out["scale_in_cooldown"] = 0
+    if data.get("scaleOutCooldown") is not None:
+        out["scale_out_cooldown"] = data["scaleOutCooldown"]
+    else:
+        out["scale_out_cooldown"] = 0
+    if data.get("targetValue") is not None:
+        out["target_value"] = float(data["targetValue"])
+    else:
+        out["target_value"] = 0
+    return out

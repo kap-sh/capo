@@ -70,3 +70,42 @@ def deserialize_aws_json_1_0(data: dict) -> Attachment:
     if data.get("DnsName") is not None:
         out["dns_name"] = data["DnsName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Attachment) -> dict:
+    out: dict = {}
+    if "subnet_id" in value:
+        out["SubnetId"] = value["subnet_id"]
+    if "endpoint_id" in value:
+        out["EndpointId"] = value["endpoint_id"]
+    if "status" in value:
+        import capo_network_firewall.types.attachment_status
+
+        out["Status"] = capo_network_firewall.types.attachment_status.serialize_cbor(
+            value["status"]
+        )
+    if "status_message" in value:
+        out["StatusMessage"] = value["status_message"]
+    if "dns_name" in value:
+        out["DnsName"] = value["dns_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Attachment:
+    out: Attachment = {}  # type: ignore[typeddict-item]
+    if data.get("SubnetId") is not None:
+        out["subnet_id"] = data["SubnetId"]
+    if data.get("EndpointId") is not None:
+        out["endpoint_id"] = data["EndpointId"]
+    if data.get("Status") is not None:
+        import capo_network_firewall.types.attachment_status
+
+        out["status"] = capo_network_firewall.types.attachment_status.deserialize_cbor(
+            data["Status"]
+        )
+    if data.get("StatusMessage") is not None:
+        out["status_message"] = data["StatusMessage"]
+    if data.get("DnsName") is not None:
+        out["dns_name"] = data["DnsName"]
+    return out

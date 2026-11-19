@@ -34,3 +34,23 @@ def deserialize_aws_json_1_1(data: dict) -> DatasetDocumentClassifierInputDataCo
     if data.get("LabelDelimiter") is not None:
         out["label_delimiter"] = data["LabelDelimiter"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DatasetDocumentClassifierInputDataConfig) -> dict:
+    out: dict = {}
+    out["S3Uri"] = value["s3_uri"]
+    if "label_delimiter" in value:
+        out["LabelDelimiter"] = value["label_delimiter"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DatasetDocumentClassifierInputDataConfig:
+    out: DatasetDocumentClassifierInputDataConfig = {}  # type: ignore[typeddict-item]
+    if data.get("S3Uri") is not None:
+        out["s3_uri"] = data["S3Uri"]
+    else:
+        out["s3_uri"] = ""
+    if data.get("LabelDelimiter") is not None:
+        out["label_delimiter"] = data["LabelDelimiter"]
+    return out

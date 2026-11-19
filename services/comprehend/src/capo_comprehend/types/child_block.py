@@ -39,3 +39,26 @@ def deserialize_aws_json_1_1(data: dict) -> ChildBlock:
     if data.get("EndOffset") is not None:
         out["end_offset"] = data["EndOffset"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ChildBlock) -> dict:
+    out: dict = {}
+    if "child_block_id" in value:
+        out["ChildBlockId"] = value["child_block_id"]
+    if "begin_offset" in value:
+        out["BeginOffset"] = value["begin_offset"]
+    if "end_offset" in value:
+        out["EndOffset"] = value["end_offset"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ChildBlock:
+    out: ChildBlock = {}  # type: ignore[typeddict-item]
+    if data.get("ChildBlockId") is not None:
+        out["child_block_id"] = data["ChildBlockId"]
+    if data.get("BeginOffset") is not None:
+        out["begin_offset"] = data["BeginOffset"]
+    if data.get("EndOffset") is not None:
+        out["end_offset"] = data["EndOffset"]
+    return out

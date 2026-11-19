@@ -101,3 +101,70 @@ def deserialize_aws_json_1_0(data: dict) -> CreateFirewallPolicyRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateFirewallPolicyRequest) -> dict:
+    out: dict = {}
+    out["FirewallPolicyName"] = value["firewall_policy_name"]
+    import capo_network_firewall.types.firewall_policy
+
+    out["FirewallPolicy"] = capo_network_firewall.types.firewall_policy.serialize_cbor(
+        value["firewall_policy"]
+    )
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "tags" in value:
+        import capo_network_firewall.types.tag_list
+
+        out["Tags"] = capo_network_firewall.types.tag_list.serialize_cbor(value["tags"])
+    if "dry_run" in value:
+        out["DryRun"] = value["dry_run"]
+    if "encryption_configuration" in value:
+        import capo_network_firewall.types.encryption_configuration
+
+        out["EncryptionConfiguration"] = (
+            capo_network_firewall.types.encryption_configuration.serialize_cbor(
+                value["encryption_configuration"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateFirewallPolicyRequest:
+    out: CreateFirewallPolicyRequest = {}  # type: ignore[typeddict-item]
+    if data.get("FirewallPolicyName") is not None:
+        out["firewall_policy_name"] = data["FirewallPolicyName"]
+    else:
+        out["firewall_policy_name"] = ""
+    if data.get("FirewallPolicy") is not None:
+        import capo_network_firewall.types.firewall_policy
+
+        out["firewall_policy"] = (
+            capo_network_firewall.types.firewall_policy.deserialize_cbor(
+                data["FirewallPolicy"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "CreateFirewallPolicyRequest.firewall_policy required"
+        )
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("Tags") is not None:
+        import capo_network_firewall.types.tag_list
+
+        out["tags"] = capo_network_firewall.types.tag_list.deserialize_cbor(
+            data["Tags"]
+        )
+    if data.get("DryRun") is not None:
+        out["dry_run"] = data["DryRun"]
+    if data.get("EncryptionConfiguration") is not None:
+        import capo_network_firewall.types.encryption_configuration
+
+        out["encryption_configuration"] = (
+            capo_network_firewall.types.encryption_configuration.deserialize_cbor(
+                data["EncryptionConfiguration"]
+            )
+        )
+    return out

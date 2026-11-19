@@ -152,3 +152,114 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCertificateAuthorityRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateCertificateAuthorityRequest) -> dict:
+    out: dict = {}
+    import capo_acm_pca.types.certificate_authority_configuration
+
+    out["CertificateAuthorityConfiguration"] = (
+        capo_acm_pca.types.certificate_authority_configuration.serialize_cbor(
+            value["certificate_authority_configuration"]
+        )
+    )
+    if "revocation_configuration" in value:
+        import capo_acm_pca.types.revocation_configuration
+
+        out["RevocationConfiguration"] = (
+            capo_acm_pca.types.revocation_configuration.serialize_cbor(
+                value["revocation_configuration"]
+            )
+        )
+    import capo_acm_pca.types.certificate_authority_type
+
+    out["CertificateAuthorityType"] = (
+        capo_acm_pca.types.certificate_authority_type.serialize_cbor(
+            value["certificate_authority_type"]
+        )
+    )
+    if "idempotency_token" in value:
+        out["IdempotencyToken"] = value["idempotency_token"]
+    if "key_storage_security_standard" in value:
+        import capo_acm_pca.types.key_storage_security_standard
+
+        out["KeyStorageSecurityStandard"] = (
+            capo_acm_pca.types.key_storage_security_standard.serialize_cbor(
+                value["key_storage_security_standard"]
+            )
+        )
+    if "tags" in value:
+        import capo_acm_pca.types.tag_list
+
+        out["Tags"] = capo_acm_pca.types.tag_list.serialize_cbor(value["tags"])
+    if "usage_mode" in value:
+        import capo_acm_pca.types.certificate_authority_usage_mode
+
+        out["UsageMode"] = (
+            capo_acm_pca.types.certificate_authority_usage_mode.serialize_cbor(
+                value["usage_mode"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateCertificateAuthorityRequest:
+    out: CreateCertificateAuthorityRequest = {}  # type: ignore[typeddict-item]
+    if data.get("CertificateAuthorityConfiguration") is not None:
+        import capo_acm_pca.types.certificate_authority_configuration
+
+        out["certificate_authority_configuration"] = (
+            capo_acm_pca.types.certificate_authority_configuration.deserialize_cbor(
+                data["CertificateAuthorityConfiguration"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "CreateCertificateAuthorityRequest.certificate_authority_configuration required"
+        )
+    if data.get("RevocationConfiguration") is not None:
+        import capo_acm_pca.types.revocation_configuration
+
+        out["revocation_configuration"] = (
+            capo_acm_pca.types.revocation_configuration.deserialize_cbor(
+                data["RevocationConfiguration"]
+            )
+        )
+    if data.get("CertificateAuthorityType") is not None:
+        import capo_acm_pca.types.certificate_authority_type
+
+        out["certificate_authority_type"] = (
+            capo_acm_pca.types.certificate_authority_type.deserialize_cbor(
+                data["CertificateAuthorityType"]
+            )
+        )
+    else:
+        import typing
+
+        out["certificate_authority_type"] = typing.cast(
+            "capo_acm_pca.types.certificate_authority_type.CertificateAuthorityType", ""
+        )
+    if data.get("IdempotencyToken") is not None:
+        out["idempotency_token"] = data["IdempotencyToken"]
+    if data.get("KeyStorageSecurityStandard") is not None:
+        import capo_acm_pca.types.key_storage_security_standard
+
+        out["key_storage_security_standard"] = (
+            capo_acm_pca.types.key_storage_security_standard.deserialize_cbor(
+                data["KeyStorageSecurityStandard"]
+            )
+        )
+    if data.get("Tags") is not None:
+        import capo_acm_pca.types.tag_list
+
+        out["tags"] = capo_acm_pca.types.tag_list.deserialize_cbor(data["Tags"])
+    if data.get("UsageMode") is not None:
+        import capo_acm_pca.types.certificate_authority_usage_mode
+
+        out["usage_mode"] = (
+            capo_acm_pca.types.certificate_authority_usage_mode.deserialize_cbor(
+                data["UsageMode"]
+            )
+        )
+    return out

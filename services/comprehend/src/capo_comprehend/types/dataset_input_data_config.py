@@ -103,3 +103,74 @@ def deserialize_aws_json_1_1(data: dict) -> DatasetInputDataConfig:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DatasetInputDataConfig) -> dict:
+    out: dict = {}
+    if "augmented_manifests" in value:
+        import capo_comprehend.types.dataset_augmented_manifests_list
+
+        out["AugmentedManifests"] = (
+            capo_comprehend.types.dataset_augmented_manifests_list.serialize_cbor(
+                value["augmented_manifests"]
+            )
+        )
+    if "data_format" in value:
+        import capo_comprehend.types.dataset_data_format
+
+        out["DataFormat"] = capo_comprehend.types.dataset_data_format.serialize_cbor(
+            value["data_format"]
+        )
+    if "document_classifier_input_data_config" in value:
+        import capo_comprehend.types.dataset_document_classifier_input_data_config
+
+        out["DocumentClassifierInputDataConfig"] = (
+            capo_comprehend.types.dataset_document_classifier_input_data_config.serialize_cbor(
+                value["document_classifier_input_data_config"]
+            )
+        )
+    if "entity_recognizer_input_data_config" in value:
+        import capo_comprehend.types.dataset_entity_recognizer_input_data_config
+
+        out["EntityRecognizerInputDataConfig"] = (
+            capo_comprehend.types.dataset_entity_recognizer_input_data_config.serialize_cbor(
+                value["entity_recognizer_input_data_config"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DatasetInputDataConfig:
+    out: DatasetInputDataConfig = {}  # type: ignore[typeddict-item]
+    if data.get("AugmentedManifests") is not None:
+        import capo_comprehend.types.dataset_augmented_manifests_list
+
+        out["augmented_manifests"] = (
+            capo_comprehend.types.dataset_augmented_manifests_list.deserialize_cbor(
+                data["AugmentedManifests"]
+            )
+        )
+    if data.get("DataFormat") is not None:
+        import capo_comprehend.types.dataset_data_format
+
+        out["data_format"] = capo_comprehend.types.dataset_data_format.deserialize_cbor(
+            data["DataFormat"]
+        )
+    if data.get("DocumentClassifierInputDataConfig") is not None:
+        import capo_comprehend.types.dataset_document_classifier_input_data_config
+
+        out["document_classifier_input_data_config"] = (
+            capo_comprehend.types.dataset_document_classifier_input_data_config.deserialize_cbor(
+                data["DocumentClassifierInputDataConfig"]
+            )
+        )
+    if data.get("EntityRecognizerInputDataConfig") is not None:
+        import capo_comprehend.types.dataset_entity_recognizer_input_data_config
+
+        out["entity_recognizer_input_data_config"] = (
+            capo_comprehend.types.dataset_entity_recognizer_input_data_config.deserialize_cbor(
+                data["EntityRecognizerInputDataConfig"]
+            )
+        )
+    return out

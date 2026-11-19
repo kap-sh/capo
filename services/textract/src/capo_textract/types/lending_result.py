@@ -64,3 +64,46 @@ def deserialize_aws_json_1_1(data: dict) -> LendingResult:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LendingResult) -> dict:
+    out: dict = {}
+    if "page" in value:
+        out["Page"] = value["page"]
+    if "page_classification" in value:
+        import capo_textract.types.page_classification
+
+        out["PageClassification"] = (
+            capo_textract.types.page_classification.serialize_cbor(
+                value["page_classification"]
+            )
+        )
+    if "extractions" in value:
+        import capo_textract.types.extraction_list
+
+        out["Extractions"] = capo_textract.types.extraction_list.serialize_cbor(
+            value["extractions"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> LendingResult:
+    out: LendingResult = {}  # type: ignore[typeddict-item]
+    if data.get("Page") is not None:
+        out["page"] = data["Page"]
+    if data.get("PageClassification") is not None:
+        import capo_textract.types.page_classification
+
+        out["page_classification"] = (
+            capo_textract.types.page_classification.deserialize_cbor(
+                data["PageClassification"]
+            )
+        )
+    if data.get("Extractions") is not None:
+        import capo_textract.types.extraction_list
+
+        out["extractions"] = capo_textract.types.extraction_list.deserialize_cbor(
+            data["Extractions"]
+        )
+    return out

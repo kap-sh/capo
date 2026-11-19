@@ -96,3 +96,30 @@ def deserialize_aws_json_1_0(data: list) -> OTelEnrichmentMetricSelectorList:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: OTelEnrichmentMetricSelectorList) -> list:
+    import capo_cloudwatch.types.o_tel_enrichment_metric_selector
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_cloudwatch.types.o_tel_enrichment_metric_selector.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> OTelEnrichmentMetricSelectorList:
+    import capo_cloudwatch.types.o_tel_enrichment_metric_selector
+
+    out: OTelEnrichmentMetricSelectorList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_cloudwatch.types.o_tel_enrichment_metric_selector.deserialize_cbor(
+                item
+            )
+        )
+    return out

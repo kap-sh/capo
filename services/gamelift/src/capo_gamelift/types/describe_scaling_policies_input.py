@@ -72,3 +72,42 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeScalingPoliciesInput:
     if data.get("Location") is not None:
         out["location"] = data["Location"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeScalingPoliciesInput) -> dict:
+    out: dict = {}
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "status_filter" in value:
+        import capo_gamelift.types.scaling_status_type
+
+        out["StatusFilter"] = capo_gamelift.types.scaling_status_type.serialize_cbor(
+            value["status_filter"]
+        )
+    if "limit" in value:
+        out["Limit"] = value["limit"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "location" in value:
+        out["Location"] = value["location"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeScalingPoliciesInput:
+    out: DescribeScalingPoliciesInput = {}  # type: ignore[typeddict-item]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("StatusFilter") is not None:
+        import capo_gamelift.types.scaling_status_type
+
+        out["status_filter"] = capo_gamelift.types.scaling_status_type.deserialize_cbor(
+            data["StatusFilter"]
+        )
+    if data.get("Limit") is not None:
+        out["limit"] = data["Limit"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("Location") is not None:
+        out["location"] = data["Location"]
+    return out

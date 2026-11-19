@@ -58,3 +58,41 @@ def deserialize_aws_json_1_1(data: dict) -> AddRegionRequest:
     else:
         raise DeserializationError("AddRegionRequest.vpc_settings required")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AddRegionRequest) -> dict:
+    out: dict = {}
+    out["DirectoryId"] = value["directory_id"]
+    out["RegionName"] = value["region_name"]
+    import capo_directory_service.types.directory_vpc_settings
+
+    out["VPCSettings"] = (
+        capo_directory_service.types.directory_vpc_settings.serialize_cbor(
+            value["vpc_settings"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AddRegionRequest:
+    out: AddRegionRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    if data.get("RegionName") is not None:
+        out["region_name"] = data["RegionName"]
+    else:
+        out["region_name"] = ""
+    if data.get("VPCSettings") is not None:
+        import capo_directory_service.types.directory_vpc_settings
+
+        out["vpc_settings"] = (
+            capo_directory_service.types.directory_vpc_settings.deserialize_cbor(
+                data["VPCSettings"]
+            )
+        )
+    else:
+        raise DeserializationError("AddRegionRequest.vpc_settings required")
+    return out

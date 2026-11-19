@@ -52,6 +52,29 @@ def deserialize_aws_json_1_1(data: dict) -> PlayerLatency:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PlayerLatency) -> dict:
+    out: dict = {}
+    if "player_id" in value:
+        out["PlayerId"] = value["player_id"]
+    if "region_identifier" in value:
+        out["RegionIdentifier"] = value["region_identifier"]
+    if "latency_in_milliseconds" in value:
+        out["LatencyInMilliseconds"] = value["latency_in_milliseconds"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> PlayerLatency:
+    out: PlayerLatency = {}  # type: ignore[typeddict-item]
+    if data.get("PlayerId") is not None:
+        out["player_id"] = data["PlayerId"]
+    if data.get("RegionIdentifier") is not None:
+        out["region_identifier"] = data["RegionIdentifier"]
+    if data.get("LatencyInMilliseconds") is not None:
+        out["latency_in_milliseconds"] = float(data["LatencyInMilliseconds"])
+    return out
+
+
 def redact_sensitive(value: PlayerLatency) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "player_id" in value:

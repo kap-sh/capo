@@ -34,3 +34,26 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLocationOutput:
             data["Location"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateLocationOutput) -> dict:
+    out: dict = {}
+    if "location" in value:
+        import capo_gamelift.types.location_model
+
+        out["Location"] = capo_gamelift.types.location_model.serialize_cbor(
+            value["location"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateLocationOutput:
+    out: CreateLocationOutput = {}  # type: ignore[typeddict-item]
+    if data.get("Location") is not None:
+        import capo_gamelift.types.location_model
+
+        out["location"] = capo_gamelift.types.location_model.deserialize_cbor(
+            data["Location"]
+        )
+    return out

@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> GetAutomationEventRequest:
     else:
         out["event_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetAutomationEventRequest) -> dict:
+    out: dict = {}
+    out["eventId"] = value["event_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetAutomationEventRequest:
+    out: GetAutomationEventRequest = {}  # type: ignore[typeddict-item]
+    if data.get("eventId") is not None:
+        out["event_id"] = data["eventId"]
+    else:
+        out["event_id"] = ""
+    return out

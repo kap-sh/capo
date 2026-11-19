@@ -31,3 +31,24 @@ def deserialize_aws_json_1_1(data: list) -> AppBlockBuilderList:
             capo_appstream.types.app_block_builder.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AppBlockBuilderList) -> list:
+    import capo_appstream.types.app_block_builder
+
+    out: list = []
+    for item in value:
+        out.append(capo_appstream.types.app_block_builder.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> AppBlockBuilderList:
+    import capo_appstream.types.app_block_builder
+
+    out: AppBlockBuilderList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_appstream.types.app_block_builder.deserialize_cbor(item))
+    return out

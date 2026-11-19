@@ -109,3 +109,76 @@ def deserialize_aws_json_1_0(data: dict) -> GetEC2InstanceRecommendationsRequest
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetEC2InstanceRecommendationsRequest) -> dict:
+    out: dict = {}
+    if "instance_arns" in value:
+        import capo_compute_optimizer.types.instance_arns
+
+        out["instanceArns"] = capo_compute_optimizer.types.instance_arns.serialize_cbor(
+            value["instance_arns"]
+        )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    if "filters" in value:
+        import capo_compute_optimizer.types.filters
+
+        out["filters"] = capo_compute_optimizer.types.filters.serialize_cbor(
+            value["filters"]
+        )
+    if "account_ids" in value:
+        import capo_compute_optimizer.types.account_ids
+
+        out["accountIds"] = capo_compute_optimizer.types.account_ids.serialize_cbor(
+            value["account_ids"]
+        )
+    if "recommendation_preferences" in value:
+        import capo_compute_optimizer.types.recommendation_preferences
+
+        out["recommendationPreferences"] = (
+            capo_compute_optimizer.types.recommendation_preferences.serialize_cbor(
+                value["recommendation_preferences"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetEC2InstanceRecommendationsRequest:
+    out: GetEC2InstanceRecommendationsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("instanceArns") is not None:
+        import capo_compute_optimizer.types.instance_arns
+
+        out["instance_arns"] = (
+            capo_compute_optimizer.types.instance_arns.deserialize_cbor(
+                data["instanceArns"]
+            )
+        )
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    if data.get("filters") is not None:
+        import capo_compute_optimizer.types.filters
+
+        out["filters"] = capo_compute_optimizer.types.filters.deserialize_cbor(
+            data["filters"]
+        )
+    if data.get("accountIds") is not None:
+        import capo_compute_optimizer.types.account_ids
+
+        out["account_ids"] = capo_compute_optimizer.types.account_ids.deserialize_cbor(
+            data["accountIds"]
+        )
+    if data.get("recommendationPreferences") is not None:
+        import capo_compute_optimizer.types.recommendation_preferences
+
+        out["recommendation_preferences"] = (
+            capo_compute_optimizer.types.recommendation_preferences.deserialize_cbor(
+                data["recommendationPreferences"]
+            )
+        )
+    return out

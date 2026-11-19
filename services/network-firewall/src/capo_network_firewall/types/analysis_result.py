@@ -70,3 +70,50 @@ def deserialize_aws_json_1_0(data: dict) -> AnalysisResult:
     if data.get("AnalysisDetail") is not None:
         out["analysis_detail"] = data["AnalysisDetail"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AnalysisResult) -> dict:
+    out: dict = {}
+    if "identified_rule_ids" in value:
+        import capo_network_firewall.types.rule_id_list
+
+        out["IdentifiedRuleIds"] = (
+            capo_network_firewall.types.rule_id_list.serialize_cbor(
+                value["identified_rule_ids"]
+            )
+        )
+    if "identified_type" in value:
+        import capo_network_firewall.types.identified_type
+
+        out["IdentifiedType"] = (
+            capo_network_firewall.types.identified_type.serialize_cbor(
+                value["identified_type"]
+            )
+        )
+    if "analysis_detail" in value:
+        out["AnalysisDetail"] = value["analysis_detail"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AnalysisResult:
+    out: AnalysisResult = {}  # type: ignore[typeddict-item]
+    if data.get("IdentifiedRuleIds") is not None:
+        import capo_network_firewall.types.rule_id_list
+
+        out["identified_rule_ids"] = (
+            capo_network_firewall.types.rule_id_list.deserialize_cbor(
+                data["IdentifiedRuleIds"]
+            )
+        )
+    if data.get("IdentifiedType") is not None:
+        import capo_network_firewall.types.identified_type
+
+        out["identified_type"] = (
+            capo_network_firewall.types.identified_type.deserialize_cbor(
+                data["IdentifiedType"]
+            )
+        )
+    if data.get("AnalysisDetail") is not None:
+        out["analysis_detail"] = data["AnalysisDetail"]
+    return out

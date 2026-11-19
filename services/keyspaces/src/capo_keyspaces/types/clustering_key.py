@@ -35,3 +35,24 @@ def deserialize_aws_json_1_0(data: dict) -> ClusteringKey:
     else:
         out["order_by"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ClusteringKey) -> dict:
+    out: dict = {}
+    out["name"] = value["name"]
+    out["orderBy"] = value["order_by"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ClusteringKey:
+    out: ClusteringKey = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    else:
+        out["name"] = ""
+    if data.get("orderBy") is not None:
+        out["order_by"] = data["orderBy"]
+    else:
+        out["order_by"] = ""
+    return out

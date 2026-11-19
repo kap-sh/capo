@@ -55,3 +55,34 @@ def deserialize_aws_json_1_1(data: dict) -> Condition:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Condition) -> dict:
+    out: dict = {}
+    if "result" in value:
+        import capo_codepipeline.types.result
+
+        out["result"] = capo_codepipeline.types.result.serialize_cbor(value["result"])
+    if "rules" in value:
+        import capo_codepipeline.types.rule_declaration_list
+
+        out["rules"] = capo_codepipeline.types.rule_declaration_list.serialize_cbor(
+            value["rules"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Condition:
+    out: Condition = {}  # type: ignore[typeddict-item]
+    if data.get("result") is not None:
+        import capo_codepipeline.types.result
+
+        out["result"] = capo_codepipeline.types.result.deserialize_cbor(data["result"])
+    if data.get("rules") is not None:
+        import capo_codepipeline.types.rule_declaration_list
+
+        out["rules"] = capo_codepipeline.types.rule_declaration_list.deserialize_cbor(
+            data["rules"]
+        )
+    return out

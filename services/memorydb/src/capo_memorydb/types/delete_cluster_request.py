@@ -39,3 +39,27 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteClusterRequest:
     if data.get("FinalSnapshotName") is not None:
         out["final_snapshot_name"] = data["FinalSnapshotName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteClusterRequest) -> dict:
+    out: dict = {}
+    out["ClusterName"] = value["cluster_name"]
+    if "multi_region_cluster_name" in value:
+        out["MultiRegionClusterName"] = value["multi_region_cluster_name"]
+    if "final_snapshot_name" in value:
+        out["FinalSnapshotName"] = value["final_snapshot_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteClusterRequest:
+    out: DeleteClusterRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ClusterName") is not None:
+        out["cluster_name"] = data["ClusterName"]
+    else:
+        out["cluster_name"] = ""
+    if data.get("MultiRegionClusterName") is not None:
+        out["multi_region_cluster_name"] = data["MultiRegionClusterName"]
+    if data.get("FinalSnapshotName") is not None:
+        out["final_snapshot_name"] = data["FinalSnapshotName"]
+    return out

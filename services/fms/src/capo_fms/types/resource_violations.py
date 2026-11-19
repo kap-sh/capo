@@ -29,3 +29,24 @@ def deserialize_aws_json_1_1(data: list) -> ResourceViolations:
             continue
         out.append(capo_fms.types.resource_violation.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResourceViolations) -> list:
+    import capo_fms.types.resource_violation
+
+    out: list = []
+    for item in value:
+        out.append(capo_fms.types.resource_violation.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> ResourceViolations:
+    import capo_fms.types.resource_violation
+
+    out: ResourceViolations = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_fms.types.resource_violation.deserialize_cbor(item))
+    return out

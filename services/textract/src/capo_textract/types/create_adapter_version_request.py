@@ -97,3 +97,67 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAdapterVersionRequest:
 
         out["tags"] = capo_textract.types.tag_map.deserialize_aws_json_1_1(data["Tags"])
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateAdapterVersionRequest) -> dict:
+    out: dict = {}
+    out["AdapterId"] = value["adapter_id"]
+    if "client_request_token" in value:
+        out["ClientRequestToken"] = value["client_request_token"]
+    import capo_textract.types.adapter_version_dataset_config
+
+    out["DatasetConfig"] = (
+        capo_textract.types.adapter_version_dataset_config.serialize_cbor(
+            value["dataset_config"]
+        )
+    )
+    if "kms_key_id" in value:
+        out["KMSKeyId"] = value["kms_key_id"]
+    import capo_textract.types.output_config
+
+    out["OutputConfig"] = capo_textract.types.output_config.serialize_cbor(
+        value["output_config"]
+    )
+    if "tags" in value:
+        import capo_textract.types.tag_map
+
+        out["Tags"] = capo_textract.types.tag_map.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateAdapterVersionRequest:
+    out: CreateAdapterVersionRequest = {}  # type: ignore[typeddict-item]
+    if data.get("AdapterId") is not None:
+        out["adapter_id"] = data["AdapterId"]
+    else:
+        out["adapter_id"] = ""
+    if data.get("ClientRequestToken") is not None:
+        out["client_request_token"] = data["ClientRequestToken"]
+    if data.get("DatasetConfig") is not None:
+        import capo_textract.types.adapter_version_dataset_config
+
+        out["dataset_config"] = (
+            capo_textract.types.adapter_version_dataset_config.deserialize_cbor(
+                data["DatasetConfig"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "CreateAdapterVersionRequest.dataset_config required"
+        )
+    if data.get("KMSKeyId") is not None:
+        out["kms_key_id"] = data["KMSKeyId"]
+    if data.get("OutputConfig") is not None:
+        import capo_textract.types.output_config
+
+        out["output_config"] = capo_textract.types.output_config.deserialize_cbor(
+            data["OutputConfig"]
+        )
+    else:
+        raise DeserializationError("CreateAdapterVersionRequest.output_config required")
+    if data.get("Tags") is not None:
+        import capo_textract.types.tag_map
+
+        out["tags"] = capo_textract.types.tag_map.deserialize_cbor(data["Tags"])
+    return out

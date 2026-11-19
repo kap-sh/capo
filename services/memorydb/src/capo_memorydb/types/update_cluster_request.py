@@ -175,3 +175,123 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateClusterRequest:
             data["IpDiscovery"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateClusterRequest) -> dict:
+    out: dict = {}
+    out["ClusterName"] = value["cluster_name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "security_group_ids" in value:
+        import capo_memorydb.types.security_group_ids_list
+
+        out["SecurityGroupIds"] = (
+            capo_memorydb.types.security_group_ids_list.serialize_cbor(
+                value["security_group_ids"]
+            )
+        )
+    if "maintenance_window" in value:
+        out["MaintenanceWindow"] = value["maintenance_window"]
+    if "sns_topic_arn" in value:
+        out["SnsTopicArn"] = value["sns_topic_arn"]
+    if "sns_topic_status" in value:
+        out["SnsTopicStatus"] = value["sns_topic_status"]
+    if "parameter_group_name" in value:
+        out["ParameterGroupName"] = value["parameter_group_name"]
+    if "snapshot_window" in value:
+        out["SnapshotWindow"] = value["snapshot_window"]
+    if "snapshot_retention_limit" in value:
+        out["SnapshotRetentionLimit"] = value["snapshot_retention_limit"]
+    if "node_type" in value:
+        out["NodeType"] = value["node_type"]
+    if "engine" in value:
+        out["Engine"] = value["engine"]
+    if "engine_version" in value:
+        out["EngineVersion"] = value["engine_version"]
+    if "replica_configuration" in value:
+        import capo_memorydb.types.replica_configuration_request
+
+        out["ReplicaConfiguration"] = (
+            capo_memorydb.types.replica_configuration_request.serialize_cbor(
+                value["replica_configuration"]
+            )
+        )
+    if "shard_configuration" in value:
+        import capo_memorydb.types.shard_configuration_request
+
+        out["ShardConfiguration"] = (
+            capo_memorydb.types.shard_configuration_request.serialize_cbor(
+                value["shard_configuration"]
+            )
+        )
+    if "acl_name" in value:
+        out["ACLName"] = value["acl_name"]
+    if "ip_discovery" in value:
+        import capo_memorydb.types.ip_discovery
+
+        out["IpDiscovery"] = capo_memorydb.types.ip_discovery.serialize_cbor(
+            value["ip_discovery"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateClusterRequest:
+    out: UpdateClusterRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ClusterName") is not None:
+        out["cluster_name"] = data["ClusterName"]
+    else:
+        out["cluster_name"] = ""
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("SecurityGroupIds") is not None:
+        import capo_memorydb.types.security_group_ids_list
+
+        out["security_group_ids"] = (
+            capo_memorydb.types.security_group_ids_list.deserialize_cbor(
+                data["SecurityGroupIds"]
+            )
+        )
+    if data.get("MaintenanceWindow") is not None:
+        out["maintenance_window"] = data["MaintenanceWindow"]
+    if data.get("SnsTopicArn") is not None:
+        out["sns_topic_arn"] = data["SnsTopicArn"]
+    if data.get("SnsTopicStatus") is not None:
+        out["sns_topic_status"] = data["SnsTopicStatus"]
+    if data.get("ParameterGroupName") is not None:
+        out["parameter_group_name"] = data["ParameterGroupName"]
+    if data.get("SnapshotWindow") is not None:
+        out["snapshot_window"] = data["SnapshotWindow"]
+    if data.get("SnapshotRetentionLimit") is not None:
+        out["snapshot_retention_limit"] = data["SnapshotRetentionLimit"]
+    if data.get("NodeType") is not None:
+        out["node_type"] = data["NodeType"]
+    if data.get("Engine") is not None:
+        out["engine"] = data["Engine"]
+    if data.get("EngineVersion") is not None:
+        out["engine_version"] = data["EngineVersion"]
+    if data.get("ReplicaConfiguration") is not None:
+        import capo_memorydb.types.replica_configuration_request
+
+        out["replica_configuration"] = (
+            capo_memorydb.types.replica_configuration_request.deserialize_cbor(
+                data["ReplicaConfiguration"]
+            )
+        )
+    if data.get("ShardConfiguration") is not None:
+        import capo_memorydb.types.shard_configuration_request
+
+        out["shard_configuration"] = (
+            capo_memorydb.types.shard_configuration_request.deserialize_cbor(
+                data["ShardConfiguration"]
+            )
+        )
+    if data.get("ACLName") is not None:
+        out["acl_name"] = data["ACLName"]
+    if data.get("IpDiscovery") is not None:
+        import capo_memorydb.types.ip_discovery
+
+        out["ip_discovery"] = capo_memorydb.types.ip_discovery.deserialize_cbor(
+            data["IpDiscovery"]
+        )
+    return out

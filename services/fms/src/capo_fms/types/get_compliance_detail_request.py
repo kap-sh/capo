@@ -35,3 +35,24 @@ def deserialize_aws_json_1_1(data: dict) -> GetComplianceDetailRequest:
     else:
         out["member_account"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetComplianceDetailRequest) -> dict:
+    out: dict = {}
+    out["PolicyId"] = value["policy_id"]
+    out["MemberAccount"] = value["member_account"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetComplianceDetailRequest:
+    out: GetComplianceDetailRequest = {}  # type: ignore[typeddict-item]
+    if data.get("PolicyId") is not None:
+        out["policy_id"] = data["PolicyId"]
+    else:
+        out["policy_id"] = ""
+    if data.get("MemberAccount") is not None:
+        out["member_account"] = data["MemberAccount"]
+    else:
+        out["member_account"] = ""
+    return out

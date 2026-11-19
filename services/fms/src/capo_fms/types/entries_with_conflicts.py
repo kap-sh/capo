@@ -29,3 +29,24 @@ def deserialize_aws_json_1_1(data: list) -> EntriesWithConflicts:
             continue
         out.append(capo_fms.types.entry_description.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EntriesWithConflicts) -> list:
+    import capo_fms.types.entry_description
+
+    out: list = []
+    for item in value:
+        out.append(capo_fms.types.entry_description.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> EntriesWithConflicts:
+    import capo_fms.types.entry_description
+
+    out: EntriesWithConflicts = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_fms.types.entry_description.deserialize_cbor(item))
+    return out

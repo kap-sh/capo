@@ -29,3 +29,24 @@ def deserialize_aws_json_1_1(data: list) -> ServiceLifecycleList:
             continue
         out.append(capo_health.types.service_lifecycle.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ServiceLifecycleList) -> list:
+    import capo_health.types.service_lifecycle
+
+    out: list = []
+    for item in value:
+        out.append(capo_health.types.service_lifecycle.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> ServiceLifecycleList:
+    import capo_health.types.service_lifecycle
+
+    out: ServiceLifecycleList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_health.types.service_lifecycle.deserialize_cbor(item))
+    return out

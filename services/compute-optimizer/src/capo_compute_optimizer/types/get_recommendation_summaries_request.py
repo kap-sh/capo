@@ -52,3 +52,34 @@ def deserialize_aws_json_1_0(data: dict) -> GetRecommendationSummariesRequest:
     if data.get("maxResults") is not None:
         out["max_results"] = data["maxResults"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetRecommendationSummariesRequest) -> dict:
+    out: dict = {}
+    if "account_ids" in value:
+        import capo_compute_optimizer.types.account_ids
+
+        out["accountIds"] = capo_compute_optimizer.types.account_ids.serialize_cbor(
+            value["account_ids"]
+        )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetRecommendationSummariesRequest:
+    out: GetRecommendationSummariesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("accountIds") is not None:
+        import capo_compute_optimizer.types.account_ids
+
+        out["account_ids"] = capo_compute_optimizer.types.account_ids.deserialize_cbor(
+            data["accountIds"]
+        )
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    return out

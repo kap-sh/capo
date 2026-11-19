@@ -48,3 +48,31 @@ def deserialize_aws_json_1_1(data: dict) -> Query:
             data["Pages"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Query) -> dict:
+    out: dict = {}
+    out["Text"] = value["text"]
+    if "alias" in value:
+        out["Alias"] = value["alias"]
+    if "pages" in value:
+        import capo_textract.types.query_pages
+
+        out["Pages"] = capo_textract.types.query_pages.serialize_cbor(value["pages"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> Query:
+    out: Query = {}  # type: ignore[typeddict-item]
+    if data.get("Text") is not None:
+        out["text"] = data["Text"]
+    else:
+        out["text"] = ""
+    if data.get("Alias") is not None:
+        out["alias"] = data["Alias"]
+    if data.get("Pages") is not None:
+        import capo_textract.types.query_pages
+
+        out["pages"] = capo_textract.types.query_pages.deserialize_cbor(data["Pages"])
+    return out

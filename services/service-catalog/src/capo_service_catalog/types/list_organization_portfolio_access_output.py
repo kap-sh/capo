@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> ListOrganizationPortfolioAccessOutpu
     if data.get("NextPageToken") is not None:
         out["next_page_token"] = data["NextPageToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListOrganizationPortfolioAccessOutput) -> dict:
+    out: dict = {}
+    if "organization_nodes" in value:
+        import capo_service_catalog.types.organization_nodes
+
+        out["OrganizationNodes"] = (
+            capo_service_catalog.types.organization_nodes.serialize_cbor(
+                value["organization_nodes"]
+            )
+        )
+    if "next_page_token" in value:
+        out["NextPageToken"] = value["next_page_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListOrganizationPortfolioAccessOutput:
+    out: ListOrganizationPortfolioAccessOutput = {}  # type: ignore[typeddict-item]
+    if data.get("OrganizationNodes") is not None:
+        import capo_service_catalog.types.organization_nodes
+
+        out["organization_nodes"] = (
+            capo_service_catalog.types.organization_nodes.deserialize_cbor(
+                data["OrganizationNodes"]
+            )
+        )
+    if data.get("NextPageToken") is not None:
+        out["next_page_token"] = data["NextPageToken"]
+    return out

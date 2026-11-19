@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteConnectionRequest:
     else:
         out["connection_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteConnectionRequest) -> dict:
+    out: dict = {}
+    out["connectionId"] = value["connection_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteConnectionRequest:
+    out: DeleteConnectionRequest = {}  # type: ignore[typeddict-item]
+    if data.get("connectionId") is not None:
+        out["connection_id"] = data["connectionId"]
+    else:
+        out["connection_id"] = ""
+    return out

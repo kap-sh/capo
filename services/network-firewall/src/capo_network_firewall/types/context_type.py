@@ -17,3 +17,12 @@ def serialize_aws_json_1_0(value: ContextType) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> ContextType:
     return cast(ContextType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ContextType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ContextType:
+    return cast(ContextType, data)

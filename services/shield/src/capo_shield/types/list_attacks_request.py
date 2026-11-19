@@ -83,3 +83,56 @@ def deserialize_aws_json_1_1(data: dict) -> ListAttacksRequest:
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListAttacksRequest) -> dict:
+    out: dict = {}
+    if "resource_arns" in value:
+        import capo_shield.types.resource_arn_filter_list
+
+        out["ResourceArns"] = capo_shield.types.resource_arn_filter_list.serialize_cbor(
+            value["resource_arns"]
+        )
+    if "start_time" in value:
+        import capo_shield.types.time_range
+
+        out["StartTime"] = capo_shield.types.time_range.serialize_cbor(
+            value["start_time"]
+        )
+    if "end_time" in value:
+        import capo_shield.types.time_range
+
+        out["EndTime"] = capo_shield.types.time_range.serialize_cbor(value["end_time"])
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListAttacksRequest:
+    out: ListAttacksRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceArns") is not None:
+        import capo_shield.types.resource_arn_filter_list
+
+        out["resource_arns"] = (
+            capo_shield.types.resource_arn_filter_list.deserialize_cbor(
+                data["ResourceArns"]
+            )
+        )
+    if data.get("StartTime") is not None:
+        import capo_shield.types.time_range
+
+        out["start_time"] = capo_shield.types.time_range.deserialize_cbor(
+            data["StartTime"]
+        )
+    if data.get("EndTime") is not None:
+        import capo_shield.types.time_range
+
+        out["end_time"] = capo_shield.types.time_range.deserialize_cbor(data["EndTime"])
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    return out

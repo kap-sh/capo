@@ -61,3 +61,22 @@ def deserialize_query(el: Element) -> ListDashboardsInput:
     if child_next_token is not None:
         out["next_token"] = str(child_next_token.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListDashboardsInput) -> dict:
+    out: dict = {}
+    if "dashboard_name_prefix" in value:
+        out["DashboardNamePrefix"] = value["dashboard_name_prefix"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListDashboardsInput:
+    out: ListDashboardsInput = {}  # type: ignore[typeddict-item]
+    if data.get("DashboardNamePrefix") is not None:
+        out["dashboard_name_prefix"] = data["DashboardNamePrefix"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

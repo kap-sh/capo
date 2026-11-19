@@ -61,3 +61,44 @@ def deserialize_aws_json_1_0(data: dict) -> RuleDefinition:
     else:
         out["actions"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RuleDefinition) -> dict:
+    out: dict = {}
+    import capo_network_firewall.types.match_attributes
+
+    out["MatchAttributes"] = (
+        capo_network_firewall.types.match_attributes.serialize_cbor(
+            value["match_attributes"]
+        )
+    )
+    import capo_network_firewall.types.stateless_actions
+
+    out["Actions"] = capo_network_firewall.types.stateless_actions.serialize_cbor(
+        value["actions"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RuleDefinition:
+    out: RuleDefinition = {}  # type: ignore[typeddict-item]
+    if data.get("MatchAttributes") is not None:
+        import capo_network_firewall.types.match_attributes
+
+        out["match_attributes"] = (
+            capo_network_firewall.types.match_attributes.deserialize_cbor(
+                data["MatchAttributes"]
+            )
+        )
+    else:
+        raise DeserializationError("RuleDefinition.match_attributes required")
+    if data.get("Actions") is not None:
+        import capo_network_firewall.types.stateless_actions
+
+        out["actions"] = capo_network_firewall.types.stateless_actions.deserialize_cbor(
+            data["Actions"]
+        )
+    else:
+        out["actions"] = []
+    return out

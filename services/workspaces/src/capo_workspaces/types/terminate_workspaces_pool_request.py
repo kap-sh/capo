@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> TerminateWorkspacesPoolRequest:
     else:
         out["pool_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TerminateWorkspacesPoolRequest) -> dict:
+    out: dict = {}
+    out["PoolId"] = value["pool_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> TerminateWorkspacesPoolRequest:
+    out: TerminateWorkspacesPoolRequest = {}  # type: ignore[typeddict-item]
+    if data.get("PoolId") is not None:
+        out["pool_id"] = data["PoolId"]
+    else:
+        out["pool_id"] = ""
+    return out

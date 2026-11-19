@@ -227,3 +227,168 @@ def deserialize_aws_json_1_0(data: dict) -> FirewallPolicy:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FirewallPolicy) -> dict:
+    out: dict = {}
+    if "stateless_rule_group_references" in value:
+        import capo_network_firewall.types.stateless_rule_group_references
+
+        out["StatelessRuleGroupReferences"] = (
+            capo_network_firewall.types.stateless_rule_group_references.serialize_cbor(
+                value["stateless_rule_group_references"]
+            )
+        )
+    import capo_network_firewall.types.stateless_actions
+
+    out["StatelessDefaultActions"] = (
+        capo_network_firewall.types.stateless_actions.serialize_cbor(
+            value["stateless_default_actions"]
+        )
+    )
+    import capo_network_firewall.types.stateless_actions
+
+    out["StatelessFragmentDefaultActions"] = (
+        capo_network_firewall.types.stateless_actions.serialize_cbor(
+            value["stateless_fragment_default_actions"]
+        )
+    )
+    if "stateless_custom_actions" in value:
+        import capo_network_firewall.types.custom_actions
+
+        out["StatelessCustomActions"] = (
+            capo_network_firewall.types.custom_actions.serialize_cbor(
+                value["stateless_custom_actions"]
+            )
+        )
+    if "stateful_rule_group_references" in value:
+        import capo_network_firewall.types.stateful_rule_group_references
+
+        out["StatefulRuleGroupReferences"] = (
+            capo_network_firewall.types.stateful_rule_group_references.serialize_cbor(
+                value["stateful_rule_group_references"]
+            )
+        )
+    if "stateful_default_actions" in value:
+        import capo_network_firewall.types.stateful_actions
+
+        out["StatefulDefaultActions"] = (
+            capo_network_firewall.types.stateful_actions.serialize_cbor(
+                value["stateful_default_actions"]
+            )
+        )
+    if "stateful_engine_options" in value:
+        import capo_network_firewall.types.stateful_engine_options
+
+        out["StatefulEngineOptions"] = (
+            capo_network_firewall.types.stateful_engine_options.serialize_cbor(
+                value["stateful_engine_options"]
+            )
+        )
+    if "tls_inspection_configuration_arn" in value:
+        out["TLSInspectionConfigurationArn"] = value["tls_inspection_configuration_arn"]
+    if "policy_variables" in value:
+        import capo_network_firewall.types.policy_variables
+
+        out["PolicyVariables"] = (
+            capo_network_firewall.types.policy_variables.serialize_cbor(
+                value["policy_variables"]
+            )
+        )
+    if "enable_tls_session_holding" in value:
+        out["EnableTLSSessionHolding"] = value["enable_tls_session_holding"]
+    if "route53_resolved_ip_validation" in value:
+        import capo_network_firewall.types.route53_resolved_ip_validation
+
+        out["Route53ResolvedIPValidation"] = (
+            capo_network_firewall.types.route53_resolved_ip_validation.serialize_cbor(
+                value["route53_resolved_ip_validation"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> FirewallPolicy:
+    out: FirewallPolicy = {}  # type: ignore[typeddict-item]
+    if data.get("StatelessRuleGroupReferences") is not None:
+        import capo_network_firewall.types.stateless_rule_group_references
+
+        out["stateless_rule_group_references"] = (
+            capo_network_firewall.types.stateless_rule_group_references.deserialize_cbor(
+                data["StatelessRuleGroupReferences"]
+            )
+        )
+    if data.get("StatelessDefaultActions") is not None:
+        import capo_network_firewall.types.stateless_actions
+
+        out["stateless_default_actions"] = (
+            capo_network_firewall.types.stateless_actions.deserialize_cbor(
+                data["StatelessDefaultActions"]
+            )
+        )
+    else:
+        out["stateless_default_actions"] = []
+    if data.get("StatelessFragmentDefaultActions") is not None:
+        import capo_network_firewall.types.stateless_actions
+
+        out["stateless_fragment_default_actions"] = (
+            capo_network_firewall.types.stateless_actions.deserialize_cbor(
+                data["StatelessFragmentDefaultActions"]
+            )
+        )
+    else:
+        out["stateless_fragment_default_actions"] = []
+    if data.get("StatelessCustomActions") is not None:
+        import capo_network_firewall.types.custom_actions
+
+        out["stateless_custom_actions"] = (
+            capo_network_firewall.types.custom_actions.deserialize_cbor(
+                data["StatelessCustomActions"]
+            )
+        )
+    if data.get("StatefulRuleGroupReferences") is not None:
+        import capo_network_firewall.types.stateful_rule_group_references
+
+        out["stateful_rule_group_references"] = (
+            capo_network_firewall.types.stateful_rule_group_references.deserialize_cbor(
+                data["StatefulRuleGroupReferences"]
+            )
+        )
+    if data.get("StatefulDefaultActions") is not None:
+        import capo_network_firewall.types.stateful_actions
+
+        out["stateful_default_actions"] = (
+            capo_network_firewall.types.stateful_actions.deserialize_cbor(
+                data["StatefulDefaultActions"]
+            )
+        )
+    if data.get("StatefulEngineOptions") is not None:
+        import capo_network_firewall.types.stateful_engine_options
+
+        out["stateful_engine_options"] = (
+            capo_network_firewall.types.stateful_engine_options.deserialize_cbor(
+                data["StatefulEngineOptions"]
+            )
+        )
+    if data.get("TLSInspectionConfigurationArn") is not None:
+        out["tls_inspection_configuration_arn"] = data["TLSInspectionConfigurationArn"]
+    if data.get("PolicyVariables") is not None:
+        import capo_network_firewall.types.policy_variables
+
+        out["policy_variables"] = (
+            capo_network_firewall.types.policy_variables.deserialize_cbor(
+                data["PolicyVariables"]
+            )
+        )
+    if data.get("EnableTLSSessionHolding") is not None:
+        out["enable_tls_session_holding"] = data["EnableTLSSessionHolding"]
+    if data.get("Route53ResolvedIPValidation") is not None:
+        import capo_network_firewall.types.route53_resolved_ip_validation
+
+        out["route53_resolved_ip_validation"] = (
+            capo_network_firewall.types.route53_resolved_ip_validation.deserialize_cbor(
+                data["Route53ResolvedIPValidation"]
+            )
+        )
+    return out

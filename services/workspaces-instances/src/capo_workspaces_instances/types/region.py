@@ -26,3 +26,18 @@ def deserialize_aws_json_1_0(data: dict) -> Region:
     if data.get("RegionName") is not None:
         out["region_name"] = data["RegionName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Region) -> dict:
+    out: dict = {}
+    if "region_name" in value:
+        out["RegionName"] = value["region_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Region:
+    out: Region = {}  # type: ignore[typeddict-item]
+    if data.get("RegionName") is not None:
+        out["region_name"] = data["RegionName"]
+    return out

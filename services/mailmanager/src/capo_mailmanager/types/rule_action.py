@@ -305,6 +305,206 @@ def deserialize_aws_json_1_0(data: dict) -> RuleAction:
         raise DeserializationError("RuleAction: no recognized variant key")
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RuleAction) -> dict:
+    if "$unknown" in value:
+        raise SerializationError(
+            f"RuleAction: cannot serialize unknown variant {value['$unknown']['name']!r}"
+        )
+    elif "Drop" in value:
+        import capo_mailmanager.types.drop_action
+
+        return {
+            "Drop": capo_mailmanager.types.drop_action.serialize_cbor(value["Drop"])
+        }
+    elif "Relay" in value:
+        import capo_mailmanager.types.relay_action
+
+        return {
+            "Relay": capo_mailmanager.types.relay_action.serialize_cbor(value["Relay"])
+        }
+    elif "Archive" in value:
+        import capo_mailmanager.types.archive_action
+
+        return {
+            "Archive": capo_mailmanager.types.archive_action.serialize_cbor(
+                value["Archive"]
+            )
+        }
+    elif "WriteToS3" in value:
+        import capo_mailmanager.types.s3_action
+
+        return {
+            "WriteToS3": capo_mailmanager.types.s3_action.serialize_cbor(
+                value["WriteToS3"]
+            )
+        }
+    elif "Send" in value:
+        import capo_mailmanager.types.send_action
+
+        return {
+            "Send": capo_mailmanager.types.send_action.serialize_cbor(value["Send"])
+        }
+    elif "AddHeader" in value:
+        import capo_mailmanager.types.add_header_action
+
+        return {
+            "AddHeader": capo_mailmanager.types.add_header_action.serialize_cbor(
+                value["AddHeader"]
+            )
+        }
+    elif "ReplaceRecipient" in value:
+        import capo_mailmanager.types.replace_recipient_action
+
+        return {
+            "ReplaceRecipient": capo_mailmanager.types.replace_recipient_action.serialize_cbor(
+                value["ReplaceRecipient"]
+            )
+        }
+    elif "DeliverToMailbox" in value:
+        import capo_mailmanager.types.deliver_to_mailbox_action
+
+        return {
+            "DeliverToMailbox": capo_mailmanager.types.deliver_to_mailbox_action.serialize_cbor(
+                value["DeliverToMailbox"]
+            )
+        }
+    elif "DeliverToQBusiness" in value:
+        import capo_mailmanager.types.deliver_to_q_business_action
+
+        return {
+            "DeliverToQBusiness": capo_mailmanager.types.deliver_to_q_business_action.serialize_cbor(
+                value["DeliverToQBusiness"]
+            )
+        }
+    elif "PublishToSns" in value:
+        import capo_mailmanager.types.sns_action
+
+        return {
+            "PublishToSns": capo_mailmanager.types.sns_action.serialize_cbor(
+                value["PublishToSns"]
+            )
+        }
+    elif "Bounce" in value:
+        import capo_mailmanager.types.bounce_action
+
+        return {
+            "Bounce": capo_mailmanager.types.bounce_action.serialize_cbor(
+                value["Bounce"]
+            )
+        }
+    elif "InvokeLambda" in value:
+        import capo_mailmanager.types.invoke_lambda_action
+
+        return {
+            "InvokeLambda": capo_mailmanager.types.invoke_lambda_action.serialize_cbor(
+                value["InvokeLambda"]
+            )
+        }
+    else:
+        raise SerializationError("RuleAction: no variant present")
+
+
+def deserialize_cbor(data: dict) -> RuleAction:
+    if data.get("Drop") is not None:
+        import capo_mailmanager.types.drop_action
+
+        return {
+            "Drop": capo_mailmanager.types.drop_action.deserialize_cbor(data["Drop"])
+        }
+    elif data.get("Relay") is not None:
+        import capo_mailmanager.types.relay_action
+
+        return {
+            "Relay": capo_mailmanager.types.relay_action.deserialize_cbor(data["Relay"])
+        }
+    elif data.get("Archive") is not None:
+        import capo_mailmanager.types.archive_action
+
+        return {
+            "Archive": capo_mailmanager.types.archive_action.deserialize_cbor(
+                data["Archive"]
+            )
+        }
+    elif data.get("WriteToS3") is not None:
+        import capo_mailmanager.types.s3_action
+
+        return {
+            "WriteToS3": capo_mailmanager.types.s3_action.deserialize_cbor(
+                data["WriteToS3"]
+            )
+        }
+    elif data.get("Send") is not None:
+        import capo_mailmanager.types.send_action
+
+        return {
+            "Send": capo_mailmanager.types.send_action.deserialize_cbor(data["Send"])
+        }
+    elif data.get("AddHeader") is not None:
+        import capo_mailmanager.types.add_header_action
+
+        return {
+            "AddHeader": capo_mailmanager.types.add_header_action.deserialize_cbor(
+                data["AddHeader"]
+            )
+        }
+    elif data.get("ReplaceRecipient") is not None:
+        import capo_mailmanager.types.replace_recipient_action
+
+        return {
+            "ReplaceRecipient": capo_mailmanager.types.replace_recipient_action.deserialize_cbor(
+                data["ReplaceRecipient"]
+            )
+        }
+    elif data.get("DeliverToMailbox") is not None:
+        import capo_mailmanager.types.deliver_to_mailbox_action
+
+        return {
+            "DeliverToMailbox": capo_mailmanager.types.deliver_to_mailbox_action.deserialize_cbor(
+                data["DeliverToMailbox"]
+            )
+        }
+    elif data.get("DeliverToQBusiness") is not None:
+        import capo_mailmanager.types.deliver_to_q_business_action
+
+        return {
+            "DeliverToQBusiness": capo_mailmanager.types.deliver_to_q_business_action.deserialize_cbor(
+                data["DeliverToQBusiness"]
+            )
+        }
+    elif data.get("PublishToSns") is not None:
+        import capo_mailmanager.types.sns_action
+
+        return {
+            "PublishToSns": capo_mailmanager.types.sns_action.deserialize_cbor(
+                data["PublishToSns"]
+            )
+        }
+    elif data.get("Bounce") is not None:
+        import capo_mailmanager.types.bounce_action
+
+        return {
+            "Bounce": capo_mailmanager.types.bounce_action.deserialize_cbor(
+                data["Bounce"]
+            )
+        }
+    elif data.get("InvokeLambda") is not None:
+        import capo_mailmanager.types.invoke_lambda_action
+
+        return {
+            "InvokeLambda": capo_mailmanager.types.invoke_lambda_action.deserialize_cbor(
+                data["InvokeLambda"]
+            )
+        }
+    else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return {"$unknown": {"name": name}}
+        raise DeserializationError("RuleAction: no recognized variant key")
+
+
 def redact_sensitive(value: RuleAction) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "ReplaceRecipient" in value:

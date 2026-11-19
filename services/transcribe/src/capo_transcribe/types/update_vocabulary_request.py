@@ -101,3 +101,68 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateVocabularyRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateVocabularyRequest) -> dict:
+    out: dict = {}
+    out["VocabularyName"] = value["vocabulary_name"]
+    import capo_transcribe.types.language_code
+
+    out["LanguageCode"] = capo_transcribe.types.language_code.serialize_cbor(
+        value["language_code"]
+    )
+    if "phrases" in value:
+        import capo_transcribe.types.phrases
+
+        out["Phrases"] = capo_transcribe.types.phrases.serialize_cbor(value["phrases"])
+    if "vocabulary_file_uri" in value:
+        out["VocabularyFileUri"] = value["vocabulary_file_uri"]
+    if "data_access_role_arn" in value:
+        out["DataAccessRoleArn"] = value["data_access_role_arn"]
+    if "encryption_configuration" in value:
+        import capo_transcribe.types.encryption_configuration
+
+        out["EncryptionConfiguration"] = (
+            capo_transcribe.types.encryption_configuration.serialize_cbor(
+                value["encryption_configuration"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateVocabularyRequest:
+    out: UpdateVocabularyRequest = {}  # type: ignore[typeddict-item]
+    if data.get("VocabularyName") is not None:
+        out["vocabulary_name"] = data["VocabularyName"]
+    else:
+        out["vocabulary_name"] = ""
+    if data.get("LanguageCode") is not None:
+        import capo_transcribe.types.language_code
+
+        out["language_code"] = capo_transcribe.types.language_code.deserialize_cbor(
+            data["LanguageCode"]
+        )
+    else:
+        import typing
+
+        out["language_code"] = typing.cast(
+            "capo_transcribe.types.language_code.LanguageCode", ""
+        )
+    if data.get("Phrases") is not None:
+        import capo_transcribe.types.phrases
+
+        out["phrases"] = capo_transcribe.types.phrases.deserialize_cbor(data["Phrases"])
+    if data.get("VocabularyFileUri") is not None:
+        out["vocabulary_file_uri"] = data["VocabularyFileUri"]
+    if data.get("DataAccessRoleArn") is not None:
+        out["data_access_role_arn"] = data["DataAccessRoleArn"]
+    if data.get("EncryptionConfiguration") is not None:
+        import capo_transcribe.types.encryption_configuration
+
+        out["encryption_configuration"] = (
+            capo_transcribe.types.encryption_configuration.deserialize_cbor(
+                data["EncryptionConfiguration"]
+            )
+        )
+    return out

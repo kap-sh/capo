@@ -130,3 +130,50 @@ def deserialize_query(el: Element) -> PutMetricDataInput:
             child_strict_entity_validation.text or ""
         ).lower() == "true"
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PutMetricDataInput) -> dict:
+    out: dict = {}
+    if "namespace" in value:
+        out["Namespace"] = value["namespace"]
+    if "metric_data" in value:
+        import capo_cloudwatch.types.metric_data
+
+        out["MetricData"] = capo_cloudwatch.types.metric_data.serialize_cbor(
+            value["metric_data"]
+        )
+    if "entity_metric_data" in value:
+        import capo_cloudwatch.types.entity_metric_data_list
+
+        out["EntityMetricData"] = (
+            capo_cloudwatch.types.entity_metric_data_list.serialize_cbor(
+                value["entity_metric_data"]
+            )
+        )
+    if "strict_entity_validation" in value:
+        out["StrictEntityValidation"] = value["strict_entity_validation"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> PutMetricDataInput:
+    out: PutMetricDataInput = {}  # type: ignore[typeddict-item]
+    if data.get("Namespace") is not None:
+        out["namespace"] = data["Namespace"]
+    if data.get("MetricData") is not None:
+        import capo_cloudwatch.types.metric_data
+
+        out["metric_data"] = capo_cloudwatch.types.metric_data.deserialize_cbor(
+            data["MetricData"]
+        )
+    if data.get("EntityMetricData") is not None:
+        import capo_cloudwatch.types.entity_metric_data_list
+
+        out["entity_metric_data"] = (
+            capo_cloudwatch.types.entity_metric_data_list.deserialize_cbor(
+                data["EntityMetricData"]
+            )
+        )
+    if data.get("StrictEntityValidation") is not None:
+        out["strict_entity_validation"] = data["StrictEntityValidation"]
+    return out

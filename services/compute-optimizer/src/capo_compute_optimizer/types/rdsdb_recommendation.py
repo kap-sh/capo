@@ -377,3 +377,255 @@ def deserialize_aws_json_1_0(data: dict) -> RDSDBRecommendation:
             data["tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RDSDBRecommendation) -> dict:
+    out: dict = {}
+    if "resource_arn" in value:
+        out["resourceArn"] = value["resource_arn"]
+    if "account_id" in value:
+        out["accountId"] = value["account_id"]
+    if "engine" in value:
+        out["engine"] = value["engine"]
+    if "engine_version" in value:
+        out["engineVersion"] = value["engine_version"]
+    if "promotion_tier" in value:
+        out["promotionTier"] = value["promotion_tier"]
+    if "current_db_instance_class" in value:
+        out["currentDBInstanceClass"] = value["current_db_instance_class"]
+    if "current_storage_configuration" in value:
+        import capo_compute_optimizer.types.db_storage_configuration
+
+        out["currentStorageConfiguration"] = (
+            capo_compute_optimizer.types.db_storage_configuration.serialize_cbor(
+                value["current_storage_configuration"]
+            )
+        )
+    if "db_cluster_identifier" in value:
+        out["dbClusterIdentifier"] = value["db_cluster_identifier"]
+    if "idle" in value:
+        import capo_compute_optimizer.types.idle
+
+        out["idle"] = capo_compute_optimizer.types.idle.serialize_cbor(value["idle"])
+    if "instance_finding" in value:
+        import capo_compute_optimizer.types.rds_instance_finding
+
+        out["instanceFinding"] = (
+            capo_compute_optimizer.types.rds_instance_finding.serialize_cbor(
+                value["instance_finding"]
+            )
+        )
+    if "storage_finding" in value:
+        import capo_compute_optimizer.types.rds_storage_finding
+
+        out["storageFinding"] = (
+            capo_compute_optimizer.types.rds_storage_finding.serialize_cbor(
+                value["storage_finding"]
+            )
+        )
+    if "instance_finding_reason_codes" in value:
+        import capo_compute_optimizer.types.rds_instance_finding_reason_codes
+
+        out["instanceFindingReasonCodes"] = (
+            capo_compute_optimizer.types.rds_instance_finding_reason_codes.serialize_cbor(
+                value["instance_finding_reason_codes"]
+            )
+        )
+    if "current_instance_performance_risk" in value:
+        import capo_compute_optimizer.types.rds_current_instance_performance_risk
+
+        out["currentInstancePerformanceRisk"] = (
+            capo_compute_optimizer.types.rds_current_instance_performance_risk.serialize_cbor(
+                value["current_instance_performance_risk"]
+            )
+        )
+    if "current_storage_estimated_monthly_volume_io_ps_cost_variation" in value:
+        import capo_compute_optimizer.types.rds_estimated_monthly_volume_io_ps_cost_variation
+
+        out["currentStorageEstimatedMonthlyVolumeIOPsCostVariation"] = (
+            capo_compute_optimizer.types.rds_estimated_monthly_volume_io_ps_cost_variation.serialize_cbor(
+                value["current_storage_estimated_monthly_volume_io_ps_cost_variation"]
+            )
+        )
+    if "storage_finding_reason_codes" in value:
+        import capo_compute_optimizer.types.rds_storage_finding_reason_codes
+
+        out["storageFindingReasonCodes"] = (
+            capo_compute_optimizer.types.rds_storage_finding_reason_codes.serialize_cbor(
+                value["storage_finding_reason_codes"]
+            )
+        )
+    if "instance_recommendation_options" in value:
+        import capo_compute_optimizer.types.rdsdb_instance_recommendation_options
+
+        out["instanceRecommendationOptions"] = (
+            capo_compute_optimizer.types.rdsdb_instance_recommendation_options.serialize_cbor(
+                value["instance_recommendation_options"]
+            )
+        )
+    if "storage_recommendation_options" in value:
+        import capo_compute_optimizer.types.rdsdb_storage_recommendation_options
+
+        out["storageRecommendationOptions"] = (
+            capo_compute_optimizer.types.rdsdb_storage_recommendation_options.serialize_cbor(
+                value["storage_recommendation_options"]
+            )
+        )
+    if "utilization_metrics" in value:
+        import capo_compute_optimizer.types.rdsdb_utilization_metrics
+
+        out["utilizationMetrics"] = (
+            capo_compute_optimizer.types.rdsdb_utilization_metrics.serialize_cbor(
+                value["utilization_metrics"]
+            )
+        )
+    if "effective_recommendation_preferences" in value:
+        import capo_compute_optimizer.types.rds_effective_recommendation_preferences
+
+        out["effectiveRecommendationPreferences"] = (
+            capo_compute_optimizer.types.rds_effective_recommendation_preferences.serialize_cbor(
+                value["effective_recommendation_preferences"]
+            )
+        )
+    out["lookbackPeriodInDays"] = value.get("lookback_period_in_days", 0)
+    if "last_refresh_timestamp" in value:
+        import capo_compute_optimizer.types.last_refresh_timestamp
+
+        out["lastRefreshTimestamp"] = (
+            capo_compute_optimizer.types.last_refresh_timestamp.serialize_cbor(
+                value["last_refresh_timestamp"]
+            )
+        )
+    if "tags" in value:
+        import capo_compute_optimizer.types.tags
+
+        out["tags"] = capo_compute_optimizer.types.tags.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> RDSDBRecommendation:
+    out: RDSDBRecommendation = {}  # type: ignore[typeddict-item]
+    if data.get("resourceArn") is not None:
+        out["resource_arn"] = data["resourceArn"]
+    if data.get("accountId") is not None:
+        out["account_id"] = data["accountId"]
+    if data.get("engine") is not None:
+        out["engine"] = data["engine"]
+    if data.get("engineVersion") is not None:
+        out["engine_version"] = data["engineVersion"]
+    if data.get("promotionTier") is not None:
+        out["promotion_tier"] = data["promotionTier"]
+    if data.get("currentDBInstanceClass") is not None:
+        out["current_db_instance_class"] = data["currentDBInstanceClass"]
+    if data.get("currentStorageConfiguration") is not None:
+        import capo_compute_optimizer.types.db_storage_configuration
+
+        out["current_storage_configuration"] = (
+            capo_compute_optimizer.types.db_storage_configuration.deserialize_cbor(
+                data["currentStorageConfiguration"]
+            )
+        )
+    if data.get("dbClusterIdentifier") is not None:
+        out["db_cluster_identifier"] = data["dbClusterIdentifier"]
+    if data.get("idle") is not None:
+        import capo_compute_optimizer.types.idle
+
+        out["idle"] = capo_compute_optimizer.types.idle.deserialize_cbor(data["idle"])
+    if data.get("instanceFinding") is not None:
+        import capo_compute_optimizer.types.rds_instance_finding
+
+        out["instance_finding"] = (
+            capo_compute_optimizer.types.rds_instance_finding.deserialize_cbor(
+                data["instanceFinding"]
+            )
+        )
+    if data.get("storageFinding") is not None:
+        import capo_compute_optimizer.types.rds_storage_finding
+
+        out["storage_finding"] = (
+            capo_compute_optimizer.types.rds_storage_finding.deserialize_cbor(
+                data["storageFinding"]
+            )
+        )
+    if data.get("instanceFindingReasonCodes") is not None:
+        import capo_compute_optimizer.types.rds_instance_finding_reason_codes
+
+        out["instance_finding_reason_codes"] = (
+            capo_compute_optimizer.types.rds_instance_finding_reason_codes.deserialize_cbor(
+                data["instanceFindingReasonCodes"]
+            )
+        )
+    if data.get("currentInstancePerformanceRisk") is not None:
+        import capo_compute_optimizer.types.rds_current_instance_performance_risk
+
+        out["current_instance_performance_risk"] = (
+            capo_compute_optimizer.types.rds_current_instance_performance_risk.deserialize_cbor(
+                data["currentInstancePerformanceRisk"]
+            )
+        )
+    if data.get("currentStorageEstimatedMonthlyVolumeIOPsCostVariation") is not None:
+        import capo_compute_optimizer.types.rds_estimated_monthly_volume_io_ps_cost_variation
+
+        out["current_storage_estimated_monthly_volume_io_ps_cost_variation"] = (
+            capo_compute_optimizer.types.rds_estimated_monthly_volume_io_ps_cost_variation.deserialize_cbor(
+                data["currentStorageEstimatedMonthlyVolumeIOPsCostVariation"]
+            )
+        )
+    if data.get("storageFindingReasonCodes") is not None:
+        import capo_compute_optimizer.types.rds_storage_finding_reason_codes
+
+        out["storage_finding_reason_codes"] = (
+            capo_compute_optimizer.types.rds_storage_finding_reason_codes.deserialize_cbor(
+                data["storageFindingReasonCodes"]
+            )
+        )
+    if data.get("instanceRecommendationOptions") is not None:
+        import capo_compute_optimizer.types.rdsdb_instance_recommendation_options
+
+        out["instance_recommendation_options"] = (
+            capo_compute_optimizer.types.rdsdb_instance_recommendation_options.deserialize_cbor(
+                data["instanceRecommendationOptions"]
+            )
+        )
+    if data.get("storageRecommendationOptions") is not None:
+        import capo_compute_optimizer.types.rdsdb_storage_recommendation_options
+
+        out["storage_recommendation_options"] = (
+            capo_compute_optimizer.types.rdsdb_storage_recommendation_options.deserialize_cbor(
+                data["storageRecommendationOptions"]
+            )
+        )
+    if data.get("utilizationMetrics") is not None:
+        import capo_compute_optimizer.types.rdsdb_utilization_metrics
+
+        out["utilization_metrics"] = (
+            capo_compute_optimizer.types.rdsdb_utilization_metrics.deserialize_cbor(
+                data["utilizationMetrics"]
+            )
+        )
+    if data.get("effectiveRecommendationPreferences") is not None:
+        import capo_compute_optimizer.types.rds_effective_recommendation_preferences
+
+        out["effective_recommendation_preferences"] = (
+            capo_compute_optimizer.types.rds_effective_recommendation_preferences.deserialize_cbor(
+                data["effectiveRecommendationPreferences"]
+            )
+        )
+    if data.get("lookbackPeriodInDays") is not None:
+        out["lookback_period_in_days"] = float(data["lookbackPeriodInDays"])
+    else:
+        out["lookback_period_in_days"] = 0
+    if data.get("lastRefreshTimestamp") is not None:
+        import capo_compute_optimizer.types.last_refresh_timestamp
+
+        out["last_refresh_timestamp"] = (
+            capo_compute_optimizer.types.last_refresh_timestamp.deserialize_cbor(
+                data["lastRefreshTimestamp"]
+            )
+        )
+    if data.get("tags") is not None:
+        import capo_compute_optimizer.types.tags
+
+        out["tags"] = capo_compute_optimizer.types.tags.deserialize_cbor(data["tags"])
+    return out

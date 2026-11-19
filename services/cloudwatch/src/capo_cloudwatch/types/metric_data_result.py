@@ -177,3 +177,74 @@ def deserialize_query(el: Element) -> MetricDataResult:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MetricDataResult) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["Id"] = value["id"]
+    if "label" in value:
+        out["Label"] = value["label"]
+    if "timestamps" in value:
+        import capo_cloudwatch.types.timestamps
+
+        out["Timestamps"] = capo_cloudwatch.types.timestamps.serialize_cbor(
+            value["timestamps"]
+        )
+    if "values" in value:
+        import capo_cloudwatch.types.datapoint_values
+
+        out["Values"] = capo_cloudwatch.types.datapoint_values.serialize_cbor(
+            value["values"]
+        )
+    if "status_code" in value:
+        import capo_cloudwatch.types.status_code
+
+        out["StatusCode"] = capo_cloudwatch.types.status_code.serialize_cbor(
+            value["status_code"]
+        )
+    if "messages" in value:
+        import capo_cloudwatch.types.metric_data_result_messages
+
+        out["Messages"] = (
+            capo_cloudwatch.types.metric_data_result_messages.serialize_cbor(
+                value["messages"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> MetricDataResult:
+    out: MetricDataResult = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    if data.get("Label") is not None:
+        out["label"] = data["Label"]
+    if data.get("Timestamps") is not None:
+        import capo_cloudwatch.types.timestamps
+
+        out["timestamps"] = capo_cloudwatch.types.timestamps.deserialize_cbor(
+            data["Timestamps"]
+        )
+    if data.get("Values") is not None:
+        import capo_cloudwatch.types.datapoint_values
+
+        out["values"] = capo_cloudwatch.types.datapoint_values.deserialize_cbor(
+            data["Values"]
+        )
+    if data.get("StatusCode") is not None:
+        import capo_cloudwatch.types.status_code
+
+        out["status_code"] = capo_cloudwatch.types.status_code.deserialize_cbor(
+            data["StatusCode"]
+        )
+    if data.get("Messages") is not None:
+        import capo_cloudwatch.types.metric_data_result_messages
+
+        out["messages"] = (
+            capo_cloudwatch.types.metric_data_result_messages.deserialize_cbor(
+                data["Messages"]
+            )
+        )
+    return out

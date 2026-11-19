@@ -112,3 +112,82 @@ def deserialize_aws_json_1_0(data: dict) -> InstanceMetadataOptionsRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InstanceMetadataOptionsRequest) -> dict:
+    out: dict = {}
+    if "http_endpoint" in value:
+        import capo_workspaces_instances.types.http_endpoint_enum
+
+        out["HttpEndpoint"] = (
+            capo_workspaces_instances.types.http_endpoint_enum.serialize_cbor(
+                value["http_endpoint"]
+            )
+        )
+    if "http_protocol_ipv6" in value:
+        import capo_workspaces_instances.types.http_protocol_ipv6_enum
+
+        out["HttpProtocolIpv6"] = (
+            capo_workspaces_instances.types.http_protocol_ipv6_enum.serialize_cbor(
+                value["http_protocol_ipv6"]
+            )
+        )
+    if "http_put_response_hop_limit" in value:
+        out["HttpPutResponseHopLimit"] = value["http_put_response_hop_limit"]
+    if "http_tokens" in value:
+        import capo_workspaces_instances.types.http_tokens_enum
+
+        out["HttpTokens"] = (
+            capo_workspaces_instances.types.http_tokens_enum.serialize_cbor(
+                value["http_tokens"]
+            )
+        )
+    if "instance_metadata_tags" in value:
+        import capo_workspaces_instances.types.instance_metadata_tags_enum
+
+        out["InstanceMetadataTags"] = (
+            capo_workspaces_instances.types.instance_metadata_tags_enum.serialize_cbor(
+                value["instance_metadata_tags"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> InstanceMetadataOptionsRequest:
+    out: InstanceMetadataOptionsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("HttpEndpoint") is not None:
+        import capo_workspaces_instances.types.http_endpoint_enum
+
+        out["http_endpoint"] = (
+            capo_workspaces_instances.types.http_endpoint_enum.deserialize_cbor(
+                data["HttpEndpoint"]
+            )
+        )
+    if data.get("HttpProtocolIpv6") is not None:
+        import capo_workspaces_instances.types.http_protocol_ipv6_enum
+
+        out["http_protocol_ipv6"] = (
+            capo_workspaces_instances.types.http_protocol_ipv6_enum.deserialize_cbor(
+                data["HttpProtocolIpv6"]
+            )
+        )
+    if data.get("HttpPutResponseHopLimit") is not None:
+        out["http_put_response_hop_limit"] = data["HttpPutResponseHopLimit"]
+    if data.get("HttpTokens") is not None:
+        import capo_workspaces_instances.types.http_tokens_enum
+
+        out["http_tokens"] = (
+            capo_workspaces_instances.types.http_tokens_enum.deserialize_cbor(
+                data["HttpTokens"]
+            )
+        )
+    if data.get("InstanceMetadataTags") is not None:
+        import capo_workspaces_instances.types.instance_metadata_tags_enum
+
+        out["instance_metadata_tags"] = (
+            capo_workspaces_instances.types.instance_metadata_tags_enum.deserialize_cbor(
+                data["InstanceMetadataTags"]
+            )
+        )
+    return out

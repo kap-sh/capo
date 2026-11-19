@@ -57,3 +57,39 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateLanguageModelRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateLanguageModelRequest) -> dict:
+    out: dict = {}
+    out["ModelName"] = value["model_name"]
+    if "data_access_role_arn" in value:
+        out["DataAccessRoleArn"] = value["data_access_role_arn"]
+    if "encryption_configuration" in value:
+        import capo_transcribe.types.encryption_configuration
+
+        out["EncryptionConfiguration"] = (
+            capo_transcribe.types.encryption_configuration.serialize_cbor(
+                value["encryption_configuration"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateLanguageModelRequest:
+    out: UpdateLanguageModelRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ModelName") is not None:
+        out["model_name"] = data["ModelName"]
+    else:
+        out["model_name"] = ""
+    if data.get("DataAccessRoleArn") is not None:
+        out["data_access_role_arn"] = data["DataAccessRoleArn"]
+    if data.get("EncryptionConfiguration") is not None:
+        import capo_transcribe.types.encryption_configuration
+
+        out["encryption_configuration"] = (
+            capo_transcribe.types.encryption_configuration.deserialize_cbor(
+                data["EncryptionConfiguration"]
+            )
+        )
+    return out

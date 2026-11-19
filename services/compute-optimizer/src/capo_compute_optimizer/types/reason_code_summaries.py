@@ -37,3 +37,28 @@ def deserialize_aws_json_1_0(data: list) -> ReasonCodeSummaries:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ReasonCodeSummaries) -> list:
+    import capo_compute_optimizer.types.reason_code_summary
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_compute_optimizer.types.reason_code_summary.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> ReasonCodeSummaries:
+    import capo_compute_optimizer.types.reason_code_summary
+
+    out: ReasonCodeSummaries = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_compute_optimizer.types.reason_code_summary.deserialize_cbor(item)
+        )
+    return out

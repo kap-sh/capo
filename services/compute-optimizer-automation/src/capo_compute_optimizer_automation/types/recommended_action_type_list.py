@@ -37,3 +37,32 @@ def deserialize_aws_json_1_0(data: list) -> RecommendedActionTypeList:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RecommendedActionTypeList) -> list:
+    import capo_compute_optimizer_automation.types.recommended_action_type
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_compute_optimizer_automation.types.recommended_action_type.serialize_cbor(
+                item
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> RecommendedActionTypeList:
+    import capo_compute_optimizer_automation.types.recommended_action_type
+
+    out: RecommendedActionTypeList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_compute_optimizer_automation.types.recommended_action_type.deserialize_cbor(
+                item
+            )
+        )
+    return out

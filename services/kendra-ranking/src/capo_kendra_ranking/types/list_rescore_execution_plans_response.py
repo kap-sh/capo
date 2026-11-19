@@ -47,3 +47,34 @@ def deserialize_aws_json_1_0(data: dict) -> ListRescoreExecutionPlansResponse:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListRescoreExecutionPlansResponse) -> dict:
+    out: dict = {}
+    if "summary_items" in value:
+        import capo_kendra_ranking.types.rescore_execution_plan_summary_list
+
+        out["SummaryItems"] = (
+            capo_kendra_ranking.types.rescore_execution_plan_summary_list.serialize_cbor(
+                value["summary_items"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListRescoreExecutionPlansResponse:
+    out: ListRescoreExecutionPlansResponse = {}  # type: ignore[typeddict-item]
+    if data.get("SummaryItems") is not None:
+        import capo_kendra_ranking.types.rescore_execution_plan_summary_list
+
+        out["summary_items"] = (
+            capo_kendra_ranking.types.rescore_execution_plan_summary_list.deserialize_cbor(
+                data["SummaryItems"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

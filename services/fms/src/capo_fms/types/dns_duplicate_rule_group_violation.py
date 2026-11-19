@@ -35,3 +35,22 @@ def deserialize_aws_json_1_1(data: dict) -> DnsDuplicateRuleGroupViolation:
     if data.get("ViolationTargetDescription") is not None:
         out["violation_target_description"] = data["ViolationTargetDescription"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DnsDuplicateRuleGroupViolation) -> dict:
+    out: dict = {}
+    if "violation_target" in value:
+        out["ViolationTarget"] = value["violation_target"]
+    if "violation_target_description" in value:
+        out["ViolationTargetDescription"] = value["violation_target_description"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DnsDuplicateRuleGroupViolation:
+    out: DnsDuplicateRuleGroupViolation = {}  # type: ignore[typeddict-item]
+    if data.get("ViolationTarget") is not None:
+        out["violation_target"] = data["ViolationTarget"]
+    if data.get("ViolationTargetDescription") is not None:
+        out["violation_target_description"] = data["ViolationTargetDescription"]
+    return out

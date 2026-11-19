@@ -27,3 +27,24 @@ def deserialize_aws_json_1_1(data: list) -> Applications:
             continue
         out.append(capo_appstream.types.application.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Applications) -> list:
+    import capo_appstream.types.application
+
+    out: list = []
+    for item in value:
+        out.append(capo_appstream.types.application.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> Applications:
+    import capo_appstream.types.application
+
+    out: Applications = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_appstream.types.application.deserialize_cbor(item))
+    return out

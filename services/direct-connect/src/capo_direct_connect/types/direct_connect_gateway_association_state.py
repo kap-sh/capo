@@ -18,3 +18,12 @@ def serialize_aws_json_1_1(value: DirectConnectGatewayAssociationState) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> DirectConnectGatewayAssociationState:
     return cast(DirectConnectGatewayAssociationState, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DirectConnectGatewayAssociationState) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> DirectConnectGatewayAssociationState:
+    return cast(DirectConnectGatewayAssociationState, data)

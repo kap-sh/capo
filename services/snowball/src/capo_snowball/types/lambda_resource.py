@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> LambdaResource:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LambdaResource) -> dict:
+    out: dict = {}
+    if "lambda_arn" in value:
+        out["LambdaArn"] = value["lambda_arn"]
+    if "event_triggers" in value:
+        import capo_snowball.types.event_trigger_definition_list
+
+        out["EventTriggers"] = (
+            capo_snowball.types.event_trigger_definition_list.serialize_cbor(
+                value["event_triggers"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> LambdaResource:
+    out: LambdaResource = {}  # type: ignore[typeddict-item]
+    if data.get("LambdaArn") is not None:
+        out["lambda_arn"] = data["LambdaArn"]
+    if data.get("EventTriggers") is not None:
+        import capo_snowball.types.event_trigger_definition_list
+
+        out["event_triggers"] = (
+            capo_snowball.types.event_trigger_definition_list.deserialize_cbor(
+                data["EventTriggers"]
+            )
+        )
+    return out

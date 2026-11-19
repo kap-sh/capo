@@ -66,3 +66,43 @@ def deserialize_aws_json_1_1(data: dict) -> GetEntitlementsRequest:
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetEntitlementsRequest) -> dict:
+    out: dict = {}
+    out["ProductCode"] = value["product_code"]
+    if "filter" in value:
+        import capo_marketplace_entitlement_service.types.get_entitlement_filters
+
+        out["Filter"] = (
+            capo_marketplace_entitlement_service.types.get_entitlement_filters.serialize_cbor(
+                value["filter"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetEntitlementsRequest:
+    out: GetEntitlementsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ProductCode") is not None:
+        out["product_code"] = data["ProductCode"]
+    else:
+        out["product_code"] = ""
+    if data.get("Filter") is not None:
+        import capo_marketplace_entitlement_service.types.get_entitlement_filters
+
+        out["filter"] = (
+            capo_marketplace_entitlement_service.types.get_entitlement_filters.deserialize_cbor(
+                data["Filter"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    return out

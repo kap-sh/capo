@@ -66,3 +66,45 @@ def deserialize_aws_json_1_0(data: dict) -> DeliverToQBusinessAction:
     else:
         out["role_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeliverToQBusinessAction) -> dict:
+    out: dict = {}
+    if "action_failure_policy" in value:
+        import capo_mailmanager.types.action_failure_policy
+
+        out["ActionFailurePolicy"] = (
+            capo_mailmanager.types.action_failure_policy.serialize_cbor(
+                value["action_failure_policy"]
+            )
+        )
+    out["ApplicationId"] = value["application_id"]
+    out["IndexId"] = value["index_id"]
+    out["RoleArn"] = value["role_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeliverToQBusinessAction:
+    out: DeliverToQBusinessAction = {}  # type: ignore[typeddict-item]
+    if data.get("ActionFailurePolicy") is not None:
+        import capo_mailmanager.types.action_failure_policy
+
+        out["action_failure_policy"] = (
+            capo_mailmanager.types.action_failure_policy.deserialize_cbor(
+                data["ActionFailurePolicy"]
+            )
+        )
+    if data.get("ApplicationId") is not None:
+        out["application_id"] = data["ApplicationId"]
+    else:
+        out["application_id"] = ""
+    if data.get("IndexId") is not None:
+        out["index_id"] = data["IndexId"]
+    else:
+        out["index_id"] = ""
+    if data.get("RoleArn") is not None:
+        out["role_arn"] = data["RoleArn"]
+    else:
+        out["role_arn"] = ""
+    return out

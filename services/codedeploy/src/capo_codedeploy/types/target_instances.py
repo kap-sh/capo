@@ -76,3 +76,54 @@ def deserialize_aws_json_1_1(data: dict) -> TargetInstances:
             data["ec2TagSet"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TargetInstances) -> dict:
+    out: dict = {}
+    if "tag_filters" in value:
+        import capo_codedeploy.types.ec2_tag_filter_list
+
+        out["tagFilters"] = capo_codedeploy.types.ec2_tag_filter_list.serialize_cbor(
+            value["tag_filters"]
+        )
+    if "auto_scaling_groups" in value:
+        import capo_codedeploy.types.auto_scaling_group_name_list
+
+        out["autoScalingGroups"] = (
+            capo_codedeploy.types.auto_scaling_group_name_list.serialize_cbor(
+                value["auto_scaling_groups"]
+            )
+        )
+    if "ec2_tag_set" in value:
+        import capo_codedeploy.types.ec2_tag_set
+
+        out["ec2TagSet"] = capo_codedeploy.types.ec2_tag_set.serialize_cbor(
+            value["ec2_tag_set"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TargetInstances:
+    out: TargetInstances = {}  # type: ignore[typeddict-item]
+    if data.get("tagFilters") is not None:
+        import capo_codedeploy.types.ec2_tag_filter_list
+
+        out["tag_filters"] = capo_codedeploy.types.ec2_tag_filter_list.deserialize_cbor(
+            data["tagFilters"]
+        )
+    if data.get("autoScalingGroups") is not None:
+        import capo_codedeploy.types.auto_scaling_group_name_list
+
+        out["auto_scaling_groups"] = (
+            capo_codedeploy.types.auto_scaling_group_name_list.deserialize_cbor(
+                data["autoScalingGroups"]
+            )
+        )
+    if data.get("ec2TagSet") is not None:
+        import capo_codedeploy.types.ec2_tag_set
+
+        out["ec2_tag_set"] = capo_codedeploy.types.ec2_tag_set.deserialize_cbor(
+            data["ec2TagSet"]
+        )
+    return out

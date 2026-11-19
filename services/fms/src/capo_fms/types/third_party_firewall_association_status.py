@@ -18,3 +18,12 @@ def serialize_aws_json_1_1(value: ThirdPartyFirewallAssociationStatus) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> ThirdPartyFirewallAssociationStatus:
     return cast(ThirdPartyFirewallAssociationStatus, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ThirdPartyFirewallAssociationStatus) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ThirdPartyFirewallAssociationStatus:
+    return cast(ThirdPartyFirewallAssociationStatus, data)

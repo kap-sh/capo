@@ -16,3 +16,14 @@ def serialize_aws_json_1_1(value: DeleteServiceAttributesResponse) -> dict:
 def deserialize_aws_json_1_1(data: dict) -> DeleteServiceAttributesResponse:
     out: DeleteServiceAttributesResponse = {}  # type: ignore[typeddict-item]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteServiceAttributesResponse) -> dict:
+    out: dict = {}
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteServiceAttributesResponse:
+    out: DeleteServiceAttributesResponse = {}  # type: ignore[typeddict-item]
+    return out

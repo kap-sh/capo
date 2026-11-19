@@ -106,3 +106,70 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateFirewallPolicyV2Request:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateFirewallPolicyV2Request) -> dict:
+    out: dict = {}
+    out["UpdateToken"] = value["update_token"]
+    if "firewall_policy_v2_arn" in value:
+        out["FirewallPolicyV2Arn"] = value["firewall_policy_v2_arn"]
+    if "firewall_policy_v2_name" in value:
+        out["FirewallPolicyV2Name"] = value["firewall_policy_v2_name"]
+    import capo_network_firewall.types.firewall_policy_v2
+
+    out["FirewallPolicyV2"] = (
+        capo_network_firewall.types.firewall_policy_v2.serialize_cbor(
+            value["firewall_policy_v2"]
+        )
+    )
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "dry_run" in value:
+        out["DryRun"] = value["dry_run"]
+    if "encryption_configuration" in value:
+        import capo_network_firewall.types.encryption_configuration
+
+        out["EncryptionConfiguration"] = (
+            capo_network_firewall.types.encryption_configuration.serialize_cbor(
+                value["encryption_configuration"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateFirewallPolicyV2Request:
+    out: UpdateFirewallPolicyV2Request = {}  # type: ignore[typeddict-item]
+    if data.get("UpdateToken") is not None:
+        out["update_token"] = data["UpdateToken"]
+    else:
+        out["update_token"] = ""
+    if data.get("FirewallPolicyV2Arn") is not None:
+        out["firewall_policy_v2_arn"] = data["FirewallPolicyV2Arn"]
+    if data.get("FirewallPolicyV2Name") is not None:
+        out["firewall_policy_v2_name"] = data["FirewallPolicyV2Name"]
+    if data.get("FirewallPolicyV2") is not None:
+        import capo_network_firewall.types.firewall_policy_v2
+
+        out["firewall_policy_v2"] = (
+            capo_network_firewall.types.firewall_policy_v2.deserialize_cbor(
+                data["FirewallPolicyV2"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "UpdateFirewallPolicyV2Request.firewall_policy_v2 required"
+        )
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("DryRun") is not None:
+        out["dry_run"] = data["DryRun"]
+    if data.get("EncryptionConfiguration") is not None:
+        import capo_network_firewall.types.encryption_configuration
+
+        out["encryption_configuration"] = (
+            capo_network_firewall.types.encryption_configuration.deserialize_cbor(
+                data["EncryptionConfiguration"]
+            )
+        )
+    return out

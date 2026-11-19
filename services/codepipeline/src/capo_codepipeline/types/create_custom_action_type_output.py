@@ -54,3 +54,35 @@ def deserialize_aws_json_1_1(data: dict) -> CreateCustomActionTypeOutput:
             data["tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateCustomActionTypeOutput) -> dict:
+    out: dict = {}
+    import capo_codepipeline.types.action_type
+
+    out["actionType"] = capo_codepipeline.types.action_type.serialize_cbor(
+        value["action_type"]
+    )
+    if "tags" in value:
+        import capo_codepipeline.types.tag_list
+
+        out["tags"] = capo_codepipeline.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateCustomActionTypeOutput:
+    out: CreateCustomActionTypeOutput = {}  # type: ignore[typeddict-item]
+    if data.get("actionType") is not None:
+        import capo_codepipeline.types.action_type
+
+        out["action_type"] = capo_codepipeline.types.action_type.deserialize_cbor(
+            data["actionType"]
+        )
+    else:
+        raise DeserializationError("CreateCustomActionTypeOutput.action_type required")
+    if data.get("tags") is not None:
+        import capo_codepipeline.types.tag_list
+
+        out["tags"] = capo_codepipeline.types.tag_list.deserialize_cbor(data["tags"])
+    return out

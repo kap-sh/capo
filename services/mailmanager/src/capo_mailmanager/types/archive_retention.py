@@ -52,3 +52,39 @@ def deserialize_aws_json_1_0(data: dict) -> ArchiveRetention:
         if name is not None:
             return {"$unknown": {"name": name}}
         raise DeserializationError("ArchiveRetention: no recognized variant key")
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ArchiveRetention) -> dict:
+    if "$unknown" in value:
+        raise SerializationError(
+            f"ArchiveRetention: cannot serialize unknown variant {value['$unknown']['name']!r}"
+        )
+    elif "RetentionPeriod" in value:
+        import capo_mailmanager.types.retention_period
+
+        return {
+            "RetentionPeriod": capo_mailmanager.types.retention_period.serialize_cbor(
+                value["RetentionPeriod"]
+            )
+        }
+    else:
+        raise SerializationError("ArchiveRetention: no variant present")
+
+
+def deserialize_cbor(data: dict) -> ArchiveRetention:
+    if data.get("RetentionPeriod") is not None:
+        import capo_mailmanager.types.retention_period
+
+        return {
+            "RetentionPeriod": capo_mailmanager.types.retention_period.deserialize_cbor(
+                data["RetentionPeriod"]
+            )
+        }
+    else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return {"$unknown": {"name": name}}
+        raise DeserializationError("ArchiveRetention: no recognized variant key")

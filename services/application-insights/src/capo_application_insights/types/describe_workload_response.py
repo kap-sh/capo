@@ -54,3 +54,38 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeWorkloadResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeWorkloadResponse) -> dict:
+    out: dict = {}
+    if "workload_id" in value:
+        out["WorkloadId"] = value["workload_id"]
+    if "workload_remarks" in value:
+        out["WorkloadRemarks"] = value["workload_remarks"]
+    if "workload_configuration" in value:
+        import capo_application_insights.types.workload_configuration
+
+        out["WorkloadConfiguration"] = (
+            capo_application_insights.types.workload_configuration.serialize_cbor(
+                value["workload_configuration"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeWorkloadResponse:
+    out: DescribeWorkloadResponse = {}  # type: ignore[typeddict-item]
+    if data.get("WorkloadId") is not None:
+        out["workload_id"] = data["WorkloadId"]
+    if data.get("WorkloadRemarks") is not None:
+        out["workload_remarks"] = data["WorkloadRemarks"]
+    if data.get("WorkloadConfiguration") is not None:
+        import capo_application_insights.types.workload_configuration
+
+        out["workload_configuration"] = (
+            capo_application_insights.types.workload_configuration.deserialize_cbor(
+                data["WorkloadConfiguration"]
+            )
+        )
+    return out

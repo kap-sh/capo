@@ -78,3 +78,58 @@ def deserialize_aws_json_1_1(data: dict) -> LoadBalancerInfo:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LoadBalancerInfo) -> dict:
+    out: dict = {}
+    if "elb_info_list" in value:
+        import capo_codedeploy.types.elb_info_list
+
+        out["elbInfoList"] = capo_codedeploy.types.elb_info_list.serialize_cbor(
+            value["elb_info_list"]
+        )
+    if "target_group_info_list" in value:
+        import capo_codedeploy.types.target_group_info_list
+
+        out["targetGroupInfoList"] = (
+            capo_codedeploy.types.target_group_info_list.serialize_cbor(
+                value["target_group_info_list"]
+            )
+        )
+    if "target_group_pair_info_list" in value:
+        import capo_codedeploy.types.target_group_pair_info_list
+
+        out["targetGroupPairInfoList"] = (
+            capo_codedeploy.types.target_group_pair_info_list.serialize_cbor(
+                value["target_group_pair_info_list"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> LoadBalancerInfo:
+    out: LoadBalancerInfo = {}  # type: ignore[typeddict-item]
+    if data.get("elbInfoList") is not None:
+        import capo_codedeploy.types.elb_info_list
+
+        out["elb_info_list"] = capo_codedeploy.types.elb_info_list.deserialize_cbor(
+            data["elbInfoList"]
+        )
+    if data.get("targetGroupInfoList") is not None:
+        import capo_codedeploy.types.target_group_info_list
+
+        out["target_group_info_list"] = (
+            capo_codedeploy.types.target_group_info_list.deserialize_cbor(
+                data["targetGroupInfoList"]
+            )
+        )
+    if data.get("targetGroupPairInfoList") is not None:
+        import capo_codedeploy.types.target_group_pair_info_list
+
+        out["target_group_pair_info_list"] = (
+            capo_codedeploy.types.target_group_pair_info_list.deserialize_cbor(
+                data["targetGroupPairInfoList"]
+            )
+        )
+    return out

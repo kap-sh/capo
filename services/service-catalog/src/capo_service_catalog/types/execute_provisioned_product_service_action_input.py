@@ -72,3 +72,49 @@ def deserialize_aws_json_1_1(data: dict) -> ExecuteProvisionedProductServiceActi
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExecuteProvisionedProductServiceActionInput) -> dict:
+    out: dict = {}
+    out["ProvisionedProductId"] = value["provisioned_product_id"]
+    out["ServiceActionId"] = value["service_action_id"]
+    out["ExecuteToken"] = value["execute_token"]
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    if "parameters" in value:
+        import capo_service_catalog.types.execution_parameter_map
+
+        out["Parameters"] = (
+            capo_service_catalog.types.execution_parameter_map.serialize_cbor(
+                value["parameters"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ExecuteProvisionedProductServiceActionInput:
+    out: ExecuteProvisionedProductServiceActionInput = {}  # type: ignore[typeddict-item]
+    if data.get("ProvisionedProductId") is not None:
+        out["provisioned_product_id"] = data["ProvisionedProductId"]
+    else:
+        out["provisioned_product_id"] = ""
+    if data.get("ServiceActionId") is not None:
+        out["service_action_id"] = data["ServiceActionId"]
+    else:
+        out["service_action_id"] = ""
+    if data.get("ExecuteToken") is not None:
+        out["execute_token"] = data["ExecuteToken"]
+    else:
+        out["execute_token"] = ""
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    if data.get("Parameters") is not None:
+        import capo_service_catalog.types.execution_parameter_map
+
+        out["parameters"] = (
+            capo_service_catalog.types.execution_parameter_map.deserialize_cbor(
+                data["Parameters"]
+            )
+        )
+    return out

@@ -78,3 +78,51 @@ def deserialize_aws_json_1_1(data: dict) -> ProvisioningArtifactParameter:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ProvisioningArtifactParameter) -> dict:
+    out: dict = {}
+    if "parameter_key" in value:
+        out["ParameterKey"] = value["parameter_key"]
+    if "default_value" in value:
+        out["DefaultValue"] = value["default_value"]
+    if "parameter_type" in value:
+        out["ParameterType"] = value["parameter_type"]
+    out["IsNoEcho"] = value.get("is_no_echo", False)
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "parameter_constraints" in value:
+        import capo_service_catalog.types.parameter_constraints
+
+        out["ParameterConstraints"] = (
+            capo_service_catalog.types.parameter_constraints.serialize_cbor(
+                value["parameter_constraints"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ProvisioningArtifactParameter:
+    out: ProvisioningArtifactParameter = {}  # type: ignore[typeddict-item]
+    if data.get("ParameterKey") is not None:
+        out["parameter_key"] = data["ParameterKey"]
+    if data.get("DefaultValue") is not None:
+        out["default_value"] = data["DefaultValue"]
+    if data.get("ParameterType") is not None:
+        out["parameter_type"] = data["ParameterType"]
+    if data.get("IsNoEcho") is not None:
+        out["is_no_echo"] = data["IsNoEcho"]
+    else:
+        out["is_no_echo"] = False
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("ParameterConstraints") is not None:
+        import capo_service_catalog.types.parameter_constraints
+
+        out["parameter_constraints"] = (
+            capo_service_catalog.types.parameter_constraints.deserialize_cbor(
+                data["ParameterConstraints"]
+            )
+        )
+    return out

@@ -63,3 +63,47 @@ def deserialize_aws_json_1_0(data: dict) -> RelayAction:
             data["MailFrom"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RelayAction) -> dict:
+    out: dict = {}
+    if "action_failure_policy" in value:
+        import capo_mailmanager.types.action_failure_policy
+
+        out["ActionFailurePolicy"] = (
+            capo_mailmanager.types.action_failure_policy.serialize_cbor(
+                value["action_failure_policy"]
+            )
+        )
+    out["Relay"] = value["relay"]
+    if "mail_from" in value:
+        import capo_mailmanager.types.mail_from
+
+        out["MailFrom"] = capo_mailmanager.types.mail_from.serialize_cbor(
+            value["mail_from"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RelayAction:
+    out: RelayAction = {}  # type: ignore[typeddict-item]
+    if data.get("ActionFailurePolicy") is not None:
+        import capo_mailmanager.types.action_failure_policy
+
+        out["action_failure_policy"] = (
+            capo_mailmanager.types.action_failure_policy.deserialize_cbor(
+                data["ActionFailurePolicy"]
+            )
+        )
+    if data.get("Relay") is not None:
+        out["relay"] = data["Relay"]
+    else:
+        out["relay"] = ""
+    if data.get("MailFrom") is not None:
+        import capo_mailmanager.types.mail_from
+
+        out["mail_from"] = capo_mailmanager.types.mail_from.deserialize_cbor(
+            data["MailFrom"]
+        )
+    return out

@@ -17,3 +17,12 @@ def serialize_aws_json_1_1(value: InstanceDrainStatus) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> InstanceDrainStatus:
     return cast(InstanceDrainStatus, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InstanceDrainStatus) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> InstanceDrainStatus:
+    return cast(InstanceDrainStatus, data)

@@ -37,3 +37,28 @@ def deserialize_aws_json_1_0(data: list) -> AvailabilityZoneMappings:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AvailabilityZoneMappings) -> list:
+    import capo_network_firewall.types.availability_zone_mapping
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_network_firewall.types.availability_zone_mapping.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> AvailabilityZoneMappings:
+    import capo_network_firewall.types.availability_zone_mapping
+
+    out: AvailabilityZoneMappings = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_network_firewall.types.availability_zone_mapping.deserialize_cbor(item)
+        )
+    return out

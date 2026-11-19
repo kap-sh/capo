@@ -29,3 +29,24 @@ def deserialize_aws_json_1_1(data: list) -> Ec2AmiResourceList:
             continue
         out.append(capo_snowball.types.ec2_ami_resource.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Ec2AmiResourceList) -> list:
+    import capo_snowball.types.ec2_ami_resource
+
+    out: list = []
+    for item in value:
+        out.append(capo_snowball.types.ec2_ami_resource.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> Ec2AmiResourceList:
+    import capo_snowball.types.ec2_ami_resource
+
+    out: Ec2AmiResourceList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_snowball.types.ec2_ami_resource.deserialize_cbor(item))
+    return out

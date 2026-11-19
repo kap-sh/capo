@@ -89,3 +89,60 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAdapterRequest:
 
         out["tags"] = capo_textract.types.tag_map.deserialize_aws_json_1_1(data["Tags"])
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateAdapterRequest) -> dict:
+    out: dict = {}
+    out["AdapterName"] = value["adapter_name"]
+    if "client_request_token" in value:
+        out["ClientRequestToken"] = value["client_request_token"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    import capo_textract.types.feature_types
+
+    out["FeatureTypes"] = capo_textract.types.feature_types.serialize_cbor(
+        value["feature_types"]
+    )
+    if "auto_update" in value:
+        import capo_textract.types.auto_update
+
+        out["AutoUpdate"] = capo_textract.types.auto_update.serialize_cbor(
+            value["auto_update"]
+        )
+    if "tags" in value:
+        import capo_textract.types.tag_map
+
+        out["Tags"] = capo_textract.types.tag_map.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateAdapterRequest:
+    out: CreateAdapterRequest = {}  # type: ignore[typeddict-item]
+    if data.get("AdapterName") is not None:
+        out["adapter_name"] = data["AdapterName"]
+    else:
+        out["adapter_name"] = ""
+    if data.get("ClientRequestToken") is not None:
+        out["client_request_token"] = data["ClientRequestToken"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("FeatureTypes") is not None:
+        import capo_textract.types.feature_types
+
+        out["feature_types"] = capo_textract.types.feature_types.deserialize_cbor(
+            data["FeatureTypes"]
+        )
+    else:
+        out["feature_types"] = []
+    if data.get("AutoUpdate") is not None:
+        import capo_textract.types.auto_update
+
+        out["auto_update"] = capo_textract.types.auto_update.deserialize_cbor(
+            data["AutoUpdate"]
+        )
+    if data.get("Tags") is not None:
+        import capo_textract.types.tag_map
+
+        out["tags"] = capo_textract.types.tag_map.deserialize_cbor(data["Tags"])
+    return out

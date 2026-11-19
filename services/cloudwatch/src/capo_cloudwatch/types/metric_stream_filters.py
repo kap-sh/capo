@@ -82,3 +82,24 @@ def deserialize_aws_json_1_0(data: list) -> MetricStreamFilters:
             capo_cloudwatch.types.metric_stream_filter.deserialize_aws_json_1_0(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MetricStreamFilters) -> list:
+    import capo_cloudwatch.types.metric_stream_filter
+
+    out: list = []
+    for item in value:
+        out.append(capo_cloudwatch.types.metric_stream_filter.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> MetricStreamFilters:
+    import capo_cloudwatch.types.metric_stream_filter
+
+    out: MetricStreamFilters = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_cloudwatch.types.metric_stream_filter.deserialize_cbor(item))
+    return out

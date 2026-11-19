@@ -95,3 +95,67 @@ def deserialize_aws_json_1_0(data: dict) -> CreateHostInput:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateHostInput) -> dict:
+    out: dict = {}
+    out["Name"] = value["name"]
+    import capo_codeconnections.types.provider_type
+
+    out["ProviderType"] = capo_codeconnections.types.provider_type.serialize_cbor(
+        value["provider_type"]
+    )
+    out["ProviderEndpoint"] = value["provider_endpoint"]
+    if "vpc_configuration" in value:
+        import capo_codeconnections.types.vpc_configuration
+
+        out["VpcConfiguration"] = (
+            capo_codeconnections.types.vpc_configuration.serialize_cbor(
+                value["vpc_configuration"]
+            )
+        )
+    if "tags" in value:
+        import capo_codeconnections.types.tag_list
+
+        out["Tags"] = capo_codeconnections.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateHostInput:
+    out: CreateHostInput = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    else:
+        out["name"] = ""
+    if data.get("ProviderType") is not None:
+        import capo_codeconnections.types.provider_type
+
+        out["provider_type"] = (
+            capo_codeconnections.types.provider_type.deserialize_cbor(
+                data["ProviderType"]
+            )
+        )
+    else:
+        import typing
+
+        out["provider_type"] = typing.cast(
+            "capo_codeconnections.types.provider_type.ProviderType", ""
+        )
+    if data.get("ProviderEndpoint") is not None:
+        out["provider_endpoint"] = data["ProviderEndpoint"]
+    else:
+        out["provider_endpoint"] = ""
+    if data.get("VpcConfiguration") is not None:
+        import capo_codeconnections.types.vpc_configuration
+
+        out["vpc_configuration"] = (
+            capo_codeconnections.types.vpc_configuration.deserialize_cbor(
+                data["VpcConfiguration"]
+            )
+        )
+    if data.get("Tags") is not None:
+        import capo_codeconnections.types.tag_list
+
+        out["tags"] = capo_codeconnections.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

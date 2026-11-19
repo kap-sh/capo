@@ -40,3 +40,26 @@ def deserialize_aws_json_1_1(data: dict) -> LinuxCapabilities:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LinuxCapabilities) -> dict:
+    out: dict = {}
+    if "include" in value:
+        import capo_gamelift.types.linux_capability_list
+
+        out["Include"] = capo_gamelift.types.linux_capability_list.serialize_cbor(
+            value["include"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> LinuxCapabilities:
+    out: LinuxCapabilities = {}  # type: ignore[typeddict-item]
+    if data.get("Include") is not None:
+        import capo_gamelift.types.linux_capability_list
+
+        out["include"] = capo_gamelift.types.linux_capability_list.deserialize_cbor(
+            data["Include"]
+        )
+    return out

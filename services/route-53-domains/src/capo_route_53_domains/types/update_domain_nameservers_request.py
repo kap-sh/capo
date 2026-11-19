@@ -56,6 +56,41 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDomainNameserversRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateDomainNameserversRequest) -> dict:
+    out: dict = {}
+    out["DomainName"] = value["domain_name"]
+    if "fi_auth_key" in value:
+        out["FIAuthKey"] = value["fi_auth_key"]
+    import capo_route_53_domains.types.nameserver_list
+
+    out["Nameservers"] = capo_route_53_domains.types.nameserver_list.serialize_cbor(
+        value["nameservers"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateDomainNameserversRequest:
+    out: UpdateDomainNameserversRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DomainName") is not None:
+        out["domain_name"] = data["DomainName"]
+    else:
+        out["domain_name"] = ""
+    if data.get("FIAuthKey") is not None:
+        out["fi_auth_key"] = data["FIAuthKey"]
+    if data.get("Nameservers") is not None:
+        import capo_route_53_domains.types.nameserver_list
+
+        out["nameservers"] = (
+            capo_route_53_domains.types.nameserver_list.deserialize_cbor(
+                data["Nameservers"]
+            )
+        )
+    else:
+        out["nameservers"] = []
+    return out
+
+
 def redact_sensitive(value: UpdateDomainNameserversRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "fi_auth_key" in value:

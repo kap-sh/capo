@@ -37,3 +37,22 @@ def deserialize_aws_json_1_0(data: dict) -> EstimatedCharges:
     if data.get("agreementValue") is not None:
         out["agreement_value"] = data["agreementValue"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EstimatedCharges) -> dict:
+    out: dict = {}
+    if "currency_code" in value:
+        out["currencyCode"] = value["currency_code"]
+    if "agreement_value" in value:
+        out["agreementValue"] = value["agreement_value"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> EstimatedCharges:
+    out: EstimatedCharges = {}  # type: ignore[typeddict-item]
+    if data.get("currencyCode") is not None:
+        out["currency_code"] = data["currencyCode"]
+    if data.get("agreementValue") is not None:
+        out["agreement_value"] = data["agreementValue"]
+    return out

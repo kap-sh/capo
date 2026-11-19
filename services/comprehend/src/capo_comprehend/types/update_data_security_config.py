@@ -46,3 +46,34 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDataSecurityConfig:
             data["VpcConfig"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateDataSecurityConfig) -> dict:
+    out: dict = {}
+    if "model_kms_key_id" in value:
+        out["ModelKmsKeyId"] = value["model_kms_key_id"]
+    if "volume_kms_key_id" in value:
+        out["VolumeKmsKeyId"] = value["volume_kms_key_id"]
+    if "vpc_config" in value:
+        import capo_comprehend.types.vpc_config
+
+        out["VpcConfig"] = capo_comprehend.types.vpc_config.serialize_cbor(
+            value["vpc_config"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateDataSecurityConfig:
+    out: UpdateDataSecurityConfig = {}  # type: ignore[typeddict-item]
+    if data.get("ModelKmsKeyId") is not None:
+        out["model_kms_key_id"] = data["ModelKmsKeyId"]
+    if data.get("VolumeKmsKeyId") is not None:
+        out["volume_kms_key_id"] = data["VolumeKmsKeyId"]
+    if data.get("VpcConfig") is not None:
+        import capo_comprehend.types.vpc_config
+
+        out["vpc_config"] = capo_comprehend.types.vpc_config.deserialize_cbor(
+            data["VpcConfig"]
+        )
+    return out

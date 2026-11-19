@@ -42,3 +42,31 @@ def deserialize_aws_json_1_0(data: dict) -> ReplicationSpecification:
             data["regionList"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ReplicationSpecification) -> dict:
+    out: dict = {}
+    out["replicationStrategy"] = value["replication_strategy"]
+    if "region_list" in value:
+        import capo_keyspaces.types.region_list
+
+        out["regionList"] = capo_keyspaces.types.region_list.serialize_cbor(
+            value["region_list"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ReplicationSpecification:
+    out: ReplicationSpecification = {}  # type: ignore[typeddict-item]
+    if data.get("replicationStrategy") is not None:
+        out["replication_strategy"] = data["replicationStrategy"]
+    else:
+        out["replication_strategy"] = ""
+    if data.get("regionList") is not None:
+        import capo_keyspaces.types.region_list
+
+        out["region_list"] = capo_keyspaces.types.region_list.deserialize_cbor(
+            data["regionList"]
+        )
+    return out

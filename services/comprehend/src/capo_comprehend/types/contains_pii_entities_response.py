@@ -40,3 +40,26 @@ def deserialize_aws_json_1_1(data: dict) -> ContainsPiiEntitiesResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ContainsPiiEntitiesResponse) -> dict:
+    out: dict = {}
+    if "labels" in value:
+        import capo_comprehend.types.list_of_entity_labels
+
+        out["Labels"] = capo_comprehend.types.list_of_entity_labels.serialize_cbor(
+            value["labels"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ContainsPiiEntitiesResponse:
+    out: ContainsPiiEntitiesResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Labels") is not None:
+        import capo_comprehend.types.list_of_entity_labels
+
+        out["labels"] = capo_comprehend.types.list_of_entity_labels.deserialize_cbor(
+            data["Labels"]
+        )
+    return out

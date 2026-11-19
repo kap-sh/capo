@@ -64,3 +64,42 @@ def deserialize_aws_json_1_1(data: dict) -> TaskScheduleDetails:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TaskScheduleDetails) -> dict:
+    out: dict = {}
+    if "status_update_time" in value:
+        import capo_datasync.types.time
+
+        out["StatusUpdateTime"] = capo_datasync.types.time.serialize_cbor(
+            value["status_update_time"]
+        )
+    if "disabled_reason" in value:
+        out["DisabledReason"] = value["disabled_reason"]
+    if "disabled_by" in value:
+        import capo_datasync.types.schedule_disabled_by
+
+        out["DisabledBy"] = capo_datasync.types.schedule_disabled_by.serialize_cbor(
+            value["disabled_by"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TaskScheduleDetails:
+    out: TaskScheduleDetails = {}  # type: ignore[typeddict-item]
+    if data.get("StatusUpdateTime") is not None:
+        import capo_datasync.types.time
+
+        out["status_update_time"] = capo_datasync.types.time.deserialize_cbor(
+            data["StatusUpdateTime"]
+        )
+    if data.get("DisabledReason") is not None:
+        out["disabled_reason"] = data["DisabledReason"]
+    if data.get("DisabledBy") is not None:
+        import capo_datasync.types.schedule_disabled_by
+
+        out["disabled_by"] = capo_datasync.types.schedule_disabled_by.deserialize_cbor(
+            data["DisabledBy"]
+        )
+    return out

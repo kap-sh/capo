@@ -24,3 +24,12 @@ def serialize_aws_json_1_1(value: SnowballCapacity) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> SnowballCapacity:
     return cast(SnowballCapacity, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SnowballCapacity) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> SnowballCapacity:
+    return cast(SnowballCapacity, data)

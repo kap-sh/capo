@@ -30,3 +30,22 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeBuildOutput:
 
         out["build"] = capo_gamelift.types.build.deserialize_aws_json_1_1(data["Build"])
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeBuildOutput) -> dict:
+    out: dict = {}
+    if "build" in value:
+        import capo_gamelift.types.build
+
+        out["Build"] = capo_gamelift.types.build.serialize_cbor(value["build"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeBuildOutput:
+    out: DescribeBuildOutput = {}  # type: ignore[typeddict-item]
+    if data.get("Build") is not None:
+        import capo_gamelift.types.build
+
+        out["build"] = capo_gamelift.types.build.deserialize_cbor(data["Build"])
+    return out

@@ -54,3 +54,34 @@ def deserialize_aws_json_1_0(data: dict) -> Hypervisor:
     if data.get("State") is not None:
         out["state"] = data["State"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Hypervisor) -> dict:
+    out: dict = {}
+    if "host" in value:
+        out["Host"] = value["host"]
+    if "hypervisor_arn" in value:
+        out["HypervisorArn"] = value["hypervisor_arn"]
+    if "kms_key_arn" in value:
+        out["KmsKeyArn"] = value["kms_key_arn"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "state" in value:
+        out["State"] = value["state"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Hypervisor:
+    out: Hypervisor = {}  # type: ignore[typeddict-item]
+    if data.get("Host") is not None:
+        out["host"] = data["Host"]
+    if data.get("HypervisorArn") is not None:
+        out["hypervisor_arn"] = data["HypervisorArn"]
+    if data.get("KmsKeyArn") is not None:
+        out["kms_key_arn"] = data["KmsKeyArn"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("State") is not None:
+        out["state"] = data["State"]
+    return out

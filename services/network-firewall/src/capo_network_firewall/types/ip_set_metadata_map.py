@@ -35,3 +35,24 @@ def deserialize_aws_json_1_0(data: dict) -> IPSetMetadataMap:
             value
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(input_to_serialize: IPSetMetadataMap) -> dict:
+    out: dict = {}
+    for key, value in input_to_serialize.items():
+        import capo_network_firewall.types.ip_set_metadata
+
+        out[key] = capo_network_firewall.types.ip_set_metadata.serialize_cbor(value)
+    return out
+
+
+def deserialize_cbor(data: dict) -> IPSetMetadataMap:
+    out: IPSetMetadataMap = {}
+    for key, value in data.items():
+        if value is None:
+            continue
+        import capo_network_firewall.types.ip_set_metadata
+
+        out[key] = capo_network_firewall.types.ip_set_metadata.deserialize_cbor(value)
+    return out

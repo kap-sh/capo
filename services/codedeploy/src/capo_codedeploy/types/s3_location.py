@@ -62,3 +62,42 @@ def deserialize_aws_json_1_1(data: dict) -> S3Location:
     if data.get("eTag") is not None:
         out["e_tag"] = data["eTag"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: S3Location) -> dict:
+    out: dict = {}
+    if "bucket" in value:
+        out["bucket"] = value["bucket"]
+    if "key" in value:
+        out["key"] = value["key"]
+    if "bundle_type" in value:
+        import capo_codedeploy.types.bundle_type
+
+        out["bundleType"] = capo_codedeploy.types.bundle_type.serialize_cbor(
+            value["bundle_type"]
+        )
+    if "version" in value:
+        out["version"] = value["version"]
+    if "e_tag" in value:
+        out["eTag"] = value["e_tag"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> S3Location:
+    out: S3Location = {}  # type: ignore[typeddict-item]
+    if data.get("bucket") is not None:
+        out["bucket"] = data["bucket"]
+    if data.get("key") is not None:
+        out["key"] = data["key"]
+    if data.get("bundleType") is not None:
+        import capo_codedeploy.types.bundle_type
+
+        out["bundle_type"] = capo_codedeploy.types.bundle_type.deserialize_cbor(
+            data["bundleType"]
+        )
+    if data.get("version") is not None:
+        out["version"] = data["version"]
+    if data.get("eTag") is not None:
+        out["e_tag"] = data["eTag"]
+    return out

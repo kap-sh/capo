@@ -12,3 +12,12 @@ def serialize_aws_json_1_0(value: SyncConfigurationType) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> SyncConfigurationType:
     return cast(SyncConfigurationType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SyncConfigurationType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> SyncConfigurationType:
+    return cast(SyncConfigurationType, data)

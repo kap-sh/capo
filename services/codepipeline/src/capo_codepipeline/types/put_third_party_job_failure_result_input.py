@@ -59,3 +59,41 @@ def deserialize_aws_json_1_1(data: dict) -> PutThirdPartyJobFailureResultInput:
             "PutThirdPartyJobFailureResultInput.failure_details required"
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PutThirdPartyJobFailureResultInput) -> dict:
+    out: dict = {}
+    out["jobId"] = value["job_id"]
+    out["clientToken"] = value["client_token"]
+    import capo_codepipeline.types.failure_details
+
+    out["failureDetails"] = capo_codepipeline.types.failure_details.serialize_cbor(
+        value["failure_details"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PutThirdPartyJobFailureResultInput:
+    out: PutThirdPartyJobFailureResultInput = {}  # type: ignore[typeddict-item]
+    if data.get("jobId") is not None:
+        out["job_id"] = data["jobId"]
+    else:
+        out["job_id"] = ""
+    if data.get("clientToken") is not None:
+        out["client_token"] = data["clientToken"]
+    else:
+        out["client_token"] = ""
+    if data.get("failureDetails") is not None:
+        import capo_codepipeline.types.failure_details
+
+        out["failure_details"] = (
+            capo_codepipeline.types.failure_details.deserialize_cbor(
+                data["failureDetails"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "PutThirdPartyJobFailureResultInput.failure_details required"
+        )
+    return out

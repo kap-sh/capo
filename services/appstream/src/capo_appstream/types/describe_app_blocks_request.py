@@ -48,3 +48,30 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeAppBlocksRequest:
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeAppBlocksRequest) -> dict:
+    out: dict = {}
+    if "arns" in value:
+        import capo_appstream.types.arn_list
+
+        out["Arns"] = capo_appstream.types.arn_list.serialize_cbor(value["arns"])
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeAppBlocksRequest:
+    out: DescribeAppBlocksRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Arns") is not None:
+        import capo_appstream.types.arn_list
+
+        out["arns"] = capo_appstream.types.arn_list.deserialize_cbor(data["Arns"])
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    return out

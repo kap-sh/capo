@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteLagRequest:
     else:
         out["lag_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteLagRequest) -> dict:
+    out: dict = {}
+    out["lagId"] = value["lag_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteLagRequest:
+    out: DeleteLagRequest = {}  # type: ignore[typeddict-item]
+    if data.get("lagId") is not None:
+        out["lag_id"] = data["lagId"]
+    else:
+        out["lag_id"] = ""
+    return out

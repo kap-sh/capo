@@ -56,3 +56,40 @@ def deserialize_aws_json_1_0(data: dict) -> ECSServiceRecommendedOptionProjected
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ECSServiceRecommendedOptionProjectedMetric) -> dict:
+    out: dict = {}
+    out["recommendedCpuUnits"] = value.get("recommended_cpu_units", 0)
+    out["recommendedMemorySize"] = value.get("recommended_memory_size", 0)
+    if "projected_metrics" in value:
+        import capo_compute_optimizer.types.ecs_service_projected_metrics
+
+        out["projectedMetrics"] = (
+            capo_compute_optimizer.types.ecs_service_projected_metrics.serialize_cbor(
+                value["projected_metrics"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ECSServiceRecommendedOptionProjectedMetric:
+    out: ECSServiceRecommendedOptionProjectedMetric = {}  # type: ignore[typeddict-item]
+    if data.get("recommendedCpuUnits") is not None:
+        out["recommended_cpu_units"] = data["recommendedCpuUnits"]
+    else:
+        out["recommended_cpu_units"] = 0
+    if data.get("recommendedMemorySize") is not None:
+        out["recommended_memory_size"] = data["recommendedMemorySize"]
+    else:
+        out["recommended_memory_size"] = 0
+    if data.get("projectedMetrics") is not None:
+        import capo_compute_optimizer.types.ecs_service_projected_metrics
+
+        out["projected_metrics"] = (
+            capo_compute_optimizer.types.ecs_service_projected_metrics.deserialize_cbor(
+                data["projectedMetrics"]
+            )
+        )
+    return out

@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: SubscriptionState) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> SubscriptionState:
     return cast(SubscriptionState, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SubscriptionState) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> SubscriptionState:
+    return cast(SubscriptionState, data)

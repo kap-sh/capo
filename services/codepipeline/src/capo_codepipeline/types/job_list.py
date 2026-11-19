@@ -29,6 +29,27 @@ def deserialize_aws_json_1_1(data: list) -> JobList:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: JobList) -> list:
+    import capo_codepipeline.types.job
+
+    out: list = []
+    for item in value:
+        out.append(capo_codepipeline.types.job.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> JobList:
+    import capo_codepipeline.types.job
+
+    out: JobList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_codepipeline.types.job.deserialize_cbor(item))
+    return out
+
+
 def redact_sensitive(value: JobList) -> list[Any]:
     import capo_codepipeline.types.job
 

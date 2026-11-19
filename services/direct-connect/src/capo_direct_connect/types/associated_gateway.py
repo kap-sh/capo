@@ -55,3 +55,38 @@ def deserialize_aws_json_1_1(data: dict) -> AssociatedGateway:
     if data.get("region") is not None:
         out["region"] = data["region"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AssociatedGateway) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["id"] = value["id"]
+    if "type" in value:
+        import capo_direct_connect.types.gateway_type
+
+        out["type"] = capo_direct_connect.types.gateway_type.serialize_cbor(
+            value["type"]
+        )
+    if "owner_account" in value:
+        out["ownerAccount"] = value["owner_account"]
+    if "region" in value:
+        out["region"] = value["region"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AssociatedGateway:
+    out: AssociatedGateway = {}  # type: ignore[typeddict-item]
+    if data.get("id") is not None:
+        out["id"] = data["id"]
+    if data.get("type") is not None:
+        import capo_direct_connect.types.gateway_type
+
+        out["type"] = capo_direct_connect.types.gateway_type.deserialize_cbor(
+            data["type"]
+        )
+    if data.get("ownerAccount") is not None:
+        out["owner_account"] = data["ownerAccount"]
+    if data.get("region") is not None:
+        out["region"] = data["region"]
+    return out

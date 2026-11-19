@@ -79,3 +79,55 @@ def deserialize_aws_json_1_0(data: dict) -> ReportOutput:
         if name is not None:
             return {"$unknown": {"name": name}}
         raise DeserializationError("ReportOutput: no recognized variant key")
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ReportOutput) -> dict:
+    if "$unknown" in value:
+        raise SerializationError(
+            f"ReportOutput: cannot serialize unknown variant {value['$unknown']['name']!r}"
+        )
+    elif "s3ReportOutput" in value:
+        import capo_arc_region_switch.types.s3_report_output
+
+        return {
+            "s3ReportOutput": capo_arc_region_switch.types.s3_report_output.serialize_cbor(
+                value["s3ReportOutput"]
+            )
+        }
+    elif "failedReportOutput" in value:
+        import capo_arc_region_switch.types.failed_report_output
+
+        return {
+            "failedReportOutput": capo_arc_region_switch.types.failed_report_output.serialize_cbor(
+                value["failedReportOutput"]
+            )
+        }
+    else:
+        raise SerializationError("ReportOutput: no variant present")
+
+
+def deserialize_cbor(data: dict) -> ReportOutput:
+    if data.get("s3ReportOutput") is not None:
+        import capo_arc_region_switch.types.s3_report_output
+
+        return {
+            "s3ReportOutput": capo_arc_region_switch.types.s3_report_output.deserialize_cbor(
+                data["s3ReportOutput"]
+            )
+        }
+    elif data.get("failedReportOutput") is not None:
+        import capo_arc_region_switch.types.failed_report_output
+
+        return {
+            "failedReportOutput": capo_arc_region_switch.types.failed_report_output.deserialize_cbor(
+                data["failedReportOutput"]
+            )
+        }
+    else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return {"$unknown": {"name": name}}
+        raise DeserializationError("ReportOutput: no recognized variant key")

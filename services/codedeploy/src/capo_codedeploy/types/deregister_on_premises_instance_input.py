@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> DeregisterOnPremisesInstanceInput:
     else:
         out["instance_name"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeregisterOnPremisesInstanceInput) -> dict:
+    out: dict = {}
+    out["instanceName"] = value["instance_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeregisterOnPremisesInstanceInput:
+    out: DeregisterOnPremisesInstanceInput = {}  # type: ignore[typeddict-item]
+    if data.get("instanceName") is not None:
+        out["instance_name"] = data["instanceName"]
+    else:
+        out["instance_name"] = ""
+    return out

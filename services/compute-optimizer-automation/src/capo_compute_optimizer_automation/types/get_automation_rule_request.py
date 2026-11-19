@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> GetAutomationRuleRequest:
     else:
         out["rule_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetAutomationRuleRequest) -> dict:
+    out: dict = {}
+    out["ruleArn"] = value["rule_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetAutomationRuleRequest:
+    out: GetAutomationRuleRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ruleArn") is not None:
+        out["rule_arn"] = data["ruleArn"]
+    else:
+        out["rule_arn"] = ""
+    return out

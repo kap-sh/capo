@@ -54,3 +54,38 @@ def deserialize_aws_json_1_1(data: dict) -> ListProtectionGroupsRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListProtectionGroupsRequest) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "inclusion_filters" in value:
+        import capo_shield.types.inclusion_protection_group_filters
+
+        out["InclusionFilters"] = (
+            capo_shield.types.inclusion_protection_group_filters.serialize_cbor(
+                value["inclusion_filters"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListProtectionGroupsRequest:
+    out: ListProtectionGroupsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("InclusionFilters") is not None:
+        import capo_shield.types.inclusion_protection_group_filters
+
+        out["inclusion_filters"] = (
+            capo_shield.types.inclusion_protection_group_filters.deserialize_cbor(
+                data["InclusionFilters"]
+            )
+        )
+    return out

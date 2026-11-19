@@ -53,3 +53,36 @@ def deserialize_aws_json_1_1(data: dict) -> CreateParameterGroupRequest:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateParameterGroupRequest) -> dict:
+    out: dict = {}
+    out["ParameterGroupName"] = value["parameter_group_name"]
+    out["Family"] = value["family"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "tags" in value:
+        import capo_memorydb.types.tag_list
+
+        out["Tags"] = capo_memorydb.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateParameterGroupRequest:
+    out: CreateParameterGroupRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ParameterGroupName") is not None:
+        out["parameter_group_name"] = data["ParameterGroupName"]
+    else:
+        out["parameter_group_name"] = ""
+    if data.get("Family") is not None:
+        out["family"] = data["Family"]
+    else:
+        out["family"] = ""
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("Tags") is not None:
+        import capo_memorydb.types.tag_list
+
+        out["tags"] = capo_memorydb.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

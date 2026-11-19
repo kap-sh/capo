@@ -18,3 +18,12 @@ def serialize_aws_json_1_1(value: AccountLinkStatusEnum) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> AccountLinkStatusEnum:
     return cast(AccountLinkStatusEnum, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AccountLinkStatusEnum) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> AccountLinkStatusEnum:
+    return cast(AccountLinkStatusEnum, data)

@@ -130,3 +130,88 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAppBlockRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateAppBlockRequest) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "display_name" in value:
+        out["DisplayName"] = value["display_name"]
+    if "source_s3_location" in value:
+        import capo_appstream.types.s3_location
+
+        out["SourceS3Location"] = capo_appstream.types.s3_location.serialize_cbor(
+            value["source_s3_location"]
+        )
+    if "setup_script_details" in value:
+        import capo_appstream.types.script_details
+
+        out["SetupScriptDetails"] = capo_appstream.types.script_details.serialize_cbor(
+            value["setup_script_details"]
+        )
+    if "tags" in value:
+        import capo_appstream.types.tags
+
+        out["Tags"] = capo_appstream.types.tags.serialize_cbor(value["tags"])
+    if "post_setup_script_details" in value:
+        import capo_appstream.types.script_details
+
+        out["PostSetupScriptDetails"] = (
+            capo_appstream.types.script_details.serialize_cbor(
+                value["post_setup_script_details"]
+            )
+        )
+    if "packaging_type" in value:
+        import capo_appstream.types.packaging_type
+
+        out["PackagingType"] = capo_appstream.types.packaging_type.serialize_cbor(
+            value["packaging_type"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateAppBlockRequest:
+    out: CreateAppBlockRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("DisplayName") is not None:
+        out["display_name"] = data["DisplayName"]
+    if data.get("SourceS3Location") is not None:
+        import capo_appstream.types.s3_location
+
+        out["source_s3_location"] = capo_appstream.types.s3_location.deserialize_cbor(
+            data["SourceS3Location"]
+        )
+    if data.get("SetupScriptDetails") is not None:
+        import capo_appstream.types.script_details
+
+        out["setup_script_details"] = (
+            capo_appstream.types.script_details.deserialize_cbor(
+                data["SetupScriptDetails"]
+            )
+        )
+    if data.get("Tags") is not None:
+        import capo_appstream.types.tags
+
+        out["tags"] = capo_appstream.types.tags.deserialize_cbor(data["Tags"])
+    if data.get("PostSetupScriptDetails") is not None:
+        import capo_appstream.types.script_details
+
+        out["post_setup_script_details"] = (
+            capo_appstream.types.script_details.deserialize_cbor(
+                data["PostSetupScriptDetails"]
+            )
+        )
+    if data.get("PackagingType") is not None:
+        import capo_appstream.types.packaging_type
+
+        out["packaging_type"] = capo_appstream.types.packaging_type.deserialize_cbor(
+            data["PackagingType"]
+        )
+    return out

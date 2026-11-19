@@ -49,3 +49,34 @@ def deserialize_aws_json_1_1(data: dict) -> ContainerDependency:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ContainerDependency) -> dict:
+    out: dict = {}
+    if "container_name" in value:
+        out["ContainerName"] = value["container_name"]
+    if "condition" in value:
+        import capo_gamelift.types.container_dependency_condition
+
+        out["Condition"] = (
+            capo_gamelift.types.container_dependency_condition.serialize_cbor(
+                value["condition"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ContainerDependency:
+    out: ContainerDependency = {}  # type: ignore[typeddict-item]
+    if data.get("ContainerName") is not None:
+        out["container_name"] = data["ContainerName"]
+    if data.get("Condition") is not None:
+        import capo_gamelift.types.container_dependency_condition
+
+        out["condition"] = (
+            capo_gamelift.types.container_dependency_condition.deserialize_cbor(
+                data["Condition"]
+            )
+        )
+    return out

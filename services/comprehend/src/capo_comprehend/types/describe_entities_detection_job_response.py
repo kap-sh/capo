@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeEntitiesDetectionJobResponse
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeEntitiesDetectionJobResponse) -> dict:
+    out: dict = {}
+    if "entities_detection_job_properties" in value:
+        import capo_comprehend.types.entities_detection_job_properties
+
+        out["EntitiesDetectionJobProperties"] = (
+            capo_comprehend.types.entities_detection_job_properties.serialize_cbor(
+                value["entities_detection_job_properties"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeEntitiesDetectionJobResponse:
+    out: DescribeEntitiesDetectionJobResponse = {}  # type: ignore[typeddict-item]
+    if data.get("EntitiesDetectionJobProperties") is not None:
+        import capo_comprehend.types.entities_detection_job_properties
+
+        out["entities_detection_job_properties"] = (
+            capo_comprehend.types.entities_detection_job_properties.deserialize_cbor(
+                data["EntitiesDetectionJobProperties"]
+            )
+        )
+    return out

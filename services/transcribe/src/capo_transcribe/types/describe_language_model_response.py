@@ -38,3 +38,26 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeLanguageModelResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeLanguageModelResponse) -> dict:
+    out: dict = {}
+    if "language_model" in value:
+        import capo_transcribe.types.language_model
+
+        out["LanguageModel"] = capo_transcribe.types.language_model.serialize_cbor(
+            value["language_model"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeLanguageModelResponse:
+    out: DescribeLanguageModelResponse = {}  # type: ignore[typeddict-item]
+    if data.get("LanguageModel") is not None:
+        import capo_transcribe.types.language_model
+
+        out["language_model"] = capo_transcribe.types.language_model.deserialize_cbor(
+            data["LanguageModel"]
+        )
+    return out

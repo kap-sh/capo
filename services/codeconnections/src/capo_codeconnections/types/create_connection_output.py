@@ -42,3 +42,27 @@ def deserialize_aws_json_1_0(data: dict) -> CreateConnectionOutput:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateConnectionOutput) -> dict:
+    out: dict = {}
+    out["ConnectionArn"] = value["connection_arn"]
+    if "tags" in value:
+        import capo_codeconnections.types.tag_list
+
+        out["Tags"] = capo_codeconnections.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateConnectionOutput:
+    out: CreateConnectionOutput = {}  # type: ignore[typeddict-item]
+    if data.get("ConnectionArn") is not None:
+        out["connection_arn"] = data["ConnectionArn"]
+    else:
+        out["connection_arn"] = ""
+    if data.get("Tags") is not None:
+        import capo_codeconnections.types.tag_list
+
+        out["tags"] = capo_codeconnections.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

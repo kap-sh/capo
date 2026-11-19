@@ -129,3 +129,90 @@ def deserialize_aws_json_1_1(data: dict) -> CreateProtectionGroupRequest:
 
         out["tags"] = capo_shield.types.tag_list.deserialize_aws_json_1_1(data["Tags"])
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateProtectionGroupRequest) -> dict:
+    out: dict = {}
+    out["ProtectionGroupId"] = value["protection_group_id"]
+    import capo_shield.types.protection_group_aggregation
+
+    out["Aggregation"] = capo_shield.types.protection_group_aggregation.serialize_cbor(
+        value["aggregation"]
+    )
+    import capo_shield.types.protection_group_pattern
+
+    out["Pattern"] = capo_shield.types.protection_group_pattern.serialize_cbor(
+        value["pattern"]
+    )
+    if "resource_type" in value:
+        import capo_shield.types.protected_resource_type
+
+        out["ResourceType"] = capo_shield.types.protected_resource_type.serialize_cbor(
+            value["resource_type"]
+        )
+    if "members" in value:
+        import capo_shield.types.protection_group_members
+
+        out["Members"] = capo_shield.types.protection_group_members.serialize_cbor(
+            value["members"]
+        )
+    if "tags" in value:
+        import capo_shield.types.tag_list
+
+        out["Tags"] = capo_shield.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateProtectionGroupRequest:
+    out: CreateProtectionGroupRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ProtectionGroupId") is not None:
+        out["protection_group_id"] = data["ProtectionGroupId"]
+    else:
+        out["protection_group_id"] = ""
+    if data.get("Aggregation") is not None:
+        import capo_shield.types.protection_group_aggregation
+
+        out["aggregation"] = (
+            capo_shield.types.protection_group_aggregation.deserialize_cbor(
+                data["Aggregation"]
+            )
+        )
+    else:
+        import typing
+
+        out["aggregation"] = typing.cast(
+            "capo_shield.types.protection_group_aggregation.ProtectionGroupAggregation",
+            "",
+        )
+    if data.get("Pattern") is not None:
+        import capo_shield.types.protection_group_pattern
+
+        out["pattern"] = capo_shield.types.protection_group_pattern.deserialize_cbor(
+            data["Pattern"]
+        )
+    else:
+        import typing
+
+        out["pattern"] = typing.cast(
+            "capo_shield.types.protection_group_pattern.ProtectionGroupPattern", ""
+        )
+    if data.get("ResourceType") is not None:
+        import capo_shield.types.protected_resource_type
+
+        out["resource_type"] = (
+            capo_shield.types.protected_resource_type.deserialize_cbor(
+                data["ResourceType"]
+            )
+        )
+    if data.get("Members") is not None:
+        import capo_shield.types.protection_group_members
+
+        out["members"] = capo_shield.types.protection_group_members.deserialize_cbor(
+            data["Members"]
+        )
+    if data.get("Tags") is not None:
+        import capo_shield.types.tag_list
+
+        out["tags"] = capo_shield.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

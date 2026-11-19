@@ -34,3 +34,24 @@ def deserialize_aws_json_1_1(data: dict) -> CreateSnapshotResponse:
             data["Snapshot"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateSnapshotResponse) -> dict:
+    out: dict = {}
+    if "snapshot" in value:
+        import capo_memorydb.types.snapshot
+
+        out["Snapshot"] = capo_memorydb.types.snapshot.serialize_cbor(value["snapshot"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateSnapshotResponse:
+    out: CreateSnapshotResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Snapshot") is not None:
+        import capo_memorydb.types.snapshot
+
+        out["snapshot"] = capo_memorydb.types.snapshot.deserialize_cbor(
+            data["Snapshot"]
+        )
+    return out

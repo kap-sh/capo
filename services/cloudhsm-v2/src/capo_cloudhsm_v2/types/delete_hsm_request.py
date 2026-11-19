@@ -48,3 +48,31 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteHsmRequest:
     if data.get("EniIp") is not None:
         out["eni_ip"] = data["EniIp"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteHsmRequest) -> dict:
+    out: dict = {}
+    out["ClusterId"] = value["cluster_id"]
+    if "hsm_id" in value:
+        out["HsmId"] = value["hsm_id"]
+    if "eni_id" in value:
+        out["EniId"] = value["eni_id"]
+    if "eni_ip" in value:
+        out["EniIp"] = value["eni_ip"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteHsmRequest:
+    out: DeleteHsmRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ClusterId") is not None:
+        out["cluster_id"] = data["ClusterId"]
+    else:
+        out["cluster_id"] = ""
+    if data.get("HsmId") is not None:
+        out["hsm_id"] = data["HsmId"]
+    if data.get("EniId") is not None:
+        out["eni_id"] = data["EniId"]
+    if data.get("EniIp") is not None:
+        out["eni_ip"] = data["EniIp"]
+    return out

@@ -39,3 +39,29 @@ def deserialize_aws_json_1_1(data: dict) -> ActionTypePermissions:
     else:
         out["allowed_accounts"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ActionTypePermissions) -> dict:
+    out: dict = {}
+    import capo_codepipeline.types.allowed_accounts
+
+    out["allowedAccounts"] = capo_codepipeline.types.allowed_accounts.serialize_cbor(
+        value["allowed_accounts"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ActionTypePermissions:
+    out: ActionTypePermissions = {}  # type: ignore[typeddict-item]
+    if data.get("allowedAccounts") is not None:
+        import capo_codepipeline.types.allowed_accounts
+
+        out["allowed_accounts"] = (
+            capo_codepipeline.types.allowed_accounts.deserialize_cbor(
+                data["allowedAccounts"]
+            )
+        )
+    else:
+        out["allowed_accounts"] = []
+    return out

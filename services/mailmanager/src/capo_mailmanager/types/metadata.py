@@ -123,6 +123,77 @@ def deserialize_aws_json_1_0(data: dict) -> Metadata:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Metadata) -> dict:
+    out: dict = {}
+    if "timestamp" in value:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["Timestamp"] = capo_mailmanager.types._prelude.timestamp.serialize_cbor(
+            value["timestamp"]
+        )
+    if "ingress_point_id" in value:
+        out["IngressPointId"] = value["ingress_point_id"]
+    if "traffic_policy_id" in value:
+        out["TrafficPolicyId"] = value["traffic_policy_id"]
+    if "rule_set_id" in value:
+        out["RuleSetId"] = value["rule_set_id"]
+    if "sender_hostname" in value:
+        out["SenderHostname"] = value["sender_hostname"]
+    if "sender_ip_address" in value:
+        out["SenderIpAddress"] = value["sender_ip_address"]
+    if "tls_cipher_suite" in value:
+        out["TlsCipherSuite"] = value["tls_cipher_suite"]
+    if "tls_protocol" in value:
+        out["TlsProtocol"] = value["tls_protocol"]
+    if "sending_method" in value:
+        out["SendingMethod"] = value["sending_method"]
+    if "source_identity" in value:
+        out["SourceIdentity"] = value["source_identity"]
+    if "sending_pool" in value:
+        out["SendingPool"] = value["sending_pool"]
+    if "configuration_set" in value:
+        out["ConfigurationSet"] = value["configuration_set"]
+    if "source_arn" in value:
+        out["SourceArn"] = value["source_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Metadata:
+    out: Metadata = {}  # type: ignore[typeddict-item]
+    if data.get("Timestamp") is not None:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["timestamp"] = capo_mailmanager.types._prelude.timestamp.deserialize_cbor(
+            data["Timestamp"]
+        )
+    if data.get("IngressPointId") is not None:
+        out["ingress_point_id"] = data["IngressPointId"]
+    if data.get("TrafficPolicyId") is not None:
+        out["traffic_policy_id"] = data["TrafficPolicyId"]
+    if data.get("RuleSetId") is not None:
+        out["rule_set_id"] = data["RuleSetId"]
+    if data.get("SenderHostname") is not None:
+        out["sender_hostname"] = data["SenderHostname"]
+    if data.get("SenderIpAddress") is not None:
+        out["sender_ip_address"] = data["SenderIpAddress"]
+    if data.get("TlsCipherSuite") is not None:
+        out["tls_cipher_suite"] = data["TlsCipherSuite"]
+    if data.get("TlsProtocol") is not None:
+        out["tls_protocol"] = data["TlsProtocol"]
+    if data.get("SendingMethod") is not None:
+        out["sending_method"] = data["SendingMethod"]
+    if data.get("SourceIdentity") is not None:
+        out["source_identity"] = data["SourceIdentity"]
+    if data.get("SendingPool") is not None:
+        out["sending_pool"] = data["SendingPool"]
+    if data.get("ConfigurationSet") is not None:
+        out["configuration_set"] = data["ConfigurationSet"]
+    if data.get("SourceArn") is not None:
+        out["source_arn"] = data["SourceArn"]
+    return out
+
+
 def redact_sensitive(value: Metadata) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "sender_ip_address" in value:

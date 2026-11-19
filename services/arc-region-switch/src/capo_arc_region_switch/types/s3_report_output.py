@@ -21,3 +21,18 @@ def deserialize_aws_json_1_0(data: dict) -> S3ReportOutput:
     if data.get("s3ObjectKey") is not None:
         out["s3_object_key"] = data["s3ObjectKey"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: S3ReportOutput) -> dict:
+    out: dict = {}
+    if "s3_object_key" in value:
+        out["s3ObjectKey"] = value["s3_object_key"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> S3ReportOutput:
+    out: S3ReportOutput = {}  # type: ignore[typeddict-item]
+    if data.get("s3ObjectKey") is not None:
+        out["s3_object_key"] = data["s3ObjectKey"]
+    return out

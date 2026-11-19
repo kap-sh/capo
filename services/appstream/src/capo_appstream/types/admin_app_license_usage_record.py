@@ -92,3 +92,64 @@ def deserialize_aws_json_1_1(data: dict) -> AdminAppLicenseUsageRecord:
     if data.get("UserId") is not None:
         out["user_id"] = data["UserId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AdminAppLicenseUsageRecord) -> dict:
+    out: dict = {}
+    if "user_arn" in value:
+        out["UserArn"] = value["user_arn"]
+    if "billing_period" in value:
+        out["BillingPeriod"] = value["billing_period"]
+    if "owner_aws_account_id" in value:
+        out["OwnerAWSAccountId"] = value["owner_aws_account_id"]
+    if "subscription_first_used_date" in value:
+        import capo_appstream.types.timestamp
+
+        out["SubscriptionFirstUsedDate"] = (
+            capo_appstream.types.timestamp.serialize_cbor(
+                value["subscription_first_used_date"]
+            )
+        )
+    if "subscription_last_used_date" in value:
+        import capo_appstream.types.timestamp
+
+        out["SubscriptionLastUsedDate"] = capo_appstream.types.timestamp.serialize_cbor(
+            value["subscription_last_used_date"]
+        )
+    if "license_type" in value:
+        out["LicenseType"] = value["license_type"]
+    if "user_id" in value:
+        out["UserId"] = value["user_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AdminAppLicenseUsageRecord:
+    out: AdminAppLicenseUsageRecord = {}  # type: ignore[typeddict-item]
+    if data.get("UserArn") is not None:
+        out["user_arn"] = data["UserArn"]
+    if data.get("BillingPeriod") is not None:
+        out["billing_period"] = data["BillingPeriod"]
+    if data.get("OwnerAWSAccountId") is not None:
+        out["owner_aws_account_id"] = data["OwnerAWSAccountId"]
+    if data.get("SubscriptionFirstUsedDate") is not None:
+        import capo_appstream.types.timestamp
+
+        out["subscription_first_used_date"] = (
+            capo_appstream.types.timestamp.deserialize_cbor(
+                data["SubscriptionFirstUsedDate"]
+            )
+        )
+    if data.get("SubscriptionLastUsedDate") is not None:
+        import capo_appstream.types.timestamp
+
+        out["subscription_last_used_date"] = (
+            capo_appstream.types.timestamp.deserialize_cbor(
+                data["SubscriptionLastUsedDate"]
+            )
+        )
+    if data.get("LicenseType") is not None:
+        out["license_type"] = data["LicenseType"]
+    if data.get("UserId") is not None:
+        out["user_id"] = data["UserId"]
+    return out

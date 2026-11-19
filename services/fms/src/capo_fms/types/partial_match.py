@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> PartialMatch:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PartialMatch) -> dict:
+    out: dict = {}
+    if "reference" in value:
+        out["Reference"] = value["reference"]
+    if "target_violation_reasons" in value:
+        import capo_fms.types.target_violation_reasons
+
+        out["TargetViolationReasons"] = (
+            capo_fms.types.target_violation_reasons.serialize_cbor(
+                value["target_violation_reasons"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PartialMatch:
+    out: PartialMatch = {}  # type: ignore[typeddict-item]
+    if data.get("Reference") is not None:
+        out["reference"] = data["Reference"]
+    if data.get("TargetViolationReasons") is not None:
+        import capo_fms.types.target_violation_reasons
+
+        out["target_violation_reasons"] = (
+            capo_fms.types.target_violation_reasons.deserialize_cbor(
+                data["TargetViolationReasons"]
+            )
+        )
+    return out

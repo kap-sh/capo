@@ -47,3 +47,31 @@ def deserialize_aws_json_1_0(data: dict) -> AssociateFirewallPolicyRequest:
     else:
         out["firewall_policy_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AssociateFirewallPolicyRequest) -> dict:
+    out: dict = {}
+    if "update_token" in value:
+        out["UpdateToken"] = value["update_token"]
+    if "firewall_arn" in value:
+        out["FirewallArn"] = value["firewall_arn"]
+    if "firewall_name" in value:
+        out["FirewallName"] = value["firewall_name"]
+    out["FirewallPolicyArn"] = value["firewall_policy_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AssociateFirewallPolicyRequest:
+    out: AssociateFirewallPolicyRequest = {}  # type: ignore[typeddict-item]
+    if data.get("UpdateToken") is not None:
+        out["update_token"] = data["UpdateToken"]
+    if data.get("FirewallArn") is not None:
+        out["firewall_arn"] = data["FirewallArn"]
+    if data.get("FirewallName") is not None:
+        out["firewall_name"] = data["FirewallName"]
+    if data.get("FirewallPolicyArn") is not None:
+        out["firewall_policy_arn"] = data["FirewallPolicyArn"]
+    else:
+        out["firewall_policy_arn"] = ""
+    return out

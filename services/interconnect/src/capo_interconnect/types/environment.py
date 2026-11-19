@@ -126,3 +126,90 @@ def deserialize_aws_json_1_0(data: dict) -> Environment:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Environment) -> dict:
+    out: dict = {}
+    import capo_interconnect.types.provider
+
+    out["provider"] = capo_interconnect.types.provider.serialize_cbor(value["provider"])
+    out["location"] = value["location"]
+    out["environmentId"] = value["environment_id"]
+    import capo_interconnect.types.environment_state
+
+    out["state"] = capo_interconnect.types.environment_state.serialize_cbor(
+        value["state"]
+    )
+    import capo_interconnect.types.bandwidths
+
+    out["bandwidths"] = capo_interconnect.types.bandwidths.serialize_cbor(
+        value["bandwidths"]
+    )
+    out["type"] = value["type"]
+    if "activation_page_url" in value:
+        out["activationPageUrl"] = value["activation_page_url"]
+    if "remote_identifier_type" in value:
+        import capo_interconnect.types.remote_account_identifier_type
+
+        out["remoteIdentifierType"] = (
+            capo_interconnect.types.remote_account_identifier_type.serialize_cbor(
+                value["remote_identifier_type"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Environment:
+    out: Environment = {}  # type: ignore[typeddict-item]
+    if data.get("provider") is not None:
+        import capo_interconnect.types.provider
+
+        out["provider"] = capo_interconnect.types.provider.deserialize_cbor(
+            data["provider"]
+        )
+    else:
+        out["provider"] = {"$unknown": {"name": ""}}
+    if data.get("location") is not None:
+        out["location"] = data["location"]
+    else:
+        out["location"] = ""
+    if data.get("environmentId") is not None:
+        out["environment_id"] = data["environmentId"]
+    else:
+        out["environment_id"] = ""
+    if data.get("state") is not None:
+        import capo_interconnect.types.environment_state
+
+        out["state"] = capo_interconnect.types.environment_state.deserialize_cbor(
+            data["state"]
+        )
+    else:
+        import typing
+
+        out["state"] = typing.cast(
+            "capo_interconnect.types.environment_state.EnvironmentState", ""
+        )
+    if data.get("bandwidths") is not None:
+        import capo_interconnect.types.bandwidths
+
+        out["bandwidths"] = capo_interconnect.types.bandwidths.deserialize_cbor(
+            data["bandwidths"]
+        )
+    else:
+        raise DeserializationError("Environment.bandwidths required")
+    if data.get("type") is not None:
+        out["type"] = data["type"]
+    else:
+        out["type"] = ""
+    if data.get("activationPageUrl") is not None:
+        out["activation_page_url"] = data["activationPageUrl"]
+    if data.get("remoteIdentifierType") is not None:
+        import capo_interconnect.types.remote_account_identifier_type
+
+        out["remote_identifier_type"] = (
+            capo_interconnect.types.remote_account_identifier_type.deserialize_cbor(
+                data["remoteIdentifierType"]
+            )
+        )
+    return out

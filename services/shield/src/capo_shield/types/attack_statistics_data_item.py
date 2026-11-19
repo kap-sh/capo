@@ -42,3 +42,31 @@ def deserialize_aws_json_1_1(data: dict) -> AttackStatisticsDataItem:
     else:
         out["attack_count"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AttackStatisticsDataItem) -> dict:
+    out: dict = {}
+    if "attack_volume" in value:
+        import capo_shield.types.attack_volume
+
+        out["AttackVolume"] = capo_shield.types.attack_volume.serialize_cbor(
+            value["attack_volume"]
+        )
+    out["AttackCount"] = value.get("attack_count", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> AttackStatisticsDataItem:
+    out: AttackStatisticsDataItem = {}  # type: ignore[typeddict-item]
+    if data.get("AttackVolume") is not None:
+        import capo_shield.types.attack_volume
+
+        out["attack_volume"] = capo_shield.types.attack_volume.deserialize_cbor(
+            data["AttackVolume"]
+        )
+    if data.get("AttackCount") is not None:
+        out["attack_count"] = data["AttackCount"]
+    else:
+        out["attack_count"] = 0
+    return out

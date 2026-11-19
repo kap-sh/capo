@@ -51,3 +51,32 @@ def deserialize_aws_json_1_1(
             "EnableApplicationLayerAutomaticResponseRequest.action required"
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EnableApplicationLayerAutomaticResponseRequest) -> dict:
+    out: dict = {}
+    out["ResourceArn"] = value["resource_arn"]
+    import capo_shield.types.response_action
+
+    out["Action"] = capo_shield.types.response_action.serialize_cbor(value["action"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> EnableApplicationLayerAutomaticResponseRequest:
+    out: EnableApplicationLayerAutomaticResponseRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceArn") is not None:
+        out["resource_arn"] = data["ResourceArn"]
+    else:
+        out["resource_arn"] = ""
+    if data.get("Action") is not None:
+        import capo_shield.types.response_action
+
+        out["action"] = capo_shield.types.response_action.deserialize_cbor(
+            data["Action"]
+        )
+    else:
+        raise DeserializationError(
+            "EnableApplicationLayerAutomaticResponseRequest.action required"
+        )
+    return out

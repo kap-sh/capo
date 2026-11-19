@@ -50,6 +50,38 @@ def deserialize_aws_json_1_0(data: dict) -> BuyerAgreementApprovalLevel:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BuyerAgreementApprovalLevel) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["name"] = value["name"]
+    import capo_marketplace_agreement.types.buyer_agreement_approval_groups
+
+    out["groups"] = (
+        capo_marketplace_agreement.types.buyer_agreement_approval_groups.serialize_cbor(
+            value["groups"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BuyerAgreementApprovalLevel:
+    out: BuyerAgreementApprovalLevel = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    if data.get("groups") is not None:
+        import capo_marketplace_agreement.types.buyer_agreement_approval_groups
+
+        out["groups"] = (
+            capo_marketplace_agreement.types.buyer_agreement_approval_groups.deserialize_cbor(
+                data["groups"]
+            )
+        )
+    else:
+        out["groups"] = []
+    return out
+
+
 def redact_sensitive(value: BuyerAgreementApprovalLevel) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "groups" in value:

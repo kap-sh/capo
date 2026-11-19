@@ -29,6 +29,27 @@ def deserialize_aws_json_1_0(data: list) -> SavedAddresses:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SavedAddresses) -> list:
+    import capo_mailmanager.types.saved_address
+
+    out: list = []
+    for item in value:
+        out.append(capo_mailmanager.types.saved_address.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> SavedAddresses:
+    import capo_mailmanager.types.saved_address
+
+    out: SavedAddresses = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_mailmanager.types.saved_address.deserialize_cbor(item))
+    return out
+
+
 def redact_sensitive(value: SavedAddresses) -> list[Any]:
     import capo_mailmanager.types.saved_address
 

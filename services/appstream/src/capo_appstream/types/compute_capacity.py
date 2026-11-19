@@ -32,3 +32,22 @@ def deserialize_aws_json_1_1(data: dict) -> ComputeCapacity:
     if data.get("DesiredSessions") is not None:
         out["desired_sessions"] = data["DesiredSessions"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ComputeCapacity) -> dict:
+    out: dict = {}
+    if "desired_instances" in value:
+        out["DesiredInstances"] = value["desired_instances"]
+    if "desired_sessions" in value:
+        out["DesiredSessions"] = value["desired_sessions"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ComputeCapacity:
+    out: ComputeCapacity = {}  # type: ignore[typeddict-item]
+    if data.get("DesiredInstances") is not None:
+        out["desired_instances"] = data["DesiredInstances"]
+    if data.get("DesiredSessions") is not None:
+        out["desired_sessions"] = data["DesiredSessions"]
+    return out

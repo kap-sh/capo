@@ -43,3 +43,33 @@ def deserialize_aws_json_1_0(data: dict) -> BillingConfiguration:
             "capo_workspaces_instances.types.billing_mode.BillingMode", ""
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BillingConfiguration) -> dict:
+    out: dict = {}
+    import capo_workspaces_instances.types.billing_mode
+
+    out["BillingMode"] = capo_workspaces_instances.types.billing_mode.serialize_cbor(
+        value["billing_mode"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BillingConfiguration:
+    out: BillingConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("BillingMode") is not None:
+        import capo_workspaces_instances.types.billing_mode
+
+        out["billing_mode"] = (
+            capo_workspaces_instances.types.billing_mode.deserialize_cbor(
+                data["BillingMode"]
+            )
+        )
+    else:
+        import typing
+
+        out["billing_mode"] = typing.cast(
+            "capo_workspaces_instances.types.billing_mode.BillingMode", ""
+        )
+    return out

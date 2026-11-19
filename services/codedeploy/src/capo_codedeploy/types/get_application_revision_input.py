@@ -47,3 +47,32 @@ def deserialize_aws_json_1_1(data: dict) -> GetApplicationRevisionInput:
     else:
         raise DeserializationError("GetApplicationRevisionInput.revision required")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetApplicationRevisionInput) -> dict:
+    out: dict = {}
+    out["applicationName"] = value["application_name"]
+    import capo_codedeploy.types.revision_location
+
+    out["revision"] = capo_codedeploy.types.revision_location.serialize_cbor(
+        value["revision"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetApplicationRevisionInput:
+    out: GetApplicationRevisionInput = {}  # type: ignore[typeddict-item]
+    if data.get("applicationName") is not None:
+        out["application_name"] = data["applicationName"]
+    else:
+        out["application_name"] = ""
+    if data.get("revision") is not None:
+        import capo_codedeploy.types.revision_location
+
+        out["revision"] = capo_codedeploy.types.revision_location.deserialize_cbor(
+            data["revision"]
+        )
+    else:
+        raise DeserializationError("GetApplicationRevisionInput.revision required")
+    return out

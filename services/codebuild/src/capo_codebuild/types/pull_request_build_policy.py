@@ -65,3 +65,52 @@ def deserialize_aws_json_1_1(data: dict) -> PullRequestBuildPolicy:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PullRequestBuildPolicy) -> dict:
+    out: dict = {}
+    import capo_codebuild.types.pull_request_build_comment_approval
+
+    out["requiresCommentApproval"] = (
+        capo_codebuild.types.pull_request_build_comment_approval.serialize_cbor(
+            value["requires_comment_approval"]
+        )
+    )
+    if "approver_roles" in value:
+        import capo_codebuild.types.pull_request_build_approver_roles
+
+        out["approverRoles"] = (
+            capo_codebuild.types.pull_request_build_approver_roles.serialize_cbor(
+                value["approver_roles"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PullRequestBuildPolicy:
+    out: PullRequestBuildPolicy = {}  # type: ignore[typeddict-item]
+    if data.get("requiresCommentApproval") is not None:
+        import capo_codebuild.types.pull_request_build_comment_approval
+
+        out["requires_comment_approval"] = (
+            capo_codebuild.types.pull_request_build_comment_approval.deserialize_cbor(
+                data["requiresCommentApproval"]
+            )
+        )
+    else:
+        import typing
+
+        out["requires_comment_approval"] = typing.cast(
+            "capo_codebuild.types.pull_request_build_comment_approval.PullRequestBuildCommentApproval",
+            "",
+        )
+    if data.get("approverRoles") is not None:
+        import capo_codebuild.types.pull_request_build_approver_roles
+
+        out["approver_roles"] = (
+            capo_codebuild.types.pull_request_build_approver_roles.deserialize_cbor(
+                data["approverRoles"]
+            )
+        )
+    return out

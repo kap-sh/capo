@@ -37,3 +37,27 @@ def deserialize_aws_json_1_1(data: dict) -> AnalyzeIDRequest:
     else:
         out["document_pages"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AnalyzeIDRequest) -> dict:
+    out: dict = {}
+    import capo_textract.types.document_pages
+
+    out["DocumentPages"] = capo_textract.types.document_pages.serialize_cbor(
+        value["document_pages"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AnalyzeIDRequest:
+    out: AnalyzeIDRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DocumentPages") is not None:
+        import capo_textract.types.document_pages
+
+        out["document_pages"] = capo_textract.types.document_pages.deserialize_cbor(
+            data["DocumentPages"]
+        )
+    else:
+        out["document_pages"] = []
+    return out

@@ -55,3 +55,35 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateArchiveRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateArchiveRequest) -> dict:
+    out: dict = {}
+    out["ArchiveId"] = value["archive_id"]
+    if "archive_name" in value:
+        out["ArchiveName"] = value["archive_name"]
+    if "retention" in value:
+        import capo_mailmanager.types.archive_retention
+
+        out["Retention"] = capo_mailmanager.types.archive_retention.serialize_cbor(
+            value["retention"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateArchiveRequest:
+    out: UpdateArchiveRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ArchiveId") is not None:
+        out["archive_id"] = data["ArchiveId"]
+    else:
+        out["archive_id"] = ""
+    if data.get("ArchiveName") is not None:
+        out["archive_name"] = data["ArchiveName"]
+    if data.get("Retention") is not None:
+        import capo_mailmanager.types.archive_retention
+
+        out["retention"] = capo_mailmanager.types.archive_retention.deserialize_cbor(
+            data["Retention"]
+        )
+    return out

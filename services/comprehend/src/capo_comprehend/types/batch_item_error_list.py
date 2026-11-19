@@ -31,3 +31,24 @@ def deserialize_aws_json_1_1(data: list) -> BatchItemErrorList:
             capo_comprehend.types.batch_item_error.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchItemErrorList) -> list:
+    import capo_comprehend.types.batch_item_error
+
+    out: list = []
+    for item in value:
+        out.append(capo_comprehend.types.batch_item_error.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> BatchItemErrorList:
+    import capo_comprehend.types.batch_item_error
+
+    out: BatchItemErrorList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_comprehend.types.batch_item_error.deserialize_cbor(item))
+    return out

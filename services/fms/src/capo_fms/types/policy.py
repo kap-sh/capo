@@ -246,3 +246,160 @@ def deserialize_aws_json_1_1(data: dict) -> Policy:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Policy) -> dict:
+    out: dict = {}
+    if "policy_id" in value:
+        out["PolicyId"] = value["policy_id"]
+    out["PolicyName"] = value["policy_name"]
+    if "policy_update_token" in value:
+        out["PolicyUpdateToken"] = value["policy_update_token"]
+    import capo_fms.types.security_service_policy_data
+
+    out["SecurityServicePolicyData"] = (
+        capo_fms.types.security_service_policy_data.serialize_cbor(
+            value["security_service_policy_data"]
+        )
+    )
+    out["ResourceType"] = value["resource_type"]
+    if "resource_type_list" in value:
+        import capo_fms.types.resource_type_list
+
+        out["ResourceTypeList"] = capo_fms.types.resource_type_list.serialize_cbor(
+            value["resource_type_list"]
+        )
+    if "resource_tags" in value:
+        import capo_fms.types.resource_tags
+
+        out["ResourceTags"] = capo_fms.types.resource_tags.serialize_cbor(
+            value["resource_tags"]
+        )
+    out["ExcludeResourceTags"] = value.get("exclude_resource_tags", False)
+    out["RemediationEnabled"] = value.get("remediation_enabled", False)
+    out["DeleteUnusedFMManagedResources"] = value.get(
+        "delete_unused_fm_managed_resources", False
+    )
+    if "include_map" in value:
+        import capo_fms.types.customer_policy_scope_map
+
+        out["IncludeMap"] = capo_fms.types.customer_policy_scope_map.serialize_cbor(
+            value["include_map"]
+        )
+    if "exclude_map" in value:
+        import capo_fms.types.customer_policy_scope_map
+
+        out["ExcludeMap"] = capo_fms.types.customer_policy_scope_map.serialize_cbor(
+            value["exclude_map"]
+        )
+    if "resource_set_ids" in value:
+        import capo_fms.types.resource_set_ids
+
+        out["ResourceSetIds"] = capo_fms.types.resource_set_ids.serialize_cbor(
+            value["resource_set_ids"]
+        )
+    if "policy_description" in value:
+        out["PolicyDescription"] = value["policy_description"]
+    if "policy_status" in value:
+        import capo_fms.types.customer_policy_status
+
+        out["PolicyStatus"] = capo_fms.types.customer_policy_status.serialize_cbor(
+            value["policy_status"]
+        )
+    if "resource_tag_logical_operator" in value:
+        import capo_fms.types.resource_tag_logical_operator
+
+        out["ResourceTagLogicalOperator"] = (
+            capo_fms.types.resource_tag_logical_operator.serialize_cbor(
+                value["resource_tag_logical_operator"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Policy:
+    out: Policy = {}  # type: ignore[typeddict-item]
+    if data.get("PolicyId") is not None:
+        out["policy_id"] = data["PolicyId"]
+    if data.get("PolicyName") is not None:
+        out["policy_name"] = data["PolicyName"]
+    else:
+        out["policy_name"] = ""
+    if data.get("PolicyUpdateToken") is not None:
+        out["policy_update_token"] = data["PolicyUpdateToken"]
+    if data.get("SecurityServicePolicyData") is not None:
+        import capo_fms.types.security_service_policy_data
+
+        out["security_service_policy_data"] = (
+            capo_fms.types.security_service_policy_data.deserialize_cbor(
+                data["SecurityServicePolicyData"]
+            )
+        )
+    else:
+        raise DeserializationError("Policy.security_service_policy_data required")
+    if data.get("ResourceType") is not None:
+        out["resource_type"] = data["ResourceType"]
+    else:
+        out["resource_type"] = ""
+    if data.get("ResourceTypeList") is not None:
+        import capo_fms.types.resource_type_list
+
+        out["resource_type_list"] = capo_fms.types.resource_type_list.deserialize_cbor(
+            data["ResourceTypeList"]
+        )
+    if data.get("ResourceTags") is not None:
+        import capo_fms.types.resource_tags
+
+        out["resource_tags"] = capo_fms.types.resource_tags.deserialize_cbor(
+            data["ResourceTags"]
+        )
+    if data.get("ExcludeResourceTags") is not None:
+        out["exclude_resource_tags"] = data["ExcludeResourceTags"]
+    else:
+        out["exclude_resource_tags"] = False
+    if data.get("RemediationEnabled") is not None:
+        out["remediation_enabled"] = data["RemediationEnabled"]
+    else:
+        out["remediation_enabled"] = False
+    if data.get("DeleteUnusedFMManagedResources") is not None:
+        out["delete_unused_fm_managed_resources"] = data[
+            "DeleteUnusedFMManagedResources"
+        ]
+    else:
+        out["delete_unused_fm_managed_resources"] = False
+    if data.get("IncludeMap") is not None:
+        import capo_fms.types.customer_policy_scope_map
+
+        out["include_map"] = capo_fms.types.customer_policy_scope_map.deserialize_cbor(
+            data["IncludeMap"]
+        )
+    if data.get("ExcludeMap") is not None:
+        import capo_fms.types.customer_policy_scope_map
+
+        out["exclude_map"] = capo_fms.types.customer_policy_scope_map.deserialize_cbor(
+            data["ExcludeMap"]
+        )
+    if data.get("ResourceSetIds") is not None:
+        import capo_fms.types.resource_set_ids
+
+        out["resource_set_ids"] = capo_fms.types.resource_set_ids.deserialize_cbor(
+            data["ResourceSetIds"]
+        )
+    if data.get("PolicyDescription") is not None:
+        out["policy_description"] = data["PolicyDescription"]
+    if data.get("PolicyStatus") is not None:
+        import capo_fms.types.customer_policy_status
+
+        out["policy_status"] = capo_fms.types.customer_policy_status.deserialize_cbor(
+            data["PolicyStatus"]
+        )
+    if data.get("ResourceTagLogicalOperator") is not None:
+        import capo_fms.types.resource_tag_logical_operator
+
+        out["resource_tag_logical_operator"] = (
+            capo_fms.types.resource_tag_logical_operator.deserialize_cbor(
+                data["ResourceTagLogicalOperator"]
+            )
+        )
+    return out

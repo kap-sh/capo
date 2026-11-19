@@ -51,3 +51,36 @@ def deserialize_aws_json_1_1(data: dict) -> ManagedCapacityConfiguration:
     if data.get("ScaleInAfterInactivityMinutes") is not None:
         out["scale_in_after_inactivity_minutes"] = data["ScaleInAfterInactivityMinutes"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ManagedCapacityConfiguration) -> dict:
+    out: dict = {}
+    if "zero_capacity_strategy" in value:
+        import capo_gamelift.types.zero_capacity_strategy
+
+        out["ZeroCapacityStrategy"] = (
+            capo_gamelift.types.zero_capacity_strategy.serialize_cbor(
+                value["zero_capacity_strategy"]
+            )
+        )
+    if "scale_in_after_inactivity_minutes" in value:
+        out["ScaleInAfterInactivityMinutes"] = value[
+            "scale_in_after_inactivity_minutes"
+        ]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ManagedCapacityConfiguration:
+    out: ManagedCapacityConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("ZeroCapacityStrategy") is not None:
+        import capo_gamelift.types.zero_capacity_strategy
+
+        out["zero_capacity_strategy"] = (
+            capo_gamelift.types.zero_capacity_strategy.deserialize_cbor(
+                data["ZeroCapacityStrategy"]
+            )
+        )
+    if data.get("ScaleInAfterInactivityMinutes") is not None:
+        out["scale_in_after_inactivity_minutes"] = data["ScaleInAfterInactivityMinutes"]
+    return out

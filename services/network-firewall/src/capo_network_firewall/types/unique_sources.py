@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> UniqueSources:
     else:
         out["count"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UniqueSources) -> dict:
+    out: dict = {}
+    out["Count"] = value.get("count", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> UniqueSources:
+    out: UniqueSources = {}  # type: ignore[typeddict-item]
+    if data.get("Count") is not None:
+        out["count"] = data["Count"]
+    else:
+        out["count"] = 0
+    return out

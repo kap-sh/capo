@@ -34,3 +34,26 @@ def deserialize_aws_json_1_1(data: dict) -> ListTagsForDomainResponse:
             data["TagList"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListTagsForDomainResponse) -> dict:
+    out: dict = {}
+    if "tag_list" in value:
+        import capo_route_53_domains.types.tag_list
+
+        out["TagList"] = capo_route_53_domains.types.tag_list.serialize_cbor(
+            value["tag_list"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListTagsForDomainResponse:
+    out: ListTagsForDomainResponse = {}  # type: ignore[typeddict-item]
+    if data.get("TagList") is not None:
+        import capo_route_53_domains.types.tag_list
+
+        out["tag_list"] = capo_route_53_domains.types.tag_list.deserialize_cbor(
+            data["TagList"]
+        )
+    return out

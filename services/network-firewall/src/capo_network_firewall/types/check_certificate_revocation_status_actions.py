@@ -60,3 +60,46 @@ def deserialize_aws_json_1_0(data: dict) -> CheckCertificateRevocationStatusActi
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CheckCertificateRevocationStatusActions) -> dict:
+    out: dict = {}
+    if "revoked_status_action" in value:
+        import capo_network_firewall.types.revocation_check_action
+
+        out["RevokedStatusAction"] = (
+            capo_network_firewall.types.revocation_check_action.serialize_cbor(
+                value["revoked_status_action"]
+            )
+        )
+    if "unknown_status_action" in value:
+        import capo_network_firewall.types.revocation_check_action
+
+        out["UnknownStatusAction"] = (
+            capo_network_firewall.types.revocation_check_action.serialize_cbor(
+                value["unknown_status_action"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CheckCertificateRevocationStatusActions:
+    out: CheckCertificateRevocationStatusActions = {}  # type: ignore[typeddict-item]
+    if data.get("RevokedStatusAction") is not None:
+        import capo_network_firewall.types.revocation_check_action
+
+        out["revoked_status_action"] = (
+            capo_network_firewall.types.revocation_check_action.deserialize_cbor(
+                data["RevokedStatusAction"]
+            )
+        )
+    if data.get("UnknownStatusAction") is not None:
+        import capo_network_firewall.types.revocation_check_action
+
+        out["unknown_status_action"] = (
+            capo_network_firewall.types.revocation_check_action.deserialize_cbor(
+                data["UnknownStatusAction"]
+            )
+        )
+    return out

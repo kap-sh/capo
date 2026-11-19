@@ -47,3 +47,34 @@ def deserialize_aws_json_1_0(data: dict) -> ConfigurableUpfrontPricingTermConfig
     else:
         out["dimensions"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ConfigurableUpfrontPricingTermConfiguration) -> dict:
+    out: dict = {}
+    out["selectorValue"] = value["selector_value"]
+    import capo_marketplace_agreement.types.dimension_list
+
+    out["dimensions"] = capo_marketplace_agreement.types.dimension_list.serialize_cbor(
+        value["dimensions"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ConfigurableUpfrontPricingTermConfiguration:
+    out: ConfigurableUpfrontPricingTermConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("selectorValue") is not None:
+        out["selector_value"] = data["selectorValue"]
+    else:
+        out["selector_value"] = ""
+    if data.get("dimensions") is not None:
+        import capo_marketplace_agreement.types.dimension_list
+
+        out["dimensions"] = (
+            capo_marketplace_agreement.types.dimension_list.deserialize_cbor(
+                data["dimensions"]
+            )
+        )
+    else:
+        out["dimensions"] = []
+    return out

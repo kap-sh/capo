@@ -54,3 +54,38 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeConnectionAliasPermissionsRe
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeConnectionAliasPermissionsResult) -> dict:
+    out: dict = {}
+    if "alias_id" in value:
+        out["AliasId"] = value["alias_id"]
+    if "connection_alias_permissions" in value:
+        import capo_workspaces.types.connection_alias_permissions
+
+        out["ConnectionAliasPermissions"] = (
+            capo_workspaces.types.connection_alias_permissions.serialize_cbor(
+                value["connection_alias_permissions"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeConnectionAliasPermissionsResult:
+    out: DescribeConnectionAliasPermissionsResult = {}  # type: ignore[typeddict-item]
+    if data.get("AliasId") is not None:
+        out["alias_id"] = data["AliasId"]
+    if data.get("ConnectionAliasPermissions") is not None:
+        import capo_workspaces.types.connection_alias_permissions
+
+        out["connection_alias_permissions"] = (
+            capo_workspaces.types.connection_alias_permissions.deserialize_cbor(
+                data["ConnectionAliasPermissions"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

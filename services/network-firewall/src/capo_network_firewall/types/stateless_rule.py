@@ -49,3 +49,34 @@ def deserialize_aws_json_1_0(data: dict) -> StatelessRule:
     else:
         out["priority"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StatelessRule) -> dict:
+    out: dict = {}
+    import capo_network_firewall.types.rule_definition
+
+    out["RuleDefinition"] = capo_network_firewall.types.rule_definition.serialize_cbor(
+        value["rule_definition"]
+    )
+    out["Priority"] = value["priority"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StatelessRule:
+    out: StatelessRule = {}  # type: ignore[typeddict-item]
+    if data.get("RuleDefinition") is not None:
+        import capo_network_firewall.types.rule_definition
+
+        out["rule_definition"] = (
+            capo_network_firewall.types.rule_definition.deserialize_cbor(
+                data["RuleDefinition"]
+            )
+        )
+    else:
+        raise DeserializationError("StatelessRule.rule_definition required")
+    if data.get("Priority") is not None:
+        out["priority"] = data["Priority"]
+    else:
+        out["priority"] = 0
+    return out

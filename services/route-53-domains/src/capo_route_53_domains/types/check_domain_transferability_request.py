@@ -38,6 +38,26 @@ def deserialize_aws_json_1_1(data: dict) -> CheckDomainTransferabilityRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CheckDomainTransferabilityRequest) -> dict:
+    out: dict = {}
+    out["DomainName"] = value["domain_name"]
+    if "auth_code" in value:
+        out["AuthCode"] = value["auth_code"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CheckDomainTransferabilityRequest:
+    out: CheckDomainTransferabilityRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DomainName") is not None:
+        out["domain_name"] = data["DomainName"]
+    else:
+        out["domain_name"] = ""
+    if data.get("AuthCode") is not None:
+        out["auth_code"] = data["AuthCode"]
+    return out
+
+
 def redact_sensitive(value: CheckDomainTransferabilityRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "auth_code" in value:

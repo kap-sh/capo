@@ -30,3 +30,12 @@ def serialize_aws_json_1_1(value: TargetedSentimentEntityType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> TargetedSentimentEntityType:
     return cast(TargetedSentimentEntityType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TargetedSentimentEntityType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> TargetedSentimentEntityType:
+    return cast(TargetedSentimentEntityType, data)

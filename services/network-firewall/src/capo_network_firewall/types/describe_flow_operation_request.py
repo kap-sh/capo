@@ -70,3 +70,40 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeFlowOperationRequest:
     else:
         out["flow_operation_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeFlowOperationRequest) -> dict:
+    out: dict = {}
+    out["FirewallArn"] = value["firewall_arn"]
+    if "availability_zone" in value:
+        out["AvailabilityZone"] = value["availability_zone"]
+    if "availability_zone_id" in value:
+        out["AvailabilityZoneId"] = value["availability_zone_id"]
+    if "vpc_endpoint_association_arn" in value:
+        out["VpcEndpointAssociationArn"] = value["vpc_endpoint_association_arn"]
+    if "vpc_endpoint_id" in value:
+        out["VpcEndpointId"] = value["vpc_endpoint_id"]
+    out["FlowOperationId"] = value["flow_operation_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeFlowOperationRequest:
+    out: DescribeFlowOperationRequest = {}  # type: ignore[typeddict-item]
+    if data.get("FirewallArn") is not None:
+        out["firewall_arn"] = data["FirewallArn"]
+    else:
+        out["firewall_arn"] = ""
+    if data.get("AvailabilityZone") is not None:
+        out["availability_zone"] = data["AvailabilityZone"]
+    if data.get("AvailabilityZoneId") is not None:
+        out["availability_zone_id"] = data["AvailabilityZoneId"]
+    if data.get("VpcEndpointAssociationArn") is not None:
+        out["vpc_endpoint_association_arn"] = data["VpcEndpointAssociationArn"]
+    if data.get("VpcEndpointId") is not None:
+        out["vpc_endpoint_id"] = data["VpcEndpointId"]
+    if data.get("FlowOperationId") is not None:
+        out["flow_operation_id"] = data["FlowOperationId"]
+    else:
+        out["flow_operation_id"] = ""
+    return out

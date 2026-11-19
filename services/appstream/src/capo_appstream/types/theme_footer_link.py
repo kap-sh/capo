@@ -37,3 +37,22 @@ def deserialize_aws_json_1_1(data: dict) -> ThemeFooterLink:
     if data.get("FooterLinkURL") is not None:
         out["footer_link_url"] = data["FooterLinkURL"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ThemeFooterLink) -> dict:
+    out: dict = {}
+    if "display_name" in value:
+        out["DisplayName"] = value["display_name"]
+    if "footer_link_url" in value:
+        out["FooterLinkURL"] = value["footer_link_url"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ThemeFooterLink:
+    out: ThemeFooterLink = {}  # type: ignore[typeddict-item]
+    if data.get("DisplayName") is not None:
+        out["display_name"] = data["DisplayName"]
+    if data.get("FooterLinkURL") is not None:
+        out["footer_link_url"] = data["FooterLinkURL"]
+    return out

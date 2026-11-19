@@ -56,3 +56,38 @@ def deserialize_aws_json_1_1(data: dict) -> FailedCreateStandbyWorkspacesRequest
     if data.get("ErrorMessage") is not None:
         out["error_message"] = data["ErrorMessage"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FailedCreateStandbyWorkspacesRequest) -> dict:
+    out: dict = {}
+    if "standby_workspace_request" in value:
+        import capo_workspaces.types.standby_workspace
+
+        out["StandbyWorkspaceRequest"] = (
+            capo_workspaces.types.standby_workspace.serialize_cbor(
+                value["standby_workspace_request"]
+            )
+        )
+    if "error_code" in value:
+        out["ErrorCode"] = value["error_code"]
+    if "error_message" in value:
+        out["ErrorMessage"] = value["error_message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> FailedCreateStandbyWorkspacesRequest:
+    out: FailedCreateStandbyWorkspacesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("StandbyWorkspaceRequest") is not None:
+        import capo_workspaces.types.standby_workspace
+
+        out["standby_workspace_request"] = (
+            capo_workspaces.types.standby_workspace.deserialize_cbor(
+                data["StandbyWorkspaceRequest"]
+            )
+        )
+    if data.get("ErrorCode") is not None:
+        out["error_code"] = data["ErrorCode"]
+    if data.get("ErrorMessage") is not None:
+        out["error_message"] = data["ErrorMessage"]
+    return out

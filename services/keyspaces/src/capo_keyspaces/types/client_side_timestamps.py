@@ -29,3 +29,19 @@ def deserialize_aws_json_1_0(data: dict) -> ClientSideTimestamps:
     else:
         out["status"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ClientSideTimestamps) -> dict:
+    out: dict = {}
+    out["status"] = value["status"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ClientSideTimestamps:
+    out: ClientSideTimestamps = {}  # type: ignore[typeddict-item]
+    if data.get("status") is not None:
+        out["status"] = data["status"]
+    else:
+        out["status"] = ""
+    return out

@@ -65,3 +65,43 @@ def deserialize_aws_json_1_1(data: dict) -> PollForJobsInput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PollForJobsInput) -> dict:
+    out: dict = {}
+    import capo_codepipeline.types.action_type_id
+
+    out["actionTypeId"] = capo_codepipeline.types.action_type_id.serialize_cbor(
+        value["action_type_id"]
+    )
+    if "max_batch_size" in value:
+        out["maxBatchSize"] = value["max_batch_size"]
+    if "query_param" in value:
+        import capo_codepipeline.types.query_param_map
+
+        out["queryParam"] = capo_codepipeline.types.query_param_map.serialize_cbor(
+            value["query_param"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PollForJobsInput:
+    out: PollForJobsInput = {}  # type: ignore[typeddict-item]
+    if data.get("actionTypeId") is not None:
+        import capo_codepipeline.types.action_type_id
+
+        out["action_type_id"] = capo_codepipeline.types.action_type_id.deserialize_cbor(
+            data["actionTypeId"]
+        )
+    else:
+        raise DeserializationError("PollForJobsInput.action_type_id required")
+    if data.get("maxBatchSize") is not None:
+        out["max_batch_size"] = data["maxBatchSize"]
+    if data.get("queryParam") is not None:
+        import capo_codepipeline.types.query_param_map
+
+        out["query_param"] = capo_codepipeline.types.query_param_map.deserialize_cbor(
+            data["queryParam"]
+        )
+    return out

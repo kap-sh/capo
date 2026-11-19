@@ -61,3 +61,46 @@ def deserialize_aws_json_1_1(data: dict) -> ReportExportConfig:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ReportExportConfig) -> dict:
+    out: dict = {}
+    if "export_config_type" in value:
+        import capo_codebuild.types.report_export_config_type
+
+        out["exportConfigType"] = (
+            capo_codebuild.types.report_export_config_type.serialize_cbor(
+                value["export_config_type"]
+            )
+        )
+    if "s3_destination" in value:
+        import capo_codebuild.types.s3_report_export_config
+
+        out["s3Destination"] = (
+            capo_codebuild.types.s3_report_export_config.serialize_cbor(
+                value["s3_destination"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ReportExportConfig:
+    out: ReportExportConfig = {}  # type: ignore[typeddict-item]
+    if data.get("exportConfigType") is not None:
+        import capo_codebuild.types.report_export_config_type
+
+        out["export_config_type"] = (
+            capo_codebuild.types.report_export_config_type.deserialize_cbor(
+                data["exportConfigType"]
+            )
+        )
+    if data.get("s3Destination") is not None:
+        import capo_codebuild.types.s3_report_export_config
+
+        out["s3_destination"] = (
+            capo_codebuild.types.s3_report_export_config.deserialize_cbor(
+                data["s3Destination"]
+            )
+        )
+    return out

@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> ScanProvisionedProductsOutput:
     if data.get("NextPageToken") is not None:
         out["next_page_token"] = data["NextPageToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ScanProvisionedProductsOutput) -> dict:
+    out: dict = {}
+    if "provisioned_products" in value:
+        import capo_service_catalog.types.provisioned_product_details
+
+        out["ProvisionedProducts"] = (
+            capo_service_catalog.types.provisioned_product_details.serialize_cbor(
+                value["provisioned_products"]
+            )
+        )
+    if "next_page_token" in value:
+        out["NextPageToken"] = value["next_page_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ScanProvisionedProductsOutput:
+    out: ScanProvisionedProductsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("ProvisionedProducts") is not None:
+        import capo_service_catalog.types.provisioned_product_details
+
+        out["provisioned_products"] = (
+            capo_service_catalog.types.provisioned_product_details.deserialize_cbor(
+                data["ProvisionedProducts"]
+            )
+        )
+    if data.get("NextPageToken") is not None:
+        out["next_page_token"] = data["NextPageToken"]
+    return out

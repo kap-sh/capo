@@ -70,3 +70,46 @@ def deserialize_aws_json_1_0(data: dict) -> VirtualMachine:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: VirtualMachine) -> dict:
+    out: dict = {}
+    if "host_name" in value:
+        out["HostName"] = value["host_name"]
+    if "hypervisor_id" in value:
+        out["HypervisorId"] = value["hypervisor_id"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "path" in value:
+        out["Path"] = value["path"]
+    if "resource_arn" in value:
+        out["ResourceArn"] = value["resource_arn"]
+    if "last_backup_date" in value:
+        import capo_backup_gateway.types.time
+
+        out["LastBackupDate"] = capo_backup_gateway.types.time.serialize_cbor(
+            value["last_backup_date"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> VirtualMachine:
+    out: VirtualMachine = {}  # type: ignore[typeddict-item]
+    if data.get("HostName") is not None:
+        out["host_name"] = data["HostName"]
+    if data.get("HypervisorId") is not None:
+        out["hypervisor_id"] = data["HypervisorId"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Path") is not None:
+        out["path"] = data["Path"]
+    if data.get("ResourceArn") is not None:
+        out["resource_arn"] = data["ResourceArn"]
+    if data.get("LastBackupDate") is not None:
+        import capo_backup_gateway.types.time
+
+        out["last_backup_date"] = capo_backup_gateway.types.time.deserialize_cbor(
+            data["LastBackupDate"]
+        )
+    return out

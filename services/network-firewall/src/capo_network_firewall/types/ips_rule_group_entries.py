@@ -37,3 +37,28 @@ def deserialize_aws_json_1_0(data: list) -> IpsRuleGroupEntries:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IpsRuleGroupEntries) -> list:
+    import capo_network_firewall.types.ips_rule_group_entry
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_network_firewall.types.ips_rule_group_entry.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> IpsRuleGroupEntries:
+    import capo_network_firewall.types.ips_rule_group_entry
+
+    out: IpsRuleGroupEntries = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_network_firewall.types.ips_rule_group_entry.deserialize_cbor(item)
+        )
+    return out

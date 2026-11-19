@@ -53,3 +53,38 @@ def deserialize_aws_json_1_1(data: dict) -> ModifyWorkspaceAccessPropertiesReque
             "ModifyWorkspaceAccessPropertiesRequest.workspace_access_properties required"
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ModifyWorkspaceAccessPropertiesRequest) -> dict:
+    out: dict = {}
+    out["ResourceId"] = value["resource_id"]
+    import capo_workspaces.types.workspace_access_properties
+
+    out["WorkspaceAccessProperties"] = (
+        capo_workspaces.types.workspace_access_properties.serialize_cbor(
+            value["workspace_access_properties"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ModifyWorkspaceAccessPropertiesRequest:
+    out: ModifyWorkspaceAccessPropertiesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceId") is not None:
+        out["resource_id"] = data["ResourceId"]
+    else:
+        out["resource_id"] = ""
+    if data.get("WorkspaceAccessProperties") is not None:
+        import capo_workspaces.types.workspace_access_properties
+
+        out["workspace_access_properties"] = (
+            capo_workspaces.types.workspace_access_properties.deserialize_cbor(
+                data["WorkspaceAccessProperties"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "ModifyWorkspaceAccessPropertiesRequest.workspace_access_properties required"
+        )
+    return out

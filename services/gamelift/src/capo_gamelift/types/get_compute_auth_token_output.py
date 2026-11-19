@@ -75,3 +75,46 @@ def deserialize_aws_json_1_1(data: dict) -> GetComputeAuthTokenOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetComputeAuthTokenOutput) -> dict:
+    out: dict = {}
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "fleet_arn" in value:
+        out["FleetArn"] = value["fleet_arn"]
+    if "compute_name" in value:
+        out["ComputeName"] = value["compute_name"]
+    if "compute_arn" in value:
+        out["ComputeArn"] = value["compute_arn"]
+    if "auth_token" in value:
+        out["AuthToken"] = value["auth_token"]
+    if "expiration_timestamp" in value:
+        import capo_gamelift.types.timestamp
+
+        out["ExpirationTimestamp"] = capo_gamelift.types.timestamp.serialize_cbor(
+            value["expiration_timestamp"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetComputeAuthTokenOutput:
+    out: GetComputeAuthTokenOutput = {}  # type: ignore[typeddict-item]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("FleetArn") is not None:
+        out["fleet_arn"] = data["FleetArn"]
+    if data.get("ComputeName") is not None:
+        out["compute_name"] = data["ComputeName"]
+    if data.get("ComputeArn") is not None:
+        out["compute_arn"] = data["ComputeArn"]
+    if data.get("AuthToken") is not None:
+        out["auth_token"] = data["AuthToken"]
+    if data.get("ExpirationTimestamp") is not None:
+        import capo_gamelift.types.timestamp
+
+        out["expiration_timestamp"] = capo_gamelift.types.timestamp.deserialize_cbor(
+            data["ExpirationTimestamp"]
+        )
+    return out

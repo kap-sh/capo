@@ -35,3 +35,24 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteAdapterVersionRequest:
     else:
         out["adapter_version"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteAdapterVersionRequest) -> dict:
+    out: dict = {}
+    out["AdapterId"] = value["adapter_id"]
+    out["AdapterVersion"] = value["adapter_version"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteAdapterVersionRequest:
+    out: DeleteAdapterVersionRequest = {}  # type: ignore[typeddict-item]
+    if data.get("AdapterId") is not None:
+        out["adapter_id"] = data["AdapterId"]
+    else:
+        out["adapter_id"] = ""
+    if data.get("AdapterVersion") is not None:
+        out["adapter_version"] = data["AdapterVersion"]
+    else:
+        out["adapter_version"] = ""
+    return out

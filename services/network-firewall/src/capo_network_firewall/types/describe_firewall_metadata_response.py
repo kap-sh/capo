@@ -92,3 +92,62 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeFirewallMetadataResponse:
     if data.get("TransitGatewayAttachmentId") is not None:
         out["transit_gateway_attachment_id"] = data["TransitGatewayAttachmentId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeFirewallMetadataResponse) -> dict:
+    out: dict = {}
+    if "firewall_arn" in value:
+        out["FirewallArn"] = value["firewall_arn"]
+    if "firewall_policy_arn" in value:
+        out["FirewallPolicyArn"] = value["firewall_policy_arn"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "status" in value:
+        import capo_network_firewall.types.firewall_status_value
+
+        out["Status"] = (
+            capo_network_firewall.types.firewall_status_value.serialize_cbor(
+                value["status"]
+            )
+        )
+    if "supported_availability_zones" in value:
+        import capo_network_firewall.types.supported_availability_zones
+
+        out["SupportedAvailabilityZones"] = (
+            capo_network_firewall.types.supported_availability_zones.serialize_cbor(
+                value["supported_availability_zones"]
+            )
+        )
+    if "transit_gateway_attachment_id" in value:
+        out["TransitGatewayAttachmentId"] = value["transit_gateway_attachment_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeFirewallMetadataResponse:
+    out: DescribeFirewallMetadataResponse = {}  # type: ignore[typeddict-item]
+    if data.get("FirewallArn") is not None:
+        out["firewall_arn"] = data["FirewallArn"]
+    if data.get("FirewallPolicyArn") is not None:
+        out["firewall_policy_arn"] = data["FirewallPolicyArn"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("Status") is not None:
+        import capo_network_firewall.types.firewall_status_value
+
+        out["status"] = (
+            capo_network_firewall.types.firewall_status_value.deserialize_cbor(
+                data["Status"]
+            )
+        )
+    if data.get("SupportedAvailabilityZones") is not None:
+        import capo_network_firewall.types.supported_availability_zones
+
+        out["supported_availability_zones"] = (
+            capo_network_firewall.types.supported_availability_zones.deserialize_cbor(
+                data["SupportedAvailabilityZones"]
+            )
+        )
+    if data.get("TransitGatewayAttachmentId") is not None:
+        out["transit_gateway_attachment_id"] = data["TransitGatewayAttachmentId"]
+    return out

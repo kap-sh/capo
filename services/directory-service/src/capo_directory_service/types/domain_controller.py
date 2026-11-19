@@ -142,3 +142,90 @@ def deserialize_aws_json_1_1(data: dict) -> DomainController:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DomainController) -> dict:
+    out: dict = {}
+    if "directory_id" in value:
+        out["DirectoryId"] = value["directory_id"]
+    if "domain_controller_id" in value:
+        out["DomainControllerId"] = value["domain_controller_id"]
+    if "dns_ip_addr" in value:
+        out["DnsIpAddr"] = value["dns_ip_addr"]
+    if "dns_ipv6_addr" in value:
+        out["DnsIpv6Addr"] = value["dns_ipv6_addr"]
+    if "vpc_id" in value:
+        out["VpcId"] = value["vpc_id"]
+    if "subnet_id" in value:
+        out["SubnetId"] = value["subnet_id"]
+    if "availability_zone" in value:
+        out["AvailabilityZone"] = value["availability_zone"]
+    if "status" in value:
+        import capo_directory_service.types.domain_controller_status
+
+        out["Status"] = (
+            capo_directory_service.types.domain_controller_status.serialize_cbor(
+                value["status"]
+            )
+        )
+    if "status_reason" in value:
+        out["StatusReason"] = value["status_reason"]
+    if "launch_time" in value:
+        import capo_directory_service.types.launch_time
+
+        out["LaunchTime"] = capo_directory_service.types.launch_time.serialize_cbor(
+            value["launch_time"]
+        )
+    if "status_last_updated_date_time" in value:
+        import capo_directory_service.types.last_updated_date_time
+
+        out["StatusLastUpdatedDateTime"] = (
+            capo_directory_service.types.last_updated_date_time.serialize_cbor(
+                value["status_last_updated_date_time"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DomainController:
+    out: DomainController = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    if data.get("DomainControllerId") is not None:
+        out["domain_controller_id"] = data["DomainControllerId"]
+    if data.get("DnsIpAddr") is not None:
+        out["dns_ip_addr"] = data["DnsIpAddr"]
+    if data.get("DnsIpv6Addr") is not None:
+        out["dns_ipv6_addr"] = data["DnsIpv6Addr"]
+    if data.get("VpcId") is not None:
+        out["vpc_id"] = data["VpcId"]
+    if data.get("SubnetId") is not None:
+        out["subnet_id"] = data["SubnetId"]
+    if data.get("AvailabilityZone") is not None:
+        out["availability_zone"] = data["AvailabilityZone"]
+    if data.get("Status") is not None:
+        import capo_directory_service.types.domain_controller_status
+
+        out["status"] = (
+            capo_directory_service.types.domain_controller_status.deserialize_cbor(
+                data["Status"]
+            )
+        )
+    if data.get("StatusReason") is not None:
+        out["status_reason"] = data["StatusReason"]
+    if data.get("LaunchTime") is not None:
+        import capo_directory_service.types.launch_time
+
+        out["launch_time"] = capo_directory_service.types.launch_time.deserialize_cbor(
+            data["LaunchTime"]
+        )
+    if data.get("StatusLastUpdatedDateTime") is not None:
+        import capo_directory_service.types.last_updated_date_time
+
+        out["status_last_updated_date_time"] = (
+            capo_directory_service.types.last_updated_date_time.deserialize_cbor(
+                data["StatusLastUpdatedDateTime"]
+            )
+        )
+    return out

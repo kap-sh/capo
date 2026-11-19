@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> ListAllowedNodeTypeUpdatesRequest:
     else:
         out["cluster_name"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListAllowedNodeTypeUpdatesRequest) -> dict:
+    out: dict = {}
+    out["ClusterName"] = value["cluster_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListAllowedNodeTypeUpdatesRequest:
+    out: ListAllowedNodeTypeUpdatesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ClusterName") is not None:
+        out["cluster_name"] = data["ClusterName"]
+    else:
+        out["cluster_name"] = ""
+    return out

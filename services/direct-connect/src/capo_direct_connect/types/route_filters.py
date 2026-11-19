@@ -118,3 +118,84 @@ def deserialize_aws_json_1_1(data: dict) -> RouteFilters:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RouteFilters) -> dict:
+    out: dict = {}
+    if "route_direction" in value:
+        import capo_direct_connect.types.route_direction
+
+        out["routeDirection"] = (
+            capo_direct_connect.types.route_direction.serialize_cbor(
+                value["route_direction"]
+            )
+        )
+    if "address_family" in value:
+        import capo_direct_connect.types.address_family
+
+        out["addressFamily"] = capo_direct_connect.types.address_family.serialize_cbor(
+            value["address_family"]
+        )
+    if "cidrs" in value:
+        import capo_direct_connect.types.route_filter_cidr_string_list
+
+        out["cidrs"] = (
+            capo_direct_connect.types.route_filter_cidr_string_list.serialize_cbor(
+                value["cidrs"]
+            )
+        )
+    if "as_path" in value:
+        import capo_direct_connect.types.as_path_list
+
+        out["asPath"] = capo_direct_connect.types.as_path_list.serialize_cbor(
+            value["as_path"]
+        )
+    if "communities" in value:
+        import capo_direct_connect.types.community_list
+
+        out["communities"] = capo_direct_connect.types.community_list.serialize_cbor(
+            value["communities"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RouteFilters:
+    out: RouteFilters = {}  # type: ignore[typeddict-item]
+    if data.get("routeDirection") is not None:
+        import capo_direct_connect.types.route_direction
+
+        out["route_direction"] = (
+            capo_direct_connect.types.route_direction.deserialize_cbor(
+                data["routeDirection"]
+            )
+        )
+    if data.get("addressFamily") is not None:
+        import capo_direct_connect.types.address_family
+
+        out["address_family"] = (
+            capo_direct_connect.types.address_family.deserialize_cbor(
+                data["addressFamily"]
+            )
+        )
+    if data.get("cidrs") is not None:
+        import capo_direct_connect.types.route_filter_cidr_string_list
+
+        out["cidrs"] = (
+            capo_direct_connect.types.route_filter_cidr_string_list.deserialize_cbor(
+                data["cidrs"]
+            )
+        )
+    if data.get("asPath") is not None:
+        import capo_direct_connect.types.as_path_list
+
+        out["as_path"] = capo_direct_connect.types.as_path_list.deserialize_cbor(
+            data["asPath"]
+        )
+    if data.get("communities") is not None:
+        import capo_direct_connect.types.community_list
+
+        out["communities"] = capo_direct_connect.types.community_list.deserialize_cbor(
+            data["communities"]
+        )
+    return out

@@ -130,3 +130,88 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeRuleGroupMetadataResponse:
     if data.get("ListingName") is not None:
         out["listing_name"] = data["ListingName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeRuleGroupMetadataResponse) -> dict:
+    out: dict = {}
+    out["RuleGroupArn"] = value["rule_group_arn"]
+    out["RuleGroupName"] = value["rule_group_name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "type" in value:
+        import capo_network_firewall.types.rule_group_type
+
+        out["Type"] = capo_network_firewall.types.rule_group_type.serialize_cbor(
+            value["type"]
+        )
+    if "capacity" in value:
+        out["Capacity"] = value["capacity"]
+    if "stateful_rule_options" in value:
+        import capo_network_firewall.types.stateful_rule_options
+
+        out["StatefulRuleOptions"] = (
+            capo_network_firewall.types.stateful_rule_options.serialize_cbor(
+                value["stateful_rule_options"]
+            )
+        )
+    if "last_modified_time" in value:
+        import capo_network_firewall.types.last_update_time
+
+        out["LastModifiedTime"] = (
+            capo_network_firewall.types.last_update_time.serialize_cbor(
+                value["last_modified_time"]
+            )
+        )
+    if "vendor_name" in value:
+        out["VendorName"] = value["vendor_name"]
+    if "product_id" in value:
+        out["ProductId"] = value["product_id"]
+    if "listing_name" in value:
+        out["ListingName"] = value["listing_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeRuleGroupMetadataResponse:
+    out: DescribeRuleGroupMetadataResponse = {}  # type: ignore[typeddict-item]
+    if data.get("RuleGroupArn") is not None:
+        out["rule_group_arn"] = data["RuleGroupArn"]
+    else:
+        out["rule_group_arn"] = ""
+    if data.get("RuleGroupName") is not None:
+        out["rule_group_name"] = data["RuleGroupName"]
+    else:
+        out["rule_group_name"] = ""
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("Type") is not None:
+        import capo_network_firewall.types.rule_group_type
+
+        out["type"] = capo_network_firewall.types.rule_group_type.deserialize_cbor(
+            data["Type"]
+        )
+    if data.get("Capacity") is not None:
+        out["capacity"] = data["Capacity"]
+    if data.get("StatefulRuleOptions") is not None:
+        import capo_network_firewall.types.stateful_rule_options
+
+        out["stateful_rule_options"] = (
+            capo_network_firewall.types.stateful_rule_options.deserialize_cbor(
+                data["StatefulRuleOptions"]
+            )
+        )
+    if data.get("LastModifiedTime") is not None:
+        import capo_network_firewall.types.last_update_time
+
+        out["last_modified_time"] = (
+            capo_network_firewall.types.last_update_time.deserialize_cbor(
+                data["LastModifiedTime"]
+            )
+        )
+    if data.get("VendorName") is not None:
+        out["vendor_name"] = data["VendorName"]
+    if data.get("ProductId") is not None:
+        out["product_id"] = data["ProductId"]
+    if data.get("ListingName") is not None:
+        out["listing_name"] = data["ListingName"]
+    return out

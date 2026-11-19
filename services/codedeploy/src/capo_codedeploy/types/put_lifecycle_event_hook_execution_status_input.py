@@ -58,3 +58,36 @@ def deserialize_aws_json_1_1(data: dict) -> PutLifecycleEventHookExecutionStatus
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PutLifecycleEventHookExecutionStatusInput) -> dict:
+    out: dict = {}
+    if "deployment_id" in value:
+        out["deploymentId"] = value["deployment_id"]
+    if "lifecycle_event_hook_execution_id" in value:
+        out["lifecycleEventHookExecutionId"] = value[
+            "lifecycle_event_hook_execution_id"
+        ]
+    if "status" in value:
+        import capo_codedeploy.types.lifecycle_event_status
+
+        out["status"] = capo_codedeploy.types.lifecycle_event_status.serialize_cbor(
+            value["status"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PutLifecycleEventHookExecutionStatusInput:
+    out: PutLifecycleEventHookExecutionStatusInput = {}  # type: ignore[typeddict-item]
+    if data.get("deploymentId") is not None:
+        out["deployment_id"] = data["deploymentId"]
+    if data.get("lifecycleEventHookExecutionId") is not None:
+        out["lifecycle_event_hook_execution_id"] = data["lifecycleEventHookExecutionId"]
+    if data.get("status") is not None:
+        import capo_codedeploy.types.lifecycle_event_status
+
+        out["status"] = capo_codedeploy.types.lifecycle_event_status.deserialize_cbor(
+            data["status"]
+        )
+    return out

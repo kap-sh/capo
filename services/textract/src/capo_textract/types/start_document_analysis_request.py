@@ -159,3 +159,108 @@ def deserialize_aws_json_1_1(data: dict) -> StartDocumentAnalysisRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartDocumentAnalysisRequest) -> dict:
+    out: dict = {}
+    import capo_textract.types.document_location
+
+    out["DocumentLocation"] = capo_textract.types.document_location.serialize_cbor(
+        value["document_location"]
+    )
+    import capo_textract.types.feature_types
+
+    out["FeatureTypes"] = capo_textract.types.feature_types.serialize_cbor(
+        value["feature_types"]
+    )
+    if "client_request_token" in value:
+        out["ClientRequestToken"] = value["client_request_token"]
+    if "job_tag" in value:
+        out["JobTag"] = value["job_tag"]
+    if "notification_channel" in value:
+        import capo_textract.types.notification_channel
+
+        out["NotificationChannel"] = (
+            capo_textract.types.notification_channel.serialize_cbor(
+                value["notification_channel"]
+            )
+        )
+    if "output_config" in value:
+        import capo_textract.types.output_config
+
+        out["OutputConfig"] = capo_textract.types.output_config.serialize_cbor(
+            value["output_config"]
+        )
+    if "kms_key_id" in value:
+        out["KMSKeyId"] = value["kms_key_id"]
+    if "queries_config" in value:
+        import capo_textract.types.queries_config
+
+        out["QueriesConfig"] = capo_textract.types.queries_config.serialize_cbor(
+            value["queries_config"]
+        )
+    if "adapters_config" in value:
+        import capo_textract.types.adapters_config
+
+        out["AdaptersConfig"] = capo_textract.types.adapters_config.serialize_cbor(
+            value["adapters_config"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartDocumentAnalysisRequest:
+    out: StartDocumentAnalysisRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DocumentLocation") is not None:
+        import capo_textract.types.document_location
+
+        out["document_location"] = (
+            capo_textract.types.document_location.deserialize_cbor(
+                data["DocumentLocation"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "StartDocumentAnalysisRequest.document_location required"
+        )
+    if data.get("FeatureTypes") is not None:
+        import capo_textract.types.feature_types
+
+        out["feature_types"] = capo_textract.types.feature_types.deserialize_cbor(
+            data["FeatureTypes"]
+        )
+    else:
+        out["feature_types"] = []
+    if data.get("ClientRequestToken") is not None:
+        out["client_request_token"] = data["ClientRequestToken"]
+    if data.get("JobTag") is not None:
+        out["job_tag"] = data["JobTag"]
+    if data.get("NotificationChannel") is not None:
+        import capo_textract.types.notification_channel
+
+        out["notification_channel"] = (
+            capo_textract.types.notification_channel.deserialize_cbor(
+                data["NotificationChannel"]
+            )
+        )
+    if data.get("OutputConfig") is not None:
+        import capo_textract.types.output_config
+
+        out["output_config"] = capo_textract.types.output_config.deserialize_cbor(
+            data["OutputConfig"]
+        )
+    if data.get("KMSKeyId") is not None:
+        out["kms_key_id"] = data["KMSKeyId"]
+    if data.get("QueriesConfig") is not None:
+        import capo_textract.types.queries_config
+
+        out["queries_config"] = capo_textract.types.queries_config.deserialize_cbor(
+            data["QueriesConfig"]
+        )
+    if data.get("AdaptersConfig") is not None:
+        import capo_textract.types.adapters_config
+
+        out["adapters_config"] = capo_textract.types.adapters_config.deserialize_cbor(
+            data["AdaptersConfig"]
+        )
+    return out

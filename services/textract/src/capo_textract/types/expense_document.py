@@ -83,3 +83,52 @@ def deserialize_aws_json_1_1(data: dict) -> ExpenseDocument:
             data["Blocks"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExpenseDocument) -> dict:
+    out: dict = {}
+    if "expense_index" in value:
+        out["ExpenseIndex"] = value["expense_index"]
+    if "summary_fields" in value:
+        import capo_textract.types.expense_field_list
+
+        out["SummaryFields"] = capo_textract.types.expense_field_list.serialize_cbor(
+            value["summary_fields"]
+        )
+    if "line_item_groups" in value:
+        import capo_textract.types.line_item_group_list
+
+        out["LineItemGroups"] = capo_textract.types.line_item_group_list.serialize_cbor(
+            value["line_item_groups"]
+        )
+    if "blocks" in value:
+        import capo_textract.types.block_list
+
+        out["Blocks"] = capo_textract.types.block_list.serialize_cbor(value["blocks"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> ExpenseDocument:
+    out: ExpenseDocument = {}  # type: ignore[typeddict-item]
+    if data.get("ExpenseIndex") is not None:
+        out["expense_index"] = data["ExpenseIndex"]
+    if data.get("SummaryFields") is not None:
+        import capo_textract.types.expense_field_list
+
+        out["summary_fields"] = capo_textract.types.expense_field_list.deserialize_cbor(
+            data["SummaryFields"]
+        )
+    if data.get("LineItemGroups") is not None:
+        import capo_textract.types.line_item_group_list
+
+        out["line_item_groups"] = (
+            capo_textract.types.line_item_group_list.deserialize_cbor(
+                data["LineItemGroups"]
+            )
+        )
+    if data.get("Blocks") is not None:
+        import capo_textract.types.block_list
+
+        out["blocks"] = capo_textract.types.block_list.deserialize_cbor(data["Blocks"])
+    return out

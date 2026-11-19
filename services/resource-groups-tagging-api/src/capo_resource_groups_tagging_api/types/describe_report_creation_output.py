@@ -53,3 +53,30 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeReportCreationOutput:
     if data.get("ErrorMessage") is not None:
         out["error_message"] = data["ErrorMessage"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeReportCreationOutput) -> dict:
+    out: dict = {}
+    if "status" in value:
+        out["Status"] = value["status"]
+    if "s3_location" in value:
+        out["S3Location"] = value["s3_location"]
+    if "start_date" in value:
+        out["StartDate"] = value["start_date"]
+    if "error_message" in value:
+        out["ErrorMessage"] = value["error_message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeReportCreationOutput:
+    out: DescribeReportCreationOutput = {}  # type: ignore[typeddict-item]
+    if data.get("Status") is not None:
+        out["status"] = data["Status"]
+    if data.get("S3Location") is not None:
+        out["s3_location"] = data["S3Location"]
+    if data.get("StartDate") is not None:
+        out["start_date"] = data["StartDate"]
+    if data.get("ErrorMessage") is not None:
+        out["error_message"] = data["ErrorMessage"]
+    return out

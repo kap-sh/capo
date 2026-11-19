@@ -35,3 +35,22 @@ def deserialize_aws_json_1_1(data: dict) -> CustomSecretConfig:
     if data.get("SecretAccessRoleArn") is not None:
         out["secret_access_role_arn"] = data["SecretAccessRoleArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CustomSecretConfig) -> dict:
+    out: dict = {}
+    if "secret_arn" in value:
+        out["SecretArn"] = value["secret_arn"]
+    if "secret_access_role_arn" in value:
+        out["SecretAccessRoleArn"] = value["secret_access_role_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CustomSecretConfig:
+    out: CustomSecretConfig = {}  # type: ignore[typeddict-item]
+    if data.get("SecretArn") is not None:
+        out["secret_arn"] = data["SecretArn"]
+    if data.get("SecretAccessRoleArn") is not None:
+        out["secret_access_role_arn"] = data["SecretAccessRoleArn"]
+    return out

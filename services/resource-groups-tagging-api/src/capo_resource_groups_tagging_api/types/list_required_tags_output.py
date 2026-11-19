@@ -49,3 +49,34 @@ def deserialize_aws_json_1_1(data: dict) -> ListRequiredTagsOutput:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListRequiredTagsOutput) -> dict:
+    out: dict = {}
+    if "required_tags" in value:
+        import capo_resource_groups_tagging_api.types.required_tags_for_list_required_tags
+
+        out["RequiredTags"] = (
+            capo_resource_groups_tagging_api.types.required_tags_for_list_required_tags.serialize_cbor(
+                value["required_tags"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListRequiredTagsOutput:
+    out: ListRequiredTagsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("RequiredTags") is not None:
+        import capo_resource_groups_tagging_api.types.required_tags_for_list_required_tags
+
+        out["required_tags"] = (
+            capo_resource_groups_tagging_api.types.required_tags_for_list_required_tags.deserialize_cbor(
+                data["RequiredTags"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

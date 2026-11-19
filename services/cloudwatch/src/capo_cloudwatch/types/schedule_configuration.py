@@ -75,3 +75,26 @@ def deserialize_query(el: Element) -> ScheduleConfiguration:
     if child_end_time_offset is not None:
         out["end_time_offset"] = int(child_end_time_offset.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ScheduleConfiguration) -> dict:
+    out: dict = {}
+    if "schedule_expression" in value:
+        out["ScheduleExpression"] = value["schedule_expression"]
+    if "start_time_offset" in value:
+        out["StartTimeOffset"] = value["start_time_offset"]
+    if "end_time_offset" in value:
+        out["EndTimeOffset"] = value["end_time_offset"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ScheduleConfiguration:
+    out: ScheduleConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("ScheduleExpression") is not None:
+        out["schedule_expression"] = data["ScheduleExpression"]
+    if data.get("StartTimeOffset") is not None:
+        out["start_time_offset"] = data["StartTimeOffset"]
+    if data.get("EndTimeOffset") is not None:
+        out["end_time_offset"] = data["EndTimeOffset"]
+    return out

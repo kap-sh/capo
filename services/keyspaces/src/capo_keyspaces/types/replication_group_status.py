@@ -44,3 +44,28 @@ def deserialize_aws_json_1_0(data: dict) -> ReplicationGroupStatus:
     if data.get("tablesReplicationProgress") is not None:
         out["tables_replication_progress"] = data["tablesReplicationProgress"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ReplicationGroupStatus) -> dict:
+    out: dict = {}
+    out["region"] = value["region"]
+    out["keyspaceStatus"] = value["keyspace_status"]
+    if "tables_replication_progress" in value:
+        out["tablesReplicationProgress"] = value["tables_replication_progress"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ReplicationGroupStatus:
+    out: ReplicationGroupStatus = {}  # type: ignore[typeddict-item]
+    if data.get("region") is not None:
+        out["region"] = data["region"]
+    else:
+        out["region"] = ""
+    if data.get("keyspaceStatus") is not None:
+        out["keyspace_status"] = data["keyspaceStatus"]
+    else:
+        out["keyspace_status"] = ""
+    if data.get("tablesReplicationProgress") is not None:
+        out["tables_replication_progress"] = data["tablesReplicationProgress"]
+    return out

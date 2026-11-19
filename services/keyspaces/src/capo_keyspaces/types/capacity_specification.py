@@ -44,3 +44,27 @@ def deserialize_aws_json_1_0(data: dict) -> CapacitySpecification:
     if data.get("writeCapacityUnits") is not None:
         out["write_capacity_units"] = data["writeCapacityUnits"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CapacitySpecification) -> dict:
+    out: dict = {}
+    out["throughputMode"] = value["throughput_mode"]
+    if "read_capacity_units" in value:
+        out["readCapacityUnits"] = value["read_capacity_units"]
+    if "write_capacity_units" in value:
+        out["writeCapacityUnits"] = value["write_capacity_units"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CapacitySpecification:
+    out: CapacitySpecification = {}  # type: ignore[typeddict-item]
+    if data.get("throughputMode") is not None:
+        out["throughput_mode"] = data["throughputMode"]
+    else:
+        out["throughput_mode"] = ""
+    if data.get("readCapacityUnits") is not None:
+        out["read_capacity_units"] = data["readCapacityUnits"]
+    if data.get("writeCapacityUnits") is not None:
+        out["write_capacity_units"] = data["writeCapacityUnits"]
+    return out

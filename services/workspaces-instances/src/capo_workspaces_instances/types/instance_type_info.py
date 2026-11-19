@@ -49,3 +49,34 @@ def deserialize_aws_json_1_0(data: dict) -> InstanceTypeInfo:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InstanceTypeInfo) -> dict:
+    out: dict = {}
+    if "instance_type" in value:
+        out["InstanceType"] = value["instance_type"]
+    if "supported_instance_configurations" in value:
+        import capo_workspaces_instances.types.supported_instance_configurations
+
+        out["SupportedInstanceConfigurations"] = (
+            capo_workspaces_instances.types.supported_instance_configurations.serialize_cbor(
+                value["supported_instance_configurations"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> InstanceTypeInfo:
+    out: InstanceTypeInfo = {}  # type: ignore[typeddict-item]
+    if data.get("InstanceType") is not None:
+        out["instance_type"] = data["InstanceType"]
+    if data.get("SupportedInstanceConfigurations") is not None:
+        import capo_workspaces_instances.types.supported_instance_configurations
+
+        out["supported_instance_configurations"] = (
+            capo_workspaces_instances.types.supported_instance_configurations.deserialize_cbor(
+                data["SupportedInstanceConfigurations"]
+            )
+        )
+    return out

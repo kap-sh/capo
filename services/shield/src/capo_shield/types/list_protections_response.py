@@ -41,3 +41,30 @@ def deserialize_aws_json_1_1(data: dict) -> ListProtectionsResponse:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListProtectionsResponse) -> dict:
+    out: dict = {}
+    if "protections" in value:
+        import capo_shield.types.protections
+
+        out["Protections"] = capo_shield.types.protections.serialize_cbor(
+            value["protections"]
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListProtectionsResponse:
+    out: ListProtectionsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Protections") is not None:
+        import capo_shield.types.protections
+
+        out["protections"] = capo_shield.types.protections.deserialize_cbor(
+            data["Protections"]
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

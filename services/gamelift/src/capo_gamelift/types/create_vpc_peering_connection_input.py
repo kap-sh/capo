@@ -43,3 +43,26 @@ def deserialize_aws_json_1_1(data: dict) -> CreateVpcPeeringConnectionInput:
     if data.get("PeerVpcId") is not None:
         out["peer_vpc_id"] = data["PeerVpcId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateVpcPeeringConnectionInput) -> dict:
+    out: dict = {}
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "peer_vpc_aws_account_id" in value:
+        out["PeerVpcAwsAccountId"] = value["peer_vpc_aws_account_id"]
+    if "peer_vpc_id" in value:
+        out["PeerVpcId"] = value["peer_vpc_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateVpcPeeringConnectionInput:
+    out: CreateVpcPeeringConnectionInput = {}  # type: ignore[typeddict-item]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("PeerVpcAwsAccountId") is not None:
+        out["peer_vpc_aws_account_id"] = data["PeerVpcAwsAccountId"]
+    if data.get("PeerVpcId") is not None:
+        out["peer_vpc_id"] = data["PeerVpcId"]
+    return out

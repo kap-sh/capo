@@ -60,6 +60,42 @@ def deserialize_aws_json_1_1(data: dict) -> ListSandboxesForProjectInput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListSandboxesForProjectInput) -> dict:
+    out: dict = {}
+    out["projectName"] = value["project_name"]
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    if "sort_order" in value:
+        import capo_codebuild.types.sort_order_type
+
+        out["sortOrder"] = capo_codebuild.types.sort_order_type.serialize_cbor(
+            value["sort_order"]
+        )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListSandboxesForProjectInput:
+    out: ListSandboxesForProjectInput = {}  # type: ignore[typeddict-item]
+    if data.get("projectName") is not None:
+        out["project_name"] = data["projectName"]
+    else:
+        out["project_name"] = ""
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    if data.get("sortOrder") is not None:
+        import capo_codebuild.types.sort_order_type
+
+        out["sort_order"] = capo_codebuild.types.sort_order_type.deserialize_cbor(
+            data["sortOrder"]
+        )
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out
+
+
 def redact_sensitive(value: ListSandboxesForProjectInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "next_token" in value:

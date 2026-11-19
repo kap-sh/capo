@@ -52,3 +52,12 @@ def serialize_aws_json_1_0(value: ResourceList) -> list:
 
 def deserialize_aws_json_1_0(data: list) -> ResourceList:
     return [item for item in data if item is not None]
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResourceList) -> list:
+    return list(value)
+
+
+def deserialize_cbor(data: list) -> ResourceList:
+    return [item for item in data if item is not None]

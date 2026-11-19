@@ -308,6 +308,7 @@ class AsyncServiceCatalogClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[AsyncInterceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_1", "rpcv2Cbor"]
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -324,6 +325,7 @@ class AsyncServiceCatalogClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -339,6 +341,7 @@ class AsyncServiceCatalogClient:
         operation_interceptors: Iterable[AsyncInterceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_1", "rpcv2Cbor"] = "awsJson1_1",
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -375,6 +378,7 @@ class AsyncServiceCatalogClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -408,6 +412,9 @@ class AsyncServiceCatalogClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_1")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -452,14 +459,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.accept_portfolio_share_output.AcceptPortfolioShareOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.accept_portfolio_share
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.accept_portfolio_share
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.accept_portfolio_share.async_accept_portfolio_share(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.accept_portfolio_share.async_accept_portfolio_share(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.accept_portfolio_share
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.accept_portfolio_share.async_accept_portfolio_share(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -507,14 +526,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.associate_budget_with_resource_output.AssociateBudgetWithResourceOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.associate_budget_with_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.associate_budget_with_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.associate_budget_with_resource.async_associate_budget_with_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.associate_budget_with_resource.async_associate_budget_with_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.associate_budget_with_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.associate_budget_with_resource.async_associate_budget_with_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -564,14 +595,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.associate_principal_with_portfolio_output.AssociatePrincipalWithPortfolioOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.associate_principal_with_portfolio
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.associate_principal_with_portfolio
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.associate_principal_with_portfolio.async_associate_principal_with_portfolio(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.associate_principal_with_portfolio.async_associate_principal_with_portfolio(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.associate_principal_with_portfolio
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.associate_principal_with_portfolio.async_associate_principal_with_portfolio(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -624,14 +667,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.associate_product_with_portfolio_output.AssociateProductWithPortfolioOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.associate_product_with_portfolio
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.associate_product_with_portfolio
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.associate_product_with_portfolio.async_associate_product_with_portfolio(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.associate_product_with_portfolio.async_associate_product_with_portfolio(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.associate_product_with_portfolio
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.associate_product_with_portfolio.async_associate_product_with_portfolio(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -690,14 +745,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.associate_service_action_with_provisioning_artifact_output.AssociateServiceActionWithProvisioningArtifactOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.associate_service_action_with_provisioning_artifact
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.associate_service_action_with_provisioning_artifact
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.associate_service_action_with_provisioning_artifact.async_associate_service_action_with_provisioning_artifact(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.associate_service_action_with_provisioning_artifact.async_associate_service_action_with_provisioning_artifact(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.associate_service_action_with_provisioning_artifact
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.associate_service_action_with_provisioning_artifact.async_associate_service_action_with_provisioning_artifact(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -751,14 +818,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.associate_tag_option_with_resource_output.AssociateTagOptionWithResourceOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.associate_tag_option_with_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.associate_tag_option_with_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.associate_tag_option_with_resource.async_associate_tag_option_with_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.associate_tag_option_with_resource.async_associate_tag_option_with_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.associate_tag_option_with_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.associate_tag_option_with_resource.async_associate_tag_option_with_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -802,14 +881,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.batch_associate_service_action_with_provisioning_artifact_output.BatchAssociateServiceActionWithProvisioningArtifactOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.batch_associate_service_action_with_provisioning_artifact
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.batch_associate_service_action_with_provisioning_artifact
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.batch_associate_service_action_with_provisioning_artifact.async_batch_associate_service_action_with_provisioning_artifact(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.batch_associate_service_action_with_provisioning_artifact.async_batch_associate_service_action_with_provisioning_artifact(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.batch_associate_service_action_with_provisioning_artifact
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.batch_associate_service_action_with_provisioning_artifact.async_batch_associate_service_action_with_provisioning_artifact(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -855,14 +946,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.batch_disassociate_service_action_from_provisioning_artifact_output.BatchDisassociateServiceActionFromProvisioningArtifactOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.batch_disassociate_service_action_from_provisioning_artifact
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.batch_disassociate_service_action_from_provisioning_artifact
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.batch_disassociate_service_action_from_provisioning_artifact.async_batch_disassociate_service_action_from_provisioning_artifact(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.batch_disassociate_service_action_from_provisioning_artifact.async_batch_disassociate_service_action_from_provisioning_artifact(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.batch_disassociate_service_action_from_provisioning_artifact
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.batch_disassociate_service_action_from_provisioning_artifact.async_batch_disassociate_service_action_from_provisioning_artifact(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -925,14 +1028,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.copy_product_output.CopyProductOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.copy_product
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.copy_product
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.copy_product.async_copy_product(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.copy_product.async_copy_product(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.copy_product
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.copy_product.async_copy_product(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1003,14 +1118,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.create_constraint_output.CreateConstraintOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.create_constraint
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.create_constraint
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.create_constraint.async_create_constraint(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.create_constraint.async_create_constraint(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.create_constraint
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.create_constraint.async_create_constraint(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1073,14 +1200,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.create_portfolio_output.CreatePortfolioOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.create_portfolio
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.create_portfolio
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.create_portfolio.async_create_portfolio(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.create_portfolio.async_create_portfolio(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.create_portfolio
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.create_portfolio.async_create_portfolio(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1147,14 +1286,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.create_portfolio_share_output.CreatePortfolioShareOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.create_portfolio_share
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.create_portfolio_share
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.create_portfolio_share.async_create_portfolio_share(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.create_portfolio_share.async_create_portfolio_share(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.create_portfolio_share
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.create_portfolio_share.async_create_portfolio_share(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1245,14 +1396,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.create_product_output.CreateProductOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.create_product
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.create_product
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.create_product.async_create_product(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.create_product.async_create_product(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.create_product
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.create_product.async_create_product(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1342,14 +1505,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.create_provisioned_product_plan_output.CreateProvisionedProductPlanOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.create_provisioned_product_plan
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.create_provisioned_product_plan
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.create_provisioned_product_plan.async_create_provisioned_product_plan(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.create_provisioned_product_plan.async_create_provisioned_product_plan(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.create_provisioned_product_plan
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.create_provisioned_product_plan.async_create_provisioned_product_plan(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1413,14 +1588,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.create_provisioning_artifact_output.CreateProvisioningArtifactOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.create_provisioning_artifact
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.create_provisioning_artifact
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.create_provisioning_artifact.async_create_provisioning_artifact(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.create_provisioning_artifact.async_create_provisioning_artifact(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.create_provisioning_artifact
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.create_provisioning_artifact.async_create_provisioning_artifact(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1478,14 +1665,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.create_service_action_output.CreateServiceActionOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.create_service_action
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.create_service_action
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.create_service_action.async_create_service_action(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.create_service_action.async_create_service_action(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.create_service_action
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.create_service_action.async_create_service_action(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1535,14 +1734,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.create_tag_option_output.CreateTagOptionOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.create_tag_option
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.create_tag_option
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.create_tag_option.async_create_tag_option(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.create_tag_option.async_create_tag_option(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.create_tag_option
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.create_tag_option.async_create_tag_option(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1587,14 +1798,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.delete_constraint_output.DeleteConstraintOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.delete_constraint
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.delete_constraint
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.delete_constraint.async_delete_constraint(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.delete_constraint.async_delete_constraint(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.delete_constraint
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.delete_constraint.async_delete_constraint(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1642,14 +1865,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.delete_portfolio_output.DeletePortfolioOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.delete_portfolio
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.delete_portfolio
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.delete_portfolio.async_delete_portfolio(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.delete_portfolio.async_delete_portfolio(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.delete_portfolio
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.delete_portfolio.async_delete_portfolio(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1703,14 +1938,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.delete_portfolio_share_output.DeletePortfolioShareOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.delete_portfolio_share
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.delete_portfolio_share
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.delete_portfolio_share.async_delete_portfolio_share(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.delete_portfolio_share.async_delete_portfolio_share(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.delete_portfolio_share
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.delete_portfolio_share.async_delete_portfolio_share(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1762,14 +2009,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.delete_product_output.DeleteProductOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.delete_product
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.delete_product
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.delete_product.async_delete_product(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.delete_product.async_delete_product(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.delete_product
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.delete_product.async_delete_product(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1819,14 +2078,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.delete_provisioned_product_plan_output.DeleteProvisionedProductPlanOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.delete_provisioned_product_plan
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.delete_provisioned_product_plan
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.delete_provisioned_product_plan.async_delete_provisioned_product_plan(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.delete_provisioned_product_plan.async_delete_provisioned_product_plan(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.delete_provisioned_product_plan
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.delete_provisioned_product_plan.async_delete_provisioned_product_plan(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1877,14 +2148,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.delete_provisioning_artifact_output.DeleteProvisioningArtifactOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.delete_provisioning_artifact
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.delete_provisioning_artifact
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.delete_provisioning_artifact.async_delete_provisioning_artifact(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.delete_provisioning_artifact.async_delete_provisioning_artifact(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.delete_provisioning_artifact
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.delete_provisioning_artifact.async_delete_provisioning_artifact(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1936,14 +2219,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.delete_service_action_output.DeleteServiceActionOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.delete_service_action
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.delete_service_action
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.delete_service_action.async_delete_service_action(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.delete_service_action.async_delete_service_action(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.delete_service_action
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.delete_service_action.async_delete_service_action(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1989,14 +2284,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.delete_tag_option_output.DeleteTagOptionOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.delete_tag_option
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.delete_tag_option
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.delete_tag_option.async_delete_tag_option(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.delete_tag_option.async_delete_tag_option(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.delete_tag_option
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.delete_tag_option.async_delete_tag_option(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2041,14 +2348,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.describe_constraint_output.DescribeConstraintOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.describe_constraint
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.describe_constraint
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.describe_constraint.async_describe_constraint(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.describe_constraint.async_describe_constraint(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.describe_constraint
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.describe_constraint.async_describe_constraint(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2093,14 +2412,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.describe_copy_product_status_output.DescribeCopyProductStatusOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.describe_copy_product_status
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.describe_copy_product_status
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.describe_copy_product_status.async_describe_copy_product_status(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.describe_copy_product_status.async_describe_copy_product_status(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.describe_copy_product_status
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.describe_copy_product_status.async_describe_copy_product_status(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2145,14 +2476,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.describe_portfolio_output.DescribePortfolioOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.describe_portfolio
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.describe_portfolio
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.describe_portfolio.async_describe_portfolio(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.describe_portfolio.async_describe_portfolio(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.describe_portfolio
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.describe_portfolio.async_describe_portfolio(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2202,14 +2545,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.describe_portfolio_shares_output.DescribePortfolioSharesOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.describe_portfolio_shares
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.describe_portfolio_shares
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.describe_portfolio_shares.async_describe_portfolio_shares(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.describe_portfolio_shares.async_describe_portfolio_shares(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.describe_portfolio_shares
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.describe_portfolio_shares.async_describe_portfolio_shares(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2280,14 +2635,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.describe_portfolio_share_status_output.DescribePortfolioShareStatusOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.describe_portfolio_share_status
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.describe_portfolio_share_status
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.describe_portfolio_share_status.async_describe_portfolio_share_status(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.describe_portfolio_share_status.async_describe_portfolio_share_status(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.describe_portfolio_share_status
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.describe_portfolio_share_status.async_describe_portfolio_share_status(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2335,14 +2702,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.describe_product_output.DescribeProductOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.describe_product
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.describe_product
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.describe_product.async_describe_product(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.describe_product.async_describe_product(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.describe_product
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.describe_product.async_describe_product(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2396,14 +2775,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.describe_product_as_admin_output.DescribeProductAsAdminOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.describe_product_as_admin
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.describe_product_as_admin
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.describe_product_as_admin.async_describe_product_as_admin(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.describe_product_as_admin.async_describe_product_as_admin(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.describe_product_as_admin
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.describe_product_as_admin.async_describe_product_as_admin(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2453,14 +2844,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.describe_product_view_output.DescribeProductViewOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.describe_product_view
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.describe_product_view
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.describe_product_view.async_describe_product_view(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.describe_product_view.async_describe_product_view(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.describe_product_view
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.describe_product_view.async_describe_product_view(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2510,14 +2913,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.describe_provisioned_product_output.DescribeProvisionedProductOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.describe_provisioned_product
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.describe_provisioned_product
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.describe_provisioned_product.async_describe_provisioned_product(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.describe_provisioned_product.async_describe_provisioned_product(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.describe_provisioned_product
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.describe_provisioned_product.async_describe_provisioned_product(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2569,14 +2984,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.describe_provisioned_product_plan_output.DescribeProvisionedProductPlanOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.describe_provisioned_product_plan
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.describe_provisioned_product_plan
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.describe_provisioned_product_plan.async_describe_provisioned_product_plan(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.describe_provisioned_product_plan.async_describe_provisioned_product_plan(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.describe_provisioned_product_plan
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.describe_provisioned_product_plan.async_describe_provisioned_product_plan(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2642,14 +3069,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.describe_provisioning_artifact_output.DescribeProvisioningArtifactOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.describe_provisioning_artifact
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.describe_provisioning_artifact
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.describe_provisioning_artifact.async_describe_provisioning_artifact(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.describe_provisioning_artifact.async_describe_provisioning_artifact(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.describe_provisioning_artifact
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.describe_provisioning_artifact.async_describe_provisioning_artifact(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2723,14 +3162,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.describe_provisioning_parameters_output.DescribeProvisioningParametersOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.describe_provisioning_parameters
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.describe_provisioning_parameters
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.describe_provisioning_parameters.async_describe_provisioning_parameters(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.describe_provisioning_parameters.async_describe_provisioning_parameters(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.describe_provisioning_parameters
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.describe_provisioning_parameters.async_describe_provisioning_parameters(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2789,14 +3240,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.describe_record_output.DescribeRecordOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.describe_record
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.describe_record
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.describe_record.async_describe_record(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.describe_record.async_describe_record(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.describe_record
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.describe_record.async_describe_record(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2845,14 +3308,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.describe_service_action_output.DescribeServiceActionOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.describe_service_action
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.describe_service_action
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.describe_service_action.async_describe_service_action(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.describe_service_action.async_describe_service_action(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.describe_service_action
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.describe_service_action.async_describe_service_action(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2900,14 +3375,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.describe_service_action_execution_parameters_output.DescribeServiceActionExecutionParametersOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.describe_service_action_execution_parameters
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.describe_service_action_execution_parameters
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.describe_service_action_execution_parameters.async_describe_service_action_execution_parameters(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.describe_service_action_execution_parameters.async_describe_service_action_execution_parameters(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.describe_service_action_execution_parameters
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.describe_service_action_execution_parameters.async_describe_service_action_execution_parameters(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2953,14 +3440,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.describe_tag_option_output.DescribeTagOptionOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.describe_tag_option
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.describe_tag_option
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.describe_tag_option.async_describe_tag_option(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.describe_tag_option.async_describe_tag_option(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.describe_tag_option
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.describe_tag_option.async_describe_tag_option(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2995,14 +3494,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.disable_aws_organizations_access_output.DisableAWSOrganizationsAccessOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.disable_aws_organizations_access
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.disable_aws_organizations_access
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.disable_aws_organizations_access.async_disable_aws_organizations_access(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.disable_aws_organizations_access.async_disable_aws_organizations_access(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.disable_aws_organizations_access
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.disable_aws_organizations_access.async_disable_aws_organizations_access(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3041,14 +3552,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.disassociate_budget_from_resource_output.DisassociateBudgetFromResourceOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.disassociate_budget_from_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.disassociate_budget_from_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.disassociate_budget_from_resource.async_disassociate_budget_from_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.disassociate_budget_from_resource.async_disassociate_budget_from_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.disassociate_budget_from_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.disassociate_budget_from_resource.async_disassociate_budget_from_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3099,14 +3622,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.disassociate_principal_from_portfolio_output.DisassociatePrincipalFromPortfolioOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.disassociate_principal_from_portfolio
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.disassociate_principal_from_portfolio
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.disassociate_principal_from_portfolio.async_disassociate_principal_from_portfolio(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.disassociate_principal_from_portfolio.async_disassociate_principal_from_portfolio(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.disassociate_principal_from_portfolio
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.disassociate_principal_from_portfolio.async_disassociate_principal_from_portfolio(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3158,14 +3693,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.disassociate_product_from_portfolio_output.DisassociateProductFromPortfolioOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.disassociate_product_from_portfolio
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.disassociate_product_from_portfolio
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.disassociate_product_from_portfolio.async_disassociate_product_from_portfolio(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.disassociate_product_from_portfolio.async_disassociate_product_from_portfolio(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.disassociate_product_from_portfolio
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.disassociate_product_from_portfolio.async_disassociate_product_from_portfolio(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3220,14 +3767,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.disassociate_service_action_from_provisioning_artifact_output.DisassociateServiceActionFromProvisioningArtifactOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.disassociate_service_action_from_provisioning_artifact
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.disassociate_service_action_from_provisioning_artifact
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.disassociate_service_action_from_provisioning_artifact.async_disassociate_service_action_from_provisioning_artifact(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.disassociate_service_action_from_provisioning_artifact.async_disassociate_service_action_from_provisioning_artifact(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.disassociate_service_action_from_provisioning_artifact
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.disassociate_service_action_from_provisioning_artifact.async_disassociate_service_action_from_provisioning_artifact(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3277,14 +3836,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.disassociate_tag_option_from_resource_output.DisassociateTagOptionFromResourceOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.disassociate_tag_option_from_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.disassociate_tag_option_from_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.disassociate_tag_option_from_resource.async_disassociate_tag_option_from_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.disassociate_tag_option_from_resource.async_disassociate_tag_option_from_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.disassociate_tag_option_from_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.disassociate_tag_option_from_resource.async_disassociate_tag_option_from_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3320,14 +3891,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.enable_aws_organizations_access_output.EnableAWSOrganizationsAccessOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.enable_aws_organizations_access
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.enable_aws_organizations_access
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.enable_aws_organizations_access.async_enable_aws_organizations_access(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.enable_aws_organizations_access.async_enable_aws_organizations_access(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.enable_aws_organizations_access
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.enable_aws_organizations_access.async_enable_aws_organizations_access(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3372,14 +3955,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.execute_provisioned_product_plan_output.ExecuteProvisionedProductPlanOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.execute_provisioned_product_plan
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.execute_provisioned_product_plan
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.execute_provisioned_product_plan.async_execute_provisioned_product_plan(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.execute_provisioned_product_plan.async_execute_provisioned_product_plan(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.execute_provisioned_product_plan
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.execute_provisioned_product_plan.async_execute_provisioned_product_plan(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3435,14 +4030,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.execute_provisioned_product_service_action_output.ExecuteProvisionedProductServiceActionOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.execute_provisioned_product_service_action
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.execute_provisioned_product_service_action
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.execute_provisioned_product_service_action.async_execute_provisioned_product_service_action(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.execute_provisioned_product_service_action.async_execute_provisioned_product_service_action(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.execute_provisioned_product_service_action
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.execute_provisioned_product_service_action.async_execute_provisioned_product_service_action(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3482,14 +4089,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.get_aws_organizations_access_status_output.GetAWSOrganizationsAccessStatusOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.get_aws_organizations_access_status
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.get_aws_organizations_access_status
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.get_aws_organizations_access_status.async_get_aws_organizations_access_status(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.get_aws_organizations_access_status.async_get_aws_organizations_access_status(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.get_aws_organizations_access_status
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.get_aws_organizations_access_status.async_get_aws_organizations_access_status(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3543,14 +4162,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.get_provisioned_product_outputs_output.GetProvisionedProductOutputsOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.get_provisioned_product_outputs
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.get_provisioned_product_outputs
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.get_provisioned_product_outputs.async_get_provisioned_product_outputs(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.get_provisioned_product_outputs.async_get_provisioned_product_outputs(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.get_provisioned_product_outputs
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.get_provisioned_product_outputs.async_get_provisioned_product_outputs(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3647,14 +4278,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.import_as_provisioned_product_output.ImportAsProvisionedProductOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.import_as_provisioned_product
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.import_as_provisioned_product
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.import_as_provisioned_product.async_import_as_provisioned_product(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.import_as_provisioned_product.async_import_as_provisioned_product(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.import_as_provisioned_product
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.import_as_provisioned_product.async_import_as_provisioned_product(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3712,14 +4355,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.list_accepted_portfolio_shares_output.ListAcceptedPortfolioSharesOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.list_accepted_portfolio_shares
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_accepted_portfolio_shares
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.list_accepted_portfolio_shares.async_list_accepted_portfolio_shares(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_accepted_portfolio_shares.async_list_accepted_portfolio_shares(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_accepted_portfolio_shares
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_accepted_portfolio_shares.async_list_accepted_portfolio_shares(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3802,14 +4457,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.list_budgets_for_resource_output.ListBudgetsForResourceOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.list_budgets_for_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_budgets_for_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.list_budgets_for_resource.async_list_budgets_for_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_budgets_for_resource.async_list_budgets_for_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_budgets_for_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_budgets_for_resource.async_list_budgets_for_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3890,14 +4557,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.list_constraints_for_portfolio_output.ListConstraintsForPortfolioOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.list_constraints_for_portfolio
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_constraints_for_portfolio
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.list_constraints_for_portfolio.async_list_constraints_for_portfolio(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_constraints_for_portfolio.async_list_constraints_for_portfolio(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_constraints_for_portfolio
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_constraints_for_portfolio.async_list_constraints_for_portfolio(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3980,14 +4659,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.list_launch_paths_output.ListLaunchPathsOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.list_launch_paths
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_launch_paths
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.list_launch_paths.async_list_launch_paths(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_launch_paths.async_list_launch_paths(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_launch_paths
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_launch_paths.async_list_launch_paths(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4069,14 +4760,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.list_organization_portfolio_access_output.ListOrganizationPortfolioAccessOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.list_organization_portfolio_access
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_organization_portfolio_access
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.list_organization_portfolio_access.async_list_organization_portfolio_access(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_organization_portfolio_access.async_list_organization_portfolio_access(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_organization_portfolio_access
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_organization_portfolio_access.async_list_organization_portfolio_access(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4162,14 +4865,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.list_portfolio_access_output.ListPortfolioAccessOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.list_portfolio_access
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_portfolio_access
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.list_portfolio_access.async_list_portfolio_access(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_portfolio_access.async_list_portfolio_access(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_portfolio_access
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_portfolio_access.async_list_portfolio_access(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4253,14 +4968,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.list_portfolios_output.ListPortfoliosOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.list_portfolios
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_portfolios
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.list_portfolios.async_list_portfolios(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_portfolios.async_list_portfolios(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_portfolios
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_portfolios.async_list_portfolios(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4339,14 +5066,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.list_portfolios_for_product_output.ListPortfoliosForProductOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.list_portfolios_for_product
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_portfolios_for_product
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.list_portfolios_for_product.async_list_portfolios_for_product(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_portfolios_for_product.async_list_portfolios_for_product(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_portfolios_for_product
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_portfolios_for_product.async_list_portfolios_for_product(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4427,14 +5166,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.list_principals_for_portfolio_output.ListPrincipalsForPortfolioOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.list_principals_for_portfolio
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_principals_for_portfolio
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.list_principals_for_portfolio.async_list_principals_for_portfolio(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_principals_for_portfolio.async_list_principals_for_portfolio(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_principals_for_portfolio
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_principals_for_portfolio.async_list_principals_for_portfolio(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4517,14 +5268,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.list_provisioned_product_plans_output.ListProvisionedProductPlansOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.list_provisioned_product_plans
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_provisioned_product_plans
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.list_provisioned_product_plans.async_list_provisioned_product_plans(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_provisioned_product_plans.async_list_provisioned_product_plans(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_provisioned_product_plans
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_provisioned_product_plans.async_list_provisioned_product_plans(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4607,14 +5370,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.list_provisioning_artifacts_output.ListProvisioningArtifactsOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.list_provisioning_artifacts
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_provisioning_artifacts
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.list_provisioning_artifacts.async_list_provisioning_artifacts(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_provisioning_artifacts.async_list_provisioning_artifacts(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_provisioning_artifacts
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_provisioning_artifacts.async_list_provisioning_artifacts(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4664,14 +5439,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.list_provisioning_artifacts_for_service_action_output.ListProvisioningArtifactsForServiceActionOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.list_provisioning_artifacts_for_service_action
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_provisioning_artifacts_for_service_action
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.list_provisioning_artifacts_for_service_action.async_list_provisioning_artifacts_for_service_action(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_provisioning_artifacts_for_service_action.async_list_provisioning_artifacts_for_service_action(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_provisioning_artifacts_for_service_action
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_provisioning_artifacts_for_service_action.async_list_provisioning_artifacts_for_service_action(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4758,14 +5545,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.list_record_history_output.ListRecordHistoryOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.list_record_history
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_record_history
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.list_record_history.async_list_record_history(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_record_history.async_list_record_history(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_record_history
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_record_history.async_list_record_history(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4855,14 +5654,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.list_resources_for_tag_option_output.ListResourcesForTagOptionOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.list_resources_for_tag_option
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_resources_for_tag_option
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.list_resources_for_tag_option.async_list_resources_for_tag_option(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_resources_for_tag_option.async_list_resources_for_tag_option(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_resources_for_tag_option
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_resources_for_tag_option.async_list_resources_for_tag_option(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4938,14 +5749,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.list_service_actions_output.ListServiceActionsOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.list_service_actions
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_service_actions
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.list_service_actions.async_list_service_actions(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_service_actions.async_list_service_actions(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_service_actions
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_service_actions.async_list_service_actions(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5022,14 +5845,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.list_service_actions_for_provisioning_artifact_output.ListServiceActionsForProvisioningArtifactOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.list_service_actions_for_provisioning_artifact
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_service_actions_for_provisioning_artifact
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.list_service_actions_for_provisioning_artifact.async_list_service_actions_for_provisioning_artifact(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_service_actions_for_provisioning_artifact.async_list_service_actions_for_provisioning_artifact(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_service_actions_for_provisioning_artifact
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_service_actions_for_provisioning_artifact.async_list_service_actions_for_provisioning_artifact(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5112,14 +5947,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.list_stack_instances_for_provisioned_product_output.ListStackInstancesForProvisionedProductOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.list_stack_instances_for_provisioned_product
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_stack_instances_for_provisioned_product
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.list_stack_instances_for_provisioned_product.async_list_stack_instances_for_provisioned_product(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_stack_instances_for_provisioned_product.async_list_stack_instances_for_provisioned_product(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_stack_instances_for_provisioned_product
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_stack_instances_for_provisioned_product.async_list_stack_instances_for_provisioned_product(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5199,14 +6046,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.list_tag_options_output.ListTagOptionsOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.list_tag_options
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_tag_options
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.list_tag_options.async_list_tag_options(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.list_tag_options.async_list_tag_options(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_tag_options
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.list_tag_options.async_list_tag_options(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5291,14 +6150,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.notify_provision_product_engine_workflow_result_output.NotifyProvisionProductEngineWorkflowResultOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.notify_provision_product_engine_workflow_result
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.notify_provision_product_engine_workflow_result
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.notify_provision_product_engine_workflow_result.async_notify_provision_product_engine_workflow_result(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.notify_provision_product_engine_workflow_result.async_notify_provision_product_engine_workflow_result(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.notify_provision_product_engine_workflow_result
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.notify_provision_product_engine_workflow_result.async_notify_provision_product_engine_workflow_result(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5358,14 +6229,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.notify_terminate_provisioned_product_engine_workflow_result_output.NotifyTerminateProvisionedProductEngineWorkflowResultOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.notify_terminate_provisioned_product_engine_workflow_result
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.notify_terminate_provisioned_product_engine_workflow_result
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.notify_terminate_provisioned_product_engine_workflow_result.async_notify_terminate_provisioned_product_engine_workflow_result(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.notify_terminate_provisioned_product_engine_workflow_result.async_notify_terminate_provisioned_product_engine_workflow_result(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.notify_terminate_provisioned_product_engine_workflow_result
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.notify_terminate_provisioned_product_engine_workflow_result.async_notify_terminate_provisioned_product_engine_workflow_result(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5425,14 +6308,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.notify_update_provisioned_product_engine_workflow_result_output.NotifyUpdateProvisionedProductEngineWorkflowResultOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.notify_update_provisioned_product_engine_workflow_result
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.notify_update_provisioned_product_engine_workflow_result
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.notify_update_provisioned_product_engine_workflow_result.async_notify_update_provisioned_product_engine_workflow_result(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.notify_update_provisioned_product_engine_workflow_result.async_notify_update_provisioned_product_engine_workflow_result(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.notify_update_provisioned_product_engine_workflow_result
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.notify_update_provisioned_product_engine_workflow_result.async_notify_update_provisioned_product_engine_workflow_result(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5519,14 +6414,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.provision_product_output.ProvisionProductOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.provision_product
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.provision_product
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.provision_product.async_provision_product(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.provision_product.async_provision_product(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.provision_product
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.provision_product.async_provision_product(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5596,14 +6503,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.reject_portfolio_share_output.RejectPortfolioShareOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.reject_portfolio_share
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.reject_portfolio_share
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.reject_portfolio_share.async_reject_portfolio_share(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.reject_portfolio_share.async_reject_portfolio_share(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.reject_portfolio_share
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.reject_portfolio_share.async_reject_portfolio_share(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5656,14 +6575,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.scan_provisioned_products_output.ScanProvisionedProductsOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.scan_provisioned_products
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.scan_provisioned_products
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.scan_provisioned_products.async_scan_provisioned_products(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.scan_provisioned_products.async_scan_provisioned_products(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.scan_provisioned_products
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.scan_provisioned_products.async_scan_provisioned_products(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5755,14 +6686,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.search_products_output.SearchProductsOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.search_products
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.search_products
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.search_products.async_search_products(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.search_products.async_search_products(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.search_products
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.search_products.async_search_products(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5869,14 +6812,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.search_products_as_admin_output.SearchProductsAsAdminOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.search_products_as_admin
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.search_products_as_admin
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.search_products_as_admin.async_search_products_as_admin(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.search_products_as_admin.async_search_products_as_admin(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.search_products_as_admin
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.search_products_as_admin.async_search_products_as_admin(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5988,14 +6943,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.search_provisioned_products_output.SearchProvisionedProductsOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.search_provisioned_products
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.search_provisioned_products
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.search_provisioned_products.async_search_provisioned_products(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.search_provisioned_products.async_search_provisioned_products(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.search_provisioned_products
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.search_provisioned_products.async_search_provisioned_products(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -6101,14 +7068,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.terminate_provisioned_product_output.TerminateProvisionedProductOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.terminate_provisioned_product
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.terminate_provisioned_product
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.terminate_provisioned_product.async_terminate_provisioned_product(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.terminate_provisioned_product.async_terminate_provisioned_product(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.terminate_provisioned_product
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.terminate_provisioned_product.async_terminate_provisioned_product(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -6170,14 +7149,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.update_constraint_output.UpdateConstraintOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.update_constraint
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.update_constraint
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.update_constraint.async_update_constraint(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.update_constraint.async_update_constraint(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.update_constraint
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.update_constraint.async_update_constraint(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -6245,14 +7236,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.update_portfolio_output.UpdatePortfolioOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.update_portfolio
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.update_portfolio
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.update_portfolio.async_update_portfolio(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.update_portfolio.async_update_portfolio(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.update_portfolio
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.update_portfolio.async_update_portfolio(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -6323,14 +7326,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.update_portfolio_share_output.UpdatePortfolioShareOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.update_portfolio_share
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.update_portfolio_share
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.update_portfolio_share.async_update_portfolio_share(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.update_portfolio_share.async_update_portfolio_share(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.update_portfolio_share
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.update_portfolio_share.async_update_portfolio_share(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -6421,14 +7436,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.update_product_output.UpdateProductOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.update_product
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.update_product
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.update_product.async_update_product(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.update_product.async_update_product(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.update_product
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.update_product.async_update_product(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -6528,14 +7555,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.update_provisioned_product_output.UpdateProvisionedProductOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.update_provisioned_product
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.update_provisioned_product
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.update_provisioned_product.async_update_provisioned_product(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.update_provisioned_product.async_update_provisioned_product(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.update_provisioned_product
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.update_provisioned_product.async_update_provisioned_product(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -6608,14 +7647,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.update_provisioned_product_properties_output.UpdateProvisionedProductPropertiesOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.update_provisioned_product_properties
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.update_provisioned_product_properties
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.update_provisioned_product_properties.async_update_provisioned_product_properties(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.update_provisioned_product_properties.async_update_provisioned_product_properties(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.update_provisioned_product_properties
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.update_provisioned_product_properties.async_update_provisioned_product_properties(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -6681,14 +7732,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.update_provisioning_artifact_output.UpdateProvisioningArtifactOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.update_provisioning_artifact
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.update_provisioning_artifact
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.update_provisioning_artifact.async_update_provisioning_artifact(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.update_provisioning_artifact.async_update_provisioning_artifact(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.update_provisioning_artifact
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.update_provisioning_artifact.async_update_provisioning_artifact(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -6755,14 +7818,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.update_service_action_output.UpdateServiceActionOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.update_service_action
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.update_service_action
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.update_service_action.async_update_service_action(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.update_service_action.async_update_service_action(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.update_service_action
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.update_service_action.async_update_service_action(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -6820,14 +7895,26 @@ class AsyncServiceCatalogClient:
         ) -> AsyncOperationResponse[
             "capo_service_catalog.types.update_tag_option_output.UpdateTagOptionOutput"
         ]:
-            import capo_service_catalog._operations.aws242_service_catalog_service.update_tag_option
+            if req.options.protocol == "awsJson1_1":
+                import capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.update_tag_option
 
-            (
-                output,
-                http_response,
-            ) = await capo_service_catalog._operations.aws242_service_catalog_service.update_tag_option.async_update_tag_option(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.aws_json1_1.update_tag_option.async_update_tag_option(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.update_tag_option
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_service_catalog._operations.aws242_service_catalog_service.rpcv2_cbor.update_tag_option.async_update_tag_option(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

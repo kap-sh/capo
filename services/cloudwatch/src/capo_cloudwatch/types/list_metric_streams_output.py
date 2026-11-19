@@ -79,3 +79,30 @@ def deserialize_query(el: Element) -> ListMetricStreamsOutput:
             child_entries
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListMetricStreamsOutput) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "entries" in value:
+        import capo_cloudwatch.types.metric_stream_entries
+
+        out["Entries"] = capo_cloudwatch.types.metric_stream_entries.serialize_cbor(
+            value["entries"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListMetricStreamsOutput:
+    out: ListMetricStreamsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("Entries") is not None:
+        import capo_cloudwatch.types.metric_stream_entries
+
+        out["entries"] = capo_cloudwatch.types.metric_stream_entries.deserialize_cbor(
+            data["Entries"]
+        )
+    return out

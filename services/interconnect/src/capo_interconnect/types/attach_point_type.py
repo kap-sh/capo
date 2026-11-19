@@ -12,3 +12,12 @@ def serialize_aws_json_1_0(value: AttachPointType) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> AttachPointType:
     return cast(AttachPointType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AttachPointType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> AttachPointType:
+    return cast(AttachPointType, data)

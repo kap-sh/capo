@@ -20,3 +20,12 @@ def serialize_aws_json_1_1(value: ICD10CMAttributeType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> ICD10CMAttributeType:
     return cast(ICD10CMAttributeType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ICD10CMAttributeType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ICD10CMAttributeType:
+    return cast(ICD10CMAttributeType, data)

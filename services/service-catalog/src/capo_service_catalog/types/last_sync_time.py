@@ -18,3 +18,12 @@ def serialize_aws_json_1_1(value: LastSyncTime) -> float:
 
 def deserialize_aws_json_1_1(data: float) -> LastSyncTime:
     return datetime.datetime.fromtimestamp(float(data), tz=datetime.timezone.utc)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LastSyncTime) -> LastSyncTime:
+    return value
+
+
+def deserialize_cbor(data: LastSyncTime) -> LastSyncTime:
+    return data

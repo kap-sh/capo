@@ -56,3 +56,34 @@ def deserialize_aws_json_1_0(data: dict) -> ListAgreementChargesInput:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListAgreementChargesInput) -> dict:
+    out: dict = {}
+    if "catalog" in value:
+        out["catalog"] = value["catalog"]
+    if "agreement_id" in value:
+        out["agreementId"] = value["agreement_id"]
+    if "agreement_type" in value:
+        out["agreementType"] = value["agreement_type"]
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListAgreementChargesInput:
+    out: ListAgreementChargesInput = {}  # type: ignore[typeddict-item]
+    if data.get("catalog") is not None:
+        out["catalog"] = data["catalog"]
+    if data.get("agreementId") is not None:
+        out["agreement_id"] = data["agreementId"]
+    if data.get("agreementType") is not None:
+        out["agreement_type"] = data["agreementType"]
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> HumanLoopDataAttributes:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: HumanLoopDataAttributes) -> dict:
+    out: dict = {}
+    if "content_classifiers" in value:
+        import capo_textract.types.content_classifiers
+
+        out["ContentClassifiers"] = (
+            capo_textract.types.content_classifiers.serialize_cbor(
+                value["content_classifiers"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> HumanLoopDataAttributes:
+    out: HumanLoopDataAttributes = {}  # type: ignore[typeddict-item]
+    if data.get("ContentClassifiers") is not None:
+        import capo_textract.types.content_classifiers
+
+        out["content_classifiers"] = (
+            capo_textract.types.content_classifiers.deserialize_cbor(
+                data["ContentClassifiers"]
+            )
+        )
+    return out

@@ -36,3 +36,22 @@ def deserialize_aws_json_1_1(
             "healthServiceAccessStatusForOrganization"
         ]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeHealthServiceStatusForOrganizationResponse) -> dict:
+    out: dict = {}
+    if "health_service_access_status_for_organization" in value:
+        out["healthServiceAccessStatusForOrganization"] = value[
+            "health_service_access_status_for_organization"
+        ]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeHealthServiceStatusForOrganizationResponse:
+    out: DescribeHealthServiceStatusForOrganizationResponse = {}  # type: ignore[typeddict-item]
+    if data.get("healthServiceAccessStatusForOrganization") is not None:
+        out["health_service_access_status_for_organization"] = data[
+            "healthServiceAccessStatusForOrganization"
+        ]
+    return out

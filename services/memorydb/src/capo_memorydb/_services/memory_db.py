@@ -172,6 +172,7 @@ class MemoryDBClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[Interceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_1", "rpcv2Cbor"]
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -188,6 +189,7 @@ class MemoryDBClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -203,6 +205,7 @@ class MemoryDBClient:
         operation_interceptors: Iterable[Interceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_1", "rpcv2Cbor"] = "awsJson1_1",
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -239,6 +242,7 @@ class MemoryDBClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -272,6 +276,9 @@ class MemoryDBClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_1")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -311,13 +318,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.batch_update_cluster_response.BatchUpdateClusterResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.batch_update_cluster
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.batch_update_cluster
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.batch_update_cluster.batch_update_cluster(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.batch_update_cluster.batch_update_cluster(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.batch_update_cluster
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.batch_update_cluster.batch_update_cluster(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -375,13 +393,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.copy_snapshot_response.CopySnapshotResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.copy_snapshot
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.copy_snapshot
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.copy_snapshot.copy_snapshot(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.copy_snapshot.copy_snapshot(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.copy_snapshot
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.copy_snapshot.copy_snapshot(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -439,13 +468,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.create_acl_response.CreateACLResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.create_acl
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.create_acl
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.create_acl.create_acl(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.create_acl.create_acl(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.create_acl
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.create_acl.create_acl(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -571,13 +611,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.create_cluster_response.CreateClusterResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.create_cluster
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.create_cluster
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.create_cluster.create_cluster(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.create_cluster.create_cluster(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.create_cluster
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.create_cluster.create_cluster(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -691,13 +742,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.create_multi_region_cluster_response.CreateMultiRegionClusterResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.create_multi_region_cluster
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.create_multi_region_cluster
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.create_multi_region_cluster.create_multi_region_cluster(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.create_multi_region_cluster.create_multi_region_cluster(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.create_multi_region_cluster
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.create_multi_region_cluster.create_multi_region_cluster(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -765,13 +827,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.create_parameter_group_response.CreateParameterGroupResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.create_parameter_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.create_parameter_group
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.create_parameter_group.create_parameter_group(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.create_parameter_group.create_parameter_group(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.create_parameter_group
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.create_parameter_group.create_parameter_group(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -828,13 +901,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.create_snapshot_response.CreateSnapshotResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.create_snapshot
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.create_snapshot
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.create_snapshot.create_snapshot(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.create_snapshot.create_snapshot(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.create_snapshot
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.create_snapshot.create_snapshot(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -890,13 +974,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.create_subnet_group_response.CreateSubnetGroupResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.create_subnet_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.create_subnet_group
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.create_subnet_group.create_subnet_group(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.create_subnet_group.create_subnet_group(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.create_subnet_group
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.create_subnet_group.create_subnet_group(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -951,13 +1046,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.create_user_response.CreateUserResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.create_user
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.create_user
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.create_user.create_user(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.create_user.create_user(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.create_user
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.create_user.create_user(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1002,13 +1108,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.delete_acl_response.DeleteACLResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.delete_acl
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.delete_acl
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.delete_acl.delete_acl(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.delete_acl.delete_acl(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.delete_acl
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.delete_acl.delete_acl(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1056,13 +1173,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.delete_cluster_response.DeleteClusterResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.delete_cluster
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.delete_cluster
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.delete_cluster.delete_cluster(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.delete_cluster.delete_cluster(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.delete_cluster
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.delete_cluster.delete_cluster(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1107,13 +1235,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.delete_multi_region_cluster_response.DeleteMultiRegionClusterResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.delete_multi_region_cluster
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.delete_multi_region_cluster
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.delete_multi_region_cluster.delete_multi_region_cluster(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.delete_multi_region_cluster.delete_multi_region_cluster(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.delete_multi_region_cluster
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.delete_multi_region_cluster.delete_multi_region_cluster(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1156,13 +1295,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.delete_parameter_group_response.DeleteParameterGroupResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.delete_parameter_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.delete_parameter_group
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.delete_parameter_group.delete_parameter_group(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.delete_parameter_group.delete_parameter_group(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.delete_parameter_group
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.delete_parameter_group.delete_parameter_group(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1205,13 +1355,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.delete_snapshot_response.DeleteSnapshotResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.delete_snapshot
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.delete_snapshot
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.delete_snapshot.delete_snapshot(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.delete_snapshot.delete_snapshot(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.delete_snapshot
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.delete_snapshot.delete_snapshot(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1252,13 +1413,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.delete_subnet_group_response.DeleteSubnetGroupResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.delete_subnet_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.delete_subnet_group
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.delete_subnet_group.delete_subnet_group(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.delete_subnet_group.delete_subnet_group(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.delete_subnet_group
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.delete_subnet_group.delete_subnet_group(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1299,13 +1471,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.delete_user_response.DeleteUserResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.delete_user
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.delete_user
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.delete_user.delete_user(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.delete_user.delete_user(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.delete_user
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.delete_user.delete_user(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1351,13 +1534,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.describe_ac_ls_response.DescribeACLsResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.describe_ac_ls
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.describe_ac_ls
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.describe_ac_ls.describe_ac_ls(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.describe_ac_ls.describe_ac_ls(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.describe_ac_ls
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.describe_ac_ls.describe_ac_ls(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1438,13 +1632,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.describe_clusters_response.DescribeClustersResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.describe_clusters
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.describe_clusters
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.describe_clusters.describe_clusters(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.describe_clusters.describe_clusters(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.describe_clusters
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.describe_clusters.describe_clusters(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1532,13 +1737,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.describe_engine_versions_response.DescribeEngineVersionsResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.describe_engine_versions
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.describe_engine_versions
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.describe_engine_versions.describe_engine_versions(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.describe_engine_versions.describe_engine_versions(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.describe_engine_versions
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.describe_engine_versions.describe_engine_versions(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1636,13 +1852,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.describe_events_response.DescribeEventsResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.describe_events
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.describe_events
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.describe_events.describe_events(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.describe_events.describe_events(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.describe_events
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.describe_events.describe_events(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1741,13 +1968,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.describe_multi_region_clusters_response.DescribeMultiRegionClustersResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.describe_multi_region_clusters
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.describe_multi_region_clusters
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.describe_multi_region_clusters.describe_multi_region_clusters(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.describe_multi_region_clusters.describe_multi_region_clusters(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.describe_multi_region_clusters
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.describe_multi_region_clusters.describe_multi_region_clusters(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1832,13 +2070,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.describe_multi_region_parameter_groups_response.DescribeMultiRegionParameterGroupsResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.describe_multi_region_parameter_groups
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.describe_multi_region_parameter_groups
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.describe_multi_region_parameter_groups.describe_multi_region_parameter_groups(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.describe_multi_region_parameter_groups.describe_multi_region_parameter_groups(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.describe_multi_region_parameter_groups
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.describe_multi_region_parameter_groups.describe_multi_region_parameter_groups(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1894,13 +2143,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.describe_multi_region_parameters_response.DescribeMultiRegionParametersResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.describe_multi_region_parameters
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.describe_multi_region_parameters
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.describe_multi_region_parameters.describe_multi_region_parameters(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.describe_multi_region_parameters.describe_multi_region_parameters(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.describe_multi_region_parameters
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.describe_multi_region_parameters.describe_multi_region_parameters(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1954,13 +2214,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.describe_parameter_groups_response.DescribeParameterGroupsResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.describe_parameter_groups
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.describe_parameter_groups
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.describe_parameter_groups.describe_parameter_groups(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.describe_parameter_groups.describe_parameter_groups(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.describe_parameter_groups
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.describe_parameter_groups.describe_parameter_groups(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2037,13 +2308,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.describe_parameters_response.DescribeParametersResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.describe_parameters
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.describe_parameters
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.describe_parameters.describe_parameters(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.describe_parameters.describe_parameters(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.describe_parameters
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.describe_parameters.describe_parameters(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2130,13 +2412,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.describe_reserved_nodes_response.DescribeReservedNodesResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.describe_reserved_nodes
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.describe_reserved_nodes
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.describe_reserved_nodes.describe_reserved_nodes(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.describe_reserved_nodes.describe_reserved_nodes(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.describe_reserved_nodes
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.describe_reserved_nodes.describe_reserved_nodes(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2239,13 +2532,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.describe_reserved_nodes_offerings_response.DescribeReservedNodesOfferingsResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.describe_reserved_nodes_offerings
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.describe_reserved_nodes_offerings
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.describe_reserved_nodes_offerings.describe_reserved_nodes_offerings(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.describe_reserved_nodes_offerings.describe_reserved_nodes_offerings(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.describe_reserved_nodes_offerings
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.describe_reserved_nodes_offerings.describe_reserved_nodes_offerings(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2342,13 +2646,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.describe_service_updates_response.DescribeServiceUpdatesResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.describe_service_updates
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.describe_service_updates
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.describe_service_updates.describe_service_updates(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.describe_service_updates.describe_service_updates(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.describe_service_updates
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.describe_service_updates.describe_service_updates(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2445,13 +2760,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.describe_snapshots_response.DescribeSnapshotsResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.describe_snapshots
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.describe_snapshots
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.describe_snapshots.describe_snapshots(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.describe_snapshots.describe_snapshots(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.describe_snapshots
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.describe_snapshots.describe_snapshots(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2540,13 +2866,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.describe_subnet_groups_response.DescribeSubnetGroupsResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.describe_subnet_groups
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.describe_subnet_groups
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.describe_subnet_groups.describe_subnet_groups(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.describe_subnet_groups.describe_subnet_groups(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.describe_subnet_groups
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.describe_subnet_groups.describe_subnet_groups(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2623,13 +2960,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.describe_users_response.DescribeUsersResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.describe_users
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.describe_users
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.describe_users.describe_users(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.describe_users.describe_users(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.describe_users
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.describe_users.describe_users(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2710,13 +3058,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.failover_shard_response.FailoverShardResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.failover_shard
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.failover_shard
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.failover_shard.failover_shard(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.failover_shard.failover_shard(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.failover_shard
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.failover_shard.failover_shard(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2758,13 +3117,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.list_allowed_multi_region_cluster_updates_response.ListAllowedMultiRegionClusterUpdatesResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.list_allowed_multi_region_cluster_updates
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.list_allowed_multi_region_cluster_updates
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.list_allowed_multi_region_cluster_updates.list_allowed_multi_region_cluster_updates(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.list_allowed_multi_region_cluster_updates.list_allowed_multi_region_cluster_updates(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.list_allowed_multi_region_cluster_updates
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.list_allowed_multi_region_cluster_updates.list_allowed_multi_region_cluster_updates(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2806,13 +3176,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.list_allowed_node_type_updates_response.ListAllowedNodeTypeUpdatesResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.list_allowed_node_type_updates
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.list_allowed_node_type_updates
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.list_allowed_node_type_updates.list_allowed_node_type_updates(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.list_allowed_node_type_updates.list_allowed_node_type_updates(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.list_allowed_node_type_updates
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.list_allowed_node_type_updates.list_allowed_node_type_updates(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2861,13 +3242,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.list_tags_response.ListTagsResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.list_tags
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.list_tags
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.list_tags.list_tags(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.list_tags.list_tags(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.list_tags
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.list_tags.list_tags(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2920,13 +3312,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.purchase_reserved_nodes_offering_response.PurchaseReservedNodesOfferingResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.purchase_reserved_nodes_offering
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.purchase_reserved_nodes_offering
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.purchase_reserved_nodes_offering.purchase_reserved_nodes_offering(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.purchase_reserved_nodes_offering.purchase_reserved_nodes_offering(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.purchase_reserved_nodes_offering
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.purchase_reserved_nodes_offering.purchase_reserved_nodes_offering(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2983,13 +3386,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.reset_parameter_group_response.ResetParameterGroupResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.reset_parameter_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.reset_parameter_group
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.reset_parameter_group.reset_parameter_group(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.reset_parameter_group.reset_parameter_group(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.reset_parameter_group
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.reset_parameter_group.reset_parameter_group(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3046,13 +3460,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.tag_resource_response.TagResourceResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.tag_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.tag_resource
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.tag_resource.tag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.tag_resource
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3106,13 +3531,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.untag_resource_response.UntagResourceResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.untag_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.untag_resource
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.untag_resource.untag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.untag_resource
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3166,13 +3602,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.update_acl_response.UpdateACLResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.update_acl
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.update_acl
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.update_acl.update_acl(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.update_acl.update_acl(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.update_acl
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.update_acl.update_acl(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3268,13 +3715,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.update_cluster_response.UpdateClusterResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.update_cluster
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.update_cluster
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.update_cluster.update_cluster(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.update_cluster.update_cluster(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.update_cluster
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.update_cluster.update_cluster(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3364,13 +3822,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.update_multi_region_cluster_response.UpdateMultiRegionClusterResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.update_multi_region_cluster
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.update_multi_region_cluster
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.update_multi_region_cluster.update_multi_region_cluster(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.update_multi_region_cluster.update_multi_region_cluster(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.update_multi_region_cluster
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.update_multi_region_cluster.update_multi_region_cluster(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3429,13 +3898,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.update_parameter_group_response.UpdateParameterGroupResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.update_parameter_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.update_parameter_group
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.update_parameter_group.update_parameter_group(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.update_parameter_group.update_parameter_group(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.update_parameter_group
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.update_parameter_group.update_parameter_group(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3486,13 +3966,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.update_subnet_group_response.UpdateSubnetGroupResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.update_subnet_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.update_subnet_group
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.update_subnet_group.update_subnet_group(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.update_subnet_group.update_subnet_group(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.update_subnet_group
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.update_subnet_group.update_subnet_group(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3546,13 +4037,24 @@ class MemoryDBClient:
         ) -> OperationResponse[
             "capo_memorydb.types.update_user_response.UpdateUserResponse"
         ]:
-            import capo_memorydb._operations.amazon_memory_db.update_user
+            if req.options.protocol == "awsJson1_1":
+                import capo_memorydb._operations.amazon_memory_db.aws_json1_1.update_user
 
-            output, http_response = (
-                capo_memorydb._operations.amazon_memory_db.update_user.update_user(
-                    req.options, req.input
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.aws_json1_1.update_user.update_user(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.update_user
+
+                output, http_response = (
+                    capo_memorydb._operations.amazon_memory_db.rpcv2_cbor.update_user.update_user(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

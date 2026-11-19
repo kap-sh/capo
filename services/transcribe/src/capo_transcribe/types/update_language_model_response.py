@@ -62,3 +62,42 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateLanguageModelResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateLanguageModelResponse) -> dict:
+    out: dict = {}
+    if "model_name" in value:
+        out["ModelName"] = value["model_name"]
+    if "model_status" in value:
+        import capo_transcribe.types.model_status
+
+        out["ModelStatus"] = capo_transcribe.types.model_status.serialize_cbor(
+            value["model_status"]
+        )
+    if "last_modified_time" in value:
+        import capo_transcribe.types.date_time
+
+        out["LastModifiedTime"] = capo_transcribe.types.date_time.serialize_cbor(
+            value["last_modified_time"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateLanguageModelResponse:
+    out: UpdateLanguageModelResponse = {}  # type: ignore[typeddict-item]
+    if data.get("ModelName") is not None:
+        out["model_name"] = data["ModelName"]
+    if data.get("ModelStatus") is not None:
+        import capo_transcribe.types.model_status
+
+        out["model_status"] = capo_transcribe.types.model_status.deserialize_cbor(
+            data["ModelStatus"]
+        )
+    if data.get("LastModifiedTime") is not None:
+        import capo_transcribe.types.date_time
+
+        out["last_modified_time"] = capo_transcribe.types.date_time.deserialize_cbor(
+            data["LastModifiedTime"]
+        )
+    return out

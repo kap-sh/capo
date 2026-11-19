@@ -56,3 +56,38 @@ def deserialize_aws_json_1_1(data: dict) -> WebhookFilter:
     if data.get("excludeMatchedPattern") is not None:
         out["exclude_matched_pattern"] = data["excludeMatchedPattern"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: WebhookFilter) -> dict:
+    out: dict = {}
+    import capo_codebuild.types.webhook_filter_type
+
+    out["type"] = capo_codebuild.types.webhook_filter_type.serialize_cbor(value["type"])
+    out["pattern"] = value["pattern"]
+    if "exclude_matched_pattern" in value:
+        out["excludeMatchedPattern"] = value["exclude_matched_pattern"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> WebhookFilter:
+    out: WebhookFilter = {}  # type: ignore[typeddict-item]
+    if data.get("type") is not None:
+        import capo_codebuild.types.webhook_filter_type
+
+        out["type"] = capo_codebuild.types.webhook_filter_type.deserialize_cbor(
+            data["type"]
+        )
+    else:
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_codebuild.types.webhook_filter_type.WebhookFilterType", ""
+        )
+    if data.get("pattern") is not None:
+        out["pattern"] = data["pattern"]
+    else:
+        out["pattern"] = ""
+    if data.get("excludeMatchedPattern") is not None:
+        out["exclude_matched_pattern"] = data["excludeMatchedPattern"]
+    return out

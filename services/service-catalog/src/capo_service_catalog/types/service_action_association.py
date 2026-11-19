@@ -41,3 +41,29 @@ def deserialize_aws_json_1_1(data: dict) -> ServiceActionAssociation:
     else:
         out["provisioning_artifact_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ServiceActionAssociation) -> dict:
+    out: dict = {}
+    out["ServiceActionId"] = value["service_action_id"]
+    out["ProductId"] = value["product_id"]
+    out["ProvisioningArtifactId"] = value["provisioning_artifact_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ServiceActionAssociation:
+    out: ServiceActionAssociation = {}  # type: ignore[typeddict-item]
+    if data.get("ServiceActionId") is not None:
+        out["service_action_id"] = data["ServiceActionId"]
+    else:
+        out["service_action_id"] = ""
+    if data.get("ProductId") is not None:
+        out["product_id"] = data["ProductId"]
+    else:
+        out["product_id"] = ""
+    if data.get("ProvisioningArtifactId") is not None:
+        out["provisioning_artifact_id"] = data["ProvisioningArtifactId"]
+    else:
+        out["provisioning_artifact_id"] = ""
+    return out

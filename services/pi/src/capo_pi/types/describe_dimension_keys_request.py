@@ -177,3 +177,124 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeDimensionKeysRequest:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeDimensionKeysRequest) -> dict:
+    out: dict = {}
+    import capo_pi.types.service_type
+
+    out["ServiceType"] = capo_pi.types.service_type.serialize_cbor(
+        value["service_type"]
+    )
+    out["Identifier"] = value["identifier"]
+    import capo_pi.types.iso_timestamp
+
+    out["StartTime"] = capo_pi.types.iso_timestamp.serialize_cbor(value["start_time"])
+    import capo_pi.types.iso_timestamp
+
+    out["EndTime"] = capo_pi.types.iso_timestamp.serialize_cbor(value["end_time"])
+    out["Metric"] = value["metric"]
+    if "period_in_seconds" in value:
+        out["PeriodInSeconds"] = value["period_in_seconds"]
+    import capo_pi.types.dimension_group
+
+    out["GroupBy"] = capo_pi.types.dimension_group.serialize_cbor(value["group_by"])
+    if "additional_metrics" in value:
+        import capo_pi.types.additional_metrics_list
+
+        out["AdditionalMetrics"] = capo_pi.types.additional_metrics_list.serialize_cbor(
+            value["additional_metrics"]
+        )
+    if "partition_by" in value:
+        import capo_pi.types.dimension_group
+
+        out["PartitionBy"] = capo_pi.types.dimension_group.serialize_cbor(
+            value["partition_by"]
+        )
+    if "filter" in value:
+        import capo_pi.types.metric_query_filter_map
+
+        out["Filter"] = capo_pi.types.metric_query_filter_map.serialize_cbor(
+            value["filter"]
+        )
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeDimensionKeysRequest:
+    out: DescribeDimensionKeysRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ServiceType") is not None:
+        import capo_pi.types.service_type
+
+        out["service_type"] = capo_pi.types.service_type.deserialize_cbor(
+            data["ServiceType"]
+        )
+    else:
+        import typing
+
+        out["service_type"] = typing.cast("capo_pi.types.service_type.ServiceType", "")
+    if data.get("Identifier") is not None:
+        out["identifier"] = data["Identifier"]
+    else:
+        out["identifier"] = ""
+    if data.get("StartTime") is not None:
+        import capo_pi.types.iso_timestamp
+
+        out["start_time"] = capo_pi.types.iso_timestamp.deserialize_cbor(
+            data["StartTime"]
+        )
+    else:
+        import datetime
+
+        out["start_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
+    if data.get("EndTime") is not None:
+        import capo_pi.types.iso_timestamp
+
+        out["end_time"] = capo_pi.types.iso_timestamp.deserialize_cbor(data["EndTime"])
+    else:
+        import datetime
+
+        out["end_time"] = datetime.datetime.fromtimestamp(0, tz=datetime.timezone.utc)
+    if data.get("Metric") is not None:
+        out["metric"] = data["Metric"]
+    else:
+        out["metric"] = ""
+    if data.get("PeriodInSeconds") is not None:
+        out["period_in_seconds"] = data["PeriodInSeconds"]
+    if data.get("GroupBy") is not None:
+        import capo_pi.types.dimension_group
+
+        out["group_by"] = capo_pi.types.dimension_group.deserialize_cbor(
+            data["GroupBy"]
+        )
+    else:
+        raise DeserializationError("DescribeDimensionKeysRequest.group_by required")
+    if data.get("AdditionalMetrics") is not None:
+        import capo_pi.types.additional_metrics_list
+
+        out["additional_metrics"] = (
+            capo_pi.types.additional_metrics_list.deserialize_cbor(
+                data["AdditionalMetrics"]
+            )
+        )
+    if data.get("PartitionBy") is not None:
+        import capo_pi.types.dimension_group
+
+        out["partition_by"] = capo_pi.types.dimension_group.deserialize_cbor(
+            data["PartitionBy"]
+        )
+    if data.get("Filter") is not None:
+        import capo_pi.types.metric_query_filter_map
+
+        out["filter"] = capo_pi.types.metric_query_filter_map.deserialize_cbor(
+            data["Filter"]
+        )
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

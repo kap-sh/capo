@@ -29,3 +29,24 @@ def deserialize_aws_json_1_1(data: list) -> CustomAttributeList:
             continue
         out.append(capo_acm_pca.types.custom_attribute.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CustomAttributeList) -> list:
+    import capo_acm_pca.types.custom_attribute
+
+    out: list = []
+    for item in value:
+        out.append(capo_acm_pca.types.custom_attribute.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> CustomAttributeList:
+    import capo_acm_pca.types.custom_attribute
+
+    out: CustomAttributeList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_acm_pca.types.custom_attribute.deserialize_cbor(item))
+    return out

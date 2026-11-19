@@ -34,3 +34,26 @@ def deserialize_aws_json_1_1(data: dict) -> CreateServiceResponse:
             data["Service"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateServiceResponse) -> dict:
+    out: dict = {}
+    if "service" in value:
+        import capo_servicediscovery.types.service
+
+        out["Service"] = capo_servicediscovery.types.service.serialize_cbor(
+            value["service"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateServiceResponse:
+    out: CreateServiceResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Service") is not None:
+        import capo_servicediscovery.types.service
+
+        out["service"] = capo_servicediscovery.types.service.deserialize_cbor(
+            data["Service"]
+        )
+    return out

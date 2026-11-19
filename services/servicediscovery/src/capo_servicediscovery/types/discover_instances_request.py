@@ -113,3 +113,78 @@ def deserialize_aws_json_1_1(data: dict) -> DiscoverInstancesRequest:
     if data.get("OwnerAccount") is not None:
         out["owner_account"] = data["OwnerAccount"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DiscoverInstancesRequest) -> dict:
+    out: dict = {}
+    out["NamespaceName"] = value["namespace_name"]
+    out["ServiceName"] = value["service_name"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "query_parameters" in value:
+        import capo_servicediscovery.types.attributes
+
+        out["QueryParameters"] = capo_servicediscovery.types.attributes.serialize_cbor(
+            value["query_parameters"]
+        )
+    if "optional_parameters" in value:
+        import capo_servicediscovery.types.attributes
+
+        out["OptionalParameters"] = (
+            capo_servicediscovery.types.attributes.serialize_cbor(
+                value["optional_parameters"]
+            )
+        )
+    if "health_status" in value:
+        import capo_servicediscovery.types.health_status_filter
+
+        out["HealthStatus"] = (
+            capo_servicediscovery.types.health_status_filter.serialize_cbor(
+                value["health_status"]
+            )
+        )
+    if "owner_account" in value:
+        out["OwnerAccount"] = value["owner_account"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DiscoverInstancesRequest:
+    out: DiscoverInstancesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("NamespaceName") is not None:
+        out["namespace_name"] = data["NamespaceName"]
+    else:
+        out["namespace_name"] = ""
+    if data.get("ServiceName") is not None:
+        out["service_name"] = data["ServiceName"]
+    else:
+        out["service_name"] = ""
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("QueryParameters") is not None:
+        import capo_servicediscovery.types.attributes
+
+        out["query_parameters"] = (
+            capo_servicediscovery.types.attributes.deserialize_cbor(
+                data["QueryParameters"]
+            )
+        )
+    if data.get("OptionalParameters") is not None:
+        import capo_servicediscovery.types.attributes
+
+        out["optional_parameters"] = (
+            capo_servicediscovery.types.attributes.deserialize_cbor(
+                data["OptionalParameters"]
+            )
+        )
+    if data.get("HealthStatus") is not None:
+        import capo_servicediscovery.types.health_status_filter
+
+        out["health_status"] = (
+            capo_servicediscovery.types.health_status_filter.deserialize_cbor(
+                data["HealthStatus"]
+            )
+        )
+    if data.get("OwnerAccount") is not None:
+        out["owner_account"] = data["OwnerAccount"]
+    return out

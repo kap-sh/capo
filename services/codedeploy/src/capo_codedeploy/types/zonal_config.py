@@ -61,3 +61,42 @@ def deserialize_aws_json_1_1(data: dict) -> ZonalConfig:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ZonalConfig) -> dict:
+    out: dict = {}
+    if "first_zone_monitor_duration_in_seconds" in value:
+        out["firstZoneMonitorDurationInSeconds"] = value[
+            "first_zone_monitor_duration_in_seconds"
+        ]
+    if "monitor_duration_in_seconds" in value:
+        out["monitorDurationInSeconds"] = value["monitor_duration_in_seconds"]
+    if "minimum_healthy_hosts_per_zone" in value:
+        import capo_codedeploy.types.minimum_healthy_hosts_per_zone
+
+        out["minimumHealthyHostsPerZone"] = (
+            capo_codedeploy.types.minimum_healthy_hosts_per_zone.serialize_cbor(
+                value["minimum_healthy_hosts_per_zone"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ZonalConfig:
+    out: ZonalConfig = {}  # type: ignore[typeddict-item]
+    if data.get("firstZoneMonitorDurationInSeconds") is not None:
+        out["first_zone_monitor_duration_in_seconds"] = data[
+            "firstZoneMonitorDurationInSeconds"
+        ]
+    if data.get("monitorDurationInSeconds") is not None:
+        out["monitor_duration_in_seconds"] = data["monitorDurationInSeconds"]
+    if data.get("minimumHealthyHostsPerZone") is not None:
+        import capo_codedeploy.types.minimum_healthy_hosts_per_zone
+
+        out["minimum_healthy_hosts_per_zone"] = (
+            capo_codedeploy.types.minimum_healthy_hosts_per_zone.deserialize_cbor(
+                data["minimumHealthyHostsPerZone"]
+            )
+        )
+    return out

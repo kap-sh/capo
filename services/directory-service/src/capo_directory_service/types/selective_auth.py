@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: SelectiveAuth) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> SelectiveAuth:
     return cast(SelectiveAuth, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SelectiveAuth) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> SelectiveAuth:
+    return cast(SelectiveAuth, data)

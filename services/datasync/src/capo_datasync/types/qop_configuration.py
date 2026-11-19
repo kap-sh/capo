@@ -61,3 +61,44 @@ def deserialize_aws_json_1_1(data: dict) -> QopConfiguration:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: QopConfiguration) -> dict:
+    out: dict = {}
+    if "rpc_protection" in value:
+        import capo_datasync.types.hdfs_rpc_protection
+
+        out["RpcProtection"] = capo_datasync.types.hdfs_rpc_protection.serialize_cbor(
+            value["rpc_protection"]
+        )
+    if "data_transfer_protection" in value:
+        import capo_datasync.types.hdfs_data_transfer_protection
+
+        out["DataTransferProtection"] = (
+            capo_datasync.types.hdfs_data_transfer_protection.serialize_cbor(
+                value["data_transfer_protection"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> QopConfiguration:
+    out: QopConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("RpcProtection") is not None:
+        import capo_datasync.types.hdfs_rpc_protection
+
+        out["rpc_protection"] = (
+            capo_datasync.types.hdfs_rpc_protection.deserialize_cbor(
+                data["RpcProtection"]
+            )
+        )
+    if data.get("DataTransferProtection") is not None:
+        import capo_datasync.types.hdfs_data_transfer_protection
+
+        out["data_transfer_protection"] = (
+            capo_datasync.types.hdfs_data_transfer_protection.deserialize_cbor(
+                data["DataTransferProtection"]
+            )
+        )
+    return out

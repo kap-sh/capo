@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLocationFsxOpenZfsResponse:
     if data.get("LocationArn") is not None:
         out["location_arn"] = data["LocationArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateLocationFsxOpenZfsResponse) -> dict:
+    out: dict = {}
+    if "location_arn" in value:
+        out["LocationArn"] = value["location_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateLocationFsxOpenZfsResponse:
+    out: CreateLocationFsxOpenZfsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("LocationArn") is not None:
+        out["location_arn"] = data["LocationArn"]
+    return out

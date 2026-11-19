@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteVpcEndpointAssociationRequest:
     else:
         out["vpc_endpoint_association_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteVpcEndpointAssociationRequest) -> dict:
+    out: dict = {}
+    out["VpcEndpointAssociationArn"] = value["vpc_endpoint_association_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteVpcEndpointAssociationRequest:
+    out: DeleteVpcEndpointAssociationRequest = {}  # type: ignore[typeddict-item]
+    if data.get("VpcEndpointAssociationArn") is not None:
+        out["vpc_endpoint_association_arn"] = data["VpcEndpointAssociationArn"]
+    else:
+        out["vpc_endpoint_association_arn"] = ""
+    return out

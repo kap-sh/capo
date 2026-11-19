@@ -34,3 +34,24 @@ def deserialize_aws_json_1_1(data: dict) -> FailoverShardRequest:
     else:
         out["shard_name"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FailoverShardRequest) -> dict:
+    out: dict = {}
+    out["ClusterName"] = value["cluster_name"]
+    out["ShardName"] = value["shard_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> FailoverShardRequest:
+    out: FailoverShardRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ClusterName") is not None:
+        out["cluster_name"] = data["ClusterName"]
+    else:
+        out["cluster_name"] = ""
+    if data.get("ShardName") is not None:
+        out["shard_name"] = data["ShardName"]
+    else:
+        out["shard_name"] = ""
+    return out

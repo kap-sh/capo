@@ -27,3 +27,24 @@ def deserialize_aws_json_1_1(data: list) -> Queries:
             continue
         out.append(capo_textract.types.query.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Queries) -> list:
+    import capo_textract.types.query
+
+    out: list = []
+    for item in value:
+        out.append(capo_textract.types.query.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> Queries:
+    import capo_textract.types.query
+
+    out: Queries = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_textract.types.query.deserialize_cbor(item))
+    return out

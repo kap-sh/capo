@@ -43,3 +43,27 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateLongTermPricingRequest:
     if data.get("IsLongTermPricingAutoRenew") is not None:
         out["is_long_term_pricing_auto_renew"] = data["IsLongTermPricingAutoRenew"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateLongTermPricingRequest) -> dict:
+    out: dict = {}
+    out["LongTermPricingId"] = value["long_term_pricing_id"]
+    if "replacement_job" in value:
+        out["ReplacementJob"] = value["replacement_job"]
+    if "is_long_term_pricing_auto_renew" in value:
+        out["IsLongTermPricingAutoRenew"] = value["is_long_term_pricing_auto_renew"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateLongTermPricingRequest:
+    out: UpdateLongTermPricingRequest = {}  # type: ignore[typeddict-item]
+    if data.get("LongTermPricingId") is not None:
+        out["long_term_pricing_id"] = data["LongTermPricingId"]
+    else:
+        out["long_term_pricing_id"] = ""
+    if data.get("ReplacementJob") is not None:
+        out["replacement_job"] = data["ReplacementJob"]
+    if data.get("IsLongTermPricingAutoRenew") is not None:
+        out["is_long_term_pricing_auto_renew"] = data["IsLongTermPricingAutoRenew"]
+    return out

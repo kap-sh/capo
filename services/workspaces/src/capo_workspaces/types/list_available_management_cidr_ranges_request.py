@@ -43,3 +43,27 @@ def deserialize_aws_json_1_1(data: dict) -> ListAvailableManagementCidrRangesReq
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListAvailableManagementCidrRangesRequest) -> dict:
+    out: dict = {}
+    out["ManagementCidrRangeConstraint"] = value["management_cidr_range_constraint"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListAvailableManagementCidrRangesRequest:
+    out: ListAvailableManagementCidrRangesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ManagementCidrRangeConstraint") is not None:
+        out["management_cidr_range_constraint"] = data["ManagementCidrRangeConstraint"]
+    else:
+        out["management_cidr_range_constraint"] = ""
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

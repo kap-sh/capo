@@ -59,3 +59,43 @@ def deserialize_aws_json_1_1(data: dict) -> SourceRevisionOverride:
     else:
         out["revision_value"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SourceRevisionOverride) -> dict:
+    out: dict = {}
+    out["actionName"] = value["action_name"]
+    import capo_codepipeline.types.source_revision_type
+
+    out["revisionType"] = capo_codepipeline.types.source_revision_type.serialize_cbor(
+        value["revision_type"]
+    )
+    out["revisionValue"] = value["revision_value"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> SourceRevisionOverride:
+    out: SourceRevisionOverride = {}  # type: ignore[typeddict-item]
+    if data.get("actionName") is not None:
+        out["action_name"] = data["actionName"]
+    else:
+        out["action_name"] = ""
+    if data.get("revisionType") is not None:
+        import capo_codepipeline.types.source_revision_type
+
+        out["revision_type"] = (
+            capo_codepipeline.types.source_revision_type.deserialize_cbor(
+                data["revisionType"]
+            )
+        )
+    else:
+        import typing
+
+        out["revision_type"] = typing.cast(
+            "capo_codepipeline.types.source_revision_type.SourceRevisionType", ""
+        )
+    if data.get("revisionValue") is not None:
+        out["revision_value"] = data["revisionValue"]
+    else:
+        out["revision_value"] = ""
+    return out

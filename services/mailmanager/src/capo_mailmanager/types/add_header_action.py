@@ -35,3 +35,24 @@ def deserialize_aws_json_1_0(data: dict) -> AddHeaderAction:
     else:
         out["header_value"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AddHeaderAction) -> dict:
+    out: dict = {}
+    out["HeaderName"] = value["header_name"]
+    out["HeaderValue"] = value["header_value"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AddHeaderAction:
+    out: AddHeaderAction = {}  # type: ignore[typeddict-item]
+    if data.get("HeaderName") is not None:
+        out["header_name"] = data["HeaderName"]
+    else:
+        out["header_name"] = ""
+    if data.get("HeaderValue") is not None:
+        out["header_value"] = data["HeaderValue"]
+    else:
+        out["header_value"] = ""
+    return out

@@ -30,6 +30,21 @@ def deserialize_aws_json_1_1(data: dict) -> TerminalRoutingStrategyException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TerminalRoutingStrategyException_) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["Message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> TerminalRoutingStrategyException_:
+    out: TerminalRoutingStrategyException_ = {}  # type: ignore[typeddict-item]
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    return out
+
+
 class TerminalRoutingStrategyException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.gamelift#TerminalRoutingStrategyException``."""
 
@@ -57,3 +72,9 @@ class TerminalRoutingStrategyException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "TerminalRoutingStrategyException":
         return cls(deserialize_aws_json_1_1(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "TerminalRoutingStrategyException":
+        return cls(deserialize_cbor(data), message, response=response)

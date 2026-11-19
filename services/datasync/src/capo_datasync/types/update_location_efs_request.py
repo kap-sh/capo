@@ -73,3 +73,47 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateLocationEfsRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateLocationEfsRequest) -> dict:
+    out: dict = {}
+    out["LocationArn"] = value["location_arn"]
+    if "subdirectory" in value:
+        out["Subdirectory"] = value["subdirectory"]
+    if "access_point_arn" in value:
+        out["AccessPointArn"] = value["access_point_arn"]
+    if "file_system_access_role_arn" in value:
+        out["FileSystemAccessRoleArn"] = value["file_system_access_role_arn"]
+    if "in_transit_encryption" in value:
+        import capo_datasync.types.efs_in_transit_encryption
+
+        out["InTransitEncryption"] = (
+            capo_datasync.types.efs_in_transit_encryption.serialize_cbor(
+                value["in_transit_encryption"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateLocationEfsRequest:
+    out: UpdateLocationEfsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("LocationArn") is not None:
+        out["location_arn"] = data["LocationArn"]
+    else:
+        out["location_arn"] = ""
+    if data.get("Subdirectory") is not None:
+        out["subdirectory"] = data["Subdirectory"]
+    if data.get("AccessPointArn") is not None:
+        out["access_point_arn"] = data["AccessPointArn"]
+    if data.get("FileSystemAccessRoleArn") is not None:
+        out["file_system_access_role_arn"] = data["FileSystemAccessRoleArn"]
+    if data.get("InTransitEncryption") is not None:
+        import capo_datasync.types.efs_in_transit_encryption
+
+        out["in_transit_encryption"] = (
+            capo_datasync.types.efs_in_transit_encryption.deserialize_cbor(
+                data["InTransitEncryption"]
+            )
+        )
+    return out

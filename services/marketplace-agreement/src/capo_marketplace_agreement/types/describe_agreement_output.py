@@ -241,3 +241,170 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeAgreementOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeAgreementOutput) -> dict:
+    out: dict = {}
+    if "agreement_id" in value:
+        out["agreementId"] = value["agreement_id"]
+    if "acceptor" in value:
+        import capo_marketplace_agreement.types.acceptor
+
+        out["acceptor"] = capo_marketplace_agreement.types.acceptor.serialize_cbor(
+            value["acceptor"]
+        )
+    if "proposer" in value:
+        import capo_marketplace_agreement.types.proposer
+
+        out["proposer"] = capo_marketplace_agreement.types.proposer.serialize_cbor(
+            value["proposer"]
+        )
+    if "start_time" in value:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["startTime"] = capo_marketplace_agreement.types.timestamp.serialize_cbor(
+            value["start_time"]
+        )
+    if "end_time" in value:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["endTime"] = capo_marketplace_agreement.types.timestamp.serialize_cbor(
+            value["end_time"]
+        )
+    if "acceptance_time" in value:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["acceptanceTime"] = (
+            capo_marketplace_agreement.types.timestamp.serialize_cbor(
+                value["acceptance_time"]
+            )
+        )
+    if "agreement_type" in value:
+        out["agreementType"] = value["agreement_type"]
+    if "estimated_charges" in value:
+        import capo_marketplace_agreement.types.estimated_charges
+
+        out["estimatedCharges"] = (
+            capo_marketplace_agreement.types.estimated_charges.serialize_cbor(
+                value["estimated_charges"]
+            )
+        )
+    if "proposal_summary" in value:
+        import capo_marketplace_agreement.types.proposal_summary
+
+        out["proposalSummary"] = (
+            capo_marketplace_agreement.types.proposal_summary.serialize_cbor(
+                value["proposal_summary"]
+            )
+        )
+    if "status" in value:
+        import capo_marketplace_agreement.types.agreement_status
+
+        out["status"] = (
+            capo_marketplace_agreement.types.agreement_status.serialize_cbor(
+                value["status"]
+            )
+        )
+    if "initial_agreement_id" in value:
+        out["initialAgreementId"] = value["initial_agreement_id"]
+    if "end_time_behavior" in value:
+        import capo_marketplace_agreement.types.end_time_behavior
+
+        out["endTimeBehavior"] = (
+            capo_marketplace_agreement.types.end_time_behavior.serialize_cbor(
+                value["end_time_behavior"]
+            )
+        )
+    if "free_trial_summary" in value:
+        import capo_marketplace_agreement.types.free_trial_summary
+
+        out["freeTrialSummary"] = (
+            capo_marketplace_agreement.types.free_trial_summary.serialize_cbor(
+                value["free_trial_summary"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeAgreementOutput:
+    out: DescribeAgreementOutput = {}  # type: ignore[typeddict-item]
+    if data.get("agreementId") is not None:
+        out["agreement_id"] = data["agreementId"]
+    if data.get("acceptor") is not None:
+        import capo_marketplace_agreement.types.acceptor
+
+        out["acceptor"] = capo_marketplace_agreement.types.acceptor.deserialize_cbor(
+            data["acceptor"]
+        )
+    if data.get("proposer") is not None:
+        import capo_marketplace_agreement.types.proposer
+
+        out["proposer"] = capo_marketplace_agreement.types.proposer.deserialize_cbor(
+            data["proposer"]
+        )
+    if data.get("startTime") is not None:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["start_time"] = capo_marketplace_agreement.types.timestamp.deserialize_cbor(
+            data["startTime"]
+        )
+    if data.get("endTime") is not None:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["end_time"] = capo_marketplace_agreement.types.timestamp.deserialize_cbor(
+            data["endTime"]
+        )
+    if data.get("acceptanceTime") is not None:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["acceptance_time"] = (
+            capo_marketplace_agreement.types.timestamp.deserialize_cbor(
+                data["acceptanceTime"]
+            )
+        )
+    if data.get("agreementType") is not None:
+        out["agreement_type"] = data["agreementType"]
+    if data.get("estimatedCharges") is not None:
+        import capo_marketplace_agreement.types.estimated_charges
+
+        out["estimated_charges"] = (
+            capo_marketplace_agreement.types.estimated_charges.deserialize_cbor(
+                data["estimatedCharges"]
+            )
+        )
+    if data.get("proposalSummary") is not None:
+        import capo_marketplace_agreement.types.proposal_summary
+
+        out["proposal_summary"] = (
+            capo_marketplace_agreement.types.proposal_summary.deserialize_cbor(
+                data["proposalSummary"]
+            )
+        )
+    if data.get("status") is not None:
+        import capo_marketplace_agreement.types.agreement_status
+
+        out["status"] = (
+            capo_marketplace_agreement.types.agreement_status.deserialize_cbor(
+                data["status"]
+            )
+        )
+    if data.get("initialAgreementId") is not None:
+        out["initial_agreement_id"] = data["initialAgreementId"]
+    if data.get("endTimeBehavior") is not None:
+        import capo_marketplace_agreement.types.end_time_behavior
+
+        out["end_time_behavior"] = (
+            capo_marketplace_agreement.types.end_time_behavior.deserialize_cbor(
+                data["endTimeBehavior"]
+            )
+        )
+    if data.get("freeTrialSummary") is not None:
+        import capo_marketplace_agreement.types.free_trial_summary
+
+        out["free_trial_summary"] = (
+            capo_marketplace_agreement.types.free_trial_summary.deserialize_cbor(
+                data["freeTrialSummary"]
+            )
+        )
+    return out

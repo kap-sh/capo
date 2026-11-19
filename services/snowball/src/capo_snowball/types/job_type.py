@@ -16,3 +16,12 @@ def serialize_aws_json_1_1(value: JobType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> JobType:
     return cast(JobType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: JobType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> JobType:
+    return cast(JobType, data)

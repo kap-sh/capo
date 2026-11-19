@@ -57,3 +57,41 @@ def deserialize_aws_json_1_0(data: dict) -> TrafficPolicy:
             "capo_mailmanager.types.accept_action.AcceptAction", ""
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TrafficPolicy) -> dict:
+    out: dict = {}
+    out["TrafficPolicyName"] = value["traffic_policy_name"]
+    out["TrafficPolicyId"] = value["traffic_policy_id"]
+    import capo_mailmanager.types.accept_action
+
+    out["DefaultAction"] = capo_mailmanager.types.accept_action.serialize_cbor(
+        value["default_action"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TrafficPolicy:
+    out: TrafficPolicy = {}  # type: ignore[typeddict-item]
+    if data.get("TrafficPolicyName") is not None:
+        out["traffic_policy_name"] = data["TrafficPolicyName"]
+    else:
+        out["traffic_policy_name"] = ""
+    if data.get("TrafficPolicyId") is not None:
+        out["traffic_policy_id"] = data["TrafficPolicyId"]
+    else:
+        out["traffic_policy_id"] = ""
+    if data.get("DefaultAction") is not None:
+        import capo_mailmanager.types.accept_action
+
+        out["default_action"] = capo_mailmanager.types.accept_action.deserialize_cbor(
+            data["DefaultAction"]
+        )
+    else:
+        import typing
+
+        out["default_action"] = typing.cast(
+            "capo_mailmanager.types.accept_action.AcceptAction", ""
+        )
+    return out

@@ -136,3 +136,58 @@ def deserialize_query(el: Element) -> ResourceMetricsConfiguration:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResourceMetricsConfiguration) -> dict:
+    out: dict = {}
+    if "resource_arn" in value:
+        out["ResourceArn"] = value["resource_arn"]
+    if "created_at" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["CreatedAt"] = capo_cloudwatch.types.timestamp.serialize_cbor(
+            value["created_at"]
+        )
+    if "updated_at" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["UpdatedAt"] = capo_cloudwatch.types.timestamp.serialize_cbor(
+            value["updated_at"]
+        )
+    if "metric_selections" in value:
+        import capo_cloudwatch.types.resource_metric_selection_list
+
+        out["MetricSelections"] = (
+            capo_cloudwatch.types.resource_metric_selection_list.serialize_cbor(
+                value["metric_selections"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ResourceMetricsConfiguration:
+    out: ResourceMetricsConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceArn") is not None:
+        out["resource_arn"] = data["ResourceArn"]
+    if data.get("CreatedAt") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["created_at"] = capo_cloudwatch.types.timestamp.deserialize_cbor(
+            data["CreatedAt"]
+        )
+    if data.get("UpdatedAt") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["updated_at"] = capo_cloudwatch.types.timestamp.deserialize_cbor(
+            data["UpdatedAt"]
+        )
+    if data.get("MetricSelections") is not None:
+        import capo_cloudwatch.types.resource_metric_selection_list
+
+        out["metric_selections"] = (
+            capo_cloudwatch.types.resource_metric_selection_list.deserialize_cbor(
+                data["MetricSelections"]
+            )
+        )
+    return out

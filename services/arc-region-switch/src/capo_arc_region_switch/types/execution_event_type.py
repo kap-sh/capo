@@ -39,3 +39,12 @@ def serialize_aws_json_1_0(value: ExecutionEventType) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> ExecutionEventType:
     return cast(ExecutionEventType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExecutionEventType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ExecutionEventType:
+    return cast(ExecutionEventType, data)

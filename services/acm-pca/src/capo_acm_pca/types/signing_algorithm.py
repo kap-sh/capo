@@ -26,3 +26,12 @@ def serialize_aws_json_1_1(value: SigningAlgorithm) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> SigningAlgorithm:
     return cast(SigningAlgorithm, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SigningAlgorithm) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> SigningAlgorithm:
+    return cast(SigningAlgorithm, data)

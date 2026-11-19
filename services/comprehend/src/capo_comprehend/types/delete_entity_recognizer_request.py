@@ -29,3 +29,19 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteEntityRecognizerRequest:
     else:
         out["entity_recognizer_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteEntityRecognizerRequest) -> dict:
+    out: dict = {}
+    out["EntityRecognizerArn"] = value["entity_recognizer_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteEntityRecognizerRequest:
+    out: DeleteEntityRecognizerRequest = {}  # type: ignore[typeddict-item]
+    if data.get("EntityRecognizerArn") is not None:
+        out["entity_recognizer_arn"] = data["EntityRecognizerArn"]
+    else:
+        out["entity_recognizer_arn"] = ""
+    return out

@@ -48,3 +48,31 @@ def deserialize_aws_json_1_1(data: dict) -> MinimumHealthyHosts:
     else:
         out["value"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MinimumHealthyHosts) -> dict:
+    out: dict = {}
+    if "type" in value:
+        import capo_codedeploy.types.minimum_healthy_hosts_type
+
+        out["type"] = capo_codedeploy.types.minimum_healthy_hosts_type.serialize_cbor(
+            value["type"]
+        )
+    out["value"] = value.get("value", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> MinimumHealthyHosts:
+    out: MinimumHealthyHosts = {}  # type: ignore[typeddict-item]
+    if data.get("type") is not None:
+        import capo_codedeploy.types.minimum_healthy_hosts_type
+
+        out["type"] = capo_codedeploy.types.minimum_healthy_hosts_type.deserialize_cbor(
+            data["type"]
+        )
+    if data.get("value") is not None:
+        out["value"] = data["value"]
+    else:
+        out["value"] = 0
+    return out

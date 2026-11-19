@@ -256,6 +256,181 @@ def deserialize_aws_json_1_1(data: dict) -> EntityRecognizerProperties:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EntityRecognizerProperties) -> dict:
+    out: dict = {}
+    if "entity_recognizer_arn" in value:
+        out["EntityRecognizerArn"] = value["entity_recognizer_arn"]
+    if "language_code" in value:
+        import capo_comprehend.types.language_code
+
+        out["LanguageCode"] = capo_comprehend.types.language_code.serialize_cbor(
+            value["language_code"]
+        )
+    if "status" in value:
+        import capo_comprehend.types.model_status
+
+        out["Status"] = capo_comprehend.types.model_status.serialize_cbor(
+            value["status"]
+        )
+    if "message" in value:
+        out["Message"] = value["message"]
+    if "submit_time" in value:
+        import capo_comprehend.types.timestamp
+
+        out["SubmitTime"] = capo_comprehend.types.timestamp.serialize_cbor(
+            value["submit_time"]
+        )
+    if "end_time" in value:
+        import capo_comprehend.types.timestamp
+
+        out["EndTime"] = capo_comprehend.types.timestamp.serialize_cbor(
+            value["end_time"]
+        )
+    if "training_start_time" in value:
+        import capo_comprehend.types.timestamp
+
+        out["TrainingStartTime"] = capo_comprehend.types.timestamp.serialize_cbor(
+            value["training_start_time"]
+        )
+    if "training_end_time" in value:
+        import capo_comprehend.types.timestamp
+
+        out["TrainingEndTime"] = capo_comprehend.types.timestamp.serialize_cbor(
+            value["training_end_time"]
+        )
+    if "input_data_config" in value:
+        import capo_comprehend.types.entity_recognizer_input_data_config
+
+        out["InputDataConfig"] = (
+            capo_comprehend.types.entity_recognizer_input_data_config.serialize_cbor(
+                value["input_data_config"]
+            )
+        )
+    if "recognizer_metadata" in value:
+        import capo_comprehend.types.entity_recognizer_metadata
+
+        out["RecognizerMetadata"] = (
+            capo_comprehend.types.entity_recognizer_metadata.serialize_cbor(
+                value["recognizer_metadata"]
+            )
+        )
+    if "data_access_role_arn" in value:
+        out["DataAccessRoleArn"] = value["data_access_role_arn"]
+    if "volume_kms_key_id" in value:
+        out["VolumeKmsKeyId"] = value["volume_kms_key_id"]
+    if "vpc_config" in value:
+        import capo_comprehend.types.vpc_config
+
+        out["VpcConfig"] = capo_comprehend.types.vpc_config.serialize_cbor(
+            value["vpc_config"]
+        )
+    if "model_kms_key_id" in value:
+        out["ModelKmsKeyId"] = value["model_kms_key_id"]
+    if "version_name" in value:
+        out["VersionName"] = value["version_name"]
+    if "source_model_arn" in value:
+        out["SourceModelArn"] = value["source_model_arn"]
+    if "flywheel_arn" in value:
+        out["FlywheelArn"] = value["flywheel_arn"]
+    if "output_data_config" in value:
+        import capo_comprehend.types.entity_recognizer_output_data_config
+
+        out["OutputDataConfig"] = (
+            capo_comprehend.types.entity_recognizer_output_data_config.serialize_cbor(
+                value["output_data_config"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> EntityRecognizerProperties:
+    out: EntityRecognizerProperties = {}  # type: ignore[typeddict-item]
+    if data.get("EntityRecognizerArn") is not None:
+        out["entity_recognizer_arn"] = data["EntityRecognizerArn"]
+    if data.get("LanguageCode") is not None:
+        import capo_comprehend.types.language_code
+
+        out["language_code"] = capo_comprehend.types.language_code.deserialize_cbor(
+            data["LanguageCode"]
+        )
+    if data.get("Status") is not None:
+        import capo_comprehend.types.model_status
+
+        out["status"] = capo_comprehend.types.model_status.deserialize_cbor(
+            data["Status"]
+        )
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    if data.get("SubmitTime") is not None:
+        import capo_comprehend.types.timestamp
+
+        out["submit_time"] = capo_comprehend.types.timestamp.deserialize_cbor(
+            data["SubmitTime"]
+        )
+    if data.get("EndTime") is not None:
+        import capo_comprehend.types.timestamp
+
+        out["end_time"] = capo_comprehend.types.timestamp.deserialize_cbor(
+            data["EndTime"]
+        )
+    if data.get("TrainingStartTime") is not None:
+        import capo_comprehend.types.timestamp
+
+        out["training_start_time"] = capo_comprehend.types.timestamp.deserialize_cbor(
+            data["TrainingStartTime"]
+        )
+    if data.get("TrainingEndTime") is not None:
+        import capo_comprehend.types.timestamp
+
+        out["training_end_time"] = capo_comprehend.types.timestamp.deserialize_cbor(
+            data["TrainingEndTime"]
+        )
+    if data.get("InputDataConfig") is not None:
+        import capo_comprehend.types.entity_recognizer_input_data_config
+
+        out["input_data_config"] = (
+            capo_comprehend.types.entity_recognizer_input_data_config.deserialize_cbor(
+                data["InputDataConfig"]
+            )
+        )
+    if data.get("RecognizerMetadata") is not None:
+        import capo_comprehend.types.entity_recognizer_metadata
+
+        out["recognizer_metadata"] = (
+            capo_comprehend.types.entity_recognizer_metadata.deserialize_cbor(
+                data["RecognizerMetadata"]
+            )
+        )
+    if data.get("DataAccessRoleArn") is not None:
+        out["data_access_role_arn"] = data["DataAccessRoleArn"]
+    if data.get("VolumeKmsKeyId") is not None:
+        out["volume_kms_key_id"] = data["VolumeKmsKeyId"]
+    if data.get("VpcConfig") is not None:
+        import capo_comprehend.types.vpc_config
+
+        out["vpc_config"] = capo_comprehend.types.vpc_config.deserialize_cbor(
+            data["VpcConfig"]
+        )
+    if data.get("ModelKmsKeyId") is not None:
+        out["model_kms_key_id"] = data["ModelKmsKeyId"]
+    if data.get("VersionName") is not None:
+        out["version_name"] = data["VersionName"]
+    if data.get("SourceModelArn") is not None:
+        out["source_model_arn"] = data["SourceModelArn"]
+    if data.get("FlywheelArn") is not None:
+        out["flywheel_arn"] = data["FlywheelArn"]
+    if data.get("OutputDataConfig") is not None:
+        import capo_comprehend.types.entity_recognizer_output_data_config
+
+        out["output_data_config"] = (
+            capo_comprehend.types.entity_recognizer_output_data_config.deserialize_cbor(
+                data["OutputDataConfig"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: EntityRecognizerProperties) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "recognizer_metadata" in value:

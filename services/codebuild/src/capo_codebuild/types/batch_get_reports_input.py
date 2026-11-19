@@ -35,3 +35,27 @@ def deserialize_aws_json_1_1(data: dict) -> BatchGetReportsInput:
     else:
         out["report_arns"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchGetReportsInput) -> dict:
+    out: dict = {}
+    import capo_codebuild.types.report_arns
+
+    out["reportArns"] = capo_codebuild.types.report_arns.serialize_cbor(
+        value["report_arns"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BatchGetReportsInput:
+    out: BatchGetReportsInput = {}  # type: ignore[typeddict-item]
+    if data.get("reportArns") is not None:
+        import capo_codebuild.types.report_arns
+
+        out["report_arns"] = capo_codebuild.types.report_arns.deserialize_cbor(
+            data["reportArns"]
+        )
+    else:
+        out["report_arns"] = []
+    return out

@@ -61,3 +61,46 @@ def deserialize_aws_json_1_1(data: dict) -> ExecutorConfiguration:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExecutorConfiguration) -> dict:
+    out: dict = {}
+    if "lambda_executor_configuration" in value:
+        import capo_codepipeline.types.lambda_executor_configuration
+
+        out["lambdaExecutorConfiguration"] = (
+            capo_codepipeline.types.lambda_executor_configuration.serialize_cbor(
+                value["lambda_executor_configuration"]
+            )
+        )
+    if "job_worker_executor_configuration" in value:
+        import capo_codepipeline.types.job_worker_executor_configuration
+
+        out["jobWorkerExecutorConfiguration"] = (
+            capo_codepipeline.types.job_worker_executor_configuration.serialize_cbor(
+                value["job_worker_executor_configuration"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ExecutorConfiguration:
+    out: ExecutorConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("lambdaExecutorConfiguration") is not None:
+        import capo_codepipeline.types.lambda_executor_configuration
+
+        out["lambda_executor_configuration"] = (
+            capo_codepipeline.types.lambda_executor_configuration.deserialize_cbor(
+                data["lambdaExecutorConfiguration"]
+            )
+        )
+    if data.get("jobWorkerExecutorConfiguration") is not None:
+        import capo_codepipeline.types.job_worker_executor_configuration
+
+        out["job_worker_executor_configuration"] = (
+            capo_codepipeline.types.job_worker_executor_configuration.deserialize_cbor(
+                data["jobWorkerExecutorConfiguration"]
+            )
+        )
+    return out

@@ -43,3 +43,33 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteTLSInspectionConfigurationResp
             "DeleteTLSInspectionConfigurationResponse.tls_inspection_configuration_response required"
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteTLSInspectionConfigurationResponse) -> dict:
+    out: dict = {}
+    import capo_network_firewall.types.tls_inspection_configuration_response
+
+    out["TLSInspectionConfigurationResponse"] = (
+        capo_network_firewall.types.tls_inspection_configuration_response.serialize_cbor(
+            value["tls_inspection_configuration_response"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteTLSInspectionConfigurationResponse:
+    out: DeleteTLSInspectionConfigurationResponse = {}  # type: ignore[typeddict-item]
+    if data.get("TLSInspectionConfigurationResponse") is not None:
+        import capo_network_firewall.types.tls_inspection_configuration_response
+
+        out["tls_inspection_configuration_response"] = (
+            capo_network_firewall.types.tls_inspection_configuration_response.deserialize_cbor(
+                data["TLSInspectionConfigurationResponse"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "DeleteTLSInspectionConfigurationResponse.tls_inspection_configuration_response required"
+        )
+    return out

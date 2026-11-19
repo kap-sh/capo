@@ -48,3 +48,35 @@ def deserialize_aws_json_1_1(data: dict) -> DeploymentReadyOption:
     else:
         out["wait_time_in_minutes"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeploymentReadyOption) -> dict:
+    out: dict = {}
+    if "action_on_timeout" in value:
+        import capo_codedeploy.types.deployment_ready_action
+
+        out["actionOnTimeout"] = (
+            capo_codedeploy.types.deployment_ready_action.serialize_cbor(
+                value["action_on_timeout"]
+            )
+        )
+    out["waitTimeInMinutes"] = value.get("wait_time_in_minutes", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeploymentReadyOption:
+    out: DeploymentReadyOption = {}  # type: ignore[typeddict-item]
+    if data.get("actionOnTimeout") is not None:
+        import capo_codedeploy.types.deployment_ready_action
+
+        out["action_on_timeout"] = (
+            capo_codedeploy.types.deployment_ready_action.deserialize_cbor(
+                data["actionOnTimeout"]
+            )
+        )
+    if data.get("waitTimeInMinutes") is not None:
+        out["wait_time_in_minutes"] = data["waitTimeInMinutes"]
+    else:
+        out["wait_time_in_minutes"] = 0
+    return out

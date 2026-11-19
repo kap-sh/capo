@@ -70,6 +70,51 @@ def deserialize_aws_json_1_1(data: dict) -> CreateBuildOutput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateBuildOutput) -> dict:
+    out: dict = {}
+    if "build" in value:
+        import capo_gamelift.types.build
+
+        out["Build"] = capo_gamelift.types.build.serialize_cbor(value["build"])
+    if "upload_credentials" in value:
+        import capo_gamelift.types.aws_credentials
+
+        out["UploadCredentials"] = capo_gamelift.types.aws_credentials.serialize_cbor(
+            value["upload_credentials"]
+        )
+    if "storage_location" in value:
+        import capo_gamelift.types.s3_location
+
+        out["StorageLocation"] = capo_gamelift.types.s3_location.serialize_cbor(
+            value["storage_location"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateBuildOutput:
+    out: CreateBuildOutput = {}  # type: ignore[typeddict-item]
+    if data.get("Build") is not None:
+        import capo_gamelift.types.build
+
+        out["build"] = capo_gamelift.types.build.deserialize_cbor(data["Build"])
+    if data.get("UploadCredentials") is not None:
+        import capo_gamelift.types.aws_credentials
+
+        out["upload_credentials"] = (
+            capo_gamelift.types.aws_credentials.deserialize_cbor(
+                data["UploadCredentials"]
+            )
+        )
+    if data.get("StorageLocation") is not None:
+        import capo_gamelift.types.s3_location
+
+        out["storage_location"] = capo_gamelift.types.s3_location.deserialize_cbor(
+            data["StorageLocation"]
+        )
+    return out
+
+
 def redact_sensitive(value: CreateBuildOutput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "upload_credentials" in value:

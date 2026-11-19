@@ -13,3 +13,12 @@ def serialize_aws_json_1_1(value: DefaultLogo) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> DefaultLogo:
     return base64.b64decode(data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DefaultLogo) -> DefaultLogo:
+    return value
+
+
+def deserialize_cbor(data: DefaultLogo) -> DefaultLogo:
+    return data

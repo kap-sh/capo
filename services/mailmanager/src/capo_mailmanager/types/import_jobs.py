@@ -29,6 +29,27 @@ def deserialize_aws_json_1_0(data: list) -> ImportJobs:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ImportJobs) -> list:
+    import capo_mailmanager.types.import_job
+
+    out: list = []
+    for item in value:
+        out.append(capo_mailmanager.types.import_job.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> ImportJobs:
+    import capo_mailmanager.types.import_job
+
+    out: ImportJobs = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_mailmanager.types.import_job.deserialize_cbor(item))
+    return out
+
+
 def redact_sensitive(value: ImportJobs) -> list[Any]:
     import capo_mailmanager.types.import_job
 

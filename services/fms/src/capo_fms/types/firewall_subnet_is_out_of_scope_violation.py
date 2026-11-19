@@ -55,3 +55,34 @@ def deserialize_aws_json_1_1(data: dict) -> FirewallSubnetIsOutOfScopeViolation:
     if data.get("VpcEndpointId") is not None:
         out["vpc_endpoint_id"] = data["VpcEndpointId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FirewallSubnetIsOutOfScopeViolation) -> dict:
+    out: dict = {}
+    if "firewall_subnet_id" in value:
+        out["FirewallSubnetId"] = value["firewall_subnet_id"]
+    if "vpc_id" in value:
+        out["VpcId"] = value["vpc_id"]
+    if "subnet_availability_zone" in value:
+        out["SubnetAvailabilityZone"] = value["subnet_availability_zone"]
+    if "subnet_availability_zone_id" in value:
+        out["SubnetAvailabilityZoneId"] = value["subnet_availability_zone_id"]
+    if "vpc_endpoint_id" in value:
+        out["VpcEndpointId"] = value["vpc_endpoint_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> FirewallSubnetIsOutOfScopeViolation:
+    out: FirewallSubnetIsOutOfScopeViolation = {}  # type: ignore[typeddict-item]
+    if data.get("FirewallSubnetId") is not None:
+        out["firewall_subnet_id"] = data["FirewallSubnetId"]
+    if data.get("VpcId") is not None:
+        out["vpc_id"] = data["VpcId"]
+    if data.get("SubnetAvailabilityZone") is not None:
+        out["subnet_availability_zone"] = data["SubnetAvailabilityZone"]
+    if data.get("SubnetAvailabilityZoneId") is not None:
+        out["subnet_availability_zone_id"] = data["SubnetAvailabilityZoneId"]
+    if data.get("VpcEndpointId") is not None:
+        out["vpc_endpoint_id"] = data["VpcEndpointId"]
+    return out

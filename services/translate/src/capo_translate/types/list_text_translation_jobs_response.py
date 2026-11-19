@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> ListTextTranslationJobsResponse:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListTextTranslationJobsResponse) -> dict:
+    out: dict = {}
+    if "text_translation_job_properties_list" in value:
+        import capo_translate.types.text_translation_job_properties_list
+
+        out["TextTranslationJobPropertiesList"] = (
+            capo_translate.types.text_translation_job_properties_list.serialize_cbor(
+                value["text_translation_job_properties_list"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListTextTranslationJobsResponse:
+    out: ListTextTranslationJobsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("TextTranslationJobPropertiesList") is not None:
+        import capo_translate.types.text_translation_job_properties_list
+
+        out["text_translation_job_properties_list"] = (
+            capo_translate.types.text_translation_job_properties_list.deserialize_cbor(
+                data["TextTranslationJobPropertiesList"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

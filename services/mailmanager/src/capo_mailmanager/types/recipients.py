@@ -17,5 +17,14 @@ def deserialize_aws_json_1_0(data: list) -> Recipients:
     return [item for item in data if item is not None]
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Recipients) -> list:
+    return list(value)
+
+
+def deserialize_cbor(data: list) -> Recipients:
+    return [item for item in data if item is not None]
+
+
 def redact_sensitive(value: Recipients) -> list[Any]:
     return ["*** Sensitive Data Redacted ***"] * len(value)

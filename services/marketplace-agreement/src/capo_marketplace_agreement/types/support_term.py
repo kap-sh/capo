@@ -44,3 +44,26 @@ def deserialize_aws_json_1_0(data: dict) -> SupportTerm:
     if data.get("refundPolicy") is not None:
         out["refund_policy"] = data["refundPolicy"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SupportTerm) -> dict:
+    out: dict = {}
+    if "type" in value:
+        out["type"] = value["type"]
+    if "id" in value:
+        out["id"] = value["id"]
+    if "refund_policy" in value:
+        out["refundPolicy"] = value["refund_policy"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> SupportTerm:
+    out: SupportTerm = {}  # type: ignore[typeddict-item]
+    if data.get("type") is not None:
+        out["type"] = data["type"]
+    if data.get("id") is not None:
+        out["id"] = data["id"]
+    if data.get("refundPolicy") is not None:
+        out["refund_policy"] = data["refundPolicy"]
+    return out

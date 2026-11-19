@@ -15,3 +15,12 @@ def serialize_aws_json_1_0(value: EcsCapacityMonitoringApproach) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> EcsCapacityMonitoringApproach:
     return cast(EcsCapacityMonitoringApproach, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EcsCapacityMonitoringApproach) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> EcsCapacityMonitoringApproach:
+    return cast(EcsCapacityMonitoringApproach, data)

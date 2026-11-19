@@ -37,3 +37,32 @@ def deserialize_aws_json_1_1(data: list) -> DescribeWorkspaceDirectoriesFilterLi
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeWorkspaceDirectoriesFilterList) -> list:
+    import capo_workspaces.types.describe_workspace_directories_filter
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_workspaces.types.describe_workspace_directories_filter.serialize_cbor(
+                item
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> DescribeWorkspaceDirectoriesFilterList:
+    import capo_workspaces.types.describe_workspace_directories_filter
+
+    out: DescribeWorkspaceDirectoriesFilterList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_workspaces.types.describe_workspace_directories_filter.deserialize_cbor(
+                item
+            )
+        )
+    return out

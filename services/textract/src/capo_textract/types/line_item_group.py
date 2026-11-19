@@ -41,3 +41,30 @@ def deserialize_aws_json_1_1(data: dict) -> LineItemGroup:
             data["LineItems"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LineItemGroup) -> dict:
+    out: dict = {}
+    if "line_item_group_index" in value:
+        out["LineItemGroupIndex"] = value["line_item_group_index"]
+    if "line_items" in value:
+        import capo_textract.types.line_item_list
+
+        out["LineItems"] = capo_textract.types.line_item_list.serialize_cbor(
+            value["line_items"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> LineItemGroup:
+    out: LineItemGroup = {}  # type: ignore[typeddict-item]
+    if data.get("LineItemGroupIndex") is not None:
+        out["line_item_group_index"] = data["LineItemGroupIndex"]
+    if data.get("LineItems") is not None:
+        import capo_textract.types.line_item_list
+
+        out["line_items"] = capo_textract.types.line_item_list.deserialize_cbor(
+            data["LineItems"]
+        )
+    return out

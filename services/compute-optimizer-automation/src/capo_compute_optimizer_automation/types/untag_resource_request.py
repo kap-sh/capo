@@ -63,3 +63,45 @@ def deserialize_aws_json_1_0(data: dict) -> UntagResourceRequest:
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UntagResourceRequest) -> dict:
+    out: dict = {}
+    out["resourceArn"] = value["resource_arn"]
+    out["ruleRevision"] = value["rule_revision"]
+    import capo_compute_optimizer_automation.types.tag_key_list
+
+    out["tagKeys"] = (
+        capo_compute_optimizer_automation.types.tag_key_list.serialize_cbor(
+            value["tag_keys"]
+        )
+    )
+    if "client_token" in value:
+        out["clientToken"] = value["client_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UntagResourceRequest:
+    out: UntagResourceRequest = {}  # type: ignore[typeddict-item]
+    if data.get("resourceArn") is not None:
+        out["resource_arn"] = data["resourceArn"]
+    else:
+        out["resource_arn"] = ""
+    if data.get("ruleRevision") is not None:
+        out["rule_revision"] = data["ruleRevision"]
+    else:
+        out["rule_revision"] = 0
+    if data.get("tagKeys") is not None:
+        import capo_compute_optimizer_automation.types.tag_key_list
+
+        out["tag_keys"] = (
+            capo_compute_optimizer_automation.types.tag_key_list.deserialize_cbor(
+                data["tagKeys"]
+            )
+        )
+    else:
+        out["tag_keys"] = []
+    if data.get("clientToken") is not None:
+        out["client_token"] = data["clientToken"]
+    return out

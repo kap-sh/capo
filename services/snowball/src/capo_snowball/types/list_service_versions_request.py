@@ -74,3 +74,55 @@ def deserialize_aws_json_1_1(data: dict) -> ListServiceVersionsRequest:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListServiceVersionsRequest) -> dict:
+    out: dict = {}
+    import capo_snowball.types.service_name
+
+    out["ServiceName"] = capo_snowball.types.service_name.serialize_cbor(
+        value["service_name"]
+    )
+    if "dependent_services" in value:
+        import capo_snowball.types.dependent_service_list
+
+        out["DependentServices"] = (
+            capo_snowball.types.dependent_service_list.serialize_cbor(
+                value["dependent_services"]
+            )
+        )
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListServiceVersionsRequest:
+    out: ListServiceVersionsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ServiceName") is not None:
+        import capo_snowball.types.service_name
+
+        out["service_name"] = capo_snowball.types.service_name.deserialize_cbor(
+            data["ServiceName"]
+        )
+    else:
+        import typing
+
+        out["service_name"] = typing.cast(
+            "capo_snowball.types.service_name.ServiceName", ""
+        )
+    if data.get("DependentServices") is not None:
+        import capo_snowball.types.dependent_service_list
+
+        out["dependent_services"] = (
+            capo_snowball.types.dependent_service_list.deserialize_cbor(
+                data["DependentServices"]
+            )
+        )
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

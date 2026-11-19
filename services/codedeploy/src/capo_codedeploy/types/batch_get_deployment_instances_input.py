@@ -45,3 +45,32 @@ def deserialize_aws_json_1_1(data: dict) -> BatchGetDeploymentInstancesInput:
     else:
         out["instance_ids"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchGetDeploymentInstancesInput) -> dict:
+    out: dict = {}
+    out["deploymentId"] = value["deployment_id"]
+    import capo_codedeploy.types.instances_list
+
+    out["instanceIds"] = capo_codedeploy.types.instances_list.serialize_cbor(
+        value["instance_ids"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BatchGetDeploymentInstancesInput:
+    out: BatchGetDeploymentInstancesInput = {}  # type: ignore[typeddict-item]
+    if data.get("deploymentId") is not None:
+        out["deployment_id"] = data["deploymentId"]
+    else:
+        out["deployment_id"] = ""
+    if data.get("instanceIds") is not None:
+        import capo_codedeploy.types.instances_list
+
+        out["instance_ids"] = capo_codedeploy.types.instances_list.deserialize_cbor(
+            data["instanceIds"]
+        )
+    else:
+        out["instance_ids"] = []
+    return out

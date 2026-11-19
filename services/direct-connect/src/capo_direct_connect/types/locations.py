@@ -38,3 +38,26 @@ def deserialize_aws_json_1_1(data: dict) -> Locations:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Locations) -> dict:
+    out: dict = {}
+    if "locations" in value:
+        import capo_direct_connect.types.location_list
+
+        out["locations"] = capo_direct_connect.types.location_list.serialize_cbor(
+            value["locations"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Locations:
+    out: Locations = {}  # type: ignore[typeddict-item]
+    if data.get("locations") is not None:
+        import capo_direct_connect.types.location_list
+
+        out["locations"] = capo_direct_connect.types.location_list.deserialize_cbor(
+            data["locations"]
+        )
+    return out

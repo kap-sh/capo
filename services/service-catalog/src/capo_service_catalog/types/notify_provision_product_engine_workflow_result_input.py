@@ -122,3 +122,80 @@ def deserialize_aws_json_1_1(
     else:
         out["idempotency_token"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: NotifyProvisionProductEngineWorkflowResultInput) -> dict:
+    out: dict = {}
+    out["WorkflowToken"] = value["workflow_token"]
+    out["RecordId"] = value["record_id"]
+    import capo_service_catalog.types.engine_workflow_status
+
+    out["Status"] = capo_service_catalog.types.engine_workflow_status.serialize_cbor(
+        value["status"]
+    )
+    if "failure_reason" in value:
+        out["FailureReason"] = value["failure_reason"]
+    if "resource_identifier" in value:
+        import capo_service_catalog.types.engine_workflow_resource_identifier
+
+        out["ResourceIdentifier"] = (
+            capo_service_catalog.types.engine_workflow_resource_identifier.serialize_cbor(
+                value["resource_identifier"]
+            )
+        )
+    if "outputs" in value:
+        import capo_service_catalog.types.record_outputs
+
+        out["Outputs"] = capo_service_catalog.types.record_outputs.serialize_cbor(
+            value["outputs"]
+        )
+    out["IdempotencyToken"] = value["idempotency_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> NotifyProvisionProductEngineWorkflowResultInput:
+    out: NotifyProvisionProductEngineWorkflowResultInput = {}  # type: ignore[typeddict-item]
+    if data.get("WorkflowToken") is not None:
+        out["workflow_token"] = data["WorkflowToken"]
+    else:
+        out["workflow_token"] = ""
+    if data.get("RecordId") is not None:
+        out["record_id"] = data["RecordId"]
+    else:
+        out["record_id"] = ""
+    if data.get("Status") is not None:
+        import capo_service_catalog.types.engine_workflow_status
+
+        out["status"] = (
+            capo_service_catalog.types.engine_workflow_status.deserialize_cbor(
+                data["Status"]
+            )
+        )
+    else:
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_service_catalog.types.engine_workflow_status.EngineWorkflowStatus", ""
+        )
+    if data.get("FailureReason") is not None:
+        out["failure_reason"] = data["FailureReason"]
+    if data.get("ResourceIdentifier") is not None:
+        import capo_service_catalog.types.engine_workflow_resource_identifier
+
+        out["resource_identifier"] = (
+            capo_service_catalog.types.engine_workflow_resource_identifier.deserialize_cbor(
+                data["ResourceIdentifier"]
+            )
+        )
+    if data.get("Outputs") is not None:
+        import capo_service_catalog.types.record_outputs
+
+        out["outputs"] = capo_service_catalog.types.record_outputs.deserialize_cbor(
+            data["Outputs"]
+        )
+    if data.get("IdempotencyToken") is not None:
+        out["idempotency_token"] = data["IdempotencyToken"]
+    else:
+        out["idempotency_token"] = ""
+    return out

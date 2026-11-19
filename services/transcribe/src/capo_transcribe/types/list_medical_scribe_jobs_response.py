@@ -68,3 +68,48 @@ def deserialize_aws_json_1_1(data: dict) -> ListMedicalScribeJobsResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListMedicalScribeJobsResponse) -> dict:
+    out: dict = {}
+    if "status" in value:
+        import capo_transcribe.types.medical_scribe_job_status
+
+        out["Status"] = capo_transcribe.types.medical_scribe_job_status.serialize_cbor(
+            value["status"]
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "medical_scribe_job_summaries" in value:
+        import capo_transcribe.types.medical_scribe_job_summaries
+
+        out["MedicalScribeJobSummaries"] = (
+            capo_transcribe.types.medical_scribe_job_summaries.serialize_cbor(
+                value["medical_scribe_job_summaries"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListMedicalScribeJobsResponse:
+    out: ListMedicalScribeJobsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Status") is not None:
+        import capo_transcribe.types.medical_scribe_job_status
+
+        out["status"] = (
+            capo_transcribe.types.medical_scribe_job_status.deserialize_cbor(
+                data["Status"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("MedicalScribeJobSummaries") is not None:
+        import capo_transcribe.types.medical_scribe_job_summaries
+
+        out["medical_scribe_job_summaries"] = (
+            capo_transcribe.types.medical_scribe_job_summaries.deserialize_cbor(
+                data["MedicalScribeJobSummaries"]
+            )
+        )
+    return out

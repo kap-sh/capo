@@ -44,3 +44,30 @@ def deserialize_aws_json_1_1(
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeTagsOnboardingStatusForOrganizationResponse) -> dict:
+    out: dict = {}
+    if "status" in value:
+        import capo_health.types.tags_onboarding_status_for_organization
+
+        out["status"] = (
+            capo_health.types.tags_onboarding_status_for_organization.serialize_cbor(
+                value["status"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeTagsOnboardingStatusForOrganizationResponse:
+    out: DescribeTagsOnboardingStatusForOrganizationResponse = {}  # type: ignore[typeddict-item]
+    if data.get("status") is not None:
+        import capo_health.types.tags_onboarding_status_for_organization
+
+        out["status"] = (
+            capo_health.types.tags_onboarding_status_for_organization.deserialize_cbor(
+                data["status"]
+            )
+        )
+    return out

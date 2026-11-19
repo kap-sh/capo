@@ -684,3 +684,246 @@ def deserialize_query(el: Element) -> PutMetricAlarmInput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PutMetricAlarmInput) -> dict:
+    out: dict = {}
+    if "alarm_name" in value:
+        out["AlarmName"] = value["alarm_name"]
+    if "alarm_description" in value:
+        out["AlarmDescription"] = value["alarm_description"]
+    if "actions_enabled" in value:
+        out["ActionsEnabled"] = value["actions_enabled"]
+    if "ok_actions" in value:
+        import capo_cloudwatch.types.resource_list
+
+        out["OKActions"] = capo_cloudwatch.types.resource_list.serialize_cbor(
+            value["ok_actions"]
+        )
+    if "alarm_actions" in value:
+        import capo_cloudwatch.types.resource_list
+
+        out["AlarmActions"] = capo_cloudwatch.types.resource_list.serialize_cbor(
+            value["alarm_actions"]
+        )
+    if "insufficient_data_actions" in value:
+        import capo_cloudwatch.types.resource_list
+
+        out["InsufficientDataActions"] = (
+            capo_cloudwatch.types.resource_list.serialize_cbor(
+                value["insufficient_data_actions"]
+            )
+        )
+    if "metric_name" in value:
+        out["MetricName"] = value["metric_name"]
+    if "namespace" in value:
+        out["Namespace"] = value["namespace"]
+    if "statistic" in value:
+        import capo_cloudwatch.types.statistic
+
+        out["Statistic"] = capo_cloudwatch.types.statistic.serialize_cbor(
+            value["statistic"]
+        )
+    if "extended_statistic" in value:
+        out["ExtendedStatistic"] = value["extended_statistic"]
+    if "dimensions" in value:
+        import capo_cloudwatch.types.dimensions
+
+        out["Dimensions"] = capo_cloudwatch.types.dimensions.serialize_cbor(
+            value["dimensions"]
+        )
+    if "period" in value:
+        out["Period"] = value["period"]
+    if "unit" in value:
+        import capo_cloudwatch.types.standard_unit
+
+        out["Unit"] = capo_cloudwatch.types.standard_unit.serialize_cbor(value["unit"])
+    if "evaluation_periods" in value:
+        out["EvaluationPeriods"] = value["evaluation_periods"]
+    if "datapoints_to_alarm" in value:
+        out["DatapointsToAlarm"] = value["datapoints_to_alarm"]
+    if "threshold" in value:
+        out["Threshold"] = value["threshold"]
+    if "comparison_operator" in value:
+        import capo_cloudwatch.types.comparison_operator
+
+        out["ComparisonOperator"] = (
+            capo_cloudwatch.types.comparison_operator.serialize_cbor(
+                value["comparison_operator"]
+            )
+        )
+    if "treat_missing_data" in value:
+        out["TreatMissingData"] = value["treat_missing_data"]
+    if "evaluate_low_sample_count_percentile" in value:
+        out["EvaluateLowSampleCountPercentile"] = value[
+            "evaluate_low_sample_count_percentile"
+        ]
+    if "metrics" in value:
+        import capo_cloudwatch.types.metric_data_queries
+
+        out["Metrics"] = capo_cloudwatch.types.metric_data_queries.serialize_cbor(
+            value["metrics"]
+        )
+    if "tags" in value:
+        import capo_cloudwatch.types.tag_list
+
+        out["Tags"] = capo_cloudwatch.types.tag_list.serialize_cbor(value["tags"])
+    if "threshold_metric_id" in value:
+        out["ThresholdMetricId"] = value["threshold_metric_id"]
+    if "evaluation_window" in value:
+        import capo_cloudwatch.types.evaluation_window
+
+        out["EvaluationWindow"] = (
+            capo_cloudwatch.types.evaluation_window.serialize_cbor(
+                value["evaluation_window"]
+            )
+        )
+    if "warm_up_configuration" in value:
+        import capo_cloudwatch.types.warm_up_configuration
+
+        out["WarmUpConfiguration"] = (
+            capo_cloudwatch.types.warm_up_configuration.serialize_cbor(
+                value["warm_up_configuration"]
+            )
+        )
+    if "evaluation_criteria" in value:
+        import capo_cloudwatch.types.evaluation_criteria
+
+        out["EvaluationCriteria"] = (
+            capo_cloudwatch.types.evaluation_criteria.serialize_cbor(
+                value["evaluation_criteria"]
+            )
+        )
+    if "evaluation_interval" in value:
+        out["EvaluationInterval"] = value["evaluation_interval"]
+    if "action_configuration" in value:
+        import capo_cloudwatch.types.action_configuration
+
+        out["ActionConfiguration"] = (
+            capo_cloudwatch.types.action_configuration.serialize_cbor(
+                value["action_configuration"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PutMetricAlarmInput:
+    out: PutMetricAlarmInput = {}  # type: ignore[typeddict-item]
+    if data.get("AlarmName") is not None:
+        out["alarm_name"] = data["AlarmName"]
+    if data.get("AlarmDescription") is not None:
+        out["alarm_description"] = data["AlarmDescription"]
+    if data.get("ActionsEnabled") is not None:
+        out["actions_enabled"] = data["ActionsEnabled"]
+    if data.get("OKActions") is not None:
+        import capo_cloudwatch.types.resource_list
+
+        out["ok_actions"] = capo_cloudwatch.types.resource_list.deserialize_cbor(
+            data["OKActions"]
+        )
+    if data.get("AlarmActions") is not None:
+        import capo_cloudwatch.types.resource_list
+
+        out["alarm_actions"] = capo_cloudwatch.types.resource_list.deserialize_cbor(
+            data["AlarmActions"]
+        )
+    if data.get("InsufficientDataActions") is not None:
+        import capo_cloudwatch.types.resource_list
+
+        out["insufficient_data_actions"] = (
+            capo_cloudwatch.types.resource_list.deserialize_cbor(
+                data["InsufficientDataActions"]
+            )
+        )
+    if data.get("MetricName") is not None:
+        out["metric_name"] = data["MetricName"]
+    if data.get("Namespace") is not None:
+        out["namespace"] = data["Namespace"]
+    if data.get("Statistic") is not None:
+        import capo_cloudwatch.types.statistic
+
+        out["statistic"] = capo_cloudwatch.types.statistic.deserialize_cbor(
+            data["Statistic"]
+        )
+    if data.get("ExtendedStatistic") is not None:
+        out["extended_statistic"] = data["ExtendedStatistic"]
+    if data.get("Dimensions") is not None:
+        import capo_cloudwatch.types.dimensions
+
+        out["dimensions"] = capo_cloudwatch.types.dimensions.deserialize_cbor(
+            data["Dimensions"]
+        )
+    if data.get("Period") is not None:
+        out["period"] = data["Period"]
+    if data.get("Unit") is not None:
+        import capo_cloudwatch.types.standard_unit
+
+        out["unit"] = capo_cloudwatch.types.standard_unit.deserialize_cbor(data["Unit"])
+    if data.get("EvaluationPeriods") is not None:
+        out["evaluation_periods"] = data["EvaluationPeriods"]
+    if data.get("DatapointsToAlarm") is not None:
+        out["datapoints_to_alarm"] = data["DatapointsToAlarm"]
+    if data.get("Threshold") is not None:
+        out["threshold"] = float(data["Threshold"])
+    if data.get("ComparisonOperator") is not None:
+        import capo_cloudwatch.types.comparison_operator
+
+        out["comparison_operator"] = (
+            capo_cloudwatch.types.comparison_operator.deserialize_cbor(
+                data["ComparisonOperator"]
+            )
+        )
+    if data.get("TreatMissingData") is not None:
+        out["treat_missing_data"] = data["TreatMissingData"]
+    if data.get("EvaluateLowSampleCountPercentile") is not None:
+        out["evaluate_low_sample_count_percentile"] = data[
+            "EvaluateLowSampleCountPercentile"
+        ]
+    if data.get("Metrics") is not None:
+        import capo_cloudwatch.types.metric_data_queries
+
+        out["metrics"] = capo_cloudwatch.types.metric_data_queries.deserialize_cbor(
+            data["Metrics"]
+        )
+    if data.get("Tags") is not None:
+        import capo_cloudwatch.types.tag_list
+
+        out["tags"] = capo_cloudwatch.types.tag_list.deserialize_cbor(data["Tags"])
+    if data.get("ThresholdMetricId") is not None:
+        out["threshold_metric_id"] = data["ThresholdMetricId"]
+    if data.get("EvaluationWindow") is not None:
+        import capo_cloudwatch.types.evaluation_window
+
+        out["evaluation_window"] = (
+            capo_cloudwatch.types.evaluation_window.deserialize_cbor(
+                data["EvaluationWindow"]
+            )
+        )
+    if data.get("WarmUpConfiguration") is not None:
+        import capo_cloudwatch.types.warm_up_configuration
+
+        out["warm_up_configuration"] = (
+            capo_cloudwatch.types.warm_up_configuration.deserialize_cbor(
+                data["WarmUpConfiguration"]
+            )
+        )
+    if data.get("EvaluationCriteria") is not None:
+        import capo_cloudwatch.types.evaluation_criteria
+
+        out["evaluation_criteria"] = (
+            capo_cloudwatch.types.evaluation_criteria.deserialize_cbor(
+                data["EvaluationCriteria"]
+            )
+        )
+    if data.get("EvaluationInterval") is not None:
+        out["evaluation_interval"] = data["EvaluationInterval"]
+    if data.get("ActionConfiguration") is not None:
+        import capo_cloudwatch.types.action_configuration
+
+        out["action_configuration"] = (
+            capo_cloudwatch.types.action_configuration.deserialize_cbor(
+                data["ActionConfiguration"]
+            )
+        )
+    return out

@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: DatasetType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> DatasetType:
     return cast(DatasetType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DatasetType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> DatasetType:
+    return cast(DatasetType, data)

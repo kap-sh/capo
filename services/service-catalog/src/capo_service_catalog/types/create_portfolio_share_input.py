@@ -77,3 +77,51 @@ def deserialize_aws_json_1_1(data: dict) -> CreatePortfolioShareInput:
     if data.get("SharePrincipals") is not None:
         out["share_principals"] = data["SharePrincipals"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreatePortfolioShareInput) -> dict:
+    out: dict = {}
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    out["PortfolioId"] = value["portfolio_id"]
+    if "account_id" in value:
+        out["AccountId"] = value["account_id"]
+    if "organization_node" in value:
+        import capo_service_catalog.types.organization_node
+
+        out["OrganizationNode"] = (
+            capo_service_catalog.types.organization_node.serialize_cbor(
+                value["organization_node"]
+            )
+        )
+    if "share_tag_options" in value:
+        out["ShareTagOptions"] = value["share_tag_options"]
+    if "share_principals" in value:
+        out["SharePrincipals"] = value["share_principals"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreatePortfolioShareInput:
+    out: CreatePortfolioShareInput = {}  # type: ignore[typeddict-item]
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    if data.get("PortfolioId") is not None:
+        out["portfolio_id"] = data["PortfolioId"]
+    else:
+        out["portfolio_id"] = ""
+    if data.get("AccountId") is not None:
+        out["account_id"] = data["AccountId"]
+    if data.get("OrganizationNode") is not None:
+        import capo_service_catalog.types.organization_node
+
+        out["organization_node"] = (
+            capo_service_catalog.types.organization_node.deserialize_cbor(
+                data["OrganizationNode"]
+            )
+        )
+    if data.get("ShareTagOptions") is not None:
+        out["share_tag_options"] = data["ShareTagOptions"]
+    if data.get("SharePrincipals") is not None:
+        out["share_principals"] = data["SharePrincipals"]
+    return out

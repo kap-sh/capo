@@ -116,3 +116,78 @@ def deserialize_aws_json_1_1(data: dict) -> Theme:
             data["CreatedTime"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Theme) -> dict:
+    out: dict = {}
+    if "stack_name" in value:
+        out["StackName"] = value["stack_name"]
+    if "state" in value:
+        import capo_appstream.types.theme_state
+
+        out["State"] = capo_appstream.types.theme_state.serialize_cbor(value["state"])
+    if "theme_title_text" in value:
+        out["ThemeTitleText"] = value["theme_title_text"]
+    if "theme_styling" in value:
+        import capo_appstream.types.theme_styling
+
+        out["ThemeStyling"] = capo_appstream.types.theme_styling.serialize_cbor(
+            value["theme_styling"]
+        )
+    if "theme_footer_links" in value:
+        import capo_appstream.types.theme_footer_links
+
+        out["ThemeFooterLinks"] = (
+            capo_appstream.types.theme_footer_links.serialize_cbor(
+                value["theme_footer_links"]
+            )
+        )
+    if "theme_organization_logo_url" in value:
+        out["ThemeOrganizationLogoURL"] = value["theme_organization_logo_url"]
+    if "theme_favicon_url" in value:
+        out["ThemeFaviconURL"] = value["theme_favicon_url"]
+    if "created_time" in value:
+        import capo_appstream.types.timestamp
+
+        out["CreatedTime"] = capo_appstream.types.timestamp.serialize_cbor(
+            value["created_time"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Theme:
+    out: Theme = {}  # type: ignore[typeddict-item]
+    if data.get("StackName") is not None:
+        out["stack_name"] = data["StackName"]
+    if data.get("State") is not None:
+        import capo_appstream.types.theme_state
+
+        out["state"] = capo_appstream.types.theme_state.deserialize_cbor(data["State"])
+    if data.get("ThemeTitleText") is not None:
+        out["theme_title_text"] = data["ThemeTitleText"]
+    if data.get("ThemeStyling") is not None:
+        import capo_appstream.types.theme_styling
+
+        out["theme_styling"] = capo_appstream.types.theme_styling.deserialize_cbor(
+            data["ThemeStyling"]
+        )
+    if data.get("ThemeFooterLinks") is not None:
+        import capo_appstream.types.theme_footer_links
+
+        out["theme_footer_links"] = (
+            capo_appstream.types.theme_footer_links.deserialize_cbor(
+                data["ThemeFooterLinks"]
+            )
+        )
+    if data.get("ThemeOrganizationLogoURL") is not None:
+        out["theme_organization_logo_url"] = data["ThemeOrganizationLogoURL"]
+    if data.get("ThemeFaviconURL") is not None:
+        out["theme_favicon_url"] = data["ThemeFaviconURL"]
+    if data.get("CreatedTime") is not None:
+        import capo_appstream.types.timestamp
+
+        out["created_time"] = capo_appstream.types.timestamp.deserialize_cbor(
+            data["CreatedTime"]
+        )
+    return out

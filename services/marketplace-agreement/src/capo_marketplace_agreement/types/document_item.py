@@ -40,3 +40,26 @@ def deserialize_aws_json_1_0(data: dict) -> DocumentItem:
     if data.get("version") is not None:
         out["version"] = data["version"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DocumentItem) -> dict:
+    out: dict = {}
+    if "type" in value:
+        out["type"] = value["type"]
+    if "url" in value:
+        out["url"] = value["url"]
+    if "version" in value:
+        out["version"] = value["version"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DocumentItem:
+    out: DocumentItem = {}  # type: ignore[typeddict-item]
+    if data.get("type") is not None:
+        out["type"] = data["type"]
+    if data.get("url") is not None:
+        out["url"] = data["url"]
+    if data.get("version") is not None:
+        out["version"] = data["version"]
+    return out

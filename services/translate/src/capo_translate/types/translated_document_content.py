@@ -13,3 +13,12 @@ def serialize_aws_json_1_1(value: TranslatedDocumentContent) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> TranslatedDocumentContent:
     return base64.b64decode(data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TranslatedDocumentContent) -> TranslatedDocumentContent:
+    return value
+
+
+def deserialize_cbor(data: TranslatedDocumentContent) -> TranslatedDocumentContent:
+    return data

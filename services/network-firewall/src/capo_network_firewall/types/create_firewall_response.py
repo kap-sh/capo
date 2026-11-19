@@ -55,3 +55,42 @@ def deserialize_aws_json_1_0(data: dict) -> CreateFirewallResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateFirewallResponse) -> dict:
+    out: dict = {}
+    if "firewall" in value:
+        import capo_network_firewall.types.firewall
+
+        out["Firewall"] = capo_network_firewall.types.firewall.serialize_cbor(
+            value["firewall"]
+        )
+    if "firewall_status" in value:
+        import capo_network_firewall.types.firewall_status
+
+        out["FirewallStatus"] = (
+            capo_network_firewall.types.firewall_status.serialize_cbor(
+                value["firewall_status"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateFirewallResponse:
+    out: CreateFirewallResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Firewall") is not None:
+        import capo_network_firewall.types.firewall
+
+        out["firewall"] = capo_network_firewall.types.firewall.deserialize_cbor(
+            data["Firewall"]
+        )
+    if data.get("FirewallStatus") is not None:
+        import capo_network_firewall.types.firewall_status
+
+        out["firewall_status"] = (
+            capo_network_firewall.types.firewall_status.deserialize_cbor(
+                data["FirewallStatus"]
+            )
+        )
+    return out

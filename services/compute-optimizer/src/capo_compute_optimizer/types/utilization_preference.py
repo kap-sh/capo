@@ -61,3 +61,46 @@ def deserialize_aws_json_1_0(data: dict) -> UtilizationPreference:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UtilizationPreference) -> dict:
+    out: dict = {}
+    if "metric_name" in value:
+        import capo_compute_optimizer.types.customizable_metric_name
+
+        out["metricName"] = (
+            capo_compute_optimizer.types.customizable_metric_name.serialize_cbor(
+                value["metric_name"]
+            )
+        )
+    if "metric_parameters" in value:
+        import capo_compute_optimizer.types.customizable_metric_parameters
+
+        out["metricParameters"] = (
+            capo_compute_optimizer.types.customizable_metric_parameters.serialize_cbor(
+                value["metric_parameters"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UtilizationPreference:
+    out: UtilizationPreference = {}  # type: ignore[typeddict-item]
+    if data.get("metricName") is not None:
+        import capo_compute_optimizer.types.customizable_metric_name
+
+        out["metric_name"] = (
+            capo_compute_optimizer.types.customizable_metric_name.deserialize_cbor(
+                data["metricName"]
+            )
+        )
+    if data.get("metricParameters") is not None:
+        import capo_compute_optimizer.types.customizable_metric_parameters
+
+        out["metric_parameters"] = (
+            capo_compute_optimizer.types.customizable_metric_parameters.deserialize_cbor(
+                data["metricParameters"]
+            )
+        )
+    return out

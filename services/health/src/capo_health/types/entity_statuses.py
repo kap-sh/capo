@@ -31,3 +31,24 @@ def deserialize_aws_json_1_1(data: dict) -> entityStatuses:
             continue
         out[capo_health.types.entity_status_code.deserialize_aws_json_1_1(key)] = value
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(input_to_serialize: entityStatuses) -> dict:
+    out: dict = {}
+    for key, value in input_to_serialize.items():
+        import capo_health.types.entity_status_code
+
+        out[capo_health.types.entity_status_code.serialize_cbor(key)] = value
+    return out
+
+
+def deserialize_cbor(data: dict) -> entityStatuses:
+    out: entityStatuses = {}
+    for key, value in data.items():
+        import capo_health.types.entity_status_code
+
+        if value is None:
+            continue
+        out[capo_health.types.entity_status_code.deserialize_cbor(key)] = value
+    return out

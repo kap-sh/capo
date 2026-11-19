@@ -50,3 +50,34 @@ def deserialize_aws_json_1_1(data: dict) -> RoutingStrategy:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RoutingStrategy) -> dict:
+    out: dict = {}
+    if "type" in value:
+        import capo_gamelift.types.routing_strategy_type
+
+        out["Type"] = capo_gamelift.types.routing_strategy_type.serialize_cbor(
+            value["type"]
+        )
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "message" in value:
+        out["Message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RoutingStrategy:
+    out: RoutingStrategy = {}  # type: ignore[typeddict-item]
+    if data.get("Type") is not None:
+        import capo_gamelift.types.routing_strategy_type
+
+        out["type"] = capo_gamelift.types.routing_strategy_type.deserialize_cbor(
+            data["Type"]
+        )
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    return out

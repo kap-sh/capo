@@ -30,6 +30,21 @@ def deserialize_aws_json_1_1(data: dict) -> InvalidAddressException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: InvalidAddressException_) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["Message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> InvalidAddressException_:
+    out: InvalidAddressException_ = {}  # type: ignore[typeddict-item]
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    return out
+
+
 class InvalidAddressException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.snowball#InvalidAddressException``."""
 
@@ -57,3 +72,9 @@ class InvalidAddressException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidAddressException":
         return cls(deserialize_aws_json_1_1(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "InvalidAddressException":
+        return cls(deserialize_cbor(data), message, response=response)

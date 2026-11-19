@@ -63,3 +63,38 @@ def deserialize_aws_json_1_0(data: dict) -> FreeTrialPricingTerm:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FreeTrialPricingTerm) -> dict:
+    out: dict = {}
+    if "type" in value:
+        out["type"] = value["type"]
+    if "id" in value:
+        out["id"] = value["id"]
+    if "duration" in value:
+        out["duration"] = value["duration"]
+    if "grants" in value:
+        import capo_marketplace_agreement.types.grant_list
+
+        out["grants"] = capo_marketplace_agreement.types.grant_list.serialize_cbor(
+            value["grants"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> FreeTrialPricingTerm:
+    out: FreeTrialPricingTerm = {}  # type: ignore[typeddict-item]
+    if data.get("type") is not None:
+        out["type"] = data["type"]
+    if data.get("id") is not None:
+        out["id"] = data["id"]
+    if data.get("duration") is not None:
+        out["duration"] = data["duration"]
+    if data.get("grants") is not None:
+        import capo_marketplace_agreement.types.grant_list
+
+        out["grants"] = capo_marketplace_agreement.types.grant_list.deserialize_cbor(
+            data["grants"]
+        )
+    return out

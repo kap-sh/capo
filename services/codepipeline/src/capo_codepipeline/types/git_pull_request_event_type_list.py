@@ -37,3 +37,28 @@ def deserialize_aws_json_1_1(data: list) -> GitPullRequestEventTypeList:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GitPullRequestEventTypeList) -> list:
+    import capo_codepipeline.types.git_pull_request_event_type
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_codepipeline.types.git_pull_request_event_type.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> GitPullRequestEventTypeList:
+    import capo_codepipeline.types.git_pull_request_event_type
+
+    out: GitPullRequestEventTypeList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_codepipeline.types.git_pull_request_event_type.deserialize_cbor(item)
+        )
+    return out

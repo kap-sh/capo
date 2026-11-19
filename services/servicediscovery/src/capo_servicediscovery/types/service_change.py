@@ -70,3 +70,48 @@ def deserialize_aws_json_1_1(data: dict) -> ServiceChange:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ServiceChange) -> dict:
+    out: dict = {}
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "dns_config" in value:
+        import capo_servicediscovery.types.dns_config_change
+
+        out["DnsConfig"] = capo_servicediscovery.types.dns_config_change.serialize_cbor(
+            value["dns_config"]
+        )
+    if "health_check_config" in value:
+        import capo_servicediscovery.types.health_check_config
+
+        out["HealthCheckConfig"] = (
+            capo_servicediscovery.types.health_check_config.serialize_cbor(
+                value["health_check_config"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ServiceChange:
+    out: ServiceChange = {}  # type: ignore[typeddict-item]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("DnsConfig") is not None:
+        import capo_servicediscovery.types.dns_config_change
+
+        out["dns_config"] = (
+            capo_servicediscovery.types.dns_config_change.deserialize_cbor(
+                data["DnsConfig"]
+            )
+        )
+    if data.get("HealthCheckConfig") is not None:
+        import capo_servicediscovery.types.health_check_config
+
+        out["health_check_config"] = (
+            capo_servicediscovery.types.health_check_config.deserialize_cbor(
+                data["HealthCheckConfig"]
+            )
+        )
+    return out

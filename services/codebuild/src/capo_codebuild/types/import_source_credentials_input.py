@@ -81,6 +81,60 @@ def deserialize_aws_json_1_1(data: dict) -> ImportSourceCredentialsInput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ImportSourceCredentialsInput) -> dict:
+    out: dict = {}
+    if "username" in value:
+        out["username"] = value["username"]
+    out["token"] = value["token"]
+    import capo_codebuild.types.server_type
+
+    out["serverType"] = capo_codebuild.types.server_type.serialize_cbor(
+        value["server_type"]
+    )
+    import capo_codebuild.types.auth_type
+
+    out["authType"] = capo_codebuild.types.auth_type.serialize_cbor(value["auth_type"])
+    if "should_overwrite" in value:
+        out["shouldOverwrite"] = value["should_overwrite"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ImportSourceCredentialsInput:
+    out: ImportSourceCredentialsInput = {}  # type: ignore[typeddict-item]
+    if data.get("username") is not None:
+        out["username"] = data["username"]
+    if data.get("token") is not None:
+        out["token"] = data["token"]
+    else:
+        out["token"] = ""
+    if data.get("serverType") is not None:
+        import capo_codebuild.types.server_type
+
+        out["server_type"] = capo_codebuild.types.server_type.deserialize_cbor(
+            data["serverType"]
+        )
+    else:
+        import typing
+
+        out["server_type"] = typing.cast(
+            "capo_codebuild.types.server_type.ServerType", ""
+        )
+    if data.get("authType") is not None:
+        import capo_codebuild.types.auth_type
+
+        out["auth_type"] = capo_codebuild.types.auth_type.deserialize_cbor(
+            data["authType"]
+        )
+    else:
+        import typing
+
+        out["auth_type"] = typing.cast("capo_codebuild.types.auth_type.AuthType", "")
+    if data.get("shouldOverwrite") is not None:
+        out["should_overwrite"] = data["shouldOverwrite"]
+    return out
+
+
 def redact_sensitive(value: ImportSourceCredentialsInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "token" in value:

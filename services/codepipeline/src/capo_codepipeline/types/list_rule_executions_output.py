@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> ListRuleExecutionsOutput:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListRuleExecutionsOutput) -> dict:
+    out: dict = {}
+    if "rule_execution_details" in value:
+        import capo_codepipeline.types.rule_execution_detail_list
+
+        out["ruleExecutionDetails"] = (
+            capo_codepipeline.types.rule_execution_detail_list.serialize_cbor(
+                value["rule_execution_details"]
+            )
+        )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListRuleExecutionsOutput:
+    out: ListRuleExecutionsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("ruleExecutionDetails") is not None:
+        import capo_codepipeline.types.rule_execution_detail_list
+
+        out["rule_execution_details"] = (
+            capo_codepipeline.types.rule_execution_detail_list.deserialize_cbor(
+                data["ruleExecutionDetails"]
+            )
+        )
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

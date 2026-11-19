@@ -35,3 +35,24 @@ def deserialize_aws_json_1_1(data: dict) -> PushDomainRequest:
     else:
         out["target"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PushDomainRequest) -> dict:
+    out: dict = {}
+    out["DomainName"] = value["domain_name"]
+    out["Target"] = value["target"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> PushDomainRequest:
+    out: PushDomainRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DomainName") is not None:
+        out["domain_name"] = data["DomainName"]
+    else:
+        out["domain_name"] = ""
+    if data.get("Target") is not None:
+        out["target"] = data["Target"]
+    else:
+        out["target"] = ""
+    return out

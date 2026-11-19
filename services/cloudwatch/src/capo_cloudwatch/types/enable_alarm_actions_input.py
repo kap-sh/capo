@@ -61,3 +61,26 @@ def deserialize_query(el: Element) -> EnableAlarmActionsInput:
             child_alarm_names
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EnableAlarmActionsInput) -> dict:
+    out: dict = {}
+    if "alarm_names" in value:
+        import capo_cloudwatch.types.alarm_names
+
+        out["AlarmNames"] = capo_cloudwatch.types.alarm_names.serialize_cbor(
+            value["alarm_names"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> EnableAlarmActionsInput:
+    out: EnableAlarmActionsInput = {}  # type: ignore[typeddict-item]
+    if data.get("AlarmNames") is not None:
+        import capo_cloudwatch.types.alarm_names
+
+        out["alarm_names"] = capo_cloudwatch.types.alarm_names.deserialize_cbor(
+            data["AlarmNames"]
+        )
+    return out

@@ -39,6 +39,33 @@ def deserialize_aws_json_1_1(data: list) -> SupportContainerDefinitionInputList:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SupportContainerDefinitionInputList) -> list:
+    import capo_gamelift.types.support_container_definition_input
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_gamelift.types.support_container_definition_input.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> SupportContainerDefinitionInputList:
+    import capo_gamelift.types.support_container_definition_input
+
+    out: SupportContainerDefinitionInputList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_gamelift.types.support_container_definition_input.deserialize_cbor(
+                item
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: SupportContainerDefinitionInputList) -> list[Any]:
     import capo_gamelift.types.support_container_definition_input
 

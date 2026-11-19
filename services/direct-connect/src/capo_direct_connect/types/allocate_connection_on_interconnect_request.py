@@ -59,3 +59,39 @@ def deserialize_aws_json_1_1(data: dict) -> AllocateConnectionOnInterconnectRequ
     else:
         out["vlan"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AllocateConnectionOnInterconnectRequest) -> dict:
+    out: dict = {}
+    out["bandwidth"] = value["bandwidth"]
+    out["connectionName"] = value["connection_name"]
+    out["ownerAccount"] = value["owner_account"]
+    out["interconnectId"] = value["interconnect_id"]
+    out["vlan"] = value["vlan"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AllocateConnectionOnInterconnectRequest:
+    out: AllocateConnectionOnInterconnectRequest = {}  # type: ignore[typeddict-item]
+    if data.get("bandwidth") is not None:
+        out["bandwidth"] = data["bandwidth"]
+    else:
+        out["bandwidth"] = ""
+    if data.get("connectionName") is not None:
+        out["connection_name"] = data["connectionName"]
+    else:
+        out["connection_name"] = ""
+    if data.get("ownerAccount") is not None:
+        out["owner_account"] = data["ownerAccount"]
+    else:
+        out["owner_account"] = ""
+    if data.get("interconnectId") is not None:
+        out["interconnect_id"] = data["interconnectId"]
+    else:
+        out["interconnect_id"] = ""
+    if data.get("vlan") is not None:
+        out["vlan"] = data["vlan"]
+    else:
+        out["vlan"] = 0
+    return out

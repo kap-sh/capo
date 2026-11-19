@@ -29,3 +29,24 @@ def deserialize_aws_json_1_1(data: list) -> NameserverList:
             capo_route_53_domains.types.nameserver.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: NameserverList) -> list:
+    import capo_route_53_domains.types.nameserver
+
+    out: list = []
+    for item in value:
+        out.append(capo_route_53_domains.types.nameserver.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> NameserverList:
+    import capo_route_53_domains.types.nameserver
+
+    out: NameserverList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_route_53_domains.types.nameserver.deserialize_cbor(item))
+    return out

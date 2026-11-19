@@ -58,3 +58,38 @@ def deserialize_aws_json_1_1(data: dict) -> ScriptDetails:
     if data.get("TimeoutInSeconds") is not None:
         out["timeout_in_seconds"] = data["TimeoutInSeconds"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ScriptDetails) -> dict:
+    out: dict = {}
+    if "script_s3_location" in value:
+        import capo_appstream.types.s3_location
+
+        out["ScriptS3Location"] = capo_appstream.types.s3_location.serialize_cbor(
+            value["script_s3_location"]
+        )
+    if "executable_path" in value:
+        out["ExecutablePath"] = value["executable_path"]
+    if "executable_parameters" in value:
+        out["ExecutableParameters"] = value["executable_parameters"]
+    if "timeout_in_seconds" in value:
+        out["TimeoutInSeconds"] = value["timeout_in_seconds"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ScriptDetails:
+    out: ScriptDetails = {}  # type: ignore[typeddict-item]
+    if data.get("ScriptS3Location") is not None:
+        import capo_appstream.types.s3_location
+
+        out["script_s3_location"] = capo_appstream.types.s3_location.deserialize_cbor(
+            data["ScriptS3Location"]
+        )
+    if data.get("ExecutablePath") is not None:
+        out["executable_path"] = data["ExecutablePath"]
+    if data.get("ExecutableParameters") is not None:
+        out["executable_parameters"] = data["ExecutableParameters"]
+    if data.get("TimeoutInSeconds") is not None:
+        out["timeout_in_seconds"] = data["TimeoutInSeconds"]
+    return out

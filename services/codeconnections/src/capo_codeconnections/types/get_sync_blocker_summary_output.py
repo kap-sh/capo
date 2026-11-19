@@ -45,3 +45,33 @@ def deserialize_aws_json_1_0(data: dict) -> GetSyncBlockerSummaryOutput:
             "GetSyncBlockerSummaryOutput.sync_blocker_summary required"
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetSyncBlockerSummaryOutput) -> dict:
+    out: dict = {}
+    import capo_codeconnections.types.sync_blocker_summary
+
+    out["SyncBlockerSummary"] = (
+        capo_codeconnections.types.sync_blocker_summary.serialize_cbor(
+            value["sync_blocker_summary"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetSyncBlockerSummaryOutput:
+    out: GetSyncBlockerSummaryOutput = {}  # type: ignore[typeddict-item]
+    if data.get("SyncBlockerSummary") is not None:
+        import capo_codeconnections.types.sync_blocker_summary
+
+        out["sync_blocker_summary"] = (
+            capo_codeconnections.types.sync_blocker_summary.deserialize_cbor(
+                data["SyncBlockerSummary"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "GetSyncBlockerSummaryOutput.sync_blocker_summary required"
+        )
+    return out

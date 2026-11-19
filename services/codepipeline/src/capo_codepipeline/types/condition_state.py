@@ -59,3 +59,42 @@ def deserialize_aws_json_1_1(data: dict) -> ConditionState:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ConditionState) -> dict:
+    out: dict = {}
+    if "latest_execution" in value:
+        import capo_codepipeline.types.condition_execution
+
+        out["latestExecution"] = (
+            capo_codepipeline.types.condition_execution.serialize_cbor(
+                value["latest_execution"]
+            )
+        )
+    if "rule_states" in value:
+        import capo_codepipeline.types.rule_state_list
+
+        out["ruleStates"] = capo_codepipeline.types.rule_state_list.serialize_cbor(
+            value["rule_states"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ConditionState:
+    out: ConditionState = {}  # type: ignore[typeddict-item]
+    if data.get("latestExecution") is not None:
+        import capo_codepipeline.types.condition_execution
+
+        out["latest_execution"] = (
+            capo_codepipeline.types.condition_execution.deserialize_cbor(
+                data["latestExecution"]
+            )
+        )
+    if data.get("ruleStates") is not None:
+        import capo_codepipeline.types.rule_state_list
+
+        out["rule_states"] = capo_codepipeline.types.rule_state_list.deserialize_cbor(
+            data["ruleStates"]
+        )
+    return out

@@ -16,3 +16,14 @@ def serialize_aws_json_1_1(value: DeleteFleetOutput) -> dict:
 def deserialize_aws_json_1_1(data: dict) -> DeleteFleetOutput:
     out: DeleteFleetOutput = {}  # type: ignore[typeddict-item]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteFleetOutput) -> dict:
+    out: dict = {}
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteFleetOutput:
+    out: DeleteFleetOutput = {}  # type: ignore[typeddict-item]
+    return out

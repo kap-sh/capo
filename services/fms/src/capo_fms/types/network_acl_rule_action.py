@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: NetworkAclRuleAction) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> NetworkAclRuleAction:
     return cast(NetworkAclRuleAction, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: NetworkAclRuleAction) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> NetworkAclRuleAction:
+    return cast(NetworkAclRuleAction, data)

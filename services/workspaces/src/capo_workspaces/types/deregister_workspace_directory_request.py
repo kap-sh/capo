@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> DeregisterWorkspaceDirectoryRequest:
     else:
         out["directory_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeregisterWorkspaceDirectoryRequest) -> dict:
+    out: dict = {}
+    out["DirectoryId"] = value["directory_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeregisterWorkspaceDirectoryRequest:
+    out: DeregisterWorkspaceDirectoryRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    return out

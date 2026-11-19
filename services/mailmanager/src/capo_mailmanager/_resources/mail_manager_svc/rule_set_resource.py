@@ -77,13 +77,24 @@ class RuleSetResource:
         ) -> OperationResponse[
             "capo_mailmanager.types.create_rule_set_response.CreateRuleSetResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.create_rule_set
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.create_rule_set
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.create_rule_set.create_rule_set(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.create_rule_set.create_rule_set(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.create_rule_set
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.create_rule_set.create_rule_set(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -139,13 +150,24 @@ class RuleSetResource:
         ) -> OperationResponse[
             "capo_mailmanager.types.get_rule_set_response.GetRuleSetResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.get_rule_set
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_rule_set
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.get_rule_set.get_rule_set(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_rule_set.get_rule_set(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_rule_set
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_rule_set.get_rule_set(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -200,13 +222,24 @@ class RuleSetResource:
         ) -> OperationResponse[
             "capo_mailmanager.types.update_rule_set_response.UpdateRuleSetResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.update_rule_set
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.update_rule_set
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.update_rule_set.update_rule_set(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.update_rule_set.update_rule_set(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.update_rule_set
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.update_rule_set.update_rule_set(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -260,13 +293,24 @@ class RuleSetResource:
         ) -> OperationResponse[
             "capo_mailmanager.types.delete_rule_set_response.DeleteRuleSetResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.delete_rule_set
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.delete_rule_set
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.delete_rule_set.delete_rule_set(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.delete_rule_set.delete_rule_set(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.delete_rule_set
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.delete_rule_set.delete_rule_set(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(
@@ -309,13 +353,24 @@ class RuleSetResource:
         ) -> OperationResponse[
             "capo_mailmanager.types.list_rule_sets_response.ListRuleSetsResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.list_rule_sets
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_rule_sets
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.list_rule_sets.list_rule_sets(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_rule_sets.list_rule_sets(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_rule_sets
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_rule_sets.list_rule_sets(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(
@@ -371,14 +426,26 @@ class AsyncRuleSetResource:
         ) -> AsyncOperationResponse[
             "capo_mailmanager.types.create_rule_set_response.CreateRuleSetResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.create_rule_set
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.create_rule_set
 
-            (
-                output,
-                http_response,
-            ) = await capo_mailmanager._operations.mail_manager_svc.create_rule_set.async_create_rule_set(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_mailmanager._operations.mail_manager_svc.aws_json1_0.create_rule_set.async_create_rule_set(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.create_rule_set
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.create_rule_set.async_create_rule_set(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -434,14 +501,26 @@ class AsyncRuleSetResource:
         ) -> AsyncOperationResponse[
             "capo_mailmanager.types.get_rule_set_response.GetRuleSetResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.get_rule_set
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_rule_set
 
-            (
-                output,
-                http_response,
-            ) = await capo_mailmanager._operations.mail_manager_svc.get_rule_set.async_get_rule_set(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_rule_set.async_get_rule_set(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_rule_set
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_rule_set.async_get_rule_set(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -496,14 +575,26 @@ class AsyncRuleSetResource:
         ) -> AsyncOperationResponse[
             "capo_mailmanager.types.update_rule_set_response.UpdateRuleSetResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.update_rule_set
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.update_rule_set
 
-            (
-                output,
-                http_response,
-            ) = await capo_mailmanager._operations.mail_manager_svc.update_rule_set.async_update_rule_set(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_mailmanager._operations.mail_manager_svc.aws_json1_0.update_rule_set.async_update_rule_set(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.update_rule_set
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.update_rule_set.async_update_rule_set(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -557,14 +648,26 @@ class AsyncRuleSetResource:
         ) -> AsyncOperationResponse[
             "capo_mailmanager.types.delete_rule_set_response.DeleteRuleSetResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.delete_rule_set
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.delete_rule_set
 
-            (
-                output,
-                http_response,
-            ) = await capo_mailmanager._operations.mail_manager_svc.delete_rule_set.async_delete_rule_set(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_mailmanager._operations.mail_manager_svc.aws_json1_0.delete_rule_set.async_delete_rule_set(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.delete_rule_set
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.delete_rule_set.async_delete_rule_set(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(
@@ -607,14 +710,26 @@ class AsyncRuleSetResource:
         ) -> AsyncOperationResponse[
             "capo_mailmanager.types.list_rule_sets_response.ListRuleSetsResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.list_rule_sets
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_rule_sets
 
-            (
-                output,
-                http_response,
-            ) = await capo_mailmanager._operations.mail_manager_svc.list_rule_sets.async_list_rule_sets(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_rule_sets.async_list_rule_sets(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_rule_sets
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_rule_sets.async_list_rule_sets(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(

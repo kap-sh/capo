@@ -94,3 +94,70 @@ def deserialize_aws_json_1_1(data: dict) -> GenericRevisionInfo:
             data["registerTime"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GenericRevisionInfo) -> dict:
+    out: dict = {}
+    if "description" in value:
+        out["description"] = value["description"]
+    if "deployment_groups" in value:
+        import capo_codedeploy.types.deployment_groups_list
+
+        out["deploymentGroups"] = (
+            capo_codedeploy.types.deployment_groups_list.serialize_cbor(
+                value["deployment_groups"]
+            )
+        )
+    if "first_used_time" in value:
+        import capo_codedeploy.types.timestamp
+
+        out["firstUsedTime"] = capo_codedeploy.types.timestamp.serialize_cbor(
+            value["first_used_time"]
+        )
+    if "last_used_time" in value:
+        import capo_codedeploy.types.timestamp
+
+        out["lastUsedTime"] = capo_codedeploy.types.timestamp.serialize_cbor(
+            value["last_used_time"]
+        )
+    if "register_time" in value:
+        import capo_codedeploy.types.timestamp
+
+        out["registerTime"] = capo_codedeploy.types.timestamp.serialize_cbor(
+            value["register_time"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GenericRevisionInfo:
+    out: GenericRevisionInfo = {}  # type: ignore[typeddict-item]
+    if data.get("description") is not None:
+        out["description"] = data["description"]
+    if data.get("deploymentGroups") is not None:
+        import capo_codedeploy.types.deployment_groups_list
+
+        out["deployment_groups"] = (
+            capo_codedeploy.types.deployment_groups_list.deserialize_cbor(
+                data["deploymentGroups"]
+            )
+        )
+    if data.get("firstUsedTime") is not None:
+        import capo_codedeploy.types.timestamp
+
+        out["first_used_time"] = capo_codedeploy.types.timestamp.deserialize_cbor(
+            data["firstUsedTime"]
+        )
+    if data.get("lastUsedTime") is not None:
+        import capo_codedeploy.types.timestamp
+
+        out["last_used_time"] = capo_codedeploy.types.timestamp.deserialize_cbor(
+            data["lastUsedTime"]
+        )
+    if data.get("registerTime") is not None:
+        import capo_codedeploy.types.timestamp
+
+        out["register_time"] = capo_codedeploy.types.timestamp.deserialize_cbor(
+            data["registerTime"]
+        )
+    return out

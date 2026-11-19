@@ -34,3 +34,23 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeObservationRequest:
     if data.get("AccountId") is not None:
         out["account_id"] = data["AccountId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeObservationRequest) -> dict:
+    out: dict = {}
+    out["ObservationId"] = value["observation_id"]
+    if "account_id" in value:
+        out["AccountId"] = value["account_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeObservationRequest:
+    out: DescribeObservationRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ObservationId") is not None:
+        out["observation_id"] = data["ObservationId"]
+    else:
+        out["observation_id"] = ""
+    if data.get("AccountId") is not None:
+        out["account_id"] = data["AccountId"]
+    return out

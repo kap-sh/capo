@@ -53,3 +53,32 @@ def deserialize_aws_json_1_1(data: dict) -> StopPipelineExecutionInput:
     if data.get("reason") is not None:
         out["reason"] = data["reason"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StopPipelineExecutionInput) -> dict:
+    out: dict = {}
+    out["pipelineName"] = value["pipeline_name"]
+    out["pipelineExecutionId"] = value["pipeline_execution_id"]
+    if "abandon" in value:
+        out["abandon"] = value["abandon"]
+    if "reason" in value:
+        out["reason"] = value["reason"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StopPipelineExecutionInput:
+    out: StopPipelineExecutionInput = {}  # type: ignore[typeddict-item]
+    if data.get("pipelineName") is not None:
+        out["pipeline_name"] = data["pipelineName"]
+    else:
+        out["pipeline_name"] = ""
+    if data.get("pipelineExecutionId") is not None:
+        out["pipeline_execution_id"] = data["pipelineExecutionId"]
+    else:
+        out["pipeline_execution_id"] = ""
+    if data.get("abandon") is not None:
+        out["abandon"] = data["abandon"]
+    if data.get("reason") is not None:
+        out["reason"] = data["reason"]
+    return out

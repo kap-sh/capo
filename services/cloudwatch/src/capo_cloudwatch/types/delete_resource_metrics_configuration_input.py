@@ -47,3 +47,18 @@ def deserialize_query(el: Element) -> DeleteResourceMetricsConfigurationInput:
     if child_resource_arn is not None:
         out["resource_arn"] = str(child_resource_arn.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteResourceMetricsConfigurationInput) -> dict:
+    out: dict = {}
+    if "resource_arn" in value:
+        out["ResourceArn"] = value["resource_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteResourceMetricsConfigurationInput:
+    out: DeleteResourceMetricsConfigurationInput = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceArn") is not None:
+        out["resource_arn"] = data["ResourceArn"]
+    return out

@@ -27,3 +27,22 @@ def deserialize_aws_json_1_0(data: dict) -> WarmThroughputSpecification:
     if data.get("writeUnitsPerSecond") is not None:
         out["write_units_per_second"] = data["writeUnitsPerSecond"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: WarmThroughputSpecification) -> dict:
+    out: dict = {}
+    if "read_units_per_second" in value:
+        out["readUnitsPerSecond"] = value["read_units_per_second"]
+    if "write_units_per_second" in value:
+        out["writeUnitsPerSecond"] = value["write_units_per_second"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> WarmThroughputSpecification:
+    out: WarmThroughputSpecification = {}  # type: ignore[typeddict-item]
+    if data.get("readUnitsPerSecond") is not None:
+        out["read_units_per_second"] = data["readUnitsPerSecond"]
+    if data.get("writeUnitsPerSecond") is not None:
+        out["write_units_per_second"] = data["writeUnitsPerSecond"]
+    return out

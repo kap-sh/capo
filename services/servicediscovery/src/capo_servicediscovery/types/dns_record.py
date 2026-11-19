@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> DnsRecord:
     else:
         out["ttl"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DnsRecord) -> dict:
+    out: dict = {}
+    import capo_servicediscovery.types.record_type
+
+    out["Type"] = capo_servicediscovery.types.record_type.serialize_cbor(value["type"])
+    out["TTL"] = value["ttl"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DnsRecord:
+    out: DnsRecord = {}  # type: ignore[typeddict-item]
+    if data.get("Type") is not None:
+        import capo_servicediscovery.types.record_type
+
+        out["type"] = capo_servicediscovery.types.record_type.deserialize_cbor(
+            data["Type"]
+        )
+    else:
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_servicediscovery.types.record_type.RecordType", ""
+        )
+    if data.get("TTL") is not None:
+        out["ttl"] = data["TTL"]
+    else:
+        out["ttl"] = 0
+    return out

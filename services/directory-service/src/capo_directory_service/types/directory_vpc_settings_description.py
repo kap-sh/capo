@@ -75,3 +75,50 @@ def deserialize_aws_json_1_1(data: dict) -> DirectoryVpcSettingsDescription:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DirectoryVpcSettingsDescription) -> dict:
+    out: dict = {}
+    if "vpc_id" in value:
+        out["VpcId"] = value["vpc_id"]
+    if "subnet_ids" in value:
+        import capo_directory_service.types.subnet_ids
+
+        out["SubnetIds"] = capo_directory_service.types.subnet_ids.serialize_cbor(
+            value["subnet_ids"]
+        )
+    if "security_group_id" in value:
+        out["SecurityGroupId"] = value["security_group_id"]
+    if "availability_zones" in value:
+        import capo_directory_service.types.availability_zones
+
+        out["AvailabilityZones"] = (
+            capo_directory_service.types.availability_zones.serialize_cbor(
+                value["availability_zones"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DirectoryVpcSettingsDescription:
+    out: DirectoryVpcSettingsDescription = {}  # type: ignore[typeddict-item]
+    if data.get("VpcId") is not None:
+        out["vpc_id"] = data["VpcId"]
+    if data.get("SubnetIds") is not None:
+        import capo_directory_service.types.subnet_ids
+
+        out["subnet_ids"] = capo_directory_service.types.subnet_ids.deserialize_cbor(
+            data["SubnetIds"]
+        )
+    if data.get("SecurityGroupId") is not None:
+        out["security_group_id"] = data["SecurityGroupId"]
+    if data.get("AvailabilityZones") is not None:
+        import capo_directory_service.types.availability_zones
+
+        out["availability_zones"] = (
+            capo_directory_service.types.availability_zones.deserialize_cbor(
+                data["AvailabilityZones"]
+            )
+        )
+    return out

@@ -74,3 +74,50 @@ def deserialize_aws_json_1_1(data: dict) -> FailureConditions:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FailureConditions) -> dict:
+    out: dict = {}
+    if "result" in value:
+        import capo_codepipeline.types.result
+
+        out["result"] = capo_codepipeline.types.result.serialize_cbor(value["result"])
+    if "retry_configuration" in value:
+        import capo_codepipeline.types.retry_configuration
+
+        out["retryConfiguration"] = (
+            capo_codepipeline.types.retry_configuration.serialize_cbor(
+                value["retry_configuration"]
+            )
+        )
+    if "conditions" in value:
+        import capo_codepipeline.types.condition_list
+
+        out["conditions"] = capo_codepipeline.types.condition_list.serialize_cbor(
+            value["conditions"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> FailureConditions:
+    out: FailureConditions = {}  # type: ignore[typeddict-item]
+    if data.get("result") is not None:
+        import capo_codepipeline.types.result
+
+        out["result"] = capo_codepipeline.types.result.deserialize_cbor(data["result"])
+    if data.get("retryConfiguration") is not None:
+        import capo_codepipeline.types.retry_configuration
+
+        out["retry_configuration"] = (
+            capo_codepipeline.types.retry_configuration.deserialize_cbor(
+                data["retryConfiguration"]
+            )
+        )
+    if data.get("conditions") is not None:
+        import capo_codepipeline.types.condition_list
+
+        out["conditions"] = capo_codepipeline.types.condition_list.deserialize_cbor(
+            data["conditions"]
+        )
+    return out

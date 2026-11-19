@@ -58,3 +58,42 @@ def deserialize_aws_json_1_1(data: dict) -> ListVocabulariesResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListVocabulariesResponse) -> dict:
+    out: dict = {}
+    if "status" in value:
+        import capo_transcribe.types.vocabulary_state
+
+        out["Status"] = capo_transcribe.types.vocabulary_state.serialize_cbor(
+            value["status"]
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "vocabularies" in value:
+        import capo_transcribe.types.vocabularies
+
+        out["Vocabularies"] = capo_transcribe.types.vocabularies.serialize_cbor(
+            value["vocabularies"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListVocabulariesResponse:
+    out: ListVocabulariesResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Status") is not None:
+        import capo_transcribe.types.vocabulary_state
+
+        out["status"] = capo_transcribe.types.vocabulary_state.deserialize_cbor(
+            data["Status"]
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("Vocabularies") is not None:
+        import capo_transcribe.types.vocabularies
+
+        out["vocabularies"] = capo_transcribe.types.vocabularies.deserialize_cbor(
+            data["Vocabularies"]
+        )
+    return out

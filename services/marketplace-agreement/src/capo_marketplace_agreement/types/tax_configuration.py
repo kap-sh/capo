@@ -39,3 +39,31 @@ def deserialize_aws_json_1_0(data: dict) -> TaxConfiguration:
     else:
         out["tax_estimation"] = "DISABLED"
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TaxConfiguration) -> dict:
+    out: dict = {}
+    import capo_marketplace_agreement.types.tax_estimation
+
+    out["taxEstimation"] = (
+        capo_marketplace_agreement.types.tax_estimation.serialize_cbor(
+            value.get("tax_estimation", "DISABLED")
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TaxConfiguration:
+    out: TaxConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("taxEstimation") is not None:
+        import capo_marketplace_agreement.types.tax_estimation
+
+        out["tax_estimation"] = (
+            capo_marketplace_agreement.types.tax_estimation.deserialize_cbor(
+                data["taxEstimation"]
+            )
+        )
+    else:
+        out["tax_estimation"] = "DISABLED"
+    return out

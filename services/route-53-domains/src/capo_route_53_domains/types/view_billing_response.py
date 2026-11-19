@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> ViewBillingResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ViewBillingResponse) -> dict:
+    out: dict = {}
+    if "next_page_marker" in value:
+        out["NextPageMarker"] = value["next_page_marker"]
+    if "billing_records" in value:
+        import capo_route_53_domains.types.billing_records
+
+        out["BillingRecords"] = (
+            capo_route_53_domains.types.billing_records.serialize_cbor(
+                value["billing_records"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ViewBillingResponse:
+    out: ViewBillingResponse = {}  # type: ignore[typeddict-item]
+    if data.get("NextPageMarker") is not None:
+        out["next_page_marker"] = data["NextPageMarker"]
+    if data.get("BillingRecords") is not None:
+        import capo_route_53_domains.types.billing_records
+
+        out["billing_records"] = (
+            capo_route_53_domains.types.billing_records.deserialize_cbor(
+                data["BillingRecords"]
+            )
+        )
+    return out

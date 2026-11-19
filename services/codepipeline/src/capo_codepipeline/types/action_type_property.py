@@ -65,3 +65,43 @@ def deserialize_aws_json_1_1(data: dict) -> ActionTypeProperty:
     if data.get("description") is not None:
         out["description"] = data["description"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ActionTypeProperty) -> dict:
+    out: dict = {}
+    out["name"] = value["name"]
+    out["optional"] = value.get("optional", False)
+    out["key"] = value.get("key", False)
+    out["noEcho"] = value.get("no_echo", False)
+    out["queryable"] = value.get("queryable", False)
+    if "description" in value:
+        out["description"] = value["description"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ActionTypeProperty:
+    out: ActionTypeProperty = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    else:
+        out["name"] = ""
+    if data.get("optional") is not None:
+        out["optional"] = data["optional"]
+    else:
+        out["optional"] = False
+    if data.get("key") is not None:
+        out["key"] = data["key"]
+    else:
+        out["key"] = False
+    if data.get("noEcho") is not None:
+        out["no_echo"] = data["noEcho"]
+    else:
+        out["no_echo"] = False
+    if data.get("queryable") is not None:
+        out["queryable"] = data["queryable"]
+    else:
+        out["queryable"] = False
+    if data.get("description") is not None:
+        out["description"] = data["description"]
+    return out

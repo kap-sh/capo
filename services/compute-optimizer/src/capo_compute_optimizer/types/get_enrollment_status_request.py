@@ -16,3 +16,14 @@ def serialize_aws_json_1_0(value: GetEnrollmentStatusRequest) -> dict:
 def deserialize_aws_json_1_0(data: dict) -> GetEnrollmentStatusRequest:
     out: GetEnrollmentStatusRequest = {}  # type: ignore[typeddict-item]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetEnrollmentStatusRequest) -> dict:
+    out: dict = {}
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetEnrollmentStatusRequest:
+    out: GetEnrollmentStatusRequest = {}  # type: ignore[typeddict-item]
+    return out

@@ -16,3 +16,12 @@ def serialize_aws_json_1_0(value: RecommendedActionType) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> RecommendedActionType:
     return cast(RecommendedActionType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RecommendedActionType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> RecommendedActionType:
+    return cast(RecommendedActionType, data)

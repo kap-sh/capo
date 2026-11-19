@@ -29,3 +29,19 @@ def deserialize_aws_json_1_0(data: dict) -> StartAnalysisReportResponse:
     else:
         out["analysis_report_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartAnalysisReportResponse) -> dict:
+    out: dict = {}
+    out["AnalysisReportId"] = value["analysis_report_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartAnalysisReportResponse:
+    out: StartAnalysisReportResponse = {}  # type: ignore[typeddict-item]
+    if data.get("AnalysisReportId") is not None:
+        out["analysis_report_id"] = data["AnalysisReportId"]
+    else:
+        out["analysis_report_id"] = ""
+    return out

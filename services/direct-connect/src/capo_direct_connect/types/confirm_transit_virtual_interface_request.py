@@ -39,3 +39,24 @@ def deserialize_aws_json_1_1(data: dict) -> ConfirmTransitVirtualInterfaceReques
     else:
         out["direct_connect_gateway_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ConfirmTransitVirtualInterfaceRequest) -> dict:
+    out: dict = {}
+    out["virtualInterfaceId"] = value["virtual_interface_id"]
+    out["directConnectGatewayId"] = value["direct_connect_gateway_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ConfirmTransitVirtualInterfaceRequest:
+    out: ConfirmTransitVirtualInterfaceRequest = {}  # type: ignore[typeddict-item]
+    if data.get("virtualInterfaceId") is not None:
+        out["virtual_interface_id"] = data["virtualInterfaceId"]
+    else:
+        out["virtual_interface_id"] = ""
+    if data.get("directConnectGatewayId") is not None:
+        out["direct_connect_gateway_id"] = data["directConnectGatewayId"]
+    else:
+        out["direct_connect_gateway_id"] = ""
+    return out

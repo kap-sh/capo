@@ -40,3 +40,30 @@ def deserialize_aws_json_1_0(data: dict) -> LambdaSavingsEstimationMode:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LambdaSavingsEstimationMode) -> dict:
+    out: dict = {}
+    if "source" in value:
+        import capo_compute_optimizer.types.lambda_savings_estimation_mode_source
+
+        out["source"] = (
+            capo_compute_optimizer.types.lambda_savings_estimation_mode_source.serialize_cbor(
+                value["source"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> LambdaSavingsEstimationMode:
+    out: LambdaSavingsEstimationMode = {}  # type: ignore[typeddict-item]
+    if data.get("source") is not None:
+        import capo_compute_optimizer.types.lambda_savings_estimation_mode_source
+
+        out["source"] = (
+            capo_compute_optimizer.types.lambda_savings_estimation_mode_source.deserialize_cbor(
+                data["source"]
+            )
+        )
+    return out

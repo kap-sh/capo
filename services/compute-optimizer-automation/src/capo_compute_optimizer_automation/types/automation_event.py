@@ -209,3 +209,146 @@ def deserialize_aws_json_1_0(data: dict) -> AutomationEvent:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AutomationEvent) -> dict:
+    out: dict = {}
+    if "event_id" in value:
+        out["eventId"] = value["event_id"]
+    if "event_description" in value:
+        out["eventDescription"] = value["event_description"]
+    if "event_type" in value:
+        import capo_compute_optimizer_automation.types.event_type
+
+        out["eventType"] = (
+            capo_compute_optimizer_automation.types.event_type.serialize_cbor(
+                value["event_type"]
+            )
+        )
+    if "event_status" in value:
+        import capo_compute_optimizer_automation.types.event_status
+
+        out["eventStatus"] = (
+            capo_compute_optimizer_automation.types.event_status.serialize_cbor(
+                value["event_status"]
+            )
+        )
+    if "event_status_reason" in value:
+        out["eventStatusReason"] = value["event_status_reason"]
+    if "resource_arn" in value:
+        out["resourceArn"] = value["resource_arn"]
+    if "resource_id" in value:
+        out["resourceId"] = value["resource_id"]
+    if "recommended_action_id" in value:
+        out["recommendedActionId"] = value["recommended_action_id"]
+    if "account_id" in value:
+        out["accountId"] = value["account_id"]
+    if "region" in value:
+        out["region"] = value["region"]
+    if "rule_id" in value:
+        out["ruleId"] = value["rule_id"]
+    if "resource_type" in value:
+        import capo_compute_optimizer_automation.types.resource_type
+
+        out["resourceType"] = (
+            capo_compute_optimizer_automation.types.resource_type.serialize_cbor(
+                value["resource_type"]
+            )
+        )
+    if "created_timestamp" in value:
+        import capo_compute_optimizer_automation.types._prelude.timestamp
+
+        out["createdTimestamp"] = (
+            capo_compute_optimizer_automation.types._prelude.timestamp.serialize_cbor(
+                value["created_timestamp"]
+            )
+        )
+    if "completed_timestamp" in value:
+        import capo_compute_optimizer_automation.types._prelude.timestamp
+
+        out["completedTimestamp"] = (
+            capo_compute_optimizer_automation.types._prelude.timestamp.serialize_cbor(
+                value["completed_timestamp"]
+            )
+        )
+    if "estimated_monthly_savings" in value:
+        import capo_compute_optimizer_automation.types.estimated_monthly_savings
+
+        out["estimatedMonthlySavings"] = (
+            capo_compute_optimizer_automation.types.estimated_monthly_savings.serialize_cbor(
+                value["estimated_monthly_savings"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AutomationEvent:
+    out: AutomationEvent = {}  # type: ignore[typeddict-item]
+    if data.get("eventId") is not None:
+        out["event_id"] = data["eventId"]
+    if data.get("eventDescription") is not None:
+        out["event_description"] = data["eventDescription"]
+    if data.get("eventType") is not None:
+        import capo_compute_optimizer_automation.types.event_type
+
+        out["event_type"] = (
+            capo_compute_optimizer_automation.types.event_type.deserialize_cbor(
+                data["eventType"]
+            )
+        )
+    if data.get("eventStatus") is not None:
+        import capo_compute_optimizer_automation.types.event_status
+
+        out["event_status"] = (
+            capo_compute_optimizer_automation.types.event_status.deserialize_cbor(
+                data["eventStatus"]
+            )
+        )
+    if data.get("eventStatusReason") is not None:
+        out["event_status_reason"] = data["eventStatusReason"]
+    if data.get("resourceArn") is not None:
+        out["resource_arn"] = data["resourceArn"]
+    if data.get("resourceId") is not None:
+        out["resource_id"] = data["resourceId"]
+    if data.get("recommendedActionId") is not None:
+        out["recommended_action_id"] = data["recommendedActionId"]
+    if data.get("accountId") is not None:
+        out["account_id"] = data["accountId"]
+    if data.get("region") is not None:
+        out["region"] = data["region"]
+    if data.get("ruleId") is not None:
+        out["rule_id"] = data["ruleId"]
+    if data.get("resourceType") is not None:
+        import capo_compute_optimizer_automation.types.resource_type
+
+        out["resource_type"] = (
+            capo_compute_optimizer_automation.types.resource_type.deserialize_cbor(
+                data["resourceType"]
+            )
+        )
+    if data.get("createdTimestamp") is not None:
+        import capo_compute_optimizer_automation.types._prelude.timestamp
+
+        out["created_timestamp"] = (
+            capo_compute_optimizer_automation.types._prelude.timestamp.deserialize_cbor(
+                data["createdTimestamp"]
+            )
+        )
+    if data.get("completedTimestamp") is not None:
+        import capo_compute_optimizer_automation.types._prelude.timestamp
+
+        out["completed_timestamp"] = (
+            capo_compute_optimizer_automation.types._prelude.timestamp.deserialize_cbor(
+                data["completedTimestamp"]
+            )
+        )
+    if data.get("estimatedMonthlySavings") is not None:
+        import capo_compute_optimizer_automation.types.estimated_monthly_savings
+
+        out["estimated_monthly_savings"] = (
+            capo_compute_optimizer_automation.types.estimated_monthly_savings.deserialize_cbor(
+                data["estimatedMonthlySavings"]
+            )
+        )
+    return out

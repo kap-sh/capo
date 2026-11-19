@@ -35,3 +35,22 @@ def deserialize_aws_json_1_1(data: dict) -> ConstraintSummary:
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ConstraintSummary) -> dict:
+    out: dict = {}
+    if "type" in value:
+        out["Type"] = value["type"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ConstraintSummary:
+    out: ConstraintSummary = {}  # type: ignore[typeddict-item]
+    if data.get("Type") is not None:
+        out["type"] = data["Type"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    return out

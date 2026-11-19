@@ -83,3 +83,34 @@ def deserialize_query(el: Element) -> ListAlarmMuteRulesOutput:
     if child_next_token is not None:
         out["next_token"] = str(child_next_token.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListAlarmMuteRulesOutput) -> dict:
+    out: dict = {}
+    if "alarm_mute_rule_summaries" in value:
+        import capo_cloudwatch.types.alarm_mute_rule_summaries
+
+        out["AlarmMuteRuleSummaries"] = (
+            capo_cloudwatch.types.alarm_mute_rule_summaries.serialize_cbor(
+                value["alarm_mute_rule_summaries"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListAlarmMuteRulesOutput:
+    out: ListAlarmMuteRulesOutput = {}  # type: ignore[typeddict-item]
+    if data.get("AlarmMuteRuleSummaries") is not None:
+        import capo_cloudwatch.types.alarm_mute_rule_summaries
+
+        out["alarm_mute_rule_summaries"] = (
+            capo_cloudwatch.types.alarm_mute_rule_summaries.deserialize_cbor(
+                data["AlarmMuteRuleSummaries"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

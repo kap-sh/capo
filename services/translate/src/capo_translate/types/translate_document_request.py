@@ -96,6 +96,66 @@ def deserialize_aws_json_1_1(data: dict) -> TranslateDocumentRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TranslateDocumentRequest) -> dict:
+    out: dict = {}
+    import capo_translate.types.document
+
+    out["Document"] = capo_translate.types.document.serialize_cbor(value["document"])
+    if "terminology_names" in value:
+        import capo_translate.types.resource_name_list
+
+        out["TerminologyNames"] = (
+            capo_translate.types.resource_name_list.serialize_cbor(
+                value["terminology_names"]
+            )
+        )
+    out["SourceLanguageCode"] = value["source_language_code"]
+    out["TargetLanguageCode"] = value["target_language_code"]
+    if "settings" in value:
+        import capo_translate.types.translation_settings
+
+        out["Settings"] = capo_translate.types.translation_settings.serialize_cbor(
+            value["settings"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TranslateDocumentRequest:
+    out: TranslateDocumentRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Document") is not None:
+        import capo_translate.types.document
+
+        out["document"] = capo_translate.types.document.deserialize_cbor(
+            data["Document"]
+        )
+    else:
+        raise DeserializationError("TranslateDocumentRequest.document required")
+    if data.get("TerminologyNames") is not None:
+        import capo_translate.types.resource_name_list
+
+        out["terminology_names"] = (
+            capo_translate.types.resource_name_list.deserialize_cbor(
+                data["TerminologyNames"]
+            )
+        )
+    if data.get("SourceLanguageCode") is not None:
+        out["source_language_code"] = data["SourceLanguageCode"]
+    else:
+        out["source_language_code"] = ""
+    if data.get("TargetLanguageCode") is not None:
+        out["target_language_code"] = data["TargetLanguageCode"]
+    else:
+        out["target_language_code"] = ""
+    if data.get("Settings") is not None:
+        import capo_translate.types.translation_settings
+
+        out["settings"] = capo_translate.types.translation_settings.deserialize_cbor(
+            data["Settings"]
+        )
+    return out
+
+
 def redact_sensitive(value: TranslateDocumentRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "document" in value:

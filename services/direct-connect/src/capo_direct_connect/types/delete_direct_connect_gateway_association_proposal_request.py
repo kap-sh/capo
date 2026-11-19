@@ -31,3 +31,21 @@ def deserialize_aws_json_1_1(
     else:
         out["proposal_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteDirectConnectGatewayAssociationProposalRequest) -> dict:
+    out: dict = {}
+    out["proposalId"] = value["proposal_id"]
+    return out
+
+
+def deserialize_cbor(
+    data: dict,
+) -> DeleteDirectConnectGatewayAssociationProposalRequest:
+    out: DeleteDirectConnectGatewayAssociationProposalRequest = {}  # type: ignore[typeddict-item]
+    if data.get("proposalId") is not None:
+        out["proposal_id"] = data["proposalId"]
+    else:
+        out["proposal_id"] = ""
+    return out

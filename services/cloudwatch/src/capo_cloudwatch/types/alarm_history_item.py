@@ -215,3 +215,84 @@ def deserialize_query(el: Element) -> AlarmHistoryItem:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AlarmHistoryItem) -> dict:
+    out: dict = {}
+    if "alarm_name" in value:
+        out["AlarmName"] = value["alarm_name"]
+    if "alarm_contributor_id" in value:
+        out["AlarmContributorId"] = value["alarm_contributor_id"]
+    if "alarm_type" in value:
+        import capo_cloudwatch.types.alarm_type
+
+        out["AlarmType"] = capo_cloudwatch.types.alarm_type.serialize_cbor(
+            value["alarm_type"]
+        )
+    if "timestamp" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["Timestamp"] = capo_cloudwatch.types.timestamp.serialize_cbor(
+            value["timestamp"]
+        )
+    if "history_item_type" in value:
+        import capo_cloudwatch.types.history_item_type
+
+        out["HistoryItemType"] = capo_cloudwatch.types.history_item_type.serialize_cbor(
+            value["history_item_type"]
+        )
+    if "history_summary" in value:
+        out["HistorySummary"] = value["history_summary"]
+    if "history_data" in value:
+        out["HistoryData"] = value["history_data"]
+    if "alarm_contributor_attributes" in value:
+        import capo_cloudwatch.types.contributor_attributes
+
+        out["AlarmContributorAttributes"] = (
+            capo_cloudwatch.types.contributor_attributes.serialize_cbor(
+                value["alarm_contributor_attributes"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AlarmHistoryItem:
+    out: AlarmHistoryItem = {}  # type: ignore[typeddict-item]
+    if data.get("AlarmName") is not None:
+        out["alarm_name"] = data["AlarmName"]
+    if data.get("AlarmContributorId") is not None:
+        out["alarm_contributor_id"] = data["AlarmContributorId"]
+    if data.get("AlarmType") is not None:
+        import capo_cloudwatch.types.alarm_type
+
+        out["alarm_type"] = capo_cloudwatch.types.alarm_type.deserialize_cbor(
+            data["AlarmType"]
+        )
+    if data.get("Timestamp") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["timestamp"] = capo_cloudwatch.types.timestamp.deserialize_cbor(
+            data["Timestamp"]
+        )
+    if data.get("HistoryItemType") is not None:
+        import capo_cloudwatch.types.history_item_type
+
+        out["history_item_type"] = (
+            capo_cloudwatch.types.history_item_type.deserialize_cbor(
+                data["HistoryItemType"]
+            )
+        )
+    if data.get("HistorySummary") is not None:
+        out["history_summary"] = data["HistorySummary"]
+    if data.get("HistoryData") is not None:
+        out["history_data"] = data["HistoryData"]
+    if data.get("AlarmContributorAttributes") is not None:
+        import capo_cloudwatch.types.contributor_attributes
+
+        out["alarm_contributor_attributes"] = (
+            capo_cloudwatch.types.contributor_attributes.deserialize_cbor(
+                data["AlarmContributorAttributes"]
+            )
+        )
+    return out

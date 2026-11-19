@@ -39,3 +39,24 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDirectConnectGatewayRequest:
     else:
         out["new_direct_connect_gateway_name"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateDirectConnectGatewayRequest) -> dict:
+    out: dict = {}
+    out["directConnectGatewayId"] = value["direct_connect_gateway_id"]
+    out["newDirectConnectGatewayName"] = value["new_direct_connect_gateway_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateDirectConnectGatewayRequest:
+    out: UpdateDirectConnectGatewayRequest = {}  # type: ignore[typeddict-item]
+    if data.get("directConnectGatewayId") is not None:
+        out["direct_connect_gateway_id"] = data["directConnectGatewayId"]
+    else:
+        out["direct_connect_gateway_id"] = ""
+    if data.get("newDirectConnectGatewayName") is not None:
+        out["new_direct_connect_gateway_name"] = data["newDirectConnectGatewayName"]
+    else:
+        out["new_direct_connect_gateway_name"] = ""
+    return out

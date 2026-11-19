@@ -33,3 +33,22 @@ def deserialize_aws_json_1_1(data: dict) -> ShardConfiguration:
     if data.get("ReplicaCount") is not None:
         out["replica_count"] = data["ReplicaCount"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ShardConfiguration) -> dict:
+    out: dict = {}
+    if "slots" in value:
+        out["Slots"] = value["slots"]
+    if "replica_count" in value:
+        out["ReplicaCount"] = value["replica_count"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ShardConfiguration:
+    out: ShardConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("Slots") is not None:
+        out["slots"] = data["Slots"]
+    if data.get("ReplicaCount") is not None:
+        out["replica_count"] = data["ReplicaCount"]
+    return out

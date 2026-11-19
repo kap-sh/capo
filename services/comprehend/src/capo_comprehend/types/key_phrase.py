@@ -54,3 +54,30 @@ def deserialize_aws_json_1_1(data: dict) -> KeyPhrase:
     if data.get("EndOffset") is not None:
         out["end_offset"] = data["EndOffset"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: KeyPhrase) -> dict:
+    out: dict = {}
+    if "score" in value:
+        out["Score"] = value["score"]
+    if "text" in value:
+        out["Text"] = value["text"]
+    if "begin_offset" in value:
+        out["BeginOffset"] = value["begin_offset"]
+    if "end_offset" in value:
+        out["EndOffset"] = value["end_offset"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> KeyPhrase:
+    out: KeyPhrase = {}  # type: ignore[typeddict-item]
+    if data.get("Score") is not None:
+        out["score"] = float(data["Score"])
+    if data.get("Text") is not None:
+        out["text"] = data["Text"]
+    if data.get("BeginOffset") is not None:
+        out["begin_offset"] = data["BeginOffset"]
+    if data.get("EndOffset") is not None:
+        out["end_offset"] = data["EndOffset"]
+    return out

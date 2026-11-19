@@ -38,3 +38,26 @@ def deserialize_aws_json_1_1(data: dict) -> RetryConfiguration:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RetryConfiguration) -> dict:
+    out: dict = {}
+    if "retry_mode" in value:
+        import capo_codepipeline.types.stage_retry_mode
+
+        out["retryMode"] = capo_codepipeline.types.stage_retry_mode.serialize_cbor(
+            value["retry_mode"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RetryConfiguration:
+    out: RetryConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("retryMode") is not None:
+        import capo_codepipeline.types.stage_retry_mode
+
+        out["retry_mode"] = capo_codepipeline.types.stage_retry_mode.deserialize_cbor(
+            data["retryMode"]
+        )
+    return out

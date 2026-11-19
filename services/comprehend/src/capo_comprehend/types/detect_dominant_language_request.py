@@ -29,6 +29,22 @@ def deserialize_aws_json_1_1(data: dict) -> DetectDominantLanguageRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DetectDominantLanguageRequest) -> dict:
+    out: dict = {}
+    out["Text"] = value["text"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DetectDominantLanguageRequest:
+    out: DetectDominantLanguageRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Text") is not None:
+        out["text"] = data["Text"]
+    else:
+        out["text"] = ""
+    return out
+
+
 def redact_sensitive(value: DetectDominantLanguageRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "text" in value:

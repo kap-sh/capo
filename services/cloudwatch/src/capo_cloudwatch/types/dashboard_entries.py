@@ -78,3 +78,24 @@ def deserialize_aws_json_1_0(data: list) -> DashboardEntries:
             continue
         out.append(capo_cloudwatch.types.dashboard_entry.deserialize_aws_json_1_0(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DashboardEntries) -> list:
+    import capo_cloudwatch.types.dashboard_entry
+
+    out: list = []
+    for item in value:
+        out.append(capo_cloudwatch.types.dashboard_entry.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> DashboardEntries:
+    import capo_cloudwatch.types.dashboard_entry
+
+    out: DashboardEntries = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_cloudwatch.types.dashboard_entry.deserialize_cbor(item))
+    return out

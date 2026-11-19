@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> BatchGetDeploymentInstancesOutput:
     if data.get("errorMessage") is not None:
         out["error_message"] = data["errorMessage"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchGetDeploymentInstancesOutput) -> dict:
+    out: dict = {}
+    if "instances_summary" in value:
+        import capo_codedeploy.types.instance_summary_list
+
+        out["instancesSummary"] = (
+            capo_codedeploy.types.instance_summary_list.serialize_cbor(
+                value["instances_summary"]
+            )
+        )
+    if "error_message" in value:
+        out["errorMessage"] = value["error_message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> BatchGetDeploymentInstancesOutput:
+    out: BatchGetDeploymentInstancesOutput = {}  # type: ignore[typeddict-item]
+    if data.get("instancesSummary") is not None:
+        import capo_codedeploy.types.instance_summary_list
+
+        out["instances_summary"] = (
+            capo_codedeploy.types.instance_summary_list.deserialize_cbor(
+                data["instancesSummary"]
+            )
+        )
+    if data.get("errorMessage") is not None:
+        out["error_message"] = data["errorMessage"]
+    return out

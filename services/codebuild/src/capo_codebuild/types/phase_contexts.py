@@ -27,3 +27,24 @@ def deserialize_aws_json_1_1(data: list) -> PhaseContexts:
             continue
         out.append(capo_codebuild.types.phase_context.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PhaseContexts) -> list:
+    import capo_codebuild.types.phase_context
+
+    out: list = []
+    for item in value:
+        out.append(capo_codebuild.types.phase_context.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> PhaseContexts:
+    import capo_codebuild.types.phase_context
+
+    out: PhaseContexts = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_codebuild.types.phase_context.deserialize_cbor(item))
+    return out

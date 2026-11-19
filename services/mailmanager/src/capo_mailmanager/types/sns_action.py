@@ -96,3 +96,72 @@ def deserialize_aws_json_1_0(data: dict) -> SnsAction:
     else:
         out["payload_type"] = "CONTENT"
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SnsAction) -> dict:
+    out: dict = {}
+    if "action_failure_policy" in value:
+        import capo_mailmanager.types.action_failure_policy
+
+        out["ActionFailurePolicy"] = (
+            capo_mailmanager.types.action_failure_policy.serialize_cbor(
+                value["action_failure_policy"]
+            )
+        )
+    out["TopicArn"] = value["topic_arn"]
+    out["RoleArn"] = value["role_arn"]
+    import capo_mailmanager.types.sns_notification_encoding
+
+    out["Encoding"] = capo_mailmanager.types.sns_notification_encoding.serialize_cbor(
+        value.get("encoding", "UTF-8")
+    )
+    import capo_mailmanager.types.sns_notification_payload_type
+
+    out["PayloadType"] = (
+        capo_mailmanager.types.sns_notification_payload_type.serialize_cbor(
+            value.get("payload_type", "CONTENT")
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> SnsAction:
+    out: SnsAction = {}  # type: ignore[typeddict-item]
+    if data.get("ActionFailurePolicy") is not None:
+        import capo_mailmanager.types.action_failure_policy
+
+        out["action_failure_policy"] = (
+            capo_mailmanager.types.action_failure_policy.deserialize_cbor(
+                data["ActionFailurePolicy"]
+            )
+        )
+    if data.get("TopicArn") is not None:
+        out["topic_arn"] = data["TopicArn"]
+    else:
+        out["topic_arn"] = ""
+    if data.get("RoleArn") is not None:
+        out["role_arn"] = data["RoleArn"]
+    else:
+        out["role_arn"] = ""
+    if data.get("Encoding") is not None:
+        import capo_mailmanager.types.sns_notification_encoding
+
+        out["encoding"] = (
+            capo_mailmanager.types.sns_notification_encoding.deserialize_cbor(
+                data["Encoding"]
+            )
+        )
+    else:
+        out["encoding"] = "UTF-8"
+    if data.get("PayloadType") is not None:
+        import capo_mailmanager.types.sns_notification_payload_type
+
+        out["payload_type"] = (
+            capo_mailmanager.types.sns_notification_payload_type.deserialize_cbor(
+                data["PayloadType"]
+            )
+        )
+    else:
+        out["payload_type"] = "CONTENT"
+    return out

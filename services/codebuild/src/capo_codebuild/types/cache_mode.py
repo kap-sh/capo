@@ -16,3 +16,12 @@ def serialize_aws_json_1_1(value: CacheMode) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> CacheMode:
     return cast(CacheMode, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CacheMode) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> CacheMode:
+    return cast(CacheMode, data)

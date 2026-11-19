@@ -54,3 +54,34 @@ def deserialize_aws_json_1_1(data: dict) -> LogConfiguration:
     if data.get("LogGroupArn") is not None:
         out["log_group_arn"] = data["LogGroupArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LogConfiguration) -> dict:
+    out: dict = {}
+    if "log_destination" in value:
+        import capo_gamelift.types.log_destination
+
+        out["LogDestination"] = capo_gamelift.types.log_destination.serialize_cbor(
+            value["log_destination"]
+        )
+    if "s3_bucket_name" in value:
+        out["S3BucketName"] = value["s3_bucket_name"]
+    if "log_group_arn" in value:
+        out["LogGroupArn"] = value["log_group_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> LogConfiguration:
+    out: LogConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("LogDestination") is not None:
+        import capo_gamelift.types.log_destination
+
+        out["log_destination"] = capo_gamelift.types.log_destination.deserialize_cbor(
+            data["LogDestination"]
+        )
+    if data.get("S3BucketName") is not None:
+        out["s3_bucket_name"] = data["S3BucketName"]
+    if data.get("LogGroupArn") is not None:
+        out["log_group_arn"] = data["LogGroupArn"]
+    return out

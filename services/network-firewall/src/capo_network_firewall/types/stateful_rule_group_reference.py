@@ -64,3 +64,43 @@ def deserialize_aws_json_1_0(data: dict) -> StatefulRuleGroupReference:
     if data.get("DeepThreatInspection") is not None:
         out["deep_threat_inspection"] = data["DeepThreatInspection"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StatefulRuleGroupReference) -> dict:
+    out: dict = {}
+    out["ResourceArn"] = value["resource_arn"]
+    if "priority" in value:
+        out["Priority"] = value["priority"]
+    if "override" in value:
+        import capo_network_firewall.types.stateful_rule_group_override
+
+        out["Override"] = (
+            capo_network_firewall.types.stateful_rule_group_override.serialize_cbor(
+                value["override"]
+            )
+        )
+    if "deep_threat_inspection" in value:
+        out["DeepThreatInspection"] = value["deep_threat_inspection"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StatefulRuleGroupReference:
+    out: StatefulRuleGroupReference = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceArn") is not None:
+        out["resource_arn"] = data["ResourceArn"]
+    else:
+        out["resource_arn"] = ""
+    if data.get("Priority") is not None:
+        out["priority"] = data["Priority"]
+    if data.get("Override") is not None:
+        import capo_network_firewall.types.stateful_rule_group_override
+
+        out["override"] = (
+            capo_network_firewall.types.stateful_rule_group_override.deserialize_cbor(
+                data["Override"]
+            )
+        )
+    if data.get("DeepThreatInspection") is not None:
+        out["deep_threat_inspection"] = data["DeepThreatInspection"]
+    return out

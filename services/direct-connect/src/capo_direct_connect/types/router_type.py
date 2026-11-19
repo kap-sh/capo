@@ -67,3 +67,38 @@ def deserialize_aws_json_1_1(data: dict) -> RouterType:
     if data.get("routerTypeIdentifier") is not None:
         out["router_type_identifier"] = data["routerTypeIdentifier"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RouterType) -> dict:
+    out: dict = {}
+    if "vendor" in value:
+        out["vendor"] = value["vendor"]
+    if "platform" in value:
+        out["platform"] = value["platform"]
+    if "software" in value:
+        out["software"] = value["software"]
+    if "xslt_template_name" in value:
+        out["xsltTemplateName"] = value["xslt_template_name"]
+    if "xslt_template_name_for_mac_sec" in value:
+        out["xsltTemplateNameForMacSec"] = value["xslt_template_name_for_mac_sec"]
+    if "router_type_identifier" in value:
+        out["routerTypeIdentifier"] = value["router_type_identifier"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RouterType:
+    out: RouterType = {}  # type: ignore[typeddict-item]
+    if data.get("vendor") is not None:
+        out["vendor"] = data["vendor"]
+    if data.get("platform") is not None:
+        out["platform"] = data["platform"]
+    if data.get("software") is not None:
+        out["software"] = data["software"]
+    if data.get("xsltTemplateName") is not None:
+        out["xslt_template_name"] = data["xsltTemplateName"]
+    if data.get("xsltTemplateNameForMacSec") is not None:
+        out["xslt_template_name_for_mac_sec"] = data["xsltTemplateNameForMacSec"]
+    if data.get("routerTypeIdentifier") is not None:
+        out["router_type_identifier"] = data["routerTypeIdentifier"]
+    return out

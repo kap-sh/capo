@@ -33,3 +33,22 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeProtectionRequest:
     if data.get("ResourceArn") is not None:
         out["resource_arn"] = data["ResourceArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeProtectionRequest) -> dict:
+    out: dict = {}
+    if "protection_id" in value:
+        out["ProtectionId"] = value["protection_id"]
+    if "resource_arn" in value:
+        out["ResourceArn"] = value["resource_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeProtectionRequest:
+    out: DescribeProtectionRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ProtectionId") is not None:
+        out["protection_id"] = data["ProtectionId"]
+    if data.get("ResourceArn") is not None:
+        out["resource_arn"] = data["ResourceArn"]
+    return out

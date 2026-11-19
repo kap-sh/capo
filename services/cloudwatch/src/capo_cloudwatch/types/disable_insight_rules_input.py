@@ -65,3 +65,26 @@ def deserialize_query(el: Element) -> DisableInsightRulesInput:
             child_rule_names
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DisableInsightRulesInput) -> dict:
+    out: dict = {}
+    if "rule_names" in value:
+        import capo_cloudwatch.types.insight_rule_names
+
+        out["RuleNames"] = capo_cloudwatch.types.insight_rule_names.serialize_cbor(
+            value["rule_names"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DisableInsightRulesInput:
+    out: DisableInsightRulesInput = {}  # type: ignore[typeddict-item]
+    if data.get("RuleNames") is not None:
+        import capo_cloudwatch.types.insight_rule_names
+
+        out["rule_names"] = capo_cloudwatch.types.insight_rule_names.deserialize_cbor(
+            data["RuleNames"]
+        )
+    return out

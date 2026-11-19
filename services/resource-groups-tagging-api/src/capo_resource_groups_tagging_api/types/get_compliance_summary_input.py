@@ -140,3 +140,100 @@ def deserialize_aws_json_1_1(data: dict) -> GetComplianceSummaryInput:
     if data.get("PaginationToken") is not None:
         out["pagination_token"] = data["PaginationToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetComplianceSummaryInput) -> dict:
+    out: dict = {}
+    if "target_id_filters" in value:
+        import capo_resource_groups_tagging_api.types.target_id_filter_list
+
+        out["TargetIdFilters"] = (
+            capo_resource_groups_tagging_api.types.target_id_filter_list.serialize_cbor(
+                value["target_id_filters"]
+            )
+        )
+    if "region_filters" in value:
+        import capo_resource_groups_tagging_api.types.region_filter_list
+
+        out["RegionFilters"] = (
+            capo_resource_groups_tagging_api.types.region_filter_list.serialize_cbor(
+                value["region_filters"]
+            )
+        )
+    if "resource_type_filters" in value:
+        import capo_resource_groups_tagging_api.types.resource_type_filter_list
+
+        out["ResourceTypeFilters"] = (
+            capo_resource_groups_tagging_api.types.resource_type_filter_list.serialize_cbor(
+                value["resource_type_filters"]
+            )
+        )
+    if "tag_key_filters" in value:
+        import capo_resource_groups_tagging_api.types.tag_key_filter_list
+
+        out["TagKeyFilters"] = (
+            capo_resource_groups_tagging_api.types.tag_key_filter_list.serialize_cbor(
+                value["tag_key_filters"]
+            )
+        )
+    if "group_by" in value:
+        import capo_resource_groups_tagging_api.types.group_by
+
+        out["GroupBy"] = capo_resource_groups_tagging_api.types.group_by.serialize_cbor(
+            value["group_by"]
+        )
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "pagination_token" in value:
+        out["PaginationToken"] = value["pagination_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetComplianceSummaryInput:
+    out: GetComplianceSummaryInput = {}  # type: ignore[typeddict-item]
+    if data.get("TargetIdFilters") is not None:
+        import capo_resource_groups_tagging_api.types.target_id_filter_list
+
+        out["target_id_filters"] = (
+            capo_resource_groups_tagging_api.types.target_id_filter_list.deserialize_cbor(
+                data["TargetIdFilters"]
+            )
+        )
+    if data.get("RegionFilters") is not None:
+        import capo_resource_groups_tagging_api.types.region_filter_list
+
+        out["region_filters"] = (
+            capo_resource_groups_tagging_api.types.region_filter_list.deserialize_cbor(
+                data["RegionFilters"]
+            )
+        )
+    if data.get("ResourceTypeFilters") is not None:
+        import capo_resource_groups_tagging_api.types.resource_type_filter_list
+
+        out["resource_type_filters"] = (
+            capo_resource_groups_tagging_api.types.resource_type_filter_list.deserialize_cbor(
+                data["ResourceTypeFilters"]
+            )
+        )
+    if data.get("TagKeyFilters") is not None:
+        import capo_resource_groups_tagging_api.types.tag_key_filter_list
+
+        out["tag_key_filters"] = (
+            capo_resource_groups_tagging_api.types.tag_key_filter_list.deserialize_cbor(
+                data["TagKeyFilters"]
+            )
+        )
+    if data.get("GroupBy") is not None:
+        import capo_resource_groups_tagging_api.types.group_by
+
+        out["group_by"] = (
+            capo_resource_groups_tagging_api.types.group_by.deserialize_cbor(
+                data["GroupBy"]
+            )
+        )
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("PaginationToken") is not None:
+        out["pagination_token"] = data["PaginationToken"]
+    return out

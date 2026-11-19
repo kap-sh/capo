@@ -64,3 +64,45 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateProvisionedProductPropertiesIn
     else:
         out["idempotency_token"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateProvisionedProductPropertiesInput) -> dict:
+    out: dict = {}
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    out["ProvisionedProductId"] = value["provisioned_product_id"]
+    import capo_service_catalog.types.provisioned_product_properties
+
+    out["ProvisionedProductProperties"] = (
+        capo_service_catalog.types.provisioned_product_properties.serialize_cbor(
+            value["provisioned_product_properties"]
+        )
+    )
+    out["IdempotencyToken"] = value["idempotency_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateProvisionedProductPropertiesInput:
+    out: UpdateProvisionedProductPropertiesInput = {}  # type: ignore[typeddict-item]
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    if data.get("ProvisionedProductId") is not None:
+        out["provisioned_product_id"] = data["ProvisionedProductId"]
+    else:
+        out["provisioned_product_id"] = ""
+    if data.get("ProvisionedProductProperties") is not None:
+        import capo_service_catalog.types.provisioned_product_properties
+
+        out["provisioned_product_properties"] = (
+            capo_service_catalog.types.provisioned_product_properties.deserialize_cbor(
+                data["ProvisionedProductProperties"]
+            )
+        )
+    else:
+        out["provisioned_product_properties"] = {}
+    if data.get("IdempotencyToken") is not None:
+        out["idempotency_token"] = data["IdempotencyToken"]
+    else:
+        out["idempotency_token"] = ""
+    return out

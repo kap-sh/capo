@@ -71,3 +71,46 @@ def deserialize_aws_json_1_1(data: dict) -> ComplianceViolator:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ComplianceViolator) -> dict:
+    out: dict = {}
+    if "resource_id" in value:
+        out["ResourceId"] = value["resource_id"]
+    if "violation_reason" in value:
+        import capo_fms.types.violation_reason
+
+        out["ViolationReason"] = capo_fms.types.violation_reason.serialize_cbor(
+            value["violation_reason"]
+        )
+    if "resource_type" in value:
+        out["ResourceType"] = value["resource_type"]
+    if "metadata" in value:
+        import capo_fms.types.compliance_violator_metadata
+
+        out["Metadata"] = capo_fms.types.compliance_violator_metadata.serialize_cbor(
+            value["metadata"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ComplianceViolator:
+    out: ComplianceViolator = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceId") is not None:
+        out["resource_id"] = data["ResourceId"]
+    if data.get("ViolationReason") is not None:
+        import capo_fms.types.violation_reason
+
+        out["violation_reason"] = capo_fms.types.violation_reason.deserialize_cbor(
+            data["ViolationReason"]
+        )
+    if data.get("ResourceType") is not None:
+        out["resource_type"] = data["ResourceType"]
+    if data.get("Metadata") is not None:
+        import capo_fms.types.compliance_violator_metadata
+
+        out["metadata"] = capo_fms.types.compliance_violator_metadata.deserialize_cbor(
+            data["Metadata"]
+        )
+    return out

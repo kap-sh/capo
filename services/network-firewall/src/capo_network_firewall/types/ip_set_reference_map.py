@@ -35,3 +35,24 @@ def deserialize_aws_json_1_0(data: dict) -> IPSetReferenceMap:
             capo_network_firewall.types.ip_set_reference.deserialize_aws_json_1_0(value)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(input_to_serialize: IPSetReferenceMap) -> dict:
+    out: dict = {}
+    for key, value in input_to_serialize.items():
+        import capo_network_firewall.types.ip_set_reference
+
+        out[key] = capo_network_firewall.types.ip_set_reference.serialize_cbor(value)
+    return out
+
+
+def deserialize_cbor(data: dict) -> IPSetReferenceMap:
+    out: IPSetReferenceMap = {}
+    for key, value in data.items():
+        if value is None:
+            continue
+        import capo_network_firewall.types.ip_set_reference
+
+        out[key] = capo_network_firewall.types.ip_set_reference.deserialize_cbor(value)
+    return out

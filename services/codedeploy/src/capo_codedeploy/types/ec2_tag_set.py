@@ -40,3 +40,28 @@ def deserialize_aws_json_1_1(data: dict) -> EC2TagSet:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EC2TagSet) -> dict:
+    out: dict = {}
+    if "ec2_tag_set_list" in value:
+        import capo_codedeploy.types.ec2_tag_set_list
+
+        out["ec2TagSetList"] = capo_codedeploy.types.ec2_tag_set_list.serialize_cbor(
+            value["ec2_tag_set_list"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> EC2TagSet:
+    out: EC2TagSet = {}  # type: ignore[typeddict-item]
+    if data.get("ec2TagSetList") is not None:
+        import capo_codedeploy.types.ec2_tag_set_list
+
+        out["ec2_tag_set_list"] = (
+            capo_codedeploy.types.ec2_tag_set_list.deserialize_cbor(
+                data["ec2TagSetList"]
+            )
+        )
+    return out

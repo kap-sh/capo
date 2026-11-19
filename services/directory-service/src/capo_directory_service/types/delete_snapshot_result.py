@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteSnapshotResult:
     if data.get("SnapshotId") is not None:
         out["snapshot_id"] = data["SnapshotId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteSnapshotResult) -> dict:
+    out: dict = {}
+    if "snapshot_id" in value:
+        out["SnapshotId"] = value["snapshot_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteSnapshotResult:
+    out: DeleteSnapshotResult = {}  # type: ignore[typeddict-item]
+    if data.get("SnapshotId") is not None:
+        out["snapshot_id"] = data["SnapshotId"]
+    return out

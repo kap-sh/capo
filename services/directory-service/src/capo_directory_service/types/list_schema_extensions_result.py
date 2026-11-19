@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> ListSchemaExtensionsResult:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListSchemaExtensionsResult) -> dict:
+    out: dict = {}
+    if "schema_extensions_info" in value:
+        import capo_directory_service.types.schema_extensions_info
+
+        out["SchemaExtensionsInfo"] = (
+            capo_directory_service.types.schema_extensions_info.serialize_cbor(
+                value["schema_extensions_info"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListSchemaExtensionsResult:
+    out: ListSchemaExtensionsResult = {}  # type: ignore[typeddict-item]
+    if data.get("SchemaExtensionsInfo") is not None:
+        import capo_directory_service.types.schema_extensions_info
+
+        out["schema_extensions_info"] = (
+            capo_directory_service.types.schema_extensions_info.deserialize_cbor(
+                data["SchemaExtensionsInfo"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

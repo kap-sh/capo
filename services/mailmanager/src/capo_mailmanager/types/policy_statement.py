@@ -57,3 +57,42 @@ def deserialize_aws_json_1_0(data: dict) -> PolicyStatement:
             "capo_mailmanager.types.accept_action.AcceptAction", ""
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PolicyStatement) -> dict:
+    out: dict = {}
+    import capo_mailmanager.types.policy_conditions
+
+    out["Conditions"] = capo_mailmanager.types.policy_conditions.serialize_cbor(
+        value["conditions"]
+    )
+    import capo_mailmanager.types.accept_action
+
+    out["Action"] = capo_mailmanager.types.accept_action.serialize_cbor(value["action"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> PolicyStatement:
+    out: PolicyStatement = {}  # type: ignore[typeddict-item]
+    if data.get("Conditions") is not None:
+        import capo_mailmanager.types.policy_conditions
+
+        out["conditions"] = capo_mailmanager.types.policy_conditions.deserialize_cbor(
+            data["Conditions"]
+        )
+    else:
+        out["conditions"] = []
+    if data.get("Action") is not None:
+        import capo_mailmanager.types.accept_action
+
+        out["action"] = capo_mailmanager.types.accept_action.deserialize_cbor(
+            data["Action"]
+        )
+    else:
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_mailmanager.types.accept_action.AcceptAction", ""
+        )
+    return out

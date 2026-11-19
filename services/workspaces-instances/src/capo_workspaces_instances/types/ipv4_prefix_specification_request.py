@@ -26,3 +26,18 @@ def deserialize_aws_json_1_0(data: dict) -> Ipv4PrefixSpecificationRequest:
     if data.get("Ipv4Prefix") is not None:
         out["ipv4_prefix"] = data["Ipv4Prefix"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Ipv4PrefixSpecificationRequest) -> dict:
+    out: dict = {}
+    if "ipv4_prefix" in value:
+        out["Ipv4Prefix"] = value["ipv4_prefix"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Ipv4PrefixSpecificationRequest:
+    out: Ipv4PrefixSpecificationRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Ipv4Prefix") is not None:
+        out["ipv4_prefix"] = data["Ipv4Prefix"]
+    return out

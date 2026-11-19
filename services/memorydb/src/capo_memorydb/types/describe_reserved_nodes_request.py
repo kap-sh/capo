@@ -63,3 +63,42 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeReservedNodesRequest:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeReservedNodesRequest) -> dict:
+    out: dict = {}
+    if "reservation_id" in value:
+        out["ReservationId"] = value["reservation_id"]
+    if "reserved_nodes_offering_id" in value:
+        out["ReservedNodesOfferingId"] = value["reserved_nodes_offering_id"]
+    if "node_type" in value:
+        out["NodeType"] = value["node_type"]
+    if "duration" in value:
+        out["Duration"] = value["duration"]
+    if "offering_type" in value:
+        out["OfferingType"] = value["offering_type"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeReservedNodesRequest:
+    out: DescribeReservedNodesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ReservationId") is not None:
+        out["reservation_id"] = data["ReservationId"]
+    if data.get("ReservedNodesOfferingId") is not None:
+        out["reserved_nodes_offering_id"] = data["ReservedNodesOfferingId"]
+    if data.get("NodeType") is not None:
+        out["node_type"] = data["NodeType"]
+    if data.get("Duration") is not None:
+        out["duration"] = data["Duration"]
+    if data.get("OfferingType") is not None:
+        out["offering_type"] = data["OfferingType"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

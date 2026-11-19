@@ -68,3 +68,49 @@ def deserialize_aws_json_1_0(data: dict) -> NatGatewayAttachment:
     if data.get("DnsName") is not None:
         out["dns_name"] = data["DnsName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: NatGatewayAttachment) -> dict:
+    out: dict = {}
+    out["NatGatewayId"] = value["nat_gateway_id"]
+    import capo_network_firewall.types.nat_gateway_attachment_status
+
+    out["Status"] = (
+        capo_network_firewall.types.nat_gateway_attachment_status.serialize_cbor(
+            value["status"]
+        )
+    )
+    if "status_message" in value:
+        out["StatusMessage"] = value["status_message"]
+    if "dns_name" in value:
+        out["DnsName"] = value["dns_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> NatGatewayAttachment:
+    out: NatGatewayAttachment = {}  # type: ignore[typeddict-item]
+    if data.get("NatGatewayId") is not None:
+        out["nat_gateway_id"] = data["NatGatewayId"]
+    else:
+        out["nat_gateway_id"] = ""
+    if data.get("Status") is not None:
+        import capo_network_firewall.types.nat_gateway_attachment_status
+
+        out["status"] = (
+            capo_network_firewall.types.nat_gateway_attachment_status.deserialize_cbor(
+                data["Status"]
+            )
+        )
+    else:
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_network_firewall.types.nat_gateway_attachment_status.NatGatewayAttachmentStatus",
+            "",
+        )
+    if data.get("StatusMessage") is not None:
+        out["status_message"] = data["StatusMessage"]
+    if data.get("DnsName") is not None:
+        out["dns_name"] = data["DnsName"]
+    return out

@@ -30,3 +30,14 @@ def serialize_query(
 def deserialize_query(el: Element) -> DeleteAnomalyDetectorOutput:
     out: DeleteAnomalyDetectorOutput = {}  # type: ignore[typeddict-item]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteAnomalyDetectorOutput) -> dict:
+    out: dict = {}
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteAnomalyDetectorOutput:
+    out: DeleteAnomalyDetectorOutput = {}  # type: ignore[typeddict-item]
+    return out

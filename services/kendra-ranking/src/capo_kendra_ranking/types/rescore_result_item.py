@@ -41,3 +41,22 @@ def deserialize_aws_json_1_0(data: dict) -> RescoreResultItem:
     if data.get("Score") is not None:
         out["score"] = float(data["Score"])
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RescoreResultItem) -> dict:
+    out: dict = {}
+    if "document_id" in value:
+        out["DocumentId"] = value["document_id"]
+    if "score" in value:
+        out["Score"] = value["score"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RescoreResultItem:
+    out: RescoreResultItem = {}  # type: ignore[typeddict-item]
+    if data.get("DocumentId") is not None:
+        out["document_id"] = data["DocumentId"]
+    if data.get("Score") is not None:
+        out["score"] = float(data["Score"])
+    return out

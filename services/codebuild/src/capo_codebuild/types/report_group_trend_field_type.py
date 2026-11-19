@@ -22,3 +22,12 @@ def serialize_aws_json_1_1(value: ReportGroupTrendFieldType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> ReportGroupTrendFieldType:
     return cast(ReportGroupTrendFieldType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ReportGroupTrendFieldType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ReportGroupTrendFieldType:
+    return cast(ReportGroupTrendFieldType, data)

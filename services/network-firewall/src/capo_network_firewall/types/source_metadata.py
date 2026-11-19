@@ -35,3 +35,22 @@ def deserialize_aws_json_1_0(data: dict) -> SourceMetadata:
     if data.get("SourceUpdateToken") is not None:
         out["source_update_token"] = data["SourceUpdateToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SourceMetadata) -> dict:
+    out: dict = {}
+    if "source_arn" in value:
+        out["SourceArn"] = value["source_arn"]
+    if "source_update_token" in value:
+        out["SourceUpdateToken"] = value["source_update_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> SourceMetadata:
+    out: SourceMetadata = {}  # type: ignore[typeddict-item]
+    if data.get("SourceArn") is not None:
+        out["source_arn"] = data["SourceArn"]
+    if data.get("SourceUpdateToken") is not None:
+        out["source_update_token"] = data["SourceUpdateToken"]
+    return out

@@ -63,3 +63,44 @@ def deserialize_aws_json_1_0(data: dict) -> RdsPromoteReadReplicaConfiguration:
     else:
         out["db_instance_arn_map"] = {}
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RdsPromoteReadReplicaConfiguration) -> dict:
+    out: dict = {}
+    out["timeoutMinutes"] = value.get("timeout_minutes", 60)
+    if "cross_account_role" in value:
+        out["crossAccountRole"] = value["cross_account_role"]
+    if "external_id" in value:
+        out["externalId"] = value["external_id"]
+    import capo_arc_region_switch.types.rds_db_instance_arn_map
+
+    out["dbInstanceArnMap"] = (
+        capo_arc_region_switch.types.rds_db_instance_arn_map.serialize_cbor(
+            value["db_instance_arn_map"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RdsPromoteReadReplicaConfiguration:
+    out: RdsPromoteReadReplicaConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("timeoutMinutes") is not None:
+        out["timeout_minutes"] = data["timeoutMinutes"]
+    else:
+        out["timeout_minutes"] = 60
+    if data.get("crossAccountRole") is not None:
+        out["cross_account_role"] = data["crossAccountRole"]
+    if data.get("externalId") is not None:
+        out["external_id"] = data["externalId"]
+    if data.get("dbInstanceArnMap") is not None:
+        import capo_arc_region_switch.types.rds_db_instance_arn_map
+
+        out["db_instance_arn_map"] = (
+            capo_arc_region_switch.types.rds_db_instance_arn_map.deserialize_cbor(
+                data["dbInstanceArnMap"]
+            )
+        )
+    else:
+        out["db_instance_arn_map"] = {}
+    return out

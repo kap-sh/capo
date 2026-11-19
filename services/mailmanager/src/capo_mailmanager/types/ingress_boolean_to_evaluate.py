@@ -81,3 +81,57 @@ def deserialize_aws_json_1_0(data: dict) -> IngressBooleanToEvaluate:
         raise DeserializationError(
             "IngressBooleanToEvaluate: no recognized variant key"
         )
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IngressBooleanToEvaluate) -> dict:
+    if "$unknown" in value:
+        raise SerializationError(
+            f"IngressBooleanToEvaluate: cannot serialize unknown variant {value['$unknown']['name']!r}"
+        )
+    elif "Analysis" in value:
+        import capo_mailmanager.types.ingress_analysis
+
+        return {
+            "Analysis": capo_mailmanager.types.ingress_analysis.serialize_cbor(
+                value["Analysis"]
+            )
+        }
+    elif "IsInAddressList" in value:
+        import capo_mailmanager.types.ingress_is_in_address_list
+
+        return {
+            "IsInAddressList": capo_mailmanager.types.ingress_is_in_address_list.serialize_cbor(
+                value["IsInAddressList"]
+            )
+        }
+    else:
+        raise SerializationError("IngressBooleanToEvaluate: no variant present")
+
+
+def deserialize_cbor(data: dict) -> IngressBooleanToEvaluate:
+    if data.get("Analysis") is not None:
+        import capo_mailmanager.types.ingress_analysis
+
+        return {
+            "Analysis": capo_mailmanager.types.ingress_analysis.deserialize_cbor(
+                data["Analysis"]
+            )
+        }
+    elif data.get("IsInAddressList") is not None:
+        import capo_mailmanager.types.ingress_is_in_address_list
+
+        return {
+            "IsInAddressList": capo_mailmanager.types.ingress_is_in_address_list.deserialize_cbor(
+                data["IsInAddressList"]
+            )
+        }
+    else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return {"$unknown": {"name": name}}
+        raise DeserializationError(
+            "IngressBooleanToEvaluate: no recognized variant key"
+        )

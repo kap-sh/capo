@@ -35,3 +35,25 @@ def deserialize_aws_json_1_1(data: dict) -> AdaptersConfig:
     else:
         out["adapters"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AdaptersConfig) -> dict:
+    out: dict = {}
+    import capo_textract.types.adapters
+
+    out["Adapters"] = capo_textract.types.adapters.serialize_cbor(value["adapters"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> AdaptersConfig:
+    out: AdaptersConfig = {}  # type: ignore[typeddict-item]
+    if data.get("Adapters") is not None:
+        import capo_textract.types.adapters
+
+        out["adapters"] = capo_textract.types.adapters.deserialize_cbor(
+            data["Adapters"]
+        )
+    else:
+        out["adapters"] = []
+    return out

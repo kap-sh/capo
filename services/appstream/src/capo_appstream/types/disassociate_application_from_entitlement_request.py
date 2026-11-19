@@ -43,3 +43,26 @@ def deserialize_aws_json_1_1(
     if data.get("ApplicationIdentifier") is not None:
         out["application_identifier"] = data["ApplicationIdentifier"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DisassociateApplicationFromEntitlementRequest) -> dict:
+    out: dict = {}
+    if "stack_name" in value:
+        out["StackName"] = value["stack_name"]
+    if "entitlement_name" in value:
+        out["EntitlementName"] = value["entitlement_name"]
+    if "application_identifier" in value:
+        out["ApplicationIdentifier"] = value["application_identifier"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DisassociateApplicationFromEntitlementRequest:
+    out: DisassociateApplicationFromEntitlementRequest = {}  # type: ignore[typeddict-item]
+    if data.get("StackName") is not None:
+        out["stack_name"] = data["StackName"]
+    if data.get("EntitlementName") is not None:
+        out["entitlement_name"] = data["EntitlementName"]
+    if data.get("ApplicationIdentifier") is not None:
+        out["application_identifier"] = data["ApplicationIdentifier"]
+    return out

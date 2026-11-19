@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: SuccessfulShares) -> list:
 
 def deserialize_aws_json_1_1(data: list) -> SuccessfulShares:
     return [item for item in data if item is not None]
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SuccessfulShares) -> list:
+    return list(value)
+
+
+def deserialize_cbor(data: list) -> SuccessfulShares:
+    return [item for item in data if item is not None]

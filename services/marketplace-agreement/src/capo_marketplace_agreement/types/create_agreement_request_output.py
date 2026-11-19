@@ -119,3 +119,82 @@ def deserialize_aws_json_1_0(data: dict) -> CreateAgreementRequestOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateAgreementRequestOutput) -> dict:
+    out: dict = {}
+    if "agreement_request_id" in value:
+        out["agreementRequestId"] = value["agreement_request_id"]
+    if "agreement_type" in value:
+        out["agreementType"] = value["agreement_type"]
+    if "charge_summary" in value:
+        import capo_marketplace_agreement.types.charge_summary
+
+        out["chargeSummary"] = (
+            capo_marketplace_agreement.types.charge_summary.serialize_cbor(
+                value["charge_summary"]
+            )
+        )
+    if "status" in value:
+        import capo_marketplace_agreement.types.agreement_request_status
+
+        out["status"] = (
+            capo_marketplace_agreement.types.agreement_request_status.serialize_cbor(
+                value["status"]
+            )
+        )
+    if "approval_requirement" in value:
+        import capo_marketplace_agreement.types.approval_requirement
+
+        out["approvalRequirement"] = (
+            capo_marketplace_agreement.types.approval_requirement.serialize_cbor(
+                value["approval_requirement"]
+            )
+        )
+    if "created_at" in value:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["createdAt"] = capo_marketplace_agreement.types.timestamp.serialize_cbor(
+            value["created_at"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateAgreementRequestOutput:
+    out: CreateAgreementRequestOutput = {}  # type: ignore[typeddict-item]
+    if data.get("agreementRequestId") is not None:
+        out["agreement_request_id"] = data["agreementRequestId"]
+    if data.get("agreementType") is not None:
+        out["agreement_type"] = data["agreementType"]
+    if data.get("chargeSummary") is not None:
+        import capo_marketplace_agreement.types.charge_summary
+
+        out["charge_summary"] = (
+            capo_marketplace_agreement.types.charge_summary.deserialize_cbor(
+                data["chargeSummary"]
+            )
+        )
+    if data.get("status") is not None:
+        import capo_marketplace_agreement.types.agreement_request_status
+
+        out["status"] = (
+            capo_marketplace_agreement.types.agreement_request_status.deserialize_cbor(
+                data["status"]
+            )
+        )
+    if data.get("approvalRequirement") is not None:
+        import capo_marketplace_agreement.types.approval_requirement
+
+        out["approval_requirement"] = (
+            capo_marketplace_agreement.types.approval_requirement.deserialize_cbor(
+                data["approvalRequirement"]
+            )
+        )
+    if data.get("createdAt") is not None:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["created_at"] = capo_marketplace_agreement.types.timestamp.deserialize_cbor(
+            data["createdAt"]
+        )
+    return out

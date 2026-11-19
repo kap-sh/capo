@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> HttpNamespaceChange:
     else:
         out["description"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: HttpNamespaceChange) -> dict:
+    out: dict = {}
+    out["Description"] = value["description"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> HttpNamespaceChange:
+    out: HttpNamespaceChange = {}  # type: ignore[typeddict-item]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    else:
+        out["description"] = ""
+    return out

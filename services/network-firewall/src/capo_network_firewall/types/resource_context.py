@@ -71,3 +71,43 @@ def deserialize_aws_json_1_0(data: dict) -> ResourceContext:
     else:
         out["public_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResourceContext) -> dict:
+    out: dict = {}
+    if "context_type" in value:
+        import capo_network_firewall.types.context_type
+
+        out["ContextType"] = capo_network_firewall.types.context_type.serialize_cbor(
+            value["context_type"]
+        )
+    if "region" in value:
+        out["Region"] = value["region"]
+    if "availability_zone" in value:
+        out["AvailabilityZone"] = value["availability_zone"]
+    if "attachment_type" in value:
+        out["AttachmentType"] = value["attachment_type"]
+    out["PublicId"] = value["public_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ResourceContext:
+    out: ResourceContext = {}  # type: ignore[typeddict-item]
+    if data.get("ContextType") is not None:
+        import capo_network_firewall.types.context_type
+
+        out["context_type"] = capo_network_firewall.types.context_type.deserialize_cbor(
+            data["ContextType"]
+        )
+    if data.get("Region") is not None:
+        out["region"] = data["Region"]
+    if data.get("AvailabilityZone") is not None:
+        out["availability_zone"] = data["AvailabilityZone"]
+    if data.get("AttachmentType") is not None:
+        out["attachment_type"] = data["AttachmentType"]
+    if data.get("PublicId") is not None:
+        out["public_id"] = data["PublicId"]
+    else:
+        out["public_id"] = ""
+    return out

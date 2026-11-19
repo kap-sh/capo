@@ -53,3 +53,38 @@ def deserialize_aws_json_1_1(data: dict) -> LatestInPipelineExecutionFilter:
             "capo_codepipeline.types.start_time_range.StartTimeRange", ""
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LatestInPipelineExecutionFilter) -> dict:
+    out: dict = {}
+    out["pipelineExecutionId"] = value["pipeline_execution_id"]
+    import capo_codepipeline.types.start_time_range
+
+    out["startTimeRange"] = capo_codepipeline.types.start_time_range.serialize_cbor(
+        value["start_time_range"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> LatestInPipelineExecutionFilter:
+    out: LatestInPipelineExecutionFilter = {}  # type: ignore[typeddict-item]
+    if data.get("pipelineExecutionId") is not None:
+        out["pipeline_execution_id"] = data["pipelineExecutionId"]
+    else:
+        out["pipeline_execution_id"] = ""
+    if data.get("startTimeRange") is not None:
+        import capo_codepipeline.types.start_time_range
+
+        out["start_time_range"] = (
+            capo_codepipeline.types.start_time_range.deserialize_cbor(
+                data["startTimeRange"]
+            )
+        )
+    else:
+        import typing
+
+        out["start_time_range"] = typing.cast(
+            "capo_codepipeline.types.start_time_range.StartTimeRange", ""
+        )
+    return out

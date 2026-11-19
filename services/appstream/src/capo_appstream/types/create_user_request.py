@@ -85,6 +85,57 @@ def deserialize_aws_json_1_1(data: dict) -> CreateUserRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateUserRequest) -> dict:
+    out: dict = {}
+    if "user_name" in value:
+        out["UserName"] = value["user_name"]
+    if "message_action" in value:
+        import capo_appstream.types.message_action
+
+        out["MessageAction"] = capo_appstream.types.message_action.serialize_cbor(
+            value["message_action"]
+        )
+    if "first_name" in value:
+        out["FirstName"] = value["first_name"]
+    if "last_name" in value:
+        out["LastName"] = value["last_name"]
+    if "authentication_type" in value:
+        import capo_appstream.types.authentication_type
+
+        out["AuthenticationType"] = (
+            capo_appstream.types.authentication_type.serialize_cbor(
+                value["authentication_type"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateUserRequest:
+    out: CreateUserRequest = {}  # type: ignore[typeddict-item]
+    if data.get("UserName") is not None:
+        out["user_name"] = data["UserName"]
+    if data.get("MessageAction") is not None:
+        import capo_appstream.types.message_action
+
+        out["message_action"] = capo_appstream.types.message_action.deserialize_cbor(
+            data["MessageAction"]
+        )
+    if data.get("FirstName") is not None:
+        out["first_name"] = data["FirstName"]
+    if data.get("LastName") is not None:
+        out["last_name"] = data["LastName"]
+    if data.get("AuthenticationType") is not None:
+        import capo_appstream.types.authentication_type
+
+        out["authentication_type"] = (
+            capo_appstream.types.authentication_type.deserialize_cbor(
+                data["AuthenticationType"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: CreateUserRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "user_name" in value:

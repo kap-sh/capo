@@ -29,3 +29,24 @@ def deserialize_aws_json_1_1(data: list) -> ConfigureTagsResourceTagKeyList:
             continue
         out.append(capo_health.types.resource_tag_key.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ConfigureTagsResourceTagKeyList) -> list:
+    import capo_health.types.resource_tag_key
+
+    out: list = []
+    for item in value:
+        out.append(capo_health.types.resource_tag_key.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> ConfigureTagsResourceTagKeyList:
+    import capo_health.types.resource_tag_key
+
+    out: ConfigureTagsResourceTagKeyList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_health.types.resource_tag_key.deserialize_cbor(item))
+    return out

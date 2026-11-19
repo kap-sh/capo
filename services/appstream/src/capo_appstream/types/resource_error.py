@@ -60,3 +60,42 @@ def deserialize_aws_json_1_1(data: dict) -> ResourceError:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResourceError) -> dict:
+    out: dict = {}
+    if "error_code" in value:
+        import capo_appstream.types.fleet_error_code
+
+        out["ErrorCode"] = capo_appstream.types.fleet_error_code.serialize_cbor(
+            value["error_code"]
+        )
+    if "error_message" in value:
+        out["ErrorMessage"] = value["error_message"]
+    if "error_timestamp" in value:
+        import capo_appstream.types.timestamp
+
+        out["ErrorTimestamp"] = capo_appstream.types.timestamp.serialize_cbor(
+            value["error_timestamp"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ResourceError:
+    out: ResourceError = {}  # type: ignore[typeddict-item]
+    if data.get("ErrorCode") is not None:
+        import capo_appstream.types.fleet_error_code
+
+        out["error_code"] = capo_appstream.types.fleet_error_code.deserialize_cbor(
+            data["ErrorCode"]
+        )
+    if data.get("ErrorMessage") is not None:
+        out["error_message"] = data["ErrorMessage"]
+    if data.get("ErrorTimestamp") is not None:
+        import capo_appstream.types.timestamp
+
+        out["error_timestamp"] = capo_appstream.types.timestamp.deserialize_cbor(
+            data["ErrorTimestamp"]
+        )
+    return out

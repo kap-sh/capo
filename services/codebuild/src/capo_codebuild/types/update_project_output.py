@@ -34,3 +34,22 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateProjectOutput:
             data["project"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateProjectOutput) -> dict:
+    out: dict = {}
+    if "project" in value:
+        import capo_codebuild.types.project
+
+        out["project"] = capo_codebuild.types.project.serialize_cbor(value["project"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateProjectOutput:
+    out: UpdateProjectOutput = {}  # type: ignore[typeddict-item]
+    if data.get("project") is not None:
+        import capo_codebuild.types.project
+
+        out["project"] = capo_codebuild.types.project.deserialize_cbor(data["project"])
+    return out

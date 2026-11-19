@@ -444,6 +444,7 @@ class GameLiftClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[Interceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_1", "rpcv2Cbor"]
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -460,6 +461,7 @@ class GameLiftClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -475,6 +477,7 @@ class GameLiftClient:
         operation_interceptors: Iterable[Interceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_1", "rpcv2Cbor"] = "awsJson1_1",
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -511,6 +514,7 @@ class GameLiftClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -544,6 +548,9 @@ class GameLiftClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_1")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -591,13 +598,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.accept_match_output.AcceptMatchOutput"
         ]:
-            import capo_gamelift._operations.game_lift.accept_match
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.accept_match
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.accept_match.accept_match(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.accept_match.accept_match(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.accept_match
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.accept_match.accept_match(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -667,13 +685,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.claim_game_server_output.ClaimGameServerOutput"
         ]:
-            import capo_gamelift._operations.game_lift.claim_game_server
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.claim_game_server
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.claim_game_server.claim_game_server(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.claim_game_server.claim_game_server(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.claim_game_server
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.claim_game_server.claim_game_server(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -754,13 +783,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.create_alias_output.CreateAliasOutput"
         ]:
-            import capo_gamelift._operations.game_lift.create_alias
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.create_alias
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.create_alias.create_alias(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.create_alias.create_alias(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.create_alias
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.create_alias.create_alias(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -827,13 +867,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.create_build_output.CreateBuildOutput"
         ]:
-            import capo_gamelift._operations.game_lift.create_build
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.create_build
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.create_build.create_build(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.create_build.create_build(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.create_build
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.create_build.create_build(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -954,13 +1005,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.create_container_fleet_output.CreateContainerFleetOutput"
         ]:
-            import capo_gamelift._operations.game_lift.create_container_fleet
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.create_container_fleet
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.create_container_fleet.create_container_fleet(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.create_container_fleet.create_container_fleet(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.create_container_fleet
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.create_container_fleet.create_container_fleet(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -1100,13 +1162,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.create_container_group_definition_output.CreateContainerGroupDefinitionOutput"
         ]:
-            import capo_gamelift._operations.game_lift.create_container_group_definition
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.create_container_group_definition
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.create_container_group_definition.create_container_group_definition(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.create_container_group_definition.create_container_group_definition(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.create_container_group_definition
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.create_container_group_definition.create_container_group_definition(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -1282,13 +1355,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.create_fleet_output.CreateFleetOutput"
         ]:
-            import capo_gamelift._operations.game_lift.create_fleet
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.create_fleet
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.create_fleet.create_fleet(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.create_fleet.create_fleet(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.create_fleet
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.create_fleet.create_fleet(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -1399,13 +1483,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.create_fleet_locations_output.CreateFleetLocationsOutput"
         ]:
-            import capo_gamelift._operations.game_lift.create_fleet_locations
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.create_fleet_locations
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.create_fleet_locations.create_fleet_locations(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.create_fleet_locations.create_fleet_locations(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.create_fleet_locations
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.create_fleet_locations.create_fleet_locations(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1484,13 +1579,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.create_game_server_group_output.CreateGameServerGroupOutput"
         ]:
-            import capo_gamelift._operations.game_lift.create_game_server_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.create_game_server_group
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.create_game_server_group.create_game_server_group(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.create_game_server_group.create_game_server_group(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.create_game_server_group
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.create_game_server_group.create_game_server_group(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1593,13 +1699,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.create_game_session_output.CreateGameSessionOutput"
         ]:
-            import capo_gamelift._operations.game_lift.create_game_session
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.create_game_session
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.create_game_session.create_game_session(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.create_game_session.create_game_session(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.create_game_session
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.create_game_session.create_game_session(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -1720,13 +1837,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.create_game_session_queue_output.CreateGameSessionQueueOutput"
         ]:
-            import capo_gamelift._operations.game_lift.create_game_session_queue
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.create_game_session_queue
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.create_game_session_queue.create_game_session_queue(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.create_game_session_queue.create_game_session_queue(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.create_game_session_queue
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.create_game_session_queue.create_game_session_queue(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -1818,13 +1946,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.create_location_output.CreateLocationOutput"
         ]:
-            import capo_gamelift._operations.game_lift.create_location
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.create_location
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.create_location.create_location(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.create_location.create_location(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.create_location
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.create_location.create_location(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1926,13 +2065,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.create_matchmaking_configuration_output.CreateMatchmakingConfigurationOutput"
         ]:
-            import capo_gamelift._operations.game_lift.create_matchmaking_configuration
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.create_matchmaking_configuration
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.create_matchmaking_configuration.create_matchmaking_configuration(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.create_matchmaking_configuration.create_matchmaking_configuration(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.create_matchmaking_configuration
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.create_matchmaking_configuration.create_matchmaking_configuration(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -2032,13 +2182,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.create_matchmaking_rule_set_output.CreateMatchmakingRuleSetOutput"
         ]:
-            import capo_gamelift._operations.game_lift.create_matchmaking_rule_set
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.create_matchmaking_rule_set
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.create_matchmaking_rule_set.create_matchmaking_rule_set(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.create_matchmaking_rule_set.create_matchmaking_rule_set(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.create_matchmaking_rule_set
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.create_matchmaking_rule_set.create_matchmaking_rule_set(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2093,13 +2254,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.create_player_session_output.CreatePlayerSessionOutput"
         ]:
-            import capo_gamelift._operations.game_lift.create_player_session
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.create_player_session
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.create_player_session.create_player_session(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.create_player_session.create_player_session(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.create_player_session
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.create_player_session.create_player_session(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -2179,13 +2351,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.create_player_sessions_output.CreatePlayerSessionsOutput"
         ]:
-            import capo_gamelift._operations.game_lift.create_player_sessions
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.create_player_sessions
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.create_player_sessions.create_player_sessions(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.create_player_sessions.create_player_sessions(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.create_player_sessions
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.create_player_sessions.create_player_sessions(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -2271,13 +2454,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.create_script_output.CreateScriptOutput"
         ]:
-            import capo_gamelift._operations.game_lift.create_script
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.create_script
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.create_script.create_script(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.create_script.create_script(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.create_script
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.create_script.create_script(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2335,13 +2529,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.create_vpc_peering_authorization_output.CreateVpcPeeringAuthorizationOutput"
         ]:
-            import capo_gamelift._operations.game_lift.create_vpc_peering_authorization
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.create_vpc_peering_authorization
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.create_vpc_peering_authorization.create_vpc_peering_authorization(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.create_vpc_peering_authorization.create_vpc_peering_authorization(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.create_vpc_peering_authorization
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.create_vpc_peering_authorization.create_vpc_peering_authorization(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2393,13 +2598,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.create_vpc_peering_connection_output.CreateVpcPeeringConnectionOutput"
         ]:
-            import capo_gamelift._operations.game_lift.create_vpc_peering_connection
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.create_vpc_peering_connection
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.create_vpc_peering_connection.create_vpc_peering_connection(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.create_vpc_peering_connection.create_vpc_peering_connection(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.create_vpc_peering_connection
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.create_vpc_peering_connection.create_vpc_peering_connection(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2444,13 +2660,24 @@ class GameLiftClient:
         def _handler(
             req: "OperationRequest[capo_gamelift.types.delete_alias_input.DeleteAliasInput]",
         ) -> OperationResponse[None]:
-            import capo_gamelift._operations.game_lift.delete_alias
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.delete_alias
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.delete_alias.delete_alias(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.delete_alias.delete_alias(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.delete_alias
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.delete_alias.delete_alias(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2491,13 +2718,24 @@ class GameLiftClient:
         def _handler(
             req: "OperationRequest[capo_gamelift.types.delete_build_input.DeleteBuildInput]",
         ) -> OperationResponse[None]:
-            import capo_gamelift._operations.game_lift.delete_build
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.delete_build
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.delete_build.delete_build(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.delete_build.delete_build(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.delete_build
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.delete_build.delete_build(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2541,13 +2779,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.delete_container_fleet_output.DeleteContainerFleetOutput"
         ]:
-            import capo_gamelift._operations.game_lift.delete_container_fleet
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.delete_container_fleet
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.delete_container_fleet.delete_container_fleet(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.delete_container_fleet.delete_container_fleet(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.delete_container_fleet
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.delete_container_fleet.delete_container_fleet(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2601,13 +2850,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.delete_container_group_definition_output.DeleteContainerGroupDefinitionOutput"
         ]:
-            import capo_gamelift._operations.game_lift.delete_container_group_definition
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.delete_container_group_definition
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.delete_container_group_definition.delete_container_group_definition(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.delete_container_group_definition.delete_container_group_definition(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.delete_container_group_definition
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.delete_container_group_definition.delete_container_group_definition(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2653,13 +2913,24 @@ class GameLiftClient:
         def _handler(
             req: "OperationRequest[capo_gamelift.types.delete_fleet_input.DeleteFleetInput]",
         ) -> OperationResponse[None]:
-            import capo_gamelift._operations.game_lift.delete_fleet
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.delete_fleet
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.delete_fleet.delete_fleet(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.delete_fleet.delete_fleet(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.delete_fleet
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.delete_fleet.delete_fleet(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2704,13 +2975,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.delete_fleet_locations_output.DeleteFleetLocationsOutput"
         ]:
-            import capo_gamelift._operations.game_lift.delete_fleet_locations
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.delete_fleet_locations
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.delete_fleet_locations.delete_fleet_locations(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.delete_fleet_locations.delete_fleet_locations(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.delete_fleet_locations
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.delete_fleet_locations.delete_fleet_locations(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2760,13 +3042,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.delete_game_server_group_output.DeleteGameServerGroupOutput"
         ]:
-            import capo_gamelift._operations.game_lift.delete_game_server_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.delete_game_server_group
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.delete_game_server_group.delete_game_server_group(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.delete_game_server_group.delete_game_server_group(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.delete_game_server_group
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.delete_game_server_group.delete_game_server_group(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2813,13 +3106,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.delete_game_session_queue_output.DeleteGameSessionQueueOutput"
         ]:
-            import capo_gamelift._operations.game_lift.delete_game_session_queue
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.delete_game_session_queue
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.delete_game_session_queue.delete_game_session_queue(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.delete_game_session_queue.delete_game_session_queue(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.delete_game_session_queue
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.delete_game_session_queue.delete_game_session_queue(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2864,13 +3168,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.delete_location_output.DeleteLocationOutput"
         ]:
-            import capo_gamelift._operations.game_lift.delete_location
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.delete_location
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.delete_location.delete_location(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.delete_location.delete_location(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.delete_location
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.delete_location.delete_location(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2915,13 +3230,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.delete_matchmaking_configuration_output.DeleteMatchmakingConfigurationOutput"
         ]:
-            import capo_gamelift._operations.game_lift.delete_matchmaking_configuration
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.delete_matchmaking_configuration
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.delete_matchmaking_configuration.delete_matchmaking_configuration(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.delete_matchmaking_configuration.delete_matchmaking_configuration(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.delete_matchmaking_configuration
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.delete_matchmaking_configuration.delete_matchmaking_configuration(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2966,13 +3292,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.delete_matchmaking_rule_set_output.DeleteMatchmakingRuleSetOutput"
         ]:
-            import capo_gamelift._operations.game_lift.delete_matchmaking_rule_set
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.delete_matchmaking_rule_set
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.delete_matchmaking_rule_set.delete_matchmaking_rule_set(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.delete_matchmaking_rule_set.delete_matchmaking_rule_set(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.delete_matchmaking_rule_set
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.delete_matchmaking_rule_set.delete_matchmaking_rule_set(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3017,13 +3354,24 @@ class GameLiftClient:
         def _handler(
             req: "OperationRequest[capo_gamelift.types.delete_scaling_policy_input.DeleteScalingPolicyInput]",
         ) -> OperationResponse[None]:
-            import capo_gamelift._operations.game_lift.delete_scaling_policy
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.delete_scaling_policy
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.delete_scaling_policy.delete_scaling_policy(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.delete_scaling_policy.delete_scaling_policy(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.delete_scaling_policy
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.delete_scaling_policy.delete_scaling_policy(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3068,13 +3416,24 @@ class GameLiftClient:
         def _handler(
             req: "OperationRequest[capo_gamelift.types.delete_script_input.DeleteScriptInput]",
         ) -> OperationResponse[None]:
-            import capo_gamelift._operations.game_lift.delete_script
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.delete_script
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.delete_script.delete_script(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.delete_script.delete_script(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.delete_script
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.delete_script.delete_script(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3122,13 +3481,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.delete_vpc_peering_authorization_output.DeleteVpcPeeringAuthorizationOutput"
         ]:
-            import capo_gamelift._operations.game_lift.delete_vpc_peering_authorization
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.delete_vpc_peering_authorization
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.delete_vpc_peering_authorization.delete_vpc_peering_authorization(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.delete_vpc_peering_authorization.delete_vpc_peering_authorization(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.delete_vpc_peering_authorization
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.delete_vpc_peering_authorization.delete_vpc_peering_authorization(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3176,13 +3546,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.delete_vpc_peering_connection_output.DeleteVpcPeeringConnectionOutput"
         ]:
-            import capo_gamelift._operations.game_lift.delete_vpc_peering_connection
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.delete_vpc_peering_connection
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.delete_vpc_peering_connection.delete_vpc_peering_connection(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.delete_vpc_peering_connection.delete_vpc_peering_connection(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.delete_vpc_peering_connection
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.delete_vpc_peering_connection.delete_vpc_peering_connection(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3231,13 +3612,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.deregister_compute_output.DeregisterComputeOutput"
         ]:
-            import capo_gamelift._operations.game_lift.deregister_compute
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.deregister_compute
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.deregister_compute.deregister_compute(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.deregister_compute.deregister_compute(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.deregister_compute
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.deregister_compute.deregister_compute(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3285,13 +3677,24 @@ class GameLiftClient:
         def _handler(
             req: "OperationRequest[capo_gamelift.types.deregister_game_server_input.DeregisterGameServerInput]",
         ) -> OperationResponse[None]:
-            import capo_gamelift._operations.game_lift.deregister_game_server
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.deregister_game_server
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.deregister_game_server.deregister_game_server(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.deregister_game_server.deregister_game_server(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.deregister_game_server
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.deregister_game_server.deregister_game_server(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3335,13 +3738,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_alias_output.DescribeAliasOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_alias
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_alias
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_alias.describe_alias(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_alias.describe_alias(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_alias
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_alias.describe_alias(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3383,13 +3797,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_build_output.DescribeBuildOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_build
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_build
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_build.describe_build(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_build.describe_build(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_build
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_build.describe_build(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3436,13 +3861,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_compute_output.DescribeComputeOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_compute
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_compute
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_compute.describe_compute(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_compute.describe_compute(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_compute
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_compute.describe_compute(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -3495,13 +3931,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_container_fleet_output.DescribeContainerFleetOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_container_fleet
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_container_fleet
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_container_fleet.describe_container_fleet(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_container_fleet.describe_container_fleet(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_container_fleet
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_container_fleet.describe_container_fleet(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -3560,13 +4007,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_container_group_definition_output.DescribeContainerGroupDefinitionOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_container_group_definition
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_container_group_definition
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_container_group_definition.describe_container_group_definition(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_container_group_definition.describe_container_group_definition(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_container_group_definition
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_container_group_definition.describe_container_group_definition(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -3638,13 +4096,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_container_group_port_mappings_output.DescribeContainerGroupPortMappingsOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_container_group_port_mappings
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_container_group_port_mappings
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_container_group_port_mappings.describe_container_group_port_mappings(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_container_group_port_mappings.describe_container_group_port_mappings(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_container_group_port_mappings
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_container_group_port_mappings.describe_container_group_port_mappings(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -3712,13 +4181,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_ec2_instance_limits_output.DescribeEC2InstanceLimitsOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_ec2_instance_limits
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_ec2_instance_limits
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_ec2_instance_limits.describe_ec2_instance_limits(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_ec2_instance_limits.describe_ec2_instance_limits(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_ec2_instance_limits
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_ec2_instance_limits.describe_ec2_instance_limits(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3770,13 +4250,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_fleet_attributes_output.DescribeFleetAttributesOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_fleet_attributes
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_fleet_attributes
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_fleet_attributes.describe_fleet_attributes(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_fleet_attributes.describe_fleet_attributes(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_fleet_attributes
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_fleet_attributes.describe_fleet_attributes(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3860,13 +4351,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_fleet_capacity_output.DescribeFleetCapacityOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_fleet_capacity
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_fleet_capacity
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_fleet_capacity.describe_fleet_capacity(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_fleet_capacity.describe_fleet_capacity(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_fleet_capacity
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_fleet_capacity.describe_fleet_capacity(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3944,13 +4446,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_fleet_deployment_output.DescribeFleetDeploymentOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_fleet_deployment
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_fleet_deployment
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_fleet_deployment.describe_fleet_deployment(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_fleet_deployment.describe_fleet_deployment(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_fleet_deployment
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_fleet_deployment.describe_fleet_deployment(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4005,13 +4518,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_fleet_events_output.DescribeFleetEventsOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_fleet_events
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_fleet_events
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_fleet_events.describe_fleet_events(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_fleet_events.describe_fleet_events(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_fleet_events
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_fleet_events.describe_fleet_events(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -4109,13 +4633,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_fleet_location_attributes_output.DescribeFleetLocationAttributesOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_fleet_location_attributes
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_fleet_location_attributes
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_fleet_location_attributes.describe_fleet_location_attributes(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_fleet_location_attributes.describe_fleet_location_attributes(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_fleet_location_attributes
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_fleet_location_attributes.describe_fleet_location_attributes(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4193,13 +4728,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_fleet_location_capacity_output.DescribeFleetLocationCapacityOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_fleet_location_capacity
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_fleet_location_capacity
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_fleet_location_capacity.describe_fleet_location_capacity(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_fleet_location_capacity.describe_fleet_location_capacity(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_fleet_location_capacity
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_fleet_location_capacity.describe_fleet_location_capacity(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4248,13 +4794,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_fleet_location_utilization_output.DescribeFleetLocationUtilizationOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_fleet_location_utilization
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_fleet_location_utilization
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_fleet_location_utilization.describe_fleet_location_utilization(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_fleet_location_utilization.describe_fleet_location_utilization(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_fleet_location_utilization
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_fleet_location_utilization.describe_fleet_location_utilization(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4303,13 +4860,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_fleet_port_settings_output.DescribeFleetPortSettingsOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_fleet_port_settings
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_fleet_port_settings
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_fleet_port_settings.describe_fleet_port_settings(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_fleet_port_settings.describe_fleet_port_settings(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_fleet_port_settings
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_fleet_port_settings.describe_fleet_port_settings(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -4371,13 +4939,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_fleet_utilization_output.DescribeFleetUtilizationOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_fleet_utilization
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_fleet_utilization
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_fleet_utilization.describe_fleet_utilization(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_fleet_utilization.describe_fleet_utilization(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_fleet_utilization
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_fleet_utilization.describe_fleet_utilization(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4456,13 +5035,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_game_server_output.DescribeGameServerOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_game_server
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_game_server
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_game_server.describe_game_server(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_game_server.describe_game_server(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_game_server
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_game_server.describe_game_server(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -4518,13 +5108,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_game_server_group_output.DescribeGameServerGroupOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_game_server_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_game_server_group
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_game_server_group.describe_game_server_group(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_game_server_group.describe_game_server_group(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_game_server_group
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_game_server_group.describe_game_server_group(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4578,13 +5179,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_game_server_instances_output.DescribeGameServerInstancesOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_game_server_instances
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_game_server_instances
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_game_server_instances.describe_game_server_instances(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_game_server_instances.describe_game_server_instances(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_game_server_instances
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_game_server_instances.describe_game_server_instances(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4685,13 +5297,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_game_session_details_output.DescribeGameSessionDetailsOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_game_session_details
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_game_session_details
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_game_session_details.describe_game_session_details(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_game_session_details.describe_game_session_details(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_game_session_details
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_game_session_details.describe_game_session_details(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -4798,13 +5421,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_game_session_placement_output.DescribeGameSessionPlacementOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_game_session_placement
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_game_session_placement
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_game_session_placement.describe_game_session_placement(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_game_session_placement.describe_game_session_placement(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_game_session_placement
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_game_session_placement.describe_game_session_placement(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -4866,13 +5500,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_game_session_queues_output.DescribeGameSessionQueuesOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_game_session_queues
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_game_session_queues
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_game_session_queues.describe_game_session_queues(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_game_session_queues.describe_game_session_queues(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_game_session_queues
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_game_session_queues.describe_game_session_queues(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -4977,13 +5622,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_game_sessions_output.DescribeGameSessionsOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_game_sessions
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_game_sessions
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_game_sessions.describe_game_sessions(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_game_sessions.describe_game_sessions(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_game_sessions
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_game_sessions.describe_game_sessions(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -5099,13 +5755,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_instances_output.DescribeInstancesOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_instances
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_instances
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_instances.describe_instances(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_instances.describe_instances(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_instances
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_instances.describe_instances(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -5197,13 +5864,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_matchmaking_output.DescribeMatchmakingOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_matchmaking
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_matchmaking
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_matchmaking.describe_matchmaking(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_matchmaking.describe_matchmaking(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_matchmaking
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_matchmaking.describe_matchmaking(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -5266,13 +5944,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_matchmaking_configurations_output.DescribeMatchmakingConfigurationsOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_matchmaking_configurations
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_matchmaking_configurations
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_matchmaking_configurations.describe_matchmaking_configurations(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_matchmaking_configurations.describe_matchmaking_configurations(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_matchmaking_configurations
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_matchmaking_configurations.describe_matchmaking_configurations(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -5371,13 +6060,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_matchmaking_rule_sets_output.DescribeMatchmakingRuleSetsOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_matchmaking_rule_sets
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_matchmaking_rule_sets
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_matchmaking_rule_sets.describe_matchmaking_rule_sets(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_matchmaking_rule_sets.describe_matchmaking_rule_sets(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_matchmaking_rule_sets
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_matchmaking_rule_sets.describe_matchmaking_rule_sets(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5468,13 +6168,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_player_sessions_output.DescribePlayerSessionsOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_player_sessions
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_player_sessions
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_player_sessions.describe_player_sessions(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_player_sessions.describe_player_sessions(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_player_sessions
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_player_sessions.describe_player_sessions(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -5586,13 +6297,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_runtime_configuration_output.DescribeRuntimeConfigurationOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_runtime_configuration
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_runtime_configuration
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_runtime_configuration.describe_runtime_configuration(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_runtime_configuration.describe_runtime_configuration(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_runtime_configuration
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_runtime_configuration.describe_runtime_configuration(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5649,13 +6371,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_scaling_policies_output.DescribeScalingPoliciesOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_scaling_policies
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_scaling_policies
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_scaling_policies.describe_scaling_policies(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_scaling_policies.describe_scaling_policies(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_scaling_policies
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_scaling_policies.describe_scaling_policies(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5740,13 +6473,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_script_output.DescribeScriptOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_script
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_script
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_script.describe_script(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_script.describe_script(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_script
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_script.describe_script(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5781,13 +6525,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_vpc_peering_authorizations_output.DescribeVpcPeeringAuthorizationsOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_vpc_peering_authorizations
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_vpc_peering_authorizations
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_vpc_peering_authorizations.describe_vpc_peering_authorizations(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_vpc_peering_authorizations.describe_vpc_peering_authorizations(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_vpc_peering_authorizations
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_vpc_peering_authorizations.describe_vpc_peering_authorizations(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5827,13 +6582,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.describe_vpc_peering_connections_output.DescribeVpcPeeringConnectionsOutput"
         ]:
-            import capo_gamelift._operations.game_lift.describe_vpc_peering_connections
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.describe_vpc_peering_connections
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.describe_vpc_peering_connections.describe_vpc_peering_connections(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.describe_vpc_peering_connections.describe_vpc_peering_connections(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.describe_vpc_peering_connections
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.describe_vpc_peering_connections.describe_vpc_peering_connections(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5880,13 +6646,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.get_compute_access_output.GetComputeAccessOutput"
         ]:
-            import capo_gamelift._operations.game_lift.get_compute_access
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.get_compute_access
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.get_compute_access.get_compute_access(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.get_compute_access.get_compute_access(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.get_compute_access
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.get_compute_access.get_compute_access(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -5945,13 +6722,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.get_compute_auth_token_output.GetComputeAuthTokenOutput"
         ]:
-            import capo_gamelift._operations.game_lift.get_compute_auth_token
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.get_compute_auth_token
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.get_compute_auth_token.get_compute_auth_token(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.get_compute_auth_token.get_compute_auth_token(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.get_compute_auth_token
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.get_compute_auth_token.get_compute_auth_token(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5999,13 +6787,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.get_game_session_log_url_output.GetGameSessionLogUrlOutput"
         ]:
-            import capo_gamelift._operations.game_lift.get_game_session_log_url
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.get_game_session_log_url
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.get_game_session_log_url.get_game_session_log_url(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.get_game_session_log_url.get_game_session_log_url(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.get_game_session_log_url
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.get_game_session_log_url.get_game_session_log_url(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -6049,13 +6848,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.get_instance_access_output.GetInstanceAccessOutput"
         ]:
-            import capo_gamelift._operations.game_lift.get_instance_access
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.get_instance_access
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.get_instance_access.get_instance_access(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.get_instance_access.get_instance_access(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.get_instance_access
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.get_instance_access.get_instance_access(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -6116,13 +6926,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.get_player_connection_details_output.GetPlayerConnectionDetailsOutput"
         ]:
-            import capo_gamelift._operations.game_lift.get_player_connection_details
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.get_player_connection_details
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.get_player_connection_details.get_player_connection_details(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.get_player_connection_details.get_player_connection_details(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.get_player_connection_details
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.get_player_connection_details.get_player_connection_details(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -6198,13 +7019,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.list_aliases_output.ListAliasesOutput"
         ]:
-            import capo_gamelift._operations.game_lift.list_aliases
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.list_aliases
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.list_aliases.list_aliases(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.list_aliases.list_aliases(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.list_aliases
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.list_aliases.list_aliases(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -6286,13 +7118,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.list_builds_output.ListBuildsOutput"
         ]:
-            import capo_gamelift._operations.game_lift.list_builds
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.list_builds
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.list_builds.list_builds(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.list_builds.list_builds(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.list_builds
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.list_builds.list_builds(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -6381,13 +7224,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.list_compute_output.ListComputeOutput"
         ]:
-            import capo_gamelift._operations.game_lift.list_compute
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.list_compute
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.list_compute.list_compute(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.list_compute.list_compute(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.list_compute
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.list_compute.list_compute(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -6492,13 +7346,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.list_container_fleets_output.ListContainerFleetsOutput"
         ]:
-            import capo_gamelift._operations.game_lift.list_container_fleets
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.list_container_fleets
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.list_container_fleets.list_container_fleets(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.list_container_fleets.list_container_fleets(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.list_container_fleets
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.list_container_fleets.list_container_fleets(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -6591,13 +7456,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.list_container_group_definitions_output.ListContainerGroupDefinitionsOutput"
         ]:
-            import capo_gamelift._operations.game_lift.list_container_group_definitions
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.list_container_group_definitions
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.list_container_group_definitions.list_container_group_definitions(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.list_container_group_definitions.list_container_group_definitions(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.list_container_group_definitions
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.list_container_group_definitions.list_container_group_definitions(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -6695,13 +7571,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.list_container_group_definition_versions_output.ListContainerGroupDefinitionVersionsOutput"
         ]:
-            import capo_gamelift._operations.game_lift.list_container_group_definition_versions
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.list_container_group_definition_versions
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.list_container_group_definition_versions.list_container_group_definition_versions(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.list_container_group_definition_versions.list_container_group_definition_versions(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.list_container_group_definition_versions
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.list_container_group_definition_versions.list_container_group_definition_versions(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -6795,13 +7682,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.list_fleet_deployments_output.ListFleetDeploymentsOutput"
         ]:
-            import capo_gamelift._operations.game_lift.list_fleet_deployments
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.list_fleet_deployments
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.list_fleet_deployments.list_fleet_deployments(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.list_fleet_deployments.list_fleet_deployments(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.list_fleet_deployments
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.list_fleet_deployments.list_fleet_deployments(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -6882,13 +7780,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.list_fleets_output.ListFleetsOutput"
         ]:
-            import capo_gamelift._operations.game_lift.list_fleets
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.list_fleets
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.list_fleets.list_fleets(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.list_fleets.list_fleets(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.list_fleets
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.list_fleets.list_fleets(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -6970,13 +7879,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.list_game_server_groups_output.ListGameServerGroupsOutput"
         ]:
-            import capo_gamelift._operations.game_lift.list_game_server_groups
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.list_game_server_groups
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.list_game_server_groups.list_game_server_groups(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.list_game_server_groups.list_game_server_groups(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.list_game_server_groups
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.list_game_server_groups.list_game_server_groups(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -7052,13 +7972,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.list_game_servers_output.ListGameServersOutput"
         ]:
-            import capo_gamelift._operations.game_lift.list_game_servers
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.list_game_servers
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.list_game_servers.list_game_servers(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.list_game_servers.list_game_servers(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.list_game_servers
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.list_game_servers.list_game_servers(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -7152,13 +8083,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.list_locations_output.ListLocationsOutput"
         ]:
-            import capo_gamelift._operations.game_lift.list_locations
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.list_locations
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.list_locations.list_locations(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.list_locations.list_locations(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.list_locations
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.list_locations.list_locations(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -7236,13 +8178,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.list_scripts_output.ListScriptsOutput"
         ]:
-            import capo_gamelift._operations.game_lift.list_scripts
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.list_scripts
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.list_scripts.list_scripts(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.list_scripts.list_scripts(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.list_scripts
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.list_scripts.list_scripts(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -7312,13 +8265,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.list_tags_for_resource_response.ListTagsForResourceResponse"
         ]:
-            import capo_gamelift._operations.game_lift.list_tags_for_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.list_tags_for_resource
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.list_tags_for_resource.list_tags_for_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.list_tags_for_resource
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -7389,13 +8353,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.put_scaling_policy_output.PutScalingPolicyOutput"
         ]:
-            import capo_gamelift._operations.game_lift.put_scaling_policy
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.put_scaling_policy
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.put_scaling_policy.put_scaling_policy(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.put_scaling_policy.put_scaling_policy(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.put_scaling_policy
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.put_scaling_policy.put_scaling_policy(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -7472,13 +8447,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.register_compute_output.RegisterComputeOutput"
         ]:
-            import capo_gamelift._operations.game_lift.register_compute
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.register_compute
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.register_compute.register_compute(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.register_compute.register_compute(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.register_compute
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.register_compute.register_compute(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -7568,13 +8554,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.register_game_server_output.RegisterGameServerOutput"
         ]:
-            import capo_gamelift._operations.game_lift.register_game_server
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.register_game_server
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.register_game_server.register_game_server(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.register_game_server.register_game_server(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.register_game_server
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.register_game_server.register_game_server(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -7647,13 +8644,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.request_upload_credentials_output.RequestUploadCredentialsOutput"
         ]:
-            import capo_gamelift._operations.game_lift.request_upload_credentials
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.request_upload_credentials
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.request_upload_credentials.request_upload_credentials(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.request_upload_credentials.request_upload_credentials(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.request_upload_credentials
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.request_upload_credentials.request_upload_credentials(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -7708,13 +8716,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.resolve_alias_output.ResolveAliasOutput"
         ]:
-            import capo_gamelift._operations.game_lift.resolve_alias
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.resolve_alias
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.resolve_alias.resolve_alias(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.resolve_alias.resolve_alias(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.resolve_alias
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.resolve_alias.resolve_alias(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -7762,13 +8781,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.resume_game_server_group_output.ResumeGameServerGroupOutput"
         ]:
-            import capo_gamelift._operations.game_lift.resume_game_server_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.resume_game_server_group
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.resume_game_server_group.resume_game_server_group(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.resume_game_server_group.resume_game_server_group(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.resume_game_server_group
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.resume_game_server_group.resume_game_server_group(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -7834,13 +8864,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.search_game_sessions_output.SearchGameSessionsOutput"
         ]:
-            import capo_gamelift._operations.game_lift.search_game_sessions
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.search_game_sessions
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.search_game_sessions.search_game_sessions(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.search_game_sessions.search_game_sessions(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.search_game_sessions
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.search_game_sessions.search_game_sessions(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -7952,13 +8993,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.start_fleet_actions_output.StartFleetActionsOutput"
         ]:
-            import capo_gamelift._operations.game_lift.start_fleet_actions
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.start_fleet_actions
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.start_fleet_actions.start_fleet_actions(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.start_fleet_actions.start_fleet_actions(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.start_fleet_actions
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.start_fleet_actions.start_fleet_actions(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -8039,13 +9091,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.start_game_session_placement_output.StartGameSessionPlacementOutput"
         ]:
-            import capo_gamelift._operations.game_lift.start_game_session_placement
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.start_game_session_placement
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.start_game_session_placement.start_game_session_placement(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.start_game_session_placement.start_game_session_placement(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.start_game_session_placement
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.start_game_session_placement.start_game_session_placement(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -8140,13 +9203,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.start_match_backfill_output.StartMatchBackfillOutput"
         ]:
-            import capo_gamelift._operations.game_lift.start_match_backfill
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.start_match_backfill
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.start_match_backfill.start_match_backfill(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.start_match_backfill.start_match_backfill(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.start_match_backfill
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.start_match_backfill.start_match_backfill(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -8225,13 +9299,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.start_matchmaking_output.StartMatchmakingOutput"
         ]:
-            import capo_gamelift._operations.game_lift.start_matchmaking
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.start_matchmaking
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.start_matchmaking.start_matchmaking(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.start_matchmaking.start_matchmaking(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.start_matchmaking
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.start_matchmaking.start_matchmaking(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -8305,13 +9390,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.stop_fleet_actions_output.StopFleetActionsOutput"
         ]:
-            import capo_gamelift._operations.game_lift.stop_fleet_actions
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.stop_fleet_actions
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.stop_fleet_actions.stop_fleet_actions(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.stop_fleet_actions.stop_fleet_actions(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.stop_fleet_actions
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.stop_fleet_actions.stop_fleet_actions(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -8359,13 +9455,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.stop_game_session_placement_output.StopGameSessionPlacementOutput"
         ]:
-            import capo_gamelift._operations.game_lift.stop_game_session_placement
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.stop_game_session_placement
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.stop_game_session_placement.stop_game_session_placement(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.stop_game_session_placement.stop_game_session_placement(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.stop_game_session_placement
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.stop_game_session_placement.stop_game_session_placement(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -8421,13 +9528,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.stop_matchmaking_output.StopMatchmakingOutput"
         ]:
-            import capo_gamelift._operations.game_lift.stop_matchmaking
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.stop_matchmaking
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.stop_matchmaking.stop_matchmaking(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.stop_matchmaking.stop_matchmaking(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.stop_matchmaking
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.stop_matchmaking.stop_matchmaking(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -8475,13 +9593,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.suspend_game_server_group_output.SuspendGameServerGroupOutput"
         ]:
-            import capo_gamelift._operations.game_lift.suspend_game_server_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.suspend_game_server_group
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.suspend_game_server_group.suspend_game_server_group(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.suspend_game_server_group.suspend_game_server_group(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.suspend_game_server_group
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.suspend_game_server_group.suspend_game_server_group(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -8530,13 +9659,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.tag_resource_response.TagResourceResponse"
         ]:
-            import capo_gamelift._operations.game_lift.tag_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.tag_resource
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.tag_resource.tag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.tag_resource
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -8588,13 +9728,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.terminate_game_session_output.TerminateGameSessionOutput"
         ]:
-            import capo_gamelift._operations.game_lift.terminate_game_session
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.terminate_game_session
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.terminate_game_session.terminate_game_session(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.terminate_game_session.terminate_game_session(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.terminate_game_session
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.terminate_game_session.terminate_game_session(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -8653,13 +9804,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.untag_resource_response.UntagResourceResponse"
         ]:
-            import capo_gamelift._operations.game_lift.untag_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.untag_resource
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.untag_resource.untag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.untag_resource
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -8715,13 +9877,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.update_alias_output.UpdateAliasOutput"
         ]:
-            import capo_gamelift._operations.game_lift.update_alias
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.update_alias
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.update_alias.update_alias(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.update_alias.update_alias(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.update_alias
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.update_alias.update_alias(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -8777,13 +9950,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.update_build_output.UpdateBuildOutput"
         ]:
-            import capo_gamelift._operations.game_lift.update_build
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.update_build
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.update_build.update_build(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.update_build.update_build(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.update_build
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.update_build.update_build(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -8884,13 +10068,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.update_container_fleet_output.UpdateContainerFleetOutput"
         ]:
-            import capo_gamelift._operations.game_lift.update_container_fleet
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.update_container_fleet
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.update_container_fleet.update_container_fleet(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.update_container_fleet.update_container_fleet(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.update_container_fleet
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.update_container_fleet.update_container_fleet(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -9031,13 +10226,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.update_container_group_definition_output.UpdateContainerGroupDefinitionOutput"
         ]:
-            import capo_gamelift._operations.game_lift.update_container_group_definition
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.update_container_group_definition
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.update_container_group_definition.update_container_group_definition(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.update_container_group_definition.update_container_group_definition(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.update_container_group_definition
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.update_container_group_definition.update_container_group_definition(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -9149,13 +10355,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.update_fleet_attributes_output.UpdateFleetAttributesOutput"
         ]:
-            import capo_gamelift._operations.game_lift.update_fleet_attributes
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.update_fleet_attributes
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.update_fleet_attributes.update_fleet_attributes(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.update_fleet_attributes.update_fleet_attributes(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.update_fleet_attributes
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.update_fleet_attributes.update_fleet_attributes(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -9231,13 +10448,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.update_fleet_capacity_output.UpdateFleetCapacityOutput"
         ]:
-            import capo_gamelift._operations.game_lift.update_fleet_capacity
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.update_fleet_capacity
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.update_fleet_capacity.update_fleet_capacity(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.update_fleet_capacity.update_fleet_capacity(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.update_fleet_capacity
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.update_fleet_capacity.update_fleet_capacity(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -9300,13 +10528,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.update_fleet_port_settings_output.UpdateFleetPortSettingsOutput"
         ]:
-            import capo_gamelift._operations.game_lift.update_fleet_port_settings
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.update_fleet_port_settings
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.update_fleet_port_settings.update_fleet_port_settings(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.update_fleet_port_settings.update_fleet_port_settings(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.update_fleet_port_settings
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.update_fleet_port_settings.update_fleet_port_settings(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -9384,13 +10623,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.update_game_server_output.UpdateGameServerOutput"
         ]:
-            import capo_gamelift._operations.game_lift.update_game_server
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.update_game_server
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.update_game_server.update_game_server(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.update_game_server.update_game_server(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.update_game_server
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.update_game_server.update_game_server(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -9477,13 +10727,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.update_game_server_group_output.UpdateGameServerGroupOutput"
         ]:
-            import capo_gamelift._operations.game_lift.update_game_server_group
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.update_game_server_group
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.update_game_server_group.update_game_server_group(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.update_game_server_group.update_game_server_group(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.update_game_server_group
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.update_game_server_group.update_game_server_group(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -9558,13 +10819,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.update_game_session_output.UpdateGameSessionOutput"
         ]:
-            import capo_gamelift._operations.game_lift.update_game_session
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.update_game_session
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.update_game_session.update_game_session(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.update_game_session.update_game_session(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.update_game_session
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.update_game_session.update_game_session(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -9677,13 +10949,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.update_game_session_queue_output.UpdateGameSessionQueueOutput"
         ]:
-            import capo_gamelift._operations.game_lift.update_game_session_queue
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.update_game_session_queue
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.update_game_session_queue.update_game_session_queue(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.update_game_session_queue.update_game_session_queue(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.update_game_session_queue
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.update_game_session_queue.update_game_session_queue(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -9824,13 +11107,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.update_matchmaking_configuration_output.UpdateMatchmakingConfigurationOutput"
         ]:
-            import capo_gamelift._operations.game_lift.update_matchmaking_configuration
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.update_matchmaking_configuration
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.update_matchmaking_configuration.update_matchmaking_configuration(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.update_matchmaking_configuration.update_matchmaking_configuration(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.update_matchmaking_configuration
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.update_matchmaking_configuration.update_matchmaking_configuration(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -9927,13 +11221,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.update_runtime_configuration_output.UpdateRuntimeConfigurationOutput"
         ]:
-            import capo_gamelift._operations.game_lift.update_runtime_configuration
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.update_runtime_configuration
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.update_runtime_configuration.update_runtime_configuration(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.update_runtime_configuration.update_runtime_configuration(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.update_runtime_configuration
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.update_runtime_configuration.update_runtime_configuration(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -9991,13 +11296,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.update_script_output.UpdateScriptOutput"
         ]:
-            import capo_gamelift._operations.game_lift.update_script
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.update_script
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.update_script.update_script(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.update_script.update_script(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.update_script
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.update_script.update_script(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -10046,13 +11362,24 @@ class GameLiftClient:
         ) -> OperationResponse[
             "capo_gamelift.types.validate_matchmaking_rule_set_output.ValidateMatchmakingRuleSetOutput"
         ]:
-            import capo_gamelift._operations.game_lift.validate_matchmaking_rule_set
+            if req.options.protocol == "awsJson1_1":
+                import capo_gamelift._operations.game_lift.aws_json1_1.validate_matchmaking_rule_set
 
-            output, http_response = (
-                capo_gamelift._operations.game_lift.validate_matchmaking_rule_set.validate_matchmaking_rule_set(
-                    req.options, req.input
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.aws_json1_1.validate_matchmaking_rule_set.validate_matchmaking_rule_set(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_gamelift._operations.game_lift.rpcv2_cbor.validate_matchmaking_rule_set
+
+                output, http_response = (
+                    capo_gamelift._operations.game_lift.rpcv2_cbor.validate_matchmaking_rule_set.validate_matchmaking_rule_set(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

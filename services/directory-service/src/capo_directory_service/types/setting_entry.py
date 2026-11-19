@@ -165,3 +165,106 @@ def deserialize_aws_json_1_1(data: dict) -> SettingEntry:
     if data.get("DataType") is not None:
         out["data_type"] = data["DataType"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SettingEntry) -> dict:
+    out: dict = {}
+    if "type" in value:
+        out["Type"] = value["type"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "allowed_values" in value:
+        out["AllowedValues"] = value["allowed_values"]
+    if "applied_value" in value:
+        out["AppliedValue"] = value["applied_value"]
+    if "requested_value" in value:
+        out["RequestedValue"] = value["requested_value"]
+    if "request_status" in value:
+        import capo_directory_service.types.directory_configuration_status
+
+        out["RequestStatus"] = (
+            capo_directory_service.types.directory_configuration_status.serialize_cbor(
+                value["request_status"]
+            )
+        )
+    if "request_detailed_status" in value:
+        import capo_directory_service.types.directory_configuration_setting_request_detailed_status
+
+        out["RequestDetailedStatus"] = (
+            capo_directory_service.types.directory_configuration_setting_request_detailed_status.serialize_cbor(
+                value["request_detailed_status"]
+            )
+        )
+    if "request_status_message" in value:
+        out["RequestStatusMessage"] = value["request_status_message"]
+    if "last_updated_date_time" in value:
+        import capo_directory_service.types.directory_configuration_setting_last_updated_date_time
+
+        out["LastUpdatedDateTime"] = (
+            capo_directory_service.types.directory_configuration_setting_last_updated_date_time.serialize_cbor(
+                value["last_updated_date_time"]
+            )
+        )
+    if "last_requested_date_time" in value:
+        import capo_directory_service.types.directory_configuration_setting_last_requested_date_time
+
+        out["LastRequestedDateTime"] = (
+            capo_directory_service.types.directory_configuration_setting_last_requested_date_time.serialize_cbor(
+                value["last_requested_date_time"]
+            )
+        )
+    if "data_type" in value:
+        out["DataType"] = value["data_type"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> SettingEntry:
+    out: SettingEntry = {}  # type: ignore[typeddict-item]
+    if data.get("Type") is not None:
+        out["type"] = data["Type"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("AllowedValues") is not None:
+        out["allowed_values"] = data["AllowedValues"]
+    if data.get("AppliedValue") is not None:
+        out["applied_value"] = data["AppliedValue"]
+    if data.get("RequestedValue") is not None:
+        out["requested_value"] = data["RequestedValue"]
+    if data.get("RequestStatus") is not None:
+        import capo_directory_service.types.directory_configuration_status
+
+        out["request_status"] = (
+            capo_directory_service.types.directory_configuration_status.deserialize_cbor(
+                data["RequestStatus"]
+            )
+        )
+    if data.get("RequestDetailedStatus") is not None:
+        import capo_directory_service.types.directory_configuration_setting_request_detailed_status
+
+        out["request_detailed_status"] = (
+            capo_directory_service.types.directory_configuration_setting_request_detailed_status.deserialize_cbor(
+                data["RequestDetailedStatus"]
+            )
+        )
+    if data.get("RequestStatusMessage") is not None:
+        out["request_status_message"] = data["RequestStatusMessage"]
+    if data.get("LastUpdatedDateTime") is not None:
+        import capo_directory_service.types.directory_configuration_setting_last_updated_date_time
+
+        out["last_updated_date_time"] = (
+            capo_directory_service.types.directory_configuration_setting_last_updated_date_time.deserialize_cbor(
+                data["LastUpdatedDateTime"]
+            )
+        )
+    if data.get("LastRequestedDateTime") is not None:
+        import capo_directory_service.types.directory_configuration_setting_last_requested_date_time
+
+        out["last_requested_date_time"] = (
+            capo_directory_service.types.directory_configuration_setting_last_requested_date_time.deserialize_cbor(
+                data["LastRequestedDateTime"]
+            )
+        )
+    if data.get("DataType") is not None:
+        out["data_type"] = data["DataType"]
+    return out

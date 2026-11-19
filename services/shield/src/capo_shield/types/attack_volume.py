@@ -80,3 +80,62 @@ def deserialize_aws_json_1_1(data: dict) -> AttackVolume:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AttackVolume) -> dict:
+    out: dict = {}
+    if "bits_per_second" in value:
+        import capo_shield.types.attack_volume_statistics
+
+        out["BitsPerSecond"] = (
+            capo_shield.types.attack_volume_statistics.serialize_cbor(
+                value["bits_per_second"]
+            )
+        )
+    if "packets_per_second" in value:
+        import capo_shield.types.attack_volume_statistics
+
+        out["PacketsPerSecond"] = (
+            capo_shield.types.attack_volume_statistics.serialize_cbor(
+                value["packets_per_second"]
+            )
+        )
+    if "requests_per_second" in value:
+        import capo_shield.types.attack_volume_statistics
+
+        out["RequestsPerSecond"] = (
+            capo_shield.types.attack_volume_statistics.serialize_cbor(
+                value["requests_per_second"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AttackVolume:
+    out: AttackVolume = {}  # type: ignore[typeddict-item]
+    if data.get("BitsPerSecond") is not None:
+        import capo_shield.types.attack_volume_statistics
+
+        out["bits_per_second"] = (
+            capo_shield.types.attack_volume_statistics.deserialize_cbor(
+                data["BitsPerSecond"]
+            )
+        )
+    if data.get("PacketsPerSecond") is not None:
+        import capo_shield.types.attack_volume_statistics
+
+        out["packets_per_second"] = (
+            capo_shield.types.attack_volume_statistics.deserialize_cbor(
+                data["PacketsPerSecond"]
+            )
+        )
+    if data.get("RequestsPerSecond") is not None:
+        import capo_shield.types.attack_volume_statistics
+
+        out["requests_per_second"] = (
+            capo_shield.types.attack_volume_statistics.deserialize_cbor(
+                data["RequestsPerSecond"]
+            )
+        )
+    return out

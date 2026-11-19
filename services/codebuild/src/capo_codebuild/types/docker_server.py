@@ -81,3 +81,59 @@ def deserialize_aws_json_1_1(data: dict) -> DockerServer:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DockerServer) -> dict:
+    out: dict = {}
+    import capo_codebuild.types.compute_type
+
+    out["computeType"] = capo_codebuild.types.compute_type.serialize_cbor(
+        value["compute_type"]
+    )
+    if "security_group_ids" in value:
+        import capo_codebuild.types.security_group_ids
+
+        out["securityGroupIds"] = (
+            capo_codebuild.types.security_group_ids.serialize_cbor(
+                value["security_group_ids"]
+            )
+        )
+    if "status" in value:
+        import capo_codebuild.types.docker_server_status
+
+        out["status"] = capo_codebuild.types.docker_server_status.serialize_cbor(
+            value["status"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DockerServer:
+    out: DockerServer = {}  # type: ignore[typeddict-item]
+    if data.get("computeType") is not None:
+        import capo_codebuild.types.compute_type
+
+        out["compute_type"] = capo_codebuild.types.compute_type.deserialize_cbor(
+            data["computeType"]
+        )
+    else:
+        import typing
+
+        out["compute_type"] = typing.cast(
+            "capo_codebuild.types.compute_type.ComputeType", ""
+        )
+    if data.get("securityGroupIds") is not None:
+        import capo_codebuild.types.security_group_ids
+
+        out["security_group_ids"] = (
+            capo_codebuild.types.security_group_ids.deserialize_cbor(
+                data["securityGroupIds"]
+            )
+        )
+    if data.get("status") is not None:
+        import capo_codebuild.types.docker_server_status
+
+        out["status"] = capo_codebuild.types.docker_server_status.deserialize_cbor(
+            data["status"]
+        )
+    return out

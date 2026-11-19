@@ -20,3 +20,12 @@ def serialize_aws_json_1_1(value: CertificateAuthorityStatus) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> CertificateAuthorityStatus:
     return cast(CertificateAuthorityStatus, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CertificateAuthorityStatus) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> CertificateAuthorityStatus:
+    return cast(CertificateAuthorityStatus, data)

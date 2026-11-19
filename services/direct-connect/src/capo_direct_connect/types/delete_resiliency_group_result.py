@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteResiliencyGroupResult:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteResiliencyGroupResult) -> dict:
+    out: dict = {}
+    if "resiliency_group" in value:
+        import capo_direct_connect.types.resiliency_group
+
+        out["resiliencyGroup"] = (
+            capo_direct_connect.types.resiliency_group.serialize_cbor(
+                value["resiliency_group"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteResiliencyGroupResult:
+    out: DeleteResiliencyGroupResult = {}  # type: ignore[typeddict-item]
+    if data.get("resiliencyGroup") is not None:
+        import capo_direct_connect.types.resiliency_group
+
+        out["resiliency_group"] = (
+            capo_direct_connect.types.resiliency_group.deserialize_cbor(
+                data["resiliencyGroup"]
+            )
+        )
+    return out

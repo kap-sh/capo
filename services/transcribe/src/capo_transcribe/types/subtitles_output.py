@@ -66,3 +66,46 @@ def deserialize_aws_json_1_1(data: dict) -> SubtitlesOutput:
     if data.get("OutputStartIndex") is not None:
         out["output_start_index"] = data["OutputStartIndex"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SubtitlesOutput) -> dict:
+    out: dict = {}
+    if "formats" in value:
+        import capo_transcribe.types.subtitle_formats
+
+        out["Formats"] = capo_transcribe.types.subtitle_formats.serialize_cbor(
+            value["formats"]
+        )
+    if "subtitle_file_uris" in value:
+        import capo_transcribe.types.subtitle_file_uris
+
+        out["SubtitleFileUris"] = (
+            capo_transcribe.types.subtitle_file_uris.serialize_cbor(
+                value["subtitle_file_uris"]
+            )
+        )
+    if "output_start_index" in value:
+        out["OutputStartIndex"] = value["output_start_index"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> SubtitlesOutput:
+    out: SubtitlesOutput = {}  # type: ignore[typeddict-item]
+    if data.get("Formats") is not None:
+        import capo_transcribe.types.subtitle_formats
+
+        out["formats"] = capo_transcribe.types.subtitle_formats.deserialize_cbor(
+            data["Formats"]
+        )
+    if data.get("SubtitleFileUris") is not None:
+        import capo_transcribe.types.subtitle_file_uris
+
+        out["subtitle_file_uris"] = (
+            capo_transcribe.types.subtitle_file_uris.deserialize_cbor(
+                data["SubtitleFileUris"]
+            )
+        )
+    if data.get("OutputStartIndex") is not None:
+        out["output_start_index"] = data["OutputStartIndex"]
+    return out

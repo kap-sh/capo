@@ -18,3 +18,12 @@ def serialize_aws_json_1_1(value: ConfigurationEventTime) -> float:
 
 def deserialize_aws_json_1_1(data: float) -> ConfigurationEventTime:
     return datetime.datetime.fromtimestamp(float(data), tz=datetime.timezone.utc)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ConfigurationEventTime) -> ConfigurationEventTime:
+    return value
+
+
+def deserialize_cbor(data: ConfigurationEventTime) -> ConfigurationEventTime:
+    return data

@@ -111,3 +111,42 @@ def deserialize_query(el: Element) -> MetricDataQueryDefinitionSummary:
             child_updated_at
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MetricDataQueryDefinitionSummary) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["Id"] = value["id"]
+    if "path" in value:
+        out["Path"] = value["path"]
+    if "type" in value:
+        import capo_cloudwatch.types.query_type
+
+        out["Type"] = capo_cloudwatch.types.query_type.serialize_cbor(value["type"])
+    if "updated_at" in value:
+        import capo_cloudwatch.types.timestamp
+
+        out["UpdatedAt"] = capo_cloudwatch.types.timestamp.serialize_cbor(
+            value["updated_at"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> MetricDataQueryDefinitionSummary:
+    out: MetricDataQueryDefinitionSummary = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    if data.get("Path") is not None:
+        out["path"] = data["Path"]
+    if data.get("Type") is not None:
+        import capo_cloudwatch.types.query_type
+
+        out["type"] = capo_cloudwatch.types.query_type.deserialize_cbor(data["Type"])
+    if data.get("UpdatedAt") is not None:
+        import capo_cloudwatch.types.timestamp
+
+        out["updated_at"] = capo_cloudwatch.types.timestamp.deserialize_cbor(
+            data["UpdatedAt"]
+        )
+    return out

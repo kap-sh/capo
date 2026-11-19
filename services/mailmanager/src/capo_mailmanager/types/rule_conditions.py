@@ -29,6 +29,27 @@ def deserialize_aws_json_1_0(data: list) -> RuleConditions:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RuleConditions) -> list:
+    import capo_mailmanager.types.rule_condition
+
+    out: list = []
+    for item in value:
+        out.append(capo_mailmanager.types.rule_condition.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> RuleConditions:
+    import capo_mailmanager.types.rule_condition
+
+    out: RuleConditions = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_mailmanager.types.rule_condition.deserialize_cbor(item))
+    return out
+
+
 def redact_sensitive(value: RuleConditions) -> list[Any]:
     import capo_mailmanager.types.rule_condition
 

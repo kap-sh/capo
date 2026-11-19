@@ -135,3 +135,89 @@ def deserialize_aws_json_1_1(data: dict) -> StartTopicsDetectionJobRequest:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartTopicsDetectionJobRequest) -> dict:
+    out: dict = {}
+    import capo_comprehend.types.input_data_config
+
+    out["InputDataConfig"] = capo_comprehend.types.input_data_config.serialize_cbor(
+        value["input_data_config"]
+    )
+    import capo_comprehend.types.output_data_config
+
+    out["OutputDataConfig"] = capo_comprehend.types.output_data_config.serialize_cbor(
+        value["output_data_config"]
+    )
+    out["DataAccessRoleArn"] = value["data_access_role_arn"]
+    if "job_name" in value:
+        out["JobName"] = value["job_name"]
+    if "number_of_topics" in value:
+        out["NumberOfTopics"] = value["number_of_topics"]
+    if "client_request_token" in value:
+        out["ClientRequestToken"] = value["client_request_token"]
+    if "volume_kms_key_id" in value:
+        out["VolumeKmsKeyId"] = value["volume_kms_key_id"]
+    if "vpc_config" in value:
+        import capo_comprehend.types.vpc_config
+
+        out["VpcConfig"] = capo_comprehend.types.vpc_config.serialize_cbor(
+            value["vpc_config"]
+        )
+    if "tags" in value:
+        import capo_comprehend.types.tag_list
+
+        out["Tags"] = capo_comprehend.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartTopicsDetectionJobRequest:
+    out: StartTopicsDetectionJobRequest = {}  # type: ignore[typeddict-item]
+    if data.get("InputDataConfig") is not None:
+        import capo_comprehend.types.input_data_config
+
+        out["input_data_config"] = (
+            capo_comprehend.types.input_data_config.deserialize_cbor(
+                data["InputDataConfig"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "StartTopicsDetectionJobRequest.input_data_config required"
+        )
+    if data.get("OutputDataConfig") is not None:
+        import capo_comprehend.types.output_data_config
+
+        out["output_data_config"] = (
+            capo_comprehend.types.output_data_config.deserialize_cbor(
+                data["OutputDataConfig"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "StartTopicsDetectionJobRequest.output_data_config required"
+        )
+    if data.get("DataAccessRoleArn") is not None:
+        out["data_access_role_arn"] = data["DataAccessRoleArn"]
+    else:
+        out["data_access_role_arn"] = ""
+    if data.get("JobName") is not None:
+        out["job_name"] = data["JobName"]
+    if data.get("NumberOfTopics") is not None:
+        out["number_of_topics"] = data["NumberOfTopics"]
+    if data.get("ClientRequestToken") is not None:
+        out["client_request_token"] = data["ClientRequestToken"]
+    if data.get("VolumeKmsKeyId") is not None:
+        out["volume_kms_key_id"] = data["VolumeKmsKeyId"]
+    if data.get("VpcConfig") is not None:
+        import capo_comprehend.types.vpc_config
+
+        out["vpc_config"] = capo_comprehend.types.vpc_config.deserialize_cbor(
+            data["VpcConfig"]
+        )
+    if data.get("Tags") is not None:
+        import capo_comprehend.types.tag_list
+
+        out["tags"] = capo_comprehend.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

@@ -39,3 +39,28 @@ def deserialize_aws_json_1_1(data: dict) -> StartAppBlockBuilderResult:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartAppBlockBuilderResult) -> dict:
+    out: dict = {}
+    if "app_block_builder" in value:
+        import capo_appstream.types.app_block_builder
+
+        out["AppBlockBuilder"] = capo_appstream.types.app_block_builder.serialize_cbor(
+            value["app_block_builder"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartAppBlockBuilderResult:
+    out: StartAppBlockBuilderResult = {}  # type: ignore[typeddict-item]
+    if data.get("AppBlockBuilder") is not None:
+        import capo_appstream.types.app_block_builder
+
+        out["app_block_builder"] = (
+            capo_appstream.types.app_block_builder.deserialize_cbor(
+                data["AppBlockBuilder"]
+            )
+        )
+    return out

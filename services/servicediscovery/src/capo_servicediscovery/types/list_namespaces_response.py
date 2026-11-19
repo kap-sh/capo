@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> ListNamespacesResponse:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListNamespacesResponse) -> dict:
+    out: dict = {}
+    if "namespaces" in value:
+        import capo_servicediscovery.types.namespace_summaries_list
+
+        out["Namespaces"] = (
+            capo_servicediscovery.types.namespace_summaries_list.serialize_cbor(
+                value["namespaces"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListNamespacesResponse:
+    out: ListNamespacesResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Namespaces") is not None:
+        import capo_servicediscovery.types.namespace_summaries_list
+
+        out["namespaces"] = (
+            capo_servicediscovery.types.namespace_summaries_list.deserialize_cbor(
+                data["Namespaces"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

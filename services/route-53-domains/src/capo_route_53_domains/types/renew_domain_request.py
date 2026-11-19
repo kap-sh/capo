@@ -61,3 +61,40 @@ def deserialize_aws_json_1_1(data: dict) -> RenewDomainRequest:
             data["Consent"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RenewDomainRequest) -> dict:
+    out: dict = {}
+    out["DomainName"] = value["domain_name"]
+    if "duration_in_years" in value:
+        out["DurationInYears"] = value["duration_in_years"]
+    out["CurrentExpiryYear"] = value["current_expiry_year"]
+    if "consent" in value:
+        import capo_route_53_domains.types.consent
+
+        out["Consent"] = capo_route_53_domains.types.consent.serialize_cbor(
+            value["consent"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RenewDomainRequest:
+    out: RenewDomainRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DomainName") is not None:
+        out["domain_name"] = data["DomainName"]
+    else:
+        out["domain_name"] = ""
+    if data.get("DurationInYears") is not None:
+        out["duration_in_years"] = data["DurationInYears"]
+    if data.get("CurrentExpiryYear") is not None:
+        out["current_expiry_year"] = data["CurrentExpiryYear"]
+    else:
+        out["current_expiry_year"] = 0
+    if data.get("Consent") is not None:
+        import capo_route_53_domains.types.consent
+
+        out["consent"] = capo_route_53_domains.types.consent.deserialize_cbor(
+            data["Consent"]
+        )
+    return out

@@ -27,3 +27,24 @@ def deserialize_aws_json_1_1(data: list) -> MacSecKeyList:
             continue
         out.append(capo_direct_connect.types.mac_sec_key.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MacSecKeyList) -> list:
+    import capo_direct_connect.types.mac_sec_key
+
+    out: list = []
+    for item in value:
+        out.append(capo_direct_connect.types.mac_sec_key.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> MacSecKeyList:
+    import capo_direct_connect.types.mac_sec_key
+
+    out: MacSecKeyList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_direct_connect.types.mac_sec_key.deserialize_cbor(item))
+    return out

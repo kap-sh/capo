@@ -29,3 +29,24 @@ def deserialize_aws_json_1_0(data: list) -> TargetTypes:
             capo_network_firewall.types.target_type.deserialize_aws_json_1_0(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TargetTypes) -> list:
+    import capo_network_firewall.types.target_type
+
+    out: list = []
+    for item in value:
+        out.append(capo_network_firewall.types.target_type.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> TargetTypes:
+    import capo_network_firewall.types.target_type
+
+    out: TargetTypes = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_network_firewall.types.target_type.deserialize_cbor(item))
+    return out

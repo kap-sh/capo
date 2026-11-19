@@ -19,3 +19,12 @@ def serialize_aws_json_1_1(value: SNOMEDCTAttributeType) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> SNOMEDCTAttributeType:
     return cast(SNOMEDCTAttributeType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SNOMEDCTAttributeType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> SNOMEDCTAttributeType:
+    return cast(SNOMEDCTAttributeType, data)

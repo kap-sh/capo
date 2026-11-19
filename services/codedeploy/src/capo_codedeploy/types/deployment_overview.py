@@ -62,3 +62,44 @@ def deserialize_aws_json_1_1(data: dict) -> DeploymentOverview:
     else:
         out["ready"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeploymentOverview) -> dict:
+    out: dict = {}
+    out["Pending"] = value.get("pending", 0)
+    out["InProgress"] = value.get("in_progress", 0)
+    out["Succeeded"] = value.get("succeeded", 0)
+    out["Failed"] = value.get("failed", 0)
+    out["Skipped"] = value.get("skipped", 0)
+    out["Ready"] = value.get("ready", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeploymentOverview:
+    out: DeploymentOverview = {}  # type: ignore[typeddict-item]
+    if data.get("Pending") is not None:
+        out["pending"] = data["Pending"]
+    else:
+        out["pending"] = 0
+    if data.get("InProgress") is not None:
+        out["in_progress"] = data["InProgress"]
+    else:
+        out["in_progress"] = 0
+    if data.get("Succeeded") is not None:
+        out["succeeded"] = data["Succeeded"]
+    else:
+        out["succeeded"] = 0
+    if data.get("Failed") is not None:
+        out["failed"] = data["Failed"]
+    else:
+        out["failed"] = 0
+    if data.get("Skipped") is not None:
+        out["skipped"] = data["Skipped"]
+    else:
+        out["skipped"] = 0
+    if data.get("Ready") is not None:
+        out["ready"] = data["Ready"]
+    else:
+        out["ready"] = 0
+    return out

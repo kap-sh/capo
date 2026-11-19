@@ -29,3 +29,19 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteResiliencyGroupRequest:
     else:
         out["resiliency_group_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteResiliencyGroupRequest) -> dict:
+    out: dict = {}
+    out["resiliencyGroupId"] = value["resiliency_group_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteResiliencyGroupRequest:
+    out: DeleteResiliencyGroupRequest = {}  # type: ignore[typeddict-item]
+    if data.get("resiliencyGroupId") is not None:
+        out["resiliency_group_id"] = data["resiliencyGroupId"]
+    else:
+        out["resiliency_group_id"] = ""
+    return out

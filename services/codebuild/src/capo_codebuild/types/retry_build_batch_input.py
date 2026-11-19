@@ -54,3 +54,36 @@ def deserialize_aws_json_1_1(data: dict) -> RetryBuildBatchInput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RetryBuildBatchInput) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["id"] = value["id"]
+    if "idempotency_token" in value:
+        out["idempotencyToken"] = value["idempotency_token"]
+    if "retry_type" in value:
+        import capo_codebuild.types.retry_build_batch_type
+
+        out["retryType"] = capo_codebuild.types.retry_build_batch_type.serialize_cbor(
+            value["retry_type"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RetryBuildBatchInput:
+    out: RetryBuildBatchInput = {}  # type: ignore[typeddict-item]
+    if data.get("id") is not None:
+        out["id"] = data["id"]
+    if data.get("idempotencyToken") is not None:
+        out["idempotency_token"] = data["idempotencyToken"]
+    if data.get("retryType") is not None:
+        import capo_codebuild.types.retry_build_batch_type
+
+        out["retry_type"] = (
+            capo_codebuild.types.retry_build_batch_type.deserialize_cbor(
+                data["retryType"]
+            )
+        )
+    return out

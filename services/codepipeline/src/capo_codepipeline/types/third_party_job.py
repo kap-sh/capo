@@ -33,3 +33,22 @@ def deserialize_aws_json_1_1(data: dict) -> ThirdPartyJob:
     if data.get("jobId") is not None:
         out["job_id"] = data["jobId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ThirdPartyJob) -> dict:
+    out: dict = {}
+    if "client_id" in value:
+        out["clientId"] = value["client_id"]
+    if "job_id" in value:
+        out["jobId"] = value["job_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ThirdPartyJob:
+    out: ThirdPartyJob = {}  # type: ignore[typeddict-item]
+    if data.get("clientId") is not None:
+        out["client_id"] = data["clientId"]
+    if data.get("jobId") is not None:
+        out["job_id"] = data["jobId"]
+    return out

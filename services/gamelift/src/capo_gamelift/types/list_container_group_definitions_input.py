@@ -58,3 +58,38 @@ def deserialize_aws_json_1_1(data: dict) -> ListContainerGroupDefinitionsInput:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListContainerGroupDefinitionsInput) -> dict:
+    out: dict = {}
+    if "container_group_type" in value:
+        import capo_gamelift.types.container_group_type
+
+        out["ContainerGroupType"] = (
+            capo_gamelift.types.container_group_type.serialize_cbor(
+                value["container_group_type"]
+            )
+        )
+    if "limit" in value:
+        out["Limit"] = value["limit"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListContainerGroupDefinitionsInput:
+    out: ListContainerGroupDefinitionsInput = {}  # type: ignore[typeddict-item]
+    if data.get("ContainerGroupType") is not None:
+        import capo_gamelift.types.container_group_type
+
+        out["container_group_type"] = (
+            capo_gamelift.types.container_group_type.deserialize_cbor(
+                data["ContainerGroupType"]
+            )
+        )
+    if data.get("Limit") is not None:
+        out["limit"] = data["Limit"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

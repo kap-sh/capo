@@ -58,3 +58,42 @@ def deserialize_aws_json_1_1(data: dict) -> Event:
 
         out["date"] = capo_memorydb.types.t_stamp.deserialize_aws_json_1_1(data["Date"])
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Event) -> dict:
+    out: dict = {}
+    if "source_name" in value:
+        out["SourceName"] = value["source_name"]
+    if "source_type" in value:
+        import capo_memorydb.types.source_type
+
+        out["SourceType"] = capo_memorydb.types.source_type.serialize_cbor(
+            value["source_type"]
+        )
+    if "message" in value:
+        out["Message"] = value["message"]
+    if "date" in value:
+        import capo_memorydb.types.t_stamp
+
+        out["Date"] = capo_memorydb.types.t_stamp.serialize_cbor(value["date"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> Event:
+    out: Event = {}  # type: ignore[typeddict-item]
+    if data.get("SourceName") is not None:
+        out["source_name"] = data["SourceName"]
+    if data.get("SourceType") is not None:
+        import capo_memorydb.types.source_type
+
+        out["source_type"] = capo_memorydb.types.source_type.deserialize_cbor(
+            data["SourceType"]
+        )
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    if data.get("Date") is not None:
+        import capo_memorydb.types.t_stamp
+
+        out["date"] = capo_memorydb.types.t_stamp.deserialize_cbor(data["Date"])
+    return out

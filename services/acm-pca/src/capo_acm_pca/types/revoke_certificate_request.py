@@ -59,3 +59,43 @@ def deserialize_aws_json_1_1(data: dict) -> RevokeCertificateRequest:
             "capo_acm_pca.types.revocation_reason.RevocationReason", ""
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RevokeCertificateRequest) -> dict:
+    out: dict = {}
+    out["CertificateAuthorityArn"] = value["certificate_authority_arn"]
+    out["CertificateSerial"] = value["certificate_serial"]
+    import capo_acm_pca.types.revocation_reason
+
+    out["RevocationReason"] = capo_acm_pca.types.revocation_reason.serialize_cbor(
+        value["revocation_reason"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RevokeCertificateRequest:
+    out: RevokeCertificateRequest = {}  # type: ignore[typeddict-item]
+    if data.get("CertificateAuthorityArn") is not None:
+        out["certificate_authority_arn"] = data["CertificateAuthorityArn"]
+    else:
+        out["certificate_authority_arn"] = ""
+    if data.get("CertificateSerial") is not None:
+        out["certificate_serial"] = data["CertificateSerial"]
+    else:
+        out["certificate_serial"] = ""
+    if data.get("RevocationReason") is not None:
+        import capo_acm_pca.types.revocation_reason
+
+        out["revocation_reason"] = (
+            capo_acm_pca.types.revocation_reason.deserialize_cbor(
+                data["RevocationReason"]
+            )
+        )
+    else:
+        import typing
+
+        out["revocation_reason"] = typing.cast(
+            "capo_acm_pca.types.revocation_reason.RevocationReason", ""
+        )
+    return out

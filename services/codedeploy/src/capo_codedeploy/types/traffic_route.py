@@ -40,3 +40,26 @@ def deserialize_aws_json_1_1(data: dict) -> TrafficRoute:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TrafficRoute) -> dict:
+    out: dict = {}
+    if "listener_arns" in value:
+        import capo_codedeploy.types.listener_arn_list
+
+        out["listenerArns"] = capo_codedeploy.types.listener_arn_list.serialize_cbor(
+            value["listener_arns"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TrafficRoute:
+    out: TrafficRoute = {}  # type: ignore[typeddict-item]
+    if data.get("listenerArns") is not None:
+        import capo_codedeploy.types.listener_arn_list
+
+        out["listener_arns"] = capo_codedeploy.types.listener_arn_list.deserialize_cbor(
+            data["listenerArns"]
+        )
+    return out

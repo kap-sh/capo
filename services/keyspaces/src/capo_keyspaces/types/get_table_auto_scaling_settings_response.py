@@ -85,3 +85,61 @@ def deserialize_aws_json_1_0(data: dict) -> GetTableAutoScalingSettingsResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetTableAutoScalingSettingsResponse) -> dict:
+    out: dict = {}
+    out["keyspaceName"] = value["keyspace_name"]
+    out["tableName"] = value["table_name"]
+    out["resourceArn"] = value["resource_arn"]
+    if "auto_scaling_specification" in value:
+        import capo_keyspaces.types.auto_scaling_specification
+
+        out["autoScalingSpecification"] = (
+            capo_keyspaces.types.auto_scaling_specification.serialize_cbor(
+                value["auto_scaling_specification"]
+            )
+        )
+    if "replica_specifications" in value:
+        import capo_keyspaces.types.replica_auto_scaling_specification_list
+
+        out["replicaSpecifications"] = (
+            capo_keyspaces.types.replica_auto_scaling_specification_list.serialize_cbor(
+                value["replica_specifications"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetTableAutoScalingSettingsResponse:
+    out: GetTableAutoScalingSettingsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("keyspaceName") is not None:
+        out["keyspace_name"] = data["keyspaceName"]
+    else:
+        out["keyspace_name"] = ""
+    if data.get("tableName") is not None:
+        out["table_name"] = data["tableName"]
+    else:
+        out["table_name"] = ""
+    if data.get("resourceArn") is not None:
+        out["resource_arn"] = data["resourceArn"]
+    else:
+        out["resource_arn"] = ""
+    if data.get("autoScalingSpecification") is not None:
+        import capo_keyspaces.types.auto_scaling_specification
+
+        out["auto_scaling_specification"] = (
+            capo_keyspaces.types.auto_scaling_specification.deserialize_cbor(
+                data["autoScalingSpecification"]
+            )
+        )
+    if data.get("replicaSpecifications") is not None:
+        import capo_keyspaces.types.replica_auto_scaling_specification_list
+
+        out["replica_specifications"] = (
+            capo_keyspaces.types.replica_auto_scaling_specification_list.deserialize_cbor(
+                data["replicaSpecifications"]
+            )
+        )
+    return out

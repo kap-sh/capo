@@ -102,3 +102,76 @@ def deserialize_aws_json_1_0(data: dict) -> Header:
     else:
         out["destination_port"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Header) -> dict:
+    out: dict = {}
+    import capo_network_firewall.types.stateful_rule_protocol
+
+    out["Protocol"] = capo_network_firewall.types.stateful_rule_protocol.serialize_cbor(
+        value["protocol"]
+    )
+    out["Source"] = value["source"]
+    out["SourcePort"] = value["source_port"]
+    import capo_network_firewall.types.stateful_rule_direction
+
+    out["Direction"] = (
+        capo_network_firewall.types.stateful_rule_direction.serialize_cbor(
+            value["direction"]
+        )
+    )
+    out["Destination"] = value["destination"]
+    out["DestinationPort"] = value["destination_port"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Header:
+    out: Header = {}  # type: ignore[typeddict-item]
+    if data.get("Protocol") is not None:
+        import capo_network_firewall.types.stateful_rule_protocol
+
+        out["protocol"] = (
+            capo_network_firewall.types.stateful_rule_protocol.deserialize_cbor(
+                data["Protocol"]
+            )
+        )
+    else:
+        import typing
+
+        out["protocol"] = typing.cast(
+            "capo_network_firewall.types.stateful_rule_protocol.StatefulRuleProtocol",
+            "",
+        )
+    if data.get("Source") is not None:
+        out["source"] = data["Source"]
+    else:
+        out["source"] = ""
+    if data.get("SourcePort") is not None:
+        out["source_port"] = data["SourcePort"]
+    else:
+        out["source_port"] = ""
+    if data.get("Direction") is not None:
+        import capo_network_firewall.types.stateful_rule_direction
+
+        out["direction"] = (
+            capo_network_firewall.types.stateful_rule_direction.deserialize_cbor(
+                data["Direction"]
+            )
+        )
+    else:
+        import typing
+
+        out["direction"] = typing.cast(
+            "capo_network_firewall.types.stateful_rule_direction.StatefulRuleDirection",
+            "",
+        )
+    if data.get("Destination") is not None:
+        out["destination"] = data["Destination"]
+    else:
+        out["destination"] = ""
+    if data.get("DestinationPort") is not None:
+        out["destination_port"] = data["DestinationPort"]
+    else:
+        out["destination_port"] = ""
+    return out

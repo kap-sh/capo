@@ -18,3 +18,12 @@ def serialize_aws_json_1_1(value: ProvisionedProductStatus) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> ProvisionedProductStatus:
     return cast(ProvisionedProductStatus, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ProvisionedProductStatus) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ProvisionedProductStatus:
+    return cast(ProvisionedProductStatus, data)

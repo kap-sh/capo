@@ -58,6 +58,41 @@ def deserialize_aws_json_1_0(data: dict) -> ListInstanceTypesRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListInstanceTypesRequest) -> dict:
+    out: dict = {}
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "instance_configuration_filter" in value:
+        import capo_workspaces_instances.types.instance_configuration_filter
+
+        out["InstanceConfigurationFilter"] = (
+            capo_workspaces_instances.types.instance_configuration_filter.serialize_cbor(
+                value["instance_configuration_filter"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListInstanceTypesRequest:
+    out: ListInstanceTypesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("InstanceConfigurationFilter") is not None:
+        import capo_workspaces_instances.types.instance_configuration_filter
+
+        out["instance_configuration_filter"] = (
+            capo_workspaces_instances.types.instance_configuration_filter.deserialize_cbor(
+                data["InstanceConfigurationFilter"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: ListInstanceTypesRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "next_token" in value:

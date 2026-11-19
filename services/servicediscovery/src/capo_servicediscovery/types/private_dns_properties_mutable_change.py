@@ -37,3 +37,25 @@ def deserialize_aws_json_1_1(data: dict) -> PrivateDnsPropertiesMutableChange:
     else:
         raise DeserializationError("PrivateDnsPropertiesMutableChange.soa required")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PrivateDnsPropertiesMutableChange) -> dict:
+    out: dict = {}
+    import capo_servicediscovery.types.soa_change
+
+    out["SOA"] = capo_servicediscovery.types.soa_change.serialize_cbor(value["soa"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> PrivateDnsPropertiesMutableChange:
+    out: PrivateDnsPropertiesMutableChange = {}  # type: ignore[typeddict-item]
+    if data.get("SOA") is not None:
+        import capo_servicediscovery.types.soa_change
+
+        out["soa"] = capo_servicediscovery.types.soa_change.deserialize_cbor(
+            data["SOA"]
+        )
+    else:
+        raise DeserializationError("PrivateDnsPropertiesMutableChange.soa required")
+    return out

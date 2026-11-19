@@ -47,3 +47,32 @@ def deserialize_aws_json_1_1(data: dict) -> GetContactReachabilityStatusResponse
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetContactReachabilityStatusResponse) -> dict:
+    out: dict = {}
+    if "domain_name" in value:
+        out["domainName"] = value["domain_name"]
+    if "status" in value:
+        import capo_route_53_domains.types.reachability_status
+
+        out["status"] = capo_route_53_domains.types.reachability_status.serialize_cbor(
+            value["status"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetContactReachabilityStatusResponse:
+    out: GetContactReachabilityStatusResponse = {}  # type: ignore[typeddict-item]
+    if data.get("domainName") is not None:
+        out["domain_name"] = data["domainName"]
+    if data.get("status") is not None:
+        import capo_route_53_domains.types.reachability_status
+
+        out["status"] = (
+            capo_route_53_domains.types.reachability_status.deserialize_cbor(
+                data["status"]
+            )
+        )
+    return out

@@ -60,3 +60,12 @@ def serialize_aws_json_1_0(value: MetricStreamStatisticsAdditionalStatistics) ->
 
 def deserialize_aws_json_1_0(data: list) -> MetricStreamStatisticsAdditionalStatistics:
     return [item for item in data if item is not None]
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MetricStreamStatisticsAdditionalStatistics) -> list:
+    return list(value)
+
+
+def deserialize_cbor(data: list) -> MetricStreamStatisticsAdditionalStatistics:
+    return [item for item in data if item is not None]

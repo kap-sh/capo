@@ -29,6 +29,27 @@ def deserialize_aws_json_1_1(data: list) -> RecommendationList:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RecommendationList) -> list:
+    import capo_pi.types.recommendation
+
+    out: list = []
+    for item in value:
+        out.append(capo_pi.types.recommendation.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> RecommendationList:
+    import capo_pi.types.recommendation
+
+    out: RecommendationList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_pi.types.recommendation.deserialize_cbor(item))
+    return out
+
+
 def redact_sensitive(value: RecommendationList) -> list[Any]:
     import capo_pi.types.recommendation
 

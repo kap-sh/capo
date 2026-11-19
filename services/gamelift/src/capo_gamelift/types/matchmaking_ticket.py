@@ -153,6 +153,107 @@ def deserialize_aws_json_1_1(data: dict) -> MatchmakingTicket:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MatchmakingTicket) -> dict:
+    out: dict = {}
+    if "ticket_id" in value:
+        out["TicketId"] = value["ticket_id"]
+    if "configuration_name" in value:
+        out["ConfigurationName"] = value["configuration_name"]
+    if "configuration_arn" in value:
+        out["ConfigurationArn"] = value["configuration_arn"]
+    if "status" in value:
+        import capo_gamelift.types.matchmaking_configuration_status
+
+        out["Status"] = (
+            capo_gamelift.types.matchmaking_configuration_status.serialize_cbor(
+                value["status"]
+            )
+        )
+    if "status_reason" in value:
+        out["StatusReason"] = value["status_reason"]
+    if "status_message" in value:
+        out["StatusMessage"] = value["status_message"]
+    if "start_time" in value:
+        import capo_gamelift.types.timestamp
+
+        out["StartTime"] = capo_gamelift.types.timestamp.serialize_cbor(
+            value["start_time"]
+        )
+    if "end_time" in value:
+        import capo_gamelift.types.timestamp
+
+        out["EndTime"] = capo_gamelift.types.timestamp.serialize_cbor(value["end_time"])
+    if "players" in value:
+        import capo_gamelift.types.player_list
+
+        out["Players"] = capo_gamelift.types.player_list.serialize_cbor(
+            value["players"]
+        )
+    if "game_session_connection_info" in value:
+        import capo_gamelift.types.game_session_connection_info
+
+        out["GameSessionConnectionInfo"] = (
+            capo_gamelift.types.game_session_connection_info.serialize_cbor(
+                value["game_session_connection_info"]
+            )
+        )
+    if "estimated_wait_time" in value:
+        out["EstimatedWaitTime"] = value["estimated_wait_time"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> MatchmakingTicket:
+    out: MatchmakingTicket = {}  # type: ignore[typeddict-item]
+    if data.get("TicketId") is not None:
+        out["ticket_id"] = data["TicketId"]
+    if data.get("ConfigurationName") is not None:
+        out["configuration_name"] = data["ConfigurationName"]
+    if data.get("ConfigurationArn") is not None:
+        out["configuration_arn"] = data["ConfigurationArn"]
+    if data.get("Status") is not None:
+        import capo_gamelift.types.matchmaking_configuration_status
+
+        out["status"] = (
+            capo_gamelift.types.matchmaking_configuration_status.deserialize_cbor(
+                data["Status"]
+            )
+        )
+    if data.get("StatusReason") is not None:
+        out["status_reason"] = data["StatusReason"]
+    if data.get("StatusMessage") is not None:
+        out["status_message"] = data["StatusMessage"]
+    if data.get("StartTime") is not None:
+        import capo_gamelift.types.timestamp
+
+        out["start_time"] = capo_gamelift.types.timestamp.deserialize_cbor(
+            data["StartTime"]
+        )
+    if data.get("EndTime") is not None:
+        import capo_gamelift.types.timestamp
+
+        out["end_time"] = capo_gamelift.types.timestamp.deserialize_cbor(
+            data["EndTime"]
+        )
+    if data.get("Players") is not None:
+        import capo_gamelift.types.player_list
+
+        out["players"] = capo_gamelift.types.player_list.deserialize_cbor(
+            data["Players"]
+        )
+    if data.get("GameSessionConnectionInfo") is not None:
+        import capo_gamelift.types.game_session_connection_info
+
+        out["game_session_connection_info"] = (
+            capo_gamelift.types.game_session_connection_info.deserialize_cbor(
+                data["GameSessionConnectionInfo"]
+            )
+        )
+    if data.get("EstimatedWaitTime") is not None:
+        out["estimated_wait_time"] = data["EstimatedWaitTime"]
+    return out
+
+
 def redact_sensitive(value: MatchmakingTicket) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "players" in value:

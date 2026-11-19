@@ -63,3 +63,44 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeUpdateDirectoryRequest:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeUpdateDirectoryRequest) -> dict:
+    out: dict = {}
+    out["DirectoryId"] = value["directory_id"]
+    import capo_directory_service.types.update_type
+
+    out["UpdateType"] = capo_directory_service.types.update_type.serialize_cbor(
+        value["update_type"]
+    )
+    if "region_name" in value:
+        out["RegionName"] = value["region_name"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeUpdateDirectoryRequest:
+    out: DescribeUpdateDirectoryRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    if data.get("UpdateType") is not None:
+        import capo_directory_service.types.update_type
+
+        out["update_type"] = capo_directory_service.types.update_type.deserialize_cbor(
+            data["UpdateType"]
+        )
+    else:
+        import typing
+
+        out["update_type"] = typing.cast(
+            "capo_directory_service.types.update_type.UpdateType", ""
+        )
+    if data.get("RegionName") is not None:
+        out["region_name"] = data["RegionName"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

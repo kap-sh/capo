@@ -66,3 +66,49 @@ def deserialize_aws_json_1_1(data: dict) -> DescribePortfolioSharesInput:
     if data.get("PageSize") is not None:
         out["page_size"] = data["PageSize"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribePortfolioSharesInput) -> dict:
+    out: dict = {}
+    out["PortfolioId"] = value["portfolio_id"]
+    import capo_service_catalog.types.describe_portfolio_share_type
+
+    out["Type"] = (
+        capo_service_catalog.types.describe_portfolio_share_type.serialize_cbor(
+            value["type"]
+        )
+    )
+    if "page_token" in value:
+        out["PageToken"] = value["page_token"]
+    if "page_size" in value:
+        out["PageSize"] = value["page_size"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribePortfolioSharesInput:
+    out: DescribePortfolioSharesInput = {}  # type: ignore[typeddict-item]
+    if data.get("PortfolioId") is not None:
+        out["portfolio_id"] = data["PortfolioId"]
+    else:
+        out["portfolio_id"] = ""
+    if data.get("Type") is not None:
+        import capo_service_catalog.types.describe_portfolio_share_type
+
+        out["type"] = (
+            capo_service_catalog.types.describe_portfolio_share_type.deserialize_cbor(
+                data["Type"]
+            )
+        )
+    else:
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_service_catalog.types.describe_portfolio_share_type.DescribePortfolioShareType",
+            "",
+        )
+    if data.get("PageToken") is not None:
+        out["page_token"] = data["PageToken"]
+    if data.get("PageSize") is not None:
+        out["page_size"] = data["PageSize"]
+    return out

@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> ThirdPartyFirewallPolicy:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ThirdPartyFirewallPolicy) -> dict:
+    out: dict = {}
+    if "firewall_deployment_model" in value:
+        import capo_fms.types.firewall_deployment_model
+
+        out["FirewallDeploymentModel"] = (
+            capo_fms.types.firewall_deployment_model.serialize_cbor(
+                value["firewall_deployment_model"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ThirdPartyFirewallPolicy:
+    out: ThirdPartyFirewallPolicy = {}  # type: ignore[typeddict-item]
+    if data.get("FirewallDeploymentModel") is not None:
+        import capo_fms.types.firewall_deployment_model
+
+        out["firewall_deployment_model"] = (
+            capo_fms.types.firewall_deployment_model.deserialize_cbor(
+                data["FirewallDeploymentModel"]
+            )
+        )
+    return out

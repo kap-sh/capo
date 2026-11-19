@@ -15,3 +15,12 @@ def serialize_aws_json_1_0(value: CpuVendorArchitecture) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> CpuVendorArchitecture:
     return cast(CpuVendorArchitecture, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CpuVendorArchitecture) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> CpuVendorArchitecture:
+    return cast(CpuVendorArchitecture, data)

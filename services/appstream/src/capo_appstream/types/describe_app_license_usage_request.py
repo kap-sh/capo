@@ -39,3 +39,26 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeAppLicenseUsageRequest:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeAppLicenseUsageRequest) -> dict:
+    out: dict = {}
+    if "billing_period" in value:
+        out["BillingPeriod"] = value["billing_period"]
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeAppLicenseUsageRequest:
+    out: DescribeAppLicenseUsageRequest = {}  # type: ignore[typeddict-item]
+    if data.get("BillingPeriod") is not None:
+        out["billing_period"] = data["BillingPeriod"]
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

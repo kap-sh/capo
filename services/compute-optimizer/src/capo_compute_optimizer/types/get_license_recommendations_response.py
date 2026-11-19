@@ -68,3 +68,50 @@ def deserialize_aws_json_1_0(data: dict) -> GetLicenseRecommendationsResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetLicenseRecommendationsResponse) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    if "license_recommendations" in value:
+        import capo_compute_optimizer.types.license_recommendations
+
+        out["licenseRecommendations"] = (
+            capo_compute_optimizer.types.license_recommendations.serialize_cbor(
+                value["license_recommendations"]
+            )
+        )
+    if "errors" in value:
+        import capo_compute_optimizer.types.get_recommendation_errors
+
+        out["errors"] = (
+            capo_compute_optimizer.types.get_recommendation_errors.serialize_cbor(
+                value["errors"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetLicenseRecommendationsResponse:
+    out: GetLicenseRecommendationsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    if data.get("licenseRecommendations") is not None:
+        import capo_compute_optimizer.types.license_recommendations
+
+        out["license_recommendations"] = (
+            capo_compute_optimizer.types.license_recommendations.deserialize_cbor(
+                data["licenseRecommendations"]
+            )
+        )
+    if data.get("errors") is not None:
+        import capo_compute_optimizer.types.get_recommendation_errors
+
+        out["errors"] = (
+            capo_compute_optimizer.types.get_recommendation_errors.deserialize_cbor(
+                data["errors"]
+            )
+        )
+    return out

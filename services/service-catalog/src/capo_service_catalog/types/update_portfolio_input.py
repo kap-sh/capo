@@ -93,3 +93,59 @@ def deserialize_aws_json_1_1(data: dict) -> UpdatePortfolioInput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdatePortfolioInput) -> dict:
+    out: dict = {}
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    out["Id"] = value["id"]
+    if "display_name" in value:
+        out["DisplayName"] = value["display_name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "provider_name" in value:
+        out["ProviderName"] = value["provider_name"]
+    if "add_tags" in value:
+        import capo_service_catalog.types.add_tags
+
+        out["AddTags"] = capo_service_catalog.types.add_tags.serialize_cbor(
+            value["add_tags"]
+        )
+    if "remove_tags" in value:
+        import capo_service_catalog.types.tag_keys
+
+        out["RemoveTags"] = capo_service_catalog.types.tag_keys.serialize_cbor(
+            value["remove_tags"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdatePortfolioInput:
+    out: UpdatePortfolioInput = {}  # type: ignore[typeddict-item]
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    else:
+        out["id"] = ""
+    if data.get("DisplayName") is not None:
+        out["display_name"] = data["DisplayName"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("ProviderName") is not None:
+        out["provider_name"] = data["ProviderName"]
+    if data.get("AddTags") is not None:
+        import capo_service_catalog.types.add_tags
+
+        out["add_tags"] = capo_service_catalog.types.add_tags.deserialize_cbor(
+            data["AddTags"]
+        )
+    if data.get("RemoveTags") is not None:
+        import capo_service_catalog.types.tag_keys
+
+        out["remove_tags"] = capo_service_catalog.types.tag_keys.deserialize_cbor(
+            data["RemoveTags"]
+        )
+    return out

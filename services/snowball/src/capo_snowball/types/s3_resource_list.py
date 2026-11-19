@@ -27,3 +27,24 @@ def deserialize_aws_json_1_1(data: list) -> S3ResourceList:
             continue
         out.append(capo_snowball.types.s3_resource.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: S3ResourceList) -> list:
+    import capo_snowball.types.s3_resource
+
+    out: list = []
+    for item in value:
+        out.append(capo_snowball.types.s3_resource.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> S3ResourceList:
+    import capo_snowball.types.s3_resource
+
+    out: S3ResourceList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_snowball.types.s3_resource.deserialize_cbor(item))
+    return out

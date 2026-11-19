@@ -69,13 +69,24 @@ class EnvironmentResource:
         ) -> OperationResponse[
             "capo_interconnect.types.get_environment_response.GetEnvironmentResponse"
         ]:
-            import capo_interconnect._operations.interconnect.get_environment
+            if req.options.protocol == "awsJson1_0":
+                import capo_interconnect._operations.interconnect.aws_json1_0.get_environment
 
-            output, http_response = (
-                capo_interconnect._operations.interconnect.get_environment.get_environment(
-                    req.options, req.input
+                output, http_response = (
+                    capo_interconnect._operations.interconnect.aws_json1_0.get_environment.get_environment(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_interconnect._operations.interconnect.rpcv2_cbor.get_environment
+
+                output, http_response = (
+                    capo_interconnect._operations.interconnect.rpcv2_cbor.get_environment.get_environment(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(
@@ -131,13 +142,24 @@ class EnvironmentResource:
         ) -> OperationResponse[
             "capo_interconnect.types.list_environments_response.ListEnvironmentsResponse"
         ]:
-            import capo_interconnect._operations.interconnect.list_environments
+            if req.options.protocol == "awsJson1_0":
+                import capo_interconnect._operations.interconnect.aws_json1_0.list_environments
 
-            output, http_response = (
-                capo_interconnect._operations.interconnect.list_environments.list_environments(
-                    req.options, req.input
+                output, http_response = (
+                    capo_interconnect._operations.interconnect.aws_json1_0.list_environments.list_environments(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_interconnect._operations.interconnect.rpcv2_cbor.list_environments
+
+                output, http_response = (
+                    capo_interconnect._operations.interconnect.rpcv2_cbor.list_environments.list_environments(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(
@@ -198,14 +220,26 @@ class AsyncEnvironmentResource:
         ) -> AsyncOperationResponse[
             "capo_interconnect.types.get_environment_response.GetEnvironmentResponse"
         ]:
-            import capo_interconnect._operations.interconnect.get_environment
+            if req.options.protocol == "awsJson1_0":
+                import capo_interconnect._operations.interconnect.aws_json1_0.get_environment
 
-            (
-                output,
-                http_response,
-            ) = await capo_interconnect._operations.interconnect.get_environment.async_get_environment(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_interconnect._operations.interconnect.aws_json1_0.get_environment.async_get_environment(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_interconnect._operations.interconnect.rpcv2_cbor.get_environment
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_interconnect._operations.interconnect.rpcv2_cbor.get_environment.async_get_environment(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(
@@ -261,14 +295,26 @@ class AsyncEnvironmentResource:
         ) -> AsyncOperationResponse[
             "capo_interconnect.types.list_environments_response.ListEnvironmentsResponse"
         ]:
-            import capo_interconnect._operations.interconnect.list_environments
+            if req.options.protocol == "awsJson1_0":
+                import capo_interconnect._operations.interconnect.aws_json1_0.list_environments
 
-            (
-                output,
-                http_response,
-            ) = await capo_interconnect._operations.interconnect.list_environments.async_list_environments(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_interconnect._operations.interconnect.aws_json1_0.list_environments.async_list_environments(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_interconnect._operations.interconnect.rpcv2_cbor.list_environments
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_interconnect._operations.interconnect.rpcv2_cbor.list_environments.async_list_environments(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(

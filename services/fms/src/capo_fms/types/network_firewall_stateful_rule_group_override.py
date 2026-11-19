@@ -40,3 +40,28 @@ def deserialize_aws_json_1_1(data: dict) -> NetworkFirewallStatefulRuleGroupOver
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: NetworkFirewallStatefulRuleGroupOverride) -> dict:
+    out: dict = {}
+    if "action" in value:
+        import capo_fms.types.network_firewall_override_action
+
+        out["Action"] = capo_fms.types.network_firewall_override_action.serialize_cbor(
+            value["action"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> NetworkFirewallStatefulRuleGroupOverride:
+    out: NetworkFirewallStatefulRuleGroupOverride = {}  # type: ignore[typeddict-item]
+    if data.get("Action") is not None:
+        import capo_fms.types.network_firewall_override_action
+
+        out["action"] = (
+            capo_fms.types.network_firewall_override_action.deserialize_cbor(
+                data["Action"]
+            )
+        )
+    return out

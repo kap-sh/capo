@@ -38,3 +38,26 @@ def deserialize_aws_json_1_1(data: dict) -> CreateUpdatedImageResult:
     if data.get("canUpdateImage") is not None:
         out["can_update_image"] = data["canUpdateImage"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateUpdatedImageResult) -> dict:
+    out: dict = {}
+    if "image" in value:
+        import capo_appstream.types.image
+
+        out["image"] = capo_appstream.types.image.serialize_cbor(value["image"])
+    if "can_update_image" in value:
+        out["canUpdateImage"] = value["can_update_image"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateUpdatedImageResult:
+    out: CreateUpdatedImageResult = {}  # type: ignore[typeddict-item]
+    if data.get("image") is not None:
+        import capo_appstream.types.image
+
+        out["image"] = capo_appstream.types.image.deserialize_cbor(data["image"])
+    if data.get("canUpdateImage") is not None:
+        out["can_update_image"] = data["canUpdateImage"]
+    return out

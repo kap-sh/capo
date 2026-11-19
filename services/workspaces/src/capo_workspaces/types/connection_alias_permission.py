@@ -35,3 +35,24 @@ def deserialize_aws_json_1_1(data: dict) -> ConnectionAliasPermission:
     else:
         out["allow_association"] = False
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ConnectionAliasPermission) -> dict:
+    out: dict = {}
+    out["SharedAccountId"] = value["shared_account_id"]
+    out["AllowAssociation"] = value["allow_association"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ConnectionAliasPermission:
+    out: ConnectionAliasPermission = {}  # type: ignore[typeddict-item]
+    if data.get("SharedAccountId") is not None:
+        out["shared_account_id"] = data["SharedAccountId"]
+    else:
+        out["shared_account_id"] = ""
+    if data.get("AllowAssociation") is not None:
+        out["allow_association"] = data["AllowAssociation"]
+    else:
+        out["allow_association"] = False
+    return out

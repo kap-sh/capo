@@ -56,3 +56,31 @@ def deserialize_aws_json_1_0(data: dict) -> ReasonCodeSummary:
     else:
         out["value"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ReasonCodeSummary) -> dict:
+    out: dict = {}
+    if "name" in value:
+        import capo_compute_optimizer.types.finding_reason_code
+
+        out["name"] = capo_compute_optimizer.types.finding_reason_code.serialize_cbor(
+            value["name"]
+        )
+    out["value"] = value.get("value", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> ReasonCodeSummary:
+    out: ReasonCodeSummary = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        import capo_compute_optimizer.types.finding_reason_code
+
+        out["name"] = capo_compute_optimizer.types.finding_reason_code.deserialize_cbor(
+            data["name"]
+        )
+    if data.get("value") is not None:
+        out["value"] = float(data["value"])
+    else:
+        out["value"] = 0
+    return out

@@ -49,3 +49,32 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeScalingPoliciesOutput:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeScalingPoliciesOutput) -> dict:
+    out: dict = {}
+    if "scaling_policies" in value:
+        import capo_gamelift.types.scaling_policy_list
+
+        out["ScalingPolicies"] = capo_gamelift.types.scaling_policy_list.serialize_cbor(
+            value["scaling_policies"]
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeScalingPoliciesOutput:
+    out: DescribeScalingPoliciesOutput = {}  # type: ignore[typeddict-item]
+    if data.get("ScalingPolicies") is not None:
+        import capo_gamelift.types.scaling_policy_list
+
+        out["scaling_policies"] = (
+            capo_gamelift.types.scaling_policy_list.deserialize_cbor(
+                data["ScalingPolicies"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

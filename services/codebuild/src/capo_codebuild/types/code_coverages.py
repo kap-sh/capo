@@ -27,3 +27,24 @@ def deserialize_aws_json_1_1(data: list) -> CodeCoverages:
             continue
         out.append(capo_codebuild.types.code_coverage.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CodeCoverages) -> list:
+    import capo_codebuild.types.code_coverage
+
+    out: list = []
+    for item in value:
+        out.append(capo_codebuild.types.code_coverage.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> CodeCoverages:
+    import capo_codebuild.types.code_coverage
+
+    out: CodeCoverages = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_codebuild.types.code_coverage.deserialize_cbor(item))
+    return out

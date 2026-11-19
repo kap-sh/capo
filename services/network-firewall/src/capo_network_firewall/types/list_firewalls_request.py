@@ -52,3 +52,34 @@ def deserialize_aws_json_1_0(data: dict) -> ListFirewallsRequest:
     if data.get("MaxResults") is not None:
         out["max_results"] = data["MaxResults"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListFirewallsRequest) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "vpc_ids" in value:
+        import capo_network_firewall.types.vpc_ids
+
+        out["VpcIds"] = capo_network_firewall.types.vpc_ids.serialize_cbor(
+            value["vpc_ids"]
+        )
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListFirewallsRequest:
+    out: ListFirewallsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("VpcIds") is not None:
+        import capo_network_firewall.types.vpc_ids
+
+        out["vpc_ids"] = capo_network_firewall.types.vpc_ids.deserialize_cbor(
+            data["VpcIds"]
+        )
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    return out

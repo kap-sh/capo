@@ -70,3 +70,50 @@ def deserialize_aws_json_1_1(data: dict) -> ContainerFleetLocationAttributes:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ContainerFleetLocationAttributes) -> dict:
+    out: dict = {}
+    if "location" in value:
+        out["Location"] = value["location"]
+    if "status" in value:
+        import capo_gamelift.types.container_fleet_location_status
+
+        out["Status"] = (
+            capo_gamelift.types.container_fleet_location_status.serialize_cbor(
+                value["status"]
+            )
+        )
+    if "player_gateway_status" in value:
+        import capo_gamelift.types.player_gateway_status
+
+        out["PlayerGatewayStatus"] = (
+            capo_gamelift.types.player_gateway_status.serialize_cbor(
+                value["player_gateway_status"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ContainerFleetLocationAttributes:
+    out: ContainerFleetLocationAttributes = {}  # type: ignore[typeddict-item]
+    if data.get("Location") is not None:
+        out["location"] = data["Location"]
+    if data.get("Status") is not None:
+        import capo_gamelift.types.container_fleet_location_status
+
+        out["status"] = (
+            capo_gamelift.types.container_fleet_location_status.deserialize_cbor(
+                data["Status"]
+            )
+        )
+    if data.get("PlayerGatewayStatus") is not None:
+        import capo_gamelift.types.player_gateway_status
+
+        out["player_gateway_status"] = (
+            capo_gamelift.types.player_gateway_status.deserialize_cbor(
+                data["PlayerGatewayStatus"]
+            )
+        )
+    return out

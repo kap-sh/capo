@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> ClientCertAuthSettings:
     if data.get("OCSPUrl") is not None:
         out["ocsp_url"] = data["OCSPUrl"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ClientCertAuthSettings) -> dict:
+    out: dict = {}
+    if "ocsp_url" in value:
+        out["OCSPUrl"] = value["ocsp_url"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ClientCertAuthSettings:
+    out: ClientCertAuthSettings = {}  # type: ignore[typeddict-item]
+    if data.get("OCSPUrl") is not None:
+        out["ocsp_url"] = data["OCSPUrl"]
+    return out

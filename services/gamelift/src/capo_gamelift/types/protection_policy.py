@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: ProtectionPolicy) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> ProtectionPolicy:
     return cast(ProtectionPolicy, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ProtectionPolicy) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ProtectionPolicy:
+    return cast(ProtectionPolicy, data)

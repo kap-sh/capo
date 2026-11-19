@@ -33,3 +33,24 @@ def deserialize_aws_json_1_1(data: list) -> OperationTypeList:
             capo_route_53_domains.types.operation_type.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: OperationTypeList) -> list:
+    import capo_route_53_domains.types.operation_type
+
+    out: list = []
+    for item in value:
+        out.append(capo_route_53_domains.types.operation_type.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> OperationTypeList:
+    import capo_route_53_domains.types.operation_type
+
+    out: OperationTypeList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_route_53_domains.types.operation_type.deserialize_cbor(item))
+    return out

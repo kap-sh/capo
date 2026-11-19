@@ -43,3 +43,30 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateEnrollmentStatusResponse:
     if data.get("statusReason") is not None:
         out["status_reason"] = data["statusReason"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateEnrollmentStatusResponse) -> dict:
+    out: dict = {}
+    if "status" in value:
+        import capo_compute_optimizer.types.status
+
+        out["status"] = capo_compute_optimizer.types.status.serialize_cbor(
+            value["status"]
+        )
+    if "status_reason" in value:
+        out["statusReason"] = value["status_reason"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateEnrollmentStatusResponse:
+    out: UpdateEnrollmentStatusResponse = {}  # type: ignore[typeddict-item]
+    if data.get("status") is not None:
+        import capo_compute_optimizer.types.status
+
+        out["status"] = capo_compute_optimizer.types.status.deserialize_cbor(
+            data["status"]
+        )
+    if data.get("statusReason") is not None:
+        out["status_reason"] = data["statusReason"]
+    return out

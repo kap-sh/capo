@@ -29,3 +29,24 @@ def deserialize_aws_json_1_1(data: list) -> ComplianceViolators:
             continue
         out.append(capo_fms.types.compliance_violator.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ComplianceViolators) -> list:
+    import capo_fms.types.compliance_violator
+
+    out: list = []
+    for item in value:
+        out.append(capo_fms.types.compliance_violator.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> ComplianceViolators:
+    import capo_fms.types.compliance_violator
+
+    out: ComplianceViolators = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_fms.types.compliance_violator.deserialize_cbor(item))
+    return out

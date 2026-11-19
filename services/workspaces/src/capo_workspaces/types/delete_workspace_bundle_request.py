@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteWorkspaceBundleRequest:
     if data.get("BundleId") is not None:
         out["bundle_id"] = data["BundleId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteWorkspaceBundleRequest) -> dict:
+    out: dict = {}
+    if "bundle_id" in value:
+        out["BundleId"] = value["bundle_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteWorkspaceBundleRequest:
+    out: DeleteWorkspaceBundleRequest = {}  # type: ignore[typeddict-item]
+    if data.get("BundleId") is not None:
+        out["bundle_id"] = data["BundleId"]
+    return out

@@ -43,6 +43,32 @@ def deserialize_aws_json_1_1(data: dict) -> TranslatedDocument:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TranslatedDocument) -> dict:
+    out: dict = {}
+    import capo_translate.types.translated_document_content
+
+    out["Content"] = capo_translate.types.translated_document_content.serialize_cbor(
+        value["content"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TranslatedDocument:
+    out: TranslatedDocument = {}  # type: ignore[typeddict-item]
+    if data.get("Content") is not None:
+        import capo_translate.types.translated_document_content
+
+        out["content"] = (
+            capo_translate.types.translated_document_content.deserialize_cbor(
+                data["Content"]
+            )
+        )
+    else:
+        out["content"] = b""
+    return out
+
+
 def redact_sensitive(value: TranslatedDocument) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "content" in value:

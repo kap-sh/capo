@@ -33,3 +33,22 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteImagePermissionsRequest:
     if data.get("SharedAccountId") is not None:
         out["shared_account_id"] = data["SharedAccountId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteImagePermissionsRequest) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "shared_account_id" in value:
+        out["SharedAccountId"] = value["shared_account_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteImagePermissionsRequest:
+    out: DeleteImagePermissionsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("SharedAccountId") is not None:
+        out["shared_account_id"] = data["SharedAccountId"]
+    return out

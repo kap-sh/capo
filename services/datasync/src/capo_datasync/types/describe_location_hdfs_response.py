@@ -228,3 +228,154 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeLocationHdfsResponse:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeLocationHdfsResponse) -> dict:
+    out: dict = {}
+    if "location_arn" in value:
+        out["LocationArn"] = value["location_arn"]
+    if "location_uri" in value:
+        out["LocationUri"] = value["location_uri"]
+    if "name_nodes" in value:
+        import capo_datasync.types.hdfs_name_node_list
+
+        out["NameNodes"] = capo_datasync.types.hdfs_name_node_list.serialize_cbor(
+            value["name_nodes"]
+        )
+    if "block_size" in value:
+        out["BlockSize"] = value["block_size"]
+    if "replication_factor" in value:
+        out["ReplicationFactor"] = value["replication_factor"]
+    if "kms_key_provider_uri" in value:
+        out["KmsKeyProviderUri"] = value["kms_key_provider_uri"]
+    if "qop_configuration" in value:
+        import capo_datasync.types.qop_configuration
+
+        out["QopConfiguration"] = capo_datasync.types.qop_configuration.serialize_cbor(
+            value["qop_configuration"]
+        )
+    if "authentication_type" in value:
+        import capo_datasync.types.hdfs_authentication_type
+
+        out["AuthenticationType"] = (
+            capo_datasync.types.hdfs_authentication_type.serialize_cbor(
+                value["authentication_type"]
+            )
+        )
+    if "simple_user" in value:
+        out["SimpleUser"] = value["simple_user"]
+    if "kerberos_principal" in value:
+        out["KerberosPrincipal"] = value["kerberos_principal"]
+    if "agent_arns" in value:
+        import capo_datasync.types.agent_arn_list
+
+        out["AgentArns"] = capo_datasync.types.agent_arn_list.serialize_cbor(
+            value["agent_arns"]
+        )
+    if "creation_time" in value:
+        import capo_datasync.types.time
+
+        out["CreationTime"] = capo_datasync.types.time.serialize_cbor(
+            value["creation_time"]
+        )
+    if "managed_secret_config" in value:
+        import capo_datasync.types.managed_secret_config
+
+        out["ManagedSecretConfig"] = (
+            capo_datasync.types.managed_secret_config.serialize_cbor(
+                value["managed_secret_config"]
+            )
+        )
+    if "cmk_secret_config" in value:
+        import capo_datasync.types.cmk_secret_config
+
+        out["CmkSecretConfig"] = capo_datasync.types.cmk_secret_config.serialize_cbor(
+            value["cmk_secret_config"]
+        )
+    if "custom_secret_config" in value:
+        import capo_datasync.types.custom_secret_config
+
+        out["CustomSecretConfig"] = (
+            capo_datasync.types.custom_secret_config.serialize_cbor(
+                value["custom_secret_config"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeLocationHdfsResponse:
+    out: DescribeLocationHdfsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("LocationArn") is not None:
+        out["location_arn"] = data["LocationArn"]
+    if data.get("LocationUri") is not None:
+        out["location_uri"] = data["LocationUri"]
+    if data.get("NameNodes") is not None:
+        import capo_datasync.types.hdfs_name_node_list
+
+        out["name_nodes"] = capo_datasync.types.hdfs_name_node_list.deserialize_cbor(
+            data["NameNodes"]
+        )
+    if data.get("BlockSize") is not None:
+        out["block_size"] = data["BlockSize"]
+    if data.get("ReplicationFactor") is not None:
+        out["replication_factor"] = data["ReplicationFactor"]
+    if data.get("KmsKeyProviderUri") is not None:
+        out["kms_key_provider_uri"] = data["KmsKeyProviderUri"]
+    if data.get("QopConfiguration") is not None:
+        import capo_datasync.types.qop_configuration
+
+        out["qop_configuration"] = (
+            capo_datasync.types.qop_configuration.deserialize_cbor(
+                data["QopConfiguration"]
+            )
+        )
+    if data.get("AuthenticationType") is not None:
+        import capo_datasync.types.hdfs_authentication_type
+
+        out["authentication_type"] = (
+            capo_datasync.types.hdfs_authentication_type.deserialize_cbor(
+                data["AuthenticationType"]
+            )
+        )
+    if data.get("SimpleUser") is not None:
+        out["simple_user"] = data["SimpleUser"]
+    if data.get("KerberosPrincipal") is not None:
+        out["kerberos_principal"] = data["KerberosPrincipal"]
+    if data.get("AgentArns") is not None:
+        import capo_datasync.types.agent_arn_list
+
+        out["agent_arns"] = capo_datasync.types.agent_arn_list.deserialize_cbor(
+            data["AgentArns"]
+        )
+    if data.get("CreationTime") is not None:
+        import capo_datasync.types.time
+
+        out["creation_time"] = capo_datasync.types.time.deserialize_cbor(
+            data["CreationTime"]
+        )
+    if data.get("ManagedSecretConfig") is not None:
+        import capo_datasync.types.managed_secret_config
+
+        out["managed_secret_config"] = (
+            capo_datasync.types.managed_secret_config.deserialize_cbor(
+                data["ManagedSecretConfig"]
+            )
+        )
+    if data.get("CmkSecretConfig") is not None:
+        import capo_datasync.types.cmk_secret_config
+
+        out["cmk_secret_config"] = (
+            capo_datasync.types.cmk_secret_config.deserialize_cbor(
+                data["CmkSecretConfig"]
+            )
+        )
+    if data.get("CustomSecretConfig") is not None:
+        import capo_datasync.types.custom_secret_config
+
+        out["custom_secret_config"] = (
+            capo_datasync.types.custom_secret_config.deserialize_cbor(
+                data["CustomSecretConfig"]
+            )
+        )
+    return out

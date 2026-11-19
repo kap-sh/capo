@@ -16,3 +16,12 @@ def serialize_aws_json_1_1(value: AutoRollbackEvent) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> AutoRollbackEvent:
     return cast(AutoRollbackEvent, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AutoRollbackEvent) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> AutoRollbackEvent:
+    return cast(AutoRollbackEvent, data)

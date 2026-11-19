@@ -34,3 +34,24 @@ def deserialize_aws_json_1_0(data: dict) -> PortRange:
     else:
         out["to_port"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PortRange) -> dict:
+    out: dict = {}
+    out["FromPort"] = value.get("from_port", 0)
+    out["ToPort"] = value.get("to_port", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> PortRange:
+    out: PortRange = {}  # type: ignore[typeddict-item]
+    if data.get("FromPort") is not None:
+        out["from_port"] = data["FromPort"]
+    else:
+        out["from_port"] = 0
+    if data.get("ToPort") is not None:
+        out["to_port"] = data["ToPort"]
+    else:
+        out["to_port"] = 0
+    return out

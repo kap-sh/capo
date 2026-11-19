@@ -49,3 +49,38 @@ def deserialize_aws_json_1_0(data: dict) -> RulePreviewTotal:
             "RulePreviewTotal.estimated_monthly_savings required"
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RulePreviewTotal) -> dict:
+    out: dict = {}
+    out["recommendedActionCount"] = value["recommended_action_count"]
+    import capo_compute_optimizer_automation.types.estimated_monthly_savings
+
+    out["estimatedMonthlySavings"] = (
+        capo_compute_optimizer_automation.types.estimated_monthly_savings.serialize_cbor(
+            value["estimated_monthly_savings"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RulePreviewTotal:
+    out: RulePreviewTotal = {}  # type: ignore[typeddict-item]
+    if data.get("recommendedActionCount") is not None:
+        out["recommended_action_count"] = data["recommendedActionCount"]
+    else:
+        out["recommended_action_count"] = 0
+    if data.get("estimatedMonthlySavings") is not None:
+        import capo_compute_optimizer_automation.types.estimated_monthly_savings
+
+        out["estimated_monthly_savings"] = (
+            capo_compute_optimizer_automation.types.estimated_monthly_savings.deserialize_cbor(
+                data["estimatedMonthlySavings"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "RulePreviewTotal.estimated_monthly_savings required"
+        )
+    return out

@@ -47,3 +47,34 @@ def deserialize_aws_json_1_0(data: dict) -> GetBandwidthRateLimitScheduleOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetBandwidthRateLimitScheduleOutput) -> dict:
+    out: dict = {}
+    if "gateway_arn" in value:
+        out["GatewayArn"] = value["gateway_arn"]
+    if "bandwidth_rate_limit_intervals" in value:
+        import capo_backup_gateway.types.bandwidth_rate_limit_intervals
+
+        out["BandwidthRateLimitIntervals"] = (
+            capo_backup_gateway.types.bandwidth_rate_limit_intervals.serialize_cbor(
+                value["bandwidth_rate_limit_intervals"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetBandwidthRateLimitScheduleOutput:
+    out: GetBandwidthRateLimitScheduleOutput = {}  # type: ignore[typeddict-item]
+    if data.get("GatewayArn") is not None:
+        out["gateway_arn"] = data["GatewayArn"]
+    if data.get("BandwidthRateLimitIntervals") is not None:
+        import capo_backup_gateway.types.bandwidth_rate_limit_intervals
+
+        out["bandwidth_rate_limit_intervals"] = (
+            capo_backup_gateway.types.bandwidth_rate_limit_intervals.deserialize_cbor(
+                data["BandwidthRateLimitIntervals"]
+            )
+        )
+    return out

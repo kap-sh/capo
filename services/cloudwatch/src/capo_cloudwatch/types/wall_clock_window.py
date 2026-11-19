@@ -45,3 +45,18 @@ def deserialize_query(el: Element) -> WallClockWindow:
     if child_timezone is not None:
         out["timezone"] = str(child_timezone.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: WallClockWindow) -> dict:
+    out: dict = {}
+    if "timezone" in value:
+        out["Timezone"] = value["timezone"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> WallClockWindow:
+    out: WallClockWindow = {}  # type: ignore[typeddict-item]
+    if data.get("Timezone") is not None:
+        out["timezone"] = data["Timezone"]
+    return out

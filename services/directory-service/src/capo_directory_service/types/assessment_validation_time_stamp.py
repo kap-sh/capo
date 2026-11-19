@@ -18,3 +18,16 @@ def serialize_aws_json_1_1(value: AssessmentValidationTimeStamp) -> float:
 
 def deserialize_aws_json_1_1(data: float) -> AssessmentValidationTimeStamp:
     return datetime.datetime.fromtimestamp(float(data), tz=datetime.timezone.utc)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(
+    value: AssessmentValidationTimeStamp,
+) -> AssessmentValidationTimeStamp:
+    return value
+
+
+def deserialize_cbor(
+    data: AssessmentValidationTimeStamp,
+) -> AssessmentValidationTimeStamp:
+    return data

@@ -35,3 +35,24 @@ def deserialize_aws_json_1_0(data: dict) -> StatelessRuleGroupReference:
     else:
         out["priority"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StatelessRuleGroupReference) -> dict:
+    out: dict = {}
+    out["ResourceArn"] = value["resource_arn"]
+    out["Priority"] = value["priority"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> StatelessRuleGroupReference:
+    out: StatelessRuleGroupReference = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceArn") is not None:
+        out["resource_arn"] = data["ResourceArn"]
+    else:
+        out["resource_arn"] = ""
+    if data.get("Priority") is not None:
+        out["priority"] = data["Priority"]
+    else:
+        out["priority"] = 0
+    return out

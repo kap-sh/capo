@@ -221,3 +221,174 @@ def deserialize_aws_json_1_1(data: dict) -> WorkspaceAccessProperties:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: WorkspaceAccessProperties) -> dict:
+    out: dict = {}
+    if "device_type_windows" in value:
+        import capo_workspaces.types.access_property_value
+
+        out["DeviceTypeWindows"] = (
+            capo_workspaces.types.access_property_value.serialize_cbor(
+                value["device_type_windows"]
+            )
+        )
+    if "device_type_osx" in value:
+        import capo_workspaces.types.access_property_value
+
+        out["DeviceTypeOsx"] = (
+            capo_workspaces.types.access_property_value.serialize_cbor(
+                value["device_type_osx"]
+            )
+        )
+    if "device_type_web" in value:
+        import capo_workspaces.types.access_property_value
+
+        out["DeviceTypeWeb"] = (
+            capo_workspaces.types.access_property_value.serialize_cbor(
+                value["device_type_web"]
+            )
+        )
+    if "device_type_ios" in value:
+        import capo_workspaces.types.access_property_value
+
+        out["DeviceTypeIos"] = (
+            capo_workspaces.types.access_property_value.serialize_cbor(
+                value["device_type_ios"]
+            )
+        )
+    if "device_type_android" in value:
+        import capo_workspaces.types.access_property_value
+
+        out["DeviceTypeAndroid"] = (
+            capo_workspaces.types.access_property_value.serialize_cbor(
+                value["device_type_android"]
+            )
+        )
+    if "device_type_chrome_os" in value:
+        import capo_workspaces.types.access_property_value
+
+        out["DeviceTypeChromeOs"] = (
+            capo_workspaces.types.access_property_value.serialize_cbor(
+                value["device_type_chrome_os"]
+            )
+        )
+    if "device_type_zero_client" in value:
+        import capo_workspaces.types.access_property_value
+
+        out["DeviceTypeZeroClient"] = (
+            capo_workspaces.types.access_property_value.serialize_cbor(
+                value["device_type_zero_client"]
+            )
+        )
+    if "device_type_linux" in value:
+        import capo_workspaces.types.access_property_value
+
+        out["DeviceTypeLinux"] = (
+            capo_workspaces.types.access_property_value.serialize_cbor(
+                value["device_type_linux"]
+            )
+        )
+    if "device_type_work_spaces_thin_client" in value:
+        import capo_workspaces.types.access_property_value
+
+        out["DeviceTypeWorkSpacesThinClient"] = (
+            capo_workspaces.types.access_property_value.serialize_cbor(
+                value["device_type_work_spaces_thin_client"]
+            )
+        )
+    if "access_endpoint_config" in value:
+        import capo_workspaces.types.access_endpoint_config
+
+        out["AccessEndpointConfig"] = (
+            capo_workspaces.types.access_endpoint_config.serialize_cbor(
+                value["access_endpoint_config"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> WorkspaceAccessProperties:
+    out: WorkspaceAccessProperties = {}  # type: ignore[typeddict-item]
+    if data.get("DeviceTypeWindows") is not None:
+        import capo_workspaces.types.access_property_value
+
+        out["device_type_windows"] = (
+            capo_workspaces.types.access_property_value.deserialize_cbor(
+                data["DeviceTypeWindows"]
+            )
+        )
+    if data.get("DeviceTypeOsx") is not None:
+        import capo_workspaces.types.access_property_value
+
+        out["device_type_osx"] = (
+            capo_workspaces.types.access_property_value.deserialize_cbor(
+                data["DeviceTypeOsx"]
+            )
+        )
+    if data.get("DeviceTypeWeb") is not None:
+        import capo_workspaces.types.access_property_value
+
+        out["device_type_web"] = (
+            capo_workspaces.types.access_property_value.deserialize_cbor(
+                data["DeviceTypeWeb"]
+            )
+        )
+    if data.get("DeviceTypeIos") is not None:
+        import capo_workspaces.types.access_property_value
+
+        out["device_type_ios"] = (
+            capo_workspaces.types.access_property_value.deserialize_cbor(
+                data["DeviceTypeIos"]
+            )
+        )
+    if data.get("DeviceTypeAndroid") is not None:
+        import capo_workspaces.types.access_property_value
+
+        out["device_type_android"] = (
+            capo_workspaces.types.access_property_value.deserialize_cbor(
+                data["DeviceTypeAndroid"]
+            )
+        )
+    if data.get("DeviceTypeChromeOs") is not None:
+        import capo_workspaces.types.access_property_value
+
+        out["device_type_chrome_os"] = (
+            capo_workspaces.types.access_property_value.deserialize_cbor(
+                data["DeviceTypeChromeOs"]
+            )
+        )
+    if data.get("DeviceTypeZeroClient") is not None:
+        import capo_workspaces.types.access_property_value
+
+        out["device_type_zero_client"] = (
+            capo_workspaces.types.access_property_value.deserialize_cbor(
+                data["DeviceTypeZeroClient"]
+            )
+        )
+    if data.get("DeviceTypeLinux") is not None:
+        import capo_workspaces.types.access_property_value
+
+        out["device_type_linux"] = (
+            capo_workspaces.types.access_property_value.deserialize_cbor(
+                data["DeviceTypeLinux"]
+            )
+        )
+    if data.get("DeviceTypeWorkSpacesThinClient") is not None:
+        import capo_workspaces.types.access_property_value
+
+        out["device_type_work_spaces_thin_client"] = (
+            capo_workspaces.types.access_property_value.deserialize_cbor(
+                data["DeviceTypeWorkSpacesThinClient"]
+            )
+        )
+    if data.get("AccessEndpointConfig") is not None:
+        import capo_workspaces.types.access_endpoint_config
+
+        out["access_endpoint_config"] = (
+            capo_workspaces.types.access_endpoint_config.deserialize_cbor(
+                data["AccessEndpointConfig"]
+            )
+        )
+    return out

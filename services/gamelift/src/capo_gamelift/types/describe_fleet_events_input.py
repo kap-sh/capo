@@ -71,3 +71,48 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeFleetEventsInput:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeFleetEventsInput) -> dict:
+    out: dict = {}
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "start_time" in value:
+        import capo_gamelift.types.timestamp
+
+        out["StartTime"] = capo_gamelift.types.timestamp.serialize_cbor(
+            value["start_time"]
+        )
+    if "end_time" in value:
+        import capo_gamelift.types.timestamp
+
+        out["EndTime"] = capo_gamelift.types.timestamp.serialize_cbor(value["end_time"])
+    if "limit" in value:
+        out["Limit"] = value["limit"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeFleetEventsInput:
+    out: DescribeFleetEventsInput = {}  # type: ignore[typeddict-item]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("StartTime") is not None:
+        import capo_gamelift.types.timestamp
+
+        out["start_time"] = capo_gamelift.types.timestamp.deserialize_cbor(
+            data["StartTime"]
+        )
+    if data.get("EndTime") is not None:
+        import capo_gamelift.types.timestamp
+
+        out["end_time"] = capo_gamelift.types.timestamp.deserialize_cbor(
+            data["EndTime"]
+        )
+    if data.get("Limit") is not None:
+        out["limit"] = data["Limit"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

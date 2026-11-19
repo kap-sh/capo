@@ -37,3 +37,28 @@ def deserialize_aws_json_1_1(data: list) -> BundleAssociatedResourceTypeList:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BundleAssociatedResourceTypeList) -> list:
+    import capo_workspaces.types.bundle_associated_resource_type
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_workspaces.types.bundle_associated_resource_type.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> BundleAssociatedResourceTypeList:
+    import capo_workspaces.types.bundle_associated_resource_type
+
+    out: BundleAssociatedResourceTypeList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_workspaces.types.bundle_associated_resource_type.deserialize_cbor(item)
+        )
+    return out

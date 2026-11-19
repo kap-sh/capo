@@ -101,3 +101,78 @@ def deserialize_aws_json_1_0(data: dict) -> EffectivePreferredResource:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EffectivePreferredResource) -> dict:
+    out: dict = {}
+    if "name" in value:
+        import capo_compute_optimizer.types.preferred_resource_name
+
+        out["name"] = (
+            capo_compute_optimizer.types.preferred_resource_name.serialize_cbor(
+                value["name"]
+            )
+        )
+    if "include_list" in value:
+        import capo_compute_optimizer.types.preferred_resource_values
+
+        out["includeList"] = (
+            capo_compute_optimizer.types.preferred_resource_values.serialize_cbor(
+                value["include_list"]
+            )
+        )
+    if "effective_include_list" in value:
+        import capo_compute_optimizer.types.preferred_resource_values
+
+        out["effectiveIncludeList"] = (
+            capo_compute_optimizer.types.preferred_resource_values.serialize_cbor(
+                value["effective_include_list"]
+            )
+        )
+    if "exclude_list" in value:
+        import capo_compute_optimizer.types.preferred_resource_values
+
+        out["excludeList"] = (
+            capo_compute_optimizer.types.preferred_resource_values.serialize_cbor(
+                value["exclude_list"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> EffectivePreferredResource:
+    out: EffectivePreferredResource = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        import capo_compute_optimizer.types.preferred_resource_name
+
+        out["name"] = (
+            capo_compute_optimizer.types.preferred_resource_name.deserialize_cbor(
+                data["name"]
+            )
+        )
+    if data.get("includeList") is not None:
+        import capo_compute_optimizer.types.preferred_resource_values
+
+        out["include_list"] = (
+            capo_compute_optimizer.types.preferred_resource_values.deserialize_cbor(
+                data["includeList"]
+            )
+        )
+    if data.get("effectiveIncludeList") is not None:
+        import capo_compute_optimizer.types.preferred_resource_values
+
+        out["effective_include_list"] = (
+            capo_compute_optimizer.types.preferred_resource_values.deserialize_cbor(
+                data["effectiveIncludeList"]
+            )
+        )
+    if data.get("excludeList") is not None:
+        import capo_compute_optimizer.types.preferred_resource_values
+
+        out["exclude_list"] = (
+            capo_compute_optimizer.types.preferred_resource_values.deserialize_cbor(
+                data["excludeList"]
+            )
+        )
+    return out

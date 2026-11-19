@@ -61,3 +61,45 @@ def deserialize_aws_json_1_1(data: dict) -> GetReportGroupTrendInput:
             "",
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetReportGroupTrendInput) -> dict:
+    out: dict = {}
+    out["reportGroupArn"] = value["report_group_arn"]
+    if "num_of_reports" in value:
+        out["numOfReports"] = value["num_of_reports"]
+    import capo_codebuild.types.report_group_trend_field_type
+
+    out["trendField"] = (
+        capo_codebuild.types.report_group_trend_field_type.serialize_cbor(
+            value["trend_field"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetReportGroupTrendInput:
+    out: GetReportGroupTrendInput = {}  # type: ignore[typeddict-item]
+    if data.get("reportGroupArn") is not None:
+        out["report_group_arn"] = data["reportGroupArn"]
+    else:
+        out["report_group_arn"] = ""
+    if data.get("numOfReports") is not None:
+        out["num_of_reports"] = data["numOfReports"]
+    if data.get("trendField") is not None:
+        import capo_codebuild.types.report_group_trend_field_type
+
+        out["trend_field"] = (
+            capo_codebuild.types.report_group_trend_field_type.deserialize_cbor(
+                data["trendField"]
+            )
+        )
+    else:
+        import typing
+
+        out["trend_field"] = typing.cast(
+            "capo_codebuild.types.report_group_trend_field_type.ReportGroupTrendFieldType",
+            "",
+        )
+    return out

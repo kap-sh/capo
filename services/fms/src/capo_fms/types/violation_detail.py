@@ -95,3 +95,65 @@ def deserialize_aws_json_1_1(data: dict) -> ViolationDetail:
     if data.get("ResourceDescription") is not None:
         out["resource_description"] = data["ResourceDescription"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ViolationDetail) -> dict:
+    out: dict = {}
+    out["PolicyId"] = value["policy_id"]
+    out["MemberAccount"] = value["member_account"]
+    out["ResourceId"] = value["resource_id"]
+    out["ResourceType"] = value["resource_type"]
+    import capo_fms.types.resource_violations
+
+    out["ResourceViolations"] = capo_fms.types.resource_violations.serialize_cbor(
+        value["resource_violations"]
+    )
+    if "resource_tags" in value:
+        import capo_fms.types.tag_list
+
+        out["ResourceTags"] = capo_fms.types.tag_list.serialize_cbor(
+            value["resource_tags"]
+        )
+    if "resource_description" in value:
+        out["ResourceDescription"] = value["resource_description"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ViolationDetail:
+    out: ViolationDetail = {}  # type: ignore[typeddict-item]
+    if data.get("PolicyId") is not None:
+        out["policy_id"] = data["PolicyId"]
+    else:
+        out["policy_id"] = ""
+    if data.get("MemberAccount") is not None:
+        out["member_account"] = data["MemberAccount"]
+    else:
+        out["member_account"] = ""
+    if data.get("ResourceId") is not None:
+        out["resource_id"] = data["ResourceId"]
+    else:
+        out["resource_id"] = ""
+    if data.get("ResourceType") is not None:
+        out["resource_type"] = data["ResourceType"]
+    else:
+        out["resource_type"] = ""
+    if data.get("ResourceViolations") is not None:
+        import capo_fms.types.resource_violations
+
+        out["resource_violations"] = (
+            capo_fms.types.resource_violations.deserialize_cbor(
+                data["ResourceViolations"]
+            )
+        )
+    else:
+        out["resource_violations"] = []
+    if data.get("ResourceTags") is not None:
+        import capo_fms.types.tag_list
+
+        out["resource_tags"] = capo_fms.types.tag_list.deserialize_cbor(
+            data["ResourceTags"]
+        )
+    if data.get("ResourceDescription") is not None:
+        out["resource_description"] = data["ResourceDescription"]
+    return out

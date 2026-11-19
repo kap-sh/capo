@@ -42,3 +42,27 @@ def deserialize_aws_json_1_0(data: dict) -> RemoteAccountIdentifier:
         if name is not None:
             return {"$unknown": {"name": name}}
         raise DeserializationError("RemoteAccountIdentifier: no recognized variant key")
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RemoteAccountIdentifier) -> dict:
+    if "$unknown" in value:
+        raise SerializationError(
+            f"RemoteAccountIdentifier: cannot serialize unknown variant {value['$unknown']['name']!r}"
+        )
+    elif "identifier" in value:
+        return {"identifier": value["identifier"]}
+    else:
+        raise SerializationError("RemoteAccountIdentifier: no variant present")
+
+
+def deserialize_cbor(data: dict) -> RemoteAccountIdentifier:
+    if data.get("identifier") is not None:
+        return {"identifier": data["identifier"]}
+    else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return {"$unknown": {"name": name}}
+        raise DeserializationError("RemoteAccountIdentifier: no recognized variant key")

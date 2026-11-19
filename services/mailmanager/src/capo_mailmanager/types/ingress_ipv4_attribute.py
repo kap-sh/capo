@@ -12,3 +12,12 @@ def serialize_aws_json_1_0(value: IngressIpv4Attribute) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> IngressIpv4Attribute:
     return cast(IngressIpv4Attribute, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IngressIpv4Attribute) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> IngressIpv4Attribute:
+    return cast(IngressIpv4Attribute, data)

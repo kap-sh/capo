@@ -15,3 +15,12 @@ def serialize_aws_json_1_0(value: CustomizableMetricName) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> CustomizableMetricName:
     return cast(CustomizableMetricName, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CustomizableMetricName) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> CustomizableMetricName:
+    return cast(CustomizableMetricName, data)

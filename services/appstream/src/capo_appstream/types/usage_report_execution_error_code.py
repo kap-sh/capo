@@ -16,3 +16,12 @@ def serialize_aws_json_1_1(value: UsageReportExecutionErrorCode) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> UsageReportExecutionErrorCode:
     return cast(UsageReportExecutionErrorCode, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UsageReportExecutionErrorCode) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> UsageReportExecutionErrorCode:
+    return cast(UsageReportExecutionErrorCode, data)

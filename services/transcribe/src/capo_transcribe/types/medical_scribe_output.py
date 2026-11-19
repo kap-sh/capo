@@ -34,3 +34,24 @@ def deserialize_aws_json_1_1(data: dict) -> MedicalScribeOutput:
     else:
         out["clinical_document_uri"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MedicalScribeOutput) -> dict:
+    out: dict = {}
+    out["TranscriptFileUri"] = value["transcript_file_uri"]
+    out["ClinicalDocumentUri"] = value["clinical_document_uri"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> MedicalScribeOutput:
+    out: MedicalScribeOutput = {}  # type: ignore[typeddict-item]
+    if data.get("TranscriptFileUri") is not None:
+        out["transcript_file_uri"] = data["TranscriptFileUri"]
+    else:
+        out["transcript_file_uri"] = ""
+    if data.get("ClinicalDocumentUri") is not None:
+        out["clinical_document_uri"] = data["ClinicalDocumentUri"]
+    else:
+        out["clinical_document_uri"] = ""
+    return out

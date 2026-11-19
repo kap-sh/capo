@@ -42,3 +42,31 @@ def deserialize_aws_json_1_0(data: dict) -> ListRuleSetsResponse:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListRuleSetsResponse) -> dict:
+    out: dict = {}
+    import capo_mailmanager.types.rule_sets
+
+    out["RuleSets"] = capo_mailmanager.types.rule_sets.serialize_cbor(
+        value["rule_sets"]
+    )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListRuleSetsResponse:
+    out: ListRuleSetsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("RuleSets") is not None:
+        import capo_mailmanager.types.rule_sets
+
+        out["rule_sets"] = capo_mailmanager.types.rule_sets.deserialize_cbor(
+            data["RuleSets"]
+        )
+    else:
+        out["rule_sets"] = []
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

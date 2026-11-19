@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> DeleteIngressPointRequest:
     else:
         out["ingress_point_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteIngressPointRequest) -> dict:
+    out: dict = {}
+    out["IngressPointId"] = value["ingress_point_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteIngressPointRequest:
+    out: DeleteIngressPointRequest = {}  # type: ignore[typeddict-item]
+    if data.get("IngressPointId") is not None:
+        out["ingress_point_id"] = data["IngressPointId"]
+    else:
+        out["ingress_point_id"] = ""
+    return out

@@ -27,3 +27,24 @@ def deserialize_aws_json_1_1(data: list) -> ParametersList:
             continue
         out.append(capo_memorydb.types.parameter.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ParametersList) -> list:
+    import capo_memorydb.types.parameter
+
+    out: list = []
+    for item in value:
+        out.append(capo_memorydb.types.parameter.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> ParametersList:
+    import capo_memorydb.types.parameter
+
+    out: ParametersList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_memorydb.types.parameter.deserialize_cbor(item))
+    return out

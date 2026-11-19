@@ -62,3 +62,42 @@ def deserialize_aws_json_1_1(data: dict) -> CreateExportImageTaskRequest:
     if data.get("AmiDescription") is not None:
         out["ami_description"] = data["AmiDescription"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateExportImageTaskRequest) -> dict:
+    out: dict = {}
+    if "image_name" in value:
+        out["ImageName"] = value["image_name"]
+    if "ami_name" in value:
+        out["AmiName"] = value["ami_name"]
+    if "iam_role_arn" in value:
+        out["IamRoleArn"] = value["iam_role_arn"]
+    if "tag_specifications" in value:
+        import capo_appstream.types.tags
+
+        out["TagSpecifications"] = capo_appstream.types.tags.serialize_cbor(
+            value["tag_specifications"]
+        )
+    if "ami_description" in value:
+        out["AmiDescription"] = value["ami_description"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateExportImageTaskRequest:
+    out: CreateExportImageTaskRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ImageName") is not None:
+        out["image_name"] = data["ImageName"]
+    if data.get("AmiName") is not None:
+        out["ami_name"] = data["AmiName"]
+    if data.get("IamRoleArn") is not None:
+        out["iam_role_arn"] = data["IamRoleArn"]
+    if data.get("TagSpecifications") is not None:
+        import capo_appstream.types.tags
+
+        out["tag_specifications"] = capo_appstream.types.tags.deserialize_cbor(
+            data["TagSpecifications"]
+        )
+    if data.get("AmiDescription") is not None:
+        out["ami_description"] = data["AmiDescription"]
+    return out

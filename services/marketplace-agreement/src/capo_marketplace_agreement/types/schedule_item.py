@@ -47,3 +47,32 @@ def deserialize_aws_json_1_0(data: dict) -> ScheduleItem:
     if data.get("chargeAmount") is not None:
         out["charge_amount"] = data["chargeAmount"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ScheduleItem) -> dict:
+    out: dict = {}
+    if "charge_date" in value:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["chargeDate"] = capo_marketplace_agreement.types.timestamp.serialize_cbor(
+            value["charge_date"]
+        )
+    if "charge_amount" in value:
+        out["chargeAmount"] = value["charge_amount"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ScheduleItem:
+    out: ScheduleItem = {}  # type: ignore[typeddict-item]
+    if data.get("chargeDate") is not None:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["charge_date"] = (
+            capo_marketplace_agreement.types.timestamp.deserialize_cbor(
+                data["chargeDate"]
+            )
+        )
+    if data.get("chargeAmount") is not None:
+        out["charge_amount"] = data["chargeAmount"]
+    return out

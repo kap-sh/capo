@@ -35,6 +35,25 @@ def deserialize_aws_json_1_1(data: dict) -> PlayerConnectionEndpoint:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PlayerConnectionEndpoint) -> dict:
+    out: dict = {}
+    if "ip_address" in value:
+        out["IpAddress"] = value["ip_address"]
+    if "port" in value:
+        out["Port"] = value["port"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> PlayerConnectionEndpoint:
+    out: PlayerConnectionEndpoint = {}  # type: ignore[typeddict-item]
+    if data.get("IpAddress") is not None:
+        out["ip_address"] = data["IpAddress"]
+    if data.get("Port") is not None:
+        out["port"] = data["Port"]
+    return out
+
+
 def redact_sensitive(value: PlayerConnectionEndpoint) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "ip_address" in value:

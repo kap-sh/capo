@@ -39,6 +39,33 @@ def deserialize_aws_json_1_0(data: list) -> AgreementEntitlementList:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AgreementEntitlementList) -> list:
+    import capo_marketplace_agreement.types.agreement_entitlement
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_marketplace_agreement.types.agreement_entitlement.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> AgreementEntitlementList:
+    import capo_marketplace_agreement.types.agreement_entitlement
+
+    out: AgreementEntitlementList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_marketplace_agreement.types.agreement_entitlement.deserialize_cbor(
+                item
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: AgreementEntitlementList) -> list[Any]:
     import capo_marketplace_agreement.types.agreement_entitlement
 

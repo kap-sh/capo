@@ -51,6 +51,35 @@ def deserialize_aws_json_1_1(
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListPerformanceAnalysisReportRecommendationsResponse) -> dict:
+    out: dict = {}
+    if "recommendations" in value:
+        import capo_pi.types.recommendation_list
+
+        out["Recommendations"] = capo_pi.types.recommendation_list.serialize_cbor(
+            value["recommendations"]
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(
+    data: dict,
+) -> ListPerformanceAnalysisReportRecommendationsResponse:
+    out: ListPerformanceAnalysisReportRecommendationsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Recommendations") is not None:
+        import capo_pi.types.recommendation_list
+
+        out["recommendations"] = capo_pi.types.recommendation_list.deserialize_cbor(
+            data["Recommendations"]
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out
+
+
 def redact_sensitive(
     value: ListPerformanceAnalysisReportRecommendationsResponse,
 ) -> dict[str, Any]:

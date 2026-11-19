@@ -54,3 +54,35 @@ def deserialize_aws_json_1_1(data: dict) -> PutWebhookInput:
             data["tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PutWebhookInput) -> dict:
+    out: dict = {}
+    import capo_codepipeline.types.webhook_definition
+
+    out["webhook"] = capo_codepipeline.types.webhook_definition.serialize_cbor(
+        value["webhook"]
+    )
+    if "tags" in value:
+        import capo_codepipeline.types.tag_list
+
+        out["tags"] = capo_codepipeline.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> PutWebhookInput:
+    out: PutWebhookInput = {}  # type: ignore[typeddict-item]
+    if data.get("webhook") is not None:
+        import capo_codepipeline.types.webhook_definition
+
+        out["webhook"] = capo_codepipeline.types.webhook_definition.deserialize_cbor(
+            data["webhook"]
+        )
+    else:
+        raise DeserializationError("PutWebhookInput.webhook required")
+    if data.get("tags") is not None:
+        import capo_codepipeline.types.tag_list
+
+        out["tags"] = capo_codepipeline.types.tag_list.deserialize_cbor(data["tags"])
+    return out

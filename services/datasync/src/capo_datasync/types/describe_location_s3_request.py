@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeLocationS3Request:
     else:
         out["location_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeLocationS3Request) -> dict:
+    out: dict = {}
+    out["LocationArn"] = value["location_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeLocationS3Request:
+    out: DescribeLocationS3Request = {}  # type: ignore[typeddict-item]
+    if data.get("LocationArn") is not None:
+        out["location_arn"] = data["LocationArn"]
+    else:
+        out["location_arn"] = ""
+    return out

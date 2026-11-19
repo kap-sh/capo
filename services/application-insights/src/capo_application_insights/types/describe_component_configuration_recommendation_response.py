@@ -32,3 +32,20 @@ def deserialize_aws_json_1_1(
     if data.get("ComponentConfiguration") is not None:
         out["component_configuration"] = data["ComponentConfiguration"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeComponentConfigurationRecommendationResponse) -> dict:
+    out: dict = {}
+    if "component_configuration" in value:
+        out["ComponentConfiguration"] = value["component_configuration"]
+    return out
+
+
+def deserialize_cbor(
+    data: dict,
+) -> DescribeComponentConfigurationRecommendationResponse:
+    out: DescribeComponentConfigurationRecommendationResponse = {}  # type: ignore[typeddict-item]
+    if data.get("ComponentConfiguration") is not None:
+        out["component_configuration"] = data["ComponentConfiguration"]
+    return out

@@ -57,3 +57,39 @@ def deserialize_aws_json_1_0(data: dict) -> ReplicaSpecification:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ReplicaSpecification) -> dict:
+    out: dict = {}
+    out["region"] = value["region"]
+    if "read_capacity_units" in value:
+        out["readCapacityUnits"] = value["read_capacity_units"]
+    if "read_capacity_auto_scaling" in value:
+        import capo_keyspaces.types.auto_scaling_settings
+
+        out["readCapacityAutoScaling"] = (
+            capo_keyspaces.types.auto_scaling_settings.serialize_cbor(
+                value["read_capacity_auto_scaling"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ReplicaSpecification:
+    out: ReplicaSpecification = {}  # type: ignore[typeddict-item]
+    if data.get("region") is not None:
+        out["region"] = data["region"]
+    else:
+        out["region"] = ""
+    if data.get("readCapacityUnits") is not None:
+        out["read_capacity_units"] = data["readCapacityUnits"]
+    if data.get("readCapacityAutoScaling") is not None:
+        import capo_keyspaces.types.auto_scaling_settings
+
+        out["read_capacity_auto_scaling"] = (
+            capo_keyspaces.types.auto_scaling_settings.deserialize_cbor(
+                data["readCapacityAutoScaling"]
+            )
+        )
+    return out

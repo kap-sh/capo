@@ -45,3 +45,34 @@ def deserialize_aws_json_1_0(data: dict) -> SummaryTotals:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SummaryTotals) -> dict:
+    out: dict = {}
+    if "automation_event_count" in value:
+        out["automationEventCount"] = value["automation_event_count"]
+    if "estimated_monthly_savings" in value:
+        import capo_compute_optimizer_automation.types.estimated_monthly_savings
+
+        out["estimatedMonthlySavings"] = (
+            capo_compute_optimizer_automation.types.estimated_monthly_savings.serialize_cbor(
+                value["estimated_monthly_savings"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> SummaryTotals:
+    out: SummaryTotals = {}  # type: ignore[typeddict-item]
+    if data.get("automationEventCount") is not None:
+        out["automation_event_count"] = data["automationEventCount"]
+    if data.get("estimatedMonthlySavings") is not None:
+        import capo_compute_optimizer_automation.types.estimated_monthly_savings
+
+        out["estimated_monthly_savings"] = (
+            capo_compute_optimizer_automation.types.estimated_monthly_savings.deserialize_cbor(
+                data["estimatedMonthlySavings"]
+            )
+        )
+    return out

@@ -131,3 +131,92 @@ def deserialize_aws_json_1_1(data: dict) -> StageDeclaration:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StageDeclaration) -> dict:
+    out: dict = {}
+    out["name"] = value["name"]
+    if "blockers" in value:
+        import capo_codepipeline.types.stage_blocker_declaration_list
+
+        out["blockers"] = (
+            capo_codepipeline.types.stage_blocker_declaration_list.serialize_cbor(
+                value["blockers"]
+            )
+        )
+    import capo_codepipeline.types.stage_action_declaration_list
+
+    out["actions"] = (
+        capo_codepipeline.types.stage_action_declaration_list.serialize_cbor(
+            value["actions"]
+        )
+    )
+    if "on_failure" in value:
+        import capo_codepipeline.types.failure_conditions
+
+        out["onFailure"] = capo_codepipeline.types.failure_conditions.serialize_cbor(
+            value["on_failure"]
+        )
+    if "on_success" in value:
+        import capo_codepipeline.types.success_conditions
+
+        out["onSuccess"] = capo_codepipeline.types.success_conditions.serialize_cbor(
+            value["on_success"]
+        )
+    if "before_entry" in value:
+        import capo_codepipeline.types.before_entry_conditions
+
+        out["beforeEntry"] = (
+            capo_codepipeline.types.before_entry_conditions.serialize_cbor(
+                value["before_entry"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StageDeclaration:
+    out: StageDeclaration = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    else:
+        out["name"] = ""
+    if data.get("blockers") is not None:
+        import capo_codepipeline.types.stage_blocker_declaration_list
+
+        out["blockers"] = (
+            capo_codepipeline.types.stage_blocker_declaration_list.deserialize_cbor(
+                data["blockers"]
+            )
+        )
+    if data.get("actions") is not None:
+        import capo_codepipeline.types.stage_action_declaration_list
+
+        out["actions"] = (
+            capo_codepipeline.types.stage_action_declaration_list.deserialize_cbor(
+                data["actions"]
+            )
+        )
+    else:
+        out["actions"] = []
+    if data.get("onFailure") is not None:
+        import capo_codepipeline.types.failure_conditions
+
+        out["on_failure"] = capo_codepipeline.types.failure_conditions.deserialize_cbor(
+            data["onFailure"]
+        )
+    if data.get("onSuccess") is not None:
+        import capo_codepipeline.types.success_conditions
+
+        out["on_success"] = capo_codepipeline.types.success_conditions.deserialize_cbor(
+            data["onSuccess"]
+        )
+    if data.get("beforeEntry") is not None:
+        import capo_codepipeline.types.before_entry_conditions
+
+        out["before_entry"] = (
+            capo_codepipeline.types.before_entry_conditions.deserialize_cbor(
+                data["beforeEntry"]
+            )
+        )
+    return out

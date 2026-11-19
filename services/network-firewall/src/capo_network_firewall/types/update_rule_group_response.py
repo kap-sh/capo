@@ -53,3 +53,38 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateRuleGroupResponse:
             "UpdateRuleGroupResponse.rule_group_response required"
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateRuleGroupResponse) -> dict:
+    out: dict = {}
+    out["UpdateToken"] = value["update_token"]
+    import capo_network_firewall.types.rule_group_response
+
+    out["RuleGroupResponse"] = (
+        capo_network_firewall.types.rule_group_response.serialize_cbor(
+            value["rule_group_response"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateRuleGroupResponse:
+    out: UpdateRuleGroupResponse = {}  # type: ignore[typeddict-item]
+    if data.get("UpdateToken") is not None:
+        out["update_token"] = data["UpdateToken"]
+    else:
+        out["update_token"] = ""
+    if data.get("RuleGroupResponse") is not None:
+        import capo_network_firewall.types.rule_group_response
+
+        out["rule_group_response"] = (
+            capo_network_firewall.types.rule_group_response.deserialize_cbor(
+                data["RuleGroupResponse"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "UpdateRuleGroupResponse.rule_group_response required"
+        )
+    return out

@@ -72,3 +72,47 @@ def deserialize_aws_json_1_1(
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AcceptDirectConnectGatewayAssociationProposalRequest) -> dict:
+    out: dict = {}
+    out["directConnectGatewayId"] = value["direct_connect_gateway_id"]
+    out["proposalId"] = value["proposal_id"]
+    out["associatedGatewayOwnerAccount"] = value["associated_gateway_owner_account"]
+    if "override_allowed_prefixes_to_direct_connect_gateway" in value:
+        import capo_direct_connect.types.route_filter_prefix_list
+
+        out["overrideAllowedPrefixesToDirectConnectGateway"] = (
+            capo_direct_connect.types.route_filter_prefix_list.serialize_cbor(
+                value["override_allowed_prefixes_to_direct_connect_gateway"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(
+    data: dict,
+) -> AcceptDirectConnectGatewayAssociationProposalRequest:
+    out: AcceptDirectConnectGatewayAssociationProposalRequest = {}  # type: ignore[typeddict-item]
+    if data.get("directConnectGatewayId") is not None:
+        out["direct_connect_gateway_id"] = data["directConnectGatewayId"]
+    else:
+        out["direct_connect_gateway_id"] = ""
+    if data.get("proposalId") is not None:
+        out["proposal_id"] = data["proposalId"]
+    else:
+        out["proposal_id"] = ""
+    if data.get("associatedGatewayOwnerAccount") is not None:
+        out["associated_gateway_owner_account"] = data["associatedGatewayOwnerAccount"]
+    else:
+        out["associated_gateway_owner_account"] = ""
+    if data.get("overrideAllowedPrefixesToDirectConnectGateway") is not None:
+        import capo_direct_connect.types.route_filter_prefix_list
+
+        out["override_allowed_prefixes_to_direct_connect_gateway"] = (
+            capo_direct_connect.types.route_filter_prefix_list.deserialize_cbor(
+                data["overrideAllowedPrefixesToDirectConnectGateway"]
+            )
+        )
+    return out

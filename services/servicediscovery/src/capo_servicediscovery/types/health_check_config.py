@@ -57,3 +57,39 @@ def deserialize_aws_json_1_1(data: dict) -> HealthCheckConfig:
     if data.get("FailureThreshold") is not None:
         out["failure_threshold"] = data["FailureThreshold"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: HealthCheckConfig) -> dict:
+    out: dict = {}
+    import capo_servicediscovery.types.health_check_type
+
+    out["Type"] = capo_servicediscovery.types.health_check_type.serialize_cbor(
+        value["type"]
+    )
+    if "resource_path" in value:
+        out["ResourcePath"] = value["resource_path"]
+    if "failure_threshold" in value:
+        out["FailureThreshold"] = value["failure_threshold"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> HealthCheckConfig:
+    out: HealthCheckConfig = {}  # type: ignore[typeddict-item]
+    if data.get("Type") is not None:
+        import capo_servicediscovery.types.health_check_type
+
+        out["type"] = capo_servicediscovery.types.health_check_type.deserialize_cbor(
+            data["Type"]
+        )
+    else:
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_servicediscovery.types.health_check_type.HealthCheckType", ""
+        )
+    if data.get("ResourcePath") is not None:
+        out["resource_path"] = data["ResourcePath"]
+    if data.get("FailureThreshold") is not None:
+        out["failure_threshold"] = data["FailureThreshold"]
+    return out

@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: DescribeWorkspaceDirectoriesFilterName) -> str
 
 def deserialize_aws_json_1_1(data: str) -> DescribeWorkspaceDirectoriesFilterName:
     return cast(DescribeWorkspaceDirectoriesFilterName, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeWorkspaceDirectoriesFilterName) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> DescribeWorkspaceDirectoriesFilterName:
+    return cast(DescribeWorkspaceDirectoriesFilterName, data)

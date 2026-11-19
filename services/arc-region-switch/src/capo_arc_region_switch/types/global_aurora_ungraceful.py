@@ -40,3 +40,30 @@ def deserialize_aws_json_1_0(data: dict) -> GlobalAuroraUngraceful:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GlobalAuroraUngraceful) -> dict:
+    out: dict = {}
+    if "ungraceful" in value:
+        import capo_arc_region_switch.types.global_aurora_ungraceful_behavior
+
+        out["ungraceful"] = (
+            capo_arc_region_switch.types.global_aurora_ungraceful_behavior.serialize_cbor(
+                value["ungraceful"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GlobalAuroraUngraceful:
+    out: GlobalAuroraUngraceful = {}  # type: ignore[typeddict-item]
+    if data.get("ungraceful") is not None:
+        import capo_arc_region_switch.types.global_aurora_ungraceful_behavior
+
+        out["ungraceful"] = (
+            capo_arc_region_switch.types.global_aurora_ungraceful_behavior.deserialize_cbor(
+                data["ungraceful"]
+            )
+        )
+    return out

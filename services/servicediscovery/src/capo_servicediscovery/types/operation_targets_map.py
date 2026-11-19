@@ -39,3 +39,28 @@ def deserialize_aws_json_1_1(data: dict) -> OperationTargetsMap:
             )
         ] = value
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(input_to_serialize: OperationTargetsMap) -> dict:
+    out: dict = {}
+    for key, value in input_to_serialize.items():
+        import capo_servicediscovery.types.operation_target_type
+
+        out[capo_servicediscovery.types.operation_target_type.serialize_cbor(key)] = (
+            value
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> OperationTargetsMap:
+    out: OperationTargetsMap = {}
+    for key, value in data.items():
+        import capo_servicediscovery.types.operation_target_type
+
+        if value is None:
+            continue
+        out[capo_servicediscovery.types.operation_target_type.deserialize_cbor(key)] = (
+            value
+        )
+    return out

@@ -37,3 +37,28 @@ def deserialize_aws_json_1_0(data: list) -> CpuVendorArchitectures:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CpuVendorArchitectures) -> list:
+    import capo_compute_optimizer.types.cpu_vendor_architecture
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_compute_optimizer.types.cpu_vendor_architecture.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> CpuVendorArchitectures:
+    import capo_compute_optimizer.types.cpu_vendor_architecture
+
+    out: CpuVendorArchitectures = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_compute_optimizer.types.cpu_vendor_architecture.deserialize_cbor(item)
+        )
+    return out

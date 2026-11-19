@@ -56,3 +56,38 @@ def deserialize_aws_json_1_1(data: dict) -> ListInstancesResponse:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListInstancesResponse) -> dict:
+    out: dict = {}
+    if "resource_owner" in value:
+        out["ResourceOwner"] = value["resource_owner"]
+    if "instances" in value:
+        import capo_servicediscovery.types.instance_summary_list
+
+        out["Instances"] = (
+            capo_servicediscovery.types.instance_summary_list.serialize_cbor(
+                value["instances"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListInstancesResponse:
+    out: ListInstancesResponse = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceOwner") is not None:
+        out["resource_owner"] = data["ResourceOwner"]
+    if data.get("Instances") is not None:
+        import capo_servicediscovery.types.instance_summary_list
+
+        out["instances"] = (
+            capo_servicediscovery.types.instance_summary_list.deserialize_cbor(
+                data["Instances"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

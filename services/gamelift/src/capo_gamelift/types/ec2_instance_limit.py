@@ -62,3 +62,40 @@ def deserialize_aws_json_1_1(data: dict) -> EC2InstanceLimit:
     if data.get("Location") is not None:
         out["location"] = data["Location"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EC2InstanceLimit) -> dict:
+    out: dict = {}
+    if "ec2_instance_type" in value:
+        import capo_gamelift.types.ec2_instance_type
+
+        out["EC2InstanceType"] = capo_gamelift.types.ec2_instance_type.serialize_cbor(
+            value["ec2_instance_type"]
+        )
+    if "current_instances" in value:
+        out["CurrentInstances"] = value["current_instances"]
+    if "instance_limit" in value:
+        out["InstanceLimit"] = value["instance_limit"]
+    if "location" in value:
+        out["Location"] = value["location"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> EC2InstanceLimit:
+    out: EC2InstanceLimit = {}  # type: ignore[typeddict-item]
+    if data.get("EC2InstanceType") is not None:
+        import capo_gamelift.types.ec2_instance_type
+
+        out["ec2_instance_type"] = (
+            capo_gamelift.types.ec2_instance_type.deserialize_cbor(
+                data["EC2InstanceType"]
+            )
+        )
+    if data.get("CurrentInstances") is not None:
+        out["current_instances"] = data["CurrentInstances"]
+    if data.get("InstanceLimit") is not None:
+        out["instance_limit"] = data["InstanceLimit"]
+    if data.get("Location") is not None:
+        out["location"] = data["Location"]
+    return out

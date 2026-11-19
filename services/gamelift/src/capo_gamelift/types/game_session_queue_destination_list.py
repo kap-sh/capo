@@ -37,3 +37,28 @@ def deserialize_aws_json_1_1(data: list) -> GameSessionQueueDestinationList:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GameSessionQueueDestinationList) -> list:
+    import capo_gamelift.types.game_session_queue_destination
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_gamelift.types.game_session_queue_destination.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> GameSessionQueueDestinationList:
+    import capo_gamelift.types.game_session_queue_destination
+
+    out: GameSessionQueueDestinationList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_gamelift.types.game_session_queue_destination.deserialize_cbor(item)
+        )
+    return out

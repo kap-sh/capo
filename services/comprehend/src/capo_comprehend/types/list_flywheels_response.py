@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> ListFlywheelsResponse:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListFlywheelsResponse) -> dict:
+    out: dict = {}
+    if "flywheel_summary_list" in value:
+        import capo_comprehend.types.flywheel_summary_list
+
+        out["FlywheelSummaryList"] = (
+            capo_comprehend.types.flywheel_summary_list.serialize_cbor(
+                value["flywheel_summary_list"]
+            )
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListFlywheelsResponse:
+    out: ListFlywheelsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("FlywheelSummaryList") is not None:
+        import capo_comprehend.types.flywheel_summary_list
+
+        out["flywheel_summary_list"] = (
+            capo_comprehend.types.flywheel_summary_list.deserialize_cbor(
+                data["FlywheelSummaryList"]
+            )
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

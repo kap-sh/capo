@@ -51,6 +51,35 @@ def deserialize_aws_json_1_0(data: dict) -> TestHypervisorConfigurationInput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TestHypervisorConfigurationInput) -> dict:
+    out: dict = {}
+    out["GatewayArn"] = value["gateway_arn"]
+    out["Host"] = value["host"]
+    if "username" in value:
+        out["Username"] = value["username"]
+    if "password" in value:
+        out["Password"] = value["password"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> TestHypervisorConfigurationInput:
+    out: TestHypervisorConfigurationInput = {}  # type: ignore[typeddict-item]
+    if data.get("GatewayArn") is not None:
+        out["gateway_arn"] = data["GatewayArn"]
+    else:
+        out["gateway_arn"] = ""
+    if data.get("Host") is not None:
+        out["host"] = data["Host"]
+    else:
+        out["host"] = ""
+    if data.get("Username") is not None:
+        out["username"] = data["Username"]
+    if data.get("Password") is not None:
+        out["password"] = data["Password"]
+    return out
+
+
 def redact_sensitive(value: TestHypervisorConfigurationInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "username" in value:

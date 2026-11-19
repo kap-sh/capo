@@ -106,3 +106,20 @@ def deserialize_query_flat(parent: Element, tag: str) -> DatapointValueMap:
         value = float(str(value_element.text))
         out[key] = value
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(input_to_serialize: DatapointValueMap) -> dict:
+    out: dict = {}
+    for key, value in input_to_serialize.items():
+        out[key] = value
+    return out
+
+
+def deserialize_cbor(data: dict) -> DatapointValueMap:
+    out: DatapointValueMap = {}
+    for key, value in data.items():
+        if value is None:
+            continue
+        out[key] = float(value)
+    return out

@@ -17,3 +17,12 @@ def serialize_aws_json_1_1(value: TagKeyListForUntag) -> list:
 
 def deserialize_aws_json_1_1(data: list) -> TagKeyListForUntag:
     return [item for item in data if item is not None]
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TagKeyListForUntag) -> list:
+    return list(value)
+
+
+def deserialize_cbor(data: list) -> TagKeyListForUntag:
+    return [item for item in data if item is not None]

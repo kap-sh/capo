@@ -53,3 +53,34 @@ def deserialize_aws_json_1_1(data: dict) -> BatchGetReportsOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchGetReportsOutput) -> dict:
+    out: dict = {}
+    if "reports" in value:
+        import capo_codebuild.types.reports
+
+        out["reports"] = capo_codebuild.types.reports.serialize_cbor(value["reports"])
+    if "reports_not_found" in value:
+        import capo_codebuild.types.report_arns
+
+        out["reportsNotFound"] = capo_codebuild.types.report_arns.serialize_cbor(
+            value["reports_not_found"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BatchGetReportsOutput:
+    out: BatchGetReportsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("reports") is not None:
+        import capo_codebuild.types.reports
+
+        out["reports"] = capo_codebuild.types.reports.deserialize_cbor(data["reports"])
+    if data.get("reportsNotFound") is not None:
+        import capo_codebuild.types.report_arns
+
+        out["reports_not_found"] = capo_codebuild.types.report_arns.deserialize_cbor(
+            data["reportsNotFound"]
+        )
+    return out

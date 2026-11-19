@@ -28,3 +28,18 @@ def deserialize_aws_json_1_0(data: dict) -> Acceptor:
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Acceptor) -> dict:
+    out: dict = {}
+    if "account_id" in value:
+        out["accountId"] = value["account_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Acceptor:
+    out: Acceptor = {}  # type: ignore[typeddict-item]
+    if data.get("accountId") is not None:
+        out["account_id"] = data["accountId"]
+    return out

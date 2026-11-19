@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateApplicationFleetResult:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AssociateApplicationFleetResult) -> dict:
+    out: dict = {}
+    if "application_fleet_association" in value:
+        import capo_appstream.types.application_fleet_association
+
+        out["ApplicationFleetAssociation"] = (
+            capo_appstream.types.application_fleet_association.serialize_cbor(
+                value["application_fleet_association"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AssociateApplicationFleetResult:
+    out: AssociateApplicationFleetResult = {}  # type: ignore[typeddict-item]
+    if data.get("ApplicationFleetAssociation") is not None:
+        import capo_appstream.types.application_fleet_association
+
+        out["application_fleet_association"] = (
+            capo_appstream.types.application_fleet_association.deserialize_cbor(
+                data["ApplicationFleetAssociation"]
+            )
+        )
+    return out

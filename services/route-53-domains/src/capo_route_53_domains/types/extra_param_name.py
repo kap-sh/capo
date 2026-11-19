@@ -47,3 +47,12 @@ def serialize_aws_json_1_1(value: ExtraParamName) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> ExtraParamName:
     return cast(ExtraParamName, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExtraParamName) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ExtraParamName:
+    return cast(ExtraParamName, data)

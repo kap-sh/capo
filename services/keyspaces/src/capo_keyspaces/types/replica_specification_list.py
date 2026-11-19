@@ -33,3 +33,24 @@ def deserialize_aws_json_1_0(data: list) -> ReplicaSpecificationList:
             capo_keyspaces.types.replica_specification.deserialize_aws_json_1_0(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ReplicaSpecificationList) -> list:
+    import capo_keyspaces.types.replica_specification
+
+    out: list = []
+    for item in value:
+        out.append(capo_keyspaces.types.replica_specification.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> ReplicaSpecificationList:
+    import capo_keyspaces.types.replica_specification
+
+    out: ReplicaSpecificationList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_keyspaces.types.replica_specification.deserialize_cbor(item))
+    return out

@@ -201,6 +201,133 @@ def deserialize_aws_json_1_1(data: dict) -> SupportContainerDefinition:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SupportContainerDefinition) -> dict:
+    out: dict = {}
+    if "container_name" in value:
+        out["ContainerName"] = value["container_name"]
+    if "depends_on" in value:
+        import capo_gamelift.types.container_dependency_list
+
+        out["DependsOn"] = capo_gamelift.types.container_dependency_list.serialize_cbor(
+            value["depends_on"]
+        )
+    if "mount_points" in value:
+        import capo_gamelift.types.container_mount_point_list
+
+        out["MountPoints"] = (
+            capo_gamelift.types.container_mount_point_list.serialize_cbor(
+                value["mount_points"]
+            )
+        )
+    if "environment_override" in value:
+        import capo_gamelift.types.container_environment_list
+
+        out["EnvironmentOverride"] = (
+            capo_gamelift.types.container_environment_list.serialize_cbor(
+                value["environment_override"]
+            )
+        )
+    if "essential" in value:
+        out["Essential"] = value["essential"]
+    if "health_check" in value:
+        import capo_gamelift.types.container_health_check
+
+        out["HealthCheck"] = capo_gamelift.types.container_health_check.serialize_cbor(
+            value["health_check"]
+        )
+    if "image_uri" in value:
+        out["ImageUri"] = value["image_uri"]
+    if "memory_hard_limit_mebibytes" in value:
+        out["MemoryHardLimitMebibytes"] = value["memory_hard_limit_mebibytes"]
+    if "port_configuration" in value:
+        import capo_gamelift.types.container_port_configuration
+
+        out["PortConfiguration"] = (
+            capo_gamelift.types.container_port_configuration.serialize_cbor(
+                value["port_configuration"]
+            )
+        )
+    if "resolved_image_digest" in value:
+        out["ResolvedImageDigest"] = value["resolved_image_digest"]
+    if "vcpu" in value:
+        out["Vcpu"] = value["vcpu"]
+    if "linux_capabilities" in value:
+        import capo_gamelift.types.linux_capabilities
+
+        out["LinuxCapabilities"] = (
+            capo_gamelift.types.linux_capabilities.serialize_cbor(
+                value["linux_capabilities"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> SupportContainerDefinition:
+    out: SupportContainerDefinition = {}  # type: ignore[typeddict-item]
+    if data.get("ContainerName") is not None:
+        out["container_name"] = data["ContainerName"]
+    if data.get("DependsOn") is not None:
+        import capo_gamelift.types.container_dependency_list
+
+        out["depends_on"] = (
+            capo_gamelift.types.container_dependency_list.deserialize_cbor(
+                data["DependsOn"]
+            )
+        )
+    if data.get("MountPoints") is not None:
+        import capo_gamelift.types.container_mount_point_list
+
+        out["mount_points"] = (
+            capo_gamelift.types.container_mount_point_list.deserialize_cbor(
+                data["MountPoints"]
+            )
+        )
+    if data.get("EnvironmentOverride") is not None:
+        import capo_gamelift.types.container_environment_list
+
+        out["environment_override"] = (
+            capo_gamelift.types.container_environment_list.deserialize_cbor(
+                data["EnvironmentOverride"]
+            )
+        )
+    if data.get("Essential") is not None:
+        out["essential"] = data["Essential"]
+    if data.get("HealthCheck") is not None:
+        import capo_gamelift.types.container_health_check
+
+        out["health_check"] = (
+            capo_gamelift.types.container_health_check.deserialize_cbor(
+                data["HealthCheck"]
+            )
+        )
+    if data.get("ImageUri") is not None:
+        out["image_uri"] = data["ImageUri"]
+    if data.get("MemoryHardLimitMebibytes") is not None:
+        out["memory_hard_limit_mebibytes"] = data["MemoryHardLimitMebibytes"]
+    if data.get("PortConfiguration") is not None:
+        import capo_gamelift.types.container_port_configuration
+
+        out["port_configuration"] = (
+            capo_gamelift.types.container_port_configuration.deserialize_cbor(
+                data["PortConfiguration"]
+            )
+        )
+    if data.get("ResolvedImageDigest") is not None:
+        out["resolved_image_digest"] = data["ResolvedImageDigest"]
+    if data.get("Vcpu") is not None:
+        out["vcpu"] = float(data["Vcpu"])
+    if data.get("LinuxCapabilities") is not None:
+        import capo_gamelift.types.linux_capabilities
+
+        out["linux_capabilities"] = (
+            capo_gamelift.types.linux_capabilities.deserialize_cbor(
+                data["LinuxCapabilities"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: SupportContainerDefinition) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "port_configuration" in value:

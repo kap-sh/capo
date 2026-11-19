@@ -150,3 +150,106 @@ def deserialize_aws_json_1_1(data: dict) -> WorkSpaceApplication:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: WorkSpaceApplication) -> dict:
+    out: dict = {}
+    if "application_id" in value:
+        out["ApplicationId"] = value["application_id"]
+    if "created" in value:
+        import capo_workspaces.types.timestamp
+
+        out["Created"] = capo_workspaces.types.timestamp.serialize_cbor(
+            value["created"]
+        )
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "license_type" in value:
+        import capo_workspaces.types.work_space_application_license_type
+
+        out["LicenseType"] = (
+            capo_workspaces.types.work_space_application_license_type.serialize_cbor(
+                value["license_type"]
+            )
+        )
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "owner" in value:
+        out["Owner"] = value["owner"]
+    if "state" in value:
+        import capo_workspaces.types.work_space_application_state
+
+        out["State"] = (
+            capo_workspaces.types.work_space_application_state.serialize_cbor(
+                value["state"]
+            )
+        )
+    if "supported_compute_type_names" in value:
+        import capo_workspaces.types.compute_list
+
+        out["SupportedComputeTypeNames"] = (
+            capo_workspaces.types.compute_list.serialize_cbor(
+                value["supported_compute_type_names"]
+            )
+        )
+    if "supported_operating_system_names" in value:
+        import capo_workspaces.types.operating_system_name_list
+
+        out["SupportedOperatingSystemNames"] = (
+            capo_workspaces.types.operating_system_name_list.serialize_cbor(
+                value["supported_operating_system_names"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> WorkSpaceApplication:
+    out: WorkSpaceApplication = {}  # type: ignore[typeddict-item]
+    if data.get("ApplicationId") is not None:
+        out["application_id"] = data["ApplicationId"]
+    if data.get("Created") is not None:
+        import capo_workspaces.types.timestamp
+
+        out["created"] = capo_workspaces.types.timestamp.deserialize_cbor(
+            data["Created"]
+        )
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("LicenseType") is not None:
+        import capo_workspaces.types.work_space_application_license_type
+
+        out["license_type"] = (
+            capo_workspaces.types.work_space_application_license_type.deserialize_cbor(
+                data["LicenseType"]
+            )
+        )
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Owner") is not None:
+        out["owner"] = data["Owner"]
+    if data.get("State") is not None:
+        import capo_workspaces.types.work_space_application_state
+
+        out["state"] = (
+            capo_workspaces.types.work_space_application_state.deserialize_cbor(
+                data["State"]
+            )
+        )
+    if data.get("SupportedComputeTypeNames") is not None:
+        import capo_workspaces.types.compute_list
+
+        out["supported_compute_type_names"] = (
+            capo_workspaces.types.compute_list.deserialize_cbor(
+                data["SupportedComputeTypeNames"]
+            )
+        )
+    if data.get("SupportedOperatingSystemNames") is not None:
+        import capo_workspaces.types.operating_system_name_list
+
+        out["supported_operating_system_names"] = (
+            capo_workspaces.types.operating_system_name_list.deserialize_cbor(
+                data["SupportedOperatingSystemNames"]
+            )
+        )
+    return out

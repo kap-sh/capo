@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> LambdaExecutorConfiguration:
     else:
         out["lambda_function_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LambdaExecutorConfiguration) -> dict:
+    out: dict = {}
+    out["lambdaFunctionArn"] = value["lambda_function_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> LambdaExecutorConfiguration:
+    out: LambdaExecutorConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("lambdaFunctionArn") is not None:
+        out["lambda_function_arn"] = data["lambdaFunctionArn"]
+    else:
+        out["lambda_function_arn"] = ""
+    return out

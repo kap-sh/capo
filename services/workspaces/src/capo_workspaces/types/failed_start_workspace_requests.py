@@ -37,3 +37,28 @@ def deserialize_aws_json_1_1(data: list) -> FailedStartWorkspaceRequests:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FailedStartWorkspaceRequests) -> list:
+    import capo_workspaces.types.failed_workspace_change_request
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_workspaces.types.failed_workspace_change_request.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> FailedStartWorkspaceRequests:
+    import capo_workspaces.types.failed_workspace_change_request
+
+    out: FailedStartWorkspaceRequests = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_workspaces.types.failed_workspace_change_request.deserialize_cbor(item)
+        )
+    return out

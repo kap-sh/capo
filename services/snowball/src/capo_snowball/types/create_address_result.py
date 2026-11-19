@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAddressResult:
     if data.get("AddressId") is not None:
         out["address_id"] = data["AddressId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateAddressResult) -> dict:
+    out: dict = {}
+    if "address_id" in value:
+        out["AddressId"] = value["address_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateAddressResult:
+    out: CreateAddressResult = {}  # type: ignore[typeddict-item]
+    if data.get("AddressId") is not None:
+        out["address_id"] = data["AddressId"]
+    return out

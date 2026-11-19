@@ -136,6 +136,7 @@ class ServiceDiscoveryClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[Interceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_1", "rpcv2Cbor"]
     use_dual_stack: bool | None
     use_fips: bool | None
     endpoint: str | None
@@ -152,6 +153,7 @@ class ServiceDiscoveryClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
         endpoint: The value of the ``SDK::Endpoint`` endpoint parameter.
@@ -167,6 +169,7 @@ class ServiceDiscoveryClient:
         operation_interceptors: Iterable[Interceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_1", "rpcv2Cbor"] = "awsJson1_1",
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
         endpoint: str | None = None,
@@ -203,6 +206,7 @@ class ServiceDiscoveryClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
                 "endpoint": endpoint,
@@ -236,6 +240,9 @@ class ServiceDiscoveryClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_1")
+            ),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
             ),
@@ -290,13 +297,24 @@ class ServiceDiscoveryClient:
         ) -> OperationResponse[
             "capo_servicediscovery.types.create_http_namespace_response.CreateHttpNamespaceResponse"
         ]:
-            import capo_servicediscovery._operations.route53_auto_naming_v20170314.create_http_namespace
+            if req.options.protocol == "awsJson1_1":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.create_http_namespace
 
-            output, http_response = (
-                capo_servicediscovery._operations.route53_auto_naming_v20170314.create_http_namespace.create_http_namespace(
-                    req.options, req.input
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.create_http_namespace.create_http_namespace(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.create_http_namespace
+
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.create_http_namespace.create_http_namespace(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -368,13 +386,24 @@ class ServiceDiscoveryClient:
         ) -> OperationResponse[
             "capo_servicediscovery.types.create_private_dns_namespace_response.CreatePrivateDnsNamespaceResponse"
         ]:
-            import capo_servicediscovery._operations.route53_auto_naming_v20170314.create_private_dns_namespace
+            if req.options.protocol == "awsJson1_1":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.create_private_dns_namespace
 
-            output, http_response = (
-                capo_servicediscovery._operations.route53_auto_naming_v20170314.create_private_dns_namespace.create_private_dns_namespace(
-                    req.options, req.input
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.create_private_dns_namespace.create_private_dns_namespace(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.create_private_dns_namespace
+
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.create_private_dns_namespace.create_private_dns_namespace(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -447,13 +476,24 @@ class ServiceDiscoveryClient:
         ) -> OperationResponse[
             "capo_servicediscovery.types.create_public_dns_namespace_response.CreatePublicDnsNamespaceResponse"
         ]:
-            import capo_servicediscovery._operations.route53_auto_naming_v20170314.create_public_dns_namespace
+            if req.options.protocol == "awsJson1_1":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.create_public_dns_namespace
 
-            output, http_response = (
-                capo_servicediscovery._operations.route53_auto_naming_v20170314.create_public_dns_namespace.create_public_dns_namespace(
-                    req.options, req.input
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.create_public_dns_namespace.create_public_dns_namespace(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.create_public_dns_namespace
+
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.create_public_dns_namespace.create_public_dns_namespace(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -541,13 +581,24 @@ class ServiceDiscoveryClient:
         ) -> OperationResponse[
             "capo_servicediscovery.types.create_service_response.CreateServiceResponse"
         ]:
-            import capo_servicediscovery._operations.route53_auto_naming_v20170314.create_service
+            if req.options.protocol == "awsJson1_1":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.create_service
 
-            output, http_response = (
-                capo_servicediscovery._operations.route53_auto_naming_v20170314.create_service.create_service(
-                    req.options, req.input
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.create_service.create_service(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.create_service
+
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.create_service.create_service(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -618,13 +669,24 @@ class ServiceDiscoveryClient:
         ) -> OperationResponse[
             "capo_servicediscovery.types.delete_namespace_response.DeleteNamespaceResponse"
         ]:
-            import capo_servicediscovery._operations.route53_auto_naming_v20170314.delete_namespace
+            if req.options.protocol == "awsJson1_1":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.delete_namespace
 
-            output, http_response = (
-                capo_servicediscovery._operations.route53_auto_naming_v20170314.delete_namespace.delete_namespace(
-                    req.options, req.input
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.delete_namespace.delete_namespace(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.delete_namespace
+
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.delete_namespace.delete_namespace(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -675,13 +737,24 @@ class ServiceDiscoveryClient:
         ) -> OperationResponse[
             "capo_servicediscovery.types.delete_service_response.DeleteServiceResponse"
         ]:
-            import capo_servicediscovery._operations.route53_auto_naming_v20170314.delete_service
+            if req.options.protocol == "awsJson1_1":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.delete_service
 
-            output, http_response = (
-                capo_servicediscovery._operations.route53_auto_naming_v20170314.delete_service.delete_service(
-                    req.options, req.input
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.delete_service.delete_service(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.delete_service
+
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.delete_service.delete_service(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -733,13 +806,24 @@ class ServiceDiscoveryClient:
         ) -> OperationResponse[
             "capo_servicediscovery.types.delete_service_attributes_response.DeleteServiceAttributesResponse"
         ]:
-            import capo_servicediscovery._operations.route53_auto_naming_v20170314.delete_service_attributes
+            if req.options.protocol == "awsJson1_1":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.delete_service_attributes
 
-            output, http_response = (
-                capo_servicediscovery._operations.route53_auto_naming_v20170314.delete_service_attributes.delete_service_attributes(
-                    req.options, req.input
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.delete_service_attributes.delete_service_attributes(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.delete_service_attributes
+
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.delete_service_attributes.delete_service_attributes(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -795,13 +879,24 @@ class ServiceDiscoveryClient:
         ) -> OperationResponse[
             "capo_servicediscovery.types.deregister_instance_response.DeregisterInstanceResponse"
         ]:
-            import capo_servicediscovery._operations.route53_auto_naming_v20170314.deregister_instance
+            if req.options.protocol == "awsJson1_1":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.deregister_instance
 
-            output, http_response = (
-                capo_servicediscovery._operations.route53_auto_naming_v20170314.deregister_instance.deregister_instance(
-                    req.options, req.input
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.deregister_instance.deregister_instance(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.deregister_instance
+
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.deregister_instance.deregister_instance(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -876,13 +971,24 @@ class ServiceDiscoveryClient:
         ) -> OperationResponse[
             "capo_servicediscovery.types.discover_instances_response.DiscoverInstancesResponse"
         ]:
-            import capo_servicediscovery._operations.route53_auto_naming_v20170314.discover_instances
+            if req.options.protocol == "awsJson1_1":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.discover_instances
 
-            output, http_response = (
-                capo_servicediscovery._operations.route53_auto_naming_v20170314.discover_instances.discover_instances(
-                    req.options, req.input
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.discover_instances.discover_instances(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.discover_instances
+
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.discover_instances.discover_instances(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -951,13 +1057,24 @@ class ServiceDiscoveryClient:
         ) -> OperationResponse[
             "capo_servicediscovery.types.discover_instances_revision_response.DiscoverInstancesRevisionResponse"
         ]:
-            import capo_servicediscovery._operations.route53_auto_naming_v20170314.discover_instances_revision
+            if req.options.protocol == "awsJson1_1":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.discover_instances_revision
 
-            output, http_response = (
-                capo_servicediscovery._operations.route53_auto_naming_v20170314.discover_instances_revision.discover_instances_revision(
-                    req.options, req.input
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.discover_instances_revision.discover_instances_revision(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.discover_instances_revision
+
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.discover_instances_revision.discover_instances_revision(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1013,13 +1130,24 @@ class ServiceDiscoveryClient:
         ) -> OperationResponse[
             "capo_servicediscovery.types.get_instance_response.GetInstanceResponse"
         ]:
-            import capo_servicediscovery._operations.route53_auto_naming_v20170314.get_instance
+            if req.options.protocol == "awsJson1_1":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.get_instance
 
-            output, http_response = (
-                capo_servicediscovery._operations.route53_auto_naming_v20170314.get_instance.get_instance(
-                    req.options, req.input
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.get_instance.get_instance(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.get_instance
+
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.get_instance.get_instance(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1081,13 +1209,24 @@ class ServiceDiscoveryClient:
         ) -> OperationResponse[
             "capo_servicediscovery.types.get_instances_health_status_response.GetInstancesHealthStatusResponse"
         ]:
-            import capo_servicediscovery._operations.route53_auto_naming_v20170314.get_instances_health_status
+            if req.options.protocol == "awsJson1_1":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.get_instances_health_status
 
-            output, http_response = (
-                capo_servicediscovery._operations.route53_auto_naming_v20170314.get_instances_health_status.get_instances_health_status(
-                    req.options, req.input
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.get_instances_health_status.get_instances_health_status(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.get_instances_health_status
+
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.get_instances_health_status.get_instances_health_status(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1160,13 +1299,24 @@ class ServiceDiscoveryClient:
         ) -> OperationResponse[
             "capo_servicediscovery.types.get_namespace_response.GetNamespaceResponse"
         ]:
-            import capo_servicediscovery._operations.route53_auto_naming_v20170314.get_namespace
+            if req.options.protocol == "awsJson1_1":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.get_namespace
 
-            output, http_response = (
-                capo_servicediscovery._operations.route53_auto_naming_v20170314.get_namespace.get_namespace(
-                    req.options, req.input
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.get_namespace.get_namespace(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.get_namespace
+
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.get_namespace.get_namespace(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1216,13 +1366,24 @@ class ServiceDiscoveryClient:
         ) -> OperationResponse[
             "capo_servicediscovery.types.get_operation_response.GetOperationResponse"
         ]:
-            import capo_servicediscovery._operations.route53_auto_naming_v20170314.get_operation
+            if req.options.protocol == "awsJson1_1":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.get_operation
 
-            output, http_response = (
-                capo_servicediscovery._operations.route53_auto_naming_v20170314.get_operation.get_operation(
-                    req.options, req.input
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.get_operation.get_operation(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.get_operation
+
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.get_operation.get_operation(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1270,13 +1431,24 @@ class ServiceDiscoveryClient:
         ) -> OperationResponse[
             "capo_servicediscovery.types.get_service_response.GetServiceResponse"
         ]:
-            import capo_servicediscovery._operations.route53_auto_naming_v20170314.get_service
+            if req.options.protocol == "awsJson1_1":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.get_service
 
-            output, http_response = (
-                capo_servicediscovery._operations.route53_auto_naming_v20170314.get_service.get_service(
-                    req.options, req.input
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.get_service.get_service(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.get_service
+
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.get_service.get_service(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1326,13 +1498,24 @@ class ServiceDiscoveryClient:
         ) -> OperationResponse[
             "capo_servicediscovery.types.get_service_attributes_response.GetServiceAttributesResponse"
         ]:
-            import capo_servicediscovery._operations.route53_auto_naming_v20170314.get_service_attributes
+            if req.options.protocol == "awsJson1_1":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.get_service_attributes
 
-            output, http_response = (
-                capo_servicediscovery._operations.route53_auto_naming_v20170314.get_service_attributes.get_service_attributes(
-                    req.options, req.input
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.get_service_attributes.get_service_attributes(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.get_service_attributes
+
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.get_service_attributes.get_service_attributes(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1388,13 +1571,24 @@ class ServiceDiscoveryClient:
         ) -> OperationResponse[
             "capo_servicediscovery.types.list_instances_response.ListInstancesResponse"
         ]:
-            import capo_servicediscovery._operations.route53_auto_naming_v20170314.list_instances
+            if req.options.protocol == "awsJson1_1":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.list_instances
 
-            output, http_response = (
-                capo_servicediscovery._operations.route53_auto_naming_v20170314.list_instances.list_instances(
-                    req.options, req.input
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.list_instances.list_instances(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.list_instances
+
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.list_instances.list_instances(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1478,13 +1672,24 @@ class ServiceDiscoveryClient:
         ) -> OperationResponse[
             "capo_servicediscovery.types.list_namespaces_response.ListNamespacesResponse"
         ]:
-            import capo_servicediscovery._operations.route53_auto_naming_v20170314.list_namespaces
+            if req.options.protocol == "awsJson1_1":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.list_namespaces
 
-            output, http_response = (
-                capo_servicediscovery._operations.route53_auto_naming_v20170314.list_namespaces.list_namespaces(
-                    req.options, req.input
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.list_namespaces.list_namespaces(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.list_namespaces
+
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.list_namespaces.list_namespaces(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1566,13 +1771,24 @@ class ServiceDiscoveryClient:
         ) -> OperationResponse[
             "capo_servicediscovery.types.list_operations_response.ListOperationsResponse"
         ]:
-            import capo_servicediscovery._operations.route53_auto_naming_v20170314.list_operations
+            if req.options.protocol == "awsJson1_1":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.list_operations
 
-            output, http_response = (
-                capo_servicediscovery._operations.route53_auto_naming_v20170314.list_operations.list_operations(
-                    req.options, req.input
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.list_operations.list_operations(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.list_operations
+
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.list_operations.list_operations(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1654,13 +1870,24 @@ class ServiceDiscoveryClient:
         ) -> OperationResponse[
             "capo_servicediscovery.types.list_services_response.ListServicesResponse"
         ]:
-            import capo_servicediscovery._operations.route53_auto_naming_v20170314.list_services
+            if req.options.protocol == "awsJson1_1":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.list_services
 
-            output, http_response = (
-                capo_servicediscovery._operations.route53_auto_naming_v20170314.list_services.list_services(
-                    req.options, req.input
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.list_services.list_services(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.list_services
+
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.list_services.list_services(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1735,13 +1962,24 @@ class ServiceDiscoveryClient:
         ) -> OperationResponse[
             "capo_servicediscovery.types.list_tags_for_resource_response.ListTagsForResourceResponse"
         ]:
-            import capo_servicediscovery._operations.route53_auto_naming_v20170314.list_tags_for_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.list_tags_for_resource
 
-            output, http_response = (
-                capo_servicediscovery._operations.route53_auto_naming_v20170314.list_tags_for_resource.list_tags_for_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.list_tags_for_resource
+
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1802,13 +2040,24 @@ class ServiceDiscoveryClient:
         ) -> OperationResponse[
             "capo_servicediscovery.types.register_instance_response.RegisterInstanceResponse"
         ]:
-            import capo_servicediscovery._operations.route53_auto_naming_v20170314.register_instance
+            if req.options.protocol == "awsJson1_1":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.register_instance
 
-            output, http_response = (
-                capo_servicediscovery._operations.route53_auto_naming_v20170314.register_instance.register_instance(
-                    req.options, req.input
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.register_instance.register_instance(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.register_instance
+
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.register_instance.register_instance(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1862,13 +2111,24 @@ class ServiceDiscoveryClient:
         ) -> OperationResponse[
             "capo_servicediscovery.types.tag_resource_response.TagResourceResponse"
         ]:
-            import capo_servicediscovery._operations.route53_auto_naming_v20170314.tag_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.tag_resource
 
-            output, http_response = (
-                capo_servicediscovery._operations.route53_auto_naming_v20170314.tag_resource.tag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.tag_resource
+
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1917,13 +2177,24 @@ class ServiceDiscoveryClient:
         ) -> OperationResponse[
             "capo_servicediscovery.types.untag_resource_response.UntagResourceResponse"
         ]:
-            import capo_servicediscovery._operations.route53_auto_naming_v20170314.untag_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.untag_resource
 
-            output, http_response = (
-                capo_servicediscovery._operations.route53_auto_naming_v20170314.untag_resource.untag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.untag_resource
+
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1982,13 +2253,24 @@ class ServiceDiscoveryClient:
         ) -> OperationResponse[
             "capo_servicediscovery.types.update_http_namespace_response.UpdateHttpNamespaceResponse"
         ]:
-            import capo_servicediscovery._operations.route53_auto_naming_v20170314.update_http_namespace
+            if req.options.protocol == "awsJson1_1":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.update_http_namespace
 
-            output, http_response = (
-                capo_servicediscovery._operations.route53_auto_naming_v20170314.update_http_namespace.update_http_namespace(
-                    req.options, req.input
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.update_http_namespace.update_http_namespace(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.update_http_namespace
+
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.update_http_namespace.update_http_namespace(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2046,13 +2328,24 @@ class ServiceDiscoveryClient:
         def _handler(
             req: "OperationRequest[capo_servicediscovery.types.update_instance_custom_health_status_request.UpdateInstanceCustomHealthStatusRequest]",
         ) -> OperationResponse[None]:
-            import capo_servicediscovery._operations.route53_auto_naming_v20170314.update_instance_custom_health_status
+            if req.options.protocol == "awsJson1_1":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.update_instance_custom_health_status
 
-            output, http_response = (
-                capo_servicediscovery._operations.route53_auto_naming_v20170314.update_instance_custom_health_status.update_instance_custom_health_status(
-                    req.options, req.input
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.update_instance_custom_health_status.update_instance_custom_health_status(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.update_instance_custom_health_status
+
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.update_instance_custom_health_status.update_instance_custom_health_status(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2112,13 +2405,24 @@ class ServiceDiscoveryClient:
         ) -> OperationResponse[
             "capo_servicediscovery.types.update_private_dns_namespace_response.UpdatePrivateDnsNamespaceResponse"
         ]:
-            import capo_servicediscovery._operations.route53_auto_naming_v20170314.update_private_dns_namespace
+            if req.options.protocol == "awsJson1_1":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.update_private_dns_namespace
 
-            output, http_response = (
-                capo_servicediscovery._operations.route53_auto_naming_v20170314.update_private_dns_namespace.update_private_dns_namespace(
-                    req.options, req.input
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.update_private_dns_namespace.update_private_dns_namespace(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.update_private_dns_namespace
+
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.update_private_dns_namespace.update_private_dns_namespace(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2180,13 +2484,24 @@ class ServiceDiscoveryClient:
         ) -> OperationResponse[
             "capo_servicediscovery.types.update_public_dns_namespace_response.UpdatePublicDnsNamespaceResponse"
         ]:
-            import capo_servicediscovery._operations.route53_auto_naming_v20170314.update_public_dns_namespace
+            if req.options.protocol == "awsJson1_1":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.update_public_dns_namespace
 
-            output, http_response = (
-                capo_servicediscovery._operations.route53_auto_naming_v20170314.update_public_dns_namespace.update_public_dns_namespace(
-                    req.options, req.input
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.update_public_dns_namespace.update_public_dns_namespace(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.update_public_dns_namespace
+
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.update_public_dns_namespace.update_public_dns_namespace(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2243,13 +2558,24 @@ class ServiceDiscoveryClient:
         ) -> OperationResponse[
             "capo_servicediscovery.types.update_service_response.UpdateServiceResponse"
         ]:
-            import capo_servicediscovery._operations.route53_auto_naming_v20170314.update_service
+            if req.options.protocol == "awsJson1_1":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.update_service
 
-            output, http_response = (
-                capo_servicediscovery._operations.route53_auto_naming_v20170314.update_service.update_service(
-                    req.options, req.input
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.update_service.update_service(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.update_service
+
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.update_service.update_service(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2303,13 +2629,24 @@ class ServiceDiscoveryClient:
         ) -> OperationResponse[
             "capo_servicediscovery.types.update_service_attributes_response.UpdateServiceAttributesResponse"
         ]:
-            import capo_servicediscovery._operations.route53_auto_naming_v20170314.update_service_attributes
+            if req.options.protocol == "awsJson1_1":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.update_service_attributes
 
-            output, http_response = (
-                capo_servicediscovery._operations.route53_auto_naming_v20170314.update_service_attributes.update_service_attributes(
-                    req.options, req.input
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.aws_json1_1.update_service_attributes.update_service_attributes(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.update_service_attributes
+
+                output, http_response = (
+                    capo_servicediscovery._operations.route53_auto_naming_v20170314.rpcv2_cbor.update_service_attributes.update_service_attributes(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

@@ -107,6 +107,81 @@ def deserialize_aws_json_1_0(data: dict) -> GetRuleSetResponse:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetRuleSetResponse) -> dict:
+    out: dict = {}
+    out["RuleSetId"] = value["rule_set_id"]
+    out["RuleSetArn"] = value["rule_set_arn"]
+    out["RuleSetName"] = value["rule_set_name"]
+    import capo_mailmanager.types._prelude.timestamp
+
+    out["CreatedDate"] = capo_mailmanager.types._prelude.timestamp.serialize_cbor(
+        value["created_date"]
+    )
+    import capo_mailmanager.types._prelude.timestamp
+
+    out["LastModificationDate"] = (
+        capo_mailmanager.types._prelude.timestamp.serialize_cbor(
+            value["last_modification_date"]
+        )
+    )
+    import capo_mailmanager.types.rules
+
+    out["Rules"] = capo_mailmanager.types.rules.serialize_cbor(value["rules"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetRuleSetResponse:
+    out: GetRuleSetResponse = {}  # type: ignore[typeddict-item]
+    if data.get("RuleSetId") is not None:
+        out["rule_set_id"] = data["RuleSetId"]
+    else:
+        out["rule_set_id"] = ""
+    if data.get("RuleSetArn") is not None:
+        out["rule_set_arn"] = data["RuleSetArn"]
+    else:
+        out["rule_set_arn"] = ""
+    if data.get("RuleSetName") is not None:
+        out["rule_set_name"] = data["RuleSetName"]
+    else:
+        out["rule_set_name"] = ""
+    if data.get("CreatedDate") is not None:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["created_date"] = (
+            capo_mailmanager.types._prelude.timestamp.deserialize_cbor(
+                data["CreatedDate"]
+            )
+        )
+    else:
+        import datetime
+
+        out["created_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
+    if data.get("LastModificationDate") is not None:
+        import capo_mailmanager.types._prelude.timestamp
+
+        out["last_modification_date"] = (
+            capo_mailmanager.types._prelude.timestamp.deserialize_cbor(
+                data["LastModificationDate"]
+            )
+        )
+    else:
+        import datetime
+
+        out["last_modification_date"] = datetime.datetime.fromtimestamp(
+            0, tz=datetime.timezone.utc
+        )
+    if data.get("Rules") is not None:
+        import capo_mailmanager.types.rules
+
+        out["rules"] = capo_mailmanager.types.rules.deserialize_cbor(data["Rules"])
+    else:
+        out["rules"] = []
+    return out
+
+
 def redact_sensitive(value: GetRuleSetResponse) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "rules" in value:

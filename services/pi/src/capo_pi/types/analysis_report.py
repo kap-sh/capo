@@ -124,6 +124,86 @@ def deserialize_aws_json_1_1(data: dict) -> AnalysisReport:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AnalysisReport) -> dict:
+    out: dict = {}
+    out["AnalysisReportId"] = value["analysis_report_id"]
+    if "identifier" in value:
+        out["Identifier"] = value["identifier"]
+    if "service_type" in value:
+        import capo_pi.types.service_type
+
+        out["ServiceType"] = capo_pi.types.service_type.serialize_cbor(
+            value["service_type"]
+        )
+    if "create_time" in value:
+        import capo_pi.types.iso_timestamp
+
+        out["CreateTime"] = capo_pi.types.iso_timestamp.serialize_cbor(
+            value["create_time"]
+        )
+    if "start_time" in value:
+        import capo_pi.types.iso_timestamp
+
+        out["StartTime"] = capo_pi.types.iso_timestamp.serialize_cbor(
+            value["start_time"]
+        )
+    if "end_time" in value:
+        import capo_pi.types.iso_timestamp
+
+        out["EndTime"] = capo_pi.types.iso_timestamp.serialize_cbor(value["end_time"])
+    if "status" in value:
+        import capo_pi.types.analysis_status
+
+        out["Status"] = capo_pi.types.analysis_status.serialize_cbor(value["status"])
+    if "insights" in value:
+        import capo_pi.types.insight_list
+
+        out["Insights"] = capo_pi.types.insight_list.serialize_cbor(value["insights"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> AnalysisReport:
+    out: AnalysisReport = {}  # type: ignore[typeddict-item]
+    if data.get("AnalysisReportId") is not None:
+        out["analysis_report_id"] = data["AnalysisReportId"]
+    else:
+        out["analysis_report_id"] = ""
+    if data.get("Identifier") is not None:
+        out["identifier"] = data["Identifier"]
+    if data.get("ServiceType") is not None:
+        import capo_pi.types.service_type
+
+        out["service_type"] = capo_pi.types.service_type.deserialize_cbor(
+            data["ServiceType"]
+        )
+    if data.get("CreateTime") is not None:
+        import capo_pi.types.iso_timestamp
+
+        out["create_time"] = capo_pi.types.iso_timestamp.deserialize_cbor(
+            data["CreateTime"]
+        )
+    if data.get("StartTime") is not None:
+        import capo_pi.types.iso_timestamp
+
+        out["start_time"] = capo_pi.types.iso_timestamp.deserialize_cbor(
+            data["StartTime"]
+        )
+    if data.get("EndTime") is not None:
+        import capo_pi.types.iso_timestamp
+
+        out["end_time"] = capo_pi.types.iso_timestamp.deserialize_cbor(data["EndTime"])
+    if data.get("Status") is not None:
+        import capo_pi.types.analysis_status
+
+        out["status"] = capo_pi.types.analysis_status.deserialize_cbor(data["Status"])
+    if data.get("Insights") is not None:
+        import capo_pi.types.insight_list
+
+        out["insights"] = capo_pi.types.insight_list.deserialize_cbor(data["Insights"])
+    return out
+
+
 def redact_sensitive(value: AnalysisReport) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "insights" in value:

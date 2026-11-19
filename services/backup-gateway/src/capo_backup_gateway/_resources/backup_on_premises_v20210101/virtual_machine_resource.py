@@ -59,13 +59,24 @@ class VirtualMachineResource:
         ) -> OperationResponse[
             "capo_backup_gateway.types.get_virtual_machine_output.GetVirtualMachineOutput"
         ]:
-            import capo_backup_gateway._operations.backup_on_premises_v20210101.get_virtual_machine
+            if req.options.protocol == "awsJson1_0":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.get_virtual_machine
 
-            output, http_response = (
-                capo_backup_gateway._operations.backup_on_premises_v20210101.get_virtual_machine.get_virtual_machine(
-                    req.options, req.input
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.get_virtual_machine.get_virtual_machine(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.get_virtual_machine
+
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.get_virtual_machine.get_virtual_machine(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(
@@ -114,13 +125,24 @@ class VirtualMachineResource:
         ) -> OperationResponse[
             "capo_backup_gateway.types.list_virtual_machines_output.ListVirtualMachinesOutput"
         ]:
-            import capo_backup_gateway._operations.backup_on_premises_v20210101.list_virtual_machines
+            if req.options.protocol == "awsJson1_0":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.list_virtual_machines
 
-            output, http_response = (
-                capo_backup_gateway._operations.backup_on_premises_v20210101.list_virtual_machines.list_virtual_machines(
-                    req.options, req.input
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.list_virtual_machines.list_virtual_machines(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.list_virtual_machines
+
+                output, http_response = (
+                    capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.list_virtual_machines.list_virtual_machines(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(
@@ -171,14 +193,26 @@ class AsyncVirtualMachineResource:
         ) -> AsyncOperationResponse[
             "capo_backup_gateway.types.get_virtual_machine_output.GetVirtualMachineOutput"
         ]:
-            import capo_backup_gateway._operations.backup_on_premises_v20210101.get_virtual_machine
+            if req.options.protocol == "awsJson1_0":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.get_virtual_machine
 
-            (
-                output,
-                http_response,
-            ) = await capo_backup_gateway._operations.backup_on_premises_v20210101.get_virtual_machine.async_get_virtual_machine(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.get_virtual_machine.async_get_virtual_machine(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.get_virtual_machine
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.get_virtual_machine.async_get_virtual_machine(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(
@@ -227,14 +261,26 @@ class AsyncVirtualMachineResource:
         ) -> AsyncOperationResponse[
             "capo_backup_gateway.types.list_virtual_machines_output.ListVirtualMachinesOutput"
         ]:
-            import capo_backup_gateway._operations.backup_on_premises_v20210101.list_virtual_machines
+            if req.options.protocol == "awsJson1_0":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.list_virtual_machines
 
-            (
-                output,
-                http_response,
-            ) = await capo_backup_gateway._operations.backup_on_premises_v20210101.list_virtual_machines.async_list_virtual_machines(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_backup_gateway._operations.backup_on_premises_v20210101.aws_json1_0.list_virtual_machines.async_list_virtual_machines(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.list_virtual_machines
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_backup_gateway._operations.backup_on_premises_v20210101.rpcv2_cbor.list_virtual_machines.async_list_virtual_machines(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self._service.operation_options(

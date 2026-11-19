@@ -28,3 +28,18 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDocumentClassifierResponse:
     if data.get("DocumentClassifierArn") is not None:
         out["document_classifier_arn"] = data["DocumentClassifierArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateDocumentClassifierResponse) -> dict:
+    out: dict = {}
+    if "document_classifier_arn" in value:
+        out["DocumentClassifierArn"] = value["document_classifier_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateDocumentClassifierResponse:
+    out: CreateDocumentClassifierResponse = {}  # type: ignore[typeddict-item]
+    if data.get("DocumentClassifierArn") is not None:
+        out["document_classifier_arn"] = data["DocumentClassifierArn"]
+    return out

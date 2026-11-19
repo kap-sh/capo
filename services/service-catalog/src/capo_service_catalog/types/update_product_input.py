@@ -143,3 +143,91 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateProductInput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateProductInput) -> dict:
+    out: dict = {}
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    out["Id"] = value["id"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "owner" in value:
+        out["Owner"] = value["owner"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "distributor" in value:
+        out["Distributor"] = value["distributor"]
+    if "support_description" in value:
+        out["SupportDescription"] = value["support_description"]
+    if "support_email" in value:
+        out["SupportEmail"] = value["support_email"]
+    if "support_url" in value:
+        out["SupportUrl"] = value["support_url"]
+    if "add_tags" in value:
+        import capo_service_catalog.types.add_tags
+
+        out["AddTags"] = capo_service_catalog.types.add_tags.serialize_cbor(
+            value["add_tags"]
+        )
+    if "remove_tags" in value:
+        import capo_service_catalog.types.tag_keys
+
+        out["RemoveTags"] = capo_service_catalog.types.tag_keys.serialize_cbor(
+            value["remove_tags"]
+        )
+    if "source_connection" in value:
+        import capo_service_catalog.types.source_connection
+
+        out["SourceConnection"] = (
+            capo_service_catalog.types.source_connection.serialize_cbor(
+                value["source_connection"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateProductInput:
+    out: UpdateProductInput = {}  # type: ignore[typeddict-item]
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    else:
+        out["id"] = ""
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Owner") is not None:
+        out["owner"] = data["Owner"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("Distributor") is not None:
+        out["distributor"] = data["Distributor"]
+    if data.get("SupportDescription") is not None:
+        out["support_description"] = data["SupportDescription"]
+    if data.get("SupportEmail") is not None:
+        out["support_email"] = data["SupportEmail"]
+    if data.get("SupportUrl") is not None:
+        out["support_url"] = data["SupportUrl"]
+    if data.get("AddTags") is not None:
+        import capo_service_catalog.types.add_tags
+
+        out["add_tags"] = capo_service_catalog.types.add_tags.deserialize_cbor(
+            data["AddTags"]
+        )
+    if data.get("RemoveTags") is not None:
+        import capo_service_catalog.types.tag_keys
+
+        out["remove_tags"] = capo_service_catalog.types.tag_keys.deserialize_cbor(
+            data["RemoveTags"]
+        )
+    if data.get("SourceConnection") is not None:
+        import capo_service_catalog.types.source_connection
+
+        out["source_connection"] = (
+            capo_service_catalog.types.source_connection.deserialize_cbor(
+                data["SourceConnection"]
+            )
+        )
+    return out

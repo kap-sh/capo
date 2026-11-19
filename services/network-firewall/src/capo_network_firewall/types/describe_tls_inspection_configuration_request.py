@@ -41,3 +41,26 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeTLSInspectionConfigurationRe
             "TLSInspectionConfigurationName"
         ]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeTLSInspectionConfigurationRequest) -> dict:
+    out: dict = {}
+    if "tls_inspection_configuration_arn" in value:
+        out["TLSInspectionConfigurationArn"] = value["tls_inspection_configuration_arn"]
+    if "tls_inspection_configuration_name" in value:
+        out["TLSInspectionConfigurationName"] = value[
+            "tls_inspection_configuration_name"
+        ]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeTLSInspectionConfigurationRequest:
+    out: DescribeTLSInspectionConfigurationRequest = {}  # type: ignore[typeddict-item]
+    if data.get("TLSInspectionConfigurationArn") is not None:
+        out["tls_inspection_configuration_arn"] = data["TLSInspectionConfigurationArn"]
+    if data.get("TLSInspectionConfigurationName") is not None:
+        out["tls_inspection_configuration_name"] = data[
+            "TLSInspectionConfigurationName"
+        ]
+    return out

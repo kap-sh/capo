@@ -97,3 +97,70 @@ def deserialize_aws_json_1_0(data: dict) -> SpotMarketOptions:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SpotMarketOptions) -> dict:
+    out: dict = {}
+    if "block_duration_minutes" in value:
+        out["BlockDurationMinutes"] = value["block_duration_minutes"]
+    if "instance_interruption_behavior" in value:
+        import capo_workspaces_instances.types.instance_interruption_behavior_enum
+
+        out["InstanceInterruptionBehavior"] = (
+            capo_workspaces_instances.types.instance_interruption_behavior_enum.serialize_cbor(
+                value["instance_interruption_behavior"]
+            )
+        )
+    if "max_price" in value:
+        out["MaxPrice"] = value["max_price"]
+    if "spot_instance_type" in value:
+        import capo_workspaces_instances.types.spot_instance_type_enum
+
+        out["SpotInstanceType"] = (
+            capo_workspaces_instances.types.spot_instance_type_enum.serialize_cbor(
+                value["spot_instance_type"]
+            )
+        )
+    if "valid_until_utc" in value:
+        import capo_workspaces_instances.types._prelude.timestamp
+
+        out["ValidUntilUtc"] = (
+            capo_workspaces_instances.types._prelude.timestamp.serialize_cbor(
+                value["valid_until_utc"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> SpotMarketOptions:
+    out: SpotMarketOptions = {}  # type: ignore[typeddict-item]
+    if data.get("BlockDurationMinutes") is not None:
+        out["block_duration_minutes"] = data["BlockDurationMinutes"]
+    if data.get("InstanceInterruptionBehavior") is not None:
+        import capo_workspaces_instances.types.instance_interruption_behavior_enum
+
+        out["instance_interruption_behavior"] = (
+            capo_workspaces_instances.types.instance_interruption_behavior_enum.deserialize_cbor(
+                data["InstanceInterruptionBehavior"]
+            )
+        )
+    if data.get("MaxPrice") is not None:
+        out["max_price"] = data["MaxPrice"]
+    if data.get("SpotInstanceType") is not None:
+        import capo_workspaces_instances.types.spot_instance_type_enum
+
+        out["spot_instance_type"] = (
+            capo_workspaces_instances.types.spot_instance_type_enum.deserialize_cbor(
+                data["SpotInstanceType"]
+            )
+        )
+    if data.get("ValidUntilUtc") is not None:
+        import capo_workspaces_instances.types._prelude.timestamp
+
+        out["valid_until_utc"] = (
+            capo_workspaces_instances.types._prelude.timestamp.deserialize_cbor(
+                data["ValidUntilUtc"]
+            )
+        )
+    return out

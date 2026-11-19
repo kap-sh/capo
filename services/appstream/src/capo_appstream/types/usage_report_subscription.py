@@ -87,3 +87,60 @@ def deserialize_aws_json_1_1(data: dict) -> UsageReportSubscription:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UsageReportSubscription) -> dict:
+    out: dict = {}
+    if "s3_bucket_name" in value:
+        out["S3BucketName"] = value["s3_bucket_name"]
+    if "schedule" in value:
+        import capo_appstream.types.usage_report_schedule
+
+        out["Schedule"] = capo_appstream.types.usage_report_schedule.serialize_cbor(
+            value["schedule"]
+        )
+    if "last_generated_report_date" in value:
+        import capo_appstream.types.timestamp
+
+        out["LastGeneratedReportDate"] = capo_appstream.types.timestamp.serialize_cbor(
+            value["last_generated_report_date"]
+        )
+    if "subscription_errors" in value:
+        import capo_appstream.types.last_report_generation_execution_errors
+
+        out["SubscriptionErrors"] = (
+            capo_appstream.types.last_report_generation_execution_errors.serialize_cbor(
+                value["subscription_errors"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UsageReportSubscription:
+    out: UsageReportSubscription = {}  # type: ignore[typeddict-item]
+    if data.get("S3BucketName") is not None:
+        out["s3_bucket_name"] = data["S3BucketName"]
+    if data.get("Schedule") is not None:
+        import capo_appstream.types.usage_report_schedule
+
+        out["schedule"] = capo_appstream.types.usage_report_schedule.deserialize_cbor(
+            data["Schedule"]
+        )
+    if data.get("LastGeneratedReportDate") is not None:
+        import capo_appstream.types.timestamp
+
+        out["last_generated_report_date"] = (
+            capo_appstream.types.timestamp.deserialize_cbor(
+                data["LastGeneratedReportDate"]
+            )
+        )
+    if data.get("SubscriptionErrors") is not None:
+        import capo_appstream.types.last_report_generation_execution_errors
+
+        out["subscription_errors"] = (
+            capo_appstream.types.last_report_generation_execution_errors.deserialize_cbor(
+                data["SubscriptionErrors"]
+            )
+        )
+    return out

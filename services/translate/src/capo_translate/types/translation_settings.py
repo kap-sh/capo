@@ -64,3 +64,46 @@ def deserialize_aws_json_1_1(data: dict) -> TranslationSettings:
             data["Brevity"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TranslationSettings) -> dict:
+    out: dict = {}
+    if "formality" in value:
+        import capo_translate.types.formality
+
+        out["Formality"] = capo_translate.types.formality.serialize_cbor(
+            value["formality"]
+        )
+    if "profanity" in value:
+        import capo_translate.types.profanity
+
+        out["Profanity"] = capo_translate.types.profanity.serialize_cbor(
+            value["profanity"]
+        )
+    if "brevity" in value:
+        import capo_translate.types.brevity
+
+        out["Brevity"] = capo_translate.types.brevity.serialize_cbor(value["brevity"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> TranslationSettings:
+    out: TranslationSettings = {}  # type: ignore[typeddict-item]
+    if data.get("Formality") is not None:
+        import capo_translate.types.formality
+
+        out["formality"] = capo_translate.types.formality.deserialize_cbor(
+            data["Formality"]
+        )
+    if data.get("Profanity") is not None:
+        import capo_translate.types.profanity
+
+        out["profanity"] = capo_translate.types.profanity.deserialize_cbor(
+            data["Profanity"]
+        )
+    if data.get("Brevity") is not None:
+        import capo_translate.types.brevity
+
+        out["brevity"] = capo_translate.types.brevity.deserialize_cbor(data["Brevity"])
+    return out

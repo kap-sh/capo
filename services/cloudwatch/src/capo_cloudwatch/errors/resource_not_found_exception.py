@@ -70,6 +70,29 @@ def deserialize_query(el: Element) -> ResourceNotFoundException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResourceNotFoundException_) -> dict:
+    out: dict = {}
+    if "resource_type" in value:
+        out["ResourceType"] = value["resource_type"]
+    if "resource_id" in value:
+        out["ResourceId"] = value["resource_id"]
+    if "message" in value:
+        out["Message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ResourceNotFoundException_:
+    out: ResourceNotFoundException_ = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceType") is not None:
+        out["resource_type"] = data["ResourceType"]
+    if data.get("ResourceId") is not None:
+        out["resource_id"] = data["ResourceId"]
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    return out
+
+
 class ResourceNotFoundException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.cloudwatch#ResourceNotFoundException``."""
 
@@ -103,3 +126,9 @@ class ResourceNotFoundException(ServiceError):
         cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "ResourceNotFoundException":
         return cls(deserialize_query(el), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "ResourceNotFoundException":
+        return cls(deserialize_cbor(data), message, response=response)

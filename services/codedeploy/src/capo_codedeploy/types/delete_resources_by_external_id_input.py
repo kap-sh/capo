@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteResourcesByExternalIdInput:
     if data.get("externalId") is not None:
         out["external_id"] = data["externalId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteResourcesByExternalIdInput) -> dict:
+    out: dict = {}
+    if "external_id" in value:
+        out["externalId"] = value["external_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteResourcesByExternalIdInput:
+    out: DeleteResourcesByExternalIdInput = {}  # type: ignore[typeddict-item]
+    if data.get("externalId") is not None:
+        out["external_id"] = data["externalId"]
+    return out

@@ -83,3 +83,34 @@ def deserialize_query(el: Element) -> UpdateResourceMetricsConfigurationInput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateResourceMetricsConfigurationInput) -> dict:
+    out: dict = {}
+    if "resource_arn" in value:
+        out["ResourceArn"] = value["resource_arn"]
+    if "metric_selections" in value:
+        import capo_cloudwatch.types.resource_metric_selection_list
+
+        out["MetricSelections"] = (
+            capo_cloudwatch.types.resource_metric_selection_list.serialize_cbor(
+                value["metric_selections"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateResourceMetricsConfigurationInput:
+    out: UpdateResourceMetricsConfigurationInput = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceArn") is not None:
+        out["resource_arn"] = data["ResourceArn"]
+    if data.get("MetricSelections") is not None:
+        import capo_cloudwatch.types.resource_metric_selection_list
+
+        out["metric_selections"] = (
+            capo_cloudwatch.types.resource_metric_selection_list.deserialize_cbor(
+                data["MetricSelections"]
+            )
+        )
+    return out

@@ -33,3 +33,22 @@ def deserialize_aws_json_1_0(data: dict) -> ContainerAssociationSummary:
     if data.get("Name") is not None:
         out["name"] = data["Name"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ContainerAssociationSummary) -> dict:
+    out: dict = {}
+    if "arn" in value:
+        out["Arn"] = value["arn"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ContainerAssociationSummary:
+    out: ContainerAssociationSummary = {}  # type: ignore[typeddict-item]
+    if data.get("Arn") is not None:
+        out["arn"] = data["Arn"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    return out

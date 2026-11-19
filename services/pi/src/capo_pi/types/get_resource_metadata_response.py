@@ -41,3 +41,30 @@ def deserialize_aws_json_1_1(data: dict) -> GetResourceMetadataResponse:
             data["Features"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetResourceMetadataResponse) -> dict:
+    out: dict = {}
+    if "identifier" in value:
+        out["Identifier"] = value["identifier"]
+    if "features" in value:
+        import capo_pi.types.feature_metadata_map
+
+        out["Features"] = capo_pi.types.feature_metadata_map.serialize_cbor(
+            value["features"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetResourceMetadataResponse:
+    out: GetResourceMetadataResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Identifier") is not None:
+        out["identifier"] = data["Identifier"]
+    if data.get("Features") is not None:
+        import capo_pi.types.feature_metadata_map
+
+        out["features"] = capo_pi.types.feature_metadata_map.deserialize_cbor(
+            data["Features"]
+        )
+    return out

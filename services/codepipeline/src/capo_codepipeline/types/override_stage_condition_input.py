@@ -69,3 +69,46 @@ def deserialize_aws_json_1_1(data: dict) -> OverrideStageConditionInput:
             "capo_codepipeline.types.condition_type.ConditionType", ""
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: OverrideStageConditionInput) -> dict:
+    out: dict = {}
+    out["pipelineName"] = value["pipeline_name"]
+    out["stageName"] = value["stage_name"]
+    out["pipelineExecutionId"] = value["pipeline_execution_id"]
+    import capo_codepipeline.types.condition_type
+
+    out["conditionType"] = capo_codepipeline.types.condition_type.serialize_cbor(
+        value["condition_type"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> OverrideStageConditionInput:
+    out: OverrideStageConditionInput = {}  # type: ignore[typeddict-item]
+    if data.get("pipelineName") is not None:
+        out["pipeline_name"] = data["pipelineName"]
+    else:
+        out["pipeline_name"] = ""
+    if data.get("stageName") is not None:
+        out["stage_name"] = data["stageName"]
+    else:
+        out["stage_name"] = ""
+    if data.get("pipelineExecutionId") is not None:
+        out["pipeline_execution_id"] = data["pipelineExecutionId"]
+    else:
+        out["pipeline_execution_id"] = ""
+    if data.get("conditionType") is not None:
+        import capo_codepipeline.types.condition_type
+
+        out["condition_type"] = capo_codepipeline.types.condition_type.deserialize_cbor(
+            data["conditionType"]
+        )
+    else:
+        import typing
+
+        out["condition_type"] = typing.cast(
+            "capo_codepipeline.types.condition_type.ConditionType", ""
+        )
+    return out

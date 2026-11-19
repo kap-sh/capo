@@ -109,6 +109,7 @@ class ACMPCAClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[Interceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_1", "rpcv2Cbor"]
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -125,6 +126,7 @@ class ACMPCAClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -140,6 +142,7 @@ class ACMPCAClient:
         operation_interceptors: Iterable[Interceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_1", "rpcv2Cbor"] = "awsJson1_1",
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -176,6 +179,7 @@ class ACMPCAClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -209,6 +213,9 @@ class ACMPCAClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_1")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -266,13 +273,24 @@ class ACMPCAClient:
         ) -> OperationResponse[
             "capo_acm_pca.types.create_certificate_authority_response.CreateCertificateAuthorityResponse"
         ]:
-            import capo_acm_pca._operations.acm_private_ca.create_certificate_authority
+            if req.options.protocol == "awsJson1_1":
+                import capo_acm_pca._operations.acm_private_ca.aws_json1_1.create_certificate_authority
 
-            output, http_response = (
-                capo_acm_pca._operations.acm_private_ca.create_certificate_authority.create_certificate_authority(
-                    req.options, req.input
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.aws_json1_1.create_certificate_authority.create_certificate_authority(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.create_certificate_authority
+
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.create_certificate_authority.create_certificate_authority(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -331,13 +349,24 @@ class ACMPCAClient:
         ) -> OperationResponse[
             "capo_acm_pca.types.create_certificate_authority_audit_report_response.CreateCertificateAuthorityAuditReportResponse"
         ]:
-            import capo_acm_pca._operations.acm_private_ca.create_certificate_authority_audit_report
+            if req.options.protocol == "awsJson1_1":
+                import capo_acm_pca._operations.acm_private_ca.aws_json1_1.create_certificate_authority_audit_report
 
-            output, http_response = (
-                capo_acm_pca._operations.acm_private_ca.create_certificate_authority_audit_report.create_certificate_authority_audit_report(
-                    req.options, req.input
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.aws_json1_1.create_certificate_authority_audit_report.create_certificate_authority_audit_report(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.create_certificate_authority_audit_report
+
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.create_certificate_authority_audit_report.create_certificate_authority_audit_report(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -387,13 +416,24 @@ class ACMPCAClient:
         def _handler(
             req: "OperationRequest[capo_acm_pca.types.create_permission_request.CreatePermissionRequest]",
         ) -> OperationResponse[None]:
-            import capo_acm_pca._operations.acm_private_ca.create_permission
+            if req.options.protocol == "awsJson1_1":
+                import capo_acm_pca._operations.acm_private_ca.aws_json1_1.create_permission
 
-            output, http_response = (
-                capo_acm_pca._operations.acm_private_ca.create_permission.create_permission(
-                    req.options, req.input
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.aws_json1_1.create_permission.create_permission(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.create_permission
+
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.create_permission.create_permission(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -441,13 +481,24 @@ class ACMPCAClient:
         def _handler(
             req: "OperationRequest[capo_acm_pca.types.delete_certificate_authority_request.DeleteCertificateAuthorityRequest]",
         ) -> OperationResponse[None]:
-            import capo_acm_pca._operations.acm_private_ca.delete_certificate_authority
+            if req.options.protocol == "awsJson1_1":
+                import capo_acm_pca._operations.acm_private_ca.aws_json1_1.delete_certificate_authority
 
-            output, http_response = (
-                capo_acm_pca._operations.acm_private_ca.delete_certificate_authority.delete_certificate_authority(
-                    req.options, req.input
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.aws_json1_1.delete_certificate_authority.delete_certificate_authority(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.delete_certificate_authority
+
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.delete_certificate_authority.delete_certificate_authority(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -493,13 +544,24 @@ class ACMPCAClient:
         def _handler(
             req: "OperationRequest[capo_acm_pca.types.delete_permission_request.DeletePermissionRequest]",
         ) -> OperationResponse[None]:
-            import capo_acm_pca._operations.acm_private_ca.delete_permission
+            if req.options.protocol == "awsJson1_1":
+                import capo_acm_pca._operations.acm_private_ca.aws_json1_1.delete_permission
 
-            output, http_response = (
-                capo_acm_pca._operations.acm_private_ca.delete_permission.delete_permission(
-                    req.options, req.input
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.aws_json1_1.delete_permission.delete_permission(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.delete_permission
+
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.delete_permission.delete_permission(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -544,13 +606,24 @@ class ACMPCAClient:
         def _handler(
             req: "OperationRequest[capo_acm_pca.types.delete_policy_request.DeletePolicyRequest]",
         ) -> OperationResponse[None]:
-            import capo_acm_pca._operations.acm_private_ca.delete_policy
+            if req.options.protocol == "awsJson1_1":
+                import capo_acm_pca._operations.acm_private_ca.aws_json1_1.delete_policy
 
-            output, http_response = (
-                capo_acm_pca._operations.acm_private_ca.delete_policy.delete_policy(
-                    req.options, req.input
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.aws_json1_1.delete_policy.delete_policy(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.delete_policy
+
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.delete_policy.delete_policy(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -590,13 +663,24 @@ class ACMPCAClient:
         ) -> OperationResponse[
             "capo_acm_pca.types.describe_certificate_authority_response.DescribeCertificateAuthorityResponse"
         ]:
-            import capo_acm_pca._operations.acm_private_ca.describe_certificate_authority
+            if req.options.protocol == "awsJson1_1":
+                import capo_acm_pca._operations.acm_private_ca.aws_json1_1.describe_certificate_authority
 
-            output, http_response = (
-                capo_acm_pca._operations.acm_private_ca.describe_certificate_authority.describe_certificate_authority(
-                    req.options, req.input
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.aws_json1_1.describe_certificate_authority.describe_certificate_authority(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.describe_certificate_authority
+
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.describe_certificate_authority.describe_certificate_authority(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -639,13 +723,24 @@ class ACMPCAClient:
         ) -> OperationResponse[
             "capo_acm_pca.types.describe_certificate_authority_audit_report_response.DescribeCertificateAuthorityAuditReportResponse"
         ]:
-            import capo_acm_pca._operations.acm_private_ca.describe_certificate_authority_audit_report
+            if req.options.protocol == "awsJson1_1":
+                import capo_acm_pca._operations.acm_private_ca.aws_json1_1.describe_certificate_authority_audit_report
 
-            output, http_response = (
-                capo_acm_pca._operations.acm_private_ca.describe_certificate_authority_audit_report.describe_certificate_authority_audit_report(
-                    req.options, req.input
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.aws_json1_1.describe_certificate_authority_audit_report.describe_certificate_authority_audit_report(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.describe_certificate_authority_audit_report
+
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.describe_certificate_authority_audit_report.describe_certificate_authority_audit_report(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -692,13 +787,24 @@ class ACMPCAClient:
         ) -> OperationResponse[
             "capo_acm_pca.types.get_certificate_response.GetCertificateResponse"
         ]:
-            import capo_acm_pca._operations.acm_private_ca.get_certificate
+            if req.options.protocol == "awsJson1_1":
+                import capo_acm_pca._operations.acm_private_ca.aws_json1_1.get_certificate
 
-            output, http_response = (
-                capo_acm_pca._operations.acm_private_ca.get_certificate.get_certificate(
-                    req.options, req.input
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.aws_json1_1.get_certificate.get_certificate(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.get_certificate
+
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.get_certificate.get_certificate(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -794,13 +900,24 @@ class ACMPCAClient:
         ) -> OperationResponse[
             "capo_acm_pca.types.get_certificate_authority_certificate_response.GetCertificateAuthorityCertificateResponse"
         ]:
-            import capo_acm_pca._operations.acm_private_ca.get_certificate_authority_certificate
+            if req.options.protocol == "awsJson1_1":
+                import capo_acm_pca._operations.acm_private_ca.aws_json1_1.get_certificate_authority_certificate
 
-            output, http_response = (
-                capo_acm_pca._operations.acm_private_ca.get_certificate_authority_certificate.get_certificate_authority_certificate(
-                    req.options, req.input
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.aws_json1_1.get_certificate_authority_certificate.get_certificate_authority_certificate(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.get_certificate_authority_certificate
+
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.get_certificate_authority_certificate.get_certificate_authority_certificate(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -843,13 +960,24 @@ class ACMPCAClient:
         ) -> OperationResponse[
             "capo_acm_pca.types.get_certificate_authority_csr_response.GetCertificateAuthorityCsrResponse"
         ]:
-            import capo_acm_pca._operations.acm_private_ca.get_certificate_authority_csr
+            if req.options.protocol == "awsJson1_1":
+                import capo_acm_pca._operations.acm_private_ca.aws_json1_1.get_certificate_authority_csr
 
-            output, http_response = (
-                capo_acm_pca._operations.acm_private_ca.get_certificate_authority_csr.get_certificate_authority_csr(
-                    req.options, req.input
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.aws_json1_1.get_certificate_authority_csr.get_certificate_authority_csr(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.get_certificate_authority_csr
+
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.get_certificate_authority_csr.get_certificate_authority_csr(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -943,13 +1071,24 @@ class ACMPCAClient:
         ) -> OperationResponse[
             "capo_acm_pca.types.get_policy_response.GetPolicyResponse"
         ]:
-            import capo_acm_pca._operations.acm_private_ca.get_policy
+            if req.options.protocol == "awsJson1_1":
+                import capo_acm_pca._operations.acm_private_ca.aws_json1_1.get_policy
 
-            output, http_response = (
-                capo_acm_pca._operations.acm_private_ca.get_policy.get_policy(
-                    req.options, req.input
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.aws_json1_1.get_policy.get_policy(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.get_policy
+
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.get_policy.get_policy(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1000,13 +1139,24 @@ class ACMPCAClient:
         def _handler(
             req: "OperationRequest[capo_acm_pca.types.import_certificate_authority_certificate_request.ImportCertificateAuthorityCertificateRequest]",
         ) -> OperationResponse[None]:
-            import capo_acm_pca._operations.acm_private_ca.import_certificate_authority_certificate
+            if req.options.protocol == "awsJson1_1":
+                import capo_acm_pca._operations.acm_private_ca.aws_json1_1.import_certificate_authority_certificate
 
-            output, http_response = (
-                capo_acm_pca._operations.acm_private_ca.import_certificate_authority_certificate.import_certificate_authority_certificate(
-                    req.options, req.input
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.aws_json1_1.import_certificate_authority_certificate.import_certificate_authority_certificate(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.import_certificate_authority_certificate
+
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.import_certificate_authority_certificate.import_certificate_authority_certificate(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1071,13 +1221,24 @@ class ACMPCAClient:
         ) -> OperationResponse[
             "capo_acm_pca.types.issue_certificate_response.IssueCertificateResponse"
         ]:
-            import capo_acm_pca._operations.acm_private_ca.issue_certificate
+            if req.options.protocol == "awsJson1_1":
+                import capo_acm_pca._operations.acm_private_ca.aws_json1_1.issue_certificate
 
-            output, http_response = (
-                capo_acm_pca._operations.acm_private_ca.issue_certificate.issue_certificate(
-                    req.options, req.input
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.aws_json1_1.issue_certificate.issue_certificate(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.issue_certificate
+
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.issue_certificate.issue_certificate(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1133,13 +1294,24 @@ class ACMPCAClient:
         ) -> OperationResponse[
             "capo_acm_pca.types.list_certificate_authorities_response.ListCertificateAuthoritiesResponse"
         ]:
-            import capo_acm_pca._operations.acm_private_ca.list_certificate_authorities
+            if req.options.protocol == "awsJson1_1":
+                import capo_acm_pca._operations.acm_private_ca.aws_json1_1.list_certificate_authorities
 
-            output, http_response = (
-                capo_acm_pca._operations.acm_private_ca.list_certificate_authorities.list_certificate_authorities(
-                    req.options, req.input
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.aws_json1_1.list_certificate_authorities.list_certificate_authorities(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.list_certificate_authorities
+
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.list_certificate_authorities.list_certificate_authorities(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1215,13 +1387,24 @@ class ACMPCAClient:
         ) -> OperationResponse[
             "capo_acm_pca.types.list_permissions_response.ListPermissionsResponse"
         ]:
-            import capo_acm_pca._operations.acm_private_ca.list_permissions
+            if req.options.protocol == "awsJson1_1":
+                import capo_acm_pca._operations.acm_private_ca.aws_json1_1.list_permissions
 
-            output, http_response = (
-                capo_acm_pca._operations.acm_private_ca.list_permissions.list_permissions(
-                    req.options, req.input
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.aws_json1_1.list_permissions.list_permissions(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.list_permissions
+
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.list_permissions.list_permissions(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1294,13 +1477,24 @@ class ACMPCAClient:
         ) -> OperationResponse[
             "capo_acm_pca.types.list_tags_response.ListTagsResponse"
         ]:
-            import capo_acm_pca._operations.acm_private_ca.list_tags
+            if req.options.protocol == "awsJson1_1":
+                import capo_acm_pca._operations.acm_private_ca.aws_json1_1.list_tags
 
-            output, http_response = (
-                capo_acm_pca._operations.acm_private_ca.list_tags.list_tags(
-                    req.options, req.input
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.aws_json1_1.list_tags.list_tags(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.list_tags
+
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.list_tags.list_tags(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1372,13 +1566,24 @@ class ACMPCAClient:
         def _handler(
             req: "OperationRequest[capo_acm_pca.types.put_policy_request.PutPolicyRequest]",
         ) -> OperationResponse[None]:
-            import capo_acm_pca._operations.acm_private_ca.put_policy
+            if req.options.protocol == "awsJson1_1":
+                import capo_acm_pca._operations.acm_private_ca.aws_json1_1.put_policy
 
-            output, http_response = (
-                capo_acm_pca._operations.acm_private_ca.put_policy.put_policy(
-                    req.options, req.input
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.aws_json1_1.put_policy.put_policy(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.put_policy
+
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.put_policy.put_policy(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1418,13 +1623,24 @@ class ACMPCAClient:
         def _handler(
             req: "OperationRequest[capo_acm_pca.types.restore_certificate_authority_request.RestoreCertificateAuthorityRequest]",
         ) -> OperationResponse[None]:
-            import capo_acm_pca._operations.acm_private_ca.restore_certificate_authority
+            if req.options.protocol == "awsJson1_1":
+                import capo_acm_pca._operations.acm_private_ca.aws_json1_1.restore_certificate_authority
 
-            output, http_response = (
-                capo_acm_pca._operations.acm_private_ca.restore_certificate_authority.restore_certificate_authority(
-                    req.options, req.input
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.aws_json1_1.restore_certificate_authority.restore_certificate_authority(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.restore_certificate_authority
+
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.restore_certificate_authority.restore_certificate_authority(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1473,13 +1689,24 @@ class ACMPCAClient:
         def _handler(
             req: "OperationRequest[capo_acm_pca.types.revoke_certificate_request.RevokeCertificateRequest]",
         ) -> OperationResponse[None]:
-            import capo_acm_pca._operations.acm_private_ca.revoke_certificate
+            if req.options.protocol == "awsJson1_1":
+                import capo_acm_pca._operations.acm_private_ca.aws_json1_1.revoke_certificate
 
-            output, http_response = (
-                capo_acm_pca._operations.acm_private_ca.revoke_certificate.revoke_certificate(
-                    req.options, req.input
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.aws_json1_1.revoke_certificate.revoke_certificate(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.revoke_certificate
+
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.revoke_certificate.revoke_certificate(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1524,13 +1751,24 @@ class ACMPCAClient:
         def _handler(
             req: "OperationRequest[capo_acm_pca.types.tag_certificate_authority_request.TagCertificateAuthorityRequest]",
         ) -> OperationResponse[None]:
-            import capo_acm_pca._operations.acm_private_ca.tag_certificate_authority
+            if req.options.protocol == "awsJson1_1":
+                import capo_acm_pca._operations.acm_private_ca.aws_json1_1.tag_certificate_authority
 
-            output, http_response = (
-                capo_acm_pca._operations.acm_private_ca.tag_certificate_authority.tag_certificate_authority(
-                    req.options, req.input
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.aws_json1_1.tag_certificate_authority.tag_certificate_authority(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.tag_certificate_authority
+
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.tag_certificate_authority.tag_certificate_authority(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1573,13 +1811,24 @@ class ACMPCAClient:
         def _handler(
             req: "OperationRequest[capo_acm_pca.types.untag_certificate_authority_request.UntagCertificateAuthorityRequest]",
         ) -> OperationResponse[None]:
-            import capo_acm_pca._operations.acm_private_ca.untag_certificate_authority
+            if req.options.protocol == "awsJson1_1":
+                import capo_acm_pca._operations.acm_private_ca.aws_json1_1.untag_certificate_authority
 
-            output, http_response = (
-                capo_acm_pca._operations.acm_private_ca.untag_certificate_authority.untag_certificate_authority(
-                    req.options, req.input
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.aws_json1_1.untag_certificate_authority.untag_certificate_authority(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.untag_certificate_authority
+
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.untag_certificate_authority.untag_certificate_authority(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1630,13 +1879,24 @@ class ACMPCAClient:
         def _handler(
             req: "OperationRequest[capo_acm_pca.types.update_certificate_authority_request.UpdateCertificateAuthorityRequest]",
         ) -> OperationResponse[None]:
-            import capo_acm_pca._operations.acm_private_ca.update_certificate_authority
+            if req.options.protocol == "awsJson1_1":
+                import capo_acm_pca._operations.acm_private_ca.aws_json1_1.update_certificate_authority
 
-            output, http_response = (
-                capo_acm_pca._operations.acm_private_ca.update_certificate_authority.update_certificate_authority(
-                    req.options, req.input
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.aws_json1_1.update_certificate_authority.update_certificate_authority(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.update_certificate_authority
+
+                output, http_response = (
+                    capo_acm_pca._operations.acm_private_ca.rpcv2_cbor.update_certificate_authority.update_certificate_authority(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

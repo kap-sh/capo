@@ -43,3 +43,31 @@ def deserialize_aws_json_1_1(data: dict) -> NetworkAclCommonPolicy:
             "NetworkAclCommonPolicy.network_acl_entry_set required"
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: NetworkAclCommonPolicy) -> dict:
+    out: dict = {}
+    import capo_fms.types.network_acl_entry_set
+
+    out["NetworkAclEntrySet"] = capo_fms.types.network_acl_entry_set.serialize_cbor(
+        value["network_acl_entry_set"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> NetworkAclCommonPolicy:
+    out: NetworkAclCommonPolicy = {}  # type: ignore[typeddict-item]
+    if data.get("NetworkAclEntrySet") is not None:
+        import capo_fms.types.network_acl_entry_set
+
+        out["network_acl_entry_set"] = (
+            capo_fms.types.network_acl_entry_set.deserialize_cbor(
+                data["NetworkAclEntrySet"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "NetworkAclCommonPolicy.network_acl_entry_set required"
+        )
+    return out

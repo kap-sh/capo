@@ -30,3 +30,14 @@ def serialize_query(
 def deserialize_query(el: Element) -> UntagResourceOutput:
     out: UntagResourceOutput = {}  # type: ignore[typeddict-item]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UntagResourceOutput) -> dict:
+    out: dict = {}
+    return out
+
+
+def deserialize_cbor(data: dict) -> UntagResourceOutput:
+    out: UntagResourceOutput = {}  # type: ignore[typeddict-item]
+    return out

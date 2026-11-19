@@ -54,3 +54,39 @@ def deserialize_aws_json_1_0(data: dict) -> IngressIpv6ToEvaluate:
         if name is not None:
             return {"$unknown": {"name": name}}
         raise DeserializationError("IngressIpv6ToEvaluate: no recognized variant key")
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IngressIpv6ToEvaluate) -> dict:
+    if "$unknown" in value:
+        raise SerializationError(
+            f"IngressIpv6ToEvaluate: cannot serialize unknown variant {value['$unknown']['name']!r}"
+        )
+    elif "Attribute" in value:
+        import capo_mailmanager.types.ingress_ipv6_attribute
+
+        return {
+            "Attribute": capo_mailmanager.types.ingress_ipv6_attribute.serialize_cbor(
+                value["Attribute"]
+            )
+        }
+    else:
+        raise SerializationError("IngressIpv6ToEvaluate: no variant present")
+
+
+def deserialize_cbor(data: dict) -> IngressIpv6ToEvaluate:
+    if data.get("Attribute") is not None:
+        import capo_mailmanager.types.ingress_ipv6_attribute
+
+        return {
+            "Attribute": capo_mailmanager.types.ingress_ipv6_attribute.deserialize_cbor(
+                data["Attribute"]
+            )
+        }
+    else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return {"$unknown": {"name": name}}
+        raise DeserializationError("IngressIpv6ToEvaluate: no recognized variant key")

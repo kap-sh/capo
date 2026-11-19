@@ -68,3 +68,46 @@ def deserialize_aws_json_1_0(data: dict) -> ListAgreementRequestsInput:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListAgreementRequestsInput) -> dict:
+    out: dict = {}
+    if "catalog" in value:
+        out["catalog"] = value["catalog"]
+    if "status" in value:
+        import capo_marketplace_agreement.types.agreement_request_status
+
+        out["status"] = (
+            capo_marketplace_agreement.types.agreement_request_status.serialize_cbor(
+                value["status"]
+            )
+        )
+    if "resource_id" in value:
+        out["resourceId"] = value["resource_id"]
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListAgreementRequestsInput:
+    out: ListAgreementRequestsInput = {}  # type: ignore[typeddict-item]
+    if data.get("catalog") is not None:
+        out["catalog"] = data["catalog"]
+    if data.get("status") is not None:
+        import capo_marketplace_agreement.types.agreement_request_status
+
+        out["status"] = (
+            capo_marketplace_agreement.types.agreement_request_status.deserialize_cbor(
+                data["status"]
+            )
+        )
+    if data.get("resourceId") is not None:
+        out["resource_id"] = data["resourceId"]
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

@@ -42,3 +42,31 @@ def deserialize_aws_json_1_1(data: dict) -> OutputArtifact:
             data["files"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: OutputArtifact) -> dict:
+    out: dict = {}
+    out["name"] = value["name"]
+    if "files" in value:
+        import capo_codepipeline.types.file_path_list
+
+        out["files"] = capo_codepipeline.types.file_path_list.serialize_cbor(
+            value["files"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> OutputArtifact:
+    out: OutputArtifact = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    else:
+        out["name"] = ""
+    if data.get("files") is not None:
+        import capo_codepipeline.types.file_path_list
+
+        out["files"] = capo_codepipeline.types.file_path_list.deserialize_cbor(
+            data["files"]
+        )
+    return out

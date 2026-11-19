@@ -63,3 +63,26 @@ def deserialize_query(el: Element) -> StartMetricStreamsInput:
             child_names
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StartMetricStreamsInput) -> dict:
+    out: dict = {}
+    if "names" in value:
+        import capo_cloudwatch.types.metric_stream_names
+
+        out["Names"] = capo_cloudwatch.types.metric_stream_names.serialize_cbor(
+            value["names"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> StartMetricStreamsInput:
+    out: StartMetricStreamsInput = {}  # type: ignore[typeddict-item]
+    if data.get("Names") is not None:
+        import capo_cloudwatch.types.metric_stream_names
+
+        out["names"] = capo_cloudwatch.types.metric_stream_names.deserialize_cbor(
+            data["Names"]
+        )
+    return out

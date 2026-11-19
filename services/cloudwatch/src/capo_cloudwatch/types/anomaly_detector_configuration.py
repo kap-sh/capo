@@ -157,3 +157,66 @@ def deserialize_query(el: Element) -> AnomalyDetectorConfiguration:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AnomalyDetectorConfiguration) -> dict:
+    out: dict = {}
+    if "excluded_time_ranges" in value:
+        import capo_cloudwatch.types.anomaly_detector_excluded_time_ranges
+
+        out["ExcludedTimeRanges"] = (
+            capo_cloudwatch.types.anomaly_detector_excluded_time_ranges.serialize_cbor(
+                value["excluded_time_ranges"]
+            )
+        )
+    if "metric_timezone" in value:
+        out["MetricTimezone"] = value["metric_timezone"]
+    if "adaptation_speed" in value:
+        import capo_cloudwatch.types.anomaly_detector_adaptation_speed
+
+        out["AdaptationSpeed"] = (
+            capo_cloudwatch.types.anomaly_detector_adaptation_speed.serialize_cbor(
+                value["adaptation_speed"]
+            )
+        )
+    if "outlier_filtering_strength" in value:
+        import capo_cloudwatch.types.anomaly_detector_outlier_filtering_strength
+
+        out["OutlierFilteringStrength"] = (
+            capo_cloudwatch.types.anomaly_detector_outlier_filtering_strength.serialize_cbor(
+                value["outlier_filtering_strength"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AnomalyDetectorConfiguration:
+    out: AnomalyDetectorConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("ExcludedTimeRanges") is not None:
+        import capo_cloudwatch.types.anomaly_detector_excluded_time_ranges
+
+        out["excluded_time_ranges"] = (
+            capo_cloudwatch.types.anomaly_detector_excluded_time_ranges.deserialize_cbor(
+                data["ExcludedTimeRanges"]
+            )
+        )
+    if data.get("MetricTimezone") is not None:
+        out["metric_timezone"] = data["MetricTimezone"]
+    if data.get("AdaptationSpeed") is not None:
+        import capo_cloudwatch.types.anomaly_detector_adaptation_speed
+
+        out["adaptation_speed"] = (
+            capo_cloudwatch.types.anomaly_detector_adaptation_speed.deserialize_cbor(
+                data["AdaptationSpeed"]
+            )
+        )
+    if data.get("OutlierFilteringStrength") is not None:
+        import capo_cloudwatch.types.anomaly_detector_outlier_filtering_strength
+
+        out["outlier_filtering_strength"] = (
+            capo_cloudwatch.types.anomaly_detector_outlier_filtering_strength.deserialize_cbor(
+                data["OutlierFilteringStrength"]
+            )
+        )
+    return out

@@ -16,3 +16,12 @@ def serialize_aws_json_1_0(value: IngressPointType) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> IngressPointType:
     return cast(IngressPointType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: IngressPointType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> IngressPointType:
+    return cast(IngressPointType, data)

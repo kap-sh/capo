@@ -135,3 +135,50 @@ def deserialize_query(el: Element) -> MetricDataQuery:
     if child_account_id is not None:
         out["account_id"] = str(child_account_id.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MetricDataQuery) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["Id"] = value["id"]
+    if "metric_stat" in value:
+        import capo_cloudwatch.types.metric_stat
+
+        out["MetricStat"] = capo_cloudwatch.types.metric_stat.serialize_cbor(
+            value["metric_stat"]
+        )
+    if "expression" in value:
+        out["Expression"] = value["expression"]
+    if "label" in value:
+        out["Label"] = value["label"]
+    if "return_data" in value:
+        out["ReturnData"] = value["return_data"]
+    if "period" in value:
+        out["Period"] = value["period"]
+    if "account_id" in value:
+        out["AccountId"] = value["account_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> MetricDataQuery:
+    out: MetricDataQuery = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    if data.get("MetricStat") is not None:
+        import capo_cloudwatch.types.metric_stat
+
+        out["metric_stat"] = capo_cloudwatch.types.metric_stat.deserialize_cbor(
+            data["MetricStat"]
+        )
+    if data.get("Expression") is not None:
+        out["expression"] = data["Expression"]
+    if data.get("Label") is not None:
+        out["label"] = data["Label"]
+    if data.get("ReturnData") is not None:
+        out["return_data"] = data["ReturnData"]
+    if data.get("Period") is not None:
+        out["period"] = data["Period"]
+    if data.get("AccountId") is not None:
+        out["account_id"] = data["AccountId"]
+    return out

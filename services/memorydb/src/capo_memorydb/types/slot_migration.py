@@ -35,3 +35,19 @@ def deserialize_aws_json_1_1(data: dict) -> SlotMigration:
     else:
         out["progress_percentage"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SlotMigration) -> dict:
+    out: dict = {}
+    out["ProgressPercentage"] = value.get("progress_percentage", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> SlotMigration:
+    out: SlotMigration = {}  # type: ignore[typeddict-item]
+    if data.get("ProgressPercentage") is not None:
+        out["progress_percentage"] = float(data["ProgressPercentage"])
+    else:
+        out["progress_percentage"] = 0
+    return out

@@ -51,3 +51,34 @@ def deserialize_aws_json_1_1(data: dict) -> GetViolationDetailsRequest:
     else:
         out["resource_type"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetViolationDetailsRequest) -> dict:
+    out: dict = {}
+    out["PolicyId"] = value["policy_id"]
+    out["MemberAccount"] = value["member_account"]
+    out["ResourceId"] = value["resource_id"]
+    out["ResourceType"] = value["resource_type"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetViolationDetailsRequest:
+    out: GetViolationDetailsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("PolicyId") is not None:
+        out["policy_id"] = data["PolicyId"]
+    else:
+        out["policy_id"] = ""
+    if data.get("MemberAccount") is not None:
+        out["member_account"] = data["MemberAccount"]
+    else:
+        out["member_account"] = ""
+    if data.get("ResourceId") is not None:
+        out["resource_id"] = data["ResourceId"]
+    else:
+        out["resource_id"] = ""
+    if data.get("ResourceType") is not None:
+        out["resource_type"] = data["ResourceType"]
+    else:
+        out["resource_type"] = ""
+    return out

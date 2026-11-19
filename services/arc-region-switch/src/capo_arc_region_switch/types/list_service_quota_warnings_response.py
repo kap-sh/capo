@@ -46,3 +46,35 @@ def deserialize_aws_json_1_0(data: dict) -> ListServiceQuotaWarningsResponse:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListServiceQuotaWarningsResponse) -> dict:
+    out: dict = {}
+    import capo_arc_region_switch.types.service_quota_warning_summary_list
+
+    out["serviceQuotaWarningSummaries"] = (
+        capo_arc_region_switch.types.service_quota_warning_summary_list.serialize_cbor(
+            value["service_quota_warning_summaries"]
+        )
+    )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListServiceQuotaWarningsResponse:
+    out: ListServiceQuotaWarningsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("serviceQuotaWarningSummaries") is not None:
+        import capo_arc_region_switch.types.service_quota_warning_summary_list
+
+        out["service_quota_warning_summaries"] = (
+            capo_arc_region_switch.types.service_quota_warning_summary_list.deserialize_cbor(
+                data["serviceQuotaWarningSummaries"]
+            )
+        )
+    else:
+        out["service_quota_warning_summaries"] = []
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

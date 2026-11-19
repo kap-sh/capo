@@ -57,3 +57,22 @@ def deserialize_query(el: Element) -> GetMetricWidgetImageInput:
     if child_output_format is not None:
         out["output_format"] = str(child_output_format.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetMetricWidgetImageInput) -> dict:
+    out: dict = {}
+    if "metric_widget" in value:
+        out["MetricWidget"] = value["metric_widget"]
+    if "output_format" in value:
+        out["OutputFormat"] = value["output_format"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetMetricWidgetImageInput:
+    out: GetMetricWidgetImageInput = {}  # type: ignore[typeddict-item]
+    if data.get("MetricWidget") is not None:
+        out["metric_widget"] = data["MetricWidget"]
+    if data.get("OutputFormat") is not None:
+        out["output_format"] = data["OutputFormat"]
+    return out

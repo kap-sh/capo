@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> PipelineExecutionFilter:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PipelineExecutionFilter) -> dict:
+    out: dict = {}
+    if "succeeded_in_stage" in value:
+        import capo_codepipeline.types.succeeded_in_stage_filter
+
+        out["succeededInStage"] = (
+            capo_codepipeline.types.succeeded_in_stage_filter.serialize_cbor(
+                value["succeeded_in_stage"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PipelineExecutionFilter:
+    out: PipelineExecutionFilter = {}  # type: ignore[typeddict-item]
+    if data.get("succeededInStage") is not None:
+        import capo_codepipeline.types.succeeded_in_stage_filter
+
+        out["succeeded_in_stage"] = (
+            capo_codepipeline.types.succeeded_in_stage_filter.deserialize_cbor(
+                data["succeededInStage"]
+            )
+        )
+    return out

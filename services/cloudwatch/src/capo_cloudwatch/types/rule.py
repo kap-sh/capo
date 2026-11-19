@@ -59,3 +59,26 @@ def deserialize_query(el: Element) -> Rule:
             child_schedule
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Rule) -> dict:
+    out: dict = {}
+    if "schedule" in value:
+        import capo_cloudwatch.types.schedule
+
+        out["Schedule"] = capo_cloudwatch.types.schedule.serialize_cbor(
+            value["schedule"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Rule:
+    out: Rule = {}  # type: ignore[typeddict-item]
+    if data.get("Schedule") is not None:
+        import capo_cloudwatch.types.schedule
+
+        out["schedule"] = capo_cloudwatch.types.schedule.deserialize_cbor(
+            data["Schedule"]
+        )
+    return out

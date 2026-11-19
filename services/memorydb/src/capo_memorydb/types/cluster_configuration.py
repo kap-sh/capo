@@ -136,3 +136,92 @@ def deserialize_aws_json_1_1(data: dict) -> ClusterConfiguration:
     if data.get("MultiRegionClusterName") is not None:
         out["multi_region_cluster_name"] = data["MultiRegionClusterName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ClusterConfiguration) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "node_type" in value:
+        out["NodeType"] = value["node_type"]
+    if "engine" in value:
+        out["Engine"] = value["engine"]
+    if "engine_version" in value:
+        out["EngineVersion"] = value["engine_version"]
+    if "maintenance_window" in value:
+        out["MaintenanceWindow"] = value["maintenance_window"]
+    if "topic_arn" in value:
+        out["TopicArn"] = value["topic_arn"]
+    if "port" in value:
+        out["Port"] = value["port"]
+    if "parameter_group_name" in value:
+        out["ParameterGroupName"] = value["parameter_group_name"]
+    if "subnet_group_name" in value:
+        out["SubnetGroupName"] = value["subnet_group_name"]
+    if "vpc_id" in value:
+        out["VpcId"] = value["vpc_id"]
+    if "snapshot_retention_limit" in value:
+        out["SnapshotRetentionLimit"] = value["snapshot_retention_limit"]
+    if "snapshot_window" in value:
+        out["SnapshotWindow"] = value["snapshot_window"]
+    if "num_shards" in value:
+        out["NumShards"] = value["num_shards"]
+    if "shards" in value:
+        import capo_memorydb.types.shard_details
+
+        out["Shards"] = capo_memorydb.types.shard_details.serialize_cbor(
+            value["shards"]
+        )
+    if "multi_region_parameter_group_name" in value:
+        out["MultiRegionParameterGroupName"] = value[
+            "multi_region_parameter_group_name"
+        ]
+    if "multi_region_cluster_name" in value:
+        out["MultiRegionClusterName"] = value["multi_region_cluster_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ClusterConfiguration:
+    out: ClusterConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("NodeType") is not None:
+        out["node_type"] = data["NodeType"]
+    if data.get("Engine") is not None:
+        out["engine"] = data["Engine"]
+    if data.get("EngineVersion") is not None:
+        out["engine_version"] = data["EngineVersion"]
+    if data.get("MaintenanceWindow") is not None:
+        out["maintenance_window"] = data["MaintenanceWindow"]
+    if data.get("TopicArn") is not None:
+        out["topic_arn"] = data["TopicArn"]
+    if data.get("Port") is not None:
+        out["port"] = data["Port"]
+    if data.get("ParameterGroupName") is not None:
+        out["parameter_group_name"] = data["ParameterGroupName"]
+    if data.get("SubnetGroupName") is not None:
+        out["subnet_group_name"] = data["SubnetGroupName"]
+    if data.get("VpcId") is not None:
+        out["vpc_id"] = data["VpcId"]
+    if data.get("SnapshotRetentionLimit") is not None:
+        out["snapshot_retention_limit"] = data["SnapshotRetentionLimit"]
+    if data.get("SnapshotWindow") is not None:
+        out["snapshot_window"] = data["SnapshotWindow"]
+    if data.get("NumShards") is not None:
+        out["num_shards"] = data["NumShards"]
+    if data.get("Shards") is not None:
+        import capo_memorydb.types.shard_details
+
+        out["shards"] = capo_memorydb.types.shard_details.deserialize_cbor(
+            data["Shards"]
+        )
+    if data.get("MultiRegionParameterGroupName") is not None:
+        out["multi_region_parameter_group_name"] = data["MultiRegionParameterGroupName"]
+    if data.get("MultiRegionClusterName") is not None:
+        out["multi_region_cluster_name"] = data["MultiRegionClusterName"]
+    return out

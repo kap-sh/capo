@@ -322,6 +322,213 @@ def deserialize_aws_json_1_1(data: dict) -> GetDomainDetailResponse:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetDomainDetailResponse) -> dict:
+    out: dict = {}
+    if "domain_name" in value:
+        out["DomainName"] = value["domain_name"]
+    if "nameservers" in value:
+        import capo_route_53_domains.types.nameserver_list
+
+        out["Nameservers"] = capo_route_53_domains.types.nameserver_list.serialize_cbor(
+            value["nameservers"]
+        )
+    if "auto_renew" in value:
+        out["AutoRenew"] = value["auto_renew"]
+    if "admin_contact" in value:
+        import capo_route_53_domains.types.contact_detail
+
+        out["AdminContact"] = capo_route_53_domains.types.contact_detail.serialize_cbor(
+            value["admin_contact"]
+        )
+    if "registrant_contact" in value:
+        import capo_route_53_domains.types.contact_detail
+
+        out["RegistrantContact"] = (
+            capo_route_53_domains.types.contact_detail.serialize_cbor(
+                value["registrant_contact"]
+            )
+        )
+    if "tech_contact" in value:
+        import capo_route_53_domains.types.contact_detail
+
+        out["TechContact"] = capo_route_53_domains.types.contact_detail.serialize_cbor(
+            value["tech_contact"]
+        )
+    if "admin_privacy" in value:
+        out["AdminPrivacy"] = value["admin_privacy"]
+    if "registrant_privacy" in value:
+        out["RegistrantPrivacy"] = value["registrant_privacy"]
+    if "tech_privacy" in value:
+        out["TechPrivacy"] = value["tech_privacy"]
+    if "registrar_name" in value:
+        out["RegistrarName"] = value["registrar_name"]
+    if "who_is_server" in value:
+        out["WhoIsServer"] = value["who_is_server"]
+    if "registrar_url" in value:
+        out["RegistrarUrl"] = value["registrar_url"]
+    if "abuse_contact_email" in value:
+        out["AbuseContactEmail"] = value["abuse_contact_email"]
+    if "abuse_contact_phone" in value:
+        out["AbuseContactPhone"] = value["abuse_contact_phone"]
+    if "registry_domain_id" in value:
+        out["RegistryDomainId"] = value["registry_domain_id"]
+    if "creation_date" in value:
+        import capo_route_53_domains.types.timestamp
+
+        out["CreationDate"] = capo_route_53_domains.types.timestamp.serialize_cbor(
+            value["creation_date"]
+        )
+    if "updated_date" in value:
+        import capo_route_53_domains.types.timestamp
+
+        out["UpdatedDate"] = capo_route_53_domains.types.timestamp.serialize_cbor(
+            value["updated_date"]
+        )
+    if "expiration_date" in value:
+        import capo_route_53_domains.types.timestamp
+
+        out["ExpirationDate"] = capo_route_53_domains.types.timestamp.serialize_cbor(
+            value["expiration_date"]
+        )
+    if "reseller" in value:
+        out["Reseller"] = value["reseller"]
+    if "dns_sec" in value:
+        out["DnsSec"] = value["dns_sec"]
+    if "status_list" in value:
+        import capo_route_53_domains.types.domain_status_list
+
+        out["StatusList"] = (
+            capo_route_53_domains.types.domain_status_list.serialize_cbor(
+                value["status_list"]
+            )
+        )
+    if "dnssec_keys" in value:
+        import capo_route_53_domains.types.dnssec_key_list
+
+        out["DnssecKeys"] = capo_route_53_domains.types.dnssec_key_list.serialize_cbor(
+            value["dnssec_keys"]
+        )
+    if "billing_contact" in value:
+        import capo_route_53_domains.types.contact_detail
+
+        out["BillingContact"] = (
+            capo_route_53_domains.types.contact_detail.serialize_cbor(
+                value["billing_contact"]
+            )
+        )
+    if "billing_privacy" in value:
+        out["BillingPrivacy"] = value["billing_privacy"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetDomainDetailResponse:
+    out: GetDomainDetailResponse = {}  # type: ignore[typeddict-item]
+    if data.get("DomainName") is not None:
+        out["domain_name"] = data["DomainName"]
+    if data.get("Nameservers") is not None:
+        import capo_route_53_domains.types.nameserver_list
+
+        out["nameservers"] = (
+            capo_route_53_domains.types.nameserver_list.deserialize_cbor(
+                data["Nameservers"]
+            )
+        )
+    if data.get("AutoRenew") is not None:
+        out["auto_renew"] = data["AutoRenew"]
+    if data.get("AdminContact") is not None:
+        import capo_route_53_domains.types.contact_detail
+
+        out["admin_contact"] = (
+            capo_route_53_domains.types.contact_detail.deserialize_cbor(
+                data["AdminContact"]
+            )
+        )
+    if data.get("RegistrantContact") is not None:
+        import capo_route_53_domains.types.contact_detail
+
+        out["registrant_contact"] = (
+            capo_route_53_domains.types.contact_detail.deserialize_cbor(
+                data["RegistrantContact"]
+            )
+        )
+    if data.get("TechContact") is not None:
+        import capo_route_53_domains.types.contact_detail
+
+        out["tech_contact"] = (
+            capo_route_53_domains.types.contact_detail.deserialize_cbor(
+                data["TechContact"]
+            )
+        )
+    if data.get("AdminPrivacy") is not None:
+        out["admin_privacy"] = data["AdminPrivacy"]
+    if data.get("RegistrantPrivacy") is not None:
+        out["registrant_privacy"] = data["RegistrantPrivacy"]
+    if data.get("TechPrivacy") is not None:
+        out["tech_privacy"] = data["TechPrivacy"]
+    if data.get("RegistrarName") is not None:
+        out["registrar_name"] = data["RegistrarName"]
+    if data.get("WhoIsServer") is not None:
+        out["who_is_server"] = data["WhoIsServer"]
+    if data.get("RegistrarUrl") is not None:
+        out["registrar_url"] = data["RegistrarUrl"]
+    if data.get("AbuseContactEmail") is not None:
+        out["abuse_contact_email"] = data["AbuseContactEmail"]
+    if data.get("AbuseContactPhone") is not None:
+        out["abuse_contact_phone"] = data["AbuseContactPhone"]
+    if data.get("RegistryDomainId") is not None:
+        out["registry_domain_id"] = data["RegistryDomainId"]
+    if data.get("CreationDate") is not None:
+        import capo_route_53_domains.types.timestamp
+
+        out["creation_date"] = capo_route_53_domains.types.timestamp.deserialize_cbor(
+            data["CreationDate"]
+        )
+    if data.get("UpdatedDate") is not None:
+        import capo_route_53_domains.types.timestamp
+
+        out["updated_date"] = capo_route_53_domains.types.timestamp.deserialize_cbor(
+            data["UpdatedDate"]
+        )
+    if data.get("ExpirationDate") is not None:
+        import capo_route_53_domains.types.timestamp
+
+        out["expiration_date"] = capo_route_53_domains.types.timestamp.deserialize_cbor(
+            data["ExpirationDate"]
+        )
+    if data.get("Reseller") is not None:
+        out["reseller"] = data["Reseller"]
+    if data.get("DnsSec") is not None:
+        out["dns_sec"] = data["DnsSec"]
+    if data.get("StatusList") is not None:
+        import capo_route_53_domains.types.domain_status_list
+
+        out["status_list"] = (
+            capo_route_53_domains.types.domain_status_list.deserialize_cbor(
+                data["StatusList"]
+            )
+        )
+    if data.get("DnssecKeys") is not None:
+        import capo_route_53_domains.types.dnssec_key_list
+
+        out["dnssec_keys"] = (
+            capo_route_53_domains.types.dnssec_key_list.deserialize_cbor(
+                data["DnssecKeys"]
+            )
+        )
+    if data.get("BillingContact") is not None:
+        import capo_route_53_domains.types.contact_detail
+
+        out["billing_contact"] = (
+            capo_route_53_domains.types.contact_detail.deserialize_cbor(
+                data["BillingContact"]
+            )
+        )
+    if data.get("BillingPrivacy") is not None:
+        out["billing_privacy"] = data["BillingPrivacy"]
+    return out
+
+
 def redact_sensitive(value: GetDomainDetailResponse) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "admin_contact" in value:

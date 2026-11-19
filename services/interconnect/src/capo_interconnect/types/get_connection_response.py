@@ -36,6 +36,29 @@ def deserialize_aws_json_1_0(data: dict) -> GetConnectionResponse:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetConnectionResponse) -> dict:
+    out: dict = {}
+    if "connection" in value:
+        import capo_interconnect.types.connection
+
+        out["connection"] = capo_interconnect.types.connection.serialize_cbor(
+            value["connection"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetConnectionResponse:
+    out: GetConnectionResponse = {}  # type: ignore[typeddict-item]
+    if data.get("connection") is not None:
+        import capo_interconnect.types.connection
+
+        out["connection"] = capo_interconnect.types.connection.deserialize_cbor(
+            data["connection"]
+        )
+    return out
+
+
 def redact_sensitive(value: GetConnectionResponse) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "connection" in value:

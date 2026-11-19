@@ -54,3 +54,36 @@ def deserialize_aws_json_1_1(data: dict) -> CreateFleetLocationsOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateFleetLocationsOutput) -> dict:
+    out: dict = {}
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "fleet_arn" in value:
+        out["FleetArn"] = value["fleet_arn"]
+    if "location_states" in value:
+        import capo_gamelift.types.location_state_list
+
+        out["LocationStates"] = capo_gamelift.types.location_state_list.serialize_cbor(
+            value["location_states"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateFleetLocationsOutput:
+    out: CreateFleetLocationsOutput = {}  # type: ignore[typeddict-item]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("FleetArn") is not None:
+        out["fleet_arn"] = data["FleetArn"]
+    if data.get("LocationStates") is not None:
+        import capo_gamelift.types.location_state_list
+
+        out["location_states"] = (
+            capo_gamelift.types.location_state_list.deserialize_cbor(
+                data["LocationStates"]
+            )
+        )
+    return out

@@ -48,3 +48,35 @@ def deserialize_aws_json_1_1(data: dict) -> SummarizedAttackVector:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SummarizedAttackVector) -> dict:
+    out: dict = {}
+    out["VectorType"] = value["vector_type"]
+    if "vector_counters" in value:
+        import capo_shield.types.summarized_counter_list
+
+        out["VectorCounters"] = (
+            capo_shield.types.summarized_counter_list.serialize_cbor(
+                value["vector_counters"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> SummarizedAttackVector:
+    out: SummarizedAttackVector = {}  # type: ignore[typeddict-item]
+    if data.get("VectorType") is not None:
+        out["vector_type"] = data["VectorType"]
+    else:
+        out["vector_type"] = ""
+    if data.get("VectorCounters") is not None:
+        import capo_shield.types.summarized_counter_list
+
+        out["vector_counters"] = (
+            capo_shield.types.summarized_counter_list.deserialize_cbor(
+                data["VectorCounters"]
+            )
+        )
+    return out

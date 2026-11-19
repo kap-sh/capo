@@ -33,3 +33,22 @@ def deserialize_aws_json_1_1(data: dict) -> BuildNotDeleted:
     if data.get("statusCode") is not None:
         out["status_code"] = data["statusCode"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BuildNotDeleted) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["id"] = value["id"]
+    if "status_code" in value:
+        out["statusCode"] = value["status_code"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> BuildNotDeleted:
+    out: BuildNotDeleted = {}  # type: ignore[typeddict-item]
+    if data.get("id") is not None:
+        out["id"] = data["id"]
+    if data.get("statusCode") is not None:
+        out["status_code"] = data["statusCode"]
+    return out

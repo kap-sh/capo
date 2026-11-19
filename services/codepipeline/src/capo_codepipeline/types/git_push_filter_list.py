@@ -31,3 +31,24 @@ def deserialize_aws_json_1_1(data: list) -> GitPushFilterList:
             capo_codepipeline.types.git_push_filter.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GitPushFilterList) -> list:
+    import capo_codepipeline.types.git_push_filter
+
+    out: list = []
+    for item in value:
+        out.append(capo_codepipeline.types.git_push_filter.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> GitPushFilterList:
+    import capo_codepipeline.types.git_push_filter
+
+    out: GitPushFilterList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_codepipeline.types.git_push_filter.deserialize_cbor(item))
+    return out

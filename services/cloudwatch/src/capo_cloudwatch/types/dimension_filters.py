@@ -80,3 +80,24 @@ def deserialize_aws_json_1_0(data: list) -> DimensionFilters:
             capo_cloudwatch.types.dimension_filter.deserialize_aws_json_1_0(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DimensionFilters) -> list:
+    import capo_cloudwatch.types.dimension_filter
+
+    out: list = []
+    for item in value:
+        out.append(capo_cloudwatch.types.dimension_filter.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> DimensionFilters:
+    import capo_cloudwatch.types.dimension_filter
+
+    out: DimensionFilters = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_cloudwatch.types.dimension_filter.deserialize_cbor(item))
+    return out

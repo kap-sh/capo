@@ -278,3 +278,210 @@ def deserialize_aws_json_1_1(data: dict) -> RemediationAction:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RemediationAction) -> dict:
+    out: dict = {}
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "ec2_create_route_action" in value:
+        import capo_fms.types.ec2_create_route_action
+
+        out["EC2CreateRouteAction"] = (
+            capo_fms.types.ec2_create_route_action.serialize_cbor(
+                value["ec2_create_route_action"]
+            )
+        )
+    if "ec2_replace_route_action" in value:
+        import capo_fms.types.ec2_replace_route_action
+
+        out["EC2ReplaceRouteAction"] = (
+            capo_fms.types.ec2_replace_route_action.serialize_cbor(
+                value["ec2_replace_route_action"]
+            )
+        )
+    if "ec2_delete_route_action" in value:
+        import capo_fms.types.ec2_delete_route_action
+
+        out["EC2DeleteRouteAction"] = (
+            capo_fms.types.ec2_delete_route_action.serialize_cbor(
+                value["ec2_delete_route_action"]
+            )
+        )
+    if "ec2_copy_route_table_action" in value:
+        import capo_fms.types.ec2_copy_route_table_action
+
+        out["EC2CopyRouteTableAction"] = (
+            capo_fms.types.ec2_copy_route_table_action.serialize_cbor(
+                value["ec2_copy_route_table_action"]
+            )
+        )
+    if "ec2_replace_route_table_association_action" in value:
+        import capo_fms.types.ec2_replace_route_table_association_action
+
+        out["EC2ReplaceRouteTableAssociationAction"] = (
+            capo_fms.types.ec2_replace_route_table_association_action.serialize_cbor(
+                value["ec2_replace_route_table_association_action"]
+            )
+        )
+    if "ec2_associate_route_table_action" in value:
+        import capo_fms.types.ec2_associate_route_table_action
+
+        out["EC2AssociateRouteTableAction"] = (
+            capo_fms.types.ec2_associate_route_table_action.serialize_cbor(
+                value["ec2_associate_route_table_action"]
+            )
+        )
+    if "ec2_create_route_table_action" in value:
+        import capo_fms.types.ec2_create_route_table_action
+
+        out["EC2CreateRouteTableAction"] = (
+            capo_fms.types.ec2_create_route_table_action.serialize_cbor(
+                value["ec2_create_route_table_action"]
+            )
+        )
+    if "fms_policy_update_firewall_creation_config_action" in value:
+        import capo_fms.types.fms_policy_update_firewall_creation_config_action
+
+        out["FMSPolicyUpdateFirewallCreationConfigAction"] = (
+            capo_fms.types.fms_policy_update_firewall_creation_config_action.serialize_cbor(
+                value["fms_policy_update_firewall_creation_config_action"]
+            )
+        )
+    if "create_network_acl_action" in value:
+        import capo_fms.types.create_network_acl_action
+
+        out["CreateNetworkAclAction"] = (
+            capo_fms.types.create_network_acl_action.serialize_cbor(
+                value["create_network_acl_action"]
+            )
+        )
+    if "replace_network_acl_association_action" in value:
+        import capo_fms.types.replace_network_acl_association_action
+
+        out["ReplaceNetworkAclAssociationAction"] = (
+            capo_fms.types.replace_network_acl_association_action.serialize_cbor(
+                value["replace_network_acl_association_action"]
+            )
+        )
+    if "create_network_acl_entries_action" in value:
+        import capo_fms.types.create_network_acl_entries_action
+
+        out["CreateNetworkAclEntriesAction"] = (
+            capo_fms.types.create_network_acl_entries_action.serialize_cbor(
+                value["create_network_acl_entries_action"]
+            )
+        )
+    if "delete_network_acl_entries_action" in value:
+        import capo_fms.types.delete_network_acl_entries_action
+
+        out["DeleteNetworkAclEntriesAction"] = (
+            capo_fms.types.delete_network_acl_entries_action.serialize_cbor(
+                value["delete_network_acl_entries_action"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RemediationAction:
+    out: RemediationAction = {}  # type: ignore[typeddict-item]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("EC2CreateRouteAction") is not None:
+        import capo_fms.types.ec2_create_route_action
+
+        out["ec2_create_route_action"] = (
+            capo_fms.types.ec2_create_route_action.deserialize_cbor(
+                data["EC2CreateRouteAction"]
+            )
+        )
+    if data.get("EC2ReplaceRouteAction") is not None:
+        import capo_fms.types.ec2_replace_route_action
+
+        out["ec2_replace_route_action"] = (
+            capo_fms.types.ec2_replace_route_action.deserialize_cbor(
+                data["EC2ReplaceRouteAction"]
+            )
+        )
+    if data.get("EC2DeleteRouteAction") is not None:
+        import capo_fms.types.ec2_delete_route_action
+
+        out["ec2_delete_route_action"] = (
+            capo_fms.types.ec2_delete_route_action.deserialize_cbor(
+                data["EC2DeleteRouteAction"]
+            )
+        )
+    if data.get("EC2CopyRouteTableAction") is not None:
+        import capo_fms.types.ec2_copy_route_table_action
+
+        out["ec2_copy_route_table_action"] = (
+            capo_fms.types.ec2_copy_route_table_action.deserialize_cbor(
+                data["EC2CopyRouteTableAction"]
+            )
+        )
+    if data.get("EC2ReplaceRouteTableAssociationAction") is not None:
+        import capo_fms.types.ec2_replace_route_table_association_action
+
+        out["ec2_replace_route_table_association_action"] = (
+            capo_fms.types.ec2_replace_route_table_association_action.deserialize_cbor(
+                data["EC2ReplaceRouteTableAssociationAction"]
+            )
+        )
+    if data.get("EC2AssociateRouteTableAction") is not None:
+        import capo_fms.types.ec2_associate_route_table_action
+
+        out["ec2_associate_route_table_action"] = (
+            capo_fms.types.ec2_associate_route_table_action.deserialize_cbor(
+                data["EC2AssociateRouteTableAction"]
+            )
+        )
+    if data.get("EC2CreateRouteTableAction") is not None:
+        import capo_fms.types.ec2_create_route_table_action
+
+        out["ec2_create_route_table_action"] = (
+            capo_fms.types.ec2_create_route_table_action.deserialize_cbor(
+                data["EC2CreateRouteTableAction"]
+            )
+        )
+    if data.get("FMSPolicyUpdateFirewallCreationConfigAction") is not None:
+        import capo_fms.types.fms_policy_update_firewall_creation_config_action
+
+        out["fms_policy_update_firewall_creation_config_action"] = (
+            capo_fms.types.fms_policy_update_firewall_creation_config_action.deserialize_cbor(
+                data["FMSPolicyUpdateFirewallCreationConfigAction"]
+            )
+        )
+    if data.get("CreateNetworkAclAction") is not None:
+        import capo_fms.types.create_network_acl_action
+
+        out["create_network_acl_action"] = (
+            capo_fms.types.create_network_acl_action.deserialize_cbor(
+                data["CreateNetworkAclAction"]
+            )
+        )
+    if data.get("ReplaceNetworkAclAssociationAction") is not None:
+        import capo_fms.types.replace_network_acl_association_action
+
+        out["replace_network_acl_association_action"] = (
+            capo_fms.types.replace_network_acl_association_action.deserialize_cbor(
+                data["ReplaceNetworkAclAssociationAction"]
+            )
+        )
+    if data.get("CreateNetworkAclEntriesAction") is not None:
+        import capo_fms.types.create_network_acl_entries_action
+
+        out["create_network_acl_entries_action"] = (
+            capo_fms.types.create_network_acl_entries_action.deserialize_cbor(
+                data["CreateNetworkAclEntriesAction"]
+            )
+        )
+    if data.get("DeleteNetworkAclEntriesAction") is not None:
+        import capo_fms.types.delete_network_acl_entries_action
+
+        out["delete_network_acl_entries_action"] = (
+            capo_fms.types.delete_network_acl_entries_action.deserialize_cbor(
+                data["DeleteNetworkAclEntriesAction"]
+            )
+        )
+    return out

@@ -93,3 +93,67 @@ def deserialize_aws_json_1_1(data: dict) -> AttackProperty:
     else:
         out["total"] = 0
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AttackProperty) -> dict:
+    out: dict = {}
+    if "attack_layer" in value:
+        import capo_shield.types.attack_layer
+
+        out["AttackLayer"] = capo_shield.types.attack_layer.serialize_cbor(
+            value["attack_layer"]
+        )
+    if "attack_property_identifier" in value:
+        import capo_shield.types.attack_property_identifier
+
+        out["AttackPropertyIdentifier"] = (
+            capo_shield.types.attack_property_identifier.serialize_cbor(
+                value["attack_property_identifier"]
+            )
+        )
+    if "top_contributors" in value:
+        import capo_shield.types.top_contributors
+
+        out["TopContributors"] = capo_shield.types.top_contributors.serialize_cbor(
+            value["top_contributors"]
+        )
+    if "unit" in value:
+        import capo_shield.types.unit
+
+        out["Unit"] = capo_shield.types.unit.serialize_cbor(value["unit"])
+    out["Total"] = value.get("total", 0)
+    return out
+
+
+def deserialize_cbor(data: dict) -> AttackProperty:
+    out: AttackProperty = {}  # type: ignore[typeddict-item]
+    if data.get("AttackLayer") is not None:
+        import capo_shield.types.attack_layer
+
+        out["attack_layer"] = capo_shield.types.attack_layer.deserialize_cbor(
+            data["AttackLayer"]
+        )
+    if data.get("AttackPropertyIdentifier") is not None:
+        import capo_shield.types.attack_property_identifier
+
+        out["attack_property_identifier"] = (
+            capo_shield.types.attack_property_identifier.deserialize_cbor(
+                data["AttackPropertyIdentifier"]
+            )
+        )
+    if data.get("TopContributors") is not None:
+        import capo_shield.types.top_contributors
+
+        out["top_contributors"] = capo_shield.types.top_contributors.deserialize_cbor(
+            data["TopContributors"]
+        )
+    if data.get("Unit") is not None:
+        import capo_shield.types.unit
+
+        out["unit"] = capo_shield.types.unit.deserialize_cbor(data["Unit"])
+    if data.get("Total") is not None:
+        out["total"] = data["Total"]
+    else:
+        out["total"] = 0
+    return out

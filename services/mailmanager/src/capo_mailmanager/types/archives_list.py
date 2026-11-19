@@ -27,3 +27,24 @@ def deserialize_aws_json_1_0(data: list) -> ArchivesList:
             continue
         out.append(capo_mailmanager.types.archive.deserialize_aws_json_1_0(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ArchivesList) -> list:
+    import capo_mailmanager.types.archive
+
+    out: list = []
+    for item in value:
+        out.append(capo_mailmanager.types.archive.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> ArchivesList:
+    import capo_mailmanager.types.archive
+
+    out: ArchivesList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_mailmanager.types.archive.deserialize_cbor(item))
+    return out

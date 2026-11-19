@@ -51,3 +51,38 @@ def deserialize_aws_json_1_1(data: dict) -> AgentAccessSetting:
             data["Permission"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AgentAccessSetting) -> dict:
+    out: dict = {}
+    if "agent_action" in value:
+        import capo_appstream.types.agent_action
+
+        out["AgentAction"] = capo_appstream.types.agent_action.serialize_cbor(
+            value["agent_action"]
+        )
+    if "permission" in value:
+        import capo_appstream.types.permission
+
+        out["Permission"] = capo_appstream.types.permission.serialize_cbor(
+            value["permission"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AgentAccessSetting:
+    out: AgentAccessSetting = {}  # type: ignore[typeddict-item]
+    if data.get("AgentAction") is not None:
+        import capo_appstream.types.agent_action
+
+        out["agent_action"] = capo_appstream.types.agent_action.deserialize_cbor(
+            data["AgentAction"]
+        )
+    if data.get("Permission") is not None:
+        import capo_appstream.types.permission
+
+        out["permission"] = capo_appstream.types.permission.deserialize_cbor(
+            data["Permission"]
+        )
+    return out

@@ -57,3 +57,34 @@ def deserialize_aws_json_1_0(data: dict) -> ItemizedCharge:
     if data.get("incrementalChargeAmount") is not None:
         out["incremental_charge_amount"] = data["incrementalChargeAmount"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ItemizedCharge) -> dict:
+    out: dict = {}
+    if "dimension_key" in value:
+        out["dimensionKey"] = value["dimension_key"]
+    if "new_quantity" in value:
+        out["newQuantity"] = value["new_quantity"]
+    if "old_quantity" in value:
+        out["oldQuantity"] = value["old_quantity"]
+    if "charge_reference" in value:
+        out["chargeReference"] = value["charge_reference"]
+    if "incremental_charge_amount" in value:
+        out["incrementalChargeAmount"] = value["incremental_charge_amount"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ItemizedCharge:
+    out: ItemizedCharge = {}  # type: ignore[typeddict-item]
+    if data.get("dimensionKey") is not None:
+        out["dimension_key"] = data["dimensionKey"]
+    if data.get("newQuantity") is not None:
+        out["new_quantity"] = data["newQuantity"]
+    if data.get("oldQuantity") is not None:
+        out["old_quantity"] = data["oldQuantity"]
+    if data.get("chargeReference") is not None:
+        out["charge_reference"] = data["chargeReference"]
+    if data.get("incrementalChargeAmount") is not None:
+        out["incremental_charge_amount"] = data["incrementalChargeAmount"]
+    return out

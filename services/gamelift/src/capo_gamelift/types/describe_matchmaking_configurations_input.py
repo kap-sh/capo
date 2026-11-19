@@ -65,3 +65,42 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeMatchmakingConfigurationsInp
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeMatchmakingConfigurationsInput) -> dict:
+    out: dict = {}
+    if "names" in value:
+        import capo_gamelift.types.matchmaking_configuration_name_list
+
+        out["Names"] = (
+            capo_gamelift.types.matchmaking_configuration_name_list.serialize_cbor(
+                value["names"]
+            )
+        )
+    if "rule_set_name" in value:
+        out["RuleSetName"] = value["rule_set_name"]
+    if "limit" in value:
+        out["Limit"] = value["limit"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeMatchmakingConfigurationsInput:
+    out: DescribeMatchmakingConfigurationsInput = {}  # type: ignore[typeddict-item]
+    if data.get("Names") is not None:
+        import capo_gamelift.types.matchmaking_configuration_name_list
+
+        out["names"] = (
+            capo_gamelift.types.matchmaking_configuration_name_list.deserialize_cbor(
+                data["Names"]
+            )
+        )
+    if data.get("RuleSetName") is not None:
+        out["rule_set_name"] = data["RuleSetName"]
+    if data.get("Limit") is not None:
+        out["limit"] = data["Limit"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

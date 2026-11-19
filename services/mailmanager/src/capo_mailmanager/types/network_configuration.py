@@ -79,3 +79,55 @@ def deserialize_aws_json_1_0(data: dict) -> NetworkConfiguration:
         if name is not None:
             return {"$unknown": {"name": name}}
         raise DeserializationError("NetworkConfiguration: no recognized variant key")
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: NetworkConfiguration) -> dict:
+    if "$unknown" in value:
+        raise SerializationError(
+            f"NetworkConfiguration: cannot serialize unknown variant {value['$unknown']['name']!r}"
+        )
+    elif "PublicNetworkConfiguration" in value:
+        import capo_mailmanager.types.public_network_configuration
+
+        return {
+            "PublicNetworkConfiguration": capo_mailmanager.types.public_network_configuration.serialize_cbor(
+                value["PublicNetworkConfiguration"]
+            )
+        }
+    elif "PrivateNetworkConfiguration" in value:
+        import capo_mailmanager.types.private_network_configuration
+
+        return {
+            "PrivateNetworkConfiguration": capo_mailmanager.types.private_network_configuration.serialize_cbor(
+                value["PrivateNetworkConfiguration"]
+            )
+        }
+    else:
+        raise SerializationError("NetworkConfiguration: no variant present")
+
+
+def deserialize_cbor(data: dict) -> NetworkConfiguration:
+    if data.get("PublicNetworkConfiguration") is not None:
+        import capo_mailmanager.types.public_network_configuration
+
+        return {
+            "PublicNetworkConfiguration": capo_mailmanager.types.public_network_configuration.deserialize_cbor(
+                data["PublicNetworkConfiguration"]
+            )
+        }
+    elif data.get("PrivateNetworkConfiguration") is not None:
+        import capo_mailmanager.types.private_network_configuration
+
+        return {
+            "PrivateNetworkConfiguration": capo_mailmanager.types.private_network_configuration.deserialize_cbor(
+                data["PrivateNetworkConfiguration"]
+            )
+        }
+    else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return {"$unknown": {"name": name}}
+        raise DeserializationError("NetworkConfiguration: no recognized variant key")

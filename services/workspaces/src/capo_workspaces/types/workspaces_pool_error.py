@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> WorkspacesPoolError:
     if data.get("ErrorMessage") is not None:
         out["error_message"] = data["ErrorMessage"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: WorkspacesPoolError) -> dict:
+    out: dict = {}
+    if "error_code" in value:
+        import capo_workspaces.types.workspaces_pool_error_code
+
+        out["ErrorCode"] = (
+            capo_workspaces.types.workspaces_pool_error_code.serialize_cbor(
+                value["error_code"]
+            )
+        )
+    if "error_message" in value:
+        out["ErrorMessage"] = value["error_message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> WorkspacesPoolError:
+    out: WorkspacesPoolError = {}  # type: ignore[typeddict-item]
+    if data.get("ErrorCode") is not None:
+        import capo_workspaces.types.workspaces_pool_error_code
+
+        out["error_code"] = (
+            capo_workspaces.types.workspaces_pool_error_code.deserialize_cbor(
+                data["ErrorCode"]
+            )
+        )
+    if data.get("ErrorMessage") is not None:
+        out["error_message"] = data["ErrorMessage"]
+    return out

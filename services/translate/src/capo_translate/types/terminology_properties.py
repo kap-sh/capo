@@ -188,3 +188,122 @@ def deserialize_aws_json_1_1(data: dict) -> TerminologyProperties:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TerminologyProperties) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "arn" in value:
+        out["Arn"] = value["arn"]
+    if "source_language_code" in value:
+        out["SourceLanguageCode"] = value["source_language_code"]
+    if "target_language_codes" in value:
+        import capo_translate.types.language_code_string_list
+
+        out["TargetLanguageCodes"] = (
+            capo_translate.types.language_code_string_list.serialize_cbor(
+                value["target_language_codes"]
+            )
+        )
+    if "encryption_key" in value:
+        import capo_translate.types.encryption_key
+
+        out["EncryptionKey"] = capo_translate.types.encryption_key.serialize_cbor(
+            value["encryption_key"]
+        )
+    if "size_bytes" in value:
+        out["SizeBytes"] = value["size_bytes"]
+    if "term_count" in value:
+        out["TermCount"] = value["term_count"]
+    if "created_at" in value:
+        import capo_translate.types.timestamp
+
+        out["CreatedAt"] = capo_translate.types.timestamp.serialize_cbor(
+            value["created_at"]
+        )
+    if "last_updated_at" in value:
+        import capo_translate.types.timestamp
+
+        out["LastUpdatedAt"] = capo_translate.types.timestamp.serialize_cbor(
+            value["last_updated_at"]
+        )
+    if "directionality" in value:
+        import capo_translate.types.directionality
+
+        out["Directionality"] = capo_translate.types.directionality.serialize_cbor(
+            value["directionality"]
+        )
+    if "message" in value:
+        out["Message"] = value["message"]
+    if "skipped_term_count" in value:
+        out["SkippedTermCount"] = value["skipped_term_count"]
+    if "format" in value:
+        import capo_translate.types.terminology_data_format
+
+        out["Format"] = capo_translate.types.terminology_data_format.serialize_cbor(
+            value["format"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TerminologyProperties:
+    out: TerminologyProperties = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("Arn") is not None:
+        out["arn"] = data["Arn"]
+    if data.get("SourceLanguageCode") is not None:
+        out["source_language_code"] = data["SourceLanguageCode"]
+    if data.get("TargetLanguageCodes") is not None:
+        import capo_translate.types.language_code_string_list
+
+        out["target_language_codes"] = (
+            capo_translate.types.language_code_string_list.deserialize_cbor(
+                data["TargetLanguageCodes"]
+            )
+        )
+    if data.get("EncryptionKey") is not None:
+        import capo_translate.types.encryption_key
+
+        out["encryption_key"] = capo_translate.types.encryption_key.deserialize_cbor(
+            data["EncryptionKey"]
+        )
+    if data.get("SizeBytes") is not None:
+        out["size_bytes"] = data["SizeBytes"]
+    if data.get("TermCount") is not None:
+        out["term_count"] = data["TermCount"]
+    if data.get("CreatedAt") is not None:
+        import capo_translate.types.timestamp
+
+        out["created_at"] = capo_translate.types.timestamp.deserialize_cbor(
+            data["CreatedAt"]
+        )
+    if data.get("LastUpdatedAt") is not None:
+        import capo_translate.types.timestamp
+
+        out["last_updated_at"] = capo_translate.types.timestamp.deserialize_cbor(
+            data["LastUpdatedAt"]
+        )
+    if data.get("Directionality") is not None:
+        import capo_translate.types.directionality
+
+        out["directionality"] = capo_translate.types.directionality.deserialize_cbor(
+            data["Directionality"]
+        )
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    if data.get("SkippedTermCount") is not None:
+        out["skipped_term_count"] = data["SkippedTermCount"]
+    if data.get("Format") is not None:
+        import capo_translate.types.terminology_data_format
+
+        out["format"] = capo_translate.types.terminology_data_format.deserialize_cbor(
+            data["Format"]
+        )
+    return out

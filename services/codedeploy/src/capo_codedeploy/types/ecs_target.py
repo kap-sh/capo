@@ -112,3 +112,80 @@ def deserialize_aws_json_1_1(data: dict) -> ECSTarget:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ECSTarget) -> dict:
+    out: dict = {}
+    if "deployment_id" in value:
+        out["deploymentId"] = value["deployment_id"]
+    if "target_id" in value:
+        out["targetId"] = value["target_id"]
+    if "target_arn" in value:
+        out["targetArn"] = value["target_arn"]
+    if "last_updated_at" in value:
+        import capo_codedeploy.types.time
+
+        out["lastUpdatedAt"] = capo_codedeploy.types.time.serialize_cbor(
+            value["last_updated_at"]
+        )
+    if "lifecycle_events" in value:
+        import capo_codedeploy.types.lifecycle_event_list
+
+        out["lifecycleEvents"] = (
+            capo_codedeploy.types.lifecycle_event_list.serialize_cbor(
+                value["lifecycle_events"]
+            )
+        )
+    if "status" in value:
+        import capo_codedeploy.types.target_status
+
+        out["status"] = capo_codedeploy.types.target_status.serialize_cbor(
+            value["status"]
+        )
+    if "task_sets_info" in value:
+        import capo_codedeploy.types.ecs_task_set_list
+
+        out["taskSetsInfo"] = capo_codedeploy.types.ecs_task_set_list.serialize_cbor(
+            value["task_sets_info"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ECSTarget:
+    out: ECSTarget = {}  # type: ignore[typeddict-item]
+    if data.get("deploymentId") is not None:
+        out["deployment_id"] = data["deploymentId"]
+    if data.get("targetId") is not None:
+        out["target_id"] = data["targetId"]
+    if data.get("targetArn") is not None:
+        out["target_arn"] = data["targetArn"]
+    if data.get("lastUpdatedAt") is not None:
+        import capo_codedeploy.types.time
+
+        out["last_updated_at"] = capo_codedeploy.types.time.deserialize_cbor(
+            data["lastUpdatedAt"]
+        )
+    if data.get("lifecycleEvents") is not None:
+        import capo_codedeploy.types.lifecycle_event_list
+
+        out["lifecycle_events"] = (
+            capo_codedeploy.types.lifecycle_event_list.deserialize_cbor(
+                data["lifecycleEvents"]
+            )
+        )
+    if data.get("status") is not None:
+        import capo_codedeploy.types.target_status
+
+        out["status"] = capo_codedeploy.types.target_status.deserialize_cbor(
+            data["status"]
+        )
+    if data.get("taskSetsInfo") is not None:
+        import capo_codedeploy.types.ecs_task_set_list
+
+        out["task_sets_info"] = (
+            capo_codedeploy.types.ecs_task_set_list.deserialize_cbor(
+                data["taskSetsInfo"]
+            )
+        )
+    return out

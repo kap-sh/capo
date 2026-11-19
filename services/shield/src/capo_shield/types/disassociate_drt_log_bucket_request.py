@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> DisassociateDRTLogBucketRequest:
     else:
         out["log_bucket"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DisassociateDRTLogBucketRequest) -> dict:
+    out: dict = {}
+    out["LogBucket"] = value["log_bucket"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DisassociateDRTLogBucketRequest:
+    out: DisassociateDRTLogBucketRequest = {}  # type: ignore[typeddict-item]
+    if data.get("LogBucket") is not None:
+        out["log_bucket"] = data["LogBucket"]
+    else:
+        out["log_bucket"] = ""
+    return out

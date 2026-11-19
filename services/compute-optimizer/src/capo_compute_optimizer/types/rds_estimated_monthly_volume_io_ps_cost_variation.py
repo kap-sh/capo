@@ -17,3 +17,12 @@ def serialize_aws_json_1_0(value: RDSEstimatedMonthlyVolumeIOPsCostVariation) ->
 
 def deserialize_aws_json_1_0(data: str) -> RDSEstimatedMonthlyVolumeIOPsCostVariation:
     return cast(RDSEstimatedMonthlyVolumeIOPsCostVariation, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RDSEstimatedMonthlyVolumeIOPsCostVariation) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> RDSEstimatedMonthlyVolumeIOPsCostVariation:
+    return cast(RDSEstimatedMonthlyVolumeIOPsCostVariation, data)

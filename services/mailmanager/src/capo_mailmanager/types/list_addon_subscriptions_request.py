@@ -33,3 +33,22 @@ def deserialize_aws_json_1_0(data: dict) -> ListAddonSubscriptionsRequest:
     if data.get("PageSize") is not None:
         out["page_size"] = data["PageSize"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListAddonSubscriptionsRequest) -> dict:
+    out: dict = {}
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    if "page_size" in value:
+        out["PageSize"] = value["page_size"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListAddonSubscriptionsRequest:
+    out: ListAddonSubscriptionsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    if data.get("PageSize") is not None:
+        out["page_size"] = data["PageSize"]
+    return out

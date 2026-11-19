@@ -39,3 +39,26 @@ def deserialize_aws_json_1_1(data: dict) -> ResponseResourceMetric:
     if data.get("Unit") is not None:
         out["unit"] = data["Unit"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResponseResourceMetric) -> dict:
+    out: dict = {}
+    if "metric" in value:
+        out["Metric"] = value["metric"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "unit" in value:
+        out["Unit"] = value["unit"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ResponseResourceMetric:
+    out: ResponseResourceMetric = {}  # type: ignore[typeddict-item]
+    if data.get("Metric") is not None:
+        out["metric"] = data["Metric"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("Unit") is not None:
+        out["unit"] = data["Unit"]
+    return out

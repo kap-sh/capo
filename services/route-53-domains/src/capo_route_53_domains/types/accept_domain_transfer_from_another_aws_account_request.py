@@ -41,6 +41,27 @@ def deserialize_aws_json_1_1(
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AcceptDomainTransferFromAnotherAwsAccountRequest) -> dict:
+    out: dict = {}
+    out["DomainName"] = value["domain_name"]
+    out["Password"] = value["password"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AcceptDomainTransferFromAnotherAwsAccountRequest:
+    out: AcceptDomainTransferFromAnotherAwsAccountRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DomainName") is not None:
+        out["domain_name"] = data["DomainName"]
+    else:
+        out["domain_name"] = ""
+    if data.get("Password") is not None:
+        out["password"] = data["Password"]
+    else:
+        out["password"] = ""
+    return out
+
+
 def redact_sensitive(
     value: AcceptDomainTransferFromAnotherAwsAccountRequest,
 ) -> dict[str, Any]:

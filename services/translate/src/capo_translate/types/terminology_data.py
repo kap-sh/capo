@@ -78,6 +78,57 @@ def deserialize_aws_json_1_1(data: dict) -> TerminologyData:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: TerminologyData) -> dict:
+    out: dict = {}
+    import capo_translate.types.terminology_file
+
+    out["File"] = capo_translate.types.terminology_file.serialize_cbor(value["file"])
+    import capo_translate.types.terminology_data_format
+
+    out["Format"] = capo_translate.types.terminology_data_format.serialize_cbor(
+        value["format"]
+    )
+    if "directionality" in value:
+        import capo_translate.types.directionality
+
+        out["Directionality"] = capo_translate.types.directionality.serialize_cbor(
+            value["directionality"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> TerminologyData:
+    out: TerminologyData = {}  # type: ignore[typeddict-item]
+    if data.get("File") is not None:
+        import capo_translate.types.terminology_file
+
+        out["file"] = capo_translate.types.terminology_file.deserialize_cbor(
+            data["File"]
+        )
+    else:
+        out["file"] = b""
+    if data.get("Format") is not None:
+        import capo_translate.types.terminology_data_format
+
+        out["format"] = capo_translate.types.terminology_data_format.deserialize_cbor(
+            data["Format"]
+        )
+    else:
+        import typing
+
+        out["format"] = typing.cast(
+            "capo_translate.types.terminology_data_format.TerminologyDataFormat", ""
+        )
+    if data.get("Directionality") is not None:
+        import capo_translate.types.directionality
+
+        out["directionality"] = capo_translate.types.directionality.deserialize_cbor(
+            data["Directionality"]
+        )
+    return out
+
+
 def redact_sensitive(value: TerminologyData) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "file" in value:

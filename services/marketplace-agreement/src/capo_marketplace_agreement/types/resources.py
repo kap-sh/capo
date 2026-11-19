@@ -31,3 +31,24 @@ def deserialize_aws_json_1_0(data: list) -> Resources:
             capo_marketplace_agreement.types.resource.deserialize_aws_json_1_0(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Resources) -> list:
+    import capo_marketplace_agreement.types.resource
+
+    out: list = []
+    for item in value:
+        out.append(capo_marketplace_agreement.types.resource.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> Resources:
+    import capo_marketplace_agreement.types.resource
+
+    out: Resources = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_marketplace_agreement.types.resource.deserialize_cbor(item))
+    return out

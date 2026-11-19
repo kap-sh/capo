@@ -110,3 +110,68 @@ def deserialize_aws_json_1_1(data: dict) -> ResiliencyGroup:
             data["tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResiliencyGroup) -> dict:
+    out: dict = {}
+    if "resiliency_group_id" in value:
+        out["resiliencyGroupId"] = value["resiliency_group_id"]
+    if "resiliency_group_arn" in value:
+        out["resiliencyGroupArn"] = value["resiliency_group_arn"]
+    if "resiliency_group_name" in value:
+        out["resiliencyGroupName"] = value["resiliency_group_name"]
+    if "resiliency_group_type" in value:
+        import capo_direct_connect.types.resiliency_group_type
+
+        out["resiliencyGroupType"] = (
+            capo_direct_connect.types.resiliency_group_type.serialize_cbor(
+                value["resiliency_group_type"]
+            )
+        )
+    if "owner_account" in value:
+        out["ownerAccount"] = value["owner_account"]
+    if "state" in value:
+        import capo_direct_connect.types.resiliency_group_state
+
+        out["state"] = capo_direct_connect.types.resiliency_group_state.serialize_cbor(
+            value["state"]
+        )
+    if "tags" in value:
+        import capo_direct_connect.types.tag_list
+
+        out["tags"] = capo_direct_connect.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> ResiliencyGroup:
+    out: ResiliencyGroup = {}  # type: ignore[typeddict-item]
+    if data.get("resiliencyGroupId") is not None:
+        out["resiliency_group_id"] = data["resiliencyGroupId"]
+    if data.get("resiliencyGroupArn") is not None:
+        out["resiliency_group_arn"] = data["resiliencyGroupArn"]
+    if data.get("resiliencyGroupName") is not None:
+        out["resiliency_group_name"] = data["resiliencyGroupName"]
+    if data.get("resiliencyGroupType") is not None:
+        import capo_direct_connect.types.resiliency_group_type
+
+        out["resiliency_group_type"] = (
+            capo_direct_connect.types.resiliency_group_type.deserialize_cbor(
+                data["resiliencyGroupType"]
+            )
+        )
+    if data.get("ownerAccount") is not None:
+        out["owner_account"] = data["ownerAccount"]
+    if data.get("state") is not None:
+        import capo_direct_connect.types.resiliency_group_state
+
+        out["state"] = (
+            capo_direct_connect.types.resiliency_group_state.deserialize_cbor(
+                data["state"]
+            )
+        )
+    if data.get("tags") is not None:
+        import capo_direct_connect.types.tag_list
+
+        out["tags"] = capo_direct_connect.types.tag_list.deserialize_cbor(data["tags"])
+    return out

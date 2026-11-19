@@ -43,3 +43,26 @@ def deserialize_aws_json_1_0(data: dict) -> PaymentScheduleEntry:
     if data.get("dayOfMonth") is not None:
         out["day_of_month"] = data["dayOfMonth"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PaymentScheduleEntry) -> dict:
+    out: dict = {}
+    if "charge_date_offset" in value:
+        out["chargeDateOffset"] = value["charge_date_offset"]
+    if "charge_percentage" in value:
+        out["chargePercentage"] = value["charge_percentage"]
+    if "day_of_month" in value:
+        out["dayOfMonth"] = value["day_of_month"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> PaymentScheduleEntry:
+    out: PaymentScheduleEntry = {}  # type: ignore[typeddict-item]
+    if data.get("chargeDateOffset") is not None:
+        out["charge_date_offset"] = data["chargeDateOffset"]
+    if data.get("chargePercentage") is not None:
+        out["charge_percentage"] = data["chargePercentage"]
+    if data.get("dayOfMonth") is not None:
+        out["day_of_month"] = data["dayOfMonth"]
+    return out

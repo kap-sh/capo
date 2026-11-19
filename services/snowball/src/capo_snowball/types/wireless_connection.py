@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> WirelessConnection:
     else:
         out["is_wifi_enabled"] = False
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: WirelessConnection) -> dict:
+    out: dict = {}
+    out["IsWifiEnabled"] = value.get("is_wifi_enabled", False)
+    return out
+
+
+def deserialize_cbor(data: dict) -> WirelessConnection:
+    out: WirelessConnection = {}  # type: ignore[typeddict-item]
+    if data.get("IsWifiEnabled") is not None:
+        out["is_wifi_enabled"] = data["IsWifiEnabled"]
+    else:
+        out["is_wifi_enabled"] = False
+    return out

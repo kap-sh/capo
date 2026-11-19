@@ -61,3 +61,12 @@ def serialize_query(
 
 def deserialize_query(el: Element) -> StandardUnit:
     return from_query_text(el.text or "")
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: StandardUnit) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> StandardUnit:
+    return cast(StandardUnit, data)

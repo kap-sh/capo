@@ -97,3 +97,66 @@ def deserialize_aws_json_1_1(data: dict) -> MedicalScribeSettings:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MedicalScribeSettings) -> dict:
+    out: dict = {}
+    if "show_speaker_labels" in value:
+        out["ShowSpeakerLabels"] = value["show_speaker_labels"]
+    if "max_speaker_labels" in value:
+        out["MaxSpeakerLabels"] = value["max_speaker_labels"]
+    if "channel_identification" in value:
+        out["ChannelIdentification"] = value["channel_identification"]
+    if "vocabulary_name" in value:
+        out["VocabularyName"] = value["vocabulary_name"]
+    if "vocabulary_filter_name" in value:
+        out["VocabularyFilterName"] = value["vocabulary_filter_name"]
+    if "vocabulary_filter_method" in value:
+        import capo_transcribe.types.vocabulary_filter_method
+
+        out["VocabularyFilterMethod"] = (
+            capo_transcribe.types.vocabulary_filter_method.serialize_cbor(
+                value["vocabulary_filter_method"]
+            )
+        )
+    if "clinical_note_generation_settings" in value:
+        import capo_transcribe.types.clinical_note_generation_settings
+
+        out["ClinicalNoteGenerationSettings"] = (
+            capo_transcribe.types.clinical_note_generation_settings.serialize_cbor(
+                value["clinical_note_generation_settings"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> MedicalScribeSettings:
+    out: MedicalScribeSettings = {}  # type: ignore[typeddict-item]
+    if data.get("ShowSpeakerLabels") is not None:
+        out["show_speaker_labels"] = data["ShowSpeakerLabels"]
+    if data.get("MaxSpeakerLabels") is not None:
+        out["max_speaker_labels"] = data["MaxSpeakerLabels"]
+    if data.get("ChannelIdentification") is not None:
+        out["channel_identification"] = data["ChannelIdentification"]
+    if data.get("VocabularyName") is not None:
+        out["vocabulary_name"] = data["VocabularyName"]
+    if data.get("VocabularyFilterName") is not None:
+        out["vocabulary_filter_name"] = data["VocabularyFilterName"]
+    if data.get("VocabularyFilterMethod") is not None:
+        import capo_transcribe.types.vocabulary_filter_method
+
+        out["vocabulary_filter_method"] = (
+            capo_transcribe.types.vocabulary_filter_method.deserialize_cbor(
+                data["VocabularyFilterMethod"]
+            )
+        )
+    if data.get("ClinicalNoteGenerationSettings") is not None:
+        import capo_transcribe.types.clinical_note_generation_settings
+
+        out["clinical_note_generation_settings"] = (
+            capo_transcribe.types.clinical_note_generation_settings.deserialize_cbor(
+                data["ClinicalNoteGenerationSettings"]
+            )
+        )
+    return out

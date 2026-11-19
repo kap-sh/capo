@@ -302,6 +302,7 @@ class AsyncAppStreamClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[AsyncInterceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_1", "rpcv2Cbor"]
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -318,6 +319,7 @@ class AsyncAppStreamClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -333,6 +335,7 @@ class AsyncAppStreamClient:
         operation_interceptors: Iterable[AsyncInterceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_1", "rpcv2Cbor"] = "awsJson1_1",
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -369,6 +372,7 @@ class AsyncAppStreamClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -402,6 +406,9 @@ class AsyncAppStreamClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_1")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -442,14 +449,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.associate_app_block_builder_app_block_result.AssociateAppBlockBuilderAppBlockResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.associate_app_block_builder_app_block
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.associate_app_block_builder_app_block
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.associate_app_block_builder_app_block.async_associate_app_block_builder_app_block(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.associate_app_block_builder_app_block.async_associate_app_block_builder_app_block(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.associate_app_block_builder_app_block
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.associate_app_block_builder_app_block.async_associate_app_block_builder_app_block(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -496,14 +515,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.associate_application_fleet_result.AssociateApplicationFleetResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.associate_application_fleet
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.associate_application_fleet
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.associate_application_fleet.async_associate_application_fleet(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.associate_application_fleet.async_associate_application_fleet(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.associate_application_fleet
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.associate_application_fleet.async_associate_application_fleet(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -551,14 +582,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.associate_application_to_entitlement_result.AssociateApplicationToEntitlementResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.associate_application_to_entitlement
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.associate_application_to_entitlement
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.associate_application_to_entitlement.async_associate_application_to_entitlement(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.associate_application_to_entitlement.async_associate_application_to_entitlement(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.associate_application_to_entitlement
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.associate_application_to_entitlement.async_associate_application_to_entitlement(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -608,14 +651,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.associate_fleet_result.AssociateFleetResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.associate_fleet
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.associate_fleet
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.associate_fleet.async_associate_fleet(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.associate_fleet.async_associate_fleet(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.associate_fleet
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.associate_fleet.async_associate_fleet(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -662,14 +717,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.associate_software_to_image_builder_result.AssociateSoftwareToImageBuilderResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.associate_software_to_image_builder
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.associate_software_to_image_builder
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.associate_software_to_image_builder.async_associate_software_to_image_builder(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.associate_software_to_image_builder.async_associate_software_to_image_builder(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.associate_software_to_image_builder
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.associate_software_to_image_builder.async_associate_software_to_image_builder(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -713,14 +780,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.batch_associate_user_stack_result.BatchAssociateUserStackResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.batch_associate_user_stack
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.batch_associate_user_stack
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.batch_associate_user_stack.async_batch_associate_user_stack(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.batch_associate_user_stack.async_batch_associate_user_stack(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.batch_associate_user_stack
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.batch_associate_user_stack.async_batch_associate_user_stack(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -787,14 +866,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.batch_disassociate_user_stack_result.BatchDisassociateUserStackResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.batch_disassociate_user_stack
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.batch_disassociate_user_stack
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.batch_disassociate_user_stack.async_batch_disassociate_user_stack(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.batch_disassociate_user_stack.async_batch_disassociate_user_stack(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.batch_disassociate_user_stack
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.batch_disassociate_user_stack.async_batch_disassociate_user_stack(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -871,14 +962,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.copy_image_response.CopyImageResponse"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.copy_image
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.copy_image
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.copy_image.async_copy_image(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.copy_image.async_copy_image(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.copy_image
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.copy_image.async_copy_image(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -948,14 +1051,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.create_app_block_result.CreateAppBlockResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.create_app_block
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_app_block
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.create_app_block.async_create_app_block(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_app_block.async_create_app_block(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_app_block
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_app_block.async_create_app_block(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1045,14 +1160,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.create_app_block_builder_result.CreateAppBlockBuilderResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.create_app_block_builder
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_app_block_builder
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.create_app_block_builder.async_create_app_block_builder(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_app_block_builder.async_create_app_block_builder(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_app_block_builder
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_app_block_builder.async_create_app_block_builder(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1114,14 +1241,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.create_app_block_builder_streaming_url_result.CreateAppBlockBuilderStreamingURLResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.create_app_block_builder_streaming_url
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_app_block_builder_streaming_url
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.create_app_block_builder_streaming_url.async_create_app_block_builder_streaming_url(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_app_block_builder_streaming_url.async_create_app_block_builder_streaming_url(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_app_block_builder_streaming_url
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_app_block_builder_streaming_url.async_create_app_block_builder_streaming_url(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -1202,14 +1341,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.create_application_result.CreateApplicationResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.create_application
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_application
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.create_application.async_create_application(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_application.async_create_application(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_application
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_application.async_create_application(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1287,14 +1438,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.create_directory_config_result.CreateDirectoryConfigResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.create_directory_config
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_directory_config
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.create_directory_config.async_create_directory_config(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_directory_config.async_create_directory_config(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_directory_config
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_directory_config.async_create_directory_config(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -1383,14 +1546,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.create_entitlement_result.CreateEntitlementResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.create_entitlement
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_entitlement
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.create_entitlement.async_create_entitlement(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_entitlement.async_create_entitlement(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_entitlement
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_entitlement.async_create_entitlement(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1453,14 +1628,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.create_export_image_task_result.CreateExportImageTaskResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.create_export_image_task
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_export_image_task
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.create_export_image_task.async_create_export_image_task(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_export_image_task.async_create_export_image_task(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_export_image_task
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_export_image_task.async_create_export_image_task(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1587,14 +1774,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.create_fleet_result.CreateFleetResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.create_fleet
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_fleet
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.create_fleet.async_create_fleet(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_fleet.async_create_fleet(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_fleet
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_fleet.async_create_fleet(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1743,14 +1942,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.create_image_builder_result.CreateImageBuilderResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.create_image_builder
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_image_builder
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.create_image_builder.async_create_image_builder(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_image_builder.async_create_image_builder(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_image_builder
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_image_builder.async_create_image_builder(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1826,14 +2037,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.create_image_builder_streaming_url_result.CreateImageBuilderStreamingURLResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.create_image_builder_streaming_url
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_image_builder_streaming_url
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.create_image_builder_streaming_url.async_create_image_builder_streaming_url(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_image_builder_streaming_url.async_create_image_builder_streaming_url(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_image_builder_streaming_url
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_image_builder_streaming_url.async_create_image_builder_streaming_url(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -1928,14 +2151,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.create_imported_image_result.CreateImportedImageResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.create_imported_image
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_imported_image
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.create_imported_image.async_create_imported_image(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_imported_image.async_create_imported_image(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_imported_image
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_imported_image.async_create_imported_image(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -2056,14 +2291,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.create_stack_result.CreateStackResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.create_stack
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_stack
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.create_stack.async_create_stack(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_stack.async_create_stack(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_stack
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_stack.async_create_stack(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2147,14 +2394,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.create_streaming_url_result.CreateStreamingURLResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.create_streaming_url
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_streaming_url
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.create_streaming_url.async_create_streaming_url(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_streaming_url.async_create_streaming_url(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_streaming_url
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_streaming_url.async_create_streaming_url(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -2238,14 +2497,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.create_theme_for_stack_result.CreateThemeForStackResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.create_theme_for_stack
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_theme_for_stack
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.create_theme_for_stack.async_create_theme_for_stack(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_theme_for_stack.async_create_theme_for_stack(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_theme_for_stack
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_theme_for_stack.async_create_theme_for_stack(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2314,14 +2585,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.create_updated_image_result.CreateUpdatedImageResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.create_updated_image
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_updated_image
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.create_updated_image.async_create_updated_image(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_updated_image.async_create_updated_image(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_updated_image
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_updated_image.async_create_updated_image(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2366,14 +2649,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.create_usage_report_subscription_result.CreateUsageReportSubscriptionResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.create_usage_report_subscription
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_usage_report_subscription
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.create_usage_report_subscription.async_create_usage_report_subscription(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_usage_report_subscription.async_create_usage_report_subscription(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_usage_report_subscription
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_usage_report_subscription.async_create_usage_report_subscription(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2430,14 +2725,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.create_user_result.CreateUserResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.create_user
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_user
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.create_user.async_create_user(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.create_user.async_create_user(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_user
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.create_user.async_create_user(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -2493,14 +2800,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.delete_app_block_result.DeleteAppBlockResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.delete_app_block
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.delete_app_block
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.delete_app_block.async_delete_app_block(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.delete_app_block.async_delete_app_block(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.delete_app_block
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.delete_app_block.async_delete_app_block(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2542,14 +2861,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.delete_app_block_builder_result.DeleteAppBlockBuilderResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.delete_app_block_builder
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.delete_app_block_builder
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.delete_app_block_builder.async_delete_app_block_builder(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.delete_app_block_builder.async_delete_app_block_builder(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.delete_app_block_builder
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.delete_app_block_builder.async_delete_app_block_builder(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2591,14 +2922,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.delete_application_result.DeleteApplicationResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.delete_application
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.delete_application
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.delete_application.async_delete_application(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.delete_application.async_delete_application(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.delete_application
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.delete_application.async_delete_application(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2640,14 +2983,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.delete_directory_config_result.DeleteDirectoryConfigResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.delete_directory_config
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.delete_directory_config
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.delete_directory_config.async_delete_directory_config(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.delete_directory_config.async_delete_directory_config(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.delete_directory_config
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.delete_directory_config.async_delete_directory_config(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2691,14 +3046,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.delete_entitlement_result.DeleteEntitlementResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.delete_entitlement
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.delete_entitlement
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.delete_entitlement.async_delete_entitlement(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.delete_entitlement.async_delete_entitlement(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.delete_entitlement
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.delete_entitlement.async_delete_entitlement(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2741,14 +3108,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.delete_fleet_result.DeleteFleetResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.delete_fleet
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.delete_fleet
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.delete_fleet.async_delete_fleet(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.delete_fleet.async_delete_fleet(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.delete_fleet
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.delete_fleet.async_delete_fleet(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2790,14 +3169,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.delete_image_result.DeleteImageResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.delete_image
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.delete_image
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.delete_image.async_delete_image(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.delete_image.async_delete_image(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.delete_image
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.delete_image.async_delete_image(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2838,14 +3229,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.delete_image_builder_result.DeleteImageBuilderResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.delete_image_builder
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.delete_image_builder
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.delete_image_builder.async_delete_image_builder(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.delete_image_builder.async_delete_image_builder(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.delete_image_builder
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.delete_image_builder.async_delete_image_builder(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2889,14 +3292,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.delete_image_permissions_result.DeleteImagePermissionsResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.delete_image_permissions
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.delete_image_permissions
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.delete_image_permissions.async_delete_image_permissions(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.delete_image_permissions.async_delete_image_permissions(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.delete_image_permissions
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.delete_image_permissions.async_delete_image_permissions(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2940,14 +3355,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.delete_stack_result.DeleteStackResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.delete_stack
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.delete_stack
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.delete_stack.async_delete_stack(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.delete_stack.async_delete_stack(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.delete_stack
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.delete_stack.async_delete_stack(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2988,14 +3415,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.delete_theme_for_stack_result.DeleteThemeForStackResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.delete_theme_for_stack
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.delete_theme_for_stack
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.delete_theme_for_stack.async_delete_theme_for_stack(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.delete_theme_for_stack.async_delete_theme_for_stack(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.delete_theme_for_stack
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.delete_theme_for_stack.async_delete_theme_for_stack(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3029,14 +3468,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.delete_usage_report_subscription_result.DeleteUsageReportSubscriptionResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.delete_usage_report_subscription
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.delete_usage_report_subscription
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.delete_usage_report_subscription.async_delete_usage_report_subscription(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.delete_usage_report_subscription.async_delete_usage_report_subscription(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.delete_usage_report_subscription
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.delete_usage_report_subscription.async_delete_usage_report_subscription(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3077,14 +3528,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.delete_user_result.DeleteUserResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.delete_user
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.delete_user
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.delete_user.async_delete_user(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.delete_user.async_delete_user(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.delete_user
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.delete_user.async_delete_user(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -3139,14 +3602,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.describe_app_block_builder_app_block_associations_result.DescribeAppBlockBuilderAppBlockAssociationsResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.describe_app_block_builder_app_block_associations
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_app_block_builder_app_block_associations
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.describe_app_block_builder_app_block_associations.async_describe_app_block_builder_app_block_associations(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_app_block_builder_app_block_associations.async_describe_app_block_builder_app_block_associations(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_app_block_builder_app_block_associations
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_app_block_builder_app_block_associations.async_describe_app_block_builder_app_block_associations(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3220,14 +3695,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.describe_app_block_builders_result.DescribeAppBlockBuildersResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.describe_app_block_builders
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_app_block_builders
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.describe_app_block_builders.async_describe_app_block_builders(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_app_block_builders.async_describe_app_block_builders(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_app_block_builders
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_app_block_builders.async_describe_app_block_builders(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3296,14 +3783,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.describe_app_blocks_result.DescribeAppBlocksResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.describe_app_blocks
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_app_blocks
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.describe_app_blocks.async_describe_app_blocks(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_app_blocks.async_describe_app_blocks(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_app_blocks
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_app_blocks.async_describe_app_blocks(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3353,14 +3852,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.describe_application_fleet_associations_result.DescribeApplicationFleetAssociationsResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.describe_application_fleet_associations
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_application_fleet_associations
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.describe_application_fleet_associations.async_describe_application_fleet_associations(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_application_fleet_associations.async_describe_application_fleet_associations(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_application_fleet_associations
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_application_fleet_associations.async_describe_application_fleet_associations(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3410,14 +3921,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.describe_applications_result.DescribeApplicationsResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.describe_applications
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_applications
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.describe_applications.async_describe_applications(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_applications.async_describe_applications(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_applications
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_applications.async_describe_applications(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3466,14 +3989,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.describe_app_license_usage_result.DescribeAppLicenseUsageResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.describe_app_license_usage
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_app_license_usage
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.describe_app_license_usage.async_describe_app_license_usage(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_app_license_usage.async_describe_app_license_usage(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_app_license_usage
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_app_license_usage.async_describe_app_license_usage(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3522,14 +4057,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.describe_directory_configs_result.DescribeDirectoryConfigsResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.describe_directory_configs
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_directory_configs
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.describe_directory_configs.async_describe_directory_configs(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_directory_configs.async_describe_directory_configs(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_directory_configs
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_directory_configs.async_describe_directory_configs(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -3592,14 +4139,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.describe_entitlements_result.DescribeEntitlementsResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.describe_entitlements
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_entitlements
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.describe_entitlements.async_describe_entitlements(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_entitlements.async_describe_entitlements(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_entitlements
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_entitlements.async_describe_entitlements(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3646,14 +4205,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.describe_fleets_result.DescribeFleetsResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.describe_fleets
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_fleets
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.describe_fleets.async_describe_fleets(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_fleets.async_describe_fleets(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_fleets
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_fleets.async_describe_fleets(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3698,14 +4269,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.describe_image_builders_result.DescribeImageBuildersResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.describe_image_builders
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_image_builders
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.describe_image_builders.async_describe_image_builders(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_image_builders.async_describe_image_builders(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_image_builders
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_image_builders.async_describe_image_builders(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3756,14 +4339,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.describe_image_permissions_result.DescribeImagePermissionsResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.describe_image_permissions
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_image_permissions
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.describe_image_permissions.async_describe_image_permissions(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_image_permissions.async_describe_image_permissions(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_image_permissions
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_image_permissions.async_describe_image_permissions(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3844,14 +4439,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.describe_images_result.DescribeImagesResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.describe_images
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_images
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.describe_images.async_describe_images(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_images.async_describe_images(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_images
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_images.async_describe_images(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3939,14 +4546,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.describe_sessions_result.DescribeSessionsResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.describe_sessions
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_sessions
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.describe_sessions.async_describe_sessions(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_sessions.async_describe_sessions(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_sessions
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_sessions.async_describe_sessions(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4002,14 +4621,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.describe_software_associations_result.DescribeSoftwareAssociationsResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.describe_software_associations
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_software_associations
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.describe_software_associations.async_describe_software_associations(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_software_associations.async_describe_software_associations(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_software_associations
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_software_associations.async_describe_software_associations(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4054,14 +4685,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.describe_stacks_result.DescribeStacksResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.describe_stacks
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_stacks
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.describe_stacks.async_describe_stacks(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_stacks.async_describe_stacks(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_stacks
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_stacks.async_describe_stacks(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4103,14 +4746,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.describe_theme_for_stack_result.DescribeThemeForStackResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.describe_theme_for_stack
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_theme_for_stack
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.describe_theme_for_stack.async_describe_theme_for_stack(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_theme_for_stack.async_describe_theme_for_stack(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_theme_for_stack
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_theme_for_stack.async_describe_theme_for_stack(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4152,14 +4807,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.describe_usage_report_subscriptions_result.DescribeUsageReportSubscriptionsResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.describe_usage_report_subscriptions
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_usage_report_subscriptions
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.describe_usage_report_subscriptions.async_describe_usage_report_subscriptions(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_usage_report_subscriptions.async_describe_usage_report_subscriptions(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_usage_report_subscriptions
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_usage_report_subscriptions.async_describe_usage_report_subscriptions(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4208,14 +4875,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.describe_users_result.DescribeUsersResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.describe_users
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_users
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.describe_users.async_describe_users(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_users.async_describe_users(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_users
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_users.async_describe_users(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -4277,14 +4956,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.describe_user_stack_associations_result.DescribeUserStackAssociationsResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.describe_user_stack_associations
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_user_stack_associations
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.describe_user_stack_associations.async_describe_user_stack_associations(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.describe_user_stack_associations.async_describe_user_stack_associations(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_user_stack_associations
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.describe_user_stack_associations.async_describe_user_stack_associations(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -4358,14 +5049,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.disable_user_result.DisableUserResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.disable_user
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.disable_user
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.disable_user.async_disable_user(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.disable_user.async_disable_user(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.disable_user
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.disable_user.async_disable_user(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -4419,14 +5122,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.disassociate_app_block_builder_app_block_result.DisassociateAppBlockBuilderAppBlockResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.disassociate_app_block_builder_app_block
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.disassociate_app_block_builder_app_block
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.disassociate_app_block_builder_app_block.async_disassociate_app_block_builder_app_block(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.disassociate_app_block_builder_app_block.async_disassociate_app_block_builder_app_block(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.disassociate_app_block_builder_app_block
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.disassociate_app_block_builder_app_block.async_disassociate_app_block_builder_app_block(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4471,14 +5186,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.disassociate_application_fleet_result.DisassociateApplicationFleetResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.disassociate_application_fleet
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.disassociate_application_fleet
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.disassociate_application_fleet.async_disassociate_application_fleet(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.disassociate_application_fleet.async_disassociate_application_fleet(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.disassociate_application_fleet
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.disassociate_application_fleet.async_disassociate_application_fleet(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4525,14 +5252,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.disassociate_application_from_entitlement_result.DisassociateApplicationFromEntitlementResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.disassociate_application_from_entitlement
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.disassociate_application_from_entitlement
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.disassociate_application_from_entitlement.async_disassociate_application_from_entitlement(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.disassociate_application_from_entitlement.async_disassociate_application_from_entitlement(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.disassociate_application_from_entitlement
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.disassociate_application_from_entitlement.async_disassociate_application_from_entitlement(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4580,14 +5319,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.disassociate_fleet_result.DisassociateFleetResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.disassociate_fleet
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.disassociate_fleet
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.disassociate_fleet.async_disassociate_fleet(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.disassociate_fleet.async_disassociate_fleet(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.disassociate_fleet
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.disassociate_fleet.async_disassociate_fleet(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4633,14 +5384,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.disassociate_software_from_image_builder_result.DisassociateSoftwareFromImageBuilderResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.disassociate_software_from_image_builder
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.disassociate_software_from_image_builder
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.disassociate_software_from_image_builder.async_disassociate_software_from_image_builder(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.disassociate_software_from_image_builder.async_disassociate_software_from_image_builder(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.disassociate_software_from_image_builder
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.disassociate_software_from_image_builder.async_disassociate_software_from_image_builder(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4685,14 +5448,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.drain_session_instance_result.DrainSessionInstanceResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.drain_session_instance
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.drain_session_instance
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.drain_session_instance.async_drain_session_instance(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.drain_session_instance.async_drain_session_instance(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.drain_session_instance
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.drain_session_instance.async_drain_session_instance(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4736,14 +5511,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.enable_user_result.EnableUserResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.enable_user
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.enable_user
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.enable_user.async_enable_user(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.enable_user.async_enable_user(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.enable_user
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.enable_user.async_enable_user(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -4790,14 +5577,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.expire_session_result.ExpireSessionResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.expire_session
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.expire_session
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.expire_session.async_expire_session(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.expire_session.async_expire_session(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.expire_session
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.expire_session.async_expire_session(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4837,14 +5636,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.get_export_image_task_result.GetExportImageTaskResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.get_export_image_task
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.get_export_image_task
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.get_export_image_task.async_get_export_image_task(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.get_export_image_task.async_get_export_image_task(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.get_export_image_task
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.get_export_image_task.async_get_export_image_task(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4886,14 +5697,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.list_associated_fleets_result.ListAssociatedFleetsResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.list_associated_fleets
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.list_associated_fleets
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.list_associated_fleets.async_list_associated_fleets(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.list_associated_fleets.async_list_associated_fleets(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.list_associated_fleets
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.list_associated_fleets.async_list_associated_fleets(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4937,14 +5760,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.list_associated_stacks_result.ListAssociatedStacksResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.list_associated_stacks
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.list_associated_stacks
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.list_associated_stacks.async_list_associated_stacks(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.list_associated_stacks.async_list_associated_stacks(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.list_associated_stacks
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.list_associated_stacks.async_list_associated_stacks(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4993,14 +5828,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.list_entitled_applications_result.ListEntitledApplicationsResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.list_entitled_applications
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.list_entitled_applications
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.list_entitled_applications.async_list_entitled_applications(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.list_entitled_applications.async_list_entitled_applications(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.list_entitled_applications
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.list_entitled_applications.async_list_entitled_applications(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5051,14 +5898,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.list_export_image_tasks_result.ListExportImageTasksResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.list_export_image_tasks
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.list_export_image_tasks
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.list_export_image_tasks.async_list_export_image_tasks(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.list_export_image_tasks.async_list_export_image_tasks(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.list_export_image_tasks
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.list_export_image_tasks.async_list_export_image_tasks(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5101,14 +5960,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.list_tags_for_resource_response.ListTagsForResourceResponse"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.list_tags_for_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.list_tags_for_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.list_tags_for_resource.async_list_tags_for_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.list_tags_for_resource.async_list_tags_for_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.list_tags_for_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.list_tags_for_resource.async_list_tags_for_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5155,14 +6026,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.start_app_block_builder_result.StartAppBlockBuilderResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.start_app_block_builder
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.start_app_block_builder
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.start_app_block_builder.async_start_app_block_builder(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.start_app_block_builder.async_start_app_block_builder(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.start_app_block_builder
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.start_app_block_builder.async_start_app_block_builder(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5208,14 +6091,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.start_fleet_result.StartFleetResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.start_fleet
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.start_fleet
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.start_fleet.async_start_fleet(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.start_fleet.async_start_fleet(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.start_fleet
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.start_fleet.async_start_fleet(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5262,14 +6157,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.start_image_builder_result.StartImageBuilderResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.start_image_builder
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.start_image_builder
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.start_image_builder.async_start_image_builder(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.start_image_builder.async_start_image_builder(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.start_image_builder
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.start_image_builder.async_start_image_builder(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5316,14 +6223,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.start_software_deployment_to_image_builder_result.StartSoftwareDeploymentToImageBuilderResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.start_software_deployment_to_image_builder
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.start_software_deployment_to_image_builder
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.start_software_deployment_to_image_builder.async_start_software_deployment_to_image_builder(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.start_software_deployment_to_image_builder.async_start_software_deployment_to_image_builder(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.start_software_deployment_to_image_builder
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.start_software_deployment_to_image_builder.async_start_software_deployment_to_image_builder(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5366,14 +6285,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.stop_app_block_builder_result.StopAppBlockBuilderResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.stop_app_block_builder
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.stop_app_block_builder
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.stop_app_block_builder.async_stop_app_block_builder(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.stop_app_block_builder.async_stop_app_block_builder(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.stop_app_block_builder
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.stop_app_block_builder.async_stop_app_block_builder(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5413,14 +6344,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.stop_fleet_result.StopFleetResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.stop_fleet
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.stop_fleet
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.stop_fleet.async_stop_fleet(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.stop_fleet.async_stop_fleet(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.stop_fleet
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.stop_fleet.async_stop_fleet(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5461,14 +6404,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.stop_image_builder_result.StopImageBuilderResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.stop_image_builder
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.stop_image_builder
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.stop_image_builder.async_stop_image_builder(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.stop_image_builder.async_stop_image_builder(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.stop_image_builder
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.stop_image_builder.async_stop_image_builder(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5511,14 +6466,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.tag_resource_response.TagResourceResponse"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.tag_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.tag_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.tag_resource.async_tag_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.tag_resource.async_tag_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.tag_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.tag_resource.async_tag_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5561,14 +6528,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.untag_resource_response.UntagResourceResponse"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.untag_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.untag_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.untag_resource.async_untag_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.untag_resource.async_untag_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.untag_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.untag_resource.async_untag_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5646,14 +6625,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.update_app_block_builder_result.UpdateAppBlockBuilderResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.update_app_block_builder
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.update_app_block_builder
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.update_app_block_builder.async_update_app_block_builder(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.update_app_block_builder.async_update_app_block_builder(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.update_app_block_builder
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.update_app_block_builder.async_update_app_block_builder(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5734,14 +6725,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.update_application_result.UpdateApplicationResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.update_application
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.update_application
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.update_application.async_update_application(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.update_application.async_update_application(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.update_application
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.update_application.async_update_application(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -5815,14 +6818,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.update_directory_config_result.UpdateDirectoryConfigResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.update_directory_config
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.update_directory_config
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.update_directory_config.async_update_directory_config(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.update_directory_config.async_update_directory_config(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.update_directory_config
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.update_directory_config.async_update_directory_config(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -5911,14 +6926,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.update_entitlement_result.UpdateEntitlementResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.update_entitlement
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.update_entitlement
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.update_entitlement.async_update_entitlement(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.update_entitlement.async_update_entitlement(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.update_entitlement
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.update_entitlement.async_update_entitlement(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -6047,14 +7074,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.update_fleet_result.UpdateFleetResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.update_fleet
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.update_fleet
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.update_fleet.async_update_fleet(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.update_fleet.async_update_fleet(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.update_fleet
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.update_fleet.async_update_fleet(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -6159,14 +7198,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.update_image_builder_result.UpdateImageBuilderResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.update_image_builder
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.update_image_builder
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.update_image_builder.async_update_image_builder(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.update_image_builder.async_update_image_builder(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.update_image_builder
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.update_image_builder.async_update_image_builder(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -6223,14 +7274,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.update_image_permissions_result.UpdateImagePermissionsResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.update_image_permissions
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.update_image_permissions
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.update_image_permissions.async_update_image_permissions(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.update_image_permissions.async_update_image_permissions(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.update_image_permissions
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.update_image_permissions.async_update_image_permissions(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -6332,14 +7395,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.update_stack_result.UpdateStackResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.update_stack
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.update_stack
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.update_stack.async_update_stack(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.update_stack.async_update_stack(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.update_stack
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.update_stack.async_update_stack(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -6441,14 +7516,26 @@ class AsyncAppStreamClient:
         ) -> AsyncOperationResponse[
             "capo_appstream.types.update_theme_for_stack_result.UpdateThemeForStackResult"
         ]:
-            import capo_appstream._operations.photon_admin_proxy_service.update_theme_for_stack
+            if req.options.protocol == "awsJson1_1":
+                import capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.update_theme_for_stack
 
-            (
-                output,
-                http_response,
-            ) = await capo_appstream._operations.photon_admin_proxy_service.update_theme_for_stack.async_update_theme_for_stack(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.aws_json1_1.update_theme_for_stack.async_update_theme_for_stack(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.update_theme_for_stack
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_appstream._operations.photon_admin_proxy_service.rpcv2_cbor.update_theme_for_stack.async_update_theme_for_stack(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

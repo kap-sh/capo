@@ -28,3 +28,18 @@ def deserialize_aws_json_1_1(data: dict) -> HealthCheckCustomConfig:
     if data.get("FailureThreshold") is not None:
         out["failure_threshold"] = data["FailureThreshold"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: HealthCheckCustomConfig) -> dict:
+    out: dict = {}
+    if "failure_threshold" in value:
+        out["FailureThreshold"] = value["failure_threshold"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> HealthCheckCustomConfig:
+    out: HealthCheckCustomConfig = {}  # type: ignore[typeddict-item]
+    if data.get("FailureThreshold") is not None:
+        out["failure_threshold"] = data["FailureThreshold"]
+    return out

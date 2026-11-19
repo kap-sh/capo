@@ -53,3 +53,40 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateEnrollmentConfigurationRequest
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateEnrollmentConfigurationRequest) -> dict:
+    out: dict = {}
+    import capo_compute_optimizer_automation.types.enrollment_status
+
+    out["status"] = (
+        capo_compute_optimizer_automation.types.enrollment_status.serialize_cbor(
+            value["status"]
+        )
+    )
+    if "client_token" in value:
+        out["clientToken"] = value["client_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateEnrollmentConfigurationRequest:
+    out: UpdateEnrollmentConfigurationRequest = {}  # type: ignore[typeddict-item]
+    if data.get("status") is not None:
+        import capo_compute_optimizer_automation.types.enrollment_status
+
+        out["status"] = (
+            capo_compute_optimizer_automation.types.enrollment_status.deserialize_cbor(
+                data["status"]
+            )
+        )
+    else:
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_compute_optimizer_automation.types.enrollment_status.EnrollmentStatus",
+            "",
+        )
+    if data.get("clientToken") is not None:
+        out["client_token"] = data["clientToken"]
+    return out

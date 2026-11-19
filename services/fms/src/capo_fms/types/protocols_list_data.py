@@ -107,3 +107,80 @@ def deserialize_aws_json_1_1(data: dict) -> ProtocolsListData:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ProtocolsListData) -> dict:
+    out: dict = {}
+    if "list_id" in value:
+        out["ListId"] = value["list_id"]
+    out["ListName"] = value["list_name"]
+    if "list_update_token" in value:
+        out["ListUpdateToken"] = value["list_update_token"]
+    if "create_time" in value:
+        import capo_fms.types.time_stamp
+
+        out["CreateTime"] = capo_fms.types.time_stamp.serialize_cbor(
+            value["create_time"]
+        )
+    if "last_update_time" in value:
+        import capo_fms.types.time_stamp
+
+        out["LastUpdateTime"] = capo_fms.types.time_stamp.serialize_cbor(
+            value["last_update_time"]
+        )
+    import capo_fms.types.protocols_list
+
+    out["ProtocolsList"] = capo_fms.types.protocols_list.serialize_cbor(
+        value["protocols_list"]
+    )
+    if "previous_protocols_list" in value:
+        import capo_fms.types.previous_protocols_list
+
+        out["PreviousProtocolsList"] = (
+            capo_fms.types.previous_protocols_list.serialize_cbor(
+                value["previous_protocols_list"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ProtocolsListData:
+    out: ProtocolsListData = {}  # type: ignore[typeddict-item]
+    if data.get("ListId") is not None:
+        out["list_id"] = data["ListId"]
+    if data.get("ListName") is not None:
+        out["list_name"] = data["ListName"]
+    else:
+        out["list_name"] = ""
+    if data.get("ListUpdateToken") is not None:
+        out["list_update_token"] = data["ListUpdateToken"]
+    if data.get("CreateTime") is not None:
+        import capo_fms.types.time_stamp
+
+        out["create_time"] = capo_fms.types.time_stamp.deserialize_cbor(
+            data["CreateTime"]
+        )
+    if data.get("LastUpdateTime") is not None:
+        import capo_fms.types.time_stamp
+
+        out["last_update_time"] = capo_fms.types.time_stamp.deserialize_cbor(
+            data["LastUpdateTime"]
+        )
+    if data.get("ProtocolsList") is not None:
+        import capo_fms.types.protocols_list
+
+        out["protocols_list"] = capo_fms.types.protocols_list.deserialize_cbor(
+            data["ProtocolsList"]
+        )
+    else:
+        out["protocols_list"] = []
+    if data.get("PreviousProtocolsList") is not None:
+        import capo_fms.types.previous_protocols_list
+
+        out["previous_protocols_list"] = (
+            capo_fms.types.previous_protocols_list.deserialize_cbor(
+                data["PreviousProtocolsList"]
+            )
+        )
+    return out

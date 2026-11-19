@@ -264,3 +264,102 @@ def deserialize_query(el: Element) -> PutMetricStreamInput:
             child_include_linked_accounts_metrics.text or ""
         ).lower() == "true"
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PutMetricStreamInput) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "include_filters" in value:
+        import capo_cloudwatch.types.metric_stream_filters
+
+        out["IncludeFilters"] = (
+            capo_cloudwatch.types.metric_stream_filters.serialize_cbor(
+                value["include_filters"]
+            )
+        )
+    if "exclude_filters" in value:
+        import capo_cloudwatch.types.metric_stream_filters
+
+        out["ExcludeFilters"] = (
+            capo_cloudwatch.types.metric_stream_filters.serialize_cbor(
+                value["exclude_filters"]
+            )
+        )
+    if "firehose_arn" in value:
+        out["FirehoseArn"] = value["firehose_arn"]
+    if "role_arn" in value:
+        out["RoleArn"] = value["role_arn"]
+    if "output_format" in value:
+        import capo_cloudwatch.types.metric_stream_output_format
+
+        out["OutputFormat"] = (
+            capo_cloudwatch.types.metric_stream_output_format.serialize_cbor(
+                value["output_format"]
+            )
+        )
+    if "tags" in value:
+        import capo_cloudwatch.types.tag_list
+
+        out["Tags"] = capo_cloudwatch.types.tag_list.serialize_cbor(value["tags"])
+    if "statistics_configurations" in value:
+        import capo_cloudwatch.types.metric_stream_statistics_configurations
+
+        out["StatisticsConfigurations"] = (
+            capo_cloudwatch.types.metric_stream_statistics_configurations.serialize_cbor(
+                value["statistics_configurations"]
+            )
+        )
+    if "include_linked_accounts_metrics" in value:
+        out["IncludeLinkedAccountsMetrics"] = value["include_linked_accounts_metrics"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> PutMetricStreamInput:
+    out: PutMetricStreamInput = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("IncludeFilters") is not None:
+        import capo_cloudwatch.types.metric_stream_filters
+
+        out["include_filters"] = (
+            capo_cloudwatch.types.metric_stream_filters.deserialize_cbor(
+                data["IncludeFilters"]
+            )
+        )
+    if data.get("ExcludeFilters") is not None:
+        import capo_cloudwatch.types.metric_stream_filters
+
+        out["exclude_filters"] = (
+            capo_cloudwatch.types.metric_stream_filters.deserialize_cbor(
+                data["ExcludeFilters"]
+            )
+        )
+    if data.get("FirehoseArn") is not None:
+        out["firehose_arn"] = data["FirehoseArn"]
+    if data.get("RoleArn") is not None:
+        out["role_arn"] = data["RoleArn"]
+    if data.get("OutputFormat") is not None:
+        import capo_cloudwatch.types.metric_stream_output_format
+
+        out["output_format"] = (
+            capo_cloudwatch.types.metric_stream_output_format.deserialize_cbor(
+                data["OutputFormat"]
+            )
+        )
+    if data.get("Tags") is not None:
+        import capo_cloudwatch.types.tag_list
+
+        out["tags"] = capo_cloudwatch.types.tag_list.deserialize_cbor(data["Tags"])
+    if data.get("StatisticsConfigurations") is not None:
+        import capo_cloudwatch.types.metric_stream_statistics_configurations
+
+        out["statistics_configurations"] = (
+            capo_cloudwatch.types.metric_stream_statistics_configurations.deserialize_cbor(
+                data["StatisticsConfigurations"]
+            )
+        )
+    if data.get("IncludeLinkedAccountsMetrics") is not None:
+        out["include_linked_accounts_metrics"] = data["IncludeLinkedAccountsMetrics"]
+    return out

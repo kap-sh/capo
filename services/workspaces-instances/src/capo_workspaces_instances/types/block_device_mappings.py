@@ -39,6 +39,35 @@ def deserialize_aws_json_1_0(data: list) -> BlockDeviceMappings:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BlockDeviceMappings) -> list:
+    import capo_workspaces_instances.types.block_device_mapping_request
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_workspaces_instances.types.block_device_mapping_request.serialize_cbor(
+                item
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> BlockDeviceMappings:
+    import capo_workspaces_instances.types.block_device_mapping_request
+
+    out: BlockDeviceMappings = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_workspaces_instances.types.block_device_mapping_request.deserialize_cbor(
+                item
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: BlockDeviceMappings) -> list[Any]:
     import capo_workspaces_instances.types.block_device_mapping_request
 

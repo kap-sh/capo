@@ -16,3 +16,12 @@ def serialize_aws_json_1_0(value: Route53ResolvedIPValidationAction) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> Route53ResolvedIPValidationAction:
     return cast(Route53ResolvedIPValidationAction, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Route53ResolvedIPValidationAction) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> Route53ResolvedIPValidationAction:
+    return cast(Route53ResolvedIPValidationAction, data)

@@ -52,3 +52,34 @@ def deserialize_aws_json_1_1(data: dict) -> SamlProperties:
     if data.get("RelayStateParameterName") is not None:
         out["relay_state_parameter_name"] = data["RelayStateParameterName"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SamlProperties) -> dict:
+    out: dict = {}
+    if "status" in value:
+        import capo_workspaces.types.saml_status_enum
+
+        out["Status"] = capo_workspaces.types.saml_status_enum.serialize_cbor(
+            value["status"]
+        )
+    if "user_access_url" in value:
+        out["UserAccessUrl"] = value["user_access_url"]
+    if "relay_state_parameter_name" in value:
+        out["RelayStateParameterName"] = value["relay_state_parameter_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> SamlProperties:
+    out: SamlProperties = {}  # type: ignore[typeddict-item]
+    if data.get("Status") is not None:
+        import capo_workspaces.types.saml_status_enum
+
+        out["status"] = capo_workspaces.types.saml_status_enum.deserialize_cbor(
+            data["Status"]
+        )
+    if data.get("UserAccessUrl") is not None:
+        out["user_access_url"] = data["UserAccessUrl"]
+    if data.get("RelayStateParameterName") is not None:
+        out["relay_state_parameter_name"] = data["RelayStateParameterName"]
+    return out

@@ -56,6 +56,41 @@ def deserialize_aws_json_1_0(data: dict) -> ListWorkspaceInstancesRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListWorkspaceInstancesRequest) -> dict:
+    out: dict = {}
+    if "provision_states" in value:
+        import capo_workspaces_instances.types.provision_states
+
+        out["ProvisionStates"] = (
+            capo_workspaces_instances.types.provision_states.serialize_cbor(
+                value["provision_states"]
+            )
+        )
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListWorkspaceInstancesRequest:
+    out: ListWorkspaceInstancesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ProvisionStates") is not None:
+        import capo_workspaces_instances.types.provision_states
+
+        out["provision_states"] = (
+            capo_workspaces_instances.types.provision_states.deserialize_cbor(
+                data["ProvisionStates"]
+            )
+        )
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out
+
+
 def redact_sensitive(value: ListWorkspaceInstancesRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "next_token" in value:

@@ -58,3 +58,43 @@ def deserialize_aws_json_1_1(data: dict) -> BatchUpdateClusterRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchUpdateClusterRequest) -> dict:
+    out: dict = {}
+    import capo_memorydb.types.cluster_name_list
+
+    out["ClusterNames"] = capo_memorydb.types.cluster_name_list.serialize_cbor(
+        value["cluster_names"]
+    )
+    if "service_update" in value:
+        import capo_memorydb.types.service_update_request
+
+        out["ServiceUpdate"] = (
+            capo_memorydb.types.service_update_request.serialize_cbor(
+                value["service_update"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BatchUpdateClusterRequest:
+    out: BatchUpdateClusterRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ClusterNames") is not None:
+        import capo_memorydb.types.cluster_name_list
+
+        out["cluster_names"] = capo_memorydb.types.cluster_name_list.deserialize_cbor(
+            data["ClusterNames"]
+        )
+    else:
+        out["cluster_names"] = []
+    if data.get("ServiceUpdate") is not None:
+        import capo_memorydb.types.service_update_request
+
+        out["service_update"] = (
+            capo_memorydb.types.service_update_request.deserialize_cbor(
+                data["ServiceUpdate"]
+            )
+        )
+    return out

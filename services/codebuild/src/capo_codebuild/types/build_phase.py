@@ -102,3 +102,78 @@ def deserialize_aws_json_1_1(data: dict) -> BuildPhase:
             data["contexts"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BuildPhase) -> dict:
+    out: dict = {}
+    if "phase_type" in value:
+        import capo_codebuild.types.build_phase_type
+
+        out["phaseType"] = capo_codebuild.types.build_phase_type.serialize_cbor(
+            value["phase_type"]
+        )
+    if "phase_status" in value:
+        import capo_codebuild.types.status_type
+
+        out["phaseStatus"] = capo_codebuild.types.status_type.serialize_cbor(
+            value["phase_status"]
+        )
+    if "start_time" in value:
+        import capo_codebuild.types.timestamp
+
+        out["startTime"] = capo_codebuild.types.timestamp.serialize_cbor(
+            value["start_time"]
+        )
+    if "end_time" in value:
+        import capo_codebuild.types.timestamp
+
+        out["endTime"] = capo_codebuild.types.timestamp.serialize_cbor(
+            value["end_time"]
+        )
+    if "duration_in_seconds" in value:
+        out["durationInSeconds"] = value["duration_in_seconds"]
+    if "contexts" in value:
+        import capo_codebuild.types.phase_contexts
+
+        out["contexts"] = capo_codebuild.types.phase_contexts.serialize_cbor(
+            value["contexts"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BuildPhase:
+    out: BuildPhase = {}  # type: ignore[typeddict-item]
+    if data.get("phaseType") is not None:
+        import capo_codebuild.types.build_phase_type
+
+        out["phase_type"] = capo_codebuild.types.build_phase_type.deserialize_cbor(
+            data["phaseType"]
+        )
+    if data.get("phaseStatus") is not None:
+        import capo_codebuild.types.status_type
+
+        out["phase_status"] = capo_codebuild.types.status_type.deserialize_cbor(
+            data["phaseStatus"]
+        )
+    if data.get("startTime") is not None:
+        import capo_codebuild.types.timestamp
+
+        out["start_time"] = capo_codebuild.types.timestamp.deserialize_cbor(
+            data["startTime"]
+        )
+    if data.get("endTime") is not None:
+        import capo_codebuild.types.timestamp
+
+        out["end_time"] = capo_codebuild.types.timestamp.deserialize_cbor(
+            data["endTime"]
+        )
+    if data.get("durationInSeconds") is not None:
+        out["duration_in_seconds"] = data["durationInSeconds"]
+    if data.get("contexts") is not None:
+        import capo_codebuild.types.phase_contexts
+
+        out["contexts"] = capo_codebuild.types.phase_contexts.deserialize_cbor(
+            data["contexts"]
+        )
+    return out

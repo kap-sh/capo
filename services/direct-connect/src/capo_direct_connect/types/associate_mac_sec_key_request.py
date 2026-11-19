@@ -48,3 +48,31 @@ def deserialize_aws_json_1_1(data: dict) -> AssociateMacSecKeyRequest:
     if data.get("cak") is not None:
         out["cak"] = data["cak"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AssociateMacSecKeyRequest) -> dict:
+    out: dict = {}
+    out["connectionId"] = value["connection_id"]
+    if "secret_arn" in value:
+        out["secretARN"] = value["secret_arn"]
+    if "ckn" in value:
+        out["ckn"] = value["ckn"]
+    if "cak" in value:
+        out["cak"] = value["cak"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AssociateMacSecKeyRequest:
+    out: AssociateMacSecKeyRequest = {}  # type: ignore[typeddict-item]
+    if data.get("connectionId") is not None:
+        out["connection_id"] = data["connectionId"]
+    else:
+        out["connection_id"] = ""
+    if data.get("secretARN") is not None:
+        out["secret_arn"] = data["secretARN"]
+    if data.get("ckn") is not None:
+        out["ckn"] = data["ckn"]
+    if data.get("cak") is not None:
+        out["cak"] = data["cak"]
+    return out

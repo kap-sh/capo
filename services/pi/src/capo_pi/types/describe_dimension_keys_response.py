@@ -99,3 +99,68 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeDimensionKeysResponse:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeDimensionKeysResponse) -> dict:
+    out: dict = {}
+    if "aligned_start_time" in value:
+        import capo_pi.types.iso_timestamp
+
+        out["AlignedStartTime"] = capo_pi.types.iso_timestamp.serialize_cbor(
+            value["aligned_start_time"]
+        )
+    if "aligned_end_time" in value:
+        import capo_pi.types.iso_timestamp
+
+        out["AlignedEndTime"] = capo_pi.types.iso_timestamp.serialize_cbor(
+            value["aligned_end_time"]
+        )
+    if "partition_keys" in value:
+        import capo_pi.types.response_partition_key_list
+
+        out["PartitionKeys"] = capo_pi.types.response_partition_key_list.serialize_cbor(
+            value["partition_keys"]
+        )
+    if "keys" in value:
+        import capo_pi.types.dimension_key_description_list
+
+        out["Keys"] = capo_pi.types.dimension_key_description_list.serialize_cbor(
+            value["keys"]
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeDimensionKeysResponse:
+    out: DescribeDimensionKeysResponse = {}  # type: ignore[typeddict-item]
+    if data.get("AlignedStartTime") is not None:
+        import capo_pi.types.iso_timestamp
+
+        out["aligned_start_time"] = capo_pi.types.iso_timestamp.deserialize_cbor(
+            data["AlignedStartTime"]
+        )
+    if data.get("AlignedEndTime") is not None:
+        import capo_pi.types.iso_timestamp
+
+        out["aligned_end_time"] = capo_pi.types.iso_timestamp.deserialize_cbor(
+            data["AlignedEndTime"]
+        )
+    if data.get("PartitionKeys") is not None:
+        import capo_pi.types.response_partition_key_list
+
+        out["partition_keys"] = (
+            capo_pi.types.response_partition_key_list.deserialize_cbor(
+                data["PartitionKeys"]
+            )
+        )
+    if data.get("Keys") is not None:
+        import capo_pi.types.dimension_key_description_list
+
+        out["keys"] = capo_pi.types.dimension_key_description_list.deserialize_cbor(
+            data["Keys"]
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

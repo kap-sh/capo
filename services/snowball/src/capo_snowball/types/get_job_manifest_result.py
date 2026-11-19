@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> GetJobManifestResult:
     if data.get("ManifestURI") is not None:
         out["manifest_uri"] = data["ManifestURI"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetJobManifestResult) -> dict:
+    out: dict = {}
+    if "manifest_uri" in value:
+        out["ManifestURI"] = value["manifest_uri"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetJobManifestResult:
+    out: GetJobManifestResult = {}  # type: ignore[typeddict-item]
+    if data.get("ManifestURI") is not None:
+        out["manifest_uri"] = data["ManifestURI"]
+    return out

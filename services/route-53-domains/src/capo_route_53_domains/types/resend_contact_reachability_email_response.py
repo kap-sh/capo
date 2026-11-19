@@ -42,6 +42,29 @@ def deserialize_aws_json_1_1(data: dict) -> ResendContactReachabilityEmailRespon
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResendContactReachabilityEmailResponse) -> dict:
+    out: dict = {}
+    if "domain_name" in value:
+        out["domainName"] = value["domain_name"]
+    if "email_address" in value:
+        out["emailAddress"] = value["email_address"]
+    if "is_already_verified" in value:
+        out["isAlreadyVerified"] = value["is_already_verified"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ResendContactReachabilityEmailResponse:
+    out: ResendContactReachabilityEmailResponse = {}  # type: ignore[typeddict-item]
+    if data.get("domainName") is not None:
+        out["domain_name"] = data["domainName"]
+    if data.get("emailAddress") is not None:
+        out["email_address"] = data["emailAddress"]
+    if data.get("isAlreadyVerified") is not None:
+        out["is_already_verified"] = data["isAlreadyVerified"]
+    return out
+
+
 def redact_sensitive(value: ResendContactReachabilityEmailResponse) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "email_address" in value:

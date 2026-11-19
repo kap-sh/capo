@@ -49,3 +49,36 @@ def deserialize_aws_json_1_1(data: dict) -> ApprovalResult:
             "capo_codepipeline.types.approval_status.ApprovalStatus", ""
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ApprovalResult) -> dict:
+    out: dict = {}
+    out["summary"] = value["summary"]
+    import capo_codepipeline.types.approval_status
+
+    out["status"] = capo_codepipeline.types.approval_status.serialize_cbor(
+        value["status"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ApprovalResult:
+    out: ApprovalResult = {}  # type: ignore[typeddict-item]
+    if data.get("summary") is not None:
+        out["summary"] = data["summary"]
+    else:
+        out["summary"] = ""
+    if data.get("status") is not None:
+        import capo_codepipeline.types.approval_status
+
+        out["status"] = capo_codepipeline.types.approval_status.deserialize_cbor(
+            data["status"]
+        )
+    else:
+        import typing
+
+        out["status"] = typing.cast(
+            "capo_codepipeline.types.approval_status.ApprovalStatus", ""
+        )
+    return out

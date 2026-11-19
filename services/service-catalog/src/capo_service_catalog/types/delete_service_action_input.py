@@ -45,3 +45,27 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteServiceActionInput:
     if data.get("IdempotencyToken") is not None:
         out["idempotency_token"] = data["IdempotencyToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteServiceActionInput) -> dict:
+    out: dict = {}
+    out["Id"] = value["id"]
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    if "idempotency_token" in value:
+        out["IdempotencyToken"] = value["idempotency_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteServiceActionInput:
+    out: DeleteServiceActionInput = {}  # type: ignore[typeddict-item]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    else:
+        out["id"] = ""
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    if data.get("IdempotencyToken") is not None:
+        out["idempotency_token"] = data["IdempotencyToken"]
+    return out

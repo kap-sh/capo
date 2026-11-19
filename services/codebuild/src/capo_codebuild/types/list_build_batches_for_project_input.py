@@ -74,3 +74,50 @@ def deserialize_aws_json_1_1(data: dict) -> ListBuildBatchesForProjectInput:
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListBuildBatchesForProjectInput) -> dict:
+    out: dict = {}
+    if "project_name" in value:
+        out["projectName"] = value["project_name"]
+    if "filter" in value:
+        import capo_codebuild.types.build_batch_filter
+
+        out["filter"] = capo_codebuild.types.build_batch_filter.serialize_cbor(
+            value["filter"]
+        )
+    if "max_results" in value:
+        out["maxResults"] = value["max_results"]
+    if "sort_order" in value:
+        import capo_codebuild.types.sort_order_type
+
+        out["sortOrder"] = capo_codebuild.types.sort_order_type.serialize_cbor(
+            value["sort_order"]
+        )
+    if "next_token" in value:
+        out["nextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListBuildBatchesForProjectInput:
+    out: ListBuildBatchesForProjectInput = {}  # type: ignore[typeddict-item]
+    if data.get("projectName") is not None:
+        out["project_name"] = data["projectName"]
+    if data.get("filter") is not None:
+        import capo_codebuild.types.build_batch_filter
+
+        out["filter"] = capo_codebuild.types.build_batch_filter.deserialize_cbor(
+            data["filter"]
+        )
+    if data.get("maxResults") is not None:
+        out["max_results"] = data["maxResults"]
+    if data.get("sortOrder") is not None:
+        import capo_codebuild.types.sort_order_type
+
+        out["sort_order"] = capo_codebuild.types.sort_order_type.deserialize_cbor(
+            data["sortOrder"]
+        )
+    if data.get("nextToken") is not None:
+        out["next_token"] = data["nextToken"]
+    return out

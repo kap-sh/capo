@@ -111,6 +111,67 @@ def deserialize_aws_json_1_1(data: dict) -> CreateGameSessionInput:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateGameSessionInput) -> dict:
+    out: dict = {}
+    if "fleet_id" in value:
+        out["FleetId"] = value["fleet_id"]
+    if "alias_id" in value:
+        out["AliasId"] = value["alias_id"]
+    if "maximum_player_session_count" in value:
+        out["MaximumPlayerSessionCount"] = value["maximum_player_session_count"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "game_properties" in value:
+        import capo_gamelift.types.game_property_list
+
+        out["GameProperties"] = capo_gamelift.types.game_property_list.serialize_cbor(
+            value["game_properties"]
+        )
+    if "creator_id" in value:
+        out["CreatorId"] = value["creator_id"]
+    if "game_session_id" in value:
+        out["GameSessionId"] = value["game_session_id"]
+    if "idempotency_token" in value:
+        out["IdempotencyToken"] = value["idempotency_token"]
+    if "game_session_data" in value:
+        out["GameSessionData"] = value["game_session_data"]
+    if "location" in value:
+        out["Location"] = value["location"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateGameSessionInput:
+    out: CreateGameSessionInput = {}  # type: ignore[typeddict-item]
+    if data.get("FleetId") is not None:
+        out["fleet_id"] = data["FleetId"]
+    if data.get("AliasId") is not None:
+        out["alias_id"] = data["AliasId"]
+    if data.get("MaximumPlayerSessionCount") is not None:
+        out["maximum_player_session_count"] = data["MaximumPlayerSessionCount"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("GameProperties") is not None:
+        import capo_gamelift.types.game_property_list
+
+        out["game_properties"] = (
+            capo_gamelift.types.game_property_list.deserialize_cbor(
+                data["GameProperties"]
+            )
+        )
+    if data.get("CreatorId") is not None:
+        out["creator_id"] = data["CreatorId"]
+    if data.get("GameSessionId") is not None:
+        out["game_session_id"] = data["GameSessionId"]
+    if data.get("IdempotencyToken") is not None:
+        out["idempotency_token"] = data["IdempotencyToken"]
+    if data.get("GameSessionData") is not None:
+        out["game_session_data"] = data["GameSessionData"]
+    if data.get("Location") is not None:
+        out["location"] = data["Location"]
+    return out
+
+
 def redact_sensitive(value: CreateGameSessionInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "game_properties" in value:

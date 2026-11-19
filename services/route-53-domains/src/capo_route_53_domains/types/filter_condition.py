@@ -80,3 +80,64 @@ def deserialize_aws_json_1_1(data: dict) -> FilterCondition:
     else:
         out["values"] = []
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FilterCondition) -> dict:
+    out: dict = {}
+    import capo_route_53_domains.types.list_domains_attribute_name
+
+    out["Name"] = (
+        capo_route_53_domains.types.list_domains_attribute_name.serialize_cbor(
+            value["name"]
+        )
+    )
+    import capo_route_53_domains.types.operator
+
+    out["Operator"] = capo_route_53_domains.types.operator.serialize_cbor(
+        value["operator"]
+    )
+    import capo_route_53_domains.types.values
+
+    out["Values"] = capo_route_53_domains.types.values.serialize_cbor(value["values"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> FilterCondition:
+    out: FilterCondition = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        import capo_route_53_domains.types.list_domains_attribute_name
+
+        out["name"] = (
+            capo_route_53_domains.types.list_domains_attribute_name.deserialize_cbor(
+                data["Name"]
+            )
+        )
+    else:
+        import typing
+
+        out["name"] = typing.cast(
+            "capo_route_53_domains.types.list_domains_attribute_name.ListDomainsAttributeName",
+            "",
+        )
+    if data.get("Operator") is not None:
+        import capo_route_53_domains.types.operator
+
+        out["operator"] = capo_route_53_domains.types.operator.deserialize_cbor(
+            data["Operator"]
+        )
+    else:
+        import typing
+
+        out["operator"] = typing.cast(
+            "capo_route_53_domains.types.operator.Operator", ""
+        )
+    if data.get("Values") is not None:
+        import capo_route_53_domains.types.values
+
+        out["values"] = capo_route_53_domains.types.values.deserialize_cbor(
+            data["Values"]
+        )
+    else:
+        out["values"] = []
+    return out

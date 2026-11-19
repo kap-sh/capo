@@ -40,3 +40,28 @@ def deserialize_aws_json_1_1(data: dict) -> BatchGetOnPremisesInstancesOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: BatchGetOnPremisesInstancesOutput) -> dict:
+    out: dict = {}
+    if "instance_infos" in value:
+        import capo_codedeploy.types.instance_info_list
+
+        out["instanceInfos"] = capo_codedeploy.types.instance_info_list.serialize_cbor(
+            value["instance_infos"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> BatchGetOnPremisesInstancesOutput:
+    out: BatchGetOnPremisesInstancesOutput = {}  # type: ignore[typeddict-item]
+    if data.get("instanceInfos") is not None:
+        import capo_codedeploy.types.instance_info_list
+
+        out["instance_infos"] = (
+            capo_codedeploy.types.instance_info_list.deserialize_cbor(
+                data["instanceInfos"]
+            )
+        )
+    return out

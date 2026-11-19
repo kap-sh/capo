@@ -171,3 +171,110 @@ def deserialize_aws_json_1_1(data: dict) -> CreateProductInput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateProductInput) -> dict:
+    out: dict = {}
+    if "accept_language" in value:
+        out["AcceptLanguage"] = value["accept_language"]
+    out["Name"] = value["name"]
+    out["Owner"] = value["owner"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "distributor" in value:
+        out["Distributor"] = value["distributor"]
+    if "support_description" in value:
+        out["SupportDescription"] = value["support_description"]
+    if "support_email" in value:
+        out["SupportEmail"] = value["support_email"]
+    if "support_url" in value:
+        out["SupportUrl"] = value["support_url"]
+    import capo_service_catalog.types.product_type
+
+    out["ProductType"] = capo_service_catalog.types.product_type.serialize_cbor(
+        value["product_type"]
+    )
+    if "tags" in value:
+        import capo_service_catalog.types.add_tags
+
+        out["Tags"] = capo_service_catalog.types.add_tags.serialize_cbor(value["tags"])
+    if "provisioning_artifact_parameters" in value:
+        import capo_service_catalog.types.provisioning_artifact_properties
+
+        out["ProvisioningArtifactParameters"] = (
+            capo_service_catalog.types.provisioning_artifact_properties.serialize_cbor(
+                value["provisioning_artifact_parameters"]
+            )
+        )
+    out["IdempotencyToken"] = value["idempotency_token"]
+    if "source_connection" in value:
+        import capo_service_catalog.types.source_connection
+
+        out["SourceConnection"] = (
+            capo_service_catalog.types.source_connection.serialize_cbor(
+                value["source_connection"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateProductInput:
+    out: CreateProductInput = {}  # type: ignore[typeddict-item]
+    if data.get("AcceptLanguage") is not None:
+        out["accept_language"] = data["AcceptLanguage"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    else:
+        out["name"] = ""
+    if data.get("Owner") is not None:
+        out["owner"] = data["Owner"]
+    else:
+        out["owner"] = ""
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("Distributor") is not None:
+        out["distributor"] = data["Distributor"]
+    if data.get("SupportDescription") is not None:
+        out["support_description"] = data["SupportDescription"]
+    if data.get("SupportEmail") is not None:
+        out["support_email"] = data["SupportEmail"]
+    if data.get("SupportUrl") is not None:
+        out["support_url"] = data["SupportUrl"]
+    if data.get("ProductType") is not None:
+        import capo_service_catalog.types.product_type
+
+        out["product_type"] = capo_service_catalog.types.product_type.deserialize_cbor(
+            data["ProductType"]
+        )
+    else:
+        import typing
+
+        out["product_type"] = typing.cast(
+            "capo_service_catalog.types.product_type.ProductType", ""
+        )
+    if data.get("Tags") is not None:
+        import capo_service_catalog.types.add_tags
+
+        out["tags"] = capo_service_catalog.types.add_tags.deserialize_cbor(data["Tags"])
+    if data.get("ProvisioningArtifactParameters") is not None:
+        import capo_service_catalog.types.provisioning_artifact_properties
+
+        out["provisioning_artifact_parameters"] = (
+            capo_service_catalog.types.provisioning_artifact_properties.deserialize_cbor(
+                data["ProvisioningArtifactParameters"]
+            )
+        )
+    if data.get("IdempotencyToken") is not None:
+        out["idempotency_token"] = data["IdempotencyToken"]
+    else:
+        out["idempotency_token"] = ""
+    if data.get("SourceConnection") is not None:
+        import capo_service_catalog.types.source_connection
+
+        out["source_connection"] = (
+            capo_service_catalog.types.source_connection.deserialize_cbor(
+                data["SourceConnection"]
+            )
+        )
+    return out

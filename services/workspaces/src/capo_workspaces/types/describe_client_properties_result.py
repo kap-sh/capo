@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeClientPropertiesResult:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeClientPropertiesResult) -> dict:
+    out: dict = {}
+    if "client_properties_list" in value:
+        import capo_workspaces.types.client_properties_list
+
+        out["ClientPropertiesList"] = (
+            capo_workspaces.types.client_properties_list.serialize_cbor(
+                value["client_properties_list"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeClientPropertiesResult:
+    out: DescribeClientPropertiesResult = {}  # type: ignore[typeddict-item]
+    if data.get("ClientPropertiesList") is not None:
+        import capo_workspaces.types.client_properties_list
+
+        out["client_properties_list"] = (
+            capo_workspaces.types.client_properties_list.deserialize_cbor(
+                data["ClientPropertiesList"]
+            )
+        )
+    return out

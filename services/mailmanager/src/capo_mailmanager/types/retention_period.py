@@ -29,3 +29,12 @@ def serialize_aws_json_1_0(value: RetentionPeriod) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> RetentionPeriod:
     return cast(RetentionPeriod, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RetentionPeriod) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> RetentionPeriod:
+    return cast(RetentionPeriod, data)

@@ -61,3 +61,46 @@ def deserialize_aws_json_1_0(data: dict) -> CustomizableMetricParameters:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CustomizableMetricParameters) -> dict:
+    out: dict = {}
+    if "threshold" in value:
+        import capo_compute_optimizer.types.customizable_metric_threshold
+
+        out["threshold"] = (
+            capo_compute_optimizer.types.customizable_metric_threshold.serialize_cbor(
+                value["threshold"]
+            )
+        )
+    if "headroom" in value:
+        import capo_compute_optimizer.types.customizable_metric_headroom
+
+        out["headroom"] = (
+            capo_compute_optimizer.types.customizable_metric_headroom.serialize_cbor(
+                value["headroom"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CustomizableMetricParameters:
+    out: CustomizableMetricParameters = {}  # type: ignore[typeddict-item]
+    if data.get("threshold") is not None:
+        import capo_compute_optimizer.types.customizable_metric_threshold
+
+        out["threshold"] = (
+            capo_compute_optimizer.types.customizable_metric_threshold.deserialize_cbor(
+                data["threshold"]
+            )
+        )
+    if data.get("headroom") is not None:
+        import capo_compute_optimizer.types.customizable_metric_headroom
+
+        out["headroom"] = (
+            capo_compute_optimizer.types.customizable_metric_headroom.deserialize_cbor(
+                data["headroom"]
+            )
+        )
+    return out

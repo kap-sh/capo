@@ -99,3 +99,67 @@ def deserialize_aws_json_1_1(data: dict) -> CreateParallelDataRequest:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateParallelDataRequest) -> dict:
+    out: dict = {}
+    out["Name"] = value["name"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    import capo_translate.types.parallel_data_config
+
+    out["ParallelDataConfig"] = (
+        capo_translate.types.parallel_data_config.serialize_cbor(
+            value["parallel_data_config"]
+        )
+    )
+    if "encryption_key" in value:
+        import capo_translate.types.encryption_key
+
+        out["EncryptionKey"] = capo_translate.types.encryption_key.serialize_cbor(
+            value["encryption_key"]
+        )
+    out["ClientToken"] = value["client_token"]
+    if "tags" in value:
+        import capo_translate.types.tag_list
+
+        out["Tags"] = capo_translate.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateParallelDataRequest:
+    out: CreateParallelDataRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    else:
+        out["name"] = ""
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("ParallelDataConfig") is not None:
+        import capo_translate.types.parallel_data_config
+
+        out["parallel_data_config"] = (
+            capo_translate.types.parallel_data_config.deserialize_cbor(
+                data["ParallelDataConfig"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "CreateParallelDataRequest.parallel_data_config required"
+        )
+    if data.get("EncryptionKey") is not None:
+        import capo_translate.types.encryption_key
+
+        out["encryption_key"] = capo_translate.types.encryption_key.deserialize_cbor(
+            data["EncryptionKey"]
+        )
+    if data.get("ClientToken") is not None:
+        out["client_token"] = data["ClientToken"]
+    else:
+        out["client_token"] = ""
+    if data.get("Tags") is not None:
+        import capo_translate.types.tag_list
+
+        out["tags"] = capo_translate.types.tag_list.deserialize_cbor(data["Tags"])
+    return out

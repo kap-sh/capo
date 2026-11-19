@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLocationHdfsResponse:
     if data.get("LocationArn") is not None:
         out["location_arn"] = data["LocationArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateLocationHdfsResponse) -> dict:
+    out: dict = {}
+    if "location_arn" in value:
+        out["LocationArn"] = value["location_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateLocationHdfsResponse:
+    out: CreateLocationHdfsResponse = {}  # type: ignore[typeddict-item]
+    if data.get("LocationArn") is not None:
+        out["location_arn"] = data["LocationArn"]
+    return out

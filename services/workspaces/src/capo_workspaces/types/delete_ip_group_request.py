@@ -27,3 +27,19 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteIpGroupRequest:
     else:
         out["group_id"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeleteIpGroupRequest) -> dict:
+    out: dict = {}
+    out["GroupId"] = value["group_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeleteIpGroupRequest:
+    out: DeleteIpGroupRequest = {}  # type: ignore[typeddict-item]
+    if data.get("GroupId") is not None:
+        out["group_id"] = data["GroupId"]
+    else:
+        out["group_id"] = ""
+    return out

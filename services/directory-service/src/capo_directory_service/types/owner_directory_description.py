@@ -157,6 +157,115 @@ def deserialize_aws_json_1_1(data: dict) -> OwnerDirectoryDescription:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: OwnerDirectoryDescription) -> dict:
+    out: dict = {}
+    if "directory_id" in value:
+        out["DirectoryId"] = value["directory_id"]
+    if "account_id" in value:
+        out["AccountId"] = value["account_id"]
+    if "dns_ip_addrs" in value:
+        import capo_directory_service.types.dns_ip_addrs
+
+        out["DnsIpAddrs"] = capo_directory_service.types.dns_ip_addrs.serialize_cbor(
+            value["dns_ip_addrs"]
+        )
+    if "dns_ipv6_addrs" in value:
+        import capo_directory_service.types.dns_ipv6_addrs
+
+        out["DnsIpv6Addrs"] = (
+            capo_directory_service.types.dns_ipv6_addrs.serialize_cbor(
+                value["dns_ipv6_addrs"]
+            )
+        )
+    if "vpc_settings" in value:
+        import capo_directory_service.types.directory_vpc_settings_description
+
+        out["VpcSettings"] = (
+            capo_directory_service.types.directory_vpc_settings_description.serialize_cbor(
+                value["vpc_settings"]
+            )
+        )
+    if "radius_settings" in value:
+        import capo_directory_service.types.radius_settings
+
+        out["RadiusSettings"] = (
+            capo_directory_service.types.radius_settings.serialize_cbor(
+                value["radius_settings"]
+            )
+        )
+    if "radius_status" in value:
+        import capo_directory_service.types.radius_status
+
+        out["RadiusStatus"] = capo_directory_service.types.radius_status.serialize_cbor(
+            value["radius_status"]
+        )
+    if "network_type" in value:
+        import capo_directory_service.types.network_type
+
+        out["NetworkType"] = capo_directory_service.types.network_type.serialize_cbor(
+            value["network_type"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> OwnerDirectoryDescription:
+    out: OwnerDirectoryDescription = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    if data.get("AccountId") is not None:
+        out["account_id"] = data["AccountId"]
+    if data.get("DnsIpAddrs") is not None:
+        import capo_directory_service.types.dns_ip_addrs
+
+        out["dns_ip_addrs"] = (
+            capo_directory_service.types.dns_ip_addrs.deserialize_cbor(
+                data["DnsIpAddrs"]
+            )
+        )
+    if data.get("DnsIpv6Addrs") is not None:
+        import capo_directory_service.types.dns_ipv6_addrs
+
+        out["dns_ipv6_addrs"] = (
+            capo_directory_service.types.dns_ipv6_addrs.deserialize_cbor(
+                data["DnsIpv6Addrs"]
+            )
+        )
+    if data.get("VpcSettings") is not None:
+        import capo_directory_service.types.directory_vpc_settings_description
+
+        out["vpc_settings"] = (
+            capo_directory_service.types.directory_vpc_settings_description.deserialize_cbor(
+                data["VpcSettings"]
+            )
+        )
+    if data.get("RadiusSettings") is not None:
+        import capo_directory_service.types.radius_settings
+
+        out["radius_settings"] = (
+            capo_directory_service.types.radius_settings.deserialize_cbor(
+                data["RadiusSettings"]
+            )
+        )
+    if data.get("RadiusStatus") is not None:
+        import capo_directory_service.types.radius_status
+
+        out["radius_status"] = (
+            capo_directory_service.types.radius_status.deserialize_cbor(
+                data["RadiusStatus"]
+            )
+        )
+    if data.get("NetworkType") is not None:
+        import capo_directory_service.types.network_type
+
+        out["network_type"] = (
+            capo_directory_service.types.network_type.deserialize_cbor(
+                data["NetworkType"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: OwnerDirectoryDescription) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "radius_settings" in value:

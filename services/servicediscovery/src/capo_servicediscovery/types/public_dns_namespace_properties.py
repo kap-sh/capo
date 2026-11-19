@@ -43,3 +43,33 @@ def deserialize_aws_json_1_1(data: dict) -> PublicDnsNamespaceProperties:
             "PublicDnsNamespaceProperties.dns_properties required"
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PublicDnsNamespaceProperties) -> dict:
+    out: dict = {}
+    import capo_servicediscovery.types.public_dns_properties_mutable
+
+    out["DnsProperties"] = (
+        capo_servicediscovery.types.public_dns_properties_mutable.serialize_cbor(
+            value["dns_properties"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PublicDnsNamespaceProperties:
+    out: PublicDnsNamespaceProperties = {}  # type: ignore[typeddict-item]
+    if data.get("DnsProperties") is not None:
+        import capo_servicediscovery.types.public_dns_properties_mutable
+
+        out["dns_properties"] = (
+            capo_servicediscovery.types.public_dns_properties_mutable.deserialize_cbor(
+                data["DnsProperties"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "PublicDnsNamespaceProperties.dns_properties required"
+        )
+    return out

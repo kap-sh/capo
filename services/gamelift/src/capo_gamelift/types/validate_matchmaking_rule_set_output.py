@@ -26,3 +26,18 @@ def deserialize_aws_json_1_1(data: dict) -> ValidateMatchmakingRuleSetOutput:
     if data.get("Valid") is not None:
         out["valid"] = data["Valid"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ValidateMatchmakingRuleSetOutput) -> dict:
+    out: dict = {}
+    if "valid" in value:
+        out["Valid"] = value["valid"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ValidateMatchmakingRuleSetOutput:
+    out: ValidateMatchmakingRuleSetOutput = {}  # type: ignore[typeddict-item]
+    if data.get("Valid") is not None:
+        out["valid"] = data["Valid"]
+    return out

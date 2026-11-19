@@ -51,3 +51,34 @@ def deserialize_aws_json_1_0(data: dict) -> RepositorySyncDefinition:
     else:
         out["target"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RepositorySyncDefinition) -> dict:
+    out: dict = {}
+    out["Branch"] = value["branch"]
+    out["Directory"] = value["directory"]
+    out["Parent"] = value["parent"]
+    out["Target"] = value["target"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RepositorySyncDefinition:
+    out: RepositorySyncDefinition = {}  # type: ignore[typeddict-item]
+    if data.get("Branch") is not None:
+        out["branch"] = data["Branch"]
+    else:
+        out["branch"] = ""
+    if data.get("Directory") is not None:
+        out["directory"] = data["Directory"]
+    else:
+        out["directory"] = ""
+    if data.get("Parent") is not None:
+        out["parent"] = data["Parent"]
+    else:
+        out["parent"] = ""
+    if data.get("Target") is not None:
+        out["target"] = data["Target"]
+    else:
+        out["target"] = ""
+    return out

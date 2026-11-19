@@ -30,3 +30,18 @@ def deserialize_aws_json_1_1(
     if data.get("OperationId") is not None:
         out["operation_id"] = data["OperationId"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RejectDomainTransferFromAnotherAwsAccountResponse) -> dict:
+    out: dict = {}
+    if "operation_id" in value:
+        out["OperationId"] = value["operation_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RejectDomainTransferFromAnotherAwsAccountResponse:
+    out: RejectDomainTransferFromAnotherAwsAccountResponse = {}  # type: ignore[typeddict-item]
+    if data.get("OperationId") is not None:
+        out["operation_id"] = data["OperationId"]
+    return out

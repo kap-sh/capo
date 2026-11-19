@@ -101,6 +101,7 @@ class AsyncCloudHSMV2ClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[AsyncInterceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_1", "rpcv2Cbor"]
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -117,6 +118,7 @@ class AsyncCloudHSMV2Client:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -132,6 +134,7 @@ class AsyncCloudHSMV2Client:
         operation_interceptors: Iterable[AsyncInterceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_1", "rpcv2Cbor"] = "awsJson1_1",
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -168,6 +171,7 @@ class AsyncCloudHSMV2Client:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -201,6 +205,9 @@ class AsyncCloudHSMV2Client:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_1")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -244,14 +251,26 @@ class AsyncCloudHSMV2Client:
         ) -> AsyncOperationResponse[
             "capo_cloudhsm_v2.types.copy_backup_to_region_response.CopyBackupToRegionResponse"
         ]:
-            import capo_cloudhsm_v2._operations.baldr_api_service.copy_backup_to_region
+            if req.options.protocol == "awsJson1_1":
+                import capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.copy_backup_to_region
 
-            (
-                output,
-                http_response,
-            ) = await capo_cloudhsm_v2._operations.baldr_api_service.copy_backup_to_region.async_copy_backup_to_region(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.copy_backup_to_region.async_copy_backup_to_region(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.copy_backup_to_region
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.copy_backup_to_region.async_copy_backup_to_region(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -316,14 +335,26 @@ class AsyncCloudHSMV2Client:
         ) -> AsyncOperationResponse[
             "capo_cloudhsm_v2.types.create_cluster_response.CreateClusterResponse"
         ]:
-            import capo_cloudhsm_v2._operations.baldr_api_service.create_cluster
+            if req.options.protocol == "awsJson1_1":
+                import capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.create_cluster
 
-            (
-                output,
-                http_response,
-            ) = await capo_cloudhsm_v2._operations.baldr_api_service.create_cluster.async_create_cluster(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.create_cluster.async_create_cluster(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.create_cluster
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.create_cluster.async_create_cluster(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -381,14 +412,26 @@ class AsyncCloudHSMV2Client:
         ) -> AsyncOperationResponse[
             "capo_cloudhsm_v2.types.create_hsm_response.CreateHsmResponse"
         ]:
-            import capo_cloudhsm_v2._operations.baldr_api_service.create_hsm
+            if req.options.protocol == "awsJson1_1":
+                import capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.create_hsm
 
-            (
-                output,
-                http_response,
-            ) = await capo_cloudhsm_v2._operations.baldr_api_service.create_hsm.async_create_hsm(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.create_hsm.async_create_hsm(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.create_hsm
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.create_hsm.async_create_hsm(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -434,14 +477,26 @@ class AsyncCloudHSMV2Client:
         ) -> AsyncOperationResponse[
             "capo_cloudhsm_v2.types.delete_backup_response.DeleteBackupResponse"
         ]:
-            import capo_cloudhsm_v2._operations.baldr_api_service.delete_backup
+            if req.options.protocol == "awsJson1_1":
+                import capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.delete_backup
 
-            (
-                output,
-                http_response,
-            ) = await capo_cloudhsm_v2._operations.baldr_api_service.delete_backup.async_delete_backup(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.delete_backup.async_delete_backup(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.delete_backup
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.delete_backup.async_delete_backup(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -485,14 +540,26 @@ class AsyncCloudHSMV2Client:
         ) -> AsyncOperationResponse[
             "capo_cloudhsm_v2.types.delete_cluster_response.DeleteClusterResponse"
         ]:
-            import capo_cloudhsm_v2._operations.baldr_api_service.delete_cluster
+            if req.options.protocol == "awsJson1_1":
+                import capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.delete_cluster
 
-            (
-                output,
-                http_response,
-            ) = await capo_cloudhsm_v2._operations.baldr_api_service.delete_cluster.async_delete_cluster(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.delete_cluster.async_delete_cluster(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.delete_cluster
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.delete_cluster.async_delete_cluster(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -541,14 +608,26 @@ class AsyncCloudHSMV2Client:
         ) -> AsyncOperationResponse[
             "capo_cloudhsm_v2.types.delete_hsm_response.DeleteHsmResponse"
         ]:
-            import capo_cloudhsm_v2._operations.baldr_api_service.delete_hsm
+            if req.options.protocol == "awsJson1_1":
+                import capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.delete_hsm
 
-            (
-                output,
-                http_response,
-            ) = await capo_cloudhsm_v2._operations.baldr_api_service.delete_hsm.async_delete_hsm(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.delete_hsm.async_delete_hsm(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.delete_hsm
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.delete_hsm.async_delete_hsm(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -599,14 +678,26 @@ class AsyncCloudHSMV2Client:
         ) -> AsyncOperationResponse[
             "capo_cloudhsm_v2.types.delete_resource_policy_response.DeleteResourcePolicyResponse"
         ]:
-            import capo_cloudhsm_v2._operations.baldr_api_service.delete_resource_policy
+            if req.options.protocol == "awsJson1_1":
+                import capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.delete_resource_policy
 
-            (
-                output,
-                http_response,
-            ) = await capo_cloudhsm_v2._operations.baldr_api_service.delete_resource_policy.async_delete_resource_policy(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.delete_resource_policy.async_delete_resource_policy(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.delete_resource_policy
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.delete_resource_policy.async_delete_resource_policy(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -660,14 +751,26 @@ class AsyncCloudHSMV2Client:
         ) -> AsyncOperationResponse[
             "capo_cloudhsm_v2.types.describe_backups_response.DescribeBackupsResponse"
         ]:
-            import capo_cloudhsm_v2._operations.baldr_api_service.describe_backups
+            if req.options.protocol == "awsJson1_1":
+                import capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.describe_backups
 
-            (
-                output,
-                http_response,
-            ) = await capo_cloudhsm_v2._operations.baldr_api_service.describe_backups.async_describe_backups(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.describe_backups.async_describe_backups(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.describe_backups
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.describe_backups.async_describe_backups(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -751,14 +854,26 @@ class AsyncCloudHSMV2Client:
         ) -> AsyncOperationResponse[
             "capo_cloudhsm_v2.types.describe_clusters_response.DescribeClustersResponse"
         ]:
-            import capo_cloudhsm_v2._operations.baldr_api_service.describe_clusters
+            if req.options.protocol == "awsJson1_1":
+                import capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.describe_clusters
 
-            (
-                output,
-                http_response,
-            ) = await capo_cloudhsm_v2._operations.baldr_api_service.describe_clusters.async_describe_clusters(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.describe_clusters.async_describe_clusters(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.describe_clusters
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.describe_clusters.async_describe_clusters(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -832,14 +947,26 @@ class AsyncCloudHSMV2Client:
         ) -> AsyncOperationResponse[
             "capo_cloudhsm_v2.types.get_resource_policy_response.GetResourcePolicyResponse"
         ]:
-            import capo_cloudhsm_v2._operations.baldr_api_service.get_resource_policy
+            if req.options.protocol == "awsJson1_1":
+                import capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.get_resource_policy
 
-            (
-                output,
-                http_response,
-            ) = await capo_cloudhsm_v2._operations.baldr_api_service.get_resource_policy.async_get_resource_policy(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.get_resource_policy.async_get_resource_policy(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.get_resource_policy
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.get_resource_policy.async_get_resource_policy(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -886,14 +1013,26 @@ class AsyncCloudHSMV2Client:
         ) -> AsyncOperationResponse[
             "capo_cloudhsm_v2.types.initialize_cluster_response.InitializeClusterResponse"
         ]:
-            import capo_cloudhsm_v2._operations.baldr_api_service.initialize_cluster
+            if req.options.protocol == "awsJson1_1":
+                import capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.initialize_cluster
 
-            (
-                output,
-                http_response,
-            ) = await capo_cloudhsm_v2._operations.baldr_api_service.initialize_cluster.async_initialize_cluster(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.initialize_cluster.async_initialize_cluster(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.initialize_cluster
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.initialize_cluster.async_initialize_cluster(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -943,14 +1082,26 @@ class AsyncCloudHSMV2Client:
         ) -> AsyncOperationResponse[
             "capo_cloudhsm_v2.types.list_tags_response.ListTagsResponse"
         ]:
-            import capo_cloudhsm_v2._operations.baldr_api_service.list_tags
+            if req.options.protocol == "awsJson1_1":
+                import capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.list_tags
 
-            (
-                output,
-                http_response,
-            ) = await capo_cloudhsm_v2._operations.baldr_api_service.list_tags.async_list_tags(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.list_tags.async_list_tags(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.list_tags
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.list_tags.async_list_tags(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1020,14 +1171,26 @@ class AsyncCloudHSMV2Client:
         ) -> AsyncOperationResponse[
             "capo_cloudhsm_v2.types.modify_backup_attributes_response.ModifyBackupAttributesResponse"
         ]:
-            import capo_cloudhsm_v2._operations.baldr_api_service.modify_backup_attributes
+            if req.options.protocol == "awsJson1_1":
+                import capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.modify_backup_attributes
 
-            (
-                output,
-                http_response,
-            ) = await capo_cloudhsm_v2._operations.baldr_api_service.modify_backup_attributes.async_modify_backup_attributes(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.modify_backup_attributes.async_modify_backup_attributes(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.modify_backup_attributes
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.modify_backup_attributes.async_modify_backup_attributes(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1077,14 +1240,26 @@ class AsyncCloudHSMV2Client:
         ) -> AsyncOperationResponse[
             "capo_cloudhsm_v2.types.modify_cluster_response.ModifyClusterResponse"
         ]:
-            import capo_cloudhsm_v2._operations.baldr_api_service.modify_cluster
+            if req.options.protocol == "awsJson1_1":
+                import capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.modify_cluster
 
-            (
-                output,
-                http_response,
-            ) = await capo_cloudhsm_v2._operations.baldr_api_service.modify_cluster.async_modify_cluster(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.modify_cluster.async_modify_cluster(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.modify_cluster
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.modify_cluster.async_modify_cluster(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1139,14 +1314,26 @@ class AsyncCloudHSMV2Client:
         ) -> AsyncOperationResponse[
             "capo_cloudhsm_v2.types.put_resource_policy_response.PutResourcePolicyResponse"
         ]:
-            import capo_cloudhsm_v2._operations.baldr_api_service.put_resource_policy
+            if req.options.protocol == "awsJson1_1":
+                import capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.put_resource_policy
 
-            (
-                output,
-                http_response,
-            ) = await capo_cloudhsm_v2._operations.baldr_api_service.put_resource_policy.async_put_resource_policy(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.put_resource_policy.async_put_resource_policy(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.put_resource_policy
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.put_resource_policy.async_put_resource_policy(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1191,14 +1378,26 @@ class AsyncCloudHSMV2Client:
         ) -> AsyncOperationResponse[
             "capo_cloudhsm_v2.types.restore_backup_response.RestoreBackupResponse"
         ]:
-            import capo_cloudhsm_v2._operations.baldr_api_service.restore_backup
+            if req.options.protocol == "awsJson1_1":
+                import capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.restore_backup
 
-            (
-                output,
-                http_response,
-            ) = await capo_cloudhsm_v2._operations.baldr_api_service.restore_backup.async_restore_backup(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.restore_backup.async_restore_backup(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.restore_backup
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.restore_backup.async_restore_backup(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1245,14 +1444,26 @@ class AsyncCloudHSMV2Client:
         ) -> AsyncOperationResponse[
             "capo_cloudhsm_v2.types.tag_resource_response.TagResourceResponse"
         ]:
-            import capo_cloudhsm_v2._operations.baldr_api_service.tag_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.tag_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_cloudhsm_v2._operations.baldr_api_service.tag_resource.async_tag_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.tag_resource.async_tag_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.tag_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.tag_resource.async_tag_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1299,14 +1510,26 @@ class AsyncCloudHSMV2Client:
         ) -> AsyncOperationResponse[
             "capo_cloudhsm_v2.types.untag_resource_response.UntagResourceResponse"
         ]:
-            import capo_cloudhsm_v2._operations.baldr_api_service.untag_resource
+            if req.options.protocol == "awsJson1_1":
+                import capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.untag_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_cloudhsm_v2._operations.baldr_api_service.untag_resource.async_untag_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.aws_json1_1.untag_resource.async_untag_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.untag_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_cloudhsm_v2._operations.baldr_api_service.rpcv2_cbor.untag_resource.async_untag_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

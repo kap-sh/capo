@@ -246,6 +246,7 @@ class MailManagerClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[Interceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_0", "rpcv2Cbor"]
     region: str | None
     use_dual_stack: bool | None
     use_fips: bool | None
@@ -262,6 +263,7 @@ class MailManagerClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
@@ -277,6 +279,7 @@ class MailManagerClient:
         operation_interceptors: Iterable[Interceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_0", "rpcv2Cbor"] = "awsJson1_0",
         region: str | None = None,
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
@@ -313,6 +316,7 @@ class MailManagerClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
@@ -356,6 +360,9 @@ class MailManagerClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_0")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
@@ -401,13 +408,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.create_address_list_import_job_response.CreateAddressListImportJobResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.create_address_list_import_job
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.create_address_list_import_job
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.create_address_list_import_job.create_address_list_import_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.create_address_list_import_job.create_address_list_import_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.create_address_list_import_job
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.create_address_list_import_job.create_address_list_import_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -469,13 +487,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.deregister_member_from_address_list_response.DeregisterMemberFromAddressListResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.deregister_member_from_address_list
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.deregister_member_from_address_list
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.deregister_member_from_address_list.deregister_member_from_address_list(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.deregister_member_from_address_list.deregister_member_from_address_list(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.deregister_member_from_address_list
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.deregister_member_from_address_list.deregister_member_from_address_list(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -530,13 +559,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.get_address_list_import_job_response.GetAddressListImportJobResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.get_address_list_import_job
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_address_list_import_job
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.get_address_list_import_job.get_address_list_import_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_address_list_import_job.get_address_list_import_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_address_list_import_job
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_address_list_import_job.get_address_list_import_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -587,13 +627,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.get_archive_export_response.GetArchiveExportResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.get_archive_export
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_archive_export
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.get_archive_export.get_archive_export(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_archive_export.get_archive_export(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_archive_export
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_archive_export.get_archive_export(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -636,13 +687,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.get_archive_message_response.GetArchiveMessageResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.get_archive_message
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_archive_message
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.get_archive_message.get_archive_message(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_archive_message.get_archive_message(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_archive_message
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_archive_message.get_archive_message(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -693,13 +755,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.get_archive_message_content_response.GetArchiveMessageContentResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.get_archive_message_content
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_archive_message_content
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.get_archive_message_content.get_archive_message_content(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_archive_message_content.get_archive_message_content(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_archive_message_content
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_archive_message_content.get_archive_message_content(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -740,13 +813,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.get_archive_search_response.GetArchiveSearchResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.get_archive_search
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_archive_search
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.get_archive_search.get_archive_search(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_archive_search.get_archive_search(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_archive_search
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_archive_search.get_archive_search(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -788,13 +872,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.get_archive_search_results_response.GetArchiveSearchResultsResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.get_archive_search_results
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_archive_search_results
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.get_archive_search_results.get_archive_search_results(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_archive_search_results.get_archive_search_results(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_archive_search_results
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_archive_search_results.get_archive_search_results(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -848,13 +943,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.get_member_of_address_list_response.GetMemberOfAddressListResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.get_member_of_address_list
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_member_of_address_list
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.get_member_of_address_list.get_member_of_address_list(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_member_of_address_list.get_member_of_address_list(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_member_of_address_list
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_member_of_address_list.get_member_of_address_list(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -926,13 +1032,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.list_address_list_import_jobs_response.ListAddressListImportJobsResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.list_address_list_import_jobs
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_address_list_import_jobs
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.list_address_list_import_jobs.list_address_list_import_jobs(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_address_list_import_jobs.list_address_list_import_jobs(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_address_list_import_jobs
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_address_list_import_jobs.list_address_list_import_jobs(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -1019,13 +1136,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.list_archive_exports_response.ListArchiveExportsResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.list_archive_exports
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_archive_exports
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.list_archive_exports.list_archive_exports(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_archive_exports.list_archive_exports(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_archive_exports
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_archive_exports.list_archive_exports(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1102,13 +1230,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.list_archive_searches_response.ListArchiveSearchesResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.list_archive_searches
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_archive_searches
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.list_archive_searches.list_archive_searches(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_archive_searches.list_archive_searches(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_archive_searches
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_archive_searches.list_archive_searches(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1189,13 +1328,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.list_members_of_address_list_response.ListMembersOfAddressListResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.list_members_of_address_list
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_members_of_address_list
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.list_members_of_address_list.list_members_of_address_list(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_members_of_address_list.list_members_of_address_list(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_members_of_address_list
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_members_of_address_list.list_members_of_address_list(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -1293,13 +1443,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.list_tags_for_resource_response.ListTagsForResourceResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.list_tags_for_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_tags_for_resource
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.list_tags_for_resource.list_tags_for_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_tags_for_resource
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_tags_for_resource.list_tags_for_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1345,13 +1506,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.register_member_to_address_list_response.RegisterMemberToAddressListResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.register_member_to_address_list
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.register_member_to_address_list
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.register_member_to_address_list.register_member_to_address_list(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.register_member_to_address_list.register_member_to_address_list(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.register_member_to_address_list
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.register_member_to_address_list.register_member_to_address_list(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -1406,13 +1578,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.start_address_list_import_job_response.StartAddressListImportJobResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.start_address_list_import_job
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.start_address_list_import_job
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.start_address_list_import_job.start_address_list_import_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.start_address_list_import_job.start_address_list_import_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.start_address_list_import_job
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.start_address_list_import_job.start_address_list_import_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1471,13 +1654,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.start_archive_export_response.StartArchiveExportResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.start_archive_export
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.start_archive_export
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.start_archive_export.start_archive_export(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.start_archive_export.start_archive_export(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.start_archive_export
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.start_archive_export.start_archive_export(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1540,13 +1734,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.start_archive_search_response.StartArchiveSearchResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.start_archive_search
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.start_archive_search
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.start_archive_search.start_archive_search(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.start_archive_search.start_archive_search(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.start_archive_search
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.start_archive_search.start_archive_search(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1594,13 +1799,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.stop_address_list_import_job_response.StopAddressListImportJobResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.stop_address_list_import_job
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.stop_address_list_import_job
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.stop_address_list_import_job.stop_address_list_import_job(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.stop_address_list_import_job.stop_address_list_import_job(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.stop_address_list_import_job
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.stop_address_list_import_job.stop_address_list_import_job(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1643,13 +1859,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.stop_archive_export_response.StopArchiveExportResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.stop_archive_export
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.stop_archive_export
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.stop_archive_export.stop_archive_export(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.stop_archive_export.stop_archive_export(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.stop_archive_export
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.stop_archive_export.stop_archive_export(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1692,13 +1919,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.stop_archive_search_response.StopArchiveSearchResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.stop_archive_search
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.stop_archive_search
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.stop_archive_search.stop_archive_search(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.stop_archive_search.stop_archive_search(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.stop_archive_search
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.stop_archive_search.stop_archive_search(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1742,13 +1980,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.tag_resource_response.TagResourceResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.tag_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.tag_resource
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.tag_resource.tag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.tag_resource
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.tag_resource.tag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1792,13 +2041,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.untag_resource_response.UntagResourceResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.untag_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.untag_resource
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.untag_resource.untag_resource(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.untag_resource
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.untag_resource.untag_resource(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1847,13 +2107,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.create_addon_instance_response.CreateAddonInstanceResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.create_addon_instance
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.create_addon_instance
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.create_addon_instance.create_addon_instance(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.create_addon_instance.create_addon_instance(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.create_addon_instance
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.create_addon_instance.create_addon_instance(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1898,13 +2169,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.get_addon_instance_response.GetAddonInstanceResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.get_addon_instance
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_addon_instance
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.get_addon_instance.get_addon_instance(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_addon_instance.get_addon_instance(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_addon_instance
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_addon_instance.get_addon_instance(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1944,13 +2226,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.delete_addon_instance_response.DeleteAddonInstanceResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.delete_addon_instance
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.delete_addon_instance
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.delete_addon_instance.delete_addon_instance(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.delete_addon_instance.delete_addon_instance(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.delete_addon_instance
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.delete_addon_instance.delete_addon_instance(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -1993,13 +2286,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.list_addon_instances_response.ListAddonInstancesResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.list_addon_instances
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_addon_instances
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.list_addon_instances.list_addon_instances(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_addon_instances.list_addon_instances(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_addon_instances
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_addon_instances.list_addon_instances(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2072,13 +2376,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.create_addon_subscription_response.CreateAddonSubscriptionResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.create_addon_subscription
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.create_addon_subscription
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.create_addon_subscription.create_addon_subscription(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.create_addon_subscription.create_addon_subscription(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.create_addon_subscription
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.create_addon_subscription.create_addon_subscription(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2123,13 +2438,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.get_addon_subscription_response.GetAddonSubscriptionResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.get_addon_subscription
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_addon_subscription
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.get_addon_subscription.get_addon_subscription(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_addon_subscription.get_addon_subscription(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_addon_subscription
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_addon_subscription.get_addon_subscription(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2169,13 +2495,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.delete_addon_subscription_response.DeleteAddonSubscriptionResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.delete_addon_subscription
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.delete_addon_subscription
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.delete_addon_subscription.delete_addon_subscription(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.delete_addon_subscription.delete_addon_subscription(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.delete_addon_subscription
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.delete_addon_subscription.delete_addon_subscription(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2218,13 +2555,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.list_addon_subscriptions_response.ListAddonSubscriptionsResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.list_addon_subscriptions
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_addon_subscriptions
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.list_addon_subscriptions.list_addon_subscriptions(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_addon_subscriptions.list_addon_subscriptions(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_addon_subscriptions
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_addon_subscriptions.list_addon_subscriptions(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2300,13 +2648,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.create_address_list_response.CreateAddressListResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.create_address_list
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.create_address_list
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.create_address_list.create_address_list(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.create_address_list.create_address_list(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.create_address_list
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.create_address_list.create_address_list(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2353,13 +2712,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.get_address_list_response.GetAddressListResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.get_address_list
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_address_list
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.get_address_list.get_address_list(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_address_list.get_address_list(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_address_list
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_address_list.get_address_list(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2403,13 +2773,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.delete_address_list_response.DeleteAddressListResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.delete_address_list
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.delete_address_list
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.delete_address_list.delete_address_list(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.delete_address_list.delete_address_list(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.delete_address_list
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.delete_address_list.delete_address_list(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2454,13 +2835,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.list_address_lists_response.ListAddressListsResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.list_address_lists
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_address_lists
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.list_address_lists.list_address_lists(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_address_lists.list_address_lists(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_address_lists
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_address_lists.list_address_lists(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2540,13 +2932,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.create_archive_response.CreateArchiveResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.create_archive
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.create_archive
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.create_archive.create_archive(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.create_archive.create_archive(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.create_archive
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.create_archive.create_archive(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2597,13 +3000,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.get_archive_response.GetArchiveResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.get_archive
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_archive
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.get_archive.get_archive(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_archive.get_archive(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_archive
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_archive.get_archive(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2655,13 +3069,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.update_archive_response.UpdateArchiveResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.update_archive
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.update_archive
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.update_archive.update_archive(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.update_archive.update_archive(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.update_archive
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.update_archive.update_archive(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2707,13 +3132,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.delete_archive_response.DeleteArchiveResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.delete_archive
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.delete_archive
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.delete_archive.delete_archive(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.delete_archive.delete_archive(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.delete_archive
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.delete_archive.delete_archive(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2758,13 +3194,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.list_archives_response.ListArchivesResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.list_archives
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_archives
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.list_archives.list_archives(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_archives.list_archives(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_archives
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_archives.list_archives(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -2863,13 +3310,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.create_ingress_point_response.CreateIngressPointResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.create_ingress_point
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.create_ingress_point
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.create_ingress_point.create_ingress_point(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.create_ingress_point.create_ingress_point(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.create_ingress_point
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.create_ingress_point.create_ingress_point(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -2945,13 +3403,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.get_ingress_point_response.GetIngressPointResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.get_ingress_point
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_ingress_point
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.get_ingress_point.get_ingress_point(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_ingress_point.get_ingress_point(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_ingress_point
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_ingress_point.get_ingress_point(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -3038,13 +3507,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.update_ingress_point_response.UpdateIngressPointResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.update_ingress_point
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.update_ingress_point
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.update_ingress_point.update_ingress_point(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.update_ingress_point.update_ingress_point(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.update_ingress_point
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.update_ingress_point.update_ingress_point(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -3112,13 +3592,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.delete_ingress_point_response.DeleteIngressPointResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.delete_ingress_point
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.delete_ingress_point
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.delete_ingress_point.delete_ingress_point(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.delete_ingress_point.delete_ingress_point(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.delete_ingress_point
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.delete_ingress_point.delete_ingress_point(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3174,13 +3665,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.list_ingress_points_response.ListIngressPointsResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.list_ingress_points
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_ingress_points
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.list_ingress_points.list_ingress_points(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_ingress_points.list_ingress_points(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_ingress_points
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_ingress_points.list_ingress_points(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3258,13 +3760,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.create_relay_response.CreateRelayResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.create_relay
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.create_relay
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.create_relay.create_relay(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.create_relay.create_relay(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.create_relay
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.create_relay.create_relay(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3312,13 +3825,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.get_relay_response.GetRelayResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.get_relay
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_relay
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.get_relay.get_relay(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_relay.get_relay(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_relay
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_relay.get_relay(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3373,13 +3897,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.update_relay_response.UpdateRelayResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.update_relay
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.update_relay
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.update_relay.update_relay(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.update_relay.update_relay(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.update_relay
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.update_relay.update_relay(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3428,13 +3963,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.delete_relay_response.DeleteRelayResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.delete_relay
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.delete_relay
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.delete_relay.delete_relay(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.delete_relay.delete_relay(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.delete_relay
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.delete_relay.delete_relay(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3477,13 +4023,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.list_relays_response.ListRelaysResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.list_relays
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_relays
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.list_relays.list_relays(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_relays.list_relays(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_relays
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_relays.list_relays(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3557,13 +4114,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.create_rule_set_response.CreateRuleSetResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.create_rule_set
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.create_rule_set
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.create_rule_set.create_rule_set(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.create_rule_set.create_rule_set(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.create_rule_set
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.create_rule_set.create_rule_set(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -3619,13 +4187,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.get_rule_set_response.GetRuleSetResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.get_rule_set
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_rule_set
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.get_rule_set.get_rule_set(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_rule_set.get_rule_set(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_rule_set
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_rule_set.get_rule_set(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_output(
@@ -3680,13 +4259,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.update_rule_set_response.UpdateRuleSetResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.update_rule_set
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.update_rule_set
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.update_rule_set.update_rule_set(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.update_rule_set.update_rule_set(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.update_rule_set
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.update_rule_set.update_rule_set(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         def _redact_input(
@@ -3740,13 +4330,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.delete_rule_set_response.DeleteRuleSetResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.delete_rule_set
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.delete_rule_set
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.delete_rule_set.delete_rule_set(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.delete_rule_set.delete_rule_set(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.delete_rule_set
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.delete_rule_set.delete_rule_set(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3789,13 +4390,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.list_rule_sets_response.ListRuleSetsResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.list_rule_sets
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_rule_sets
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.list_rule_sets.list_rule_sets(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_rule_sets.list_rule_sets(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_rule_sets
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_rule_sets.list_rule_sets(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3880,13 +4492,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.create_traffic_policy_response.CreateTrafficPolicyResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.create_traffic_policy
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.create_traffic_policy
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.create_traffic_policy.create_traffic_policy(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.create_traffic_policy.create_traffic_policy(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.create_traffic_policy
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.create_traffic_policy.create_traffic_policy(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -3940,13 +4563,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.get_traffic_policy_response.GetTrafficPolicyResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.get_traffic_policy
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_traffic_policy
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.get_traffic_policy.get_traffic_policy(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.get_traffic_policy.get_traffic_policy(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_traffic_policy
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.get_traffic_policy.get_traffic_policy(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4014,13 +4648,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.update_traffic_policy_response.UpdateTrafficPolicyResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.update_traffic_policy
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.update_traffic_policy
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.update_traffic_policy.update_traffic_policy(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.update_traffic_policy.update_traffic_policy(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.update_traffic_policy
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.update_traffic_policy.update_traffic_policy(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4074,13 +4719,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.delete_traffic_policy_response.DeleteTrafficPolicyResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.delete_traffic_policy
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.delete_traffic_policy
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.delete_traffic_policy.delete_traffic_policy(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.delete_traffic_policy.delete_traffic_policy(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.delete_traffic_policy
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.delete_traffic_policy.delete_traffic_policy(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -4134,13 +4790,24 @@ class MailManagerClient:
         ) -> OperationResponse[
             "capo_mailmanager.types.list_traffic_policies_response.ListTrafficPoliciesResponse"
         ]:
-            import capo_mailmanager._operations.mail_manager_svc.list_traffic_policies
+            if req.options.protocol == "awsJson1_0":
+                import capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_traffic_policies
 
-            output, http_response = (
-                capo_mailmanager._operations.mail_manager_svc.list_traffic_policies.list_traffic_policies(
-                    req.options, req.input
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.aws_json1_0.list_traffic_policies.list_traffic_policies(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_traffic_policies
+
+                output, http_response = (
+                    capo_mailmanager._operations.mail_manager_svc.rpcv2_cbor.list_traffic_policies.list_traffic_policies(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

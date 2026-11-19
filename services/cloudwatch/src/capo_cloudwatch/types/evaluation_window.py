@@ -125,3 +125,55 @@ def deserialize_aws_json_1_0(data: dict) -> EvaluationWindow:
         if name is not None:
             return {"$unknown": {"name": name}}
         raise DeserializationError("EvaluationWindow: no recognized variant key")
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EvaluationWindow) -> dict:
+    if "$unknown" in value:
+        raise SerializationError(
+            f"EvaluationWindow: cannot serialize unknown variant {value['$unknown']['name']!r}"
+        )
+    elif "WallClockWindow" in value:
+        import capo_cloudwatch.types.wall_clock_window
+
+        return {
+            "WallClockWindow": capo_cloudwatch.types.wall_clock_window.serialize_cbor(
+                value["WallClockWindow"]
+            )
+        }
+    elif "SlidingWindow" in value:
+        import capo_cloudwatch.types.sliding_window
+
+        return {
+            "SlidingWindow": capo_cloudwatch.types.sliding_window.serialize_cbor(
+                value["SlidingWindow"]
+            )
+        }
+    else:
+        raise SerializationError("EvaluationWindow: no variant present")
+
+
+def deserialize_cbor(data: dict) -> EvaluationWindow:
+    if data.get("WallClockWindow") is not None:
+        import capo_cloudwatch.types.wall_clock_window
+
+        return {
+            "WallClockWindow": capo_cloudwatch.types.wall_clock_window.deserialize_cbor(
+                data["WallClockWindow"]
+            )
+        }
+    elif data.get("SlidingWindow") is not None:
+        import capo_cloudwatch.types.sliding_window
+
+        return {
+            "SlidingWindow": capo_cloudwatch.types.sliding_window.deserialize_cbor(
+                data["SlidingWindow"]
+            )
+        }
+    else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return {"$unknown": {"name": name}}
+        raise DeserializationError("EvaluationWindow: no recognized variant key")

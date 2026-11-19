@@ -46,6 +46,34 @@ def deserialize_aws_json_1_0(data: dict) -> ListMembersOfAddressListResponse:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListMembersOfAddressListResponse) -> dict:
+    out: dict = {}
+    import capo_mailmanager.types.saved_addresses
+
+    out["Addresses"] = capo_mailmanager.types.saved_addresses.serialize_cbor(
+        value["addresses"]
+    )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListMembersOfAddressListResponse:
+    out: ListMembersOfAddressListResponse = {}  # type: ignore[typeddict-item]
+    if data.get("Addresses") is not None:
+        import capo_mailmanager.types.saved_addresses
+
+        out["addresses"] = capo_mailmanager.types.saved_addresses.deserialize_cbor(
+            data["Addresses"]
+        )
+    else:
+        out["addresses"] = []
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out
+
+
 def redact_sensitive(value: ListMembersOfAddressListResponse) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "addresses" in value:

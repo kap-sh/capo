@@ -31,3 +31,24 @@ def deserialize_aws_json_1_1(data: list) -> RecordOutputs:
             capo_service_catalog.types.record_output.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RecordOutputs) -> list:
+    import capo_service_catalog.types.record_output
+
+    out: list = []
+    for item in value:
+        out.append(capo_service_catalog.types.record_output.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> RecordOutputs:
+    import capo_service_catalog.types.record_output
+
+    out: RecordOutputs = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_service_catalog.types.record_output.deserialize_cbor(item))
+    return out

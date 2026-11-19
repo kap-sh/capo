@@ -48,6 +48,7 @@ class MarketplaceEntitlementServiceClientConfig(TypedDict, total=False, closed=T
     operation_interceptors: Iterable[Interceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_1", "rpcv2Cbor"]
     use_dual_stack: bool | None
     use_fips: bool | None
     endpoint: str | None
@@ -64,6 +65,7 @@ class MarketplaceEntitlementServiceClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         use_dual_stack: The value of the ``AWS::UseDualStack`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
         endpoint: The value of the ``SDK::Endpoint`` endpoint parameter.
@@ -79,6 +81,7 @@ class MarketplaceEntitlementServiceClient:
         operation_interceptors: Iterable[Interceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_1", "rpcv2Cbor"] = "awsJson1_1",
         use_dual_stack: bool | None = None,
         use_fips: bool | None = None,
         endpoint: str | None = None,
@@ -115,6 +118,7 @@ class MarketplaceEntitlementServiceClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "use_dual_stack": use_dual_stack,
                 "use_fips": use_fips,
                 "endpoint": endpoint,
@@ -148,6 +152,9 @@ class MarketplaceEntitlementServiceClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_1")
+            ),
             use_dual_stack=overrides.get(
                 "use_dual_stack", self._config.get("use_dual_stack")
             ),
@@ -196,13 +203,24 @@ class MarketplaceEntitlementServiceClient:
         ) -> OperationResponse[
             "capo_marketplace_entitlement_service.types.get_entitlements_result.GetEntitlementsResult"
         ]:
-            import capo_marketplace_entitlement_service._operations.awsmp_entitlement_service.get_entitlements
+            if req.options.protocol == "awsJson1_1":
+                import capo_marketplace_entitlement_service._operations.awsmp_entitlement_service.aws_json1_1.get_entitlements
 
-            output, http_response = (
-                capo_marketplace_entitlement_service._operations.awsmp_entitlement_service.get_entitlements.get_entitlements(
-                    req.options, req.input
+                output, http_response = (
+                    capo_marketplace_entitlement_service._operations.awsmp_entitlement_service.aws_json1_1.get_entitlements.get_entitlements(
+                        req.options, req.input
+                    )
                 )
-            )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_marketplace_entitlement_service._operations.awsmp_entitlement_service.rpcv2_cbor.get_entitlements
+
+                output, http_response = (
+                    capo_marketplace_entitlement_service._operations.awsmp_entitlement_service.rpcv2_cbor.get_entitlements.get_entitlements(
+                        req.options, req.input
+                    )
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return OperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

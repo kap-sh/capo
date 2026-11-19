@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> ImageStateChangeReason:
     if data.get("Message") is not None:
         out["message"] = data["Message"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ImageStateChangeReason) -> dict:
+    out: dict = {}
+    if "code" in value:
+        import capo_appstream.types.image_state_change_reason_code
+
+        out["Code"] = (
+            capo_appstream.types.image_state_change_reason_code.serialize_cbor(
+                value["code"]
+            )
+        )
+    if "message" in value:
+        out["Message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ImageStateChangeReason:
+    out: ImageStateChangeReason = {}  # type: ignore[typeddict-item]
+    if data.get("Code") is not None:
+        import capo_appstream.types.image_state_change_reason_code
+
+        out["code"] = (
+            capo_appstream.types.image_state_change_reason_code.deserialize_cbor(
+                data["Code"]
+            )
+        )
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    return out

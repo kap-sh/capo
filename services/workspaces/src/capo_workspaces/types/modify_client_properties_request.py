@@ -51,3 +51,36 @@ def deserialize_aws_json_1_1(data: dict) -> ModifyClientPropertiesRequest:
             "ModifyClientPropertiesRequest.client_properties required"
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ModifyClientPropertiesRequest) -> dict:
+    out: dict = {}
+    out["ResourceId"] = value["resource_id"]
+    import capo_workspaces.types.client_properties
+
+    out["ClientProperties"] = capo_workspaces.types.client_properties.serialize_cbor(
+        value["client_properties"]
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ModifyClientPropertiesRequest:
+    out: ModifyClientPropertiesRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ResourceId") is not None:
+        out["resource_id"] = data["ResourceId"]
+    else:
+        out["resource_id"] = ""
+    if data.get("ClientProperties") is not None:
+        import capo_workspaces.types.client_properties
+
+        out["client_properties"] = (
+            capo_workspaces.types.client_properties.deserialize_cbor(
+                data["ClientProperties"]
+            )
+        )
+    else:
+        raise DeserializationError(
+            "ModifyClientPropertiesRequest.client_properties required"
+        )
+    return out

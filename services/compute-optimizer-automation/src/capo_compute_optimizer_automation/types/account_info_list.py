@@ -37,3 +37,28 @@ def deserialize_aws_json_1_0(data: list) -> AccountInfoList:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AccountInfoList) -> list:
+    import capo_compute_optimizer_automation.types.account_info
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_compute_optimizer_automation.types.account_info.serialize_cbor(item)
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> AccountInfoList:
+    import capo_compute_optimizer_automation.types.account_info
+
+    out: AccountInfoList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_compute_optimizer_automation.types.account_info.deserialize_cbor(item)
+        )
+    return out

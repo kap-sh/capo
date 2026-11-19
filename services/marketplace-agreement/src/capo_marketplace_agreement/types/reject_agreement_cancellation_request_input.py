@@ -47,6 +47,34 @@ def deserialize_aws_json_1_0(data: dict) -> RejectAgreementCancellationRequestIn
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RejectAgreementCancellationRequestInput) -> dict:
+    out: dict = {}
+    out["agreementId"] = value["agreement_id"]
+    out["agreementCancellationRequestId"] = value["agreement_cancellation_request_id"]
+    out["rejectionReason"] = value["rejection_reason"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RejectAgreementCancellationRequestInput:
+    out: RejectAgreementCancellationRequestInput = {}  # type: ignore[typeddict-item]
+    if data.get("agreementId") is not None:
+        out["agreement_id"] = data["agreementId"]
+    else:
+        out["agreement_id"] = ""
+    if data.get("agreementCancellationRequestId") is not None:
+        out["agreement_cancellation_request_id"] = data[
+            "agreementCancellationRequestId"
+        ]
+    else:
+        out["agreement_cancellation_request_id"] = ""
+    if data.get("rejectionReason") is not None:
+        out["rejection_reason"] = data["rejectionReason"]
+    else:
+        out["rejection_reason"] = ""
+    return out
+
+
 def redact_sensitive(value: RejectAgreementCancellationRequestInput) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "rejection_reason" in value:

@@ -33,3 +33,24 @@ def deserialize_aws_json_1_0(data: dict) -> ContextSets:
             value
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(input_to_serialize: ContextSets) -> dict:
+    out: dict = {}
+    for key, value in input_to_serialize.items():
+        import capo_network_firewall.types.context_set
+
+        out[key] = capo_network_firewall.types.context_set.serialize_cbor(value)
+    return out
+
+
+def deserialize_cbor(data: dict) -> ContextSets:
+    out: ContextSets = {}
+    for key, value in data.items():
+        if value is None:
+            continue
+        import capo_network_firewall.types.context_set
+
+        out[key] = capo_network_firewall.types.context_set.deserialize_cbor(value)
+    return out

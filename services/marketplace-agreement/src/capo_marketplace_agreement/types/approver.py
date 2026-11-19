@@ -101,6 +101,74 @@ def deserialize_aws_json_1_0(data: dict) -> Approver:
         raise DeserializationError("Approver: no recognized variant key")
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Approver) -> dict:
+    if "$unknown" in value:
+        raise SerializationError(
+            f"Approver: cannot serialize unknown variant {value['$unknown']['name']!r}"
+        )
+    elif "emailApprover" in value:
+        import capo_marketplace_agreement.types.email_approver
+
+        return {
+            "emailApprover": capo_marketplace_agreement.types.email_approver.serialize_cbor(
+                value["emailApprover"]
+            )
+        }
+    elif "procurementToolApprover" in value:
+        import capo_marketplace_agreement.types.procurement_tool_approver
+
+        return {
+            "procurementToolApprover": capo_marketplace_agreement.types.procurement_tool_approver.serialize_cbor(
+                value["procurementToolApprover"]
+            )
+        }
+    elif "awsOrganizationAdminApprover" in value:
+        import capo_marketplace_agreement.types.aws_organization_admin_approver
+
+        return {
+            "awsOrganizationAdminApprover": capo_marketplace_agreement.types.aws_organization_admin_approver.serialize_cbor(
+                value["awsOrganizationAdminApprover"]
+            )
+        }
+    else:
+        raise SerializationError("Approver: no variant present")
+
+
+def deserialize_cbor(data: dict) -> Approver:
+    if data.get("emailApprover") is not None:
+        import capo_marketplace_agreement.types.email_approver
+
+        return {
+            "emailApprover": capo_marketplace_agreement.types.email_approver.deserialize_cbor(
+                data["emailApprover"]
+            )
+        }
+    elif data.get("procurementToolApprover") is not None:
+        import capo_marketplace_agreement.types.procurement_tool_approver
+
+        return {
+            "procurementToolApprover": capo_marketplace_agreement.types.procurement_tool_approver.deserialize_cbor(
+                data["procurementToolApprover"]
+            )
+        }
+    elif data.get("awsOrganizationAdminApprover") is not None:
+        import capo_marketplace_agreement.types.aws_organization_admin_approver
+
+        return {
+            "awsOrganizationAdminApprover": capo_marketplace_agreement.types.aws_organization_admin_approver.deserialize_cbor(
+                data["awsOrganizationAdminApprover"]
+            )
+        }
+    else:
+        name = next(
+            (k for k, v in data.items() if v is not None and k != "__type"), None
+        )
+        if name is not None:
+            return {"$unknown": {"name": name}}
+        raise DeserializationError("Approver: no recognized variant key")
+
+
 def redact_sensitive(value: Approver) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "emailApprover" in value:

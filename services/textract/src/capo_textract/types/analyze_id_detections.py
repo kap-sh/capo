@@ -63,3 +63,35 @@ def deserialize_aws_json_1_1(data: dict) -> AnalyzeIDDetections:
     if data.get("Confidence") is not None:
         out["confidence"] = float(data["Confidence"])
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AnalyzeIDDetections) -> dict:
+    out: dict = {}
+    out["Text"] = value["text"]
+    if "normalized_value" in value:
+        import capo_textract.types.normalized_value
+
+        out["NormalizedValue"] = capo_textract.types.normalized_value.serialize_cbor(
+            value["normalized_value"]
+        )
+    if "confidence" in value:
+        out["Confidence"] = value["confidence"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AnalyzeIDDetections:
+    out: AnalyzeIDDetections = {}  # type: ignore[typeddict-item]
+    if data.get("Text") is not None:
+        out["text"] = data["Text"]
+    else:
+        out["text"] = ""
+    if data.get("NormalizedValue") is not None:
+        import capo_textract.types.normalized_value
+
+        out["normalized_value"] = capo_textract.types.normalized_value.deserialize_cbor(
+            data["NormalizedValue"]
+        )
+    if data.get("Confidence") is not None:
+        out["confidence"] = float(data["Confidence"])
+    return out

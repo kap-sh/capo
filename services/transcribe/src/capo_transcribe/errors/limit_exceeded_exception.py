@@ -30,6 +30,21 @@ def deserialize_aws_json_1_1(data: dict) -> LimitExceededException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: LimitExceededException_) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["Message"] = value["message"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> LimitExceededException_:
+    out: LimitExceededException_ = {}  # type: ignore[typeddict-item]
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    return out
+
+
 class LimitExceededException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.transcribe#LimitExceededException``."""
 
@@ -57,3 +72,9 @@ class LimitExceededException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "LimitExceededException":
         return cls(deserialize_aws_json_1_1(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "LimitExceededException":
+        return cls(deserialize_cbor(data), message, response=response)

@@ -105,3 +105,66 @@ def deserialize_aws_json_1_1(data: dict) -> AssessmentValidation:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AssessmentValidation) -> dict:
+    out: dict = {}
+    if "category" in value:
+        out["Category"] = value["category"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "status" in value:
+        out["Status"] = value["status"]
+    if "status_code" in value:
+        out["StatusCode"] = value["status_code"]
+    if "status_reason" in value:
+        out["StatusReason"] = value["status_reason"]
+    if "start_time" in value:
+        import capo_directory_service.types.assessment_validation_time_stamp
+
+        out["StartTime"] = (
+            capo_directory_service.types.assessment_validation_time_stamp.serialize_cbor(
+                value["start_time"]
+            )
+        )
+    if "last_update_date_time" in value:
+        import capo_directory_service.types.assessment_validation_time_stamp
+
+        out["LastUpdateDateTime"] = (
+            capo_directory_service.types.assessment_validation_time_stamp.serialize_cbor(
+                value["last_update_date_time"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> AssessmentValidation:
+    out: AssessmentValidation = {}  # type: ignore[typeddict-item]
+    if data.get("Category") is not None:
+        out["category"] = data["Category"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Status") is not None:
+        out["status"] = data["Status"]
+    if data.get("StatusCode") is not None:
+        out["status_code"] = data["StatusCode"]
+    if data.get("StatusReason") is not None:
+        out["status_reason"] = data["StatusReason"]
+    if data.get("StartTime") is not None:
+        import capo_directory_service.types.assessment_validation_time_stamp
+
+        out["start_time"] = (
+            capo_directory_service.types.assessment_validation_time_stamp.deserialize_cbor(
+                data["StartTime"]
+            )
+        )
+    if data.get("LastUpdateDateTime") is not None:
+        import capo_directory_service.types.assessment_validation_time_stamp
+
+        out["last_update_date_time"] = (
+            capo_directory_service.types.assessment_validation_time_stamp.deserialize_cbor(
+                data["LastUpdateDateTime"]
+            )
+        )
+    return out

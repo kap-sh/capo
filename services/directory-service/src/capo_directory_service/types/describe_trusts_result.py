@@ -41,3 +41,30 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeTrustsResult:
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DescribeTrustsResult) -> dict:
+    out: dict = {}
+    if "trusts" in value:
+        import capo_directory_service.types.trusts
+
+        out["Trusts"] = capo_directory_service.types.trusts.serialize_cbor(
+            value["trusts"]
+        )
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DescribeTrustsResult:
+    out: DescribeTrustsResult = {}  # type: ignore[typeddict-item]
+    if data.get("Trusts") is not None:
+        import capo_directory_service.types.trusts
+
+        out["trusts"] = capo_directory_service.types.trusts.deserialize_cbor(
+            data["Trusts"]
+        )
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

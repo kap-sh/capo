@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> GetHypervisorInput:
     else:
         out["hypervisor_arn"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetHypervisorInput) -> dict:
+    out: dict = {}
+    out["HypervisorArn"] = value["hypervisor_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetHypervisorInput:
+    out: GetHypervisorInput = {}  # type: ignore[typeddict-item]
+    if data.get("HypervisorArn") is not None:
+        out["hypervisor_arn"] = data["HypervisorArn"]
+    else:
+        out["hypervisor_arn"] = ""
+    return out

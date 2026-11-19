@@ -92,3 +92,54 @@ def deserialize_aws_json_1_0(data: dict) -> Charge:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Charge) -> dict:
+    out: dict = {}
+    if "id" in value:
+        out["id"] = value["id"]
+    if "revision" in value:
+        out["revision"] = value["revision"]
+    if "agreement_id" in value:
+        out["agreementId"] = value["agreement_id"]
+    if "agreement_type" in value:
+        out["agreementType"] = value["agreement_type"]
+    if "purchase_order_reference" in value:
+        out["purchaseOrderReference"] = value["purchase_order_reference"]
+    if "currency_code" in value:
+        out["currencyCode"] = value["currency_code"]
+    if "amount" in value:
+        out["amount"] = value["amount"]
+    if "time" in value:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["time"] = capo_marketplace_agreement.types.timestamp.serialize_cbor(
+            value["time"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Charge:
+    out: Charge = {}  # type: ignore[typeddict-item]
+    if data.get("id") is not None:
+        out["id"] = data["id"]
+    if data.get("revision") is not None:
+        out["revision"] = data["revision"]
+    if data.get("agreementId") is not None:
+        out["agreement_id"] = data["agreementId"]
+    if data.get("agreementType") is not None:
+        out["agreement_type"] = data["agreementType"]
+    if data.get("purchaseOrderReference") is not None:
+        out["purchase_order_reference"] = data["purchaseOrderReference"]
+    if data.get("currencyCode") is not None:
+        out["currency_code"] = data["currencyCode"]
+    if data.get("amount") is not None:
+        out["amount"] = data["amount"]
+    if data.get("time") is not None:
+        import capo_marketplace_agreement.types.timestamp
+
+        out["time"] = capo_marketplace_agreement.types.timestamp.deserialize_cbor(
+            data["time"]
+        )
+    return out

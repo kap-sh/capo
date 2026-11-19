@@ -91,3 +91,62 @@ def deserialize_aws_json_1_0(data: dict) -> RescoreExecutionPlanSummary:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RescoreExecutionPlanSummary) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "id" in value:
+        out["Id"] = value["id"]
+    if "created_at" in value:
+        import capo_kendra_ranking.types.timestamp
+
+        out["CreatedAt"] = capo_kendra_ranking.types.timestamp.serialize_cbor(
+            value["created_at"]
+        )
+    if "updated_at" in value:
+        import capo_kendra_ranking.types.timestamp
+
+        out["UpdatedAt"] = capo_kendra_ranking.types.timestamp.serialize_cbor(
+            value["updated_at"]
+        )
+    if "status" in value:
+        import capo_kendra_ranking.types.rescore_execution_plan_status
+
+        out["Status"] = (
+            capo_kendra_ranking.types.rescore_execution_plan_status.serialize_cbor(
+                value["status"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RescoreExecutionPlanSummary:
+    out: RescoreExecutionPlanSummary = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Id") is not None:
+        out["id"] = data["Id"]
+    if data.get("CreatedAt") is not None:
+        import capo_kendra_ranking.types.timestamp
+
+        out["created_at"] = capo_kendra_ranking.types.timestamp.deserialize_cbor(
+            data["CreatedAt"]
+        )
+    if data.get("UpdatedAt") is not None:
+        import capo_kendra_ranking.types.timestamp
+
+        out["updated_at"] = capo_kendra_ranking.types.timestamp.deserialize_cbor(
+            data["UpdatedAt"]
+        )
+    if data.get("Status") is not None:
+        import capo_kendra_ranking.types.rescore_execution_plan_status
+
+        out["status"] = (
+            capo_kendra_ranking.types.rescore_execution_plan_status.deserialize_cbor(
+                data["Status"]
+            )
+        )
+    return out

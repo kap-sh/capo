@@ -94,3 +94,62 @@ def deserialize_aws_json_1_0(data: dict) -> VpcEndpointAssociation:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: VpcEndpointAssociation) -> dict:
+    out: dict = {}
+    if "vpc_endpoint_association_id" in value:
+        out["VpcEndpointAssociationId"] = value["vpc_endpoint_association_id"]
+    out["VpcEndpointAssociationArn"] = value["vpc_endpoint_association_arn"]
+    out["FirewallArn"] = value["firewall_arn"]
+    out["VpcId"] = value["vpc_id"]
+    import capo_network_firewall.types.subnet_mapping
+
+    out["SubnetMapping"] = capo_network_firewall.types.subnet_mapping.serialize_cbor(
+        value["subnet_mapping"]
+    )
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "tags" in value:
+        import capo_network_firewall.types.tag_list
+
+        out["Tags"] = capo_network_firewall.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> VpcEndpointAssociation:
+    out: VpcEndpointAssociation = {}  # type: ignore[typeddict-item]
+    if data.get("VpcEndpointAssociationId") is not None:
+        out["vpc_endpoint_association_id"] = data["VpcEndpointAssociationId"]
+    if data.get("VpcEndpointAssociationArn") is not None:
+        out["vpc_endpoint_association_arn"] = data["VpcEndpointAssociationArn"]
+    else:
+        out["vpc_endpoint_association_arn"] = ""
+    if data.get("FirewallArn") is not None:
+        out["firewall_arn"] = data["FirewallArn"]
+    else:
+        out["firewall_arn"] = ""
+    if data.get("VpcId") is not None:
+        out["vpc_id"] = data["VpcId"]
+    else:
+        out["vpc_id"] = ""
+    if data.get("SubnetMapping") is not None:
+        import capo_network_firewall.types.subnet_mapping
+
+        out["subnet_mapping"] = (
+            capo_network_firewall.types.subnet_mapping.deserialize_cbor(
+                data["SubnetMapping"]
+            )
+        )
+    else:
+        raise DeserializationError("VpcEndpointAssociation.subnet_mapping required")
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("Tags") is not None:
+        import capo_network_firewall.types.tag_list
+
+        out["tags"] = capo_network_firewall.types.tag_list.deserialize_cbor(
+            data["Tags"]
+        )
+    return out

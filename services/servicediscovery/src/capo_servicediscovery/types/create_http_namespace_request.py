@@ -60,3 +60,37 @@ def deserialize_aws_json_1_1(data: dict) -> CreateHttpNamespaceRequest:
             data["Tags"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateHttpNamespaceRequest) -> dict:
+    out: dict = {}
+    out["Name"] = value["name"]
+    if "creator_request_id" in value:
+        out["CreatorRequestId"] = value["creator_request_id"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "tags" in value:
+        import capo_servicediscovery.types.tag_list
+
+        out["Tags"] = capo_servicediscovery.types.tag_list.serialize_cbor(value["tags"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateHttpNamespaceRequest:
+    out: CreateHttpNamespaceRequest = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    else:
+        out["name"] = ""
+    if data.get("CreatorRequestId") is not None:
+        out["creator_request_id"] = data["CreatorRequestId"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("Tags") is not None:
+        import capo_servicediscovery.types.tag_list
+
+        out["tags"] = capo_servicediscovery.types.tag_list.deserialize_cbor(
+            data["Tags"]
+        )
+    return out

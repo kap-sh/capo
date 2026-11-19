@@ -37,3 +37,22 @@ def deserialize_aws_json_1_1(data: dict) -> MicrosoftEntraConfig:
     if data.get("ApplicationConfigSecretArn") is not None:
         out["application_config_secret_arn"] = data["ApplicationConfigSecretArn"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: MicrosoftEntraConfig) -> dict:
+    out: dict = {}
+    if "tenant_id" in value:
+        out["TenantId"] = value["tenant_id"]
+    if "application_config_secret_arn" in value:
+        out["ApplicationConfigSecretArn"] = value["application_config_secret_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> MicrosoftEntraConfig:
+    out: MicrosoftEntraConfig = {}  # type: ignore[typeddict-item]
+    if data.get("TenantId") is not None:
+        out["tenant_id"] = data["TenantId"]
+    if data.get("ApplicationConfigSecretArn") is not None:
+        out["application_config_secret_arn"] = data["ApplicationConfigSecretArn"]
+    return out

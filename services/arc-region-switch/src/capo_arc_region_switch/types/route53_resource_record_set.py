@@ -35,3 +35,22 @@ def deserialize_aws_json_1_0(data: dict) -> Route53ResourceRecordSet:
     if data.get("region") is not None:
         out["region"] = data["region"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Route53ResourceRecordSet) -> dict:
+    out: dict = {}
+    if "record_set_identifier" in value:
+        out["recordSetIdentifier"] = value["record_set_identifier"]
+    if "region" in value:
+        out["region"] = value["region"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> Route53ResourceRecordSet:
+    out: Route53ResourceRecordSet = {}  # type: ignore[typeddict-item]
+    if data.get("recordSetIdentifier") is not None:
+        out["record_set_identifier"] = data["recordSetIdentifier"]
+    if data.get("region") is not None:
+        out["region"] = data["region"]
+    return out

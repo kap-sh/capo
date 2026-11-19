@@ -15,3 +15,12 @@ def serialize_aws_json_1_1(value: ImageValidationMode) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> ImageValidationMode:
     return cast(ImageValidationMode, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ImageValidationMode) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ImageValidationMode:
+    return cast(ImageValidationMode, data)

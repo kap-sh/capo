@@ -89,3 +89,66 @@ def deserialize_aws_json_1_0(data: dict) -> RulesSource:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RulesSource) -> dict:
+    out: dict = {}
+    if "rules_string" in value:
+        out["RulesString"] = value["rules_string"]
+    if "rules_source_list" in value:
+        import capo_network_firewall.types.rules_source_list
+
+        out["RulesSourceList"] = (
+            capo_network_firewall.types.rules_source_list.serialize_cbor(
+                value["rules_source_list"]
+            )
+        )
+    if "stateful_rules" in value:
+        import capo_network_firewall.types.stateful_rules
+
+        out["StatefulRules"] = (
+            capo_network_firewall.types.stateful_rules.serialize_cbor(
+                value["stateful_rules"]
+            )
+        )
+    if "stateless_rules_and_custom_actions" in value:
+        import capo_network_firewall.types.stateless_rules_and_custom_actions
+
+        out["StatelessRulesAndCustomActions"] = (
+            capo_network_firewall.types.stateless_rules_and_custom_actions.serialize_cbor(
+                value["stateless_rules_and_custom_actions"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RulesSource:
+    out: RulesSource = {}  # type: ignore[typeddict-item]
+    if data.get("RulesString") is not None:
+        out["rules_string"] = data["RulesString"]
+    if data.get("RulesSourceList") is not None:
+        import capo_network_firewall.types.rules_source_list
+
+        out["rules_source_list"] = (
+            capo_network_firewall.types.rules_source_list.deserialize_cbor(
+                data["RulesSourceList"]
+            )
+        )
+    if data.get("StatefulRules") is not None:
+        import capo_network_firewall.types.stateful_rules
+
+        out["stateful_rules"] = (
+            capo_network_firewall.types.stateful_rules.deserialize_cbor(
+                data["StatefulRules"]
+            )
+        )
+    if data.get("StatelessRulesAndCustomActions") is not None:
+        import capo_network_firewall.types.stateless_rules_and_custom_actions
+
+        out["stateless_rules_and_custom_actions"] = (
+            capo_network_firewall.types.stateless_rules_and_custom_actions.deserialize_cbor(
+                data["StatelessRulesAndCustomActions"]
+            )
+        )
+    return out

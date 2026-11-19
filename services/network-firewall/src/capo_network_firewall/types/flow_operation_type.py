@@ -15,3 +15,12 @@ def serialize_aws_json_1_0(value: FlowOperationType) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> FlowOperationType:
     return cast(FlowOperationType, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: FlowOperationType) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> FlowOperationType:
+    return cast(FlowOperationType, data)

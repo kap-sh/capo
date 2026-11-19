@@ -64,3 +64,46 @@ def deserialize_aws_json_1_1(data: dict) -> ClusterListEntry:
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ClusterListEntry) -> dict:
+    out: dict = {}
+    if "cluster_id" in value:
+        out["ClusterId"] = value["cluster_id"]
+    if "cluster_state" in value:
+        import capo_snowball.types.cluster_state
+
+        out["ClusterState"] = capo_snowball.types.cluster_state.serialize_cbor(
+            value["cluster_state"]
+        )
+    if "creation_date" in value:
+        import capo_snowball.types.timestamp
+
+        out["CreationDate"] = capo_snowball.types.timestamp.serialize_cbor(
+            value["creation_date"]
+        )
+    if "description" in value:
+        out["Description"] = value["description"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ClusterListEntry:
+    out: ClusterListEntry = {}  # type: ignore[typeddict-item]
+    if data.get("ClusterId") is not None:
+        out["cluster_id"] = data["ClusterId"]
+    if data.get("ClusterState") is not None:
+        import capo_snowball.types.cluster_state
+
+        out["cluster_state"] = capo_snowball.types.cluster_state.deserialize_cbor(
+            data["ClusterState"]
+        )
+    if data.get("CreationDate") is not None:
+        import capo_snowball.types.timestamp
+
+        out["creation_date"] = capo_snowball.types.timestamp.deserialize_cbor(
+            data["CreationDate"]
+        )
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    return out

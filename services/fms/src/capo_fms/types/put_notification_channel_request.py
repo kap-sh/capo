@@ -34,3 +34,24 @@ def deserialize_aws_json_1_1(data: dict) -> PutNotificationChannelRequest:
     else:
         out["sns_role_name"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PutNotificationChannelRequest) -> dict:
+    out: dict = {}
+    out["SnsTopicArn"] = value["sns_topic_arn"]
+    out["SnsRoleName"] = value["sns_role_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> PutNotificationChannelRequest:
+    out: PutNotificationChannelRequest = {}  # type: ignore[typeddict-item]
+    if data.get("SnsTopicArn") is not None:
+        out["sns_topic_arn"] = data["SnsTopicArn"]
+    else:
+        out["sns_topic_arn"] = ""
+    if data.get("SnsRoleName") is not None:
+        out["sns_role_name"] = data["SnsRoleName"]
+    else:
+        out["sns_role_name"] = ""
+    return out

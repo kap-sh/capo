@@ -120,3 +120,95 @@ def deserialize_aws_json_1_0(data: dict) -> Route53ResolvedIPValidation:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Route53ResolvedIPValidation) -> dict:
+    out: dict = {}
+    import capo_network_firewall.types.route53_resolved_ip_validation_action
+
+    out["Action"] = (
+        capo_network_firewall.types.route53_resolved_ip_validation_action.serialize_cbor(
+            value["action"]
+        )
+    )
+    out["DNSFirewallRuleGroupId"] = value["dns_firewall_rule_group_id"]
+    import capo_network_firewall.types.dns_expiry_exception_policy
+
+    out["DNSExpiryExceptionPolicy"] = (
+        capo_network_firewall.types.dns_expiry_exception_policy.serialize_cbor(
+            value["dns_expiry_exception_policy"]
+        )
+    )
+    if "bypass_destination_validation_ip_ranges" in value:
+        import capo_network_firewall.types.route53_resolved_ip_validation_addresses
+
+        out["BypassDestinationValidationIPRanges"] = (
+            capo_network_firewall.types.route53_resolved_ip_validation_addresses.serialize_cbor(
+                value["bypass_destination_validation_ip_ranges"]
+            )
+        )
+    if "source_ip_ranges" in value:
+        import capo_network_firewall.types.route53_resolved_ip_validation_addresses
+
+        out["SourceIPRanges"] = (
+            capo_network_firewall.types.route53_resolved_ip_validation_addresses.serialize_cbor(
+                value["source_ip_ranges"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Route53ResolvedIPValidation:
+    out: Route53ResolvedIPValidation = {}  # type: ignore[typeddict-item]
+    if data.get("Action") is not None:
+        import capo_network_firewall.types.route53_resolved_ip_validation_action
+
+        out["action"] = (
+            capo_network_firewall.types.route53_resolved_ip_validation_action.deserialize_cbor(
+                data["Action"]
+            )
+        )
+    else:
+        import typing
+
+        out["action"] = typing.cast(
+            "capo_network_firewall.types.route53_resolved_ip_validation_action.Route53ResolvedIPValidationAction",
+            "",
+        )
+    if data.get("DNSFirewallRuleGroupId") is not None:
+        out["dns_firewall_rule_group_id"] = data["DNSFirewallRuleGroupId"]
+    else:
+        out["dns_firewall_rule_group_id"] = ""
+    if data.get("DNSExpiryExceptionPolicy") is not None:
+        import capo_network_firewall.types.dns_expiry_exception_policy
+
+        out["dns_expiry_exception_policy"] = (
+            capo_network_firewall.types.dns_expiry_exception_policy.deserialize_cbor(
+                data["DNSExpiryExceptionPolicy"]
+            )
+        )
+    else:
+        import typing
+
+        out["dns_expiry_exception_policy"] = typing.cast(
+            "capo_network_firewall.types.dns_expiry_exception_policy.DNSExpiryExceptionPolicy",
+            "",
+        )
+    if data.get("BypassDestinationValidationIPRanges") is not None:
+        import capo_network_firewall.types.route53_resolved_ip_validation_addresses
+
+        out["bypass_destination_validation_ip_ranges"] = (
+            capo_network_firewall.types.route53_resolved_ip_validation_addresses.deserialize_cbor(
+                data["BypassDestinationValidationIPRanges"]
+            )
+        )
+    if data.get("SourceIPRanges") is not None:
+        import capo_network_firewall.types.route53_resolved_ip_validation_addresses
+
+        out["source_ip_ranges"] = (
+            capo_network_firewall.types.route53_resolved_ip_validation_addresses.deserialize_cbor(
+                data["SourceIPRanges"]
+            )
+        )
+    return out

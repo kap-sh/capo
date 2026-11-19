@@ -69,6 +69,7 @@ class AsyncKendraRankingClientConfig(TypedDict, total=False, closed=True):
     operation_interceptors: Iterable[AsyncInterceptor[Any, Any]]
     retry_max_attempts: int | None
     retry_mode: Literal["standard", "adaptive"] | None
+    protocol: Literal["awsJson1_0", "rpcv2Cbor"]
     region: str | None
     use_fips: bool | None
     endpoint: str | None
@@ -84,6 +85,7 @@ class AsyncKendraRankingClient:
         operation_interceptors: Interceptors that wrap every operation call. If not provided, defaults to an empty list.
         retry_max_attempts: Maximum number of times to retry a failed operation. Defaults to 3.
         retry_mode: ``"standard"`` (the default) or ``"adaptive"``, which also slows the whole client down when the service throttles it.
+        protocol: The wire protocol to call the service with. ``"rpcv2Cbor"`` needs the ``cbor`` extra.
         region: The value of the ``AWS::Region`` endpoint parameter.
         use_fips: The value of the ``AWS::UseFIPS`` endpoint parameter.
         endpoint: The value of the ``SDK::Endpoint`` endpoint parameter.
@@ -98,6 +100,7 @@ class AsyncKendraRankingClient:
         operation_interceptors: Iterable[AsyncInterceptor[Any, Any]] | None = None,
         retry_max_attempts: int | None = None,
         retry_mode: Literal["standard", "adaptive"] | None = None,
+        protocol: Literal["awsJson1_0", "rpcv2Cbor"] = "awsJson1_0",
         region: str | None = None,
         use_fips: bool | None = None,
         endpoint: str | None = None,
@@ -133,6 +136,7 @@ class AsyncKendraRankingClient:
                 "operation_interceptors": operation_interceptors or [],
                 "retry_max_attempts": retry_max_attempts,
                 "retry_mode": retry_mode,
+                "protocol": protocol,
                 "region": region,
                 "use_fips": use_fips,
                 "endpoint": endpoint,
@@ -165,6 +169,9 @@ class AsyncKendraRankingClient:
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),
             retry_mode=overrides.get("retry_mode", self._config.get("retry_mode")),
+            protocol=overrides.get(
+                "protocol", self._config.get("protocol", "awsJson1_0")
+            ),
             region=overrides.get("region", self._config.get("region")),
             use_fips=overrides.get("use_fips", self._config.get("use_fips")),
             endpoint=overrides.get("endpoint", self._config.get("endpoint")),
@@ -215,14 +222,26 @@ class AsyncKendraRankingClient:
         ) -> AsyncOperationResponse[
             "capo_kendra_ranking.types.create_rescore_execution_plan_response.CreateRescoreExecutionPlanResponse"
         ]:
-            import capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.create_rescore_execution_plan
+            if req.options.protocol == "awsJson1_0":
+                import capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.aws_json1_0.create_rescore_execution_plan
 
-            (
-                output,
-                http_response,
-            ) = await capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.create_rescore_execution_plan.async_create_rescore_execution_plan(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.aws_json1_0.create_rescore_execution_plan.async_create_rescore_execution_plan(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.rpcv2_cbor.create_rescore_execution_plan
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.rpcv2_cbor.create_rescore_execution_plan.async_create_rescore_execution_plan(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -273,14 +292,26 @@ class AsyncKendraRankingClient:
         async def _handler(
             req: "AsyncOperationRequest[capo_kendra_ranking.types.delete_rescore_execution_plan_request.DeleteRescoreExecutionPlanRequest]",
         ) -> AsyncOperationResponse[None]:
-            import capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.delete_rescore_execution_plan
+            if req.options.protocol == "awsJson1_0":
+                import capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.aws_json1_0.delete_rescore_execution_plan
 
-            (
-                output,
-                http_response,
-            ) = await capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.delete_rescore_execution_plan.async_delete_rescore_execution_plan(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.aws_json1_0.delete_rescore_execution_plan.async_delete_rescore_execution_plan(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.rpcv2_cbor.delete_rescore_execution_plan
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.rpcv2_cbor.delete_rescore_execution_plan.async_delete_rescore_execution_plan(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -323,14 +354,26 @@ class AsyncKendraRankingClient:
         ) -> AsyncOperationResponse[
             "capo_kendra_ranking.types.describe_rescore_execution_plan_response.DescribeRescoreExecutionPlanResponse"
         ]:
-            import capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.describe_rescore_execution_plan
+            if req.options.protocol == "awsJson1_0":
+                import capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.aws_json1_0.describe_rescore_execution_plan
 
-            (
-                output,
-                http_response,
-            ) = await capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.describe_rescore_execution_plan.async_describe_rescore_execution_plan(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.aws_json1_0.describe_rescore_execution_plan.async_describe_rescore_execution_plan(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.rpcv2_cbor.describe_rescore_execution_plan
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.rpcv2_cbor.describe_rescore_execution_plan.async_describe_rescore_execution_plan(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -376,14 +419,26 @@ class AsyncKendraRankingClient:
         ) -> AsyncOperationResponse[
             "capo_kendra_ranking.types.list_rescore_execution_plans_response.ListRescoreExecutionPlansResponse"
         ]:
-            import capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.list_rescore_execution_plans
+            if req.options.protocol == "awsJson1_0":
+                import capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.aws_json1_0.list_rescore_execution_plans
 
-            (
-                output,
-                http_response,
-            ) = await capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.list_rescore_execution_plans.async_list_rescore_execution_plans(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.aws_json1_0.list_rescore_execution_plans.async_list_rescore_execution_plans(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.rpcv2_cbor.list_rescore_execution_plans
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.rpcv2_cbor.list_rescore_execution_plans.async_list_rescore_execution_plans(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -449,14 +504,26 @@ class AsyncKendraRankingClient:
         ) -> AsyncOperationResponse[
             "capo_kendra_ranking.types.list_tags_for_resource_response.ListTagsForResourceResponse"
         ]:
-            import capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.list_tags_for_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.aws_json1_0.list_tags_for_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.list_tags_for_resource.async_list_tags_for_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.aws_json1_0.list_tags_for_resource.async_list_tags_for_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.rpcv2_cbor.list_tags_for_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.rpcv2_cbor.list_tags_for_resource.async_list_tags_for_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -504,14 +571,26 @@ class AsyncKendraRankingClient:
         ) -> AsyncOperationResponse[
             "capo_kendra_ranking.types.rescore_result.RescoreResult"
         ]:
-            import capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.rescore
+            if req.options.protocol == "awsJson1_0":
+                import capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.aws_json1_0.rescore
 
-            (
-                output,
-                http_response,
-            ) = await capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.rescore.async_rescore(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.aws_json1_0.rescore.async_rescore(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.rpcv2_cbor.rescore
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.rpcv2_cbor.rescore.async_rescore(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -558,14 +637,26 @@ class AsyncKendraRankingClient:
         ) -> AsyncOperationResponse[
             "capo_kendra_ranking.types.tag_resource_response.TagResourceResponse"
         ]:
-            import capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.tag_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.aws_json1_0.tag_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.tag_resource.async_tag_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.aws_json1_0.tag_resource.async_tag_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.rpcv2_cbor.tag_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.rpcv2_cbor.tag_resource.async_tag_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -611,14 +702,26 @@ class AsyncKendraRankingClient:
         ) -> AsyncOperationResponse[
             "capo_kendra_ranking.types.untag_resource_response.UntagResourceResponse"
         ]:
-            import capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.untag_resource
+            if req.options.protocol == "awsJson1_0":
+                import capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.aws_json1_0.untag_resource
 
-            (
-                output,
-                http_response,
-            ) = await capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.untag_resource.async_untag_resource(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.aws_json1_0.untag_resource.async_untag_resource(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.rpcv2_cbor.untag_resource
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.rpcv2_cbor.untag_resource.async_untag_resource(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(
@@ -674,14 +777,26 @@ class AsyncKendraRankingClient:
         async def _handler(
             req: "AsyncOperationRequest[capo_kendra_ranking.types.update_rescore_execution_plan_request.UpdateRescoreExecutionPlanRequest]",
         ) -> AsyncOperationResponse[None]:
-            import capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.update_rescore_execution_plan
+            if req.options.protocol == "awsJson1_0":
+                import capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.aws_json1_0.update_rescore_execution_plan
 
-            (
-                output,
-                http_response,
-            ) = await capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.update_rescore_execution_plan.async_update_rescore_execution_plan(
-                req.options, req.input
-            )
+                (
+                    output,
+                    http_response,
+                ) = await capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.aws_json1_0.update_rescore_execution_plan.async_update_rescore_execution_plan(
+                    req.options, req.input
+                )
+            elif req.options.protocol == "rpcv2Cbor":
+                import capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.rpcv2_cbor.update_rescore_execution_plan
+
+                (
+                    output,
+                    http_response,
+                ) = await capo_kendra_ranking._operations.aws_kendra_reranking_frontend_service.rpcv2_cbor.update_rescore_execution_plan.async_update_rescore_execution_plan(
+                    req.options, req.input
+                )
+            else:
+                raise ValueError(f"unknown protocol {req.options.protocol!r}")
             return AsyncOperationResponse(output=output, response=http_response)
 
         interceptors_, options_ = self.operation_options(

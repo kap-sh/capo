@@ -18,3 +18,12 @@ def serialize_aws_json_1_0(value: RDSDBRecommendationFilterName) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> RDSDBRecommendationFilterName:
     return cast(RDSDBRecommendationFilterName, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RDSDBRecommendationFilterName) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> RDSDBRecommendationFilterName:
+    return cast(RDSDBRecommendationFilterName, data)

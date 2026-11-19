@@ -208,3 +208,138 @@ def deserialize_aws_json_1_1(data: dict) -> RegisterWorkspaceDirectoryRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RegisterWorkspaceDirectoryRequest) -> dict:
+    out: dict = {}
+    if "directory_id" in value:
+        out["DirectoryId"] = value["directory_id"]
+    if "subnet_ids" in value:
+        import capo_workspaces.types.subnet_ids
+
+        out["SubnetIds"] = capo_workspaces.types.subnet_ids.serialize_cbor(
+            value["subnet_ids"]
+        )
+    if "enable_self_service" in value:
+        out["EnableSelfService"] = value["enable_self_service"]
+    if "tenancy" in value:
+        import capo_workspaces.types.tenancy
+
+        out["Tenancy"] = capo_workspaces.types.tenancy.serialize_cbor(value["tenancy"])
+    if "tags" in value:
+        import capo_workspaces.types.tag_list
+
+        out["Tags"] = capo_workspaces.types.tag_list.serialize_cbor(value["tags"])
+    if "workspace_directory_name" in value:
+        out["WorkspaceDirectoryName"] = value["workspace_directory_name"]
+    if "workspace_directory_description" in value:
+        out["WorkspaceDirectoryDescription"] = value["workspace_directory_description"]
+    if "user_identity_type" in value:
+        import capo_workspaces.types.user_identity_type
+
+        out["UserIdentityType"] = (
+            capo_workspaces.types.user_identity_type.serialize_cbor(
+                value["user_identity_type"]
+            )
+        )
+    if "workspace_os_user_mode" in value:
+        import capo_workspaces.types.workspace_os_user_mode
+
+        out["WorkspaceOsUserMode"] = (
+            capo_workspaces.types.workspace_os_user_mode.serialize_cbor(
+                value["workspace_os_user_mode"]
+            )
+        )
+    if "idc_instance_arn" in value:
+        out["IdcInstanceArn"] = value["idc_instance_arn"]
+    if "microsoft_entra_config" in value:
+        import capo_workspaces.types.microsoft_entra_config
+
+        out["MicrosoftEntraConfig"] = (
+            capo_workspaces.types.microsoft_entra_config.serialize_cbor(
+                value["microsoft_entra_config"]
+            )
+        )
+    if "workspace_type" in value:
+        import capo_workspaces.types.workspace_type
+
+        out["WorkspaceType"] = capo_workspaces.types.workspace_type.serialize_cbor(
+            value["workspace_type"]
+        )
+    if "active_directory_config" in value:
+        import capo_workspaces.types.active_directory_config
+
+        out["ActiveDirectoryConfig"] = (
+            capo_workspaces.types.active_directory_config.serialize_cbor(
+                value["active_directory_config"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RegisterWorkspaceDirectoryRequest:
+    out: RegisterWorkspaceDirectoryRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    if data.get("SubnetIds") is not None:
+        import capo_workspaces.types.subnet_ids
+
+        out["subnet_ids"] = capo_workspaces.types.subnet_ids.deserialize_cbor(
+            data["SubnetIds"]
+        )
+    if data.get("EnableSelfService") is not None:
+        out["enable_self_service"] = data["EnableSelfService"]
+    if data.get("Tenancy") is not None:
+        import capo_workspaces.types.tenancy
+
+        out["tenancy"] = capo_workspaces.types.tenancy.deserialize_cbor(data["Tenancy"])
+    if data.get("Tags") is not None:
+        import capo_workspaces.types.tag_list
+
+        out["tags"] = capo_workspaces.types.tag_list.deserialize_cbor(data["Tags"])
+    if data.get("WorkspaceDirectoryName") is not None:
+        out["workspace_directory_name"] = data["WorkspaceDirectoryName"]
+    if data.get("WorkspaceDirectoryDescription") is not None:
+        out["workspace_directory_description"] = data["WorkspaceDirectoryDescription"]
+    if data.get("UserIdentityType") is not None:
+        import capo_workspaces.types.user_identity_type
+
+        out["user_identity_type"] = (
+            capo_workspaces.types.user_identity_type.deserialize_cbor(
+                data["UserIdentityType"]
+            )
+        )
+    if data.get("WorkspaceOsUserMode") is not None:
+        import capo_workspaces.types.workspace_os_user_mode
+
+        out["workspace_os_user_mode"] = (
+            capo_workspaces.types.workspace_os_user_mode.deserialize_cbor(
+                data["WorkspaceOsUserMode"]
+            )
+        )
+    if data.get("IdcInstanceArn") is not None:
+        out["idc_instance_arn"] = data["IdcInstanceArn"]
+    if data.get("MicrosoftEntraConfig") is not None:
+        import capo_workspaces.types.microsoft_entra_config
+
+        out["microsoft_entra_config"] = (
+            capo_workspaces.types.microsoft_entra_config.deserialize_cbor(
+                data["MicrosoftEntraConfig"]
+            )
+        )
+    if data.get("WorkspaceType") is not None:
+        import capo_workspaces.types.workspace_type
+
+        out["workspace_type"] = capo_workspaces.types.workspace_type.deserialize_cbor(
+            data["WorkspaceType"]
+        )
+    if data.get("ActiveDirectoryConfig") is not None:
+        import capo_workspaces.types.active_directory_config
+
+        out["active_directory_config"] = (
+            capo_workspaces.types.active_directory_config.deserialize_cbor(
+                data["ActiveDirectoryConfig"]
+            )
+        )
+    return out

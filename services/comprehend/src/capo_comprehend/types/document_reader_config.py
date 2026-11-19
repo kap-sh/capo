@@ -87,3 +87,67 @@ def deserialize_aws_json_1_1(data: dict) -> DocumentReaderConfig:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DocumentReaderConfig) -> dict:
+    out: dict = {}
+    import capo_comprehend.types.document_read_action
+
+    out["DocumentReadAction"] = (
+        capo_comprehend.types.document_read_action.serialize_cbor(
+            value["document_read_action"]
+        )
+    )
+    if "document_read_mode" in value:
+        import capo_comprehend.types.document_read_mode
+
+        out["DocumentReadMode"] = (
+            capo_comprehend.types.document_read_mode.serialize_cbor(
+                value["document_read_mode"]
+            )
+        )
+    if "feature_types" in value:
+        import capo_comprehend.types.list_of_document_read_feature_types
+
+        out["FeatureTypes"] = (
+            capo_comprehend.types.list_of_document_read_feature_types.serialize_cbor(
+                value["feature_types"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DocumentReaderConfig:
+    out: DocumentReaderConfig = {}  # type: ignore[typeddict-item]
+    if data.get("DocumentReadAction") is not None:
+        import capo_comprehend.types.document_read_action
+
+        out["document_read_action"] = (
+            capo_comprehend.types.document_read_action.deserialize_cbor(
+                data["DocumentReadAction"]
+            )
+        )
+    else:
+        import typing
+
+        out["document_read_action"] = typing.cast(
+            "capo_comprehend.types.document_read_action.DocumentReadAction", ""
+        )
+    if data.get("DocumentReadMode") is not None:
+        import capo_comprehend.types.document_read_mode
+
+        out["document_read_mode"] = (
+            capo_comprehend.types.document_read_mode.deserialize_cbor(
+                data["DocumentReadMode"]
+            )
+        )
+    if data.get("FeatureTypes") is not None:
+        import capo_comprehend.types.list_of_document_read_feature_types
+
+        out["feature_types"] = (
+            capo_comprehend.types.list_of_document_read_feature_types.deserialize_cbor(
+                data["FeatureTypes"]
+            )
+        )
+    return out

@@ -94,3 +94,68 @@ def deserialize_aws_json_1_1(data: dict) -> DirectoryConnectSettings:
     else:
         out["customer_user_name"] = ""
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DirectoryConnectSettings) -> dict:
+    out: dict = {}
+    out["VpcId"] = value["vpc_id"]
+    import capo_directory_service.types.subnet_ids
+
+    out["SubnetIds"] = capo_directory_service.types.subnet_ids.serialize_cbor(
+        value["subnet_ids"]
+    )
+    import capo_directory_service.types.dns_ip_addrs
+
+    out["CustomerDnsIps"] = capo_directory_service.types.dns_ip_addrs.serialize_cbor(
+        value.get("customer_dns_ips", [])
+    )
+    if "customer_dns_ips_v6" in value:
+        import capo_directory_service.types.dns_ipv6_addrs
+
+        out["CustomerDnsIpsV6"] = (
+            capo_directory_service.types.dns_ipv6_addrs.serialize_cbor(
+                value["customer_dns_ips_v6"]
+            )
+        )
+    out["CustomerUserName"] = value["customer_user_name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> DirectoryConnectSettings:
+    out: DirectoryConnectSettings = {}  # type: ignore[typeddict-item]
+    if data.get("VpcId") is not None:
+        out["vpc_id"] = data["VpcId"]
+    else:
+        out["vpc_id"] = ""
+    if data.get("SubnetIds") is not None:
+        import capo_directory_service.types.subnet_ids
+
+        out["subnet_ids"] = capo_directory_service.types.subnet_ids.deserialize_cbor(
+            data["SubnetIds"]
+        )
+    else:
+        out["subnet_ids"] = []
+    if data.get("CustomerDnsIps") is not None:
+        import capo_directory_service.types.dns_ip_addrs
+
+        out["customer_dns_ips"] = (
+            capo_directory_service.types.dns_ip_addrs.deserialize_cbor(
+                data["CustomerDnsIps"]
+            )
+        )
+    else:
+        out["customer_dns_ips"] = []
+    if data.get("CustomerDnsIpsV6") is not None:
+        import capo_directory_service.types.dns_ipv6_addrs
+
+        out["customer_dns_ips_v6"] = (
+            capo_directory_service.types.dns_ipv6_addrs.deserialize_cbor(
+                data["CustomerDnsIpsV6"]
+            )
+        )
+    if data.get("CustomerUserName") is not None:
+        out["customer_user_name"] = data["CustomerUserName"]
+    else:
+        out["customer_user_name"] = ""
+    return out

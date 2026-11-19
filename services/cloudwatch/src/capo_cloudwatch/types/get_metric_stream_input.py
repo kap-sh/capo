@@ -45,3 +45,18 @@ def deserialize_query(el: Element) -> GetMetricStreamInput:
     if child_name is not None:
         out["name"] = str(child_name.text or "")
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: GetMetricStreamInput) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> GetMetricStreamInput:
+    out: GetMetricStreamInput = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    return out

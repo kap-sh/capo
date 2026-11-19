@@ -71,3 +71,30 @@ def deserialize_query(el: Element) -> PutDashboardOutput:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: PutDashboardOutput) -> dict:
+    out: dict = {}
+    if "dashboard_validation_messages" in value:
+        import capo_cloudwatch.types.dashboard_validation_messages
+
+        out["DashboardValidationMessages"] = (
+            capo_cloudwatch.types.dashboard_validation_messages.serialize_cbor(
+                value["dashboard_validation_messages"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> PutDashboardOutput:
+    out: PutDashboardOutput = {}  # type: ignore[typeddict-item]
+    if data.get("DashboardValidationMessages") is not None:
+        import capo_cloudwatch.types.dashboard_validation_messages
+
+        out["dashboard_validation_messages"] = (
+            capo_cloudwatch.types.dashboard_validation_messages.deserialize_cbor(
+                data["DashboardValidationMessages"]
+            )
+        )
+    return out

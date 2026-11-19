@@ -101,6 +101,68 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateLocationFsxWindowsRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: UpdateLocationFsxWindowsRequest) -> dict:
+    out: dict = {}
+    out["LocationArn"] = value["location_arn"]
+    if "subdirectory" in value:
+        out["Subdirectory"] = value["subdirectory"]
+    if "domain" in value:
+        out["Domain"] = value["domain"]
+    if "user" in value:
+        out["User"] = value["user"]
+    if "password" in value:
+        out["Password"] = value["password"]
+    if "cmk_secret_config" in value:
+        import capo_datasync.types.cmk_secret_config
+
+        out["CmkSecretConfig"] = capo_datasync.types.cmk_secret_config.serialize_cbor(
+            value["cmk_secret_config"]
+        )
+    if "custom_secret_config" in value:
+        import capo_datasync.types.custom_secret_config
+
+        out["CustomSecretConfig"] = (
+            capo_datasync.types.custom_secret_config.serialize_cbor(
+                value["custom_secret_config"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> UpdateLocationFsxWindowsRequest:
+    out: UpdateLocationFsxWindowsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("LocationArn") is not None:
+        out["location_arn"] = data["LocationArn"]
+    else:
+        out["location_arn"] = ""
+    if data.get("Subdirectory") is not None:
+        out["subdirectory"] = data["Subdirectory"]
+    if data.get("Domain") is not None:
+        out["domain"] = data["Domain"]
+    if data.get("User") is not None:
+        out["user"] = data["User"]
+    if data.get("Password") is not None:
+        out["password"] = data["Password"]
+    if data.get("CmkSecretConfig") is not None:
+        import capo_datasync.types.cmk_secret_config
+
+        out["cmk_secret_config"] = (
+            capo_datasync.types.cmk_secret_config.deserialize_cbor(
+                data["CmkSecretConfig"]
+            )
+        )
+    if data.get("CustomSecretConfig") is not None:
+        import capo_datasync.types.custom_secret_config
+
+        out["custom_secret_config"] = (
+            capo_datasync.types.custom_secret_config.deserialize_cbor(
+                data["CustomSecretConfig"]
+            )
+        )
+    return out
+
+
 def redact_sensitive(value: UpdateLocationFsxWindowsRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "password" in value:

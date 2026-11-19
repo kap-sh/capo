@@ -42,3 +42,31 @@ def deserialize_aws_json_1_1(data: dict) -> RestoreDomainRequest:
             data["Consent"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RestoreDomainRequest) -> dict:
+    out: dict = {}
+    out["DomainName"] = value["domain_name"]
+    if "consent" in value:
+        import capo_route_53_domains.types.consent
+
+        out["Consent"] = capo_route_53_domains.types.consent.serialize_cbor(
+            value["consent"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> RestoreDomainRequest:
+    out: RestoreDomainRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DomainName") is not None:
+        out["domain_name"] = data["DomainName"]
+    else:
+        out["domain_name"] = ""
+    if data.get("Consent") is not None:
+        import capo_route_53_domains.types.consent
+
+        out["consent"] = capo_route_53_domains.types.consent.deserialize_cbor(
+            data["Consent"]
+        )
+    return out

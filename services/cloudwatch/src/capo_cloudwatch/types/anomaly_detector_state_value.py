@@ -37,3 +37,12 @@ def serialize_query(
 
 def deserialize_query(el: Element) -> AnomalyDetectorStateValue:
     return from_query_text(el.text or "")
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AnomalyDetectorStateValue) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> AnomalyDetectorStateValue:
+    return cast(AnomalyDetectorStateValue, data)

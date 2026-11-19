@@ -92,3 +92,61 @@ def deserialize_aws_json_1_1(
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ListPerformanceAnalysisReportRecommendationsRequest) -> dict:
+    out: dict = {}
+    import capo_pi.types.service_type
+
+    out["ServiceType"] = capo_pi.types.service_type.serialize_cbor(
+        value["service_type"]
+    )
+    out["Identifier"] = value["identifier"]
+    out["AnalysisReportId"] = value["analysis_report_id"]
+    if "recommendation_ids" in value:
+        import capo_pi.types.recommendation_id_list
+
+        out["RecommendationIds"] = capo_pi.types.recommendation_id_list.serialize_cbor(
+            value["recommendation_ids"]
+        )
+    if "max_results" in value:
+        out["MaxResults"] = value["max_results"]
+    if "next_token" in value:
+        out["NextToken"] = value["next_token"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ListPerformanceAnalysisReportRecommendationsRequest:
+    out: ListPerformanceAnalysisReportRecommendationsRequest = {}  # type: ignore[typeddict-item]
+    if data.get("ServiceType") is not None:
+        import capo_pi.types.service_type
+
+        out["service_type"] = capo_pi.types.service_type.deserialize_cbor(
+            data["ServiceType"]
+        )
+    else:
+        import typing
+
+        out["service_type"] = typing.cast("capo_pi.types.service_type.ServiceType", "")
+    if data.get("Identifier") is not None:
+        out["identifier"] = data["Identifier"]
+    else:
+        out["identifier"] = ""
+    if data.get("AnalysisReportId") is not None:
+        out["analysis_report_id"] = data["AnalysisReportId"]
+    else:
+        out["analysis_report_id"] = ""
+    if data.get("RecommendationIds") is not None:
+        import capo_pi.types.recommendation_id_list
+
+        out["recommendation_ids"] = (
+            capo_pi.types.recommendation_id_list.deserialize_cbor(
+                data["RecommendationIds"]
+            )
+        )
+    if data.get("MaxResults") is not None:
+        out["max_results"] = data["MaxResults"]
+    if data.get("NextToken") is not None:
+        out["next_token"] = data["NextToken"]
+    return out

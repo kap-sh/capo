@@ -33,3 +33,22 @@ def deserialize_aws_json_1_1(data: dict) -> WebACLHasIncompatibleConfigurationVi
     if data.get("Description") is not None:
         out["description"] = data["Description"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: WebACLHasIncompatibleConfigurationViolation) -> dict:
+    out: dict = {}
+    if "web_acl_arn" in value:
+        out["WebACLArn"] = value["web_acl_arn"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> WebACLHasIncompatibleConfigurationViolation:
+    out: WebACLHasIncompatibleConfigurationViolation = {}  # type: ignore[typeddict-item]
+    if data.get("WebACLArn") is not None:
+        out["web_acl_arn"] = data["WebACLArn"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    return out

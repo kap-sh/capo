@@ -49,3 +49,30 @@ def deserialize_aws_json_1_1(data: dict) -> RuleTypeSettings:
     if data.get("revisionUrlTemplate") is not None:
         out["revision_url_template"] = data["revisionUrlTemplate"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RuleTypeSettings) -> dict:
+    out: dict = {}
+    if "third_party_configuration_url" in value:
+        out["thirdPartyConfigurationUrl"] = value["third_party_configuration_url"]
+    if "entity_url_template" in value:
+        out["entityUrlTemplate"] = value["entity_url_template"]
+    if "execution_url_template" in value:
+        out["executionUrlTemplate"] = value["execution_url_template"]
+    if "revision_url_template" in value:
+        out["revisionUrlTemplate"] = value["revision_url_template"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RuleTypeSettings:
+    out: RuleTypeSettings = {}  # type: ignore[typeddict-item]
+    if data.get("thirdPartyConfigurationUrl") is not None:
+        out["third_party_configuration_url"] = data["thirdPartyConfigurationUrl"]
+    if data.get("entityUrlTemplate") is not None:
+        out["entity_url_template"] = data["entityUrlTemplate"]
+    if data.get("executionUrlTemplate") is not None:
+        out["execution_url_template"] = data["executionUrlTemplate"]
+    if data.get("revisionUrlTemplate") is not None:
+        out["revision_url_template"] = data["revisionUrlTemplate"]
+    return out

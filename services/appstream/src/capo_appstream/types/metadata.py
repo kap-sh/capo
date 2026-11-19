@@ -25,3 +25,20 @@ def deserialize_aws_json_1_1(data: dict) -> Metadata:
             continue
         out[key] = value
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(input_to_serialize: Metadata) -> dict:
+    out: dict = {}
+    for key, value in input_to_serialize.items():
+        out[key] = value
+    return out
+
+
+def deserialize_cbor(data: dict) -> Metadata:
+    out: Metadata = {}
+    for key, value in data.items():
+        if value is None:
+            continue
+        out[key] = value
+    return out

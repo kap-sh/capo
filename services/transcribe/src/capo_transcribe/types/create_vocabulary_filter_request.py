@@ -118,3 +118,76 @@ def deserialize_aws_json_1_1(data: dict) -> CreateVocabularyFilterRequest:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CreateVocabularyFilterRequest) -> dict:
+    out: dict = {}
+    out["VocabularyFilterName"] = value["vocabulary_filter_name"]
+    import capo_transcribe.types.language_code
+
+    out["LanguageCode"] = capo_transcribe.types.language_code.serialize_cbor(
+        value["language_code"]
+    )
+    if "words" in value:
+        import capo_transcribe.types.words
+
+        out["Words"] = capo_transcribe.types.words.serialize_cbor(value["words"])
+    if "vocabulary_filter_file_uri" in value:
+        out["VocabularyFilterFileUri"] = value["vocabulary_filter_file_uri"]
+    if "tags" in value:
+        import capo_transcribe.types.tag_list
+
+        out["Tags"] = capo_transcribe.types.tag_list.serialize_cbor(value["tags"])
+    if "data_access_role_arn" in value:
+        out["DataAccessRoleArn"] = value["data_access_role_arn"]
+    if "encryption_configuration" in value:
+        import capo_transcribe.types.encryption_configuration
+
+        out["EncryptionConfiguration"] = (
+            capo_transcribe.types.encryption_configuration.serialize_cbor(
+                value["encryption_configuration"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CreateVocabularyFilterRequest:
+    out: CreateVocabularyFilterRequest = {}  # type: ignore[typeddict-item]
+    if data.get("VocabularyFilterName") is not None:
+        out["vocabulary_filter_name"] = data["VocabularyFilterName"]
+    else:
+        out["vocabulary_filter_name"] = ""
+    if data.get("LanguageCode") is not None:
+        import capo_transcribe.types.language_code
+
+        out["language_code"] = capo_transcribe.types.language_code.deserialize_cbor(
+            data["LanguageCode"]
+        )
+    else:
+        import typing
+
+        out["language_code"] = typing.cast(
+            "capo_transcribe.types.language_code.LanguageCode", ""
+        )
+    if data.get("Words") is not None:
+        import capo_transcribe.types.words
+
+        out["words"] = capo_transcribe.types.words.deserialize_cbor(data["Words"])
+    if data.get("VocabularyFilterFileUri") is not None:
+        out["vocabulary_filter_file_uri"] = data["VocabularyFilterFileUri"]
+    if data.get("Tags") is not None:
+        import capo_transcribe.types.tag_list
+
+        out["tags"] = capo_transcribe.types.tag_list.deserialize_cbor(data["Tags"])
+    if data.get("DataAccessRoleArn") is not None:
+        out["data_access_role_arn"] = data["DataAccessRoleArn"]
+    if data.get("EncryptionConfiguration") is not None:
+        import capo_transcribe.types.encryption_configuration
+
+        out["encryption_configuration"] = (
+            capo_transcribe.types.encryption_configuration.deserialize_cbor(
+                data["EncryptionConfiguration"]
+            )
+        )
+    return out

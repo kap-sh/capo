@@ -27,3 +27,19 @@ def deserialize_aws_json_1_0(data: dict) -> RenewalTermConfiguration:
     else:
         out["enable_auto_renew"] = False
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RenewalTermConfiguration) -> dict:
+    out: dict = {}
+    out["enableAutoRenew"] = value["enable_auto_renew"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RenewalTermConfiguration:
+    out: RenewalTermConfiguration = {}  # type: ignore[typeddict-item]
+    if data.get("enableAutoRenew") is not None:
+        out["enable_auto_renew"] = data["enableAutoRenew"]
+    else:
+        out["enable_auto_renew"] = False
+    return out

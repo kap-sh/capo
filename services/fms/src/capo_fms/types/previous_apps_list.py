@@ -31,3 +31,24 @@ def deserialize_aws_json_1_1(data: dict) -> PreviousAppsList:
 
         out[key] = capo_fms.types.apps_list.deserialize_aws_json_1_1(value)
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(input_to_serialize: PreviousAppsList) -> dict:
+    out: dict = {}
+    for key, value in input_to_serialize.items():
+        import capo_fms.types.apps_list
+
+        out[key] = capo_fms.types.apps_list.serialize_cbor(value)
+    return out
+
+
+def deserialize_cbor(data: dict) -> PreviousAppsList:
+    out: PreviousAppsList = {}
+    for key, value in data.items():
+        if value is None:
+            continue
+        import capo_fms.types.apps_list
+
+        out[key] = capo_fms.types.apps_list.deserialize_cbor(value)
+    return out

@@ -359,3 +359,256 @@ def deserialize_aws_json_1_1(data: dict) -> Image:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Image) -> dict:
+    out: dict = {}
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "arn" in value:
+        out["Arn"] = value["arn"]
+    if "base_image_arn" in value:
+        out["BaseImageArn"] = value["base_image_arn"]
+    if "display_name" in value:
+        out["DisplayName"] = value["display_name"]
+    if "state" in value:
+        import capo_appstream.types.image_state
+
+        out["State"] = capo_appstream.types.image_state.serialize_cbor(value["state"])
+    if "visibility" in value:
+        import capo_appstream.types.visibility_type
+
+        out["Visibility"] = capo_appstream.types.visibility_type.serialize_cbor(
+            value["visibility"]
+        )
+    if "image_builder_supported" in value:
+        out["ImageBuilderSupported"] = value["image_builder_supported"]
+    if "image_builder_name" in value:
+        out["ImageBuilderName"] = value["image_builder_name"]
+    if "platform" in value:
+        import capo_appstream.types.platform_type
+
+        out["Platform"] = capo_appstream.types.platform_type.serialize_cbor(
+            value["platform"]
+        )
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "state_change_reason" in value:
+        import capo_appstream.types.image_state_change_reason
+
+        out["StateChangeReason"] = (
+            capo_appstream.types.image_state_change_reason.serialize_cbor(
+                value["state_change_reason"]
+            )
+        )
+    if "applications" in value:
+        import capo_appstream.types.applications
+
+        out["Applications"] = capo_appstream.types.applications.serialize_cbor(
+            value["applications"]
+        )
+    if "created_time" in value:
+        import capo_appstream.types.timestamp
+
+        out["CreatedTime"] = capo_appstream.types.timestamp.serialize_cbor(
+            value["created_time"]
+        )
+    if "public_base_image_released_date" in value:
+        import capo_appstream.types.timestamp
+
+        out["PublicBaseImageReleasedDate"] = (
+            capo_appstream.types.timestamp.serialize_cbor(
+                value["public_base_image_released_date"]
+            )
+        )
+    if "appstream_agent_version" in value:
+        out["AppstreamAgentVersion"] = value["appstream_agent_version"]
+    if "image_permissions" in value:
+        import capo_appstream.types.image_permissions
+
+        out["ImagePermissions"] = capo_appstream.types.image_permissions.serialize_cbor(
+            value["image_permissions"]
+        )
+    if "image_errors" in value:
+        import capo_appstream.types.resource_errors
+
+        out["ImageErrors"] = capo_appstream.types.resource_errors.serialize_cbor(
+            value["image_errors"]
+        )
+    if "latest_appstream_agent_version" in value:
+        import capo_appstream.types.latest_appstream_agent_version
+
+        out["LatestAppstreamAgentVersion"] = (
+            capo_appstream.types.latest_appstream_agent_version.serialize_cbor(
+                value["latest_appstream_agent_version"]
+            )
+        )
+    if "supported_instance_families" in value:
+        import capo_appstream.types.string_list
+
+        out["SupportedInstanceFamilies"] = (
+            capo_appstream.types.string_list.serialize_cbor(
+                value["supported_instance_families"]
+            )
+        )
+    if "dynamic_app_providers_enabled" in value:
+        import capo_appstream.types.dynamic_app_providers_enabled
+
+        out["DynamicAppProvidersEnabled"] = (
+            capo_appstream.types.dynamic_app_providers_enabled.serialize_cbor(
+                value["dynamic_app_providers_enabled"]
+            )
+        )
+    if "image_shared_with_others" in value:
+        import capo_appstream.types.image_shared_with_others
+
+        out["ImageSharedWithOthers"] = (
+            capo_appstream.types.image_shared_with_others.serialize_cbor(
+                value["image_shared_with_others"]
+            )
+        )
+    if "managed_software_included" in value:
+        out["ManagedSoftwareIncluded"] = value["managed_software_included"]
+    if "image_type" in value:
+        import capo_appstream.types.image_type
+
+        out["ImageType"] = capo_appstream.types.image_type.serialize_cbor(
+            value["image_type"]
+        )
+    if "image_software_metadata" in value:
+        import capo_appstream.types.image_software_metadata
+
+        out["ImageSoftwareMetadata"] = (
+            capo_appstream.types.image_software_metadata.serialize_cbor(
+                value["image_software_metadata"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Image:
+    out: Image = {}  # type: ignore[typeddict-item]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Arn") is not None:
+        out["arn"] = data["Arn"]
+    if data.get("BaseImageArn") is not None:
+        out["base_image_arn"] = data["BaseImageArn"]
+    if data.get("DisplayName") is not None:
+        out["display_name"] = data["DisplayName"]
+    if data.get("State") is not None:
+        import capo_appstream.types.image_state
+
+        out["state"] = capo_appstream.types.image_state.deserialize_cbor(data["State"])
+    if data.get("Visibility") is not None:
+        import capo_appstream.types.visibility_type
+
+        out["visibility"] = capo_appstream.types.visibility_type.deserialize_cbor(
+            data["Visibility"]
+        )
+    if data.get("ImageBuilderSupported") is not None:
+        out["image_builder_supported"] = data["ImageBuilderSupported"]
+    if data.get("ImageBuilderName") is not None:
+        out["image_builder_name"] = data["ImageBuilderName"]
+    if data.get("Platform") is not None:
+        import capo_appstream.types.platform_type
+
+        out["platform"] = capo_appstream.types.platform_type.deserialize_cbor(
+            data["Platform"]
+        )
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("StateChangeReason") is not None:
+        import capo_appstream.types.image_state_change_reason
+
+        out["state_change_reason"] = (
+            capo_appstream.types.image_state_change_reason.deserialize_cbor(
+                data["StateChangeReason"]
+            )
+        )
+    if data.get("Applications") is not None:
+        import capo_appstream.types.applications
+
+        out["applications"] = capo_appstream.types.applications.deserialize_cbor(
+            data["Applications"]
+        )
+    if data.get("CreatedTime") is not None:
+        import capo_appstream.types.timestamp
+
+        out["created_time"] = capo_appstream.types.timestamp.deserialize_cbor(
+            data["CreatedTime"]
+        )
+    if data.get("PublicBaseImageReleasedDate") is not None:
+        import capo_appstream.types.timestamp
+
+        out["public_base_image_released_date"] = (
+            capo_appstream.types.timestamp.deserialize_cbor(
+                data["PublicBaseImageReleasedDate"]
+            )
+        )
+    if data.get("AppstreamAgentVersion") is not None:
+        out["appstream_agent_version"] = data["AppstreamAgentVersion"]
+    if data.get("ImagePermissions") is not None:
+        import capo_appstream.types.image_permissions
+
+        out["image_permissions"] = (
+            capo_appstream.types.image_permissions.deserialize_cbor(
+                data["ImagePermissions"]
+            )
+        )
+    if data.get("ImageErrors") is not None:
+        import capo_appstream.types.resource_errors
+
+        out["image_errors"] = capo_appstream.types.resource_errors.deserialize_cbor(
+            data["ImageErrors"]
+        )
+    if data.get("LatestAppstreamAgentVersion") is not None:
+        import capo_appstream.types.latest_appstream_agent_version
+
+        out["latest_appstream_agent_version"] = (
+            capo_appstream.types.latest_appstream_agent_version.deserialize_cbor(
+                data["LatestAppstreamAgentVersion"]
+            )
+        )
+    if data.get("SupportedInstanceFamilies") is not None:
+        import capo_appstream.types.string_list
+
+        out["supported_instance_families"] = (
+            capo_appstream.types.string_list.deserialize_cbor(
+                data["SupportedInstanceFamilies"]
+            )
+        )
+    if data.get("DynamicAppProvidersEnabled") is not None:
+        import capo_appstream.types.dynamic_app_providers_enabled
+
+        out["dynamic_app_providers_enabled"] = (
+            capo_appstream.types.dynamic_app_providers_enabled.deserialize_cbor(
+                data["DynamicAppProvidersEnabled"]
+            )
+        )
+    if data.get("ImageSharedWithOthers") is not None:
+        import capo_appstream.types.image_shared_with_others
+
+        out["image_shared_with_others"] = (
+            capo_appstream.types.image_shared_with_others.deserialize_cbor(
+                data["ImageSharedWithOthers"]
+            )
+        )
+    if data.get("ManagedSoftwareIncluded") is not None:
+        out["managed_software_included"] = data["ManagedSoftwareIncluded"]
+    if data.get("ImageType") is not None:
+        import capo_appstream.types.image_type
+
+        out["image_type"] = capo_appstream.types.image_type.deserialize_cbor(
+            data["ImageType"]
+        )
+    if data.get("ImageSoftwareMetadata") is not None:
+        import capo_appstream.types.image_software_metadata
+
+        out["image_software_metadata"] = (
+            capo_appstream.types.image_software_metadata.deserialize_cbor(
+                data["ImageSoftwareMetadata"]
+            )
+        )
+    return out

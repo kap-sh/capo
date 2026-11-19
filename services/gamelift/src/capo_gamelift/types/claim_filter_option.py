@@ -40,3 +40,30 @@ def deserialize_aws_json_1_1(data: dict) -> ClaimFilterOption:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ClaimFilterOption) -> dict:
+    out: dict = {}
+    if "instance_statuses" in value:
+        import capo_gamelift.types.filter_instance_statuses
+
+        out["InstanceStatuses"] = (
+            capo_gamelift.types.filter_instance_statuses.serialize_cbor(
+                value["instance_statuses"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ClaimFilterOption:
+    out: ClaimFilterOption = {}  # type: ignore[typeddict-item]
+    if data.get("InstanceStatuses") is not None:
+        import capo_gamelift.types.filter_instance_statuses
+
+        out["instance_statuses"] = (
+            capo_gamelift.types.filter_instance_statuses.deserialize_cbor(
+                data["InstanceStatuses"]
+            )
+        )
+    return out

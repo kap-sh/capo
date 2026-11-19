@@ -27,3 +27,24 @@ def deserialize_aws_json_1_1(data: list) -> ThemeAttributes:
             continue
         out.append(capo_appstream.types.theme_attribute.deserialize_aws_json_1_1(item))
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ThemeAttributes) -> list:
+    import capo_appstream.types.theme_attribute
+
+    out: list = []
+    for item in value:
+        out.append(capo_appstream.types.theme_attribute.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> ThemeAttributes:
+    import capo_appstream.types.theme_attribute
+
+    out: ThemeAttributes = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_appstream.types.theme_attribute.deserialize_cbor(item))
+    return out

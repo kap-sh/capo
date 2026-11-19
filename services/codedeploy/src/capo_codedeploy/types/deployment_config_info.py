@@ -132,3 +132,92 @@ def deserialize_aws_json_1_1(data: dict) -> DeploymentConfigInfo:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: DeploymentConfigInfo) -> dict:
+    out: dict = {}
+    if "deployment_config_id" in value:
+        out["deploymentConfigId"] = value["deployment_config_id"]
+    if "deployment_config_name" in value:
+        out["deploymentConfigName"] = value["deployment_config_name"]
+    if "minimum_healthy_hosts" in value:
+        import capo_codedeploy.types.minimum_healthy_hosts
+
+        out["minimumHealthyHosts"] = (
+            capo_codedeploy.types.minimum_healthy_hosts.serialize_cbor(
+                value["minimum_healthy_hosts"]
+            )
+        )
+    if "create_time" in value:
+        import capo_codedeploy.types.timestamp
+
+        out["createTime"] = capo_codedeploy.types.timestamp.serialize_cbor(
+            value["create_time"]
+        )
+    if "compute_platform" in value:
+        import capo_codedeploy.types.compute_platform
+
+        out["computePlatform"] = capo_codedeploy.types.compute_platform.serialize_cbor(
+            value["compute_platform"]
+        )
+    if "traffic_routing_config" in value:
+        import capo_codedeploy.types.traffic_routing_config
+
+        out["trafficRoutingConfig"] = (
+            capo_codedeploy.types.traffic_routing_config.serialize_cbor(
+                value["traffic_routing_config"]
+            )
+        )
+    if "zonal_config" in value:
+        import capo_codedeploy.types.zonal_config
+
+        out["zonalConfig"] = capo_codedeploy.types.zonal_config.serialize_cbor(
+            value["zonal_config"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> DeploymentConfigInfo:
+    out: DeploymentConfigInfo = {}  # type: ignore[typeddict-item]
+    if data.get("deploymentConfigId") is not None:
+        out["deployment_config_id"] = data["deploymentConfigId"]
+    if data.get("deploymentConfigName") is not None:
+        out["deployment_config_name"] = data["deploymentConfigName"]
+    if data.get("minimumHealthyHosts") is not None:
+        import capo_codedeploy.types.minimum_healthy_hosts
+
+        out["minimum_healthy_hosts"] = (
+            capo_codedeploy.types.minimum_healthy_hosts.deserialize_cbor(
+                data["minimumHealthyHosts"]
+            )
+        )
+    if data.get("createTime") is not None:
+        import capo_codedeploy.types.timestamp
+
+        out["create_time"] = capo_codedeploy.types.timestamp.deserialize_cbor(
+            data["createTime"]
+        )
+    if data.get("computePlatform") is not None:
+        import capo_codedeploy.types.compute_platform
+
+        out["compute_platform"] = (
+            capo_codedeploy.types.compute_platform.deserialize_cbor(
+                data["computePlatform"]
+            )
+        )
+    if data.get("trafficRoutingConfig") is not None:
+        import capo_codedeploy.types.traffic_routing_config
+
+        out["traffic_routing_config"] = (
+            capo_codedeploy.types.traffic_routing_config.deserialize_cbor(
+                data["trafficRoutingConfig"]
+            )
+        )
+    if data.get("zonalConfig") is not None:
+        import capo_codedeploy.types.zonal_config
+
+        out["zonal_config"] = capo_codedeploy.types.zonal_config.deserialize_cbor(
+            data["zonalConfig"]
+        )
+    return out

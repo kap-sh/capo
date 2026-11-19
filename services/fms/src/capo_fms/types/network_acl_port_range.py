@@ -36,3 +36,22 @@ def deserialize_aws_json_1_1(data: dict) -> NetworkAclPortRange:
     if data.get("To") is not None:
         out["to"] = data["To"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: NetworkAclPortRange) -> dict:
+    out: dict = {}
+    if "from" in value:
+        out["From"] = value["from"]
+    if "to" in value:
+        out["To"] = value["to"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> NetworkAclPortRange:
+    out: NetworkAclPortRange = {}  # type: ignore[typeddict-item]
+    if data.get("From") is not None:
+        out["from"] = data["From"]
+    if data.get("To") is not None:
+        out["to"] = data["To"]
+    return out

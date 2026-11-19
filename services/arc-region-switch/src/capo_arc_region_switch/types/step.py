@@ -81,6 +81,64 @@ def deserialize_aws_json_1_0(data: dict) -> Step:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Step) -> dict:
+    out: dict = {}
+    out["name"] = value["name"]
+    if "description" in value:
+        out["description"] = value["description"]
+    import capo_arc_region_switch.types.execution_block_configuration
+
+    out["executionBlockConfiguration"] = (
+        capo_arc_region_switch.types.execution_block_configuration.serialize_cbor(
+            value["execution_block_configuration"]
+        )
+    )
+    import capo_arc_region_switch.types.execution_block_type
+
+    out["executionBlockType"] = (
+        capo_arc_region_switch.types.execution_block_type.serialize_cbor(
+            value["execution_block_type"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> Step:
+    out: Step = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    else:
+        out["name"] = ""
+    if data.get("description") is not None:
+        out["description"] = data["description"]
+    if data.get("executionBlockConfiguration") is not None:
+        import capo_arc_region_switch.types.execution_block_configuration
+
+        out["execution_block_configuration"] = (
+            capo_arc_region_switch.types.execution_block_configuration.deserialize_cbor(
+                data["executionBlockConfiguration"]
+            )
+        )
+    else:
+        out["execution_block_configuration"] = {"$unknown": {"name": ""}}
+    if data.get("executionBlockType") is not None:
+        import capo_arc_region_switch.types.execution_block_type
+
+        out["execution_block_type"] = (
+            capo_arc_region_switch.types.execution_block_type.deserialize_cbor(
+                data["executionBlockType"]
+            )
+        )
+    else:
+        import typing
+
+        out["execution_block_type"] = typing.cast(
+            "capo_arc_region_switch.types.execution_block_type.ExecutionBlockType", ""
+        )
+    return out
+
+
 def redact_sensitive(value: Step) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "execution_block_configuration" in value:

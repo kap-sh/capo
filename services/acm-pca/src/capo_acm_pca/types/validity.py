@@ -47,3 +47,34 @@ def deserialize_aws_json_1_1(data: dict) -> Validity:
             "capo_acm_pca.types.validity_period_type.ValidityPeriodType", ""
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Validity) -> dict:
+    out: dict = {}
+    out["Value"] = value["value"]
+    import capo_acm_pca.types.validity_period_type
+
+    out["Type"] = capo_acm_pca.types.validity_period_type.serialize_cbor(value["type"])
+    return out
+
+
+def deserialize_cbor(data: dict) -> Validity:
+    out: Validity = {}  # type: ignore[typeddict-item]
+    if data.get("Value") is not None:
+        out["value"] = data["Value"]
+    else:
+        out["value"] = 0
+    if data.get("Type") is not None:
+        import capo_acm_pca.types.validity_period_type
+
+        out["type"] = capo_acm_pca.types.validity_period_type.deserialize_cbor(
+            data["Type"]
+        )
+    else:
+        import typing
+
+        out["type"] = typing.cast(
+            "capo_acm_pca.types.validity_period_type.ValidityPeriodType", ""
+        )
+    return out

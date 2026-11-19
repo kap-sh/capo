@@ -37,3 +37,32 @@ def deserialize_aws_json_1_0(data: list) -> SupportedInstanceConfigurations:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: SupportedInstanceConfigurations) -> list:
+    import capo_workspaces_instances.types.supported_instance_configuration
+
+    out: list = []
+    for item in value:
+        out.append(
+            capo_workspaces_instances.types.supported_instance_configuration.serialize_cbor(
+                item
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: list) -> SupportedInstanceConfigurations:
+    import capo_workspaces_instances.types.supported_instance_configuration
+
+    out: SupportedInstanceConfigurations = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(
+            capo_workspaces_instances.types.supported_instance_configuration.deserialize_cbor(
+                item
+            )
+        )
+    return out

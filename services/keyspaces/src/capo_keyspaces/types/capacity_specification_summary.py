@@ -65,3 +65,43 @@ def deserialize_aws_json_1_0(data: dict) -> CapacitySpecificationSummary:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: CapacitySpecificationSummary) -> dict:
+    out: dict = {}
+    out["throughputMode"] = value["throughput_mode"]
+    if "read_capacity_units" in value:
+        out["readCapacityUnits"] = value["read_capacity_units"]
+    if "write_capacity_units" in value:
+        out["writeCapacityUnits"] = value["write_capacity_units"]
+    if "last_update_to_pay_per_request_timestamp" in value:
+        import capo_keyspaces.types.timestamp
+
+        out["lastUpdateToPayPerRequestTimestamp"] = (
+            capo_keyspaces.types.timestamp.serialize_cbor(
+                value["last_update_to_pay_per_request_timestamp"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> CapacitySpecificationSummary:
+    out: CapacitySpecificationSummary = {}  # type: ignore[typeddict-item]
+    if data.get("throughputMode") is not None:
+        out["throughput_mode"] = data["throughputMode"]
+    else:
+        out["throughput_mode"] = ""
+    if data.get("readCapacityUnits") is not None:
+        out["read_capacity_units"] = data["readCapacityUnits"]
+    if data.get("writeCapacityUnits") is not None:
+        out["write_capacity_units"] = data["writeCapacityUnits"]
+    if data.get("lastUpdateToPayPerRequestTimestamp") is not None:
+        import capo_keyspaces.types.timestamp
+
+        out["last_update_to_pay_per_request_timestamp"] = (
+            capo_keyspaces.types.timestamp.deserialize_cbor(
+                data["lastUpdateToPayPerRequestTimestamp"]
+            )
+        )
+    return out

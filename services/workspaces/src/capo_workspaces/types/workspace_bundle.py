@@ -172,3 +172,118 @@ def deserialize_aws_json_1_1(data: dict) -> WorkspaceBundle:
             data["BundleType"]
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: WorkspaceBundle) -> dict:
+    out: dict = {}
+    if "bundle_id" in value:
+        out["BundleId"] = value["bundle_id"]
+    if "name" in value:
+        out["Name"] = value["name"]
+    if "owner" in value:
+        out["Owner"] = value["owner"]
+    if "description" in value:
+        out["Description"] = value["description"]
+    if "image_id" in value:
+        out["ImageId"] = value["image_id"]
+    if "root_storage" in value:
+        import capo_workspaces.types.root_storage
+
+        out["RootStorage"] = capo_workspaces.types.root_storage.serialize_cbor(
+            value["root_storage"]
+        )
+    if "user_storage" in value:
+        import capo_workspaces.types.user_storage
+
+        out["UserStorage"] = capo_workspaces.types.user_storage.serialize_cbor(
+            value["user_storage"]
+        )
+    if "compute_type" in value:
+        import capo_workspaces.types.compute_type
+
+        out["ComputeType"] = capo_workspaces.types.compute_type.serialize_cbor(
+            value["compute_type"]
+        )
+    if "last_updated_time" in value:
+        import capo_workspaces.types.timestamp
+
+        out["LastUpdatedTime"] = capo_workspaces.types.timestamp.serialize_cbor(
+            value["last_updated_time"]
+        )
+    if "creation_time" in value:
+        import capo_workspaces.types.timestamp
+
+        out["CreationTime"] = capo_workspaces.types.timestamp.serialize_cbor(
+            value["creation_time"]
+        )
+    if "state" in value:
+        import capo_workspaces.types.workspace_bundle_state
+
+        out["State"] = capo_workspaces.types.workspace_bundle_state.serialize_cbor(
+            value["state"]
+        )
+    if "bundle_type" in value:
+        import capo_workspaces.types.bundle_type
+
+        out["BundleType"] = capo_workspaces.types.bundle_type.serialize_cbor(
+            value["bundle_type"]
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> WorkspaceBundle:
+    out: WorkspaceBundle = {}  # type: ignore[typeddict-item]
+    if data.get("BundleId") is not None:
+        out["bundle_id"] = data["BundleId"]
+    if data.get("Name") is not None:
+        out["name"] = data["Name"]
+    if data.get("Owner") is not None:
+        out["owner"] = data["Owner"]
+    if data.get("Description") is not None:
+        out["description"] = data["Description"]
+    if data.get("ImageId") is not None:
+        out["image_id"] = data["ImageId"]
+    if data.get("RootStorage") is not None:
+        import capo_workspaces.types.root_storage
+
+        out["root_storage"] = capo_workspaces.types.root_storage.deserialize_cbor(
+            data["RootStorage"]
+        )
+    if data.get("UserStorage") is not None:
+        import capo_workspaces.types.user_storage
+
+        out["user_storage"] = capo_workspaces.types.user_storage.deserialize_cbor(
+            data["UserStorage"]
+        )
+    if data.get("ComputeType") is not None:
+        import capo_workspaces.types.compute_type
+
+        out["compute_type"] = capo_workspaces.types.compute_type.deserialize_cbor(
+            data["ComputeType"]
+        )
+    if data.get("LastUpdatedTime") is not None:
+        import capo_workspaces.types.timestamp
+
+        out["last_updated_time"] = capo_workspaces.types.timestamp.deserialize_cbor(
+            data["LastUpdatedTime"]
+        )
+    if data.get("CreationTime") is not None:
+        import capo_workspaces.types.timestamp
+
+        out["creation_time"] = capo_workspaces.types.timestamp.deserialize_cbor(
+            data["CreationTime"]
+        )
+    if data.get("State") is not None:
+        import capo_workspaces.types.workspace_bundle_state
+
+        out["state"] = capo_workspaces.types.workspace_bundle_state.deserialize_cbor(
+            data["State"]
+        )
+    if data.get("BundleType") is not None:
+        import capo_workspaces.types.bundle_type
+
+        out["bundle_type"] = capo_workspaces.types.bundle_type.deserialize_cbor(
+            data["BundleType"]
+        )
+    return out

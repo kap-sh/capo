@@ -45,6 +45,32 @@ def deserialize_aws_json_1_1(data: dict) -> ResetUserPasswordRequest:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ResetUserPasswordRequest) -> dict:
+    out: dict = {}
+    out["DirectoryId"] = value["directory_id"]
+    out["UserName"] = value["user_name"]
+    out["NewPassword"] = value["new_password"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> ResetUserPasswordRequest:
+    out: ResetUserPasswordRequest = {}  # type: ignore[typeddict-item]
+    if data.get("DirectoryId") is not None:
+        out["directory_id"] = data["DirectoryId"]
+    else:
+        out["directory_id"] = ""
+    if data.get("UserName") is not None:
+        out["user_name"] = data["UserName"]
+    else:
+        out["user_name"] = ""
+    if data.get("NewPassword") is not None:
+        out["new_password"] = data["NewPassword"]
+    else:
+        out["new_password"] = ""
+    return out
+
+
 def redact_sensitive(value: ResetUserPasswordRequest) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "new_password" in value:

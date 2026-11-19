@@ -125,3 +125,88 @@ def deserialize_aws_json_1_1(data: dict) -> RuleDeclaration:
     if data.get("timeoutInMinutes") is not None:
         out["timeout_in_minutes"] = data["timeoutInMinutes"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: RuleDeclaration) -> dict:
+    out: dict = {}
+    out["name"] = value["name"]
+    import capo_codepipeline.types.rule_type_id
+
+    out["ruleTypeId"] = capo_codepipeline.types.rule_type_id.serialize_cbor(
+        value["rule_type_id"]
+    )
+    if "configuration" in value:
+        import capo_codepipeline.types.rule_configuration_map
+
+        out["configuration"] = (
+            capo_codepipeline.types.rule_configuration_map.serialize_cbor(
+                value["configuration"]
+            )
+        )
+    if "commands" in value:
+        import capo_codepipeline.types.command_list
+
+        out["commands"] = capo_codepipeline.types.command_list.serialize_cbor(
+            value["commands"]
+        )
+    if "input_artifacts" in value:
+        import capo_codepipeline.types.input_artifact_list
+
+        out["inputArtifacts"] = (
+            capo_codepipeline.types.input_artifact_list.serialize_cbor(
+                value["input_artifacts"]
+            )
+        )
+    if "role_arn" in value:
+        out["roleArn"] = value["role_arn"]
+    if "region" in value:
+        out["region"] = value["region"]
+    if "timeout_in_minutes" in value:
+        out["timeoutInMinutes"] = value["timeout_in_minutes"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> RuleDeclaration:
+    out: RuleDeclaration = {}  # type: ignore[typeddict-item]
+    if data.get("name") is not None:
+        out["name"] = data["name"]
+    else:
+        out["name"] = ""
+    if data.get("ruleTypeId") is not None:
+        import capo_codepipeline.types.rule_type_id
+
+        out["rule_type_id"] = capo_codepipeline.types.rule_type_id.deserialize_cbor(
+            data["ruleTypeId"]
+        )
+    else:
+        raise DeserializationError("RuleDeclaration.rule_type_id required")
+    if data.get("configuration") is not None:
+        import capo_codepipeline.types.rule_configuration_map
+
+        out["configuration"] = (
+            capo_codepipeline.types.rule_configuration_map.deserialize_cbor(
+                data["configuration"]
+            )
+        )
+    if data.get("commands") is not None:
+        import capo_codepipeline.types.command_list
+
+        out["commands"] = capo_codepipeline.types.command_list.deserialize_cbor(
+            data["commands"]
+        )
+    if data.get("inputArtifacts") is not None:
+        import capo_codepipeline.types.input_artifact_list
+
+        out["input_artifacts"] = (
+            capo_codepipeline.types.input_artifact_list.deserialize_cbor(
+                data["inputArtifacts"]
+            )
+        )
+    if data.get("roleArn") is not None:
+        out["role_arn"] = data["roleArn"]
+    if data.get("region") is not None:
+        out["region"] = data["region"]
+    if data.get("timeoutInMinutes") is not None:
+        out["timeout_in_minutes"] = data["timeoutInMinutes"]
+    return out

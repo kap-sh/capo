@@ -40,3 +40,12 @@ def serialize_aws_json_1_1(value: Compute) -> str:
 
 def deserialize_aws_json_1_1(data: str) -> Compute:
     return cast(Compute, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: Compute) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> Compute:
+    return cast(Compute, data)

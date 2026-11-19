@@ -81,3 +81,51 @@ def deserialize_aws_json_1_0(data: dict) -> EstimatedMonthlySavings:
             "",
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EstimatedMonthlySavings) -> dict:
+    out: dict = {}
+    out["currency"] = value["currency"]
+    out["beforeDiscountSavings"] = value["before_discount_savings"]
+    out["afterDiscountSavings"] = value["after_discount_savings"]
+    import capo_compute_optimizer_automation.types.savings_estimation_mode
+
+    out["savingsEstimationMode"] = (
+        capo_compute_optimizer_automation.types.savings_estimation_mode.serialize_cbor(
+            value["savings_estimation_mode"]
+        )
+    )
+    return out
+
+
+def deserialize_cbor(data: dict) -> EstimatedMonthlySavings:
+    out: EstimatedMonthlySavings = {}  # type: ignore[typeddict-item]
+    if data.get("currency") is not None:
+        out["currency"] = data["currency"]
+    else:
+        out["currency"] = ""
+    if data.get("beforeDiscountSavings") is not None:
+        out["before_discount_savings"] = float(data["beforeDiscountSavings"])
+    else:
+        out["before_discount_savings"] = 0.0
+    if data.get("afterDiscountSavings") is not None:
+        out["after_discount_savings"] = float(data["afterDiscountSavings"])
+    else:
+        out["after_discount_savings"] = 0.0
+    if data.get("savingsEstimationMode") is not None:
+        import capo_compute_optimizer_automation.types.savings_estimation_mode
+
+        out["savings_estimation_mode"] = (
+            capo_compute_optimizer_automation.types.savings_estimation_mode.deserialize_cbor(
+                data["savingsEstimationMode"]
+            )
+        )
+    else:
+        import typing
+
+        out["savings_estimation_mode"] = typing.cast(
+            "capo_compute_optimizer_automation.types.savings_estimation_mode.SavingsEstimationMode",
+            "",
+        )
+    return out

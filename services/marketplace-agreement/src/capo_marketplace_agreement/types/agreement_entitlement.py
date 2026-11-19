@@ -107,6 +107,73 @@ def deserialize_aws_json_1_0(data: dict) -> AgreementEntitlement:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AgreementEntitlement) -> dict:
+    out: dict = {}
+    if "resource" in value:
+        import capo_marketplace_agreement.types.resource
+
+        out["resource"] = capo_marketplace_agreement.types.resource.serialize_cbor(
+            value["resource"]
+        )
+    if "type" in value:
+        out["type"] = value["type"]
+    if "registration_token" in value:
+        out["registrationToken"] = value["registration_token"]
+    if "status" in value:
+        import capo_marketplace_agreement.types.agreement_entitlement_status
+
+        out["status"] = (
+            capo_marketplace_agreement.types.agreement_entitlement_status.serialize_cbor(
+                value["status"]
+            )
+        )
+    if "status_reason_code" in value:
+        import capo_marketplace_agreement.types.agreement_entitlement_status_reason_code
+
+        out["statusReasonCode"] = (
+            capo_marketplace_agreement.types.agreement_entitlement_status_reason_code.serialize_cbor(
+                value["status_reason_code"]
+            )
+        )
+    if "license_arn" in value:
+        out["licenseArn"] = value["license_arn"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AgreementEntitlement:
+    out: AgreementEntitlement = {}  # type: ignore[typeddict-item]
+    if data.get("resource") is not None:
+        import capo_marketplace_agreement.types.resource
+
+        out["resource"] = capo_marketplace_agreement.types.resource.deserialize_cbor(
+            data["resource"]
+        )
+    if data.get("type") is not None:
+        out["type"] = data["type"]
+    if data.get("registrationToken") is not None:
+        out["registration_token"] = data["registrationToken"]
+    if data.get("status") is not None:
+        import capo_marketplace_agreement.types.agreement_entitlement_status
+
+        out["status"] = (
+            capo_marketplace_agreement.types.agreement_entitlement_status.deserialize_cbor(
+                data["status"]
+            )
+        )
+    if data.get("statusReasonCode") is not None:
+        import capo_marketplace_agreement.types.agreement_entitlement_status_reason_code
+
+        out["status_reason_code"] = (
+            capo_marketplace_agreement.types.agreement_entitlement_status_reason_code.deserialize_cbor(
+                data["statusReasonCode"]
+            )
+        )
+    if data.get("licenseArn") is not None:
+        out["license_arn"] = data["licenseArn"]
+    return out
+
+
 def redact_sensitive(value: AgreementEntitlement) -> dict[str, Any]:
     out: dict[str, Any] = dict(value)
     if "registration_token" in value:

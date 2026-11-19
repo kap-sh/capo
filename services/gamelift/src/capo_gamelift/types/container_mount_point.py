@@ -58,3 +58,38 @@ def deserialize_aws_json_1_1(data: dict) -> ContainerMountPoint:
             )
         )
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ContainerMountPoint) -> dict:
+    out: dict = {}
+    if "instance_path" in value:
+        out["InstancePath"] = value["instance_path"]
+    if "container_path" in value:
+        out["ContainerPath"] = value["container_path"]
+    if "access_level" in value:
+        import capo_gamelift.types.container_mount_point_access_level
+
+        out["AccessLevel"] = (
+            capo_gamelift.types.container_mount_point_access_level.serialize_cbor(
+                value["access_level"]
+            )
+        )
+    return out
+
+
+def deserialize_cbor(data: dict) -> ContainerMountPoint:
+    out: ContainerMountPoint = {}  # type: ignore[typeddict-item]
+    if data.get("InstancePath") is not None:
+        out["instance_path"] = data["InstancePath"]
+    if data.get("ContainerPath") is not None:
+        out["container_path"] = data["ContainerPath"]
+    if data.get("AccessLevel") is not None:
+        import capo_gamelift.types.container_mount_point_access_level
+
+        out["access_level"] = (
+            capo_gamelift.types.container_mount_point_access_level.deserialize_cbor(
+                data["AccessLevel"]
+            )
+        )
+    return out

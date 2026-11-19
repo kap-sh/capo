@@ -83,3 +83,56 @@ def deserialize_aws_json_1_1(data: dict) -> AnalyzeDocumentResponse:
     if data.get("AnalyzeDocumentModelVersion") is not None:
         out["analyze_document_model_version"] = data["AnalyzeDocumentModelVersion"]
     return out
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: AnalyzeDocumentResponse) -> dict:
+    out: dict = {}
+    if "document_metadata" in value:
+        import capo_textract.types.document_metadata
+
+        out["DocumentMetadata"] = capo_textract.types.document_metadata.serialize_cbor(
+            value["document_metadata"]
+        )
+    if "blocks" in value:
+        import capo_textract.types.block_list
+
+        out["Blocks"] = capo_textract.types.block_list.serialize_cbor(value["blocks"])
+    if "human_loop_activation_output" in value:
+        import capo_textract.types.human_loop_activation_output
+
+        out["HumanLoopActivationOutput"] = (
+            capo_textract.types.human_loop_activation_output.serialize_cbor(
+                value["human_loop_activation_output"]
+            )
+        )
+    if "analyze_document_model_version" in value:
+        out["AnalyzeDocumentModelVersion"] = value["analyze_document_model_version"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> AnalyzeDocumentResponse:
+    out: AnalyzeDocumentResponse = {}  # type: ignore[typeddict-item]
+    if data.get("DocumentMetadata") is not None:
+        import capo_textract.types.document_metadata
+
+        out["document_metadata"] = (
+            capo_textract.types.document_metadata.deserialize_cbor(
+                data["DocumentMetadata"]
+            )
+        )
+    if data.get("Blocks") is not None:
+        import capo_textract.types.block_list
+
+        out["blocks"] = capo_textract.types.block_list.deserialize_cbor(data["Blocks"])
+    if data.get("HumanLoopActivationOutput") is not None:
+        import capo_textract.types.human_loop_activation_output
+
+        out["human_loop_activation_output"] = (
+            capo_textract.types.human_loop_activation_output.deserialize_cbor(
+                data["HumanLoopActivationOutput"]
+            )
+        )
+    if data.get("AnalyzeDocumentModelVersion") is not None:
+        out["analyze_document_model_version"] = data["AnalyzeDocumentModelVersion"]
+    return out

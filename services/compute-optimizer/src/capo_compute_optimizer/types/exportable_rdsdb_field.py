@@ -95,3 +95,12 @@ def serialize_aws_json_1_0(value: ExportableRDSDBField) -> str:
 
 def deserialize_aws_json_1_0(data: str) -> ExportableRDSDBField:
     return cast(ExportableRDSDBField, data)
+
+
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExportableRDSDBField) -> str:
+    return value
+
+
+def deserialize_cbor(data: str) -> ExportableRDSDBField:
+    return cast(ExportableRDSDBField, data)

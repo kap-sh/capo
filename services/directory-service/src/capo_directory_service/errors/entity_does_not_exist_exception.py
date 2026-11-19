@@ -38,6 +38,25 @@ def deserialize_aws_json_1_1(data: dict) -> EntityDoesNotExistException_:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: EntityDoesNotExistException_) -> dict:
+    out: dict = {}
+    if "message" in value:
+        out["Message"] = value["message"]
+    if "request_id" in value:
+        out["RequestId"] = value["request_id"]
+    return out
+
+
+def deserialize_cbor(data: dict) -> EntityDoesNotExistException_:
+    out: EntityDoesNotExistException_ = {}  # type: ignore[typeddict-item]
+    if data.get("Message") is not None:
+        out["message"] = data["Message"]
+    if data.get("RequestId") is not None:
+        out["request_id"] = data["RequestId"]
+    return out
+
+
 class EntityDoesNotExistException(ServiceError):
     """Modeled error for Smithy shape ``com.amazonaws.directoryservice#EntityDoesNotExistException``."""
 
@@ -65,3 +84,9 @@ class EntityDoesNotExistException(ServiceError):
         cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "EntityDoesNotExistException":
         return cls(deserialize_aws_json_1_1(data), message, response=response)
+
+    @classmethod
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "EntityDoesNotExistException":
+        return cls(deserialize_cbor(data), message, response=response)

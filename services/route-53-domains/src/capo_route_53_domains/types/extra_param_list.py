@@ -31,6 +31,27 @@ def deserialize_aws_json_1_1(data: list) -> ExtraParamList:
     return out
 
 
+# --- rpcv2Cbor ser/de ---
+def serialize_cbor(value: ExtraParamList) -> list:
+    import capo_route_53_domains.types.extra_param
+
+    out: list = []
+    for item in value:
+        out.append(capo_route_53_domains.types.extra_param.serialize_cbor(item))
+    return out
+
+
+def deserialize_cbor(data: list) -> ExtraParamList:
+    import capo_route_53_domains.types.extra_param
+
+    out: ExtraParamList = []
+    for item in data:
+        if item is None:
+            continue
+        out.append(capo_route_53_domains.types.extra_param.deserialize_cbor(item))
+    return out
+
+
 def redact_sensitive(value: ExtraParamList) -> list[Any]:
     import capo_route_53_domains.types.extra_param
 
