@@ -1,0 +1,8 @@
+---
+title: CreateMemoryInput
+---
+
+::: capo_opensearchmemory.types.create_memory_input.CreateMemoryInput
+    options:
+      show_source: true
+      merge_init_into_class: false

@@ -1,0 +1,81 @@
+# capo-partnercentral-marketing: typed, async Python SDK for AWS Partnercentral Marketing
+
+`capo-partnercentral-marketing` is a typed Python SDK for AWS Partnercentral Marketing. It has an async client, `AsyncPartnerCentralMarketingClient`, for asyncio and trio, and a sync client, `PartnerCentralMarketingClient`, with the same methods. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
+
+It is part of [capo](https://capo-sdk.dev/), a community-driven alternative to boto3 and aioboto3, built on its own HTTP stack instead of botocore and generated from the official AWS Smithy models. Documentation: [https://capo-sdk.dev/services/partnercentral-marketing/](https://capo-sdk.dev/services/partnercentral-marketing/)
+
+## Installation
+
+```
+pip install capo-partnercentral-marketing
+```
+
+## Usage
+
+```python
+from capo_partnercentral_marketing import AsyncPartnerCentralMarketingClient
+
+
+async def main():
+    async with AsyncPartnerCentralMarketingClient() as partner_central_marketing:
+        # Example: call the create_social_connection_authorization_url operation
+        response = await partner_central_marketing.create_social_connection_authorization_url()
+        print(response["platform"])
+```
+
+## Pagination
+
+Some operations in this SDK support pagination. If the operation supports pagination it will have an `iter_` prefixed method that returns an async iterator.
+
+```python
+from capo_partnercentral_marketing import AsyncPartnerCentralMarketingClient
+
+
+async def main():
+    async with AsyncPartnerCentralMarketingClient() as partner_central_marketing:
+        # Example: paginate over list_social_connections
+        async for item in partner_central_marketing.iter_list_social_connections():
+            print(item)
+```
+
+## Error Handling
+
+The SDK raises exceptions for errors returned by the API. Catch them to handle failures gracefully.
+
+```python
+from capo_partnercentral_marketing import AsyncPartnerCentralMarketingClient
+from capo_partnercentral_marketing.error import AccessDeniedException
+
+
+async def main():
+    async with AsyncPartnerCentralMarketingClient() as partner_central_marketing:
+        try:
+            await partner_central_marketing.create_social_connection_authorization_url()
+        except AccessDeniedException as e:
+            print(f"Error: {e}")
+            print(e.data)  # additional error data
+```
+
+## Retrying
+
+The SDK retries failed operations automatically. Retry behaviour follows the Smithy specification: errors are retried based on their `is_retryable` and `is_throttling_error` attributes. Throttling errors use a longer base delay. Network-level failures (connection errors and timeouts) are also retried. Non-retryable errors, such as client errors without the `@retryable` trait, are raised immediately without further attempts.
+
+The number of attempts defaults to 3 and can be changed at the client level via `retry_max_attempts`, or per call via `config_overrides`.
+
+`retry_mode="adaptive"` (or `AWS_RETRY_MODE=adaptive`, or `retry_mode = adaptive` in the AWS profile) also slows the whole client down once the service starts throttling it, then speeds back up as requests succeed. The default is `standard`.
+
+```python
+from capo_partnercentral_marketing import AsyncPartnerCentralMarketingClient
+
+
+async def main():
+    async with AsyncPartnerCentralMarketingClient() as partner_central_marketing:
+        # Default: 3 attempts for every operation
+        response = await partner_central_marketing.create_social_connection_authorization_url()
+
+        # Override per operation
+        response = await partner_central_marketing.create_social_connection_authorization_url(config_overrides={"retry_max_attempts": 5})
+
+        # Disable retries for this call
+        response = await partner_central_marketing.create_social_connection_authorization_url(config_overrides={"retry_max_attempts": 1})
+```

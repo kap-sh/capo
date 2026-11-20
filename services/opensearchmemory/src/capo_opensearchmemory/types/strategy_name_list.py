@@ -1,0 +1,19 @@
+"""Generated from Smithy shape ``com.amazonaws.opensearchmemory#StrategyNameList``."""
+
+from typing import TYPE_CHECKING, TypeAlias
+
+if TYPE_CHECKING:
+    import capo_opensearchmemory.types.strategy_name
+
+StrategyNameList: TypeAlias = list[
+    "capo_opensearchmemory.types.strategy_name.StrategyName"
+]
+
+
+# --- awsJson1_0 ser/de ---
+def serialize_aws_json_1_0(value: StrategyNameList) -> list:
+    return list(value)
+
+
+def deserialize_aws_json_1_0(data: list) -> StrategyNameList:
+    return [item for item in data if item is not None]

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ruff formats the signatures mkdocstrings renders (the `line_length` option).
+# zensical is pinned: 0.0.71 rejects search fields that large services exceed.
+uvx --with mkdocstrings-python --with ruff zensical@0.0.70 "${@:-serve}"

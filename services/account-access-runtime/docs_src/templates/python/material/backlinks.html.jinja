@@ -1,0 +1,36 @@
+{#- Overrides the mkdocstrings-python backlinks template: the "Returned by"
+section is dropped and the remaining ones are collapsed by default. -#}
+
+{% macro render_crumb(crumb, last=false) %}
+  <span class="doc doc-backlink-crumb{{ " last" if last else "" }}">
+    {% if crumb.url and crumb.title %}
+      <a href="{{ crumb.url }}">{{ crumb.title | safe }}</a>
+    {% elif crumb.title %}
+      <span>{{ crumb.title | safe }}</span>
+    {% endif %}
+  </span>
+{% endmacro %}
+
+{% macro render_tree(tree) %}
+  <ul class="doc doc-backlink-list">
+    {% for node, child in tree | dictsort %}
+      <li class="doc doc-backlink">
+        {% for crumb in node %}
+          {{ render_crumb(crumb, last=loop.last and not child) }}
+        {% endfor %}
+        {% if child %}
+          {{ render_tree(child) }}
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% endmacro %}
+
+{% if config.backlinks %}
+  {% for backlink_type, backlink_list in backlinks | dictsort if backlink_type != "returned-by" %}
+    <details class="doc doc-backlinks quote">
+      <summary class="doc doc-backlink-type">{{ verbose_type[backlink_type] }}</summary>
+      {{ render_tree(backlink_list|backlink_tree) }}
+    </details>
+  {% endfor %}
+{% endif %}
