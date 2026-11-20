@@ -83,7 +83,12 @@ def main() -> None:
 
     created = seed_missing_package_json(services)
     if created:
-        subprocess.run(["git", "add", "--", *map(str, created)], check=True, cwd=REPO_ROOT)
+        # `npm ci` in the release workflow rejects workspaces missing from the lock file.
+        subprocess.run(
+            ["npm", "install", "--package-lock-only", "--ignore-scripts", "--no-audit", "--no-fund"],
+            check=True, cwd=REPO_ROOT,
+        )
+        subprocess.run(["git", "add", "--", "package-lock.json", *map(str, created)], check=True, cwd=REPO_ROOT)
         print(f"Seeded {len(created)} package.json files")
 
     # render_changeset emits empty frontmatter when bump == "none" or no services.
