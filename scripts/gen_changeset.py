@@ -4,11 +4,21 @@ Usage: python scripts/gen_changeset.py [--bump minor|patch|major|none] [--summar
 """
 
 import argparse
+import json
 import subprocess
 import uuid
+from pathlib import Path
 from typing import Iterable, Set
 
-from changeset_paths import REPO_ROOT, path_bumps_service, path_to_service, pkg_name
+from changeset_paths import (
+    REPO_ROOT,
+    SERVICES_DIR,
+    path_bumps_service,
+    path_to_service,
+    pkg_name,
+    read_pyproject_version,
+)
+from seed_package_json import build_package_json
 
 CHANGESET_DIR = REPO_ROOT / ".changeset"
 
@@ -29,6 +39,24 @@ def affected_services(paths: Iterable[str]) -> Set[str]:
             if svc is not None:
                 services.add(svc)
     return services
+
+
+def seed_missing_package_json(services: Iterable[str], services_dir: Path = SERVICES_DIR) -> list[Path]:
+    """Create package.json for services that lack one; existing files are left alone.
+
+    Changesets only knows a service through its package.json, so a new service
+    named in a changeset without one breaks `changeset version`.
+    """
+    created = []
+    for svc in sorted(services):
+        pkg = services_dir / svc / "package.json"
+        pyproject = services_dir / svc / "pyproject.toml"
+        if pkg.exists() or not pyproject.exists():
+            continue
+        data = build_package_json(svc, read_pyproject_version(pyproject))
+        pkg.write_text(json.dumps(data, indent=2) + "\n")
+        created.append(pkg)
+    return created
 
 
 def render_changeset(services: Set[str], bump: str, summary: str) -> str:
@@ -52,6 +80,11 @@ def main() -> None:
     services = affected_services(staged_paths())
     if args.bump != "none" and not services:
         print("No releasable service changes staged; emitting empty changeset")
+
+    created = seed_missing_package_json(services)
+    if created:
+        subprocess.run(["git", "add", "--", *map(str, created)], check=True, cwd=REPO_ROOT)
+        print(f"Seeded {len(created)} package.json files")
 
     # render_changeset emits empty frontmatter when bump == "none" or no services.
     emitted = services if args.bump != "none" else set()

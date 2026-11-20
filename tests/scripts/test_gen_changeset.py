@@ -1,3 +1,4 @@
+import json
 import sys
 from pathlib import Path
 
@@ -35,3 +36,29 @@ def test_render_none_bump_ignores_services():
     out = gc.render_changeset({"acm", "s3"}, "none", "no release")
     assert "aws-sdk-" not in out
     assert out.count("---") == 2
+
+
+def test_seed_missing_package_json_creates_for_new_service(tmp_path):
+    svc = tmp_path / "abuse-signal"
+    svc.mkdir()
+    (svc / "pyproject.toml").write_text('version = "0.0.0"\n')
+    created = gc.seed_missing_package_json({"abuse-signal"}, tmp_path)
+    assert created == [svc / "package.json"]
+    assert json.loads((svc / "package.json").read_text()) == {
+        "name": "aws-sdk-abuse-signal",
+        "version": "0.0.0",
+        "private": True,
+    }
+
+
+def test_seed_missing_package_json_keeps_existing(tmp_path):
+    svc = tmp_path / "acm"
+    svc.mkdir()
+    (svc / "pyproject.toml").write_text('version = "0.0.0"\n')
+    (svc / "package.json").write_text('{"name": "aws-sdk-acm", "version": "0.15.0", "private": true}\n')
+    assert gc.seed_missing_package_json({"acm"}, tmp_path) == []
+    assert json.loads((svc / "package.json").read_text())["version"] == "0.15.0"
+
+
+def test_seed_missing_package_json_skips_removed_service(tmp_path):
+    assert gc.seed_missing_package_json({"gone"}, tmp_path) == []
