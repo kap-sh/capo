@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Any
 from urllib.parse import urlencode
 
 import zapros
@@ -92,40 +91,6 @@ async def async_handle_response(
     return out
 
 
-def get_signer(
-    options: AsyncOperationOptions | OperationOptions,
-    auth_schemes: list[dict[str, Any]] | None = None,
-) -> capo_sts._auth._signers.Signer | None:
-    name_to_schema = {s["name"]: s for s in (auth_schemes or [])}  # noqa: F841
-    if (
-        options.credentials_provider is not None
-        and name_to_schema
-        and not name_to_schema.keys() & {"sigv4", "sigv4-s3express", "sigv4a"}
-    ):
-        raise RuntimeError(
-            "Endpoint requires an unsupported auth scheme: " + ", ".join(name_to_schema)
-        )
-    if options.credentials_provider is not None:
-        endpoint_scheme = name_to_schema.get("sigv4") or name_to_schema.get(
-            "sigv4-s3express"
-        )
-        if endpoint_scheme is not None or not name_to_schema:
-            sigv4_config = capo_sts._auth._sigv4.build_sigv4_auth_scheme(
-                "sts", options.region, endpoint_scheme
-            )
-            if sigv4_config is not None:
-                return capo_sts._auth._signers.SigV4Signer(
-                    options.credentials_provider, auth_scheme=sigv4_config
-                )
-    if options.credentials_provider is not None:
-        sigv4_config = name_to_schema.get("sigv4a")
-        if sigv4_config is not None:
-            return capo_sts._auth._signers.SigV4ASigner(
-                options.credentials_provider, auth_scheme=sigv4_config
-            )
-    return None
-
-
 def build_request(
     options: OperationOptions | AsyncOperationOptions,
     input_: capo_sts.types.assume_role_with_saml_request.AssumeRoleWithSAMLRequest,
@@ -148,17 +113,10 @@ def build_request(
     capo_sts.types.assume_role_with_saml_request.serialize_query(input_, pairs, "")
     body: bytes | None = urlencode(pairs).encode()
     headers["content-type"] = "application/x-www-form-urlencoded"
-    signer = (
-        None
-        if options.anonymous
-        else get_signer(options, auth_schemes=endpoint.properties.get("authSchemes"))
-    )
     normalized_url = zapros.URL(url)
     for k, v in params:
         normalized_url.search_params.append(k, v)
-    return zapros.Request(
-        normalized_url, "POST", headers=headers, body=body, context={"signer": signer}
-    )
+    return zapros.Request(normalized_url, "POST", headers=headers, body=body)
 
 
 def assume_role_with_saml(

@@ -23,6 +23,20 @@ dev = [
     "capo-eventbridgev2[sso]",
     "capo-bedrock-runtime",
     "capo-iot-jobs-data-plane",
+    "capo-amp",
+    "capo-application-auto-scaling",
+    "capo-apprunner",
+    "capo-bedrock",
+    "capo-cloudwatch",
+    "capo-cloudwatchomni",
+    "capo-cognito-identity-provider",
+    "capo-elasticache",
+    "capo-partnercentral-channel",
+    "capo-partnercentral-revenue-measurement",
+    "capo-route-53",
+    "capo-sqs",
+    "capo-sso-oidc",
+    "capo-sustainability",
     "pytest-xdist>=3.8.0",
     "pyodide-build>=0.23.4",
     "zapros[caching]>=0.26.0",
@@ -42,6 +56,20 @@ capo-ec2 = { path = "services/ec2", editable = true }
 capo-eventbridgev2 = { path = "services/eventbridgev2", editable = true }
 capo-bedrock-runtime = { path = "services/bedrock-runtime", editable = true }
 capo-iot-jobs-data-plane = { path = "services/iot-jobs-data-plane", editable = true }
+capo-amp = { path = "services/amp", editable = true }
+capo-application-auto-scaling = { path = "services/application-auto-scaling", editable = true }
+capo-apprunner = { path = "services/apprunner", editable = true }
+capo-bedrock = { path = "services/bedrock", editable = true }
+capo-cloudwatch = { path = "services/cloudwatch", editable = true }
+capo-cloudwatchomni = { path = "services/cloudwatchomni", editable = true }
+capo-cognito-identity-provider = { path = "services/cognito-identity-provider", editable = true }
+capo-elasticache = { path = "services/elasticache", editable = true }
+capo-partnercentral-channel = { path = "services/partnercentral-channel", editable = true }
+capo-partnercentral-revenue-measurement = { path = "services/partnercentral-revenue-measurement", editable = true }
+capo-route-53 = { path = "services/route-53", editable = true }
+capo-sqs = { path = "services/sqs", editable = true }
+capo-sso-oidc = { path = "services/sso-oidc", editable = true }
+capo-sustainability = { path = "services/sustainability", editable = true }
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

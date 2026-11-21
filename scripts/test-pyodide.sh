@@ -10,7 +10,9 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 # The service packages tests/ imports; the root is not a package.
-SERVICES=(s3 sts iam ebs ec2 eventbridgev2 transcribe-streaming bedrock-runtime iot-jobs-data-plane)
+SERVICES=(s3 sts iam ebs ec2 eventbridgev2 transcribe-streaming bedrock-runtime iot-jobs-data-plane
+    amp application-auto-scaling apprunner bedrock cloudwatch cloudwatchomni cognito-identity-provider
+    elasticache partnercentral-channel partnercentral-revenue-measurement route-53 sqs sso-oidc sustainability)
 
 # Pinned: `pyodide venv` otherwise takes the newest release. 314.0.8 stopped
 # asyncio.new_event_loop() from replacing the running loop (pyodide#6342), which
