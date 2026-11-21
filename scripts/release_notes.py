@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Build GitHub release notes for the latest root CHANGELOG.md section.
 
-Reads the top (most recent) section of the root changelog, expands each
-released package's entry with that version's section from the service
-changelog, writes the notes body to the given path, and prints the release
-date (the section heading) to stdout.
+Reads the top (most recent) section of the root changelog, leads with its
+highlights, expands each released package's entry with that version's section
+from the service changelog, writes the notes body to the given path, and prints
+the release date (the section heading) to stdout.
 
 Usage: release_notes.py <output-file>
 """
@@ -19,6 +19,9 @@ from changeset_paths import REPO_ROOT
 _ENTRY_RE = re.compile(
     r"\[(?P<pkg>\S+) v(?P<version>\S+)\]\(services/(?P<service>[^/]+)/CHANGELOG\.md\)"
 )
+# Written by aggregate_changelog.py; highlight bodies are indented, so neither
+# heading can occur inside one.
+_HIGHLIGHTS_RE = re.compile(r"^### Highlights\n(.*?)^### Packages$", re.MULTILINE | re.DOTALL)
 
 # GitHub caps release bodies at 125k characters; fall back to links past this.
 _MAX_BODY = 120_000
@@ -60,10 +63,12 @@ def main() -> None:
         changelog = REPO_ROOT / "services" / e["service"] / "CHANGELOG.md"
         body = version_section(changelog, e["version"])
         parts.append(f"## {e['pkg']} v{e['version']}\n\n{body}".strip())
-    notes = "\n\n".join(parts)
+    m = _HIGHLIGHTS_RE.search(index)
+    highlights = f"## Highlights\n\n{m.group(1).strip()}\n\n" if m else ""
+    notes = highlights + "\n\n".join(parts)
 
     if len(notes) > _MAX_BODY:
-        notes = f"Released {len(entries)} packages:\n\n{links}"
+        notes = f"{highlights}Released {len(entries)} packages:\n\n{links}"
 
     out.write_text(notes + "\n")
     print(date.strip())

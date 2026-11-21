@@ -2,6 +2,12 @@ from __future__ import annotations
 
 from . import _iter as _iter
 from . import _protocol as _protocol
+from ._attribute_values import DynamoValue as DynamoValue
+from ._attribute_values import DynamoValueLike as DynamoValueLike
+from ._attribute_values import marshal as marshal
+from ._attribute_values import marshal_item as marshal_item
+from ._attribute_values import unmarshal as unmarshal
+from ._attribute_values import unmarshal_item as unmarshal_item
 from ._auth._identity import Credentials as Credentials
 from ._auth._identity import Identity as Identity
 from ._auth._providers import (
