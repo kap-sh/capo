@@ -1,5 +1,28 @@
 # aws-sdk-cognito-identity
 
+## 0.12.0
+
+### Minor Changes
+
+- 6beed3f: fix: send operations that take no credentials unsigned
+
+  Some operations take no AWS credentials: the caller proves who they are with a token in the request, as in `assume_role_with_web_identity`, the Cognito sign-in calls and the IAM Identity Center device flow. They were still signed whenever the client had a credentials provider, so they failed on a machine where no credentials could be found. They are now always sent unsigned, and no credentials are resolved for them.
+
+  ```python
+  from capo_sts import AsyncSTSClient
+
+  # No AWS credentials on this machine, only the OIDC token
+  async with AsyncSTSClient(region="us-east-1") as sts:
+      response = await sts.assume_role_with_web_identity(
+          "arn:aws:iam::123456789012:role/app", "session", token
+      )
+      credentials = response["credentials"]
+  ```
+
+  Passing `anonymous=True` to the client for these calls is no longer needed.
+
+- 802a66a: chore: regenerate services, no API changes
+
 ## 0.11.0
 
 ### Minor Changes

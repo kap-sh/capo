@@ -1,5 +1,11 @@
 # aws-sdk-elastic-load-balancing
 
+## 0.22.0
+
+### Minor Changes
+
+- 802a66a: chore: regenerate services, no API changes
+
 ## 0.21.0
 
 ### Minor Changes

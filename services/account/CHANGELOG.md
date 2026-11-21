@@ -1,5 +1,11 @@
 # aws-sdk-account
 
+## 0.16.0
+
+### Minor Changes
+
+- 802a66a: chore: regenerate services, no API changes
+
 ## 0.15.0
 
 ### Minor Changes

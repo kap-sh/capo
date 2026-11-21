@@ -1,5 +1,11 @@
 # aws-sdk-ec2
 
+## 0.33.0
+
+### Minor Changes
+
+- 802a66a: chore: regenerate services, no API changes
+
 ## 0.32.0
 
 ### Minor Changes

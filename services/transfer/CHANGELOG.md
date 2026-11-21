@@ -1,5 +1,11 @@
 # aws-sdk-transfer
 
+## 0.14.0
+
+### Minor Changes
+
+- 802a66a: chore: regenerate services, no API changes
+
 ## 0.13.0
 
 ### Minor Changes

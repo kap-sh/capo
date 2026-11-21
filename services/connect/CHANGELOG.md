@@ -1,5 +1,11 @@
 # aws-sdk-connect
 
+## 0.18.0
+
+### Minor Changes
+
+- 802a66a: chore: regenerate services, no API changes
+
 ## 0.17.0
 
 ### Minor Changes

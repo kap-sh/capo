@@ -1,5 +1,11 @@
 # aws-sdk-bedrock-agentcore-control
 
+## 0.20.0
+
+### Minor Changes
+
+- 802a66a: chore: regenerate services, no API changes
+
 ## 0.19.0
 
 ### Minor Changes
