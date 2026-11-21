@@ -31,7 +31,7 @@ Changelog = "https://github.com/kap-sh/capo/blob/main/services/s3/CHANGELOG.md"
 
 [project.optional-dependencies]
 # Faster CRC32C; the checksums are identical either way
-crc32c = ["google-crc32c"]
+crc32c = ["crc32c_rs >= 0.0.4"]
 # The XXHASH64, XXHASH3 and XXHASH128 checksum algorithms
 xxhash = ["xxhash"]
 # IAM Identity Center (SSO), assume-role and web-identity credentials providers
