@@ -1,5 +1,29 @@
 # AWS SDK for Python - Releases
 
+## 2026-11-21
+
+### Highlights
+
+- feat(dynamodb): convert items to and from plain Python values (1 package)
+
+  DynamoDB tags every value with its type, `{"S": "Ada"}` or `{"N": "36"}`. `marshal_item` turns an item of plain Python values into that form, and `unmarshal_item` turns one back. `marshal` and `unmarshal` do the same for a single value.
+
+  ```python
+  from capo_dynamodb import AsyncDynamoDBClient, marshal_item, unmarshal_item
+
+  async with AsyncDynamoDBClient(region="us-east-1") as dynamodb:
+      await dynamodb.put_item("users", marshal_item({"id": "u1", "name": "Ada", "age": 36}))
+
+      response = await dynamodb.get_item("users", marshal_item({"id": "u1"}))
+      user = unmarshal_item(response["item"])  # {"id": "u1", "name": "Ada", "age": 36}
+  ```
+
+  A number comes back as an `int` when it is whole and as a `Decimal` otherwise. A `float` raises `TypeError`, since it cannot hold every DynamoDB number exactly: pass a `Decimal` instead.
+
+### Packages
+
+- [aws-sdk-dynamodb v0.21.0](services/dynamodb/CHANGELOG.md)
+
 ## 2026-11-20
 
 - [aws-sdk-abuse-signal v0.1.0](services/abuse-signal/CHANGELOG.md)
