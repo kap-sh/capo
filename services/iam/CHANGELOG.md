@@ -1,5 +1,11 @@
 # aws-sdk-iam
 
+## 0.28.0
+
+### Minor Changes
+
+- 802a66a: chore: regenerate services, no API changes
+
 ## 0.27.0
 
 ### Minor Changes

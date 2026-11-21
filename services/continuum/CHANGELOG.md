@@ -1,5 +1,11 @@
 # aws-sdk-continuum
 
+## 0.3.0
+
+### Minor Changes
+
+- 802a66a: chore: regenerate services, no API changes
+
 ## 0.2.0
 
 ### Minor Changes

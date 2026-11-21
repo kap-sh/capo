@@ -1,5 +1,11 @@
 # aws-sdk-agent-registry
 
+## 0.12.0
+
+### Minor Changes
+
+- 802a66a: chore: regenerate services, no API changes
+
 ## 0.11.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # aws-sdk-braket
 
+## 0.17.0
+
+### Minor Changes
+
+- 802a66a: chore: regenerate services, no API changes
+
 ## 0.16.0
 
 ### Minor Changes

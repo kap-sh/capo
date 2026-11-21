@@ -1,5 +1,11 @@
 # aws-sdk-opensearchmemory
 
+## 0.2.0
+
+### Minor Changes
+
+- 802a66a: chore: regenerate services, no API changes
+
 ## 0.1.0
 
 ### Minor Changes

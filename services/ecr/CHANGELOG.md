@@ -1,5 +1,11 @@
 # aws-sdk-ecr
 
+## 0.23.0
+
+### Minor Changes
+
+- 802a66a: chore: regenerate services, no API changes
+
 ## 0.22.0
 
 ### Minor Changes

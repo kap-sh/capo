@@ -1,5 +1,11 @@
 # aws-sdk-elastic-transcoder
 
+## 0.13.0
+
+### Minor Changes
+
+- 802a66a: chore: regenerate services, no API changes
+
 ## 0.12.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # aws-sdk-amp
 
+## 0.17.0
+
+### Minor Changes
+
+- 8799af5: feat: update amp, customer-profiles, omics and timestream-influxdb to their current API models
+
 ## 0.16.0
 
 ### Minor Changes
