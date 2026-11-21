@@ -20,10 +20,11 @@ from capo_dsql._auth._providers import (
     default_aws_credentials_chain,
 )
 from capo_dsql._auth._zapros_handler import AuthMiddleware
+from capo_dsql._auth_token import presign_auth_token
 from capo_dsql._pagination import resolve_path as _resolve_path
 from capo_dsql._resources.dsql.cluster import Cluster
 from capo_dsql._resources.dsql.stream import Stream
-from capo_dsql._services._aws_config import aws_config
+from capo_dsql._services._aws_config import aws_config, load_aws_settings
 from capo_dsql._services._pipeline import (
     Interceptor,
     OperationLogging,
@@ -1316,6 +1317,70 @@ class DSQLClient:
             _token = _resolve_path(_response, ("next_token",))
             if not _token:
                 break
+
+    def generate_db_connect_auth_token(
+        self,
+        *,
+        hostname: str,
+        expires_in: int = 900,
+        config_overrides: DSQLClientConfig | None = None,
+    ) -> str:
+        """An IAM authentication token to connect to an Aurora DSQL cluster as a custom database role: pass it as the password. It is signed locally with the client's credentials and region, so nothing is sent to AWS.
+
+        Args:
+            hostname: The cluster's endpoint, such as ``abc123.dsql.us-east-1.on.aws``.
+            expires_in: How long the token stays valid, in seconds; at most 604800, a week.
+            config_overrides: Client settings for this call only, such as another ``region`` or ``credentials_provider``.
+        """
+        _, options_ = self.operation_options(config_overrides)
+        # Where an API call would take the region from: the client, else AWS_REGION or the profile
+        region = options_.region or load_aws_settings().region
+        if region is None:
+            raise ValueError("an auth token needs a region: pass region= to the client")
+        provider = options_.credentials_provider
+        if provider is None:
+            raise RuntimeError("an auth token needs credentials")
+        credentials = provider.resolve_identity()
+        return presign_auth_token(
+            hostname,
+            {"Action": "DbConnect"},
+            credentials=credentials,
+            region=region,
+            signing_name="dsql",
+            expires_in=expires_in,
+        )
+
+    def generate_db_connect_admin_auth_token(
+        self,
+        *,
+        hostname: str,
+        expires_in: int = 900,
+        config_overrides: DSQLClientConfig | None = None,
+    ) -> str:
+        """An IAM authentication token to connect to an Aurora DSQL cluster as the ``admin`` role: pass it as the password. It is signed locally with the client's credentials and region, so nothing is sent to AWS.
+
+        Args:
+            hostname: The cluster's endpoint, such as ``abc123.dsql.us-east-1.on.aws``.
+            expires_in: How long the token stays valid, in seconds; at most 604800, a week.
+            config_overrides: Client settings for this call only, such as another ``region`` or ``credentials_provider``.
+        """
+        _, options_ = self.operation_options(config_overrides)
+        # Where an API call would take the region from: the client, else AWS_REGION or the profile
+        region = options_.region or load_aws_settings().region
+        if region is None:
+            raise ValueError("an auth token needs a region: pass region= to the client")
+        provider = options_.credentials_provider
+        if provider is None:
+            raise RuntimeError("an auth token needs credentials")
+        credentials = provider.resolve_identity()
+        return presign_auth_token(
+            hostname,
+            {"Action": "DbConnectAdmin"},
+            credentials=credentials,
+            region=region,
+            signing_name="dsql",
+            expires_in=expires_in,
+        )
 
     def __enter__(self) -> Self:
         return self
