@@ -15,6 +15,10 @@ from capo_partnercentral_revenue_measurement._auth._sigv4 import (
     SigV4AuthContext,
     sign_sigv4,
 )
+from capo_partnercentral_revenue_measurement._auth._sigv4a import (
+    SigV4AAuthContext,
+    sign_sigv4a,
+)
 
 IdentityT = TypeVar("IdentityT", bound="Identity")
 
@@ -129,16 +133,86 @@ class SigV4Signer(Signer[Credentials]):
 
 
 class SigV4ASigner(Signer[Credentials]):
-    """aws.auth#sigv4a — SigV4 multi-region asymmetric variant. Not yet implemented."""
+    """aws.auth#sigv4a — SigV4 multi-region asymmetric variant.
+
+    ``auth_scheme`` is the endpoint rule-set's ``sigv4a`` ``authSchemes`` entry:
+    it names the ``signingRegionSet`` the signature is valid in, next to the
+    same ``signingName`` and encoding/normalization flags as sigv4.
+    ``unsigned_payload`` mirrors the operation's ``aws.auth#unsignedPayload``
+    trait: the body is sent but left out of the signature.
+    """
 
     def __init__(
-        self, provider: IdentityProvider[Credentials], *, auth_scheme: dict[str, Any]
+        self,
+        provider: IdentityProvider[Credentials],
+        *,
+        auth_scheme: dict[str, Any],
+        unsigned_payload: bool = False,
     ) -> None:
         super().__init__(provider)
         self._auth_scheme = auth_scheme
+        self._unsigned_payload = unsigned_payload
 
     async def asign(self, req: Request) -> Request:
-        raise NotImplementedError("SigV4A signing is not yet implemented")
+        creds = await self.provider.aresolve_identity()
+        ctx: SigV4AAuthContext = {
+            "type": "sig_v4a",
+            "access_key_id": creds["access_key"],
+            "secret_access_key": creds["secret_key"],
+            "session_token": creds.get("session_token"),
+            "signing_region_set": self._auth_scheme["signingRegionSet"],
+            "signing_name": self._auth_scheme["signingName"],
+            "disable_double_encoding": self._auth_scheme.get(
+                "disableDoubleEncoding", False
+            ),
+            "disable_normalize_path": self._auth_scheme.get(
+                "disableNormalizePath", False
+            ),
+        }
+        unsigned_payload = self._unsigned_payload
+        if (
+            not unsigned_payload
+            and req.body is not None
+            and not isinstance(req.body, bytes)
+        ):
+            if self._auth_scheme["signingName"] in S3_SIGNING_NAMES:
+                # S3 accepts UNSIGNED-PAYLOAD for any operation; streamed bodies rely on it.
+                unsigned_payload = True
+            else:
+                raise NotImplementedError(
+                    "Currently we don't support signed chunked payloads, so buffer the body and "
+                    "pass bytes as a workaround; chunked signed implementation coming soon"
+                )
+        return sign_sigv4a(req, ctx, unsigned_payload=unsigned_payload)
 
     def sign(self, req: Request) -> Request:
-        raise NotImplementedError("SigV4A signing is not yet implemented")
+        creds = self.provider.resolve_identity()
+        ctx: SigV4AAuthContext = {
+            "type": "sig_v4a",
+            "access_key_id": creds["access_key"],
+            "secret_access_key": creds["secret_key"],
+            "session_token": creds.get("session_token"),
+            "signing_region_set": self._auth_scheme["signingRegionSet"],
+            "signing_name": self._auth_scheme["signingName"],
+            "disable_double_encoding": self._auth_scheme.get(
+                "disableDoubleEncoding", False
+            ),
+            "disable_normalize_path": self._auth_scheme.get(
+                "disableNormalizePath", False
+            ),
+        }
+        unsigned_payload = self._unsigned_payload
+        if (
+            not unsigned_payload
+            and req.body is not None
+            and not isinstance(req.body, bytes)
+        ):
+            if self._auth_scheme["signingName"] in S3_SIGNING_NAMES:
+                # S3 accepts UNSIGNED-PAYLOAD for any operation; streamed bodies rely on it.
+                unsigned_payload = True
+            else:
+                raise NotImplementedError(
+                    "Currently we don't support signed chunked payloads, so buffer the body and "
+                    "pass bytes as a workaround; chunked signed implementation coming soon"
+                )
+        return sign_sigv4a(req, ctx, unsigned_payload=unsigned_payload)

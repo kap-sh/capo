@@ -66,4 +66,6 @@ dev = [
     "pytest>=9.0.3",
     "ruff>=0.15.14",
     "trio",
+    # What SigV4A signs with when it is installed
+    "cryptography==50.0.2",
 ]

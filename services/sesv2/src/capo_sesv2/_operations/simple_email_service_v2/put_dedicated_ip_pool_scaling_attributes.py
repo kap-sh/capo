@@ -11,6 +11,7 @@ from typing_extensions import Never
 
 import capo_sesv2._auth._signers
 import capo_sesv2._auth._sigv4
+import capo_sesv2._auth._sigv4a
 import capo_sesv2._protocol.eventstream
 import capo_sesv2.errors.bad_request_exception
 import capo_sesv2.errors.concurrent_modification_exception
@@ -75,7 +76,7 @@ def get_signer(
     if (
         options.credentials_provider is not None
         and name_to_schema
-        and not name_to_schema.keys() & {"sigv4", "sigv4-s3express"}
+        and not name_to_schema.keys() & {"sigv4", "sigv4-s3express", "sigv4a"}
     ):
         raise RuntimeError(
             "Endpoint requires an unsupported auth scheme: " + ", ".join(name_to_schema)
@@ -92,6 +93,14 @@ def get_signer(
                 return capo_sesv2._auth._signers.SigV4Signer(
                     options.credentials_provider, auth_scheme=sigv4_config
                 )
+    if options.credentials_provider is not None:
+        sigv4a_config = capo_sesv2._auth._sigv4a.build_sigv4a_auth_scheme(
+            "ses", auth_schemes
+        )
+        if sigv4a_config is not None:
+            return capo_sesv2._auth._signers.SigV4ASigner(
+                options.credentials_provider, auth_scheme=sigv4a_config
+            )
     raise RuntimeError("Auth was not resolved")
 
 

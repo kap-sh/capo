@@ -9,6 +9,7 @@ from typing_extensions import Never
 
 import capo_partnercentral_revenue_measurement._auth._signers
 import capo_partnercentral_revenue_measurement._auth._sigv4
+import capo_partnercentral_revenue_measurement._auth._sigv4a
 import capo_partnercentral_revenue_measurement._protocol.eventstream
 import capo_partnercentral_revenue_measurement.errors.access_denied_exception
 import capo_partnercentral_revenue_measurement.errors.internal_server_exception
@@ -96,10 +97,12 @@ def get_signer(
             "Endpoint requires an unsupported auth scheme: " + ", ".join(name_to_schema)
         )
     if options.credentials_provider is not None:
-        sigv4_config = name_to_schema.get("sigv4a")
-        if sigv4_config is not None:
+        sigv4a_config = capo_partnercentral_revenue_measurement._auth._sigv4a.build_sigv4a_auth_scheme(
+            "partnercentral", auth_schemes
+        )
+        if sigv4a_config is not None:
             return capo_partnercentral_revenue_measurement._auth._signers.SigV4ASigner(
-                options.credentials_provider, auth_scheme=sigv4_config
+                options.credentials_provider, auth_scheme=sigv4a_config
             )
     if options.credentials_provider is not None:
         endpoint_scheme = name_to_schema.get("sigv4") or name_to_schema.get(

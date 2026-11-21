@@ -52,8 +52,15 @@ from ._auth._providers import (
 from ._auth._providers import (
     WebIdentityCredentialsProvider as WebIdentityCredentialsProvider,
 )
-from ._auth._signers import Signer as Signer
-from ._auth._signers import SigV4Signer as SigV4Signer
+from ._auth._signers import (
+    Signer as Signer,
+)
+from ._auth._signers import (
+    SigV4ASigner as SigV4ASigner,
+)
+from ._auth._signers import (
+    SigV4Signer as SigV4Signer,
+)
 from ._body import Body as Body
 from ._services._pipeline import (
     AsyncOperationOptions as AsyncOperationOptions,

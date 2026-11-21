@@ -10,6 +10,7 @@ from typing_extensions import Never
 
 import capo_marketplace_discovery._auth._signers
 import capo_marketplace_discovery._auth._sigv4
+import capo_marketplace_discovery._auth._sigv4a
 import capo_marketplace_discovery._protocol.eventstream
 import capo_marketplace_discovery.errors.access_denied_exception
 import capo_marketplace_discovery.errors.internal_server_exception
@@ -102,10 +103,14 @@ def get_signer(
                     options.credentials_provider, auth_scheme=sigv4_config
                 )
     if options.credentials_provider is not None:
-        sigv4_config = name_to_schema.get("sigv4a")
-        if sigv4_config is not None:
+        sigv4a_config = (
+            capo_marketplace_discovery._auth._sigv4a.build_sigv4a_auth_scheme(
+                "aws-marketplace", auth_schemes
+            )
+        )
+        if sigv4a_config is not None:
             return capo_marketplace_discovery._auth._signers.SigV4ASigner(
-                options.credentials_provider, auth_scheme=sigv4_config
+                options.credentials_provider, auth_scheme=sigv4a_config
             )
     raise RuntimeError("Auth was not resolved")
 
