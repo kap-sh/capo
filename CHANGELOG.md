@@ -1,5 +1,14 @@
 # AWS SDK for Python - Releases
 
+## 2026-11-20
+
+- [aws-sdk-abuse-signal v0.1.0](services/abuse-signal/CHANGELOG.md)
+- [aws-sdk-account-access-runtime v0.1.0](services/account-access-runtime/CHANGELOG.md)
+- [aws-sdk-connectscheduling v0.1.0](services/connectscheduling/CHANGELOG.md)
+- [aws-sdk-opensearchmemory v0.1.0](services/opensearchmemory/CHANGELOG.md)
+- [aws-sdk-partnercentral-marketing v0.1.0](services/partnercentral-marketing/CHANGELOG.md)
+- [aws-sdk-sagemaker-inference-router-runtime v0.1.0](services/sagemaker-inference-router-runtime/CHANGELOG.md)
+
 ## 2026-11-19
 
 - [aws-sdk-acm-pca v0.15.0](services/acm-pca/CHANGELOG.md)

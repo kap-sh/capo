@@ -1,6 +1,6 @@
 [project]
 name = "capo-abuse-signal"
-version = "0.0.0"
+version = "0.1.0"
 description = "Typed, async Python SDK for AWS Abuse Signal."
 readme = "README.md"
 requires-python = ">=3.10"
