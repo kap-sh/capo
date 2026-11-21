@@ -471,12 +471,15 @@ def presign_sigv4(
     *,
     expires_in: int = 3600,
     now: _dt.datetime | None = None,
+    payload_hash: str = "UNSIGNED-PAYLOAD",
 ) -> Request:
     """Return a new ``Request`` whose URL carries SigV4 query-string auth.
 
     The signature travels in the URL (``X-Amz-*`` query params), so the result
     is usable standalone (browser, curl). Payload is signed as
-    ``UNSIGNED-PAYLOAD``, so the body is not bound by the signature.
+    ``UNSIGNED-PAYLOAD``, so the body is not bound by the signature, unless
+    ``payload_hash`` says otherwise: an RDS or DSQL auth token signs the
+    SHA-256 of an empty body instead.
 
     ``expires_in`` is the validity window in seconds; range 1..604800 (7 days),
     bounded by the max lifetime of the derived signing key.
@@ -542,7 +545,7 @@ def presign_sigv4(
         f"{canonical_query}\n"
         f"{canonical_headers}\n"
         f"{signed_headers}\n"
-        f"UNSIGNED-PAYLOAD"
+        f"{payload_hash}"
     )
 
     string_to_sign = (

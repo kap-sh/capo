@@ -36,6 +36,7 @@ from capo_docdb_elastic._auth._sigv4 import (
     _derive_signing_key,
     _trim_header_value,
     _uri_encode,
+    presign_sigv4,
     sign_sigv4,
 )
 from capo_docdb_elastic._protocol.eventstream import Message, MessageDecoder, encode_headers
@@ -354,6 +355,38 @@ def test_s3_get_object_example():
 # ---------------------------------------------------------------------------
 # Behavioral tests
 # ---------------------------------------------------------------------------
+
+
+def test_presign_signs_the_given_payload_hash():
+    """An RDS IAM auth token signs the SHA-256 of an empty body, not
+    UNSIGNED-PAYLOAD. The vector is botocore's ``generate_db_auth_token`` for
+    the same host, user, region, credentials and clock."""
+    req = Request(
+        URL(
+            "https://db.abc.us-east-1.rds.amazonaws.com:5432/"
+            "?Action=connect&DBUser=app+user%40x"
+        ),
+        "GET",
+    )
+    ctx: SigV4AuthContext = {
+        **_TEST_SUITE_CTX,
+        "signing_region": "eu-west-1",
+        "signing_name": "rds-db",
+    }
+    presigned = presign_sigv4(
+        req,
+        ctx,
+        expires_in=900,
+        now=dt.datetime(2026, 11, 21, 12, 0, tzinfo=dt.timezone.utc),
+        payload_hash=hashlib.sha256(b"").hexdigest(),
+    )
+    assert str(presigned.url) == (
+        "https://db.abc.us-east-1.rds.amazonaws.com:5432/?Action=connect"
+        "&DBUser=app%20user%40x&X-Amz-Algorithm=AWS4-HMAC-SHA256"
+        "&X-Amz-Credential=AKIDEXAMPLE%2F20261121%2Feu-west-1%2Frds-db%2Faws4_request"
+        "&X-Amz-Date=20261121T120000Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host"
+        "&X-Amz-Signature=c949b1e47c86c7b6d7d8d2390316cd9c4c2f801a203e802b1bc961ebabefd08e"
+    )
 
 
 def test_session_token_added_and_signed():
