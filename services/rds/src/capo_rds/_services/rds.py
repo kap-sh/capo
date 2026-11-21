@@ -17,8 +17,9 @@ from capo_rds._auth._providers import (
     default_aws_credentials_chain,
 )
 from capo_rds._auth._zapros_handler import AuthMiddleware
+from capo_rds._auth_token import presign_auth_token
 from capo_rds._pagination import resolve_path as _resolve_path
-from capo_rds._services._aws_config import aws_config
+from capo_rds._services._aws_config import aws_config, load_aws_settings
 from capo_rds._services._pipeline import (
     Interceptor,
     OperationLogging,
@@ -16365,6 +16366,40 @@ class RDSClient:
         )
         response.response.close()
         return response.output
+
+    def generate_db_auth_token(
+        self,
+        *,
+        hostname: str,
+        port: int,
+        username: str,
+        config_overrides: RDSClientConfig | None = None,
+    ) -> str:
+        """An IAM authentication token to connect to an RDS or Aurora database as ``username``: pass it as the password, over TLS. It is valid for 15 minutes, and signed locally with the client's credentials and region, so nothing is sent to AWS.
+
+        Args:
+            hostname: The database's endpoint, such as ``mydb.123456789012.us-east-1.rds.amazonaws.com``.
+            port: The port the database listens on, such as ``5432``.
+            username: A database user set up for IAM authentication.
+            config_overrides: Client settings for this call only, such as another ``region`` or ``credentials_provider``.
+        """
+        _, options_ = self.operation_options(config_overrides)
+        # Where an API call would take the region from: the client, else AWS_REGION or the profile
+        region = options_.region or load_aws_settings().region
+        if region is None:
+            raise ValueError("an auth token needs a region: pass region= to the client")
+        provider = options_.credentials_provider
+        if provider is None:
+            raise RuntimeError("an auth token needs credentials")
+        credentials = provider.resolve_identity()
+        return presign_auth_token(
+            f"{hostname}:{port}",
+            {"Action": "connect", "DBUser": username},
+            credentials=credentials,
+            region=region,
+            signing_name="rds-db",
+            expires_in=900,
+        )
 
     def __enter__(self) -> Self:
         return self
