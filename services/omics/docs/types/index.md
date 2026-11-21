@@ -388,6 +388,7 @@
 - [RunLogStream](run_log_stream.md)
 - [RunName](run_name.md)
 - [RunOutputUri](run_output_uri.md)
+- [RunOutputUriPrefixMode](run_output_uri_prefix_mode.md)
 - [RunParameters](run_parameters.md)
 - [RunRequestId](run_request_id.md)
 - [RunResourceDigest](run_resource_digest.md)

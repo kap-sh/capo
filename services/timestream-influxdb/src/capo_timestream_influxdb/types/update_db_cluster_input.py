@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     import capo_timestream_influxdb.types.db_cluster_id
     import capo_timestream_influxdb.types.db_instance_type
     import capo_timestream_influxdb.types.db_parameter_group_identifier
+    import capo_timestream_influxdb.types.deployment_configuration
     import capo_timestream_influxdb.types.failover_mode
     import capo_timestream_influxdb.types.log_delivery_configuration
     import capo_timestream_influxdb.types.maintenance_schedule
@@ -31,7 +32,11 @@ class UpdateDbClusterInput(TypedDict, closed=True):
     db_instance_type: NotRequired[
         "capo_timestream_influxdb.types.db_instance_type.DbInstanceType"
     ]
-    """<p>Update the DB cluster to use the specified DB instance Type.</p>"""
+    """<p>Update the DB cluster to use the specified DB instance Type.</p> <p>You can't specify both dbInstanceType and deploymentConfiguration in the same request. When you use deploymentConfiguration, the instance type is specified per node group.</p>"""
+    deployment_configuration: NotRequired[
+        "capo_timestream_influxdb.types.deployment_configuration.DeploymentConfiguration"
+    ]
+    """<p>The updated compute topology for the cluster, defined as a set of node groups. Use deploymentConfiguration to change the cluster's topology or scale its compute in a single call. You can't specify both deploymentConfiguration and dbInstanceType in the same request. When you provide a deployment configuration, Timestream for InfluxDB ignores any node-count parameters in the associated DB parameter group.</p>"""
     failover_mode: NotRequired[
         "capo_timestream_influxdb.types.failover_mode.FailoverMode"
     ]
@@ -68,6 +73,14 @@ def serialize_aws_json_1_0(value: UpdateDbClusterInput) -> dict:
         out["dbInstanceType"] = (
             capo_timestream_influxdb.types.db_instance_type.serialize_aws_json_1_0(
                 value["db_instance_type"]
+            )
+        )
+    if "deployment_configuration" in value:
+        import capo_timestream_influxdb.types.deployment_configuration
+
+        out["deploymentConfiguration"] = (
+            capo_timestream_influxdb.types.deployment_configuration.serialize_aws_json_1_0(
+                value["deployment_configuration"]
             )
         )
     if "failover_mode" in value:
@@ -121,6 +134,14 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateDbClusterInput:
         out["db_instance_type"] = (
             capo_timestream_influxdb.types.db_instance_type.deserialize_aws_json_1_0(
                 data["dbInstanceType"]
+            )
+        )
+    if data.get("deploymentConfiguration") is not None:
+        import capo_timestream_influxdb.types.deployment_configuration
+
+        out["deployment_configuration"] = (
+            capo_timestream_influxdb.types.deployment_configuration.deserialize_aws_json_1_0(
+                data["deploymentConfiguration"]
             )
         )
     if data.get("failoverMode") is not None:

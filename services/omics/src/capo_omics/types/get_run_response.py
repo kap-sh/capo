@@ -21,6 +21,7 @@ if TYPE_CHECKING:
     import capo_omics.types.run_log_location
     import capo_omics.types.run_name
     import capo_omics.types.run_output_uri
+    import capo_omics.types.run_output_uri_prefix_mode
     import capo_omics.types.run_parameters
     import capo_omics.types.run_resource_digests
     import capo_omics.types.run_retention_mode
@@ -139,6 +140,10 @@ class GetRunResponse(TypedDict, closed=True):
     """<p>The engine-specific settings for the workflow run.</p>"""
     session_policy: NotRequired["capo_omics.types.session_policy.SessionPolicy"]
     """<p>Inline policy json for scoping down permissions via a session policy on the IAM role.</p>"""
+    output_uri_prefix_mode: NotRequired[
+        "capo_omics.types.run_output_uri_prefix_mode.RunOutputUriPrefixMode"
+    ]
+    """<p>The service returns the value that the <code>StartRun</code> request specified for <code>outputUriPrefixMode</code>. The service returns <code>SERVICE_DEFINED</code> if the request did not specify a value.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -260,6 +265,8 @@ def serialize_json(value: GetRunResponse) -> dict:
         out["engineSettings"] = value["engine_settings"]
     if "session_policy" in value:
         out["sessionPolicy"] = value["session_policy"]
+    if "output_uri_prefix_mode" in value:
+        out["outputUriPrefixMode"] = value["output_uri_prefix_mode"]
     return out
 
 
@@ -383,4 +390,6 @@ def deserialize_json(data: dict) -> GetRunResponse:
         out["engine_settings"] = data["engineSettings"]
     if data.get("sessionPolicy") is not None:
         out["session_policy"] = data["sessionPolicy"]
+    if data.get("outputUriPrefixMode") is not None:
+        out["output_uri_prefix_mode"] = data["outputUriPrefixMode"]
     return out
